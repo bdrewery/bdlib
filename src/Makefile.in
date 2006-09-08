@@ -51,9 +51,9 @@ TESTOBJS = @TESTOBJS@
 
 TESTUNITOBJS = @TESTUNITOBJS@
 
-check: UnitRunner.lo $(TESTOBJS)
+check: UnitRunner.o $(TESTOBJS)
 	+@cd tests && $(MAKE_GENERIC) units
-	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ UnitRunner.lo $(TESTOBJS) $(TESTUNITOBJS)
+	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ UnitRunner.o $(TESTOBJS) $(TESTUNITOBJS)
 
 clean:
 	@rm -f .depend *.o *~ *.lo
@@ -71,13 +71,6 @@ build_msg:
 	@echo -e "Compiling: \033[1m`basename $< .cc`\033[0m"
 	@source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
 	$(CXX) $(CXXFLAGS) -c $<  -o `basename $< .cc`.o
-
-.SUFFIXES: .cc .h .lo
-
-.cc.lo:
-	@echo -e "Compiling: \033[1m`basename $< .c`\033[0m"
-	@source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
-	$(CXX) @CPPUNIT_CFLAGS@ $(CXXFLAGS) -c $<  -o `basename $< .cc`.lo
 
 #safety hash
 

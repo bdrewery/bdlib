@@ -45,6 +45,7 @@ clean:
 	+@cd src && $(MAKE) clean
 	+@cd lib/wraith && $(MAKE) clean
 	+@cd lib/bdlib && $(MAKE) clean
+	+@cd src/tests && $(MAKE) clean
 	+@cd build && $(MAKE) clean
 	@rm -f $(BINEXEC) stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
 
@@ -73,3 +74,13 @@ debug: general
 	@echo ""
 
 general:
+
+MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
+'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
+
+check:
+	+@cd src && ${MAKE_UTILS} check
+	+@cd lib/wraith && $(MAKE_UTILS) check
+	+@cd lib/bdlib && $(MAKE_UTILS) check
+	@src/UnitRunner@EXEEXT@
+

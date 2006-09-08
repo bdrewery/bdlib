@@ -165,6 +165,7 @@ AC_CONFIG_FILES([
 	lib/wraith/Makefile
 	build/Makefile
 	build/buildinfo.h
+	src/tests/Makefile
 ])
 AC_OUTPUT
 
