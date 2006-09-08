@@ -2,15 +2,14 @@
 # ------------------------------
 
 
-dnl  EGG_CHECK_DEPMODE()
+dnl  CHECK_DEPMODE()
 dnl
-AC_DEFUN([EGG_CHECK_DEPMODE],
+AC_DEFUN([CHECK_DEPMODE],
 [
 CCDEPMODE=gcc
 num=`$CXX -dumpversion | sed "s/^\\\(.\\\).*/\\\1/"`
 if test $num -ge "3"; then
   CCDEPMODE=gcc3
-#  GCC3="-Wpadded -Wpacked -Wno-unused-parameter -Wmissing-format-attribute -Wdisabled-optimization"
   GCC3="-W -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
 fi
 AC_SUBST(CCDEPMODE)dnl
@@ -19,7 +18,7 @@ AC_SUBST(GCC3)dnl
 
 AC_DEFUN([DO_DEPS],
 [
-files="src/Makefile.in src/compat/Makefile.in src/crypto/Makefile.in src/mod/channels.mod/Makefile src/mod/compress.mod/Makefile src/mod/console.mod/Makefile src/mod/ctcp.mod/Makefile src/mod/irc.mod/Makefile src/mod/notes.mod/Makefile src/mod/server.mod/Makefile src/mod/share.mod/Makefile src/mod/transfer.mod/Makefile src/mod/update.mod/Makefile src/structures/Makefile.in src/tests/Makefile.in"
+files="src/Makefile.in lib/bdlib/Makefile.in lib/wraith/Makefile.in build/Makefile.in"
 for mf in $files; do
   # Strip MF so we end up with the name of the file.
 #  echo "MF: $mf"

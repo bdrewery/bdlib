@@ -1,0 +1,75 @@
+# $Id$
+
+MAKEFLAGS = -s -j4
+
+SHELL = @SHELL@
+top_srcdir = @top_srcdir@
+srcdir = @srcdir@
+VPATH = @srcdir@
+
+@SET_MAKE@
+DISTRIB = @PACKAGE_TARNAME@-@PACKAGE_VERSION@
+CCDEPMODE = @CCDEPMODE@
+BINEXEC = @PACKAGE_TARNAME@@EXEEXT@
+REVISION := $(shell build/getrev.sh)
+BUILDTS  := $(shell build/getts.sh)
+
+
+# defaults
+CXX = @CCACHE@ @DISTCC@ @CXX@
+LD = @CXX@
+CCDEBUG = @CCACHE@ @DISTCC@ @CCDEBUG@
+LDDEBUG = @CCDEBUG@
+LIBS = @LIBS@ @ZLIB@
+
+# utils
+STRIP = @STRIP@
+DIFF = @DIFF@
+SED = @SED@
+GREP = @GREP@
+AWK = @AWK@
+YACC = @YACC@
+
+DEBCXXFLAGS = -DDEBUG -fno-inline -g3 -ggdb3 -O0
+CFLGS = @GCC3@
+
+MAKE_BIN = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'CCDEPMODE=$(CCDEPMODE)' 'REVISION=$(REVISION)' 'BUILDTS=$(BUILDTS)' \
+'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(distrib)'
+
+MAKE_DEBUG = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPMODE=$(CCDEPMODE)' 'REVISION=$(REVISION)' 'BUILDTS=$(BUILDTS)' \
+'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(debug)'
+
+default: wraith
+
+clean:
+	+@cd src && $(MAKE) clean
+	+@cd lib/wraith && $(MAKE) clean
+	+@cd lib/bdlib && $(MAKE) clean
+	+@cd build && $(MAKE) clean
+	@rm -f $(BINEXEC) stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
+
+distclean: clean
+	+@cd build && $(MAKE) distclean
+	+@cd src && $(MAKE) distclean
+	+@cd lib/wraith && $(MAKE) distclean
+	+@cd lib/bdlib && $(MAKE) distclean
+	@rm -f Makefile config.cache config.log config.status
+	@rm -rf *-$(VERSION)/ autom4te.cache/ autoscan.log configure.scan
+
+wraith: general
+	@echo ""
+	@echo "Making binary"
+	@echo ""
+	@echo ""
+	+@cd src && $(MAKE_BIN) $(BINEXEC)
+	@echo ""
+
+debug: general
+	@echo ""
+	@echo "Making binary"
+	@echo ""
+	@echo ""
+	+@cd src && $(MAKE_DEBUG) $(BINEXEC)
+	@echo ""
+
+general:

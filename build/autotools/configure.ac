@@ -4,46 +4,57 @@ dnl $Id$
 dnl
 
 AC_PREREQ(2.59)
-AC_INIT([wraith],[],[wraith@shatow.net])
-AC_CONFIG_SRCDIR(src/eggdrop.h)
-AC_CONFIG_HEADER(config.h)
-AC_COPYRIGHT([Copyright (c) 2003, 2004 Bryan Drewery (lordares)])
-AC_REVISION($Revision$)
+AC_INIT([Wraith Botpack], [2.0.0], [wraith@shatow.net], [wraith])
+AC_CONFIG_SRCDIR(src/main.h)
+AC_CONFIG_HEADERS(build/config.h)
+AC_COPYRIGHT([Copyright (C) Bryan Drewery
+This program is private and may not be distributed, modified
+or used without express permission of Bryan Drewery.
 
-EGG_SAVE_PARAMETERS
+THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.
+IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
+ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY
+DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE
+IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE
+NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
+MODIFICATIONS.
+])
+AC_REVISION($Revision$)
 
 # Setup build environment
 dnl Search for newer gcc versions before older
-#AC_REQUIRE_CPP
 AC_LANG(C++)
-AC_PROG_CXX([g++-3.3 g++33 g++-3 g++3 g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC])
+AC_PROG_CXX([g++41 g++-4.1 g++40 g++-4.0 g++4 g++-3.3 g++33 g++-3 g++3 g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC])
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
-EGG_CHECK_CC
+AC_REQUIRE_CPP
+
+# Check for compiler features
+EGG_CHECK_CCWALL
+EGG_CHECK_CCPIPE
+EGG_CHECK_CCSTATIC
 
 AM_PATH_CPPUNIT(1.9.10)
 
-# Crazy machines
-AC_AIX
-AC_ISC_POSIX
-AC_MINIX
+AC_HEADER_STDC
 
 #checkpoint
 AC_CACHE_SAVE 
 
-# Speedup compile
-EGG_CHECK_CCWALL
-EGG_CHECK_CCPIPE
-
-EGG_CHECK_DEPMODE
-
-#checkpoint
-AC_CACHE_SAVE 
+CHECK_DEPMODE
 
 # Checks for programs
 AC_PROG_MAKE_SET
-EGG_PROG_HEAD_1
-EGG_PROG_AWK
-EGG_PROG_BASENAME
+AC_PROG_AWK
+AC_PROG_GREP
+AC_PROG_SED
+AC_PROG_YACC
+AC_CHECK_PROG(BASENAME, basename, basename)
 AC_CHECK_PROG(OBJCOPY, objcopy, [objcopy --remove-section=.note --remove-section=.comment], touch)
 AC_CHECK_PROG(STRIP, strip, strip, touch)
 AC_CHECK_PROG(DIFF, gdiff, gdiff, diff)
@@ -63,7 +74,6 @@ EGG_CHECK_SOCKLEN_T
 EGG_CHECK_RANDOM_MAX
 
 # Create static binaries
-EGG_CHECK_CCSTATIC
 AC_SUBST(CCDEBUG)dnl
 
 #checkpoint
@@ -74,13 +84,10 @@ EGG_CHECK_LIBS
 
 # Checks for header files
 AC_HEADER_DIRENT
-AC_HEADER_SYS_WAIT
-AC_HEADER_TIME
-AC_HEADER_STAT
 #checkpoint
 AC_CACHE_SAVE 
-AC_CHECK_HEADERS([stdarg.h std_arg.h arpa/inet.h fcntl.h limits.h locale.h netdb.h netinet/in.h])
-AC_CHECK_HEADERS([sys/file.h sys/ioctl.h sys/param.h sys/socket.h wchar.h sys/ptrace.h paths.h])
+AC_CHECK_HEADERS([stdarg.h arpa/inet.h fcntl.h limits.h locale.h netinet/in.h])
+AC_CHECK_HEADERS([sys/file.h sys/ioctl.h sys/param.h sys/socket.h sys/ptrace.h paths.h])
 
 #checkpoint
 AC_CACHE_SAVE
@@ -97,6 +104,19 @@ AC_SUBST(ZLIB)dnl
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 AC_TYPE_UID_T
+AC_TYPE_LONG_LONG_INT
+AC_TYPE_INT8_T
+AC_TYPE_UINT8_T
+AC_TYPE_INT16_T
+AC_TYPE_UINT16_T
+AC_TYPE_INT32_T
+AC_TYPE_UINT32_T
+AC_TYPE_INT64_T
+AC_TYPE_UINT64_T
+AC_CHECK_SIZEOF(short, 0)
+AC_CHECK_SIZEOF(int, 0)
+AC_CHECK_SIZEOF(long, 0)
+AC_CHECK_SIZEOF(long long,0)
 
 
 #AC_C_CONST
@@ -110,59 +130,42 @@ AC_C_CHAR_UNSIGNED
 #checkpoint
 AC_CACHE_SAVE 
 
-AC_CHECK_SIZEOF(int, 0)
-AC_CHECK_SIZEOF(short, 0)
-AC_CHECK_SIZEOF(long, 0)
-AC_CHECK_SIZEOF(long long,0)
-
 
 AC_STRUCT_TIMEZONE
-AC_STRUCT_TM
-
-#checkpoint
-AC_CACHE_SAVE 
 
 # Checks for library functions
 AC_FUNC_FORK
-AC_FUNC_LSTAT
-AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
-AC_FUNC_MALLOC
+AC_FUNC_CHOWN
 AC_FUNC_MKTIME
 AC_FUNC_MMAP
-AC_FUNC_REALLOC
-AC_FUNC_STAT
+
+
+AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
 EGG_FUNC_TIMESPEC
-AC_FUNC_STRFTIME
 
 #checkpoint
 AC_CACHE_SAVE
-AC_CHECK_FUNCS([clock fsync getrusage isascii inet_aton])
-AC_CHECK_FUNCS([memcpy memset random rename snprintf srandom gettime])
+AC_CHECK_FUNCS([fsync getrusage isascii])
+AC_CHECK_FUNCS([random srandom gettime])
+AC_CHECK_FUNCS([strcasecmp strncasecmp])
+
 #checkpoint
 AC_CACHE_SAVE
-AC_CHECK_FUNCS([strcasecmp strncasecmp vsnprintf])
 
-#autoscan suggested this....
-#These are recommended by autoscan, but no code supports it currently
-#AC_CHECK_FUNCS([alarm bzero dup2 getcwd gethostbyaddr gethostbyname gethostname getpass gettimeofday mbrlen
-#mkdir munmap realpath select setlocale socket strchr strerror strpbrk strrchr strstr strtol tzset])
-
-EGG_CHECK_FUNC_VSPRINTF
 EGG_CHECK_FUNC_UNAME
 
-# Make sure we have stdc headers, since we can't compile without them
-EGG_HEADER_STDC
-
-#checkpoint
-AC_CACHE_SAVE 
-
-EGG_SUBST_VERSION
 #FIND_WRAPS
-EGG_SUBST_MOD_UPDIR
 DO_DEPS
 DO_UNITS
 
-AC_CONFIG_FILES([Makefile src/Makefile src/compat/Makefile src/crypto/Makefile src/mod/Makefile src/structures/Makefile src/buildinfo.h src/tests/Makefile])
+AC_CONFIG_FILES([
+	Makefile 
+	src/Makefile 
+	lib/bdlib/Makefile 
+	lib/wraith/Makefile
+	build/Makefile
+	build/buildinfo.h
+])
 AC_OUTPUT
 
 AH_TEMPLATE(HAVE_ST_MTIM, [Define to 1 if your struct stat has an st_mtim member])

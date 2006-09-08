@@ -1,0 +1,83 @@
+# Makefile for src/
+# $Id$
+
+include ./.deps/includes
+
+SHELL = @SHELL@
+top_srcdir = @top_srcdir@
+srcdir = @srcdir@
+VPATH = @srcdir@
+depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
+
+@SET_MAKE@
+
+CXXFLAGS = @CXXFLAGS@ -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/pack @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
+
+OBJCOPY = @OBJCOPY@
+
+OBJS = main.o
+
+MAKE_GENERIC = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'CCDEPMODE=$(CCDEPMODE)'
+
+.PHONU = default
+
+default:
+	@echo ""
+	@echo "Use the build script."
+	@echo ""
+
+WRAITH = $(top_srcdir)/lib/wraith.o
+BDLIB = $(top_srcdir)/lib/bdlib.o
+
+$(WRAITH):
+	@cd $(top_srcdir)/lib/wraith && $(MAKE) wraith
+
+$(BDLIB):
+	@cd $(top_srcdir)/lib/bdlib && $(MAKE) bdlib
+
+../$(BINEXEC): build_msg $(OBJS) $(BDLIB) $(WRAITH)
+	@echo ""
+	@echo "Linking $(BINEXEC)... $(BINBUILD)"
+	@echo ""
+	$(LD) -o ../$(BINEXEC) $(OBJS) $(LIBS) $(BDLIB) $(WRAITH)
+	@$(STRIP) ../$(BINEXEC)
+	@$(OBJCOPY) ../$(BINEXEC)
+	@echo "Successful compile: $(BINEXEC)"
+	@echo ""
+
+$(BINEXEC): ../$(BINEXEC)
+
+TESTOBJS = @TESTOBJS@
+
+TESTUNITOBJS = @TESTUNITOBJS@
+
+check: UnitRunner.lo $(TESTOBJS)
+	+@cd tests && $(MAKE_GENERIC) units
+	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ UnitRunner.lo $(TESTOBJS) $(TESTUNITOBJS)
+
+clean:
+	@rm -f .depend *.o *~ *.lo
+
+distclean: clean
+	@rm -rf .deps Makefile
+
+build_msg:
+	@echo "[*] Compiling core components"
+
+.SUFFIXES:
+.SUFFIXES: .cc .h .o
+
+.cc.o: 
+	@echo -e "Compiling: \033[1m`basename $< .cc`\033[0m"
+	@source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
+	$(CXX) $(CXXFLAGS) -c $<  -o `basename $< .cc`.o
+
+.SUFFIXES: .cc .h .lo
+
+.cc.lo:
+	@echo -e "Compiling: \033[1m`basename $< .c`\033[0m"
+	@source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
+	$(CXX) @CPPUNIT_CFLAGS@ $(CXXFLAGS) -c $<  -o `basename $< .cc`.lo
+
+#safety hash
+

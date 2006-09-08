@@ -1,0 +1,47 @@
+# $Id$
+
+SHELL = @SHELL@
+top_srcdir = @top_srcdir@
+srcdir = @srcdir@
+VPATH = @srcdir@
+depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
+CCDEPMODE = @CCDEPMODE@
+
+@SET_MAKE@
+
+CXX = @CXX@
+LD = @CXX@
+STRIP = @STRIP@
+CXXFLAGS = @CXXFLAGS@ -I. -I$(top_srcdir) -I$(top_srcdir)/src @DEFS@ $(CFLGS)
+
+OBJS = 
+
+.PHONY: default
+
+default:
+	@echo ""
+	@echo "Let's try this from the right directory..."
+	@echo ""
+	@cd ../.. && $(MAKE)
+
+build: $(OBJS)
+
+clean:
+
+distclean: clean
+	@rm -rf buildinfo.h config.h .deps Makefile
+
+test:
+
+include ./.deps/includes
+
+.SUFFIXES:
+.SUFFIXES: .cc .o .h
+
+.cc.o:
+	@echo -e "Compiling: \033[1m`basename $< .cc`\033[0m"
+	source='$<' object='$@' depfile=".deps/`basename $*`.Po" tmpdepfile=".deps/`basename $*`.TPo" depmode=$(CCDEPMODE) $(depcomp) \
+	$(CXX) $(CXXFLAGS) -I../.. -I$(top_srcdir) -I$(top_srcdir)/src -c $< -o $*.o
+
+
+#safety hash
