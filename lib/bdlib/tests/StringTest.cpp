@@ -1,6 +1,6 @@
 /* StringTest.c
  *
- * $Id: StringTest.cc 3024 2006-09-11 07:51:35Z bryan $
+ * $Id$
  */
 #include "StringTest.h"
 

@@ -1,6 +1,6 @@
 /* String.c
  *
- * $Id: String.cc 3024 2006-09-11 07:51:35Z bryan $
+ * $Id$
  */
 #include "String.h"
 #include <stdarg.h>
@@ -11,7 +11,7 @@
 #include "base64.h"
 
 #ifndef lint
-static const char rcsid[] = "$Id: String.cc 3024 2006-09-11 07:51:35Z bryan $";
+static const char rcsid[] = "$Id$";
 #endif
 
 

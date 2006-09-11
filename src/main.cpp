@@ -22,7 +22,7 @@
  */
 
 #ifndef lint
-static const char rcsid[] = "$Id: main.cc 3016 2006-09-08 01:13:50Z bryan $";
+static const char rcsid[] = "$Id$";
 #endif /* lint */
 
 
