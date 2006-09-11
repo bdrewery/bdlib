@@ -1,6 +1,6 @@
 /* UnitRunner.c
  *
- * $Id$
+ * $Id: UnitRunner.cc 3023 2006-09-08 22:52:34Z bryan $
  */
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
