@@ -48,7 +48,7 @@ clean:
 	-+@cd lib/wraith && $(MAKE) clean
 	-+@cd lib/bdlib && $(MAKE) clean
 	-+@cd build && $(MAKE) clean
-	@rm -f $(BINEXEC) stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
+	@rm -f $(BINEXEC) build/stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
 
 distclean: clean
 	-+@cd build && $(MAKE) distclean
@@ -59,18 +59,18 @@ distclean: clean
 	@rm -rf *-$(VERSION)/ autom4te.cache/ autoscan.log configure.scan
 
 checkclean.wraith:
-	@(if test -f stamp.debug; then \
+	@(if test -f build/stamp.debug; then \
 	echo "[*] Cleaning up alternate build"; \
 	$(MAKE) MAKEFLAGS=-s clean; \
 	fi)
-	@touch stamp.wraith
+	@touch build/stamp.wraith
 
 checkclean.debug:
-	@(if test -f stamp.wraith; then \
+	@(if test -f build/stamp.wraith; then \
 	echo "[*] Cleaning up alternate build"; \
 	$(MAKE) MAKEFLAGS=-s clean; \
 	fi)
-	@touch stamp.debug
+	@touch build/stamp.debug
 
 wraith: checkclean.wraith general
 	@echo ""
