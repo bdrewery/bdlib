@@ -1,4 +1,4 @@
-/* main.cc
+/* main.cpp
  *
  * Copyright (C) Bryan Drewery
  *
