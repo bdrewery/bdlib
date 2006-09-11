@@ -3,12 +3,13 @@
 SHELL = @SHELL@
 top_srcdir = @top_srcdir@
 srcdir = @srcdir@
+libdir = $(top_srcdir)/lib
 VPATH = @srcdir@
 CCDEPMODE = @CCDEPMODE@
 
 @SET_MAKE@
 
-CXXFLAGS = @CXXFLAGS@ @CPPUNIT_CFLAGS@ -I.. -I$(top_srcdir) -I$(top_srcdir)/build @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
+CXXFLAGS = @CXXFLAGS@ @CPPUNIT_CFLAGS@ -I.. -I$(top_srcdir) -I$(top_srcdir)/build -I$(libdir)/openssl @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
 
 .PHONY: units clean distclean
 
@@ -26,6 +27,6 @@ clean:
 	@rm -f *.o $(BDLIB_UNITS)
 
 distclean:
-	@rm -f Makefile
+	@rm -rf Makefile .deps
 
 include ./.deps/includes

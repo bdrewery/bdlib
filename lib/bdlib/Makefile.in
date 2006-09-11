@@ -3,6 +3,7 @@
 SHELL = @SHELL@
 top_srcdir = @top_srcdir@
 srcdir = @srcdir@
+libdir = $(top_srcdir)/lib
 VPATH = @srcdir@
 CCDEPMODE = @CCDEPMODE@
 
@@ -11,7 +12,7 @@ CCDEPMODE = @CCDEPMODE@
 CXX = @CXX@
 LD = @CXX@
 STRIP = @STRIP@
-CXXFLAGS = @CXXFLAGS@ -I. -I$(top_srcdir) -I$(top_srcdir)/build -I$(top_srcdir)/src @DEFS@ $(CFLGS)
+CXXFLAGS = @CXXFLAGS@ -I. -I$(top_srcdir) -I$(top_srcdir)/build -I$(top_srcdir)/src -I$(libdir)/openssl @DEFS@ $(CFLGS)
 
 include $(top_srcdir)/build/build.mk
 
