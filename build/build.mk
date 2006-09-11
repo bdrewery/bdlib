@@ -13,3 +13,9 @@ depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 	@source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+%.o : %.c
+#	@echo -e "[+] Compiling: \033[1m$(basename $< .c)\033[0m"
+	@echo -e "[CC]	$<"
+	@source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+

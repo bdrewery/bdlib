@@ -42,7 +42,13 @@ for mf in $files; do
     /^OBJS = / s/^OBJS = //p' < "$mf"`;
   do
     base=`$BASENAME $file .o`
-    test -f "$dirpart/$base.cpp" || continue
+    if test -f "$dirpart/$base.cpp"; then
+      ext="cpp"
+    elif test -f "$dirpart/$base.c"; then
+      ext="c"
+    else
+      continue
+    fi
     if ! test -f "$dirpart/.deps/$base.Po"; then
       echo '# dummy' > "$dirpart/.deps/$base.Po"
       #Remove the .o file, because it needs to be recompiled for its dependancies.
@@ -51,7 +57,7 @@ for mf in $files; do
       fi
     fi
     echo "include .deps/$base.Po" >> "$dirpart/.deps/includes"
-    echo "$base.cpp:" >> "$dirpart/.deps/includes"
+    echo "$base.$ext:" >> "$dirpart/.deps/includes"
   done
 done
 ])
