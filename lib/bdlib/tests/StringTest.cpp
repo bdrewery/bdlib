@@ -268,6 +268,7 @@ void StringTest :: printfTest(void)
     h = new String(35);
 */
 
+#ifdef DISABLED
 void StringTest :: encryptTest(void)
 {
   b->encrypt(NULL);
@@ -341,3 +342,4 @@ void StringTest :: encryptBase64Test(void)
   b->decrypt("OeG3yxvQXHq0iw0olaG9mZE8QlmH6vn2");
   CPPUNIT_ASSERT(*b == "! uid 1000");
 }
+#endif /* DISABLED */

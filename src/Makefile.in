@@ -27,10 +27,10 @@ default:
 	@echo "Use the build script."
 	@echo ""
 
-WRAITH = $(top_srcdir)/lib/wraith.o
-WRAITH_UNITS = $(top_srcdir)/lib/wraith_units.o
-BDLIB = $(top_srcdir)/lib/bdlib.o
-BDLIB_UNITS = $(top_srcdir)/lib/bdlib_units.o
+WRAITH = $(top_srcdir)/lib/wraith.la
+WRAITH_UNITS = $(top_srcdir)/lib/wraith_units.la
+BDLIB = $(top_srcdir)/lib/bdlib.la
+BDLIB_UNITS = $(top_srcdir)/lib/bdlib_units.la
 
 $(WRAITH):
 	@cd $(top_srcdir)/lib/wraith && $(MAKE) wraith
@@ -51,7 +51,7 @@ compile: $(OBJS) $(BDLIB) $(WRAITH)
 	@echo ""
 	@echo "Linking $(BINEXEC)... $(BINBUILD)"
 	@echo ""
-	$(LD) -o $@ $(OBJS) $(LIBS) $(BDLIB) $(WRAITH)
+	$(LD) -o $@ $(OBJS) $(BDLIB) $(WRAITH) $(LIBS)
 	@$(STRIP) $@
 	@$(OBJCOPY) $@
 	@echo "Successful compile: $(BINEXEC)"
@@ -59,7 +59,7 @@ compile: $(OBJS) $(BDLIB) $(WRAITH)
 
 $(BINEXEC): ../$(BINEXEC)
 
-CORE_UNITS = tests/core_units.o
+CORE_UNITS = tests/core_units.la
 $(CORE_UNITS):
 	+@cd tests && $(MAKE) units
 

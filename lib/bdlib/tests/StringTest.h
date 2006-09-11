@@ -28,9 +28,9 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (incDecTest);
     CPPUNIT_TEST (incDecEqualTest);
     CPPUNIT_TEST (printfTest);
-    CPPUNIT_TEST (encryptTest);
-    CPPUNIT_TEST (base64Test);
-    CPPUNIT_TEST (encryptBase64Test);
+//    CPPUNIT_TEST (encryptTest);
+//    CPPUNIT_TEST (base64Test);
+//    CPPUNIT_TEST (encryptBase64Test);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -54,9 +54,9 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void incDecTest(void);
         void incDecEqualTest(void);
         void printfTest(void);
-        void encryptTest(void);
-        void base64Test(void);
-        void encryptBase64Test(void);
+//        void encryptTest(void);
+//        void base64Test(void);
+//        void encryptBase64Test(void);
     private:
         String *a, *b, *c, *d, *e, *f, *g, *h;
 	char cstring[50];

@@ -265,11 +265,12 @@ class String {
         };
 
 	virtual void printf(const char*, ...);
+#ifdef DISABLED
 	const String encrypt(String);
 	const String decrypt(String);
         const String base64Encode(void);
         const String base64Decode(void);
-
+#endif /* DISABLED */
 
         /* Operators */
 

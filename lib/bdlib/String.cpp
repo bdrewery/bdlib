@@ -7,8 +7,6 @@
 //#include <memory>
 //#include <iostream>
 //using namespace std;
-#include "crypto/aes_util.h"
-#include "base64.h"
 
 #ifndef lint
 static const char rcsid[] = "$Id$";
@@ -350,7 +348,7 @@ void String::printf(const char* format, ...) {
   *this = va_out;
 }
 
-
+#ifdef DISABLED
 const String String::encrypt(String key) {
   String old(*this);
   if (!key)
@@ -397,3 +395,4 @@ const String String::base64Decode(void) {
   free(p);
   return old;
 }
+#endif /* DISABLED */

@@ -12,14 +12,15 @@ CXXFLAGS = @CXXFLAGS@ -I.. -I$(top_srcdir) -I$(top_srcdir)/build -I$(top_srcdir)
 
 .PHONY: units clean distclean
 
-UNITLIB = core_units.o
+UNITLIB = core_units.la
 
 OBJS =
 
 units: $(UNITLIB)
 
 $(UNITLIB): $(OBJS)
-	@$(LD) -o $@ $(OBJS)
+	ar rcs $@ $(OBJS)
+#	@$(LD) -o $@ $(OBJS)
 
 clean:
 	@rm -f *.o $(UNITLIB)

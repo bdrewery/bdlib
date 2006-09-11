@@ -12,14 +12,15 @@ CXXFLAGS = @CXXFLAGS@ @CPPUNIT_CFLAGS@ -I.. -I$(top_srcdir) -I$(top_srcdir)/buil
 
 .PHONY: units clean distclean
 
-UNITLIB = $(top_srcdir)/lib/bdlib_units.o
+UNITLIB = $(top_srcdir)/lib/bdlib_units.la
 
 OBJS = StringTest.o
 
 units: $(UNITLIB)
 
 $(UNITLIB): $(OBJS)
-	@$(LD) -o $@ $(OBJS)
+	ar rcs $@ $(OBJS)
+#	@$(LD) -o $@ $(OBJS)
 
 clean:
 	@rm -f *.o $(UNITLIB)
