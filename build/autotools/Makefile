@@ -24,7 +24,7 @@ autoconf:
 	@echo "Autoconf...."
 	@autoconf
 	@echo "Fixing configure for cache_file"
-	@(if ! sed configure -e "s/^cache_file=\/dev\/null/cache_file=\.\/config.cache/" \
+	@(if ! sed configure -e "s/^cache_file=\/dev\/null/cache_file=\.\/build\/config.cache/" \
 	-e "s/&& echo \"updating cache .cache_file\"//" > ../../configure; then \
 	cp configure ../../configure; \
 	rm configure; \
