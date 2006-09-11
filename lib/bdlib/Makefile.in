@@ -13,7 +13,7 @@ LD = @CXX@
 STRIP = @STRIP@
 CXXFLAGS = @CXXFLAGS@ -I. -I$(top_srcdir) -I$(top_srcdir)/build -I$(top_srcdir)/src @DEFS@ $(CFLGS)
 
-BDLIB = ../bdlib.la
+include $(top_srcdir)/build/build.mk
 
 OBJS = String.o
 
@@ -45,7 +45,4 @@ $(BDLIB): build_msg $(OBJS)
 build_msg:
 	@echo "[*] Building bdlib"
 
-test:
-
 include ./.deps/includes
-include $(top_srcdir)/build/build.mk

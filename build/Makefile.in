@@ -13,6 +13,8 @@ LD = @CXX@
 STRIP = @STRIP@
 CXXFLAGS = @CXXFLAGS@ -I. -I$(top_srcdir) -I$(top_srcdir)/src @DEFS@ $(CFLGS)
 
+include $(top_srcdir)/build/build.mk
+
 OBJS = 
 
 .PHONY: default build clean distclean test
@@ -33,4 +35,3 @@ distclean: clean
 test:
 
 include ./.deps/includes
-include $(top_srcdir)/build/build.mk

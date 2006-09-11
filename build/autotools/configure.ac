@@ -164,6 +164,7 @@ AC_CONFIG_FILES([
 	lib/bdlib/tests/Makefile
 	lib/wraith/Makefile
 	lib/wraith/tests/Makefile
+	lib/openssl/Makefile
 	build/Makefile
 	build/buildinfo.h
 	src/tests/Makefile

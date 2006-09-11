@@ -18,7 +18,7 @@ AC_SUBST(GCC3)dnl
 
 AC_DEFUN([DO_DEPS],
 [
-files="src/Makefile.in lib/bdlib/Makefile.in lib/bdlib/tests/Makefile.in lib/wraith/Makefile.in lib/wraith/tests/Makefile.in build/Makefile.in src/tests/Makefile.in"
+files="src/Makefile.in lib/bdlib/Makefile.in lib/bdlib/tests/Makefile.in lib/wraith/Makefile.in lib/wraith/tests/Makefile.in build/Makefile.in src/tests/Makefile.in lib/openssl/Makefile.in"
 for mf in $files; do
   # Strip MF so we end up with the name of the file.
 #  echo "MF: $mf"

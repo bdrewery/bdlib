@@ -20,17 +20,12 @@ OBJS = main.o
 
 MAKE_GENERIC = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'CCDEPMODE=$(CCDEPMODE)'
 
-.PHONY: default check clean distclean build_msg $(BINEXEC) compile
+.PHONY: default check clean distclean build_msg $(BINEXEC)
 
 default:
 	@echo ""
 	@echo "Use the build script."
 	@echo ""
-
-WRAITH = $(top_srcdir)/lib/wraith.la
-WRAITH_UNITS = $(top_srcdir)/lib/wraith_units.la
-BDLIB = $(top_srcdir)/lib/bdlib.la
-BDLIB_UNITS = $(top_srcdir)/lib/bdlib_units.la
 
 $(WRAITH):
 	@cd $(top_srcdir)/lib/wraith && $(MAKE) wraith
@@ -45,28 +40,27 @@ $(BDLIB_UNITS):
 	@cd $(top_srcdir)/lib/bdlib/tests && $(MAKE) units
 
 
-compile: $(OBJS) $(BDLIB) $(WRAITH)
+$(OPENSSL):
+	@cd $(top_srcdir)/lib/openssl && $(MAKE) openssl
 
-../$(BINEXEC): build_msg compile
-	@echo ""
-	@echo "Linking $(BINEXEC)... $(BINBUILD)"
-	@echo ""
-	$(LD) -o $@ $(OBJS) $(BDLIB) $(WRAITH) $(LIBS)
+ALL_LIBS = $(OBJS) $(BDLIB) $(WRAITH) $(OPENSSL)
+
+../$(BINEXEC): build_msg $(ALL_LIBS)
+	@echo "[*] Linking $(BINEXEC)... $(BINBUILD)"
+	$(LD) -o $@ $(ALL_LIBS) $(LIBS)
 	@$(STRIP) $@
 	@$(OBJCOPY) $@
 	@echo "Successful compile: $(BINEXEC)"
-	@echo ""
 
 $(BINEXEC): ../$(BINEXEC)
 
-CORE_UNITS = tests/core_units.la
 $(CORE_UNITS):
 	+@cd tests && $(MAKE) units
 
 UNITOBJS = $(CORE_UNITS) $(WRAITH_UNITS) $(BDLIB_UNITS)
 
-check: UnitRunner.o compile $(UNITOBJS)
-	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ $< $(OBJS) $(BDLIB) $(WRAITH) $(UNITOBJS)
+check: UnitRunner.o $(ALL_LIBS) $(UNITOBJS)
+	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ $< $(ALL_LIBS) $(UNITOBJS)
 
 clean:
 	@rm -f .depend *.o *~ *.lo UnitRunner@EXEEXT@

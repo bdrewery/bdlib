@@ -12,21 +12,20 @@ CXXFLAGS = @CXXFLAGS@ @CPPUNIT_CFLAGS@ -I.. -I$(top_srcdir) -I$(top_srcdir)/buil
 
 .PHONY: units clean distclean
 
-UNITLIB = $(top_srcdir)/lib/bdlib_units.la
+include $(top_srcdir)/build/build.mk
 
 OBJS = StringTest.o
 
-units: $(UNITLIB)
+units: $(BDLIB_UNITS)
 
-$(UNITLIB): $(OBJS)
+$(BDLIB_UNITS): $(OBJS)
 	ar rcs $@ $(OBJS)
 #	@$(LD) -o $@ $(OBJS)
 
 clean:
-	@rm -f *.o $(UNITLIB)
+	@rm -f *.o $(BDLIB_UNITS)
 
 distclean:
 	@rm -f Makefile
 
 include ./.deps/includes
-include $(top_srcdir)/build/build.mk

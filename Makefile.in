@@ -47,6 +47,7 @@ clean:
 	-+@cd src && $(MAKE) clean
 	-+@cd lib/wraith && $(MAKE) clean
 	-+@cd lib/bdlib && $(MAKE) clean
+	-+@cd lib/openssl && $(MAKE) clean
 	-+@cd build && $(MAKE) clean
 	@rm -f $(BINEXEC) build/stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
 
@@ -55,6 +56,7 @@ distclean: clean
 	-+@cd src && $(MAKE) distclean
 	-+@cd lib/wraith && $(MAKE) distclean
 	-+@cd lib/bdlib && $(MAKE) distclean
+	-+@cd lib/openssl && $(MAKE) distclean
 	@rm -f Makefile config.cache config.log config.status
 	@rm -rf *-$(VERSION)/ autom4te.cache/ autoscan.log configure.scan
 
@@ -73,20 +75,12 @@ checkclean.debug:
 	@touch build/stamp.debug
 
 wraith: checkclean.wraith general
-	@echo ""
 	@echo "[*] Making binary"
-	@echo ""
-	@echo ""
 	+@cd src && $(MAKE_BIN) $(BINEXEC)
-	@echo ""
 
 debug: checkclean.debug general
-	@echo ""
 	@echo "[*] Making binary (debug)"
-	@echo ""
-	@echo ""
 	+@cd src && $(MAKE_DEBUG) $(BINEXEC)
-	@echo ""
 
 general:
 
