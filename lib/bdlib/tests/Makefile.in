@@ -8,13 +8,13 @@ CCDEPMODE = @CCDEPMODE@
 
 @SET_MAKE@
 
-CXXFLAGS = @CXXFLAGS@ -I.. -I$(top_srcdir) -I$(top_srcdir)/lib/wraith -I$(top_srcdir)/lib/bdlib @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
+CXXFLAGS = @CXXFLAGS@ @CPPUNIT_CFLAGS@ -I.. -I$(top_srcdir) @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
 
 .PHONY: units clean distclean
 
-UNITLIB = core_units.o
+UNITLIB = $(top_srcdir)/lib/bdlib_units.o
 
-OBJS =
+OBJS = StringTest.o
 
 units: $(UNITLIB)
 

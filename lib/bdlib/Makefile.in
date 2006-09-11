@@ -4,7 +4,6 @@ SHELL = @SHELL@
 top_srcdir = @top_srcdir@
 srcdir = @srcdir@
 VPATH = @srcdir@
-depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 CCDEPMODE = @CCDEPMODE@
 
 @SET_MAKE@
@@ -14,9 +13,9 @@ LD = @CXX@
 STRIP = @STRIP@
 CXXFLAGS = @CXXFLAGS@ -I. -I$(top_srcdir) -I$(top_srcdir)/src @DEFS@ $(CFLGS)
 
-OBJS = 
+OBJS = String.o
 
-.PHONY: default
+.PHONY: default clean distclean bdlib test build_msg
 
 default:
 	@echo ""
@@ -28,25 +27,21 @@ clean:
 	@rm -f .depend *.o *~
 	@rm -f *_test test/*.o
 	@rm -f ../bdlib.o
+	-+@cd tests && $(MAKE) clean
 
 distclean: clean
 	@rm -rf .deps Makefile
+	-+@cd tests && $(MAKE) distclean
 
-bdlib: $(OBJS)
-	@$(LD) -o ../bdlib.o $(OBJS)
+bdlib: ../bdlib.o
 
+../bdlib.o: build_msg $(OBJS)
+	@$(LD) -o $@ $(OBJS)
+
+build_msg:
+	@echo "[*] Building bdlib"
 
 test:
 
 include ./.deps/includes
-
-.SUFFIXES:
-.SUFFIXES: .cc .o .h
-
-.cc.o:
-	@echo -e "Compiling: \033[1m`basename $< .cc`\033[0m"
-	source='$<' object='$@' depfile=".deps/`basename $*`.Po" tmpdepfile=".deps/`basename $*`.TPo" depmode=$(CCDEPMODE) $(depcomp) \
-	$(CXX) $(CXXFLAGS) -I../.. -I$(top_srcdir) -I$(top_srcdir)/src -c $< -o $*.o
-
-
-#safety hash
+include $(top_srcdir)/build/build.mk

@@ -18,7 +18,7 @@ AC_SUBST(GCC3)dnl
 
 AC_DEFUN([DO_DEPS],
 [
-files="src/Makefile.in lib/bdlib/Makefile.in lib/wraith/Makefile.in build/Makefile.in src/tests/Makefile.in"
+files="src/Makefile.in lib/bdlib/Makefile.in lib/bdlib/tests/Makefile.in lib/wraith/Makefile.in lib/wraith/tests/Makefile.in build/Makefile.in src/tests/Makefile.in"
 for mf in $files; do
   # Strip MF so we end up with the name of the file.
 #  echo "MF: $mf"
@@ -41,8 +41,8 @@ for mf in $files; do
     }
     /^OBJS = / s/^OBJS = //p' < "$mf"`;
   do
-    base=`basename $file .o`
-    test -f "$dirpart/$base.c" || continue
+    base=`$BASENAME $file .o`
+    test -f "$dirpart/$base.cc" || continue
     if ! test -f "$dirpart/.deps/$base.Po"; then
       echo '# dummy' > "$dirpart/.deps/$base.Po"
       #Remove the .o file, because it needs to be recompiled for its dependancies.
@@ -51,7 +51,7 @@ for mf in $files; do
       fi
     fi
     echo "include .deps/$base.Po" >> "$dirpart/.deps/includes"
-    echo "_$base.c:" >> "$dirpart/.deps/includes"
+    echo "$base.cc:" >> "$dirpart/.deps/includes"
   done
 done
 ])

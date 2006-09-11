@@ -156,13 +156,14 @@ EGG_CHECK_FUNC_UNAME
 
 #FIND_WRAPS
 DO_DEPS
-DO_UNITS
 
 AC_CONFIG_FILES([
 	Makefile 
 	src/Makefile 
 	lib/bdlib/Makefile 
+	lib/bdlib/tests/Makefile
 	lib/wraith/Makefile
+	lib/wraith/tests/Makefile
 	build/Makefile
 	build/buildinfo.h
 	src/tests/Makefile

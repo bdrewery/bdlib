@@ -4,7 +4,6 @@ SHELL = @SHELL@
 top_srcdir = @top_srcdir@
 srcdir = @srcdir@
 VPATH = @srcdir@
-depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 CCDEPMODE = @CCDEPMODE@
 
 @SET_MAKE@
@@ -16,7 +15,7 @@ CXXFLAGS = @CXXFLAGS@ -I. -I$(top_srcdir) -I$(top_srcdir)/src @DEFS@ $(CFLGS)
 
 OBJS = 
 
-.PHONY: default
+.PHONY: default build clean distclean test
 
 default:
 	@echo ""
@@ -34,14 +33,4 @@ distclean: clean
 test:
 
 include ./.deps/includes
-
-.SUFFIXES:
-.SUFFIXES: .cc .o .h
-
-.cc.o:
-	@echo -e "Compiling: \033[1m`basename $< .cc`\033[0m"
-	source='$<' object='$@' depfile=".deps/`basename $*`.Po" tmpdepfile=".deps/`basename $*`.TPo" depmode=$(CCDEPMODE) $(depcomp) \
-	$(CXX) $(CXXFLAGS) -I../.. -I$(top_srcdir) -I$(top_srcdir)/src -c $< -o $*.o
-
-
-#safety hash
+include $(top_srcdir)/build/build.mk

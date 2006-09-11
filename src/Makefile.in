@@ -1,4 +1,3 @@
-# Makefile for src/
 # $Id$
 
 include ./.deps/includes
@@ -7,11 +6,13 @@ SHELL = @SHELL@
 top_srcdir = @top_srcdir@
 srcdir = @srcdir@
 VPATH = @srcdir@
-depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
+CCDEPMODE = @CCDEPMODE@
+
+include $(top_srcdir)/build/build.mk
 
 @SET_MAKE@
 
-CXXFLAGS = @CXXFLAGS@ -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/pack @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
+CXXFLAGS = @CXXFLAGS@ -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/lib/wraith -I$(top_srcdir)/lib/bdlib @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
 
 OBJCOPY = @OBJCOPY@
 
@@ -19,7 +20,7 @@ OBJS = main.o
 
 MAKE_GENERIC = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'CCDEPMODE=$(CCDEPMODE)'
 
-.PHONU = default
+.PHONY: default check clean distclean build_msg $(BINEXEC) compile
 
 default:
 	@echo ""
@@ -27,50 +28,53 @@ default:
 	@echo ""
 
 WRAITH = $(top_srcdir)/lib/wraith.o
+WRAITH_UNITS = $(top_srcdir)/lib/wraith_units.o
 BDLIB = $(top_srcdir)/lib/bdlib.o
+BDLIB_UNITS = $(top_srcdir)/lib/bdlib_units.o
 
 $(WRAITH):
 	@cd $(top_srcdir)/lib/wraith && $(MAKE) wraith
 
+$(WRAITH_UNITS):
+	@cd $(top_srcdir)/lib/wraith/tests && $(MAKE) units
+
 $(BDLIB):
 	@cd $(top_srcdir)/lib/bdlib && $(MAKE) bdlib
 
-../$(BINEXEC): build_msg $(OBJS) $(BDLIB) $(WRAITH)
+$(BDLIB_UNITS):
+	@cd $(top_srcdir)/lib/bdlib/tests && $(MAKE) units
+
+
+compile: $(OBJS) $(BDLIB) $(WRAITH)
+
+../$(BINEXEC): build_msg compile
 	@echo ""
 	@echo "Linking $(BINEXEC)... $(BINBUILD)"
 	@echo ""
-	$(LD) -o ../$(BINEXEC) $(OBJS) $(LIBS) $(BDLIB) $(WRAITH)
-	@$(STRIP) ../$(BINEXEC)
-	@$(OBJCOPY) ../$(BINEXEC)
+	$(LD) -o $@ $(OBJS) $(LIBS) $(BDLIB) $(WRAITH)
+	@$(STRIP) $@
+	@$(OBJCOPY) $@
 	@echo "Successful compile: $(BINEXEC)"
 	@echo ""
 
 $(BINEXEC): ../$(BINEXEC)
 
-TESTOBJS = @TESTOBJS@
+CORE_UNITS = tests/core_units.o
+$(CORE_UNITS):
+	+@cd tests && $(MAKE) units
 
-TESTUNITOBJS = @TESTUNITOBJS@
+UNITOBJS = $(CORE_UNITS) $(WRAITH_UNITS) $(BDLIB_UNITS)
 
-check: UnitRunner.o $(TESTOBJS)
-	+@cd tests && $(MAKE_GENERIC) units
-	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ UnitRunner.o $(TESTOBJS) $(TESTUNITOBJS)
+check: UnitRunner.o compile $(UNITOBJS)
+	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ $< $(OBJS) $(BDLIB) $(WRAITH) $(UNITOBJS)
 
 clean:
-	@rm -f .depend *.o *~ *.lo
+	@rm -f .depend *.o *~ *.lo UnitRunner@EXEEXT@
+	-+@cd tests && $(MAKE) clean
 
 distclean: clean
 	@rm -rf .deps Makefile
+	-+@cd tests && $(MAKE) distclean
 
 build_msg:
 	@echo "[*] Compiling core components"
-
-.SUFFIXES:
-.SUFFIXES: .cc .h .o
-
-.cc.o: 
-	@echo -e "Compiling: \033[1m`basename $< .cc`\033[0m"
-	@source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
-	$(CXX) $(CXXFLAGS) -c $<  -o `basename $< .cc`.o
-
-#safety hash
-

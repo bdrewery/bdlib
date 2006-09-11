@@ -39,35 +39,50 @@ MAKE_BIN = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'CCDEPMODE=$(CCDEPMODE
 MAKE_DEBUG = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPMODE=$(CCDEPMODE)' 'REVISION=$(REVISION)' 'BUILDTS=$(BUILDTS)' \
 'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(debug)'
 
+.PHONY: default clean distclean wraith debug general check checkclean.wraith checkclean.debug
+
 default: wraith
 
 clean:
-	+@cd src && $(MAKE) clean
-	+@cd lib/wraith && $(MAKE) clean
-	+@cd lib/bdlib && $(MAKE) clean
-	+@cd src/tests && $(MAKE) clean
-	+@cd build && $(MAKE) clean
+	-+@cd src && $(MAKE) clean
+	-+@cd lib/wraith && $(MAKE) clean
+	-+@cd lib/bdlib && $(MAKE) clean
+	-+@cd build && $(MAKE) clean
 	@rm -f $(BINEXEC) stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
 
 distclean: clean
-	+@cd build && $(MAKE) distclean
-	+@cd src && $(MAKE) distclean
-	+@cd lib/wraith && $(MAKE) distclean
-	+@cd lib/bdlib && $(MAKE) distclean
+	-+@cd build && $(MAKE) distclean
+	-+@cd src && $(MAKE) distclean
+	-+@cd lib/wraith && $(MAKE) distclean
+	-+@cd lib/bdlib && $(MAKE) distclean
 	@rm -f Makefile config.cache config.log config.status
 	@rm -rf *-$(VERSION)/ autom4te.cache/ autoscan.log configure.scan
 
-wraith: general
+checkclean.wraith:
+	@(if test -f stamp.debug; then \
+	echo "[*] Cleaning up alternate build"; \
+	$(MAKE) MAKEFLAGS=-s clean; \
+	fi)
+	@touch stamp.wraith
+
+checkclean.debug:
+	@(if test -f stamp.wraith; then \
+	echo "[*] Cleaning up alternate build"; \
+	$(MAKE) MAKEFLAGS=-s clean; \
+	fi)
+	@touch stamp.debug
+
+wraith: checkclean.wraith general
 	@echo ""
-	@echo "Making binary"
+	@echo "[*] Making binary"
 	@echo ""
 	@echo ""
 	+@cd src && $(MAKE_BIN) $(BINEXEC)
 	@echo ""
 
-debug: general
+debug: checkclean.debug general
 	@echo ""
-	@echo "Making binary"
+	@echo "[*] Making binary (debug)"
 	@echo ""
 	@echo ""
 	+@cd src && $(MAKE_DEBUG) $(BINEXEC)
@@ -78,9 +93,7 @@ general:
 MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
-check:
-	+@cd src && ${MAKE_UTILS} check
-	+@cd lib/wraith && $(MAKE_UTILS) check
-	+@cd lib/bdlib && $(MAKE_UTILS) check
+check: checkclean.debug general
+	+@cd src && ${MAKE_DEBUG} check
 	@src/UnitRunner@EXEEXT@
 
