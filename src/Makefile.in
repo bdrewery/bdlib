@@ -5,7 +5,6 @@ include ./.deps/includes
 SHELL = @SHELL@
 top_srcdir = @top_srcdir@
 srcdir = @srcdir@
-libdir = $(top_srcdir)/lib
 VPATH = @srcdir@
 CCDEPMODE = @CCDEPMODE@
 
@@ -13,7 +12,7 @@ include $(top_srcdir)/build/build.mk
 
 @SET_MAKE@
 
-CXXFLAGS = @CXXFLAGS@ -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/build -I$(libdir)/wraith -I$(libdir)/bdlib -I$(libdir)/openssl @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
+CXXFLAGS = @CXXFLAGS@ -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/build -I$(top_srcdir)/lib @DEFS@ $(CFLGS) '-DREVISION="$(REVISION)"' -DBUILDTS=$(BUILDTS)
 
 OBJCOPY = @OBJCOPY@
 
@@ -21,7 +20,7 @@ OBJS = main.o
 
 MAKE_GENERIC = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'CCDEPMODE=$(CCDEPMODE)'
 
-.PHONY: default check clean distclean build_msg $(BINEXEC)
+.PHONY: default check clean distclean build_msg $(BINEXEC) $(WRAITH) $(WRAITH_UNITS) $(BDLIB) $(BDLIB_UNITS) $(OPENSSL) $(CORE_UNITS)
 
 default:
 	@echo ""
@@ -29,28 +28,23 @@ default:
 	@echo ""
 
 $(WRAITH):
-	@cd $(top_srcdir)/lib/wraith && $(MAKE) wraith
-
+	+@cd $(top_srcdir)/lib/wraith && $(MAKE) wraith
 $(WRAITH_UNITS):
-	@cd $(top_srcdir)/lib/wraith/tests && $(MAKE) units
-
+	+@cd $(top_srcdir)/lib/wraith/tests && $(MAKE) units
 $(BDLIB):
-	@cd $(top_srcdir)/lib/bdlib && $(MAKE) bdlib
-
+	+@cd $(top_srcdir)/lib/bdlib && $(MAKE) bdlib
 $(BDLIB_UNITS):
-	@cd $(top_srcdir)/lib/bdlib/tests && $(MAKE) units
-
-
+	+@cd $(top_srcdir)/lib/bdlib/tests && $(MAKE) units
 $(OPENSSL):
-	@cd $(top_srcdir)/lib/openssl && $(MAKE) openssl
+	+@cd $(top_srcdir)/lib/openssl && $(MAKE) openssl
 
-ALL_LIBS = $(OBJS) $(BDLIB) $(WRAITH) $(OPENSSL)
+ALL_LIBS = $(OBJS) $(WRAITH) $(BDLIB) $(OPENSSL)
 
 ../$(BINEXEC): build_msg $(ALL_LIBS)
-	@echo "[*] Linking $(BINEXEC)... $(BINBUILD)"
+	@echo "[LD] 	$@"
 	$(LD) -o $@ $(ALL_LIBS) $(LIBS)
-	@$(STRIP) $@
-	@$(OBJCOPY) $@
+	$(STRIP) $@
+	$(OBJCOPY) $@
 	@echo "Successful compile: $(BINEXEC)"
 
 $(BINEXEC): ../$(BINEXEC)
@@ -61,7 +55,7 @@ $(CORE_UNITS):
 UNITOBJS = $(CORE_UNITS) $(WRAITH_UNITS) $(BDLIB_UNITS)
 
 check: UnitRunner.o $(ALL_LIBS) $(UNITOBJS)
-	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ $< $(ALL_LIBS) $(UNITOBJS)
+	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ $< $(subst main.o,,$(ALL_LIBS)) -Wl,--whole-archive $(UNITOBJS) -Wl,--no-whole-archive
 
 clean:
 	@rm -f .depend *.o *~ *.lo UnitRunner@EXEEXT@
