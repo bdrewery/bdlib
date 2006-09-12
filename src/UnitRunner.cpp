@@ -7,6 +7,7 @@
 #include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
+#include <cppunit/BriefTestProgressListener.h>
 
 int main (int argc, char* argv[])
 {
@@ -16,6 +17,10 @@ int main (int argc, char* argv[])
     // register listener for collecting the test-results
     CPPUNIT_NS :: TestResultCollector collectedresults;
     testresult.addListener (&collectedresults);
+
+    // Shows a message as each test starts
+    CPPUNIT_NS :: BriefTestProgressListener listener;
+    testresult.addListener( &listener );
 
     // insert test-suite at test-runner by registry
     CPPUNIT_NS :: TestRunner testrunner;
