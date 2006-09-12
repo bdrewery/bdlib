@@ -95,6 +95,9 @@ MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(
 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
 check: checkclean.debug general
+	+@cd lib/wraith && $(MAKE_DEBUG) wraith
+	+@cd lib/bdlib && $(MAKE_DEBUG) bdlib
+	+@cd lib/openssl && $(MAKE_DEBUG) openssl
 	-+@cd lib/wraith/tests && $(MAKE_DEBUG) units
 	-+@cd lib/bdlib/tests && $(MAKE_DEBUG) units
 	-+@cd src/tests && $(MAKE_DEBUG) units
