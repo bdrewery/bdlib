@@ -177,6 +177,12 @@ class String {
         */
         const size_t capacity() const { return Ref->size; };
 
+        /**
+          * @brief Check whether the string is 'empty'
+          * @return True is empty, false is non-empty
+          */
+        bool isEmpty() const { return capacity() == 0; };
+
 	/**
 	 * @brief Cstring accessor
 	 * @return A null-terminated character array (cstring).
