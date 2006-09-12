@@ -42,7 +42,7 @@ $(BINEXEC): ../$(BINEXEC)
 UNITOBJS = $(CORE_UNITS) $(WRAITH_UNITS) $(BDLIB_UNITS)
 
 check: UnitRunner.o $(ALL_LIBS) $(UNITOBJS)
-	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ $< $(subst main.o,,$(ALL_LIBS)) -Wl,--whole-archive $(UNITOBJS) -Wl,--no-whole-archive
+	$(LD) @CPPUNIT_LIBS@ -o UnitRunner@EXEEXT@ $< -Wl,--whole-archive $(UNITOBJS) -Wl,--no-whole-archive $(subst main.o,,$(ALL_LIBS))
 
 clean:
 	@rm -f .depend *.o *~ *.lo UnitRunner@EXEEXT@
