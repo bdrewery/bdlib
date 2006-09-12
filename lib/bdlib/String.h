@@ -5,12 +5,15 @@
 #ifndef _mSTRING_H
 #define _mSTRING_H 1
 
+#include "bdlib.h"
+
 #include <iostream>
 //#include <vector>
 #include <sys/types.h>
 #include <cstring>
 #include <algorithm> // min() / max()
 
+BDLIB_NS_BEGIN
 
 class String;
 class StringBuf;
@@ -470,5 +473,6 @@ inline std::ostream& operator << (std::ostream& os, const String& string) {
 std::istream& operator >> (std::istream&, String&);
 std::istream& getline(std::istream&, String&);
 
+BDLIB_NS_END
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
 #endif /* !_mSTRING_H */

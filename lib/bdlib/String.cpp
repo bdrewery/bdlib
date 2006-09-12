@@ -12,6 +12,7 @@
 static const char rcsid[] = "$Id$";
 #endif
 
+BDLIB_NS_BEGIN
 
 /**
  * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
@@ -396,3 +397,5 @@ const String String::base64Decode(void) {
   return old;
 }
 #endif /* DISABLED */
+
+BDLIB_NS_END

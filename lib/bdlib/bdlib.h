@@ -1,4 +1,4 @@
-/* Cstrings.h
+/* bdlib.h
  *
  * Copyright (C) Bryan Drewery
  *
@@ -21,33 +21,15 @@
  *
  * $Id$
  */
-#ifndef _W_CSTRINGS_H
-#define _W_CSTRINGS_H 1
+#ifndef _W_BDLIB_H
+#define _W_BDLIB_H 1
 
-#include "bdlib.h"
-
-#ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
 #endif
 
-#ifdef HAVE_STRING_H
-#include <string.h>
-#endif
+#define BDLIB_NS_BEGIN namespace bd {
+#define BDLIB_NS_END }
+#define BDLIB_NS bd
 
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
-#endif
-
-BDLIB_NS_BEGIN
-
-size_t strlcpy(char *, const char *, size_t);
-size_t strlcat(char *, const char *, size_t);
-void str_redup(char **, const char *);
-char *strdup(const char *);
-char *strldup(const char *, size_t);
-void *calloc(size_t, size_t);
-void *realloc(void *, size_t);
-
-BDLIB_NS_END
-
-#endif /* !_W_CSTRINGS_H */ 
+#endif /* !_W_BDLIB_H */ 

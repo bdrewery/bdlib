@@ -8,6 +8,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include "String.h"
+using namespace BDLIB_NS;
 
 class StringTest : public CPPUNIT_NS :: TestFixture
 {
