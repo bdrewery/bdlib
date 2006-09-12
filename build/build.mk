@@ -1,9 +1,9 @@
-WRAITH = $(top_srcdir)/lib/libwraith.la
-WRAITH_UNITS = $(top_srcdir)/lib/libwraith_units.la
-BDLIB = $(top_srcdir)/lib/libbdlib.la
-BDLIB_UNITS = $(top_srcdir)/lib/libbdlib_units.la
-CORE_UNITS = $(top_srcdir)/src/tests/core_units.la
-OPENSSL = $(top_srcdir)/lib/libopenssl.la
+WRAITH = $(top_srcdir)/lib/libwraith.a
+WRAITH_UNITS = $(top_srcdir)/lib/libwraith_units.a
+BDLIB = $(top_srcdir)/lib/libbdlib.a
+BDLIB_UNITS = $(top_srcdir)/lib/libbdlib_units.a
+CORE_UNITS = $(top_srcdir)/src/tests/core_units.a
+OPENSSL = $(top_srcdir)/lib/libopenssl.a
 
 depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 
