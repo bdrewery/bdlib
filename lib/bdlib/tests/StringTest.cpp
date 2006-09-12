@@ -64,15 +64,15 @@ void StringTest :: equalTest (void)
 {
   CPPUNIT_ASSERT_EQUAL (*b, *c);
   CPPUNIT_ASSERT_EQUAL (*b, String("blah"));
-  CPPUNIT_ASSERT (*b == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL ("blah", *b);
   CPPUNIT_ASSERT_EQUAL (*d, String(cstring));
-  CPPUNIT_ASSERT (*d == cstring);
+  CPPUNIT_ASSERT_STRING_EQUAL (cstring, *d);
   CPPUNIT_ASSERT_EQUAL (*e, String(cstring));
-  CPPUNIT_ASSERT (*e == cstring);
+  CPPUNIT_ASSERT_STRING_EQUAL (cstring, *e);
   CPPUNIT_ASSERT_EQUAL (*g, String('x'));
-  CPPUNIT_ASSERT (*g == 'x');
+  CPPUNIT_ASSERT_STRING_EQUAL ('x', *g);
   CPPUNIT_ASSERT_EQUAL (*g, String("x"));
-  CPPUNIT_ASSERT (*g == "x");
+  CPPUNIT_ASSERT_STRING_EQUAL ("x", *g);
   CPPUNIT_ASSERT(!(*b != *c));
   CPPUNIT_ASSERT_EQUAL(true, !(*a));
   CPPUNIT_ASSERT_EQUAL(false, !(*b));
@@ -81,21 +81,21 @@ void StringTest :: equalTest (void)
 void StringTest :: setTest (void)
 {
   *a = "blah";
-  CPPUNIT_ASSERT (*a == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL ("blah", *a);
   CPPUNIT_ASSERT_EQUAL(*a, *b);
   *h = cstring;
   CPPUNIT_ASSERT_EQUAL(*d, *h);
   *a = "  ";
-  CPPUNIT_ASSERT(*a == "  ");
+  CPPUNIT_ASSERT_STRING_EQUAL("  ", *a);
   *b = ' ';
-  CPPUNIT_ASSERT(*b == " ");
-  CPPUNIT_ASSERT(*c == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL(" ", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
   *b = *c;
-  CPPUNIT_ASSERT(*b == *c);
-  CPPUNIT_ASSERT(*b == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
   *b = *b;
-  CPPUNIT_ASSERT(*b == *c);
-  CPPUNIT_ASSERT(*b == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
 }
 
 void StringTest :: c_strTest(void)
@@ -144,19 +144,19 @@ void StringTest :: appendTest(void)
   a->append('a');
   CPPUNIT_ASSERT(strcmp(a->c_str(), "a") == 0);
   a->append("bcd");
-  CPPUNIT_ASSERT(*a == "abcd");
+  CPPUNIT_ASSERT_STRING_EQUAL("abcd", *a);
   a->append("test", 0);
-  CPPUNIT_ASSERT(*a == "abcd");
+  CPPUNIT_ASSERT_STRING_EQUAL("abcd", *a);
   f->append(&cstring[11], strlen(cstring) - 11);
-  CPPUNIT_ASSERT(*f == *d);
+  CPPUNIT_ASSERT_STRING_EQUAL(*d, *f);
   c->append(*b);
-  CPPUNIT_ASSERT(*c == "blahblah");
+  CPPUNIT_ASSERT_STRING_EQUAL("blahblah", *c);
   c->append(' ');
   c->append(*c);
-  CPPUNIT_ASSERT(*c == "blahblah blahblah ");
+  CPPUNIT_ASSERT_STRING_EQUAL("blahblah blahblah ", *c);
   c->append("  ");
   c->append(*b);
-  CPPUNIT_ASSERT(*c == "blahblah blahblah   blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("blahblah blahblah   blah", *c);
 }
 
 void StringTest :: insertTest(void)
@@ -164,17 +164,17 @@ void StringTest :: insertTest(void)
   a->insert(1, 'a');
   CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(0));
   a->insert(0, 'b');
-  CPPUNIT_ASSERT(*a == "b");
+  CPPUNIT_ASSERT_STRING_EQUAL("b", *a);
   CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(1));
   b->insert(2, "BLAH");
-  CPPUNIT_ASSERT(*b == "blBLAHah");
-  CPPUNIT_ASSERT(*c == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("blBLAHah", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
   b->insert(3, "TEST", 0);
-  CPPUNIT_ASSERT(*b == "blBLAHah");
-  CPPUNIT_ASSERT(*c == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("blBLAHah", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
   b->insert(3, "TEST", 1);
-  CPPUNIT_ASSERT(*b == "blBTLAHah");
-  CPPUNIT_ASSERT(*c == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("blBTLAHah", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
 }
 
 void StringTest :: replaceTest(void)
@@ -182,55 +182,55 @@ void StringTest :: replaceTest(void)
   a->replace(1, "wtf");
   CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(0));
   b->replace(0, "haha");
-  CPPUNIT_ASSERT(*b == "haha");
-  CPPUNIT_ASSERT(*c == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("haha", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
   g->replace(1, "ml");
-  CPPUNIT_ASSERT(*g == "xml");
+  CPPUNIT_ASSERT_STRING_EQUAL("xml", *g);
 }
 
 void StringTest :: concatTest(void)
 {
  *a = *b + " " + *b;
- CPPUNIT_ASSERT(*a == "blah blah");
+ CPPUNIT_ASSERT_STRING_EQUAL("blah blah", *a);
  *a = *b + *a;
- CPPUNIT_ASSERT(*a == "blahblah blah");
+ CPPUNIT_ASSERT_STRING_EQUAL("blahblah blah", *a);
  delete a;
  a = new String();
  *a = *b + *a;
- CPPUNIT_ASSERT(*a == "blah");
+ CPPUNIT_ASSERT_STRING_EQUAL("blah", *a);
 }
 
 void StringTest :: incDecTest(void)
 {
   *a = "test";
-  CPPUNIT_ASSERT(*a == "test");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", *a);
   String old = (*a)++;
-  CPPUNIT_ASSERT(old == "test");
-  CPPUNIT_ASSERT(*a == "est");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", old);
+  CPPUNIT_ASSERT_STRING_EQUAL("est", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 3, a->length());
   ++(*a);
-  CPPUNIT_ASSERT(*a == "st");
+  CPPUNIT_ASSERT_STRING_EQUAL("st", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 2, a->length());
   old = (*a)--;
-  CPPUNIT_ASSERT(old == "st");
-  CPPUNIT_ASSERT(*a == "s");
+  CPPUNIT_ASSERT_STRING_EQUAL("st", old);
+  CPPUNIT_ASSERT_STRING_EQUAL("s", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 1, a->length());
   --(*a);
-  CPPUNIT_ASSERT(*a == "");
+  CPPUNIT_ASSERT_STRING_EQUAL("", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 0, a->length());
 }
 
 void StringTest :: incDecEqualTest(void)
 {
   *a += "longtest";
-  CPPUNIT_ASSERT(*a == "longtest");
+  CPPUNIT_ASSERT_STRING_EQUAL("longtest", *a);
   *a -= 3;
-  CPPUNIT_ASSERT(*a == "longt");
+  CPPUNIT_ASSERT_STRING_EQUAL("longt", *a);
   *a += 4;
-  CPPUNIT_ASSERT(*a == "t");
+  CPPUNIT_ASSERT_STRING_EQUAL("t", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 1, a->length());
   *a += *b;
-  CPPUNIT_ASSERT(*a == "tblah");
+  CPPUNIT_ASSERT_STRING_EQUAL("tblah", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
 
   *d += *d + *d;
@@ -238,14 +238,14 @@ void StringTest :: incDecEqualTest(void)
   strcpy(check, cstring); // *d = cstring
   strcat(check, cstring); 
   strcat(check, cstring);
-  CPPUNIT_ASSERT(*d == check);
+  CPPUNIT_ASSERT_STRING_EQUAL(check, *d);
 
   *b += *a;
   *c = *c + *a;
 
-  CPPUNIT_ASSERT(*b == "blahtblah");
-  CPPUNIT_ASSERT(*c == "blahtblah");
-  CPPUNIT_ASSERT(*b == *c);
+  CPPUNIT_ASSERT_STRING_EQUAL("blahtblah", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blahtblah", *c);
+  CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
 }
 
 void StringTest :: printfTest(void)
@@ -254,7 +254,7 @@ void StringTest :: printfTest(void)
   const char* s = "something";
 
   a->printf("%s %d", s, n);
-  CPPUNIT_ASSERT(*a == "something 506");
+  CPPUNIT_ASSERT_STRING_EQUAL("something 506", *a);
 }
 
 /*
