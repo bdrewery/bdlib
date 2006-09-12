@@ -76,10 +76,17 @@ checkclean.debug:
 
 wraith: checkclean.wraith general
 	@echo "[*] Making binary"
+	+@cd lib/wraith && $(MAKE_BIN) wraith
+	+@cd lib/bdlib && $(MAKE_BIN) bdlib
+	+@cd lib/openssl && $(MAKE_BIN) openssl
 	+@cd src && $(MAKE_BIN) $(BINEXEC)
+
 
 debug: checkclean.debug general
 	@echo "[*] Making binary (debug)"
+	+@cd lib/wraith && $(MAKE_DEBUG) wraith
+	+@cd lib/bdlib && $(MAKE_DEBUG) bdlib
+	+@cd lib/openssl && $(MAKE_DEBUG) openssl
 	+@cd src && $(MAKE_DEBUG) $(BINEXEC)
 
 general:
@@ -88,6 +95,9 @@ MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(
 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
 check: checkclean.debug general
+	-+@cd lib/wraith/tests && $(MAKE_DEBUG) units
+	-+@cd lib/bdlib/tests && $(MAKE_DEBUG) units
+	-+@cd src/tests && $(MAKE_DEBUG) units
 	+@cd src && ${MAKE_DEBUG} check
 	@src/UnitRunner@EXEEXT@
 

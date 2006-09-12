@@ -20,23 +20,13 @@ OBJS = main.o
 
 MAKE_GENERIC = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'CCDEPMODE=$(CCDEPMODE)'
 
-.PHONY: default check clean distclean build_msg $(BINEXEC) $(WRAITH) $(WRAITH_UNITS) $(BDLIB) $(BDLIB_UNITS) $(OPENSSL) $(CORE_UNITS)
+#.PHONY: default check clean distclean build_msg $(BINEXEC) $(WRAITH) $(WRAITH_UNITS) $(BDLIB) $(BDLIB_UNITS) $(OPENSSL) $(CORE_UNITS)
+.PHONY: default check clean distclean build_msg $(BINEXEC) $(WRAITH_UNITS) $(BDLIB_UNITS) $(CORE_UNITS)
 
 default:
 	@echo ""
 	@echo "Use the build script."
 	@echo ""
-
-$(WRAITH):
-	+@cd $(top_srcdir)/lib/wraith && $(MAKE) wraith
-$(WRAITH_UNITS):
-	+@cd $(top_srcdir)/lib/wraith/tests && $(MAKE) units
-$(BDLIB):
-	+@cd $(top_srcdir)/lib/bdlib && $(MAKE) bdlib
-$(BDLIB_UNITS):
-	+@cd $(top_srcdir)/lib/bdlib/tests && $(MAKE) units
-$(OPENSSL):
-	+@cd $(top_srcdir)/lib/openssl && $(MAKE) openssl
 
 ALL_LIBS = $(OBJS) $(WRAITH) $(BDLIB) $(OPENSSL)
 
@@ -48,9 +38,6 @@ ALL_LIBS = $(OBJS) $(WRAITH) $(BDLIB) $(OPENSSL)
 	@echo "Successful compile: $(BINEXEC)"
 
 $(BINEXEC): ../$(BINEXEC)
-
-$(CORE_UNITS):
-	+@cd tests && $(MAKE) units
 
 UNITOBJS = $(CORE_UNITS) $(WRAITH_UNITS) $(BDLIB_UNITS)
 

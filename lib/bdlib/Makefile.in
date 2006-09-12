@@ -18,7 +18,7 @@ include $(top_srcdir)/build/build.mk
 OBJS = String.o \
 	Cstrings.o
 
-.PHONY: default clean distclean bdlib test build_msg $(BDLIB)
+.PHONY: default clean distclean bdlib test build_msg
 
 default:
 	@echo ""
@@ -36,10 +36,9 @@ distclean: clean
 	@rm -rf .deps Makefile
 	-+@cd tests && $(MAKE) distclean
 
-bdlib: $(BDLIB)
+bdlib: build_msg $(BDLIB)
 
-
-$(BDLIB): build_msg $(OBJS)
+$(BDLIB): $(OBJS)
 	@echo "[AR]	$@"
 	ar rcs $@ $(OBJS)
 #	@$(LD) -o $@ $(OBJS)
