@@ -1,11 +1,11 @@
-/* main.cpp
+/* core.h
  *
  * Copyright (C) Bryan Drewery
  *
  * This program is private and may not be distributed, modified
  * or used without express permission of Bryan Drewery.
  *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. 
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.
  * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY
  * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
  * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY
@@ -16,18 +16,35 @@
  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE
  * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE
- * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
+ * NO OBLIGATION TO PROVIDE CORETENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
  * MODIFICATIONS.
  *
+ * $Id$
  */
+#ifndef _W_CORE_H
+#define _W_CORE_H 1
 
-#ifndef lint
-static const char rcsid[] = "$Id$";
-#endif /* lint */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
-#include "core.h"
+#include <bdlib/String.h>
+#include <bdlib/Cstrings.h>
 
-int main(int argc, char** argv)
-{
-  Core core(argc, argv);
-}
+class Core {
+  public:
+	Core(int, char**);
+	~Core();
+	bd::String getBinname() { return binname; };
+  private:
+	int argc;
+	char** argv;
+	bd::String binname;
+
+	void getFullBinname();
+};
+
+#ifdef UNIT_RUN
+#include "tests/coreTest.h"
+#endif
+#endif /* !_W_CORE_H */ 
