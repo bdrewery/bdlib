@@ -28,31 +28,25 @@ static const char rcsid[] = "$Id$";
 #include "core.h"
 #include <stdio.h>
 
-Core::Core(int argc, char** argv)
-{
-  this->argc = argc;
-  this->argv = argv;
-  getFullBinname();
-}
-
 Core::~Core()
 {
 }
 
-void Core::getFullBinname()
+bd::String Core::getFullBinname() const
 {
-  char *bin = bd::strdup(argv[0]), *p = NULL, *p2 = NULL;
+  char *bin = bd::strdup(my_argv[0]), *p = NULL, *p2 = NULL;
   char cwd[PATH_MAX] = "", buf[PATH_MAX] = "";
   size_t len = 0;
+  bd::String ret;
 
   if (bin[0] == '/') {
 #ifdef CYGWIN_HACKS
     goto cygwin;
     len = strlen(bin);
 #else
-    binname = bin;
+    ret = bin;
     free(bin);
-    return;
+    return ret;
 #endif /* CYGWIN_HACKS */
   }
 
@@ -92,6 +86,7 @@ void Core::getFullBinname()
 #endif /* CYGWIN_HACKS */
   /* Fix for symlinked binaries */
   realpath(bin, buf);
-  binname = buf;
+  ret = buf;
   free(bin);
+  return ret;
 }

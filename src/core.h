@@ -32,16 +32,15 @@
 #include <bdlib/Cstrings.h>
 
 class Core {
+  private:
+	int my_argc;
+	char** my_argv;
+	bd::String binname;
+	bd::String getFullBinname() const;
   public:
-	Core(int, char**);
+	Core(int argc, char** argv) : my_argc(argc), my_argv(argv), binname(getFullBinname()) {};
 	~Core();
 	bd::String getBinname() { return binname; };
-  private:
-	int argc;
-	char** argv;
-	bd::String binname;
-
-	void getFullBinname();
 };
 
 #ifdef UNIT_RUN
