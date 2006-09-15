@@ -30,7 +30,7 @@ GREP = @GREP@
 AWK = @AWK@
 YACC = @YACC@
 
-DEBCXXFLAGS = -DDEBUG -fno-inline -g3 -ggdb3 -O0
+DEBCXXFLAGS = -DDEBUG -fno-inline -g3 -ggdb3 -O0 @DEBGCC3@
 CFLGS = @GCC3@
 
 MAKE_BIN = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'CCDEPMODE=$(CCDEPMODE)' 'REVISION=$(REVISION)' 'BUILDTS=$(BUILDTS)' \
@@ -98,9 +98,9 @@ check: checkclean.debug general
 	+@cd lib/wraith && $(MAKE_DEBUG) wraith
 	+@cd lib/bdlib && $(MAKE_DEBUG) bdlib
 	+@cd lib/openssl && $(MAKE_DEBUG) openssl
-	-+@cd lib/wraith/tests && $(MAKE_DEBUG) units
-	-+@cd lib/bdlib/tests && $(MAKE_DEBUG) units
-	-+@cd src/tests && $(MAKE_DEBUG) units
+	+@cd lib/wraith/tests && $(MAKE_DEBUG) units
+	+@cd lib/bdlib/tests && $(MAKE_DEBUG) units
+	+@cd src/tests && $(MAKE_DEBUG) units
 	+@cd src && ${MAKE_DEBUG} check
 	@echo "[*] Running unit tests..."
 	@src/UnitRunner@EXEEXT@

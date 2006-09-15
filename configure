@@ -672,6 +672,7 @@ GREP
 EGREP
 CCDEPMODE
 GCC3
+DEBGCC3
 SET_MAKE
 AWK
 SED
@@ -3501,6 +3502,7 @@ num=`$CXX -dumpversion | sed "s/^\\\(.\\\).*/\\\1/"`
 if test $num -ge "3"; then
   CCDEPMODE=gcc3
   GCC3="-W -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
+  DEBGCC3="-Wabi -W -std=c++98 -Wextra -Weffc++"
 fi
 
 
@@ -13723,6 +13725,7 @@ GREP!$GREP$ac_delim
 EGREP!$EGREP$ac_delim
 CCDEPMODE!$CCDEPMODE$ac_delim
 GCC3!$GCC3$ac_delim
+DEBGCC3!$DEBGCC3$ac_delim
 SET_MAKE!$SET_MAKE$ac_delim
 AWK!$AWK$ac_delim
 SED!$SED$ac_delim
@@ -13743,7 +13746,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 70; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 71; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
