@@ -39,7 +39,16 @@ class Core {
 	bd::String getFullBinname() const;
   public:
 	Core(int argc, char** argv) : my_argc(argc), my_argv(argv), binname(getFullBinname()) {};
+	Core(const Core &core) : my_argc(core.my_argc), my_argv(core.my_argv), binname(core.binname) {};
 	~Core();
+	Core &operator = (const Core &core) {
+	  my_argc = core.my_argc;
+	  my_argv = core.my_argv;
+	  binname = core.binname;
+	  return *this;
+	}
+
+	
 	bd::String getBinname() { return binname; };
 };
 
