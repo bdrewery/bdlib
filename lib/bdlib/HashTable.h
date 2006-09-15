@@ -27,6 +27,21 @@
 #include "bdlib.h"
 #include "Iterator.h"
 BDLIB_NS_BEGIN
+
+template <class Key, class Value>
+/**
+  * @class HashTable
+  * @brief HashTable data structure
+  */
+class HashTable {
+  public:
+    HashTable() {};
+    HashTable(const HashTable<Key, Value> &table) {};
+    ~HashTable() {};
+    HashTable &operator = (const HashTable<Key, Value>) { return *this; };
+  private:
+};
+
 BDLIB_NS_END
 
 #endif /* !_W_HASHTABLE_H */ 
