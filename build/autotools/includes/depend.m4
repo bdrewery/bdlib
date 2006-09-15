@@ -10,12 +10,14 @@ CCDEPMODE=gcc
 num=`$CXX -dumpversion | sed "s/^\\\(.\\\).*/\\\1/"`
 if test $num -ge "3"; then
   CCDEPMODE=gcc3
-  GCC3="-W -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
-  DEBGCC3="-Wabi -W -std=c++98 -Wextra -Weffc++"
+  GCC3="-W -std=c++98 -Wabi -Wextra -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
+  DEBGCC3=""
+  DEBNOUNITSGCC3="-Weffc++"
 fi
 AC_SUBST(CCDEPMODE)dnl
 AC_SUBST(GCC3)dnl
 AC_SUBST(DEBGCC3)dnl
+AC_SUBST(DEBNOUNITSGCC3)dnl
 ])
 
 AC_DEFUN([DO_DEPS],

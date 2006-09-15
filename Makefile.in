@@ -18,7 +18,7 @@ BUILDTS  := $(shell build/getts.sh)
 # defaults
 CXX = @CCACHE@ @DISTCC@ @CXX@
 LD = @CXX@
-CCDEBUG = @CCACHE@ @DISTCC@ @CCDEBUG@
+CXXDEBUG = @CCACHE@ @DISTCC@ @CCDEBUG@
 LDDEBUG = @CCDEBUG@
 LIBS = @LIBS@ @ZLIB@
 
@@ -36,8 +36,14 @@ CFLGS = @GCC3@
 MAKE_BIN = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'CCDEPMODE=$(CCDEPMODE)' 'REVISION=$(REVISION)' 'BUILDTS=$(BUILDTS)' \
 'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(distrib)'
 
-MAKE_DEBUG = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPMODE=$(CCDEPMODE)' 'REVISION=$(REVISION)' 'BUILDTS=$(BUILDTS)' \
-'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(debug)'
+MAKE_DEBUG = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPMODE=$(CCDEPMODE)' 'REVISION=$(REVISION)' 'BUILDTS=$(BUILDTS)' \
+'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS) @DEBNOUNITSGCC3@' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(debug)'
+
+MAKE_UNITS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPMODE=$(CCDEPMODE)' \
+'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)'
+
+MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
+'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
 .PHONY: default clean distclean wraith debug general check checkclean.wraith checkclean.debug
 
@@ -91,16 +97,13 @@ debug: checkclean.debug general
 
 general:
 
-MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CCDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
-'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
-
 check: checkclean.debug general
 	+@cd lib/wraith && $(MAKE_DEBUG) wraith
 	+@cd lib/bdlib && $(MAKE_DEBUG) bdlib
 	+@cd lib/openssl && $(MAKE_DEBUG) openssl
-	+@cd lib/wraith/tests && $(MAKE_DEBUG) units
-	+@cd lib/bdlib/tests && $(MAKE_DEBUG) units
-	+@cd src/tests && $(MAKE_DEBUG) units
+	+@cd lib/wraith/tests && $(MAKE_UNITS) units
+	+@cd lib/bdlib/tests && $(MAKE_UNITS) units
+	+@cd src/tests && $(MAKE_UNITS) units
 	+@cd src && ${MAKE_DEBUG} check
 	@echo "[*] Running unit tests..."
 	@src/UnitRunner@EXEEXT@
