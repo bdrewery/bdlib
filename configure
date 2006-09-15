@@ -681,6 +681,7 @@ YACC
 YFLAGS
 BASENAME
 OBJCOPY
+VALGRIND
 STRIP
 DIFF
 UNAME
@@ -3856,6 +3857,43 @@ OBJCOPY=$ac_cv_prog_OBJCOPY
 if test -n "$OBJCOPY"; then
   { echo "$as_me:$LINENO: result: $OBJCOPY" >&5
 echo "${ECHO_T}$OBJCOPY" >&6; }
+else
+  { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+fi
+
+
+# Extract the first word of "valgrind", so it can be a program name with args.
+set dummy valgrind; ac_word=$2
+{ echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6; }
+if test "${ac_cv_prog_VALGRIND+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  if test -n "$VALGRIND"; then
+  ac_cv_prog_VALGRIND="$VALGRIND" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_prog_VALGRIND="valgrind --leak-check=full --db-attach=no --show-reachable=yes --leak-resolution=high -q"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+fi
+fi
+VALGRIND=$ac_cv_prog_VALGRIND
+if test -n "$VALGRIND"; then
+  { echo "$as_me:$LINENO: result: $VALGRIND" >&5
+echo "${ECHO_T}$VALGRIND" >&6; }
 else
   { echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6; }
@@ -13736,6 +13774,7 @@ YACC!$YACC$ac_delim
 YFLAGS!$YFLAGS$ac_delim
 BASENAME!$BASENAME$ac_delim
 OBJCOPY!$OBJCOPY$ac_delim
+VALGRIND!$VALGRIND$ac_delim
 STRIP!$STRIP$ac_delim
 DIFF!$DIFF$ac_delim
 UNAME!$UNAME$ac_delim
@@ -13749,7 +13788,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 72; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 73; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
