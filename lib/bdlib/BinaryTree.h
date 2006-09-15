@@ -26,7 +26,7 @@
 
 #include "bdlib.h"
 #include "Iterator.h"
-
+#include <stdio.h>
 BDLIB_NS_BEGIN
 
 template <class Key, class Value>
@@ -71,6 +71,7 @@ class BinaryTree {
         node = temp;
         --my_size;
       } else if (node->right == NULL) {
+/* in here */
         Node* temp = node->left;
         delete node;
         node = temp;
@@ -84,57 +85,76 @@ class BinaryTree {
 
         node->key = temp->key;
         node->value = temp->value;
-
         deleteNode(temp);
       }
     }
 
-    Node*& findNode(Node*& search, Key key) {
-/*
-      Node*& temp = search;
-
-      while (temp != NULL) {
-        if (key < temp->key)
-          temp = temp->left;
-        else if (key > temp->key)
-          temp = temp->right;
+    Node* &fetchNode(Node** search, Key key) {
+      while ((*search) != NULL) {
+        if (key < (*search)->key)
+          search = &(*search)->left;
+        else if (key > (*search)->key)
+          search = &(*search)->right;
         else {
-          std::cout << "Found key: " << search->key << std::endl;
-          return temp;
+          return *search;
         }
       }
-      return temp;
-*/
-      if (key < search->key)
-        return findNode(search->left, key);
-      else if (key > search->key)
-        return findNode(search->right, key);
-      else {
-        return search;
-      }
+      return *search;
     }
 
   public:
+    /** 
+      * @brief Checks whether the given key is in the tree
+      * @param key The key to search for
+      * @return true/false depending on found/not-found
+      */
+    bool contains(Key key) {
+      if (isEmpty())
+        return false;
+      if (fetchNode(&root, key))
+        return true;
+      return false;
+    }
+
+    /**
+      * @brief Returns the current size of the tree
+      * @return The current size of the tree
+      */
+    size_t size() const { return my_size; };
+    bool isEmpty() const { return size() == 0; };
+
     class IteratorHelper : public Iterator<Value> {
       private:
         int index;
         int my_size;
         Value *storage;
 
-        void fillArray(const Node *node) {
-          static int i = 0;
+        void fillArray(int &i, const Node *node) {
 
           if (node == NULL) return;
-          fillArray(node->left);
+          fillArray(i, node->left);
           storage[i++] = node->value;
-          fillArray(node->right);
+          fillArray(i, node->right);
         }
+
+//        IteratorHelper& operator=(const IteratorHelper&); ///<Block implicit copy constructor
       public:
-        IteratorHelper(Node *node, int _size) {
-          index = 0;
-          my_size = _size;
-          storage = new Value[my_size];
-          fillArray(node);
+        IteratorHelper(Node *node, int size) : Iterator<Value>(), index(0), my_size(size), storage(new Value[my_size]) {
+          int i = 0;
+          fillArray(i, node);
+        }
+
+        IteratorHelper(const IteratorHelper &iter) : Iterator<Value>(), index(0), my_size(iter.my_size), storage(new Value[iter.my_size]) {
+          for (int i = 0; i < my_size; i++)
+            storage[i] = iter.storage[i];
+        }
+
+        IteratorHelper &operator = (const IteratorHelper &iter) {
+          index = iter.index;
+          my_size = iter.my_size;
+          for (int i = 0; i < my_size; i++)
+            storage[i] = iter.storage[i];
+          return *this;
         }
 
         virtual ~IteratorHelper() {
@@ -148,6 +168,17 @@ class BinaryTree {
         virtual Value next() {
           return storage[index++];
         }
+/* not done
+        virtual const Value& operator ++() { //prefix
+          Value v = Q.front();
+          Q.pop();
+          return v;
+        }
+
+        virtual const Value operator ++(int) { //postfix
+
+        }
+*/    
     };
 
     typedef IteratorHelper iterator;
@@ -166,20 +197,27 @@ class BinaryTree {
       * @param value The value to be inserted
       * @post The tree's size is increased by 1 if the element was not already in the tree
       */
-    void insert(Key key, Value value) {
+    bool insert(Key key, Value value) {
+      if (contains(key)) 
+        return false;
       Node *node = new Node(key, value);
       insertNode(root, node);
+      return true;
     }
 
     /** 
       * @brief Remove the given key (and its value) from the tree
       * @param key The key to be searched/removed
+      * @return Whether or not the key was removed
       */
-    void remove(Key key) {
-      Node*& node = findNode(root, key);
+    bool remove(Key key) {
+      Node* &node = fetchNode(&root, key);
 
-      if (node != NULL)
+      if (node != NULL) {
         deleteNode(node);
+        return true;
+      }
+      return false;
     }
 
     /**
@@ -187,18 +225,35 @@ class BinaryTree {
       * @param key The key to search for
       * @return The value of the key searched for, or NULL if not found
       */
-    Value find(Key key) {
-      Node*& node = findNode(root, key);
+    Value getValue(Key key) {
+      Value empty;
+      if (isEmpty()) return empty;
+
+      Node* node = fetchNode(&root, key);
       if (node)
         return node->value;
-      return NULL;
+      return empty;
     }
 
+#ifdef DISABLED
     /**
-      * @brief Returns the current size of the tree
-      * @return The current size of the tree
+      * @brief Find the first key from the given value in the tree
+      * @param key The value to search for
+      * @return The key of the value searched for, or NULL if not found
       */
-    size_t const size() { return my_size; };
+    Value getKey(Value value) {
+      Key empty;
+      if (isEmpty()) return empty;
+
+      iterator iter = begin();
+      while (iter.hasNext()) {
+        Node *node = iter.next();
+        if (node->value == value)
+          return node->key;
+      }
+      return empty;
+    }
+#endif
 };
 
 BDLIB_NS_END

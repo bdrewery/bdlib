@@ -32,6 +32,7 @@ class Iterator {
   public:
     virtual T next() = 0;
     virtual bool hasNext() = 0;
+    virtual ~Iterator() {};
 //    virtual const &T operator ++(); //prefix
 //    virtual const T operator ++(int); //postfix
 //    virtual void remove() = 0;
