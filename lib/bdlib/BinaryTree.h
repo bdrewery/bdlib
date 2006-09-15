@@ -26,7 +26,6 @@
 
 #include "bdlib.h"
 #include "Iterator.h"
-#include <stdio.h>
 BDLIB_NS_BEGIN
 
 template <class Key, class Value>
