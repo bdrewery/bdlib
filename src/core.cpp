@@ -53,8 +53,9 @@ bd::String Core::getFullBinname() const
   if (!getcwd(cwd, PATH_MAX))
     exit(1);
 
-  if (cwd[strlen(cwd) - 1] == '/')
-    cwd[strlen(cwd) - 1] = 0;
+  len = strlen(cwd);
+  if (cwd[len - 1] == '/')
+    cwd[len--] = 0;
 
   p = bin;
   p2 = strchr(p, '/');
