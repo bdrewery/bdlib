@@ -101,13 +101,14 @@ void BinaryTreeTest :: getKeyTest (void)
 
 void BinaryTreeTest :: removeTest (void)
 {
-  a->insert(1, "Blah");
-  a->insert(1, "Bleck");
   a->insert(2, "Blah2");
+  a->insert(1, "Blah");
   a->insert(8, "Blah8");
   a->insert(4, "Blah4");
+  a->insert(3, "Blah3");
+  a->insert(10, "Blah10");
 
-  a->remove(8);  
+  a->remove(8); /* has 2 children */
 
   String result;
 
@@ -118,6 +119,8 @@ void BinaryTreeTest :: removeTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->getValue(1));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a->getValue(4));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a->getValue(2));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a->getValue(3));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah10", a->getValue(10));
   result = a->getValue(8);
   CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
 
@@ -126,12 +129,27 @@ void BinaryTreeTest :: removeTest (void)
   a->remove(4);
   CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->getValue(1));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a->getValue(2));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a->getValue(3));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah10", a->getValue(10));
   result = a->getValue(4);
   CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
 
   a->remove(2);
   CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->getValue(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a->getValue(3));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah10", a->getValue(10));
   result = a->getValue(2);
+  CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
+
+  a->remove(3);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->getValue(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah10", a->getValue(10));
+  result = a->getValue(3);
+  CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
+
+  a->remove(10);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->getValue(1));
+  result = a->getValue(10);
   CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
 
   a->remove(1);

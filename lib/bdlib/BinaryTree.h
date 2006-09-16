@@ -42,7 +42,7 @@ class BinaryTree {
         Key key;
         Value value;
 
-        Node(Key k, Value v) {
+        Node(const Key k, const Value v) {
           key = k;
           value = v;
           left = right = NULL;
@@ -52,25 +52,52 @@ class BinaryTree {
     int my_size;
     Node *root;
 
-    void insertNode(Node*& search, Node* node) {
-      if (search == NULL) {
-        search = node;
-        ++my_size;
+    /** 
+      * @brief Returns a reference to the node with a matching key
+      * @param search Where to start the search in the tree
+      * @param key The key to search for
+      * @return The node searched for, if found, otherwise NULL
+      */
+    Node* &fetchNode(Node* const* search, const Key &key) const {
+      while ((*search) != NULL) {
+        if (key < (*search)->key)
+          search = &(*search)->left;
+        else if (key > (*search)->key)
+          search = &(*search)->right;
+        else {
+          return (Node*&) *search;
+        }
       }
-      else if (node->key < search->key)
-        insertNode(search->left, node);
-      else if (node->key > search->key)
-        insertNode(search->right, node);
+      return (Node*&) *search;
     }
 
+    /** 
+      * @brief Insert a node into the given tree
+      * @param search The tree to insert the node into
+      * @param node The node to insert
+      * @sa fetchNode
+      * This first looks for the where the node SHOULD be in the tree.
+      * It will of course fail, but this is the location to place the node.
+      */
+    void insertNode(Node** search, Node* const node) {
+      Node* &insertAt = fetchNode(search, node->key);
+      insertAt = node;
+      ++my_size;
+    }
+
+    /**
+      * @brief Delete a node from the tree. (possibly recursive)
+      * @param node A reference to the node to delete.
+      */
     void deleteNode(Node*& node) {
+      if (node == NULL) 
+        return;
       if (node->left == NULL) {
         Node* temp = node->right;
         delete node;
         node = temp;
         --my_size;
       } else if (node->right == NULL) {
-/* in here */
         Node* temp = node->left;
         delete node;
         node = temp;
@@ -87,27 +114,13 @@ class BinaryTree {
         deleteNode(temp);
       }
     }
-
-    Node* &fetchNode(Node** search, Key key) {
-      while ((*search) != NULL) {
-        if (key < (*search)->key)
-          search = &(*search)->left;
-        else if (key > (*search)->key)
-          search = &(*search)->right;
-        else {
-          return *search;
-        }
-      }
-      return *search;
-    }
-
   public:
     /** 
       * @brief Checks whether the given key is in the tree
       * @param key The key to search for
       * @return true/false depending on found/not-found
       */
-    bool contains(Key key) {
+    bool contains(const Key &key) const {
       if (isEmpty())
         return false;
       if (fetchNode(&root, key))
@@ -129,8 +142,8 @@ class BinaryTree {
         Value *storage;
 
         void fillArray(int &i, const Node *node) {
-
-          if (node == NULL) return;
+          if (node == NULL) 
+            return;
           fillArray(i, node->left);
           storage[i++] = node->value;
           fillArray(i, node->right);
@@ -182,13 +195,23 @@ class BinaryTree {
 
     typedef IteratorHelper iterator;
 
-    iterator begin() {
+    iterator begin() const {
       return IteratorHelper(root, my_size);
     }
 
   public:
     BinaryTree() : my_size(0), root(NULL) {};
-    virtual ~BinaryTree() {};
+
+    /**
+      * @brief Destructor
+      * @sa deleteNode
+      * This simply deletes the root node over and over until the root is NULL.
+      * There may possibly be a quicker way that does not use recursion (deleteNode does) but this seems the simplest.
+      */
+    virtual ~BinaryTree() {
+      while (root != NULL)
+        deleteNode(root);
+    };
 
     /**
       * @brief insert Key/Value pair into tree
@@ -196,11 +219,11 @@ class BinaryTree {
       * @param value The value to be inserted
       * @post The tree's size is increased by 1 if the element was not already in the tree
       */
-    bool insert(Key key, Value value) {
+    bool insert(const Key &key, const Value &value) {
       if (contains(key)) 
         return false;
       Node *node = new Node(key, value);
-      insertNode(root, node);
+      insertNode(&root, node);
       return true;
     }
 
@@ -209,7 +232,7 @@ class BinaryTree {
       * @param key The key to be searched/removed
       * @return Whether or not the key was removed
       */
-    bool remove(Key key) {
+    bool remove(const Key &key) {
       Node* &node = fetchNode(&root, key);
 
       if (node != NULL) {
@@ -224,7 +247,7 @@ class BinaryTree {
       * @param key The key to search for
       * @return The value of the key searched for, or NULL if not found
       */
-    Value getValue(Key key) {
+    Value getValue(const Key &key) const {
       Value empty;
       if (isEmpty()) return empty;
 
@@ -240,7 +263,7 @@ class BinaryTree {
       * @param key The value to search for
       * @return The key of the value searched for, or NULL if not found
       */
-    Value getKey(Value value) {
+    Value getKey(const Value &value) const {
       Key empty;
       if (isEmpty()) return empty;
 
