@@ -46,7 +46,7 @@ check: UnitRunner@EXEEXT@
 
 UnitRunner@EXEEXT@: UnitRunner.o $(ALL_LIBS) $(UNITOBJS)
 	@echo "[LD]	$@"
-	$(LD) @CPPUNIT_LIBS@ -o $@ $< -Wl,--allow-multiple-definition -Wl,--whole-archive $(UNITOBJS) -Wl,--no-whole-archive $(subst main.o,,$(ALL_LIBS))
+	$(LD) @CPPUNIT_LIBS@ -o $@ $< -Wl,--whole-archive $(UNITOBJS) -Wl,--no-whole-archive $(subst main.o,,$(ALL_LIBS))
 
 clean:
 	@rm -f .depend *.o *~ *.lo UnitRunner@EXEEXT@
