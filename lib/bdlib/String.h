@@ -13,6 +13,14 @@
 #include <cstring>
 #include <algorithm> // min() / max()
 
+
+#ifdef CPPUNIT_VERSION
+#include <cppunit/SourceLine.h>
+#include <cppunit/TestAssert.h>
+#define CPPUNIT_ASSERT_STRING_EQUAL( expected, actual ) \
+     BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
+#endif /* CPPUNIT_VERSION */
+
 BDLIB_NS_BEGIN
 
 class String;
@@ -329,6 +337,13 @@ class String {
 
         friend std::ostream& operator << (std::ostream&, const String&);
         friend std::ostream& operator >> (std::ostream&, const String&);
+
+#ifdef CPPUNIT_VERSION
+        static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
+          if (expected == actual) return;
+          ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
+        }
+#endif /* CPPUNIT_VERSION */
         
 };
 
@@ -481,22 +496,4 @@ std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
-
-#ifdef CPPUNIT_VERSION
-#include <cppunit/SourceLine.h>
-#include <cppunit/TestAssert.h>
-
-void
-checkStringEqual(BDLIB_NS::String expected, BDLIB_NS::String actual, CPPUNIT_NS::SourceLine sourceLine)
-{
-  if ( expected == actual )
-    return;
-
-   ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
-}
-
-#define CPPUNIT_ASSERT_STRING_EQUAL( expected, actual ) \
-     checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
-#endif /* CPPUNIT_VERSION */
-
 #endif /* !_mSTRING_H */
