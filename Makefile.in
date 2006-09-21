@@ -46,7 +46,7 @@ MAKE_UNITS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPM
 MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
-.PHONY: default clean distclean wraith debug general check checkclean.wraith checkclean.debug
+.PHONY: default clean distclean wraith debug general check checkclean.wraith checkclean.debug buildcheck
 
 default: wraith
 
@@ -98,7 +98,7 @@ debug: checkclean.debug general
 
 general:
 
-check: checkclean.debug general
+buildcheck:
 	+@cd lib/wraith && $(MAKE_DEBUG) wraith
 	+@cd lib/bdlib && $(MAKE_DEBUG) bdlib
 	+@cd lib/openssl && $(MAKE_DEBUG) openssl
@@ -107,4 +107,10 @@ check: checkclean.debug general
 	+@cd src/tests && $(MAKE_UNITS) units
 	+@cd src && ${MAKE_DEBUG} check
 	@echo "[*] Running unit tests..."
+
+
+check: checkclean.debug general buildcheck
 	@$(VALGRIND) src/UnitRunner@EXEEXT@
+
+checkquick: checkclean.debug general buildcheck
+	src/UnitRunner@EXEEXT@
