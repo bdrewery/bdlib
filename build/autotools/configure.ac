@@ -211,3 +211,4 @@ AH_BOTTOM([/*
 #endif
 ])
 
+cd lib/openssl && ./configure
