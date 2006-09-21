@@ -135,7 +135,7 @@ then
     ])
     if test "$egg_cv_var_ccstatic" = "yes"
     then
-      CCDEBUG="$CXX"
+      CXXDEBUG="$CXX"
       CXX="$CXX -static"
     else
       cat << 'EOF' >&2
