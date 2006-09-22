@@ -58,14 +58,6 @@ void String::AboutToModify(size_t n) {
     Reserve( std::max(oldCapacity, n) ); //Will set capacity()/size
     std::copy(p, p + oldLength, Ref->buf);
     Ref->len = oldLength;    
-/*    
-    auto_ptr<StringBuf> newdata(new StringBuf);
-    newdata->Reserve( std::max(capacity(), n) ); //Will set capacity()
-    std::copy(Ref->buf, Ref->buf + length(), newdata->buf);
-    newdata->len = length();
-    --Ref->n;     //decrement the reference pointer's count
-    Ref = newdata.release();
-*/
   } else {
     Reserve(n);
   }
