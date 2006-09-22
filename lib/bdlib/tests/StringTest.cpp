@@ -142,7 +142,7 @@ void StringTest :: indexTest(void)
 void StringTest :: appendTest(void)
 {
   a->append('a');
-  CPPUNIT_ASSERT(strcmp(a->c_str(), "a") == 0);
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(a->c_str(), "a"));
   a->append("bcd");
   CPPUNIT_ASSERT_STRING_EQUAL("abcd", *a);
   a->append("test", 0);
