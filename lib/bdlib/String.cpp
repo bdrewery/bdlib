@@ -50,14 +50,15 @@ void StringBuf::Reserve(const size_t newSize)
  * Also take a hint size n of the new string's size as to avoid needless copying/allocing.
  */
 void String::AboutToModify(size_t n) {
-  if (Ref->isShared()) {
-    const char *p = Ref->buf;
+  if (isShared()) {
+    const char *p = constBuf();
     size_t oldLength = length();
     size_t oldCapacity = capacity();
+
     doDetach();
     Reserve( std::max(oldCapacity, n) ); //Will set capacity()/size
-    std::copy(p, p + oldLength, Ref->buf);
-    Ref->len = oldLength;    
+    std::copy(p, p + oldLength, Buf());
+    setLength(oldLength);
   } else {
     Reserve(n);
   }
@@ -70,7 +71,7 @@ void String::AboutToModify(size_t n) {
  * @param n The number of characters to compare.
  * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
 */
-int String::compare(const String& str, size_t n) const
+int String::compare(const String &str, size_t n) const
 {
   size_t my_len = length();
   size_t slen = std::min(str.length(), n);
@@ -103,7 +104,7 @@ void String::insert(int k, const char ch)
   AboutToModify(length() + 1);
   memmove(Ref->buf + k + 1, Ref->buf + k, length() - k);
   Ref->buf[k] = ch;
-  ++Ref->len;
+  addLength(1);
 }
 
 /**
@@ -139,7 +140,7 @@ void String::insert(int k, const char *string, int n)
   AboutToModify(length() + slen);
   memmove(Ref->buf + k + slen, Ref->buf + k, length() - k);
   std::copy(string, string + slen, Ref->buf + k);
-  Ref->len += slen;
+  addLength(slen);
 }
 
 /**
@@ -163,7 +164,7 @@ void String::replace(int k, const char *string, int n)
     AboutToModify(length());
   }
   std::copy(string, string + slen, Ref->buf + k);
-  Ref->len = newlen;
+  setLength(newlen);
 }
 
 /**
@@ -173,7 +174,7 @@ void String::replace(int k, const char *string, int n)
  * @param n The length to insert.
  * @post The buffer contains n characters from string inserted at index k.
  */
-void String::insert(int k, const String& string, int n) {
+void String::insert(int k, const String &string, int n) {
   if (n == 0) return;
   if (k && !hasIndex(k-1)) return;
   
@@ -185,7 +186,7 @@ void String::insert(int k, const String& string, int n) {
   AboutToModify(length() + slen);
   memmove(Ref->buf + k + slen, Ref->buf + k, length() - k);
   std::copy(string.begin(), string.begin() + slen, Ref->buf + k);
-  Ref->len += slen;
+  addLength(slen);
 }
 
 /**
@@ -194,7 +195,7 @@ void String::insert(int k, const String& string, int n) {
  * @param string The String object to replace with.
  * @param n The number of characters to use for the replace.
  */
-void String::replace(int k, const String& string, int n) {
+void String::replace(int k, const String &string, int n) {
   if (n == 0) return;
   if (k && !hasIndex(k-1)) return;
 
@@ -213,7 +214,7 @@ void String::replace(int k, const String& string, int n) {
     AboutToModify(length());
   }
   std::copy(string.begin(), string.begin() + slen, Ref->buf + k);
-  Ref->len = newlen;
+  setLength(newlen);
 }
 
 /**
@@ -223,7 +224,7 @@ void String::replace(int k, const String& string, int n) {
  * @post A sufficiently sized new buffer is made with the character within.
  * @return The new string object.
  */
-const String& String::operator = (const char ch) {
+const String &String::operator=(const char ch) {
   Detach();
   append(ch);
   return *this;
@@ -236,7 +237,7 @@ const String& String::operator = (const char ch) {
  * @post A sufficiently sized new buffer is made with the string within.
  * @return The new string object.
  */
-const String& String::operator = (const char *string) {
+const String &String::operator=(const char *string) {
   Detach();
   append(string);
   return *this;
@@ -250,14 +251,16 @@ const String& String::operator = (const char *string) {
  * @post Our old string object has been deleted (disconnected).
  * @return The new string object.
  */
-const String& String::operator = (const String &string) {
-  ++string.Ref->n;
+const String &String::operator=(const String &string) {
+  string.incRef();
+  offset = string.offset;
+  sublen = string.sublen;
   CheckDeallocRef();
   Ref = string.Ref;
   return *this;
 }
 
-std::istream& operator >> (std::istream& is, String& string) {
+std::istream& operator >> (std::istream& is, String &string) {
   char ch;
   string = "";    // empty string, will build one char at-a-time
   is >> ch;    // whitespace skipped, first non-white char in ch
@@ -278,7 +281,7 @@ std::istream& operator >> (std::istream& is, String& string) {
   return is;
 }
 
-std::istream& getline(std::istream& is, String& string) {   
+std::istream& getline(std::istream& is, String &string) {   
  
   char ch;
   string = "";     // empty string, will build one char at-a-time
