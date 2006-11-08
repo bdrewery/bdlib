@@ -25,17 +25,53 @@
 #define _W_THREAD_H 1
 
 #include "bdlib.h"
+
+#ifdef USE_PTHREAD
+# include <pthread.h>
+# typedef void* threadMainRet_t
+# typedef pthread_t threadHandle_t
+#elif WIN32
+# include <windows.h>
+# typedef unsigned int __stdcall threadMainRet_t
+# typeef HANDLE threadHandle_t
+#endif
+
+typdef unsigned int threadId_t
+
+#define THREAD_STARTED 0x1
+#define THREAD_STARTED 0x2
+
 BDLIB_NS_BEGIN
+static threadMainRet_t threadMain(void*);
 
 /**
   * @class Thread
   * @brief Extendable thread class
   */
 class Thread {
+  friend threadMainRet_t threadMain(void*);
   public:
-    Thread() {};
-    ~Thread() {};
+    Thread(void) : handle(0), id(0), status(0), param(NULL) {};
+    virtual ~Thread() : { stop(); };
+    int start(void* = NULL);
+    void detach(void);
+    void* wait(void);
+    void stop(void);
+    threadId_t getThreadId(void);
+    static threadId_t getCurrentThreadId(void);
+    static void sleep(int);
+  protected: 
+    virtual void* run(void*);
   private:
+    inline bool isStarted() { return status & THREAD_STARTED; };
+    inline void setStarted() { status |= THREAD_STARTED; };
+    inline bool isDetached() { return status & THREAD_DETACHED; };
+    inline void setDetached() { status |= THREAD_DETACHED; };
+
+    threadHandle_t handle;
+    threadId_t id;
+    short status;
+    void* param;
 };
 
 BDLIB_NS_END
