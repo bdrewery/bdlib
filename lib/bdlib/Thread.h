@@ -26,11 +26,11 @@
 
 #include "bdlib.h"
 
-#ifdef USE_PTHREAD
+#if defined(USE_PTHREAD)
 # include <pthread.h>
 # typedef void* threadMainRet_t
 # typedef pthread_t threadHandle_t
-#elif WIN32
+#elif defined(WIN32)
 # include <windows.h>
 # typedef unsigned int __stdcall threadMainRet_t
 # typeef HANDLE threadHandle_t
@@ -38,8 +38,8 @@
 
 typdef unsigned int threadId_t
 
-#define THREAD_STARTED 0x1
-#define THREAD_STARTED 0x2
+#define THREAD_STARTED  0x1
+#define THREAD_DETACHED 0x2
 
 BDLIB_NS_BEGIN
 static threadMainRet_t threadMain(void*);
@@ -61,12 +61,18 @@ class Thread {
     static threadId_t getCurrentThreadId(void);
     static void sleep(int);
   protected: 
-    virtual void* run(void*);
+    virtual void* run(void*)=0;
   private:
     inline bool isStarted() { return status & THREAD_STARTED; };
     inline void setStarted() { status |= THREAD_STARTED; };
     inline bool isDetached() { return status & THREAD_DETACHED; };
     inline void setDetached() { status |= THREAD_DETACHED; };
+    /**
+     * @brief Is the thread started and not detached?
+     * If status == THREAD_STARTED (1), then the THREAD_DETACHED bit is not set, 
+     * so this is equivalent to: isStarted() && !isDetached()
+     */
+    inline bool shouldDetach() { return status == THREAD_STARTED; };
 
     threadHandle_t handle;
     threadId_t id;
