@@ -26,6 +26,10 @@
 
 #include "bdlib.h"
 
+#if !defined(USE_PTHREAD) && !defined(WIN32)
+# define NO_THREADS 1
+#endif
+
 #if defined(USE_PTHREAD)
 # include <pthread.h>
 typedef void* threadMainRet_t;
@@ -34,7 +38,7 @@ typedef pthread_t threadHandle_t;
 # include <windows.h>
 typedef unsigned int __stdcall threadMainRet_t;
 typedef HANDLE threadHandle_t;
-#else /* NO THREAD SUPPORT */
+#elif defined(NO_THREADS) /* NO THREAD SUPPORT */
 typedef void* threadMainRet_t;
 typedef short threadHandle_t;
 #endif

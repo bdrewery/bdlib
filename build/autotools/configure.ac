@@ -149,6 +149,7 @@ AC_CACHE_SAVE
 AC_CHECK_FUNCS([fsync getrusage isascii])
 AC_CHECK_FUNCS([random srandom gettime])
 AC_CHECK_FUNCS([strcasecmp strncasecmp])
+AC_CHECK_FUNCS([select])
 
 #checkpoint
 AC_CACHE_SAVE

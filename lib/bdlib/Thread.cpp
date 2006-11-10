@@ -30,6 +30,15 @@ static const char rcsid[] = "$Id$";
 #if defined(WIN32)
 # include <process.h>
 #endif
+#ifdef HAVE_SYS_TIME_H
+# include <sys/time.h>
+#endif
+#ifdef HAVE_SYS_SELECT_H
+# include <sys/select.h>
+#endif
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 
 BDLIB_NS_BEGIN
 static threadMainRet_t threadMain(void* object) {
@@ -61,7 +70,7 @@ int Thread::start(void* param) {
         CloseHandle(this->handle);
       setStarted();
     }
-#else /* NO THREAD SUPPORT */
+#elif defined(NO_THREADS) /* NO THREAD SUPPORT */
     /* No thread support, pretend the thread started */
     setStarted();
 #endif 
@@ -75,7 +84,7 @@ void Thread::detach(void) {
     pthread_detach(this->handle);
 #elif defined(WIN32)
     CloseHandle(this->handle);
-#else /* NO THREAD SUPPORT */
+#elif defined(NO_THREADS) /* NO THREAD SUPPORT */
     ; /* nop */
 #endif
   setDetached();
@@ -110,4 +119,27 @@ void Thread::stop(void) {
   }
 }
 
+threadId_t Thread::getThreadId(void) {
+  return this->id;
+}
+
+threadId_t Thread::getCurrentThreadId(void) {
+#if defined(USE_PTHREAD) || defined(NO_THREADS)
+  return 0;
+#elif defined(WIN32)
+  return GetCurrentThreadId();
+#endif
+}
+
+void Thread::sleep(int delay) {
+#if defined(USE_PTHREAD) || defined(NO_THREADS)
+  timeval timeout;
+
+  timeout.tv_sec = delay / 1000;
+  timeout.tv_usec = (delay * 1000) % 1000000;
+  select(0, (fd_set*) NULL, (fd_set*) NULL, (fd_set*) NULL, &timeout);
+#elif defined(WIN32)
+  ::Sleep(delay);
+#endif
+}
 BDLIB_NS_END
