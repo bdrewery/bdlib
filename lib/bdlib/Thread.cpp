@@ -61,7 +61,10 @@ int Thread::start(void* param) {
         CloseHandle(this->handle);
       setStarted();
     }
-#endif /* WIN32 */
+#else /* NO THREAD SUPPORT */
+    /* No thread support, pretend the thread started */
+    setStarted();
+#endif 
   }
   return isStarted();
 }
@@ -72,6 +75,8 @@ void Thread::detach(void) {
     pthread_detach(this->handle);
 #elif defined(WIN32)
     CloseHandle(this->handle);
+#else /* NO THREAD SUPPORT */
+    ; /* nop */
 #endif
   setDetached();
 }

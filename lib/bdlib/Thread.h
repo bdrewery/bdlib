@@ -28,20 +28,24 @@
 
 #if defined(USE_PTHREAD)
 # include <pthread.h>
-# typedef void* threadMainRet_t
-# typedef pthread_t threadHandle_t
+typedef void* threadMainRet_t;
+typedef pthread_t threadHandle_t;
 #elif defined(WIN32)
 # include <windows.h>
-# typedef unsigned int __stdcall threadMainRet_t
-# typeef HANDLE threadHandle_t
+typedef unsigned int __stdcall threadMainRet_t;
+typedef HANDLE threadHandle_t;
+#else /* NO THREAD SUPPORT */
+typedef void* threadMainRet_t;
+typedef short threadHandle_t;
 #endif
 
-typdef unsigned int threadId_t
+typedef unsigned int threadId_t;
+
+BDLIB_NS_BEGIN
 
 #define THREAD_STARTED  0x1
 #define THREAD_DETACHED 0x2
 
-BDLIB_NS_BEGIN
 static threadMainRet_t threadMain(void*);
 
 /**
@@ -49,10 +53,16 @@ static threadMainRet_t threadMain(void*);
   * @brief Extendable thread class
   */
 class Thread {
+  private:
+    threadHandle_t handle;
+    threadId_t id;
+    short status;
+    void* param;
+
   friend threadMainRet_t threadMain(void*);
   public:
     Thread(void) : handle(0), id(0), status(0), param(NULL) {};
-    virtual ~Thread() : { stop(); };
+    virtual ~Thread() { stop(); };
     int start(void* = NULL);
     void detach(void);
     void* wait(void);
@@ -73,11 +83,6 @@ class Thread {
      * so this is equivalent to: isStarted() && !isDetached()
      */
     inline bool shouldDetach() { return status == THREAD_STARTED; };
-
-    threadHandle_t handle;
-    threadId_t id;
-    short status;
-    void* param;
 };
 
 BDLIB_NS_END
