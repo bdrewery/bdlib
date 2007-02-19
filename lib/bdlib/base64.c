@@ -28,6 +28,8 @@ static const char rcsid[] = "$Id$";
 #include <cstdlib>
 #include "base64.h"
 
+BDLIB_NS_BEGIN
+
 #define NUM_ASCII_BYTES (3)
 #define NUM_ENCODED_BYTES (4)
 #define PADDING_CHAR '='
@@ -166,3 +168,5 @@ char *b64dec(const unsigned char *data, size_t *len)
   dest[*len] = '\0';
   return dest;
 }
+
+BDLIB_NS_END

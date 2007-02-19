@@ -24,10 +24,11 @@
 #ifndef _W_BASE64_H
 #define _W_BASE64_H 1
 
-//BDLIB_NS_BEGIN
-//class Base64 {
-//};
-//BDLIB_NS_END
+#include "bdlib.h"
+
+BDLIB_NS_BEGIN
+class Base64 {
+};
 
 /**
   * @brief Encode a plaintext string into base64 (returns a buffer)
@@ -61,4 +62,5 @@ char *b64dec(const unsigned char *data, size_t *len);
   */
 void b64dec_buf(const unsigned char *data, size_t *len, char *dest);
 
+BDLIB_NS_END
 #endif /* !_W_BASE64_H */ 
