@@ -4,6 +4,7 @@
  */
 #include "String.h"
 #include <stdarg.h>
+#include "base64.h"
 //#include <memory>
 //#include <iostream>
 //using namespace std;
@@ -371,6 +372,7 @@ const String String::decrypt(String key) {
   free(bdata);
   return old;
 }
+#endif /* DISABLED */
 
 const String String::base64Encode(void) {
   String old(*this);
@@ -391,6 +393,5 @@ const String String::base64Decode(void) {
   free(p);
   return old;
 }
-#endif /* DISABLED */
 
 BDLIB_NS_END

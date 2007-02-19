@@ -268,6 +268,67 @@ void StringTest :: printfTest(void)
     h = new String(35);
 */
 
+void StringTest :: base64Test(void)
+{
+  *b = "b";
+  *c = *b;
+  b->base64Encode();
+  CPPUNIT_ASSERT(*b != *c);
+  CPPUNIT_ASSERT(*b != "b");
+  CPPUNIT_ASSERT(*b == "Yg==");
+  b->base64Decode();
+  CPPUNIT_ASSERT(*b == *c);
+  CPPUNIT_ASSERT(*b == "b");
+
+  *b = "bl";
+  *c = *b;
+  b->base64Encode();
+  CPPUNIT_ASSERT(*b != *c);
+  CPPUNIT_ASSERT(*b != "bl");
+  CPPUNIT_ASSERT(*b == "Ymw=");
+  b->base64Decode();
+  CPPUNIT_ASSERT(*b == *c);
+  CPPUNIT_ASSERT(*b == "bl");
+
+  *b = "bla";
+  *c = *b;
+  b->base64Encode();
+  CPPUNIT_ASSERT(*b != *c);
+  CPPUNIT_ASSERT(*b != "bla");
+  CPPUNIT_ASSERT(*b == "Ymxh");
+  b->base64Decode();
+  CPPUNIT_ASSERT(*b == *c);
+  CPPUNIT_ASSERT(*b == "bla");
+
+  *b = "blah";
+  *c = *b;
+  b->base64Encode();
+  CPPUNIT_ASSERT(*b != *c);
+  CPPUNIT_ASSERT(*b != "blah");
+  CPPUNIT_ASSERT(*b == "YmxhaA==");
+  b->base64Decode();
+  CPPUNIT_ASSERT(*b == *c);
+  CPPUNIT_ASSERT(*b == "blah");
+
+
+
+  d->base64Encode();
+  d->base64Decode();
+  CPPUNIT_ASSERT(*d == cstring);
+
+  String eff = String(*f);
+  f->base64Encode();
+  f->base64Decode();
+  CPPUNIT_ASSERT(eff == *f);
+
+  const char *cs = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+
+  String tmp = String(cs);
+  tmp.base64Encode();
+  tmp.base64Decode();
+  CPPUNIT_ASSERT(tmp == cs);
+}
+
 #ifdef DISABLED
 void StringTest :: encryptTest(void)
 {
@@ -293,33 +354,6 @@ void StringTest :: encryptTest(void)
   b->decrypt("doggie");
   CPPUNIT_ASSERT(*b == *c);
   CPPUNIT_ASSERT(*b == "blah");
-}
-
-void StringTest :: base64Test(void)
-{
-  b->base64Encode();
-  CPPUNIT_ASSERT(*b != *c);
-  CPPUNIT_ASSERT(*b != "blah");
-  CPPUNIT_ASSERT(*b == "MalVO...");
-  b->base64Decode();
-  CPPUNIT_ASSERT(*b == *c);
-  CPPUNIT_ASSERT(*b == "blah");
-
-  d->base64Encode();
-  d->base64Decode();
-  CPPUNIT_ASSERT(*d == cstring);
-
-  String eff = String(*f);
-  f->base64Encode();
-  f->base64Decode();
-  CPPUNIT_ASSERT(eff == *f);
-
-  const char *cs = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-
-  String tmp = String(cs);
-  tmp.base64Encode();
-  tmp.base64Decode();
-  CPPUNIT_ASSERT(tmp == cs);
 }
 
 void StringTest :: encryptBase64Test(void)
