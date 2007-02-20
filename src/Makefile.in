@@ -22,7 +22,7 @@ OBJS = core.o \
 MAKE_GENERIC = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'CCDEPMODE=$(CCDEPMODE)'
 
 #.PHONY: default check clean distclean build_msg $(BINEXEC) $(WRAITH) $(WRAITH_UNITS) $(BDLIB) $(BDLIB_UNITS) $(OPENSSL) $(CORE_UNITS)
-.PHONY: default check clean distclean build_msg $(BINEXEC) $(WRAITH_UNITS) $(BDLIB_UNITS) $(CORE_UNITS)
+.PHONY: default check clean distclean build_msg $(BINEXEC) $(WRAITH_UNITS) $(BDLIB_UNITS) $(CORE_UNITS) units
 
 default:
 	@echo ""
@@ -41,6 +41,9 @@ ALL_LIBS = $(OBJS) $(WRAITH) $(BDLIB) $(OPENSSL)
 $(BINEXEC): ../$(BINEXEC)
 
 UNITOBJS = $(CORE_UNITS) $(WRAITH_UNITS) $(BDLIB_UNITS)
+
+units:
+	+cd tests && $(MAKE) units
 
 check: UnitRunner@EXEEXT@
 

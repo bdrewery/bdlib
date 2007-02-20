@@ -162,6 +162,7 @@ DO_DEPS
 AC_CONFIG_FILES([
 	Makefile 
 	src/Makefile 
+	lib/Makefile
 	lib/bdlib/Makefile 
 	lib/bdlib/tests/Makefile
 	lib/wraith/Makefile

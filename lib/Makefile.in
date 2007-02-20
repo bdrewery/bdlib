@@ -1,0 +1,49 @@
+# $Id$
+
+SHELL = @SHELL@
+top_srcdir = @top_srcdir@
+srcdir = @srcdir@
+VPATH = @srcdir@
+
+@SET_MAKE@
+
+include $(top_srcdir)/build/build.mk
+
+.PHONY: default clean distclean normal debug general buildcheck notice notice_debug build units
+
+default: normal
+
+clean:
+	-+@cd wraith && $(MAKE) clean
+	-+@cd bdlib && $(MAKE) clean
+	-+@cd openssl && $(MAKE) clean
+	@rm -f *.a
+
+distclean: clean
+	-+@cd wraith && $(MAKE) distclean
+	-+@cd bdlib && $(MAKE) distclean
+	-+@cd openssl && $(MAKE) distclean
+
+notice:
+	@echo "[*] Making libraries"
+
+notice_debug:
+	@echo "[*] Making libraries (debug)"
+
+normal: general notice build
+
+debug: general notice_debug build
+
+general:
+
+build:
+	+@cd wraith && $(MAKE) wraith
+	+@cd bdlib && $(MAKE) bdlib
+	+@cd openssl && $(MAKE) openssl
+
+buildcheck: build
+
+units:
+	+@cd wraith/tests && $(MAKE) units
+	+@cd bdlib/tests && $(MAKE) units
+
