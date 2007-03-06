@@ -37,7 +37,7 @@ class StringBuf {
         ~StringBuf() { FreeBuf(buf); };
         size_t len; //Length of string
         size_t size; //Capacity of buffer
-        char *buf;
+        char* buf;
         mutable uint8_t n; //References
         char sbuf[16];
     
@@ -49,7 +49,7 @@ class StringBuf {
          * @post A new block of memory is allocated.
          * @todo Implement mempool here.
          */
-        char *AllocBuf(const size_t bytes) {
+        char* AllocBuf(const size_t bytes) {
           if (bytes <= sizeof(sbuf)) return sbuf;
           else return new char[bytes];
         }
@@ -161,7 +161,7 @@ class String {
          * @brief Free up our reference if we have the last one.
          * @post The reference counter is decremented.
          * @post If this was the last Reference, it is free'd
-         * This is only called in ~String() and operator=(String &).
+         * This is only called in ~String() and operator=(String&).
          * It checks whether of not this String was the last reference to the buffer, and if it was, it removes it.
          */
         void CheckDeallocRef() {
@@ -188,7 +188,7 @@ class String {
 
         /* Constructors */
         String() : Ref(new StringBuf()), offset(0), sublen(0) {};
-	String(const String &string) : Ref(string.Ref), offset(string.offset), sublen(string.sublen) { incRef(); };
+	String(const String& string) : Ref(string.Ref), offset(string.offset), sublen(string.sublen) { incRef(); };
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
@@ -196,7 +196,7 @@ class String {
 	 * @post The buffer has been filled with the string.
 	 * @test String test("Some string");
  	*/
-	String(const char *cstring) : Ref(new StringBuf()), offset(0), sublen(0) { if (cstring) append(cstring); };
+	String(const char* cstring) : Ref(new StringBuf()), offset(0), sublen(0) { if (cstring) append(cstring); };
 
 	/**
 	 * @brief Create a String from a given cstring with the given strlen.
@@ -207,7 +207,7 @@ class String {
 	 * @post The buffer has been filled with the string (up to len characters).
 	 * @test String test("Some string");
          */
-        String(const char *cstring, size_t slen) : Ref(new StringBuf()), offset(0), sublen(0) { append(cstring, slen); };
+        String(const char* cstring, size_t slen) : Ref(new StringBuf()), offset(0), sublen(0) { append(cstring, slen); };
 
 	/**
 	 * @brief Create a String from a given character.
@@ -276,7 +276,7 @@ class String {
 	 * @post The actual String size is unchanged.
          * @todo Create ConstAboutToModify() const, this function really should be const.
 	 */
-        const char *c_str() {
+        const char* c_str() {
           AboutToModify(length() + 1);
           Ref->buf[length()] = '\0';
           return data();
@@ -288,7 +288,7 @@ class String {
          * @todo this should be const too
          * This would be used in this situation: 
          * String string("blah");
-         * const char *cstring = (const char *) string;
+         * const char* cstring = (const char*) string;
          */
         const char* operator * () { return c_str(); };
 
@@ -297,7 +297,7 @@ class String {
 	 * @brief Data accessor
 	 * @return Pointer to array of characters (not necesarily null-terminated).
 	 */
-        const char *data() const {
+        const char* data() const {
           return Ref->buf;
         }
 
@@ -341,7 +341,7 @@ class String {
 	 * @param string The String object to compare to
 	 * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
 	 */
-	int compare(const String &string) const { return compare(string, string.length()); };
+	int compare(const String& string) const { return compare(string, string.length()); };
         int compare(const String&, size_t) const;
 //        const StringList split(const char);
 
@@ -362,7 +362,7 @@ class String {
          * @post The buffer is allocated.
          * This is the same as inserting the string at the end of the buffer.
          */
-        void append(const char *string, int n = -1) { insert(length(), string, n); };
+        void append(const char* string, int n = -1) { insert(length(), string, n); };
 
         /**
          * @brief Appends given string to the end of buffer
@@ -371,14 +371,14 @@ class String {
          * @post The buffer is allocated.
          * This is the same as inserting the string at the end of the buffer.
          */
-        void append(const String &string, int n = -1) { insert(length(), string, n); };
+        void append(const String& string, int n = -1) { insert(length(), string, n); };
 
         void insert(int, const char);
-        void insert(int, const char *, int = -1);
+        void insert(int, const char*, int = -1);
         void insert(int, const String&, int = -1);
 
         void replace(int, const char);
-        void replace(int, const char *, int = -1);
+        void replace(int, const char*, int = -1);
         void replace(int, const String&, int = -1);
 
         /**
@@ -406,15 +406,15 @@ class String {
 
         /* Operators */
 
-        String &operator += (const char);
-        String &operator += (const char *);
-        String &operator += (const String&);
-        String &operator += (int);
-        String &operator -= (int);
+        String& operator += (const char);
+        String& operator += (const char*);
+        String& operator += (const String&);
+        String& operator += (int);
+        String& operator -= (int);
 
-        const String &operator ++ (); //Prefix
+        const String& operator ++ (); //Prefix
         const String operator ++ (int); //Postfix
-        const String &operator -- (); //Prefix 
+        const String& operator -- (); //Prefix 
         const String operator -- (int); //Postfix
         //bool operator == (const String&) const;
         //bool operator != (const String&) const;
@@ -425,9 +425,9 @@ class String {
         //operator bool ();
 
 
-        virtual const String &operator = (const char);
-	virtual const String &operator = (const char *);
-	const String &operator = (const String&);
+        virtual const String& operator = (const char);
+	virtual const String& operator = (const char*);
+	const String& operator = (const String&);
         
         friend String operator + (const String&, const String&);
         friend bool operator == (const String&, const String&);
@@ -457,13 +457,13 @@ class String {
  * @post A new string is allocated, reference copied and returned.
  * @return Returns a new string that can be reference copied by the lvalue.
  */
-inline String operator + (const String &string1, const String &string2) {
+inline String operator + (const String& string1, const String& string2) {
   String temp(string1);
   temp += string2;
   return temp;
 }
 
-inline const String &String::operator ++ () { //Prefix
+inline const String& String::operator ++ () { //Prefix
   return (*this) += 1;
 }
 
@@ -474,7 +474,7 @@ inline const String String::operator ++ (int) //Postfix
   return tmp;
 }
 
-inline const String &String::operator -- () { //Prefix
+inline const String& String::operator -- () { //Prefix
   return (*this) -= 1;
 }
 
@@ -493,7 +493,7 @@ inline const String String::operator -- (int) //Postfix
 /**
  * \sa append(const char)
  */
-inline String &String::operator += (const char ch) {
+inline String& String::operator += (const char ch) {
   append(ch);
   return *this;
 }
@@ -501,7 +501,7 @@ inline String &String::operator += (const char ch) {
 /**
  * \sa append(const char*)
  */
-inline String &String::operator += (const char *string) {
+inline String& String::operator += (const char* string) {
   append(string);
   return *this;
 }
@@ -509,19 +509,19 @@ inline String &String::operator += (const char *string) {
 /**
  * \sa append(const String&)
  */
-inline String &String::operator += (const String &string) {
+inline String& String::operator += (const String& string) {
   append(string);
   return *this;
 }
 
-inline String &String::operator += (const int n) {
+inline String& String::operator += (const int n) {
   int len = length() - n;
   replace(0, &Ref->buf[n], len);
   setLength(len);
   return *this;
 }
 
-inline String &String::operator -= (const int n) {
+inline String& String::operator -= (const int n) {
   AboutToModify(capacity());
   subLength(n);
   return *this;
@@ -530,55 +530,55 @@ inline String &String::operator -= (const int n) {
 
 
 // comparison operators:
-inline bool operator == (const String &lhs, const String &rhs) {
+inline bool operator == (const String& lhs, const String& rhs) {
   return (lhs.compare(rhs) == 0);
 }
 
-inline bool operator != (const String &lhs, const String &rhs) {
+inline bool operator != (const String& lhs, const String& rhs) {
   return ! (lhs == rhs);
 }
 
-inline bool operator <  (const String &lhs, const String &rhs) {
+inline bool operator <  (const String& lhs, const String& rhs) {
   return (lhs.compare(rhs) < 0);
 }
 
-inline bool operator <= (const String &lhs, const String &rhs) {
+inline bool operator <= (const String& lhs, const String& rhs) {
   return ! (rhs < lhs);
 }
 
-inline bool operator >  (const String &lhs, const String &rhs) {
+inline bool operator >  (const String& lhs, const String& rhs) {
   return (rhs < lhs);
 }
 
-inline bool operator >= (const String &lhs, const String &rhs) {
+inline bool operator >= (const String& lhs, const String& rhs) {
   return ! (lhs < rhs);
 }
 
 #ifdef no
-//inline bool String::operator == (const String &rhs) const {
+//inline bool String::operator == (const String& rhs) const {
 //  return (compare(rhs) == 0);
 //}
-inline bool operator == (const String &lhs, const String &rhs) {
+inline bool operator == (const String& lhs, const String& rhs) {
   return (lhs.compare(rhs) == 0);
 }
 
-inline bool String::operator != (const String &rhs) const {
+inline bool String::operator != (const String& rhs) const {
   return !(*this == rhs);
 }
 
-inline bool String::operator <  (const String &rhs) const {
+inline bool String::operator <  (const String& rhs) const {
   return (compare(rhs) < 0);
 }
 
-inline bool String::operator <= (const String &rhs) const {
+inline bool String::operator <= (const String& rhs) const {
   return !(rhs < *this);
 }
 
-inline bool String::operator >  (const String &rhs) const {
+inline bool String::operator >  (const String& rhs) const {
   return (rhs < *this);
 }
 
-inline bool String::operator >= (const String &rhs) const {
+inline bool String::operator >= (const String& rhs) const {
   return !(*this < rhs);
 }
 #endif
@@ -586,8 +586,8 @@ inline bool String::operator >= (const String &rhs) const {
 //  return length() == 0;
 //}
 
-inline std::ostream& operator << (std::ostream& os, const String &string) {
-  for (const char *c = string.begin(); c != string.end(); ++c)
+inline std::ostream& operator << (std::ostream& os, const String& string) {
+  for (const char* c = string.begin(); c != string.end(); ++c)
     os << *c;
   return os;
   //return os << string.c_str();
