@@ -21,6 +21,7 @@
 #define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual) BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
 #endif /* CPPUNIT_VERSION */
 
+
 BDLIB_NS_BEGIN
 
 class String;
@@ -82,6 +83,28 @@ private:
  */
 class String {
   private:
+        class Cref {
+          private:
+            friend class String;
+            String& s;
+            int k;
+
+            Cref(String& string, int i) : s(string), k(i) {};
+            Cref(); //Not defined - never used
+
+          public:
+            Cref(const Cref& cref) : s(cref.s), k(cref.k) {};
+            operator char() const { return s.read(k); };
+            Cref& operator=(char c) { 
+              s.write(k, c); 
+              return (*this);
+            };
+            Cref& operator=(const Cref& cref) {
+              (*this) = (char) cref;
+              return (*this);
+            }
+        };
+
         /* Most of these are helper abstractions in case I chose to change the reference implementation
          * ie, into the first element of the buffer
          */
@@ -314,19 +337,20 @@ class String {
          * @sa charAt()
          * Unlinke charAt() this is unchecked.
          */
-        char read(int i) const { return Ref->buf[i]; };
+        char read(int i) const { 
+#ifdef DEBUG
+          hasIndex(i);
+#endif
+          return Ref->buf[i]; 
+        };
 
         void write(int i, char c) {
           getOwnCopy();
           Ref->buf[offset + i] = c;
         };
 
-        const char operator[] (int i) const { 
-#ifdef DEBUG
-        if (i < 0 || i > (int) length()) std::printf("ATTEMPT TO ACCESS INDEX %d/%d\n", i, length());
-#endif
-          return read(i); 
-        };
+        const char operator [](int i) const { return read(i); };
+        Cref operator [](int i) { return Cref(*this, i); };
 
         /**
          * @brief Returns the character at the given index.
@@ -600,3 +624,4 @@ std::istream& getline(std::istream&, String&);
 BDLIB_NS_END
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
 #endif /* !_mSTRING_H */
+

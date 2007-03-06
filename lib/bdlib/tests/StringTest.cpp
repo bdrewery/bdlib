@@ -133,10 +133,20 @@ void StringTest :: charAtTest(void)
 
 void StringTest :: indexTest(void)
 {
-  CPPUNIT_ASSERT_EQUAL('b', (*b)[0]);
-  CPPUNIT_ASSERT_EQUAL('h', (*b)[3]);
-  CPPUNIT_ASSERT_EQUAL(cstring[5], (*d)[5]);
-  CPPUNIT_ASSERT_EQUAL('x', (*g)[0]);
+  CPPUNIT_ASSERT_EQUAL('b', (char) (*b)[0]);
+  CPPUNIT_ASSERT_EQUAL('h', (char) (*b)[3]);
+  CPPUNIT_ASSERT_EQUAL(cstring[5], (char) (*d)[5]);
+  CPPUNIT_ASSERT_EQUAL('x', (char) (*g)[0]);
+
+  (*a) = "This is a test";
+  (*b) = (*a);
+  (*b)[0] = 't';
+  (*b)[1] = 'H';
+  (*b)[2] = (char) (*b)[1];
+  (*b)[3] = (*a)[0];
+
+  CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("tHHT is a test", *b);
 }
 
 void StringTest :: appendTest(void)
