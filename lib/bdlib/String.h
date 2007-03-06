@@ -35,21 +35,21 @@ class StringBuf;
 class StringBuf {
   public:
         ~StringBuf() { FreeBuf(buf); };
-        size_t len; //Length of string
-        size_t size; //Capacity of buffer
-        char* buf;
+        mutable size_t len; //Length of string
+        mutable size_t size; //Capacity of buffer
+        mutable char* buf;
         mutable uint8_t n; //References
-        char sbuf[16];
+        mutable char sbuf[16];
     
         StringBuf() : len(0), size(0), buf(NULL), n(1) {};
-        void Reserve(const size_t);
+        void Reserve(const size_t) const;
         /**
          * @brief Allocates a buffer and returns it's address.
          * @param bytes The number of bytes to allocate.
          * @post A new block of memory is allocated.
          * @todo Implement mempool here.
          */
-        char* AllocBuf(const size_t bytes) {
+        char* AllocBuf(const size_t bytes) const {
           if (bytes <= sizeof(sbuf)) return sbuf;
           else return new char[bytes];
         }
@@ -60,7 +60,7 @@ class StringBuf {
          * @post The buffer is deleted.
          * @todo Implement mempool here.
          */
-        void FreeBuf(const char* p) {
+        void FreeBuf(const char* p) const {
           if (p != sbuf) delete[] p;
         }
 
@@ -100,17 +100,17 @@ class String {
           * @brief Set the lengths to the specified length
           * @param newLen the new length to set to
           */
-        void setLength(size_t newLen) { Ref->len = sublen = newLen; };
+        void setLength(size_t newLen) const { Ref->len = sublen = newLen; };
 
         /**
           * @sa setLength()
           */
-        void addLength(size_t diff) { Ref->len += diff; sublen += diff; };
+        void addLength(size_t diff) const { Ref->len += diff; sublen += diff; };
 
         /**
           * @sa setLength()
           */
-        void subLength(size_t diff) { Ref->len -= diff; sublen -= diff; };
+        void subLength(size_t diff) const { Ref->len -= diff; sublen -= diff; };
 
         /**
           * @brief Mutable Ref->buf+offset reference for use internally
@@ -182,7 +182,8 @@ class String {
           offset = 0;
         }
 
-        void AboutToModify(size_t);
+        void AboutToModify(size_t) const;
+        void getOwnCopy() const { AboutToModify(capacity()); };
   public:
         int rcount() const { return Ref->n; };
 
@@ -274,9 +275,8 @@ class String {
 	 * @post The buffer size is (possibly) incremented by 1 for the '\0' character.
 	 * @post There is a '\0' at the end of the buffer.
 	 * @post The actual String size is unchanged.
-         * @todo Create ConstAboutToModify() const, this function really should be const.
 	 */
-        const char* c_str() {
+        const char* c_str() const {
           AboutToModify(length() + 1);
           Ref->buf[length()] = '\0';
           return data();
@@ -285,21 +285,18 @@ class String {
         /**
          * @sa c_str()
          * @brief This is a cast operator to const char*
-         * @todo this should be const too
          * This would be used in this situation: 
          * String string("blah");
          * const char* cstring = (const char*) string;
          */
-        const char* operator * () { return c_str(); };
+        const char* operator * () const { return c_str(); };
 
 
 	/**
 	 * @brief Data accessor
 	 * @return Pointer to array of characters (not necesarily null-terminated).
 	 */
-        const char* data() const {
-          return Ref->buf;
-        }
+        const char* data() const { return Ref->buf + offset; }
 
         /**
          * @brief Checks if the buffer has the given index or not.
@@ -317,11 +314,18 @@ class String {
          * @sa charAt()
          * Unlinke charAt() this is unchecked.
          */
+        char read(int i) const { return Ref->buf[i]; };
+
+        void write(int i, char c) {
+          getOwnCopy();
+          Ref->buf[offset + i] = c;
+        };
+
         const char operator[] (int i) const { 
 #ifdef DEBUG
         if (i < 0 || i > (int) length()) std::printf("ATTEMPT TO ACCESS INDEX %d/%d\n", i, length());
 #endif
-          return Ref->buf[i]; 
+          return read(i); 
         };
 
         /**
@@ -385,10 +389,7 @@ class String {
          * @sa StringBuf::Reserve()
          * @post The String will also never shrink after this.
         */
-        virtual void Reserve(const size_t newSize) {
-          if (newSize > 0)
-            Ref->Reserve(newSize);
-        };
+        virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize); };
 
 	virtual void printf(const char*, ...);
 #ifdef DISABLED
@@ -522,7 +523,7 @@ inline String& String::operator += (const int n) {
 }
 
 inline String& String::operator -= (const int n) {
-  AboutToModify(capacity());
+  getOwnCopy();
   subLength(n);
   return *this;
 }

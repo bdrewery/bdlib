@@ -41,7 +41,7 @@ BDLIB_NS_BEGIN
  * @post The buffer is at least nsize bytes long.
  * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
  */
-void StringBuf::Reserve(const size_t newSize)
+void StringBuf::Reserve(const size_t newSize) const
 {
   /* Don't new if we already have enough room! */
   if (size < newSize) { 
@@ -69,7 +69,7 @@ void StringBuf::Reserve(const size_t newSize)
  * If needed, performs a deep copy into a new buffer (COW).
  * Also take a hint size n of the new string's size as to avoid needless copying/allocing.
  */
-void String::AboutToModify(size_t n) {
+void String::AboutToModify(size_t n) const {
   if (isShared()) {
     const char *p = constBuf();
     size_t oldLength = length();
@@ -137,7 +137,7 @@ void String::insert(int k, const char ch)
 void String::replace(int k, const char ch) {
   if (k && !hasIndex(k-1)) return;
 
-  AboutToModify(length());
+  getOwnCopy();
   Ref->buf[k] = ch;
 }
 
@@ -181,7 +181,7 @@ void String::replace(int k, const char *string, int n)
     AboutToModify(newlen);
   } else {
     newlen = length();
-    AboutToModify(length());
+    getOwnCopy();
   }
   std::copy(string, string + slen, Ref->buf + k);
   setLength(newlen);
@@ -231,7 +231,7 @@ void String::replace(int k, const String &string, int n) {
     AboutToModify(newlen);
   } else {
     newlen = length();
-    AboutToModify(length());
+    getOwnCopy();
   }
   std::copy(string.begin(), string.begin() + slen, Ref->buf + k);
   setLength(newlen);
