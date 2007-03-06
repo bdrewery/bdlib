@@ -83,6 +83,16 @@ private:
  */
 class String {
   private:
+        /**
+         * @class Cref
+         * @brief Safe element reading and writing.
+         * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
+         * This class should be optimized away and fully inlined such that:
+         * String s;
+         * s[0] = 'a';
+         * Should be rewritten as:
+         * s.write(0, 'a');
+         */
         class Cref {
           private:
             friend class String;
@@ -349,7 +359,16 @@ class String {
           Ref->buf[offset + i] = c;
         };
 
+        /**
+         * @brief Safe element access operator
+         * @todo This is only called on a (const) String, but should for a String as well.
+         */
         const char operator [](int i) const { return read(i); };
+
+        /**
+         * @brief Returns 'Cref' class for safe (cow) writing into String.
+         * @sa Cref
+         */ 
         Cref operator [](int i) { return Cref(*this, i); };
 
         /**

@@ -143,10 +143,11 @@ void StringTest :: indexTest(void)
   (*b)[0] = 't';
   (*b)[1] = 'H';
   (*b)[2] = (char) (*b)[1];
-  (*b)[3] = (*a)[0];
+  (*b)[3] = ((const String) *a)[0];
+  (*b)[5] = (*a)[6];
 
   CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
-  CPPUNIT_ASSERT_STRING_EQUAL("tHHT is a test", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("tHHT ss a test", *b);
 }
 
 void StringTest :: appendTest(void)
