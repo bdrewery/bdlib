@@ -146,11 +146,17 @@ void StringTest :: indexTest(void)
   (*b)[3] = ((const String) *a)[0];
   (*b)[5] = (*a)[6];
   char chr = (*a)[6];
+
+  (*b)[6] = (*b)[7] = 'a';
+  CPPUNIT_ASSERT_EQUAL('a', (char) (*b)[6]);
+  CPPUNIT_ASSERT_EQUAL('a', (char) (*b)[7]);
+
+  (*b)[6] = (*b)[7] = (*a)[0];
  
   CPPUNIT_ASSERT_EQUAL('s', chr);
 
   CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
-  CPPUNIT_ASSERT_STRING_EQUAL("tHHT ss a test", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("tHHT sTTa test", *b);
 }
 
 void StringTest :: appendTest(void)

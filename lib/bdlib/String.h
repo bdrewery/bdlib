@@ -94,25 +94,36 @@ class String {
          * s.write(0, 'a');
          */
         class Cref {
-          private:
             friend class String;
             String& s;
             int k;
 
+            /**
+              * @brief Used by String::Cref operator[]
+              */
             Cref(String& string, int i) : s(string), k(i) {};
             Cref(); //Not defined - never used
 
-          public:
+          public:            
             Cref(const Cref& cref) : s(cref.s), k(cref.k) {};
-            operator char() const { return s.read(k); };
-            Cref& operator=(char c) { 
-              s.write(k, c); 
-              return (*this);
-            };
             Cref& operator=(const Cref& cref) {
               (*this) = (char) cref;
               return (*this);
             }
+
+          public:
+            /**
+             * @sa char String::operator[]
+             */
+            operator char() const { return s.read(k); };
+
+            /**
+             * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
+             */
+            Cref& operator=(char c) { 
+              s.write(k, c); 
+              return (*this);
+            };
         };
 
         /* Most of these are helper abstractions in case I chose to change the reference implementation
