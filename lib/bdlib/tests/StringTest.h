@@ -22,6 +22,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (hasIndexTest);
     CPPUNIT_TEST (charAtTest);
     CPPUNIT_TEST (indexTest);
+    CPPUNIT_TEST (iteratorTest);
     CPPUNIT_TEST (appendTest);
     CPPUNIT_TEST (insertTest);
     CPPUNIT_TEST (replaceTest);
@@ -48,6 +49,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void hasIndexTest(void);
         void charAtTest(void);
         void indexTest(void);
+        void iteratorTest(void);
         void appendTest(void);
         void insertTest(void);
         void replaceTest(void);

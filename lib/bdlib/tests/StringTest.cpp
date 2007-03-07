@@ -2,6 +2,7 @@
  *
  * $Id$
  */
+#include <ctype.h>
 #include "StringTest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
@@ -152,11 +153,30 @@ void StringTest :: indexTest(void)
   CPPUNIT_ASSERT_EQUAL('a', (char) (*b)[7]);
 
   (*b)[6] = (*b)[7] = (*a)[0];
+
+  (*b)[6] = (*b)[6] = (*b)[6];
  
   CPPUNIT_ASSERT_EQUAL('s', chr);
 
   CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("tHHT sTTa test", *b);
+}
+
+void StringTest :: iteratorTest(void)
+{
+  (*a) = (*b) = "this is just a TEST";
+
+  for (size_t i = 0; i < (*a).length(); ++i)
+    (*a)[i] = toupper((*a)[i]);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS IS JUST A TEST", (*a));  
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", (*b));
+
+  for (size_t i = 0; i < (*a).length() - 1; ++i)
+    (*a)[i] = (*b)[i+1] = tolower((*a)[i]);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a tesT", (*a));  
+  CPPUNIT_ASSERT_STRING_EQUAL("tthis is just a tes", (*b));
 }
 
 void StringTest :: appendTest(void)

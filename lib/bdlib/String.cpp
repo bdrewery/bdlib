@@ -272,11 +272,13 @@ const String &String::operator=(const char *string) {
  * @return The new string object.
  */
 const String &String::operator=(const String &string) {
-  string.incRef();
-  offset = string.offset;
-  sublen = string.sublen;
-  CheckDeallocRef();
-  Ref = string.Ref;
+  if (&string != this) {
+    string.incRef();
+    offset = string.offset;
+    sublen = string.sublen;
+    CheckDeallocRef();
+    Ref = string.Ref;
+  }
   return *this;
 }
 

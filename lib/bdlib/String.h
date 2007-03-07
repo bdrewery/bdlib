@@ -349,7 +349,7 @@ class String {
         */
         bool hasIndex(int i) const { 
 #ifdef DEBUG
-        if (i < 0 || i > (int) length()) std::printf("ATTEMPT TO ACCESS INDEX %d/%d\n", i, length());
+        if (i < 0 || i >= (int) (offset + length())) std::printf("ATTEMPT TO ACCESS INDEX %d/%d\n", i, (offset + length()));
 #endif
           return (i < (int) length()); 
         };
@@ -358,12 +358,7 @@ class String {
          * @sa charAt()
          * Unlinke charAt() this is unchecked.
          */
-        char read(int i) const { 
-#ifdef DEBUG
-          hasIndex(i);
-#endif
-          return Ref->buf[i]; 
-        };
+        char read(int i) const { return Ref->buf[i]; };
 
         void write(int i, char c) {
           getOwnCopy();
