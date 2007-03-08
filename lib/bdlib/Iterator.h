@@ -24,18 +24,62 @@
 #ifndef _W_ITERATOR_H
 #define _W_ITERATOR_H 1
 
+#include <iterator>
 #include "bdlib.h"
 
 BDLIB_NS_BEGIN
 template <typename T>
 class Iterator {
   public:
-    virtual T next() = 0;
-    virtual bool hasNext() = 0;
+    virtual bool hasNext() { return bool(*this); };
     virtual ~Iterator() {};
-//    virtual const &T operator ++(); //prefix
-//    virtual const T operator ++(int); //postfix
+
+    virtual operator bool() = 0;
+    virtual T& operator*() = 0;
+    virtual T* operator->() { return &(operator*()); };
+
+//    virtual Iterator& operator++() = 0;
+//    virtual Iterator operator++(int) = 0;
+//    virtual Iterator& operator--() = 0;
+//    virtual Iterator operator--(int) = 0;
+
 //    virtual void remove() = 0;
 };
+
+/*
+template<class Iter> struct iterator_traits {
+  typedef typename Iter::iterator_category iterator_category;		//S(19.2.3)
+  typedef typename Iter::value_type value_type;				//Type of element
+  typedef typename Iter::difference_type difference_type;
+  typedef typename Iter::pointer pointer;				//return type of operator->()
+  typedef typename Iter::reference reference;				//return type of operator*()
+};
+
+template<class T> struct iterator_traits<T*> {
+  typedef random_access_iterator_tag iterator_category;
+  typedef T value_type;
+  typedef ptrdiff_t difference_type;
+  typedef T* pointer;
+  typedef T& reference;
+}
+*/
+
+template <class Key, class Value>
+struct KeyValue {
+  Key key;
+  Value value;
+
+  KeyValue() : key(), value() {};
+  KeyValue(const Key& _key, const Value& _value) : key(_key), value(_value) {};
+  KeyValue(const KeyValue& kv) : key(kv.key), value(kv.value) {};
+/*
+  KeyValue& operator=(const KeyValue& kv) {
+    key = Key(kv.key);
+    value = Value(kv.value);
+    return *this;
+  }
+*/
+};
+
 BDLIB_NS_END
 #endif /* !_W_ITERATOR_H */ 

@@ -26,7 +26,10 @@
 
 #include "bdlib.h"
 #include "Iterator.h"
+
+#include "String.h"
 BDLIB_NS_BEGIN
+
 
 template <class Key, class Value>
 /**
@@ -34,19 +37,20 @@ template <class Key, class Value>
   * @brief Binary tree data structure
   */
 class BinaryTree {
+  class BinaryTreeIterator;
+
+  public:
+    typedef BinaryTreeIterator iterator;
+    typedef KeyValue<Key, Value> iterator_type;
+
   private:
     class Node {
       public:
         Node *left;
         Node *right;
-        Key key;
-        Value value;
+        iterator_type kv;
 
-        Node(const Key k, const Value v) {
-          key = k;
-          value = v;
-          left = right = NULL;
-        }
+        Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
     };
 
     int my_size;
@@ -60,9 +64,9 @@ class BinaryTree {
       */
     Node* &fetchNode(Node* const* search, const Key &key) const {
       while ((*search) != NULL) {
-        if (key < (*search)->key)
+        if (key < (*search)->kv.key)
           search = &(*search)->left;
-        else if (key > (*search)->key)
+        else if (key > (*search)->kv.key)
           search = &(*search)->right;
         else {
           return (Node*&) *search;
@@ -80,7 +84,7 @@ class BinaryTree {
       * It will of course fail, but this is the location to place the node.
       */
     void insertNode(Node** search, Node* const node) {
-      Node* &insertAt = fetchNode(search, node->key);
+      Node* &insertAt = fetchNode(search, node->kv.key);
       insertAt = node;
       ++my_size;
     }
@@ -109,8 +113,7 @@ class BinaryTree {
         while (temp->right != NULL)
          temp = temp->right;
 
-        node->key = temp->key;
-        node->value = temp->value;
+        node->kv = iterator_type(temp->kv);
         deleteNode(temp);
       }
     }
@@ -134,70 +137,6 @@ class BinaryTree {
       */
     size_t size() const { return my_size; };
     bool isEmpty() const { return size() == 0; };
-
-    class IteratorHelper : public Iterator<Value> {
-      private:
-        int index;
-        int my_size;
-        Value *storage;
-
-        void fillArray(int &i, const Node *node) {
-          if (node == NULL) 
-            return;
-          fillArray(i, node->left);
-          storage[i++] = node->value;
-          fillArray(i, node->right);
-        }
-
-//        IteratorHelper& operator=(const IteratorHelper&); ///<Block implicit copy constructor
-      public:
-        IteratorHelper(Node *node, int size) : Iterator<Value>(), index(0), my_size(size), storage(new Value[my_size]) {
-          int i = 0;
-          fillArray(i, node);
-        }
-
-        IteratorHelper(const IteratorHelper &iter) : Iterator<Value>(), index(0), my_size(iter.my_size), storage(new Value[iter.my_size]) {
-          for (int i = 0; i < my_size; i++)
-            storage[i] = iter.storage[i];
-        }
-
-        IteratorHelper &operator = (const IteratorHelper &iter) {
-          index = iter.index;
-          my_size = iter.my_size;
-          for (int i = 0; i < my_size; i++)
-            storage[i] = iter.storage[i];
-          return *this;
-        }
-
-        virtual ~IteratorHelper() {
-          delete[] storage;
-        }
-
-        virtual bool hasNext() {
-          return (index < my_size);
-        }
-
-        virtual Value next() {
-          return storage[index++];
-        }
-/* not done
-        virtual const Value& operator ++() { //prefix
-          Value v = Q.front();
-          Q.pop();
-          return v;
-        }
-
-        virtual const Value operator ++(int) { //postfix
-
-        }
-*/    
-    };
-
-    typedef IteratorHelper iterator;
-
-    iterator begin() const {
-      return IteratorHelper(root, my_size);
-    }
 
   public:
     BinaryTree() : my_size(0), root(NULL) {};
@@ -253,7 +192,7 @@ class BinaryTree {
 
       Node* node = fetchNode(&root, key);
       if (node)
-        return node->value;
+        return node->kv.value;
       return empty;
     }
 
@@ -267,15 +206,103 @@ class BinaryTree {
       Key empty;
       if (isEmpty()) return empty;
 
-      iterator iter = begin();
-      while (iter.hasNext()) {
-        Node *node = iter.next();
-        if (node->value == value)
-          return node->key;
+      for (iterator iter = begin(); iter; ++iter) {
+        if (iter->value == value)
+          return iter->key;
       }
       return empty;
     }
 #endif
+
+  private:
+    class BinaryTreeIterator : public Iterator<iterator_type> {
+      friend class BinaryTree;
+      private:
+        int index;
+        int my_size;
+        iterator_type* storage;
+
+        void fillArray(int &i, const Node *node) {
+          if (node == NULL) 
+            return;
+          fillArray(i, node->left);
+          storage[i++] = iterator_type(node->kv);
+          fillArray(i, node->right);
+        }
+
+        BinaryTreeIterator(Node *node, int size, bool end = 0) : Iterator<iterator_type>(), 
+                                                                 index(end ? size : 0), 
+                                                                 my_size(size), 
+                                                                 storage(new iterator_type[size]) {
+          int i = 0;
+          fillArray(i, node);
+        }
+        //BinaryTreeIterator& operator=(const BinaryTreeIterator&); ///<Block implicit copy constructor
+      public:
+        BinaryTreeIterator(const iterator &iter) : Iterator<iterator_type>(), 
+                                                             index(iter.index), 
+                                                             my_size(iter.my_size), 
+                                                             storage(new iterator_type[iter.my_size]) {
+          for (int i = 0; i < my_size; ++i)
+            storage[i] = iter.storage[i];
+        }
+
+        iterator& operator =(const iterator& iter) {
+          if (&iter != this) {
+            if (my_size != iter.my_size) {
+              delete[] storage;
+              storage = new iterator_type[iter.my_size];
+            }
+
+            index = iter.index;
+            my_size = iter.my_size;
+
+            for (int i = 0; i < my_size; ++i)
+              storage[i] = iter.storage[i];
+          }
+          return *this;
+        }
+
+        virtual ~BinaryTreeIterator() { delete[] storage; }
+
+        virtual operator bool() { return (index < my_size); };
+
+        virtual iterator_type next() {
+          return storage[index++];
+        }
+
+        virtual iterator_type& operator *() {
+          return storage[index];
+        }
+
+        //Postfix
+        virtual iterator operator ++(int) {
+          iterator tmp(*this);
+          ++index;
+          return tmp;
+        }
+
+        virtual iterator& operator ++() {
+          ++index;
+          return *this;
+        }
+
+        //Postfix
+        virtual iterator operator --(int) {
+          iterator tmp(*this);
+          --index;
+          return tmp;
+        }
+
+        virtual iterator& operator --() {
+          --index;
+          return *this;
+        }
+    };
+  public:
+    iterator begin() { return iterator(root, my_size); };
+    iterator end() { return iterator(root, my_size, 1); };
+
 };
 
 BDLIB_NS_END

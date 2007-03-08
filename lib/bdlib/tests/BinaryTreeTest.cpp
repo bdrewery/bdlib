@@ -167,35 +167,64 @@ void BinaryTreeTest :: iterateTest (void)
   a->insert(4, "Blah4");
 
   BinaryTree<int, String>::iterator iter = a->begin();
-  while (iter.hasNext()) {
+
+  while (iter) {
 //    int key = (int) iter.next();
 //    printf("%d\n", key);
-    String value = iter.next();
+    String value = (iter++)->value;
 //    printf("%d: %s\n", key, a->getValue(key));
   }
 
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)->value);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (iter++)->value);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value);
 
   a->remove(4);
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)->value);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value);
 
   a->remove(2);
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value);
 
   a->remove(8);
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value);
 
   a->remove(1);
   iter = a->begin();
-  CPPUNIT_ASSERT_EQUAL(false, iter.hasNext());
+  CPPUNIT_ASSERT_EQUAL(false, (bool) iter);
+
+  /* Now reinsert some data N:testN .. */
+  for (int i = 0; i < 5; ++i) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", i);
+    (*a).insert(i, String(buf));
+  }
+
+  int n = 0;
+  /* And ensure it comes out in key order in tact */
+  for (iter = (*a).begin(); iter; (++iter)) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", n);
+    CPPUNIT_ASSERT_EQUAL(n, iter->key);
+    CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter->value);
+    ++n;
+  }
+
+  n = (*a).size();
+  /* Test reverse */
+  for (iter = (*a).end(); iter; (--iter)) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", n);
+    CPPUNIT_ASSERT_EQUAL(n, iter->key);
+    CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter->value);
+    --n;
+  }
+
 }
