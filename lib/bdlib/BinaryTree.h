@@ -64,9 +64,9 @@ class BinaryTree {
       */
     Node* &fetchNode(Node* const* search, const Key &key) const {
       while ((*search) != NULL) {
-        if (key < (*search)->kv.key)
+        if (key < (*search)->kv.key())
           search = &(*search)->left;
-        else if (key > (*search)->kv.key)
+        else if (key > (*search)->kv.key())
           search = &(*search)->right;
         else {
           return (Node*&) *search;
@@ -84,7 +84,7 @@ class BinaryTree {
       * It will of course fail, but this is the location to place the node.
       */
     void insertNode(Node** search, Node* const node) {
-      Node* &insertAt = fetchNode(search, node->kv.key);
+      Node* &insertAt = fetchNode(search, node->kv.key());
       insertAt = node;
       ++my_size;
     }
@@ -108,13 +108,12 @@ class BinaryTree {
         --my_size;
       } else {
         //Two children, find max of left subtree and swap
-        Node*& temp = node->left;
+        Node** temp = &(node->left);
 
-        while (temp->right != NULL)
-         temp = temp->right;
-
-        node->kv = iterator_type(temp->kv);
-        deleteNode(temp);
+        while ((*temp)->right != NULL)
+          temp = &(*temp)->right;
+        node->kv = (*temp)->kv;
+        deleteNode(*temp);
       }
     }
   public:
@@ -147,10 +146,7 @@ class BinaryTree {
       * This simply deletes the root node over and over until the root is NULL.
       * There may possibly be a quicker way that does not use recursion (deleteNode does) but this seems the simplest.
       */
-    virtual ~BinaryTree() {
-      while (root != NULL)
-        deleteNode(root);
-    };
+    virtual ~BinaryTree() { clear(); };
 
     /**
       * @brief insert Key/Value pair into tree
@@ -181,6 +177,11 @@ class BinaryTree {
       return false;
     }
 
+    void clear() {
+      while (root != NULL)
+        deleteNode(root);
+    }
+
     /**
       * @brief Find a value in the tree from the key given
       * @param key The key to search for
@@ -192,7 +193,7 @@ class BinaryTree {
 
       Node* node = fetchNode(&root, key);
       if (node)
-        return node->kv.value;
+        return node->kv.value();
       return empty;
     }
 
@@ -207,8 +208,8 @@ class BinaryTree {
       if (isEmpty()) return empty;
 
       for (iterator iter = begin(); iter; ++iter) {
-        if (iter->value == value)
-          return iter->key;
+        if (iter->value() == value)
+          return iter->key();
       }
       return empty;
     }
@@ -217,12 +218,14 @@ class BinaryTree {
   private:
     class BinaryTreeIterator : public Iterator<iterator_type> {
       friend class BinaryTree;
+      typedef BinaryTree<Key, Value> Tree;
       private:
+        Tree* tree;
         int index;
         int my_size;
         iterator_type* storage;
 
-        void fillArray(int &i, const Node *node) {
+        void fillArray(int& i, const Node* node) {
           if (node == NULL) 
             return;
           fillArray(i, node->left);
@@ -230,19 +233,21 @@ class BinaryTree {
           fillArray(i, node->right);
         }
 
-        BinaryTreeIterator(Node *node, int size, bool end = 0) : Iterator<iterator_type>(), 
-                                                                 index(end ? size : 0), 
-                                                                 my_size(size), 
-                                                                 storage(new iterator_type[size]) {
+        BinaryTreeIterator(Tree* t, Node* node, int size, bool end = 0) : Iterator<iterator_type>(), 
+                                                                          tree(t),
+                                                                          index(end ? size - 1: 0), 
+                                                                          my_size(size), 
+                                                                          storage(new iterator_type[size]) {
           int i = 0;
           fillArray(i, node);
         }
         //BinaryTreeIterator& operator=(const BinaryTreeIterator&); ///<Block implicit copy constructor
       public:
-        BinaryTreeIterator(const iterator &iter) : Iterator<iterator_type>(), 
-                                                             index(iter.index), 
-                                                             my_size(iter.my_size), 
-                                                             storage(new iterator_type[iter.my_size]) {
+        BinaryTreeIterator(const iterator& iter) : Iterator<iterator_type>(), 
+                                                   tree(iter.tree),
+                                                   index(iter.index), 
+                                                   my_size(iter.my_size), 
+                                                   storage(new iterator_type[iter.my_size]) {
           for (int i = 0; i < my_size; ++i)
             storage[i] = iter.storage[i];
         }
@@ -254,6 +259,7 @@ class BinaryTree {
               storage = new iterator_type[iter.my_size];
             }
 
+            tree = iter.tree;
             index = iter.index;
             my_size = iter.my_size;
 
@@ -265,15 +271,20 @@ class BinaryTree {
 
         virtual ~BinaryTreeIterator() { delete[] storage; }
 
-        virtual operator bool() { return (index < my_size); };
-
-        virtual iterator_type next() {
-          return storage[index++];
+        virtual void remove() {
+          tree->remove(storage[index].key());
+/*
+          --my_size;
+          for (int i = index; i < my_size; ++i)
+            storage[i] = storage[i + 1];
+          //The iterator is 'invalid' now, but the index is shifter down in case iter++ is called
+          --index;
+*/
         }
 
-        virtual iterator_type& operator *() {
-          return storage[index];
-        }
+        virtual operator bool() { return (index > 0 && index < my_size); };
+
+        virtual iterator_type& operator *() { return storage[index]; }
 
         //Postfix
         virtual iterator operator ++(int) {
@@ -300,8 +311,8 @@ class BinaryTree {
         }
     };
   public:
-    iterator begin() { return iterator(root, my_size); };
-    iterator end() { return iterator(root, my_size, 1); };
+    iterator begin() { return iterator(this, root, my_size); };
+    iterator end() { return iterator(this, root, my_size, 1); };
 
 };
 
