@@ -65,7 +65,7 @@ template<class T> struct iterator_traits<T*> {
 */
 
 template <class Key, class Value>
-struct KeyValue {
+class KeyValue {
   private:
     Key k;
     Value v;
@@ -75,8 +75,8 @@ struct KeyValue {
     KeyValue(const Key& _key, const Value& _value) : k(_key), v(_value) {};
     KeyValue(const KeyValue& kv) : k(kv.k), v(kv.v) {};
 
-    Key& key() { return k; };
-    Value& value() { return v; };
+    const Key& key() const { return k; };
+    const Value& value() const { return v; };
 /*
   KeyValue& operator=(const KeyValue& kv) {
     key = Key(kv.key);
