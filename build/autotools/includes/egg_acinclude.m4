@@ -136,7 +136,7 @@ then
     if test "$egg_cv_var_ccstatic" = "yes"
     then
       CXXDEBUG="$CXX"
-      CXX="$CXX -static"
+#      CXX="$CXX -static"
     else
       cat << 'EOF' >&2
 configure: error:

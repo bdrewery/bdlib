@@ -16,8 +16,8 @@ BUILDTS  := $(shell build/getts.sh)
 
 
 # defaults
-CXX = @CCACHE@ @DISTCC@ @CXX@
-LD = @CXX@
+CXX = @CCACHE@ @DISTCC@ @CXX@ -static
+LD = @CXX@ -static
 CXXDEBUG = @CCACHE@ @DISTCC@ @CXXDEBUG@
 LDDEBUG = @CXXDEBUG@
 LIBS = @LIBS@ @ZLIB@
