@@ -166,8 +166,8 @@ BUILDARCH="$egg_cv_var_system_machine"
 
 case "$egg_cv_var_system_machine" in
   i*)
-    CXX="$CXX -march=i486"
-    BUILDARCH="i486"
+    CXX="$CXX -march=i386"
+    BUILDARCH="i386"
   ;;
   *)
   ;;
