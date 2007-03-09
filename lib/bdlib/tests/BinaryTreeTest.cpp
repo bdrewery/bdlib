@@ -62,12 +62,16 @@ void BinaryTreeTest :: containsTest (void)
 
 void BinaryTreeTest :: clearTest (void) 
 {
-  a->insert(3, "test3");
-  a->insert(1, "test1");
-  a->insert(4, "test4");
-  a->insert(2, "test2");
+  a->insert(2, "Blah2");
+  a->insert(1, "Blah");
+  a->insert(8, "Blah8");
+  a->insert(4, "Blah4");
+  a->insert(6, "Blah6");
+  a->insert(5, "Blah5");
+  a->insert(3, "Blah3");
+  a->insert(10, "Blah10");
 
-  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+  CPPUNIT_ASSERT_EQUAL((size_t)8, a->size());
 
   a->clear();
 
@@ -77,19 +81,23 @@ void BinaryTreeTest :: clearTest (void)
 
 void BinaryTreeTest :: getValueTest (void)
 {
+  String result;
+
   a->insert(1, "Blah");
-  a->insert(1, "Bleck");
   a->insert(2, "Blah2");
   a->insert(8, "Blah8");
   a->insert(4, "Blah4");
-  
-  String result;
 
   result = a->getValue(58);
   CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
-  
+
   result = a->getValue(1);
   CPPUNIT_ASSERT_STRING_EQUAL("Blah", result);
+
+  a->insert(1, "Bleck");
+  
+  result = a->getValue(1);
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", result);
 
   result = a->getValue(4);
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", result);
@@ -214,25 +222,25 @@ void BinaryTreeTest :: iterateTest (void)
   }
 
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value());
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value());
 
   a->remove(4);
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value());
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value());
 
   a->remove(2);
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value());
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value());
 
   a->remove(8);
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (iter++)->value());
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
 
   a->remove(1);
   iter = a->begin();

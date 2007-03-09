@@ -85,6 +85,10 @@ class BinaryTree {
       */
     void insertNode(Node** search, Node* const node) {
       Node* &insertAt = fetchNode(search, node->kv.key());
+      insertNode(insertAt);
+    }
+
+    void insertNode(Node*& insertAt, Node* const node) {
       insertAt = node;
       ++my_size;
     }
@@ -150,15 +154,18 @@ class BinaryTree {
 
     /**
       * @brief insert Key/Value pair into tree
-      * @param key The key to be inserted
-      * @param value The value to be inserted
+      * @param key The key to be inserted (or replaced)
+      * @param value The value to be inserted (or replaced)
       * @post The tree's size is increased by 1 if the element was not already in the tree
       */
     bool insert(const Key &key, const Value &value) {
-      if (contains(key)) 
-        return false;
-      Node *node = new Node(key, value);
-      insertNode(&root, node);
+      Node*& rNode = fetchNode(&root, key);
+      if (rNode)
+        rNode->kv = iterator_type(key, value);
+      else {
+        Node *newNode = new Node(key, value);
+        insertNode(rNode, newNode);
+      }
       return true;
     }
 
