@@ -50,14 +50,14 @@ class List {
     List() : head(NULL), my_size(0) {};
     ~List() { clear(); };
 
-    List(const List<T>& list) : head(NULL), my_size(0) {
+    List(const List& list) : head(NULL), my_size(0) {
       for (Node* search = list.head; search; search = search->next)
         insert(search->ptr);
     }
 
-    List& operator =(const List<T>& list) {
+    List& operator =(const List& list) {
       if (&list != this) {
-        head = NULL;
+        clear();
         for (Node* search = list.head; search; search = search->next)
           insert(search->ptr);
       }

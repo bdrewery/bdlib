@@ -76,14 +76,6 @@ void ListTest :: copyTest (void)
   a->insert("Blah");
   a->insert("Blahend");
 
-  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());  
-  CPPUNIT_ASSERT_EQUAL(true, a->contains("Blahstart"));
-  CPPUNIT_ASSERT_EQUAL(true, a->contains("Blah"));
-  CPPUNIT_ASSERT_EQUAL(true, a->contains("Bleck"));
-  CPPUNIT_ASSERT_EQUAL(true, a->contains("Blah"));
-  CPPUNIT_ASSERT_EQUAL(true, a->contains("Blahend"));
-  CPPUNIT_ASSERT_EQUAL(false, a->contains("Blahk"));
-
   delete b;
   b = new List<String>(*a);
   CPPUNIT_ASSERT_EQUAL((size_t)5, b->size());  
@@ -94,8 +86,6 @@ void ListTest :: copyTest (void)
   CPPUNIT_ASSERT_EQUAL(true, b->contains("Blahend"));
   CPPUNIT_ASSERT_EQUAL(false, b->contains("Blahk"));
 
-  delete b;
-  b = new List<String>();
   (*b) = (*a);
   CPPUNIT_ASSERT_EQUAL((size_t)5, b->size());  
   CPPUNIT_ASSERT_EQUAL(true, b->contains("Blahstart"));
