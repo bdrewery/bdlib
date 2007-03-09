@@ -35,13 +35,91 @@ template <class T>
   */
 class List {
   private:
-    size_t entries;
+    struct Node {
+      const T ptr;
+      Node* next;
+      Node* prev;
+      
+      Node(const T& p) : ptr(p), next(NULL), prev(NULL) {};
+    };
+
+    Node* head;
+    size_t my_size;
+
   public:
-    List() {};
-    List(const List<T>& table) {};
-    ~List() {};
-    List& operator = (const List<T>& l) { return *this; };
-    size_t size() { return entries; };
+    List() : head(NULL), my_size(0) {};
+    ~List() { clear(); };
+
+    List(const List<T>& list) : head(NULL), my_size(0) {
+      for (Node* search = list.head; search; search = search->next)
+        insert(search->ptr);
+    }
+
+    List& operator =(const List<T>& list) {
+      if (&list != this) {
+        head = NULL;
+        for (Node* search = list.head; search; search = search->next)
+          insert(search->ptr);
+      }
+      return *this;
+    }
+
+    void clear() {
+      Node* node = head, *node_n = NULL;
+      while (node) {
+        node_n = node->next;
+        delete node;
+        node = node_n;
+      }
+      head = NULL;
+      my_size = 0;
+    };
+
+    const size_t size() const { return my_size; };
+    bool isEmpty() const { return size() == 0; };
+    operator bool() const { return !isEmpty(); };
+
+    /**
+     * @brief Insert into the list at the head
+     * @param ptr The ptr to insert
+     */
+    void insert(const T& ptr) {
+      Node* node = new Node(ptr);
+      if (!head) {
+        head = node;
+      } else {
+        head->prev = node;
+        node->next = head;
+        head = node;
+      }
+      ++my_size;
+    }
+
+    bool contains(const T& ptr) const {
+      if (head) {
+        for (Node* node = head; node; node = node->next) {
+          if (node->ptr == ptr)
+            return 1;
+        }
+      }
+      return 0;
+    }
+
+    bool remove(const T& ptr) {
+      if (head) {
+        for (Node** node = &head; node; node = &(*node)->next) {
+          if ((*node)->ptr == ptr) {
+            Node* next = (*node)->next;
+            delete (*node);
+            *node = next;
+            --my_size;
+            return 1;
+          }
+        }
+      }
+      return 0;
+    }
+
 };
 
 BDLIB_NS_END
