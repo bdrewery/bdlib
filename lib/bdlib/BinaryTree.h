@@ -204,7 +204,7 @@ class BinaryTree {
     Value& operator [](const Key& key) {
       Node*& node = fetchNode(&root, key);
       if (!node)
-        insert(key, Value());
+        insertNode(node, new Node(key, Value()));
       //The key was inserted at the return node's address! node is now guranteed to be NON-NULL ! */
       return node->kv.v;
     }
