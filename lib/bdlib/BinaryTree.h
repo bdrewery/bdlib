@@ -51,6 +51,9 @@ class BinaryTree {
         iterator_type kv;
 
         Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
+        Node(const Node& n) : left(n.left ? new Node(*(n.left)) : NULL),
+                              right(n.right ? new Node(*(n.right)) : NULL),
+                              kv(n.kv) {};
     };
 
     int my_size;
@@ -140,9 +143,20 @@ class BinaryTree {
       */
     size_t size() const { return my_size; };
     bool isEmpty() const { return size() == 0; };
+    operator bool() const { return !isEmpty(); };
 
   public:
     BinaryTree() : my_size(0), root(NULL) {};
+    BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+
+    BinaryTree& operator = (const BinaryTree& tree) {
+      if (&tree != this) {
+        clear();
+        my_size = tree.my_size;
+        root = new Node(*(tree.root));
+      }
+      return *this;
+    }
 
     /**
       * @brief Destructor

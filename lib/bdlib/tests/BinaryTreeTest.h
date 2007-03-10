@@ -18,6 +18,7 @@ class BinaryTreeTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (containsTest);
     CPPUNIT_TEST (removeTest);
     CPPUNIT_TEST (clearTest);
+    CPPUNIT_TEST (copyTest);
 //    CPPUNIT_TEST (getKeyTest);
     CPPUNIT_TEST (getValueTest);
     CPPUNIT_TEST (iterateTest);
@@ -31,6 +32,7 @@ class BinaryTreeTest : public CPPUNIT_NS :: TestFixture
         void insertTest(void);
         void containsTest(void);
         void clearTest(void);
+        void copyTest(void);
 //        void getKeyTest(void);
         void getValueTest(void);
         void removeTest(void);

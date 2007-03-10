@@ -20,16 +20,14 @@ void BinaryTreeTest :: setUp (void)
     h = new String(35);
 */
   a = new BinaryTree<int, String>();
+  b = c = d = e = f = g = h = NULL;
 }
 
 void BinaryTreeTest :: tearDown (void)
 {
     // finally delete objects
-    delete a; 
-/*
-    delete b; delete c; delete d;
+    delete a; delete b; delete c; delete d;
     delete e; delete f; delete g; delete h;
-*/
 }
 
 void BinaryTreeTest :: insertTest (void)
@@ -58,6 +56,53 @@ void BinaryTreeTest :: containsTest (void)
   CPPUNIT_ASSERT_EQUAL(true, a->contains(1));
   CPPUNIT_ASSERT_EQUAL(false, a->contains(3));
   CPPUNIT_ASSERT_EQUAL(true, a->contains(4));
+}
+
+void BinaryTreeTest :: copyTest (void)
+{
+  a->insert(2, "Blah2");
+  a->insert(1, "Blah");
+  a->insert(8, "Blah8");
+  a->insert(4, "Blah4");
+  a->insert(6, "Blah6");
+  a->insert(5, "Blah5");
+  a->insert(3, "Blah3");
+  a->insert(10, "Blah10");
+  
+
+  delete b;
+  b = new BinaryTree<int, String>(*a);
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(1));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(2));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(3));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(4));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(5));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(6));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(8));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(10));
+  CPPUNIT_ASSERT_EQUAL((size_t)8, b->size());
+
+  (*b) = (*a);
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(1));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(2));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(3));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(4));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(5));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(6));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(8));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(10));
+  CPPUNIT_ASSERT_EQUAL((size_t)8, b->size());
+
+  (*b) = (*b);
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(1));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(2));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(3));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(4));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(5));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(6));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(8));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(10));
+  CPPUNIT_ASSERT_EQUAL((size_t)8, b->size());
 }
 
 void BinaryTreeTest :: clearTest (void) 
