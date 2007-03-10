@@ -266,15 +266,14 @@ const String &String::operator=(const char *string) {
  * @post Our Reference now points to the given String.
  * @post Our old string object has been deleted (disconnected).
  * @return The new string object.
+ * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
  */
 const String &String::operator=(const String &string) {
-  if (&string != this) {
-    string.incRef();
-    offset = string.offset;
-    sublen = string.sublen;
-    CheckDeallocRef();
-    Ref = string.Ref;
-  }
+  string.incRef();
+  offset = string.offset;
+  sublen = string.sublen;
+  CheckDeallocRef();
+  Ref = string.Ref;
   return *this;
 }
 
