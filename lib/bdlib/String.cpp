@@ -69,19 +69,15 @@ void StringBuf::Reserve(const size_t newSize) const
  * If needed, performs a deep copy into a new buffer (COW).
  * Also take a hint size n of the new string's size as to avoid needless copying/allocing.
  */
-void String::AboutToModify(size_t n) const {
-  if (isShared()) {
-    const char *p = constBuf();
-    size_t oldLength = length();
-    size_t oldCapacity = capacity();
+void String::COW(size_t n) const {
+  const char *p = constBuf();
+  size_t oldLength = length();
+  size_t oldCapacity = capacity();
 
-    doDetach();
-    Reserve( std::max(oldCapacity, n) ); //Will set capacity()/size
-    std::copy(p, p + oldLength, Buf());
-    setLength(oldLength);
-  } else {
-    Reserve(n);
-  }
+  doDetach();
+  Reserve( std::max(oldCapacity, n) ); //Will set capacity()/size
+  std::copy(p, p + oldLength, Buf());
+  setLength(oldLength);
 }
 
 /* Accessors */

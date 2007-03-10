@@ -226,7 +226,14 @@ class String {
           offset = 0;
         }
 
-        void AboutToModify(size_t) const;
+        void COW(size_t) const;
+
+        void AboutToModify(size_t n) const {
+          if (isShared())
+            COW(n);
+          else
+            Reserve(n);
+        }
         void getOwnCopy() const { AboutToModify(capacity()); };
   public:
         int rcount() const { return Ref->n; };
@@ -440,7 +447,15 @@ class String {
         */
         virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize); };
 
+#ifdef __GNUC__
+        /* GNU GCC DOC: 
+           Since non-static C++ methods have an implicit this argument, the arguments of such methods 
+           should be counted from two, not one, when giving values for string-index and first-to-check.
+         */
+	virtual void printf(const char*, ...)  __attribute__((format(printf, 2, 3)));
+#else
 	virtual void printf(const char*, ...);
+#endif
 #ifdef DISABLED
 	const String encrypt(String);
 	const String decrypt(String);
