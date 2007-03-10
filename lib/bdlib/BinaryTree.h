@@ -183,6 +183,32 @@ class BinaryTree {
       return true;
     }
 
+    /**
+      * @brief Associate array type accessor (rvalue)
+      * @param key The key to search for
+      */
+    const Value operator [](const Key& key) const {
+      Node*& node = fetchNode(&root, key);
+      if (node)
+        return node->kv.value();
+      return Value();
+    }
+
+    /**
+      * @brief Associate array type accessor (lvalue)
+      * @param key The key to search for
+      * @sa insert
+      * @code tree["key"] = "value";
+      * If the key is not in the tree, it is inserted, and the value set to the rvalue given.
+      */
+    Value& operator [](const Key& key) {
+      Node*& node = fetchNode(&root, key);
+      if (!node)
+        insert(key, Value());
+      //The key was inserted at the return node's address! node is now guranteed to be NON-NULL ! */
+      return node->kv.v;
+    }
+
     /** 
       * @brief Remove the given key (and its value) from the tree
       * @param key The key to be searched/removed

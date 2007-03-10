@@ -43,6 +43,9 @@ void BinaryTreeTest :: insertTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)3, a->size());
   a->insert(4, "Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
+  (*a)[6] = "testIe";
+  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
 }
 
 void BinaryTreeTest :: containsTest (void)
@@ -52,7 +55,9 @@ void BinaryTreeTest :: containsTest (void)
   a->insert(2, "Blah");
   a->insert(8, "Blah");
   a->insert(4, "Blah");
-  
+  (*a)[5] = "testIe";
+
+  CPPUNIT_ASSERT_EQUAL(true, a->contains(5));
   CPPUNIT_ASSERT_EQUAL(true, a->contains(1));
   CPPUNIT_ASSERT_EQUAL(false, a->contains(3));
   CPPUNIT_ASSERT_EQUAL(true, a->contains(4));
@@ -148,6 +153,16 @@ void BinaryTreeTest :: getValueTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", result);
 
   result = a->getValue(8);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", result);
+
+  result = (*a)[8];
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", result);
+
+  result = (*a)[9];
+  CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
+
+  (*a)[9] = (*a)[8];
+  result = (*a)[9];
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", result);
 }
 

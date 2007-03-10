@@ -65,12 +65,11 @@ template<class T> struct iterator_traits<T*> {
 */
 
 template <class Key, class Value>
-class KeyValue {
-  private:
+struct KeyValue {
+  public:
     Key k;
     Value v;
 
-  public:
     KeyValue() : k(), v() {};
     KeyValue(const Key& _key, const Value& _value) : k(_key), v(_value) {};
     KeyValue(const KeyValue& kv) : k(kv.k), v(kv.v) {};
