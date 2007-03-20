@@ -382,14 +382,28 @@ void StringTest :: base64Test(void)
   f->base64Decode();
   CPPUNIT_ASSERT_STRING_EQUAL(*f, eff);
 
-  const char *cs = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  /* Test misc lengths of alphabet */
+  char *buf = (char*) malloc(100);
+  for (int i = 0; i < 100; i++) {
+    buf[0] = 0;
+    /* Create a buffer of length i */
+    for (int k = 0; k < i; k++) {
+      char letter[2];
+      letter[0] = 'a' + k;
+      letter[1] = 0;
+      strcat(buf, letter);
+    }
+    buf[i] = 0;
+    String tmpbuf = buf;
+    tmpbuf.base64Encode();
+//printf("%s -> %s\n", buf, tmpbuf.c_str());
+    tmpbuf.base64Decode();
+    CPPUNIT_ASSERT_STRING_EQUAL(buf, tmpbuf);
+    CPPUNIT_ASSERT_EQUAL((size_t) i, tmpbuf.length());
+  }
+  free(buf);
 
-  String tmp = String(cs);
-  tmp.base64Encode();
-  tmp.base64Decode();
-  CPPUNIT_ASSERT_STRING_EQUAL(cs, tmp);
-  CPPUNIT_ASSERT_EQUAL(strlen(cs), tmp.length());
-
+  String tmp;
 
   const char *twentysix = "this is 26 characters long";
   tmp = twentysix;
