@@ -110,13 +110,14 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
   /* There is either 1 or 2 bytes left to encode (and possibly some padding to add) */
   if (*len > 0) {
     buf[0] = b64_charset[(data[0] & 0xfc) >> 2];
-    buf[1] = b64_charset[((data[0] & 0x03) << 4)];
-    if (*len > 1) {
-      /* Tack on to buf[1] the left-most 4 bits of data[1] */
-      buf[1] += (data[1] & 0xf0) >> 4;
-      buf[2] = b64_charset[(data[1] & 0x0f) << 2];
-    } else
+    if (*len == 1) {
+      buf[1] = b64_charset[((data[0] & 0x03) << 4)];
       buf[2] = PADDING_CHAR;
+    } else if (*len > 1) { /* == 2 .. left as >1 to help optimize with last if */
+      /* Tack on to buf[1] the left-most 4 bits of data[1] */
+      buf[1] = b64_charset[((data[0] & 0x03) << 4) | ((data[1] & 0xf0) >> 4)];
+      buf[2] = b64_charset[(data[1] & 0x0f) << 2];
+    }
     buf[3] = PADDING_CHAR;
     buf += NUM_ENCODED_BYTES;
   }
