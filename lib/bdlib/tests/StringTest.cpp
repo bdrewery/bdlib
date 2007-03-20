@@ -197,6 +197,22 @@ void StringTest :: appendTest(void)
   c->append("  ");
   c->append(*b);
   CPPUNIT_ASSERT_STRING_EQUAL("blahblah blahblah   blah", *c);
+
+  /* Test binary data! */
+  String tmp(255);
+  for (unsigned char c = 0; c < 255; c++)
+    tmp.append(c);
+  CPPUNIT_ASSERT_EQUAL((size_t)255, tmp.length());
+
+  char *s = (char*) malloc(255);
+  for (unsigned char c = 0; c < 255; c++)
+    s[(unsigned int) c] = c;
+  String tmp2 = String(s, 255);
+
+  CPPUNIT_ASSERT_STRING_EQUAL(tmp2, tmp);
+  CPPUNIT_ASSERT_EQUAL(tmp.length(), tmp2.length());
+  free(s);
+
 }
 
 void StringTest :: insertTest(void)
@@ -286,6 +302,11 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("blahtblah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blahtblah", *c);
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
+
+  *a = "";
+  *a += 4;
+  *a -= 4;
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->length());
 }
 
 void StringTest :: printfTest(void)
@@ -367,6 +388,33 @@ void StringTest :: base64Test(void)
   tmp.base64Encode();
   tmp.base64Decode();
   CPPUNIT_ASSERT(tmp == cs);
+  CPPUNIT_ASSERT_EQUAL(strlen(cs), tmp.length());
+
+
+  const char *twentysix = "this is 26 characters long";
+  tmp = twentysix;
+  tmp.base64Encode();
+  tmp.base64Decode();
+  CPPUNIT_ASSERT(tmp == twentysix);
+  CPPUNIT_ASSERT_EQUAL(strlen(twentysix), tmp.length());
+
+  const char *twentynine = "this is 29 characters long";
+  tmp = twentynine;
+  tmp.base64Encode();
+  tmp.base64Decode();
+  CPPUNIT_ASSERT(tmp == twentynine);
+  CPPUNIT_ASSERT_EQUAL(strlen(twentynine), tmp.length());
+
+  tmp = "";
+  tmp.Reserve(255);
+  for (unsigned char c = 0; c < 255; c++)
+    tmp.append(c);
+  String save = String(tmp);
+  tmp.base64Encode();
+  tmp.base64Decode();
+  CPPUNIT_ASSERT_EQUAL((size_t)255, tmp.length());
+  CPPUNIT_ASSERT_STRING_EQUAL(save, tmp);
+  CPPUNIT_ASSERT_EQUAL(save.length(), tmp.length());
 }
 
 #ifdef DISABLED
