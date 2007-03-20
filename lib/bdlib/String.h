@@ -580,6 +580,8 @@ inline String& String::operator += (const String& string) {
 }
 
 inline String& String::operator += (const int n) {
+  if (!length())
+    return *this;
   int len = length() - n;
   replace(0, &Ref->buf[n], len);
   setLength(len);
@@ -587,6 +589,8 @@ inline String& String::operator += (const int n) {
 }
 
 inline String& String::operator -= (const int n) {
+  if (!length())
+    return *this;
   getOwnCopy();
   subLength(n);
   return *this;
