@@ -336,58 +336,58 @@ void StringTest :: base64Test(void)
   b->base64Encode();
   CPPUNIT_ASSERT(*b != *c);
   CPPUNIT_ASSERT(*b != "b");
-  CPPUNIT_ASSERT(*b == "Yg==");
+  CPPUNIT_ASSERT_STRING_EQUAL("Yg==", *b);
   b->base64Decode();
-  CPPUNIT_ASSERT(*b == *c);
-  CPPUNIT_ASSERT(*b == "b");
+  CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("b", *b);
 
   *b = "bl";
   *c = *b;
   b->base64Encode();
   CPPUNIT_ASSERT(*b != *c);
   CPPUNIT_ASSERT(*b != "bl");
-  CPPUNIT_ASSERT(*b == "Ymw=");
+  CPPUNIT_ASSERT_STRING_EQUAL("Ymw=", *b);
   b->base64Decode();
-  CPPUNIT_ASSERT(*b == *c);
-  CPPUNIT_ASSERT(*b == "bl");
+  CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("bl", *b);
 
   *b = "bla";
   *c = *b;
   b->base64Encode();
   CPPUNIT_ASSERT(*b != *c);
   CPPUNIT_ASSERT(*b != "bla");
-  CPPUNIT_ASSERT(*b == "Ymxh");
+  CPPUNIT_ASSERT_STRING_EQUAL("Ymxh", *b);
   b->base64Decode();
-  CPPUNIT_ASSERT(*b == *c);
-  CPPUNIT_ASSERT(*b == "bla");
+  CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("bla", *b);
 
   *b = "blah";
   *c = *b;
   b->base64Encode();
   CPPUNIT_ASSERT(*b != *c);
   CPPUNIT_ASSERT(*b != "blah");
-  CPPUNIT_ASSERT(*b == "YmxhaA==");
+  CPPUNIT_ASSERT_STRING_EQUAL("YmxhaA==", *b);
   b->base64Decode();
-  CPPUNIT_ASSERT(*b == *c);
-  CPPUNIT_ASSERT(*b == "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
 
 
 
   d->base64Encode();
   d->base64Decode();
-  CPPUNIT_ASSERT(*d == cstring);
+  CPPUNIT_ASSERT_STRING_EQUAL(cstring, *d);
 
   String eff = String(*f);
   f->base64Encode();
   f->base64Decode();
-  CPPUNIT_ASSERT(eff == *f);
+  CPPUNIT_ASSERT_STRING_EQUAL(*f, eff);
 
   const char *cs = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
   String tmp = String(cs);
   tmp.base64Encode();
   tmp.base64Decode();
-  CPPUNIT_ASSERT(tmp == cs);
+  CPPUNIT_ASSERT_STRING_EQUAL(cs, tmp);
   CPPUNIT_ASSERT_EQUAL(strlen(cs), tmp.length());
 
 
@@ -395,14 +395,14 @@ void StringTest :: base64Test(void)
   tmp = twentysix;
   tmp.base64Encode();
   tmp.base64Decode();
-  CPPUNIT_ASSERT(tmp == twentysix);
+  CPPUNIT_ASSERT_STRING_EQUAL(twentysix, tmp);
   CPPUNIT_ASSERT_EQUAL(strlen(twentysix), tmp.length());
 
-  const char *twentynine = "this is 29 characters long";
+  const char *twentynine = "this is 29 characters long ok";
   tmp = twentynine;
   tmp.base64Encode();
   tmp.base64Decode();
-  CPPUNIT_ASSERT(tmp == twentynine);
+  CPPUNIT_ASSERT_STRING_EQUAL(twentynine, tmp);
   CPPUNIT_ASSERT_EQUAL(strlen(twentynine), tmp.length());
 
   tmp = "";
