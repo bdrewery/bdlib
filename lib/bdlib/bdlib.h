@@ -36,6 +36,8 @@
 #include <stdlib.h>
 #endif
 
+#include "bits.h"
+
 
 #define BDLIB_NS_BEGIN namespace bd {
 #define BDLIB_NS_END }
