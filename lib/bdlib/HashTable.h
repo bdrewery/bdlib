@@ -34,12 +34,15 @@ template <class Key, class Value>
   * @brief HashTable data structure
   */
 class HashTable {
+  private:
+    Key *table;
+    size_t entries;
   public:
     HashTable() {};
     HashTable(const HashTable<Key, Value> &table) {};
     ~HashTable() {};
     HashTable &operator = (const HashTable<Key, Value>) { return *this; };
-  private:
+    size_t size() { return entries; };
 };
 
 BDLIB_NS_END

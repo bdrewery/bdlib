@@ -1,4 +1,4 @@
-/* Socket.cpp
+/* Crypto.cpp
  *
  * Copyright (C) Bryan Drewery
  *
@@ -25,27 +25,9 @@
 static const char rcsid[] = "$Id$";
 #endif /* lint */
 
-#include "Socket.h"
+
+#include "Crypto.h"
 
 BDLIB_NS_BEGIN
-Socket::~Socket() {
-  if (isValid()) {
-    ::shutdown(sock, SHUT_RDWR);
-    ::close(sock);
-  }
-}
-
-bool Socket::create() {
-  int ptype = 0;
-
-  if (flags & SOCKET_UDP)
-    ptype = SOCK_DGRAM;
-  else if (flags & SOCKET_TCP)
-    ptype = SOCK_STREAM;
-
-  sock = socket(pfamily, ptype, 0);
-  if (sock == -1)
-    return false;
-}
 BDLIB_NS_END
 

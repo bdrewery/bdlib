@@ -24,6 +24,17 @@
 #ifndef _W_SOCKET_H
 #define _W_SOCKET_H 1
 
+#include "bdlib.h"
+#include "String.h"
+
+#ifdef HAVE_NETINET_IN_H
+#include <netinet/in.h>
+#endif
+
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>
+#endif
+
 BDLIB_NS_BEGIN
 
 #define SOCKET_CLIENT   BIT0
@@ -33,14 +44,63 @@ BDLIB_NS_BEGIN
 #define SOCKET_TCP      BIT4
 #define SOCKET_UDP      BIT5
 
+typedef struct {
+        int len;
+        int family;
+        union {
+                struct sockaddr addr;
+                struct sockaddr_in ipv4;
+#ifdef DO_IPV6
+                struct sockaddr_in6 ipv6;
+#endif
+        } u;
+} sockname_t;
+
+
 /**
  * @class Socket
  * @brief Socket class
  */
 class Socket {
   private:
+    int sock;
+    sockname_t addr;
+    int flags;
   public:
-}
-BDLIB_NS_END
+    Socket() : sock(-1), addr(0), pfamily(0) {};
+    Socket(int f) : sock(-1), addr(0), flags(f) {};
+    Socket(Socket& s) : sock(s.sock), addr(s.addr), flags(s.flags) {};
+    virtual ~Socket();
+    
+    bool create();
+    bool connect(const String host, const in_port_t port);
+    bool bind(const in_port_t port);
+    bool listen() const;
+    bool accept (Socket&) const;
 
+    bool send(const String) const;
+    bool recv(String&) const;
+
+    int setNonBlocking(bool = 1);
+    bool isValid() const { return sock != -1; };
+};
+
+class ClientSocket : public Socket {
+  private:
+  public:
+    ClientSocket(const String& dest, const in_port_t port);
+    ClientSocket(const String& dest, const in_port_t port, const String& src, const in_port_t sport);
+    ClientSocket(const ClientSocket& cs);
+    virtual ~ClientSocket();
+};
+
+class ServerSocket : public Socket {
+  private:
+  public:
+    ServerSocket(const in_port_t port);
+    ServerSocket(const String& addr, const in_port_t port);
+//    ServerSocket(const ServerSocket& ss);
+    virtual ~ServerSocket();
+};
+BDLIB_NS_END
 #endif /* !_W_SOCKET_H */ 

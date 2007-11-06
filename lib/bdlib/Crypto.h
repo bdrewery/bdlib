@@ -1,11 +1,11 @@
-/* Socket.cpp
+/* Crypto.h
  *
  * Copyright (C) Bryan Drewery
  *
  * This program is private and may not be distributed, modified
  * or used without express permission of Bryan Drewery.
  *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. 
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.
  * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY
  * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
  * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY
@@ -19,33 +19,29 @@
  * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
  * MODIFICATIONS.
  *
+ * $Id$
  */
+#ifndef W_CRYPTO_H
+#define W_CRYPTO_H 1
 
-#ifndef lint
-static const char rcsid[] = "$Id$";
-#endif /* lint */
-
-#include "Socket.h"
-
+#include "bdlib.h"
 BDLIB_NS_BEGIN
-Socket::~Socket() {
-  if (isValid()) {
-    ::shutdown(sock, SHUT_RDWR);
-    ::close(sock);
-  }
-}
 
-bool Socket::create() {
-  int ptype = 0;
+/**
+  * @class Crypto
+  */
+class Crypto {
+  private:
+    static const size_t block_size = 0;
+    static const size_t key_len = 0;
+    static const size_t iv_len = 0;
+    int flags;
+  public:
+    Crypto(const unsigned char* key, const unsigned char* iv = NULL);
+    Crypto(const Crypto& crypter) {};
+    ~Crypto() {};
+};
 
-  if (flags & SOCKET_UDP)
-    ptype = SOCK_DGRAM;
-  else if (flags & SOCKET_TCP)
-    ptype = SOCK_STREAM;
-
-  sock = socket(pfamily, ptype, 0);
-  if (sock == -1)
-    return false;
-}
 BDLIB_NS_END
 
+#endif /* !W_CRYPTO_H */ 
