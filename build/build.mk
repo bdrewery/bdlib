@@ -1,5 +1,5 @@
 BDLIB = $(top_srcdir)/src/libbdlib.a
-BDLIB_UNITS = $(top_srcdir)/lib/libbdlib_units.a
+BDLIB_UNITS = $(top_srcdir)/src/libbdlib_units.a
 
 depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 

@@ -13,7 +13,7 @@ autoheader:
 	@autoheader
 	@echo "" >> build/config.h.in
 #	@echo "/* Defines for pack features */" >> config.h.in
-#	@(for define in `sed -n -e 's/^[\+|\-] \([^ ]*\) .*/\1/ p' ../pack/pack.cfg`; do \
+#	@(for define in `gsed -n -e 's/^[\+|\-] \([^ ]*\) .*/\1/ p' ../pack/pack.cfg`; do \
 #	echo "#undef S_$$define" >> config.h.in; \
 #	done)
 	@mv -f build/config.h.in ../config.h.in

@@ -52,14 +52,12 @@ default: wraith
 
 clean:
 	-+@cd src && $(MAKE) clean
-	-+@cd lib && $(MAKE) clean
 	-+@cd build && $(MAKE) clean
 	@rm -f $(BINEXEC) build/stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
 
 distclean: clean
 	-+@cd build && $(MAKE) distclean
 	-+@cd src && $(MAKE) distclean
-	-+@cd lib && $(MAKE) distclean
 	@rm -f Makefile config.log config.status
 	@rm -rf *-$(VERSION)/ autom4te.cache/ autoscan.log configure.scan
 
@@ -79,20 +77,16 @@ checkclean.debug:
 
 wraith: checkclean.wraith general
 	@echo "[*] Making binary"
-	+@cd lib && $(MAKE_BIN)
 	+@cd src && $(MAKE_BIN) $(BINEXEC)
 
 
 debug: checkclean.debug general
 	@echo "[*] Making binary (debug)"
-	+@cd lib && $(MAKE_DEBUG) debug
 	+@cd src && $(MAKE_DEBUG) $(BINEXEC)
 
 general:
 
 buildcheck: checkclean.debug
-	+@cd lib && $(MAKE_DEBUG) buildcheck
-	+@cd lib && $(MAKE_UNITS) units
 	+@cd src && $(MAKE_UNITS) units
 	+@cd src && ${MAKE_DEBUG} check
 	@echo "[*] Running unit tests..."

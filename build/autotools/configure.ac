@@ -5,7 +5,7 @@ dnl
 
 AC_PREREQ(2.59)
 AC_INIT([bdlib], [1.0.0], [bryan@shatow.net], [bdlib])
-AC_CONFIG_SRCDIR(src/main.h)
+AC_CONFIG_SRCDIR(src/bdlib.h)
 AC_CONFIG_HEADERS(build/config.h)
 AC_COPYRIGHT([Copyright (C) Bryan Drewery
 This program is private and may not be distributed, modified
