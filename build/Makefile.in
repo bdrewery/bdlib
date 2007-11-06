@@ -28,6 +28,7 @@ default:
 build: $(OBJS)
 
 clean:
+	@rm -f .depend *.o *~ *.lo UnitRunner@EXEEXT@
 
 distclean: clean
 	@rm -rf buildinfo.h config.h .deps Makefile config.cache confdefs.h
@@ -35,3 +36,9 @@ distclean: clean
 test:
 
 include ./.deps/includes
+
+check: UnitRunner@EXEEXT@
+
+UnitRunner@EXEEXT@: UnitRunner.o $(BDLIB) $(BDLIB_UNITS)
+	@echo "[LD]	$@"
+	$(LD) @CPPUNIT_LIBS@ -o $@ $< -Wl,--whole-archive $(UNITOBJS) -Wl,--no-whole-archive $(subst main.o,,$(ALL_LIBS))
