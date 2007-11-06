@@ -4,7 +4,7 @@ dnl $Id$
 dnl
 
 AC_PREREQ(2.59)
-AC_INIT([Wraith Botpack], [2.0.0], [wraith@shatow.net], [wraith])
+AC_INIT([bdlib], [1.0.0], [bryan@shatow.net], [bdlib])
 AC_CONFIG_SRCDIR(src/main.h)
 AC_CONFIG_HEADERS(build/config.h)
 AC_COPYRIGHT([Copyright (C) Bryan Drewery
@@ -162,12 +162,6 @@ DO_DEPS
 AC_CONFIG_FILES([
 	Makefile 
 	src/Makefile 
-	lib/Makefile
-	lib/bdlib/Makefile 
-	lib/bdlib/tests/Makefile
-	lib/wraith/Makefile
-	lib/wraith/tests/Makefile
-	lib/openssl/Makefile
 	build/Makefile
 	build/buildinfo.h
 	src/tests/Makefile
@@ -213,4 +207,3 @@ AH_BOTTOM([/*
 #endif
 ])
 
-cd lib/openssl && ./configure
