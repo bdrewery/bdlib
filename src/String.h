@@ -7,6 +7,7 @@
 
 #include "bdlib.h"
 
+#include <stdint.h>
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
