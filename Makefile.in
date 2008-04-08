@@ -10,7 +10,6 @@ VPATH = @srcdir@
 @SET_MAKE@
 DISTRIB = @PACKAGE_TARNAME@-@PACKAGE_VERSION@
 CCDEPMODE = @CCDEPMODE@
-BINEXEC = @PACKAGE_TARNAME@@EXEEXT@
 REVISION := $(shell build/getrev.sh)
 BUILDTS  := $(shell build/getts.sh)
 
@@ -35,10 +34,10 @@ DEBCXXFLAGS = -DDEBUG -fno-inline -g3 -ggdb3 -O0 @DEBGCC3@
 CFLGS = @GCC3@
 
 MAKE_BDLIB = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXX)' 'LD=$(LD)' 'CCDEPMODE=$(CCDEPMODE)' \
-'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(distrib)'
+'STRIP=$(STRIP)' 'CFLGS=$(CFLGS)' 'LIBS=$(LIBS)' 'BINBUILD=(distrib)'
 
 MAKE_DEBUG = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPMODE=$(CCDEPMODE)'  \
-'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS) @DEBNOUNITSGCC3@' 'LIBS=$(LIBS)' 'BINEXEC=$(BINEXEC)' 'BINBUILD=(debug)'
+'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS) @DEBNOUNITSGCC3@' 'LIBS=$(LIBS)' 'BINBUILD=(debug)'
 
 MAKE_UNITS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPMODE=$(CCDEPMODE)' \
 'STRIP=touch' 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)'
@@ -53,7 +52,7 @@ default: bdlib
 clean:
 	-+@cd src && $(MAKE) clean
 	-+@cd build && $(MAKE) clean
-	@rm -f $(BINEXEC) build/stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
+	@rm -f build/stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
 
 distclean: clean
 	-+@cd build && $(MAKE) distclean
@@ -77,12 +76,12 @@ checkclean.debug:
 
 bdlib: checkclean.bdlib general
 	@echo "[*] Making BDLIB"
-	+@cd src && $(MAKE_BDLIB) $(BINEXEC)
+	+@cd src && $(MAKE_BDLIB) bdlib
 
 
 debug: checkclean.debug general
 	@echo "[*] Making BDLIB (debug)"
-	+@cd src && $(MAKE_DEBUG) $(BINEXEC)
+	+@cd src && $(MAKE_DEBUG) bdlib
 
 general:
 
