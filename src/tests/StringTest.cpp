@@ -535,6 +535,25 @@ void StringTest :: substringTest(void)
   substring = (*a)(-4,4);
   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
 
+  (*a) = "this is just a TEST";
+  substring = (*a)(0,4);
+
+  for (size_t i = 0; i < (*a).length(); ++i)
+    (*a)[i] = toupper((*a)[i]);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS IS JUST A TEST", (*a));  
+  CPPUNIT_ASSERT_STRING_EQUAL("this", substring);
+
+  (*a) = "this is just a TEST";
+  substring = (*a)(0,4);
+
+  for (size_t i = 0; i < substring.length(); ++i)
+    substring[i] = toupper(substring[i]);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS", substring);  
+
+
 //  (*a)(-4, 4) = "TEST";
 //  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);
 }
