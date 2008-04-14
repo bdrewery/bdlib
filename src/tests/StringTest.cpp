@@ -531,5 +531,10 @@ void StringTest :: substringTest(void)
   substring = a->substring(0, 30);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
 
+  *a = "This is a test";
+  substring = (*a)(-4,4);
+  CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
 
+//  (*a)(-4, 4) = "TEST";
+//  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);
 }

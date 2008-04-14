@@ -404,6 +404,10 @@ class String {
         const char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
 
         String substring(int, int) const;
+        /**
+         * @see substring
+         */
+        String operator() (int start, int len) const { return substring(start, len); };
 
 	/**
 	 * @brief Compare our String object with another String object
