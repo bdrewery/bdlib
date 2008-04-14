@@ -492,3 +492,44 @@ void StringTest :: encryptBase64Test(void)
   CPPUNIT_ASSERT(*b == "! uid 1000");
 }
 #endif /* DISABLED */
+
+void StringTest :: substringTest(void)
+{
+  *a = "Why hello there!";
+  String substring(a->substring(4, 5));
+  CPPUNIT_ASSERT_STRING_EQUAL("Why hello there!", *a);
+  CPPUNIT_ASSERT('h' == substring[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("hello", substring);
+  substring += " bryan";
+  CPPUNIT_ASSERT_STRING_EQUAL("Why hello there!", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("hello bryan", substring);
+
+  *a = "there goes my reference!";
+  CPPUNIT_ASSERT_STRING_EQUAL("there goes my reference!", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("hello bryan", substring);
+
+  *a = "there goes my reference!";
+  CPPUNIT_ASSERT_STRING_EQUAL("there goes my reference!", *a);
+  substring = a->substring(6, 4);
+  *a = "now it is really gone";
+  CPPUNIT_ASSERT_STRING_EQUAL("goes", substring);
+
+  *a = "abcdefgh";
+  substring = a->substring(3,-2);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("def", substring);
+
+  substring = a->substring(-3, 2);
+  CPPUNIT_ASSERT_STRING_EQUAL("fg", substring);
+
+  substring = a->substring(-1,1);
+  CPPUNIT_ASSERT_STRING_EQUAL("h", substring);
+
+  substring = a->substring(-1, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("h", substring);
+
+  substring = a->substring(0, 30);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
+
+
+}

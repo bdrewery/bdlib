@@ -139,6 +139,7 @@ class String {
           decRef();
           Ref = new StringBuf();
           sublen = 0;
+          offset = 0;
         }
 
         /**
@@ -160,12 +161,12 @@ class String {
         /**
           * @brief Mutable Ref->buf+offset reference for use internally
           */
-        char* mdata() const { return Buf() + offset; };
+//        char* mdata() const { return Buf() + offset; };
 
         /**
           * @brief Mutable Ref->buf reference for use internally
           */
-        char* Buf(int i = 0) const { return Ref->buf + i; };
+        char* Buf(int i = 0) const { return Ref->buf + offset + i; };
 
         /**
           * @brief Ref->buf reference for use internally
@@ -222,9 +223,10 @@ class String {
         void Detach() {
           if (isShared()) {
             doDetach();
-          } else
+          } else {
             setLength(0);
-          offset = 0;
+            offset = 0;
+          }
         }
 
         void COW(size_t) const;
@@ -372,11 +374,11 @@ class String {
          * @sa charAt()
          * Unlinke charAt() this is unchecked.
          */
-        char read(int i) const { return Ref->buf[i]; };
+        char read(int i) const { return *(constBuf(i)); };
 
         void write(int i, char c) {
           getOwnCopy();
-          Ref->buf[offset + i] = c;
+          *(Buf(i)) = c;
         };
 
         /**
@@ -401,7 +403,7 @@ class String {
          */
         const char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
 
-        String substring(int, size_t) const;
+        String substring(int, int) const;
 
 	/**
 	 * @brief Compare our String object with another String object
@@ -515,6 +517,7 @@ class String {
 #ifdef CPPUNIT_VERSION
         static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
           if (expected == actual) return;
+//          std::cout << "'" << expected << "':" << expected.length() << " == " << "'" << actual << "':" << actual.length() << std::endl;
           ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
         }
 #endif /* CPPUNIT_VERSION */

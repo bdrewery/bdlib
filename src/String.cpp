@@ -92,7 +92,7 @@ int String::compare(const String &str, size_t n) const
   size_t my_len = length();
   size_t slen = std::min(str.length(), n);
   size_t len = std::min(my_len, slen);
-  
+
 
   for (size_t i = 0; i < len; ++i) {
     if ((*this)[i] < str[i])
@@ -309,6 +309,39 @@ std::istream& getline(std::istream& is, String &string) {
   return is;
 }
 
+/**
+ * @brief Return a new string from a substring
+ * @return a new String
+ * @param start The offset to begin the substring from (indexed from 0)
+ * @param len The length of the substring to return
+ * The returned substring is a reference to the original string until modified.
+ */
+String String::substring(int start, int len) const
+{
+  // Start is after the end, return an empty string
+  if (start >= (signed) length())
+    return String("");
+ 
+  String newString(*this);
+
+  //Count backwards from the end
+  if (start < 0)
+    start = length() + start;
+  // Start was before the beginning, just reset to the beginning
+  if (start < 0)
+    start = 0;
+
+  newString.offset = start;
+  //If the length of the substring exceeds the end of the string, truncate to the end of the string
+  if (start + len >= (signed) length())
+    len = length() - start;
+  // If the length is negative, stop from counting backwards from the end
+  else if (len < 0)
+    len = length() - start + len;
+  newString.setLength(len);
+  return newString;
+}
+  
 #ifdef experimental
 String String::substring(int k, size_t siz) const
 {
