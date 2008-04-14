@@ -18,9 +18,11 @@ int main (int argc, char* argv[])
     CPPUNIT_NS :: TestResultCollector collectedresults;
     testresult.addListener (&collectedresults);
 
-    // Shows a message as each test starts
     CPPUNIT_NS :: BriefTestProgressListener listener;
-    testresult.addListener( &listener );
+    if (argc == 1) {
+      // Shows a message as each test starts
+      testresult.addListener( &listener );
+    }
 
     // insert test-suite at test-runner by registry
     CPPUNIT_NS :: TestRunner testrunner;

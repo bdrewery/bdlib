@@ -45,7 +45,7 @@ MAKE_UNITS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPM
 MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
 'CFLGS=$(DEBCXXFLAGS) $(CFLGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
-.PHONY: default clean distclean bdlib debug general check checkclean.bdlib checkclean.debug buildcheck
+.PHONY: default clean distclean bdlib debug general check check.quiet checkclean.bdlib checkclean.debug buildcheck
 
 default: bdlib
 
@@ -94,6 +94,9 @@ buildcheck: checkclean.debug
 
 check: checkclean.debug general buildcheck
 	@$(VALGRIND) build/UnitRunner@EXEEXT@
+
+check.quiet: checkclean.debug general buildcheck
+	@$(VALGRIND) build/UnitRunner@EXEEXT@ quiet
 
 checkquick: checkclean.debug general buildcheck
 	build/UnitRunner@EXEEXT@
