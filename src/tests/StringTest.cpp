@@ -311,6 +311,17 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->length());
 }
 
+void StringTest :: operatorStarTest(void)
+{
+  *a = "Test! ";
+  *b = *a * 3;
+  CPPUNIT_ASSERT_STRING_EQUAL("Test! Test! Test! ", *b);
+
+  const String mytest("Test! ");
+  *b = mytest * 3;
+  CPPUNIT_ASSERT_STRING_EQUAL("Test! Test! Test! ", *b);
+}
+
 void StringTest :: printfTest(void)
 {
   int n = 506;

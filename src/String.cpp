@@ -350,6 +350,13 @@ ostream& operator << (ostream& os, const vector<String> list) {
 }
 #endif /* experimental */
 
+String String::operator*(int times) const {
+  String newString((int) (this->length() * times));
+  for (int i = 0; i < times; ++i)
+    newString += *this;
+  return newString;
+}
+
 void String::printf(const char* format, ...) {
   char va_out[1024] = "";
   va_list va;

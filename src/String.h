@@ -343,6 +343,12 @@ class String {
          */
         const char* operator * () const { return c_str(); };
 
+	/**
+	 * @brief Returns a new String containing integer copies of the receiver.
+	 * @return a new String
+	 * from Ruby
+	 */
+	String operator * (int) const;
 
 	/**
 	 * @brief Data accessor
