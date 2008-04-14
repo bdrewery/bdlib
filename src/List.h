@@ -48,7 +48,7 @@ class List {
 
   public:
     List() : head(NULL), my_size(0) {};
-    ~List() { clear(); };
+    virtual ~List() { clear(); };
 
     List(const List& list) : head(NULL), my_size(0) {
       for (Node* search = list.head; search; search = search->next)
