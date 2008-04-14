@@ -343,19 +343,6 @@ String String::substring(int start, int len) const
 }
   
 #ifdef experimental
-String String::substring(int k, size_t siz) const
-{
-  if (!hasIndex(k))
-    return String("");
-  if (k + siz >= length())
-    return String("");
-  /* Intialize a temp from the given substring */
-//  String tmp(Ref->buf + k, Ref->buf + k + siz);
-  String tmp(Ref->buf + k, siz);
-  cout << "tmp: " << tmp << endl;
-  return tmp;
-}
-
 const StringList String::split(const char delim) {
   char *p = Ref->buf, *pn = NULL;
   StringList list;
