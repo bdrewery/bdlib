@@ -237,6 +237,8 @@ void StringTest :: replaceTest(void)
 {
   a->replace(1, "wtf");
   CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(0));
+  b->replace(1, 'x');
+  CPPUNIT_ASSERT_STRING_EQUAL("bxah", *b);
   b->replace(0, "haha");
   CPPUNIT_ASSERT_STRING_EQUAL("haha", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
