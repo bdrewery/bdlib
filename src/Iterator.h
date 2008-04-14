@@ -76,6 +76,7 @@ struct KeyValue {
 
     const Key& key() const { return k; };
     const Value& value() const { return v; };
+    template <class K, class V> friend bool operator == (const KeyValue<K, V> &lhs, const KeyValue<K, V> &rhs) { return lhs.key() == rhs.key(); }
 /*
   KeyValue& operator=(const KeyValue& kv) {
     key = Key(kv.key);
