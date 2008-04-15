@@ -24,6 +24,8 @@
 #ifndef _W_LIST_H
 #define _W_LIST_H 1
 
+#include <iostream>
+#include "String.h"
 #include "bdlib.h"
 #include "Iterator.h"
 BDLIB_NS_BEGIN
@@ -34,6 +36,8 @@ template <class T>
   * @brief List data structure
   */
 class List {
+  class ListIterator;
+
   private:
     struct Node {
       const T ptr;
@@ -44,13 +48,17 @@ class List {
     };
 
     Node* head;
+    Node* tail;
     size_t my_size;
 
   public:
-    List() : head(NULL), my_size(0) {};
+    typedef ListIterator iterator;
+    typedef T iterator_type;
+
+    List() : head(NULL), tail(NULL), my_size(0) {};
     virtual ~List() { clear(); };
 
-    List(const List& list) : head(NULL), my_size(0) {
+    List(const List& list) : head(NULL), tail(NULL), my_size(0) {
       for (Node* search = list.head; search; search = search->next)
         insert(search->ptr);
     }
@@ -71,7 +79,7 @@ class List {
         delete node;
         node = node_n;
       }
-      head = NULL;
+      head = tail = NULL;
       my_size = 0;
     };
 
@@ -86,7 +94,7 @@ class List {
     void insert(const T& ptr) {
       Node* node = new Node(ptr);
       if (!head) {
-        head = node;
+        head = tail = node;
       } else {
         head->prev = node;
         node->next = head;
@@ -105,21 +113,122 @@ class List {
       return 0;
     }
 
+    const T find(const T& ptr) const {
+      T empty;
+      if (isEmpty()) return empty;
+
+      for (Node* current = head; current; current = current->next) {
+        if (current->ptr == ptr)
+          return ptr;
+      }
+      return empty;
+    }
+
     bool remove(const T& ptr) {
       if (head) {
-        for (Node** node = &head; node; node = &(*node)->next) {
-          if ((*node)->ptr == ptr) {
-            Node* next = (*node)->next;
-            delete (*node);
-            *node = next;
+      /* cases (removing X):
+       * 1) list = (X)
+       * 2) list = (X)->(Y)
+       * 3) list = (W)->(X)
+       * 4) list = (W)->(X)->(Y)
+       */
+        for (Node* node = head; node; node = node->next) {
+          if (node->ptr == ptr) {
+            Node* next = node->next; //NULL if node = tail
+            Node* prev = node->prev; //NULL if node = head
+
+            delete node;
+
+            if (next) next->prev = prev;
+            if (prev) prev->next = next;
+
+            if (node == head) head = next;
+            if (node == tail) tail = prev;
+
             --my_size;
-            return 1;
+            return true;
           }
         }
       }
-      return 0;
+      return false;
     }
 
+    private:
+    class ListIterator : public Iterator<iterator_type> {
+      friend class List;
+      private:
+        List *list;
+        Node *current;
+        bool end;
+
+        ListIterator(List &_list, bool _end = 0) : Iterator<iterator_type>(),
+                                                              list(&_list),
+                                                              current(_end ? _list.head : _list.tail), /* tail is beginning */
+                                                              end(_end) {
+        };
+      public:
+        ListIterator(const iterator& iter) : Iterator<iterator_type>(),
+                                             list(iter.list),
+                                             current(iter.current),
+                                             end(iter.end) {
+        };
+
+        iterator& operator =(const iterator& iter) {
+          list = iter.list;
+          current = iter.current;
+          end = iter.end;
+          return *this;
+        }
+
+        virtual ~ListIterator() { }
+
+        virtual void remove() {
+          Node *nextValue = end == 0 ? current->next : current->prev;
+
+          list->remove(current->ptr);
+
+          current = nextValue;
+/*
+          --my_size;
+          for (int i = index; i < my_size; ++i)
+            storage[i] = storage[i + 1];
+          //The iterator is 'invalid' now, but the index is shifter down in case iter++ is called
+          --index;
+*/
+        }
+
+        virtual operator bool() { return (current != NULL); };
+        virtual operator iterator_type () { return operator*(); };
+          
+        virtual iterator_type& operator *() { return (iterator_type&)current->ptr; }
+
+        //Postfix
+        virtual iterator operator ++(int) {
+          iterator tmp(*this);
+          current = current->prev;
+          return tmp;
+        }
+
+        virtual iterator& operator ++() {
+          current = current->prev;
+          return *this;
+        }
+
+        //Postfix
+        virtual iterator operator --(int) {
+          iterator tmp(*this);
+          current = current->next;
+          return tmp;
+        }
+
+        virtual iterator& operator --() {
+          current = current->next;
+          return *this;
+        }
+    };
+  public:
+    iterator begin() { return iterator(*this); };
+    iterator end() { return iterator(*this, 1); };
 };
 
 BDLIB_NS_END

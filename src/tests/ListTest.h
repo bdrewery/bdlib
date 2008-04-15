@@ -17,6 +17,7 @@ class ListTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (insertTest);
     CPPUNIT_TEST (containsTest);
     CPPUNIT_TEST (copyTest);
+    CPPUNIT_TEST (findTest);
     CPPUNIT_TEST (clearTest);
     CPPUNIT_TEST (removeTest);
     CPPUNIT_TEST (iterateTest);
@@ -30,6 +31,7 @@ class ListTest : public CPPUNIT_NS :: TestFixture
         void insertTest(void);
         void containsTest(void);
         void copyTest(void);
+        void findTest(void);
         void clearTest(void);
         void removeTest(void);
         void iterateTest(void);

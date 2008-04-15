@@ -105,6 +105,40 @@ void ListTest :: copyTest (void)
   CPPUNIT_ASSERT_EQUAL(false, b->contains("Blahk"));
 }
 
+void ListTest :: findTest(void)
+{
+  a->insert("Blah1");
+  a->insert("Blah2");
+  a->insert("Blah3");
+  a->insert("Blah4");
+
+  CPPUNIT_ASSERT_STRING_EQUAL("", a->find("WONT FIND THIS"));
+
+  
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a->find("Blah1"));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a->find("Blah2"));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a->find("Blah3"));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a->find("Blah4"));
+
+  a->remove("Blah2");
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a->find("Blah1"));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a->find("Blah3"));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a->find("Blah4"));
+
+  a->remove("Blah4");
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a->find("Blah1"));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a->find("Blah3"));
+
+  a->remove("Blah1");
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a->find("Blah3"));
+
+  a->remove("Blah3");
+  CPPUNIT_ASSERT_STRING_EQUAL("", a->find("WONT FIND THIS"));
+}
+
 void ListTest :: clearTest (void)
 {
   a->insert("Blahstart");
@@ -196,14 +230,14 @@ void ListTest :: removeTest (void)
   CPPUNIT_ASSERT_EQUAL(true, a->isEmpty());
 }
 
+#ifdef NO
 void ListTest :: iterateTest (void)
 {
-#ifdef NO
-  a->insert("Blah");
-  a->insert("Bleck");
+  a->insert("Blah1");
   a->insert("Blah2");
-  a->insert("Blah8");
+  a->insert("Blah3");
   a->insert("Blah4");
+  a->insert("Blah5");
 
   List<int, String>::iterator iter = a->begin();
   while (iter.hasNext()) {
@@ -214,7 +248,7 @@ void ListTest :: iterateTest (void)
   }
 
   iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", iter.next());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
@@ -237,5 +271,151 @@ void ListTest :: iterateTest (void)
   a->remove(1);
   iter = a->begin();
   CPPUNIT_ASSERT_EQUAL(false, iter.hasNext());
+}
 #endif
+
+void ListTest :: iterateTest (void)
+{
+  a->insert("Blah1");
+  a->insert("Blah2");
+  a->insert("Blah3");
+  a->insert("Blah4");
+  a->insert("Blah5");
+
+  List<String>::iterator iter = a->begin();
+/*
+  while (iter) {
+//    int key = (int) iter.next();
+//    printf("%d\n", key);
+    String value = *(iter++);
+//    printf("%d: %s\n", key, a->getValue(key));
+  }
+*/
+  CPPUNIT_ASSERT_EQUAL(true, a->remove("Blah1"));
+
+  iter = a->begin();
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter);
+  
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", *(iter++));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah3", *(iter++));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah5", *(iter++));
+  CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+
+  CPPUNIT_ASSERT_EQUAL(true, a->remove("Blah3"));
+  iter = a->begin();
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", *(iter++));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah5", *(iter++));
+  CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+
+  a->remove("Blah5");
+  iter = a->begin();
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (++iter));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (iter));
+  CPPUNIT_ASSERT_EQUAL(false, (bool) ++iter);
+
+  a->remove("Blah2");
+  iter = a->begin();
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+  CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+
+  a->remove("Blah4");
+  iter = a->begin();
+  CPPUNIT_ASSERT_EQUAL(false, (bool) iter);
+
+
+  CPPUNIT_ASSERT_EQUAL(true, a->isEmpty());
+  /* Now reinsert some data N:testN .. */
+  for (int i = 0; i < 5; ++i) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", i);
+    (*a).insert(String(buf));
+  }
+
+  int n = 0;
+  /* And ensure it comes out in key order in tact */
+  for (iter = (*a).begin(); iter; (++iter)) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", n);
+    CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+    ++n;
+  }
+
+  n = (*a).size() - 1;
+  /* Test reverse */
+  for (iter = (*a).end(); iter; (--iter)) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", n);
+    CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+    --n;
+  }
+
+  /* make sure the reverse did not trample the tree */
+  n = 0;
+  /* And ensure it comes out in key order in tact */
+  for (iter = (*a).begin(); iter; (++iter)) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", n);
+    CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+    ++n;
+  }
+
+  //Remove evens .. check after
+  n = 0;
+  for (iter = (*a).begin(); iter; (++iter)) {
+    //While removing, this next condition should hold true
+    if (n % 2) {
+      iter.remove();
+    }
+//   The iterator is INVALID now
+//   CPPUNIT_ASSERT_EQUAL(n, iter->key());
+    ++n;
+  }
+
+  //Ensure odds are still there
+  n = 0;
+  for (iter = (*a).begin(); iter; (++iter)) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", n);
+    CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+    n += 2;
+  }
+
+  (*a).clear();
+
+  /* Now reinsert some data N:testN .. */
+  for (int i = 0; i < 5; ++i) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", i);
+    (*a).insert(String(buf));
+  }
+
+  /* Now do the same test in reverse (removing from the end) */
+  //Remove evens .. check after
+  n = (*a).size() - 1;
+  int keep_n = n;
+  for (iter = (*a).end(); iter; (--iter)) {
+    //While removing, this next condition should hold true
+    if (n % 2) {
+      iter.remove();
+    }
+//   The iterator is INVALID now
+//   CPPUNIT_ASSERT_EQUAL(n, iter->key());
+    --n;
+  }
+
+  CPPUNIT_ASSERT_EQUAL(false, a->isEmpty());
+
+  //Ensure odds are still there
+  n = keep_n;
+  for (iter = (*a).end(); iter; (--iter)) {
+    char buf[10] = "";
+    sprintf(buf, "test%d", n);
+    CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+    n -= 2;
+  }
+
+
 }
