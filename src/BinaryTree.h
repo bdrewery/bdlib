@@ -185,13 +185,11 @@ class BinaryTree {
 
     /**
       * @brief Associate array type accessor (rvalue)
+      * @sa getValue
       * @param key The key to search for
       */
     const Value operator [](const Key& key) const {
-      Node*& node = fetchNode(&root, key);
-      if (node)
-        return node->kv.value();
-      return Value();
+      return getValue(key);
     }
 
     /**
