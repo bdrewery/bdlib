@@ -119,7 +119,7 @@ class List {
 
       for (Node* current = head; current; current = current->next) {
         if (current->ptr == ptr)
-          return ptr;
+          return current->ptr;
       }
       return empty;
     }
