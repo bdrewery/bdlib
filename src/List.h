@@ -38,13 +38,18 @@ template <class T>
 class List {
   class ListIterator;
 
+  public:
+    typedef ListIterator iterator;
+    typedef T iterator_type;
+
+
   private:
     struct Node {
-      const T ptr;
+      iterator_type ptr;
       Node* next;
       Node* prev;
       
-      Node(const T& p) : ptr(p), next(NULL), prev(NULL) {};
+      Node(const iterator_type& p) : ptr(p), next(NULL), prev(NULL) {};
     };
 
     Node* head;
@@ -52,9 +57,6 @@ class List {
     size_t my_size;
 
   public:
-    typedef ListIterator iterator;
-    typedef T iterator_type;
-
     List() : head(NULL), tail(NULL), my_size(0) {};
     virtual ~List() { clear(); };
 
@@ -91,7 +93,7 @@ class List {
      * @brief Insert into the list at the head
      * @param ptr The ptr to insert
      */
-    void insert(const T& ptr) {
+    void insert(const iterator_type& ptr) {
       Node* node = new Node(ptr);
       if (!head) {
         head = tail = node;
@@ -103,7 +105,7 @@ class List {
       ++my_size;
     }
 
-    bool contains(const T& ptr) const {
+    bool contains(const iterator_type& ptr) const {
       if (head) {
         for (Node* node = head; node; node = node->next) {
           if (node->ptr == ptr)
@@ -113,8 +115,8 @@ class List {
       return 0;
     }
 
-    const T find(const T& ptr) const {
-      T empty;
+   const iterator_type find(const iterator_type& ptr) const {
+      const iterator_type empty;
       if (isEmpty()) return empty;
 
       for (Node* current = head; current; current = current->next) {
@@ -124,7 +126,19 @@ class List {
       return empty;
     }
 
-    bool remove(const T& ptr) {
+    /**
+     * @brief Return a reference to the found element
+     */
+    iterator_type& findRef(const iterator_type& ptr) {
+      Node* current = head;
+      for (; current; current = current->next) {
+        if (current->ptr == ptr)
+          break;
+      }
+      return current->ptr;
+    }
+
+    bool remove(const iterator_type& ptr) {
       if (head) {
       /* cases (removing X):
        * 1) list = (X)
