@@ -231,7 +231,7 @@ class BinaryTree {
       * @return The value of the key searched for, or NULL if not found
       */
     Value getValue(const Key &key) const {
-      Value empty;
+      const Value empty;
       if (isEmpty()) return empty;
 
       Node* node = fetchNode(&root, key);
@@ -247,7 +247,7 @@ class BinaryTree {
       * @return The key of the value searched for, or NULL if not found
       */
     Value getKey(const Value &value) const {
-      Key empty;
+      const Key empty;
       if (isEmpty()) return empty;
 
       for (iterator iter = begin(); iter; ++iter) {
