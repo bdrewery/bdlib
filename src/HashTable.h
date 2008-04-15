@@ -26,6 +26,7 @@
 
 #include "bdlib.h"
 #include "Iterator.h"
+#include "List.h"
 BDLIB_NS_BEGIN
 
 template <class Key, class Value>
@@ -35,14 +36,58 @@ template <class Key, class Value>
   */
 class HashTable {
   private:
-    Key *table;
-    size_t entries;
+    typedef KeyValue<Key, Value> iterator_type;
+
+    List<iterator_type> *list;
+    size_t _size;
+    size_t _capacity;
+
+    int getIndex(const Key &key) const {
+      return key % _capacity;
+    }
   public:
-    HashTable() {};
-    HashTable(const HashTable<Key, Value> &table) {};
-    ~HashTable() {};
+    HashTable(size_t capacity = 100) : list(new List<iterator_type>[capacity]), _size(0), _capacity(capacity) {};
+    HashTable(const HashTable<Key, Value> &table) : list(table.list), _size(table._size), _capacity(table._capacity) {};
+    virtual ~HashTable() {
+      delete[] list;
+    };
     HashTable &operator = (const HashTable<Key, Value>) { return *this; };
-    size_t size() { return entries; };
+
+    size_t size() const { return _size; };
+    size_t capacity() const { return _capacity; };
+    bool isEmpty() const { return size() == 0; };
+    operator bool() const { return !isEmpty(); };
+
+    bool insert(const Key &key, const Value &value) { 
+      if (contains(key)) return false;
+      int index = getIndex(key);
+      list[index].insert(iterator_type(key, value));
+      ++_size;
+      return true;
+    };
+  
+    bool contains(const Key &key) const {
+      if (isEmpty()) return false;
+      int index = getIndex(key);
+      return list[index].contains(iterator_type(key, Value()));
+    };
+
+    bool remove(const Key &key) {
+      if (isEmpty()) return false;
+      int index = getIndex(key);
+      if (list[index].remove(iterator_type(key, Value()))) {
+        --_size;
+        return true;
+      }
+      return false;
+    };
+
+    Value getValue(const Key &key) const {
+      Value empty;
+      if (isEmpty()) return empty;
+      int index = getIndex(key);
+      return list[index].find(iterator_type(key, Value())).value();
+    };
 };
 
 BDLIB_NS_END
