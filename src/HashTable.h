@@ -47,11 +47,26 @@ class HashTable {
     }
   public:
     HashTable(size_t capacity = 100) : list(new List<iterator_type>[capacity]), _size(0), _capacity(capacity) {};
-    HashTable(const HashTable<Key, Value> &table) : list(table.list), _size(table._size), _capacity(table._capacity) {};
+    HashTable(const HashTable<Key, Value> &table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity) {
+      for (size_t i = 0; i < _capacity; ++i)
+          list[i] = table.list[i];
+    };
+
     virtual ~HashTable() {
       delete[] list;
     };
-    HashTable &operator = (const HashTable<Key, Value>) { return *this; };
+
+    HashTable &operator = (const HashTable<Key, Value> &table) { 
+      if (&table != this) {
+        delete[] list;
+        _size = table._size;
+        _capacity = table._capacity;
+        list = new List<iterator_type>[_capacity];
+        for (size_t i = 0; i < _capacity; ++i) 
+          list[i] = table.list[i];
+      }
+      return *this; 
+    }
 
     size_t size() const { return _size; };
     size_t capacity() const { return _capacity; };

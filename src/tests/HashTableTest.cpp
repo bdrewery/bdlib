@@ -20,12 +20,14 @@ void HashTableTest :: setUp (void)
     h = new String(35);
 */
   a = new HashTable<int, String>();
+  b = new HashTable<int, String>();
 }
 
 void HashTableTest :: tearDown (void)
 {
     // finally delete objects
     delete a; 
+    delete b;
 /*
     delete b; delete c; delete d;
     delete e; delete f; delete g; delete h;
@@ -45,6 +47,13 @@ void HashTableTest :: insertTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)3, a->size());
   a->insert(4, "Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
+  b->insert(27, "Test");
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->size());
+
+  (*b) = (*a);
+  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, b->size());
 }
 
 void HashTableTest :: containsTest (void)
@@ -58,6 +67,23 @@ void HashTableTest :: containsTest (void)
   CPPUNIT_ASSERT_EQUAL(true, a->contains(1));
   CPPUNIT_ASSERT_EQUAL(false, a->contains(3));
   CPPUNIT_ASSERT_EQUAL(true, a->contains(4));
+
+  (*b) = (*a);
+
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(1));
+  CPPUNIT_ASSERT_EQUAL(false, b->contains(3));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(4));
+
+  b->insert(5, "test");
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(5));
+  CPPUNIT_ASSERT_EQUAL(false, a->contains(5));
+
+  (*b) = (*a);
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(1));
+  CPPUNIT_ASSERT_EQUAL(false, b->contains(3));
+  CPPUNIT_ASSERT_EQUAL(true, b->contains(4));
+  CPPUNIT_ASSERT_EQUAL(false, b->contains(5));
+  CPPUNIT_ASSERT_EQUAL(false, a->contains(5));
 }
 
 void HashTableTest :: getValueTest (void)
@@ -92,6 +118,22 @@ void HashTableTest :: getValueTest (void)
   
   String result = a->getValue(58);
   CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
+
+  (*b) = (*a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", b->getValue(4));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", b->getValue(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", b->getValue(2));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", b->getValue(8));
+  CPPUNIT_ASSERT_EQUAL((size_t)4, b->size());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
+  HashTable<int, String> test(*a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", test.getValue(4));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", test.getValue(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", test.getValue(2));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", test.getValue(8));
+  CPPUNIT_ASSERT_EQUAL((size_t)4, test.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
 }
 
 #ifdef DISABLED
