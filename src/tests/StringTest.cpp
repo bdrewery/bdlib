@@ -558,7 +558,43 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS", substring);  
 
+  String replace;
 
+  *b = *a;
+  replace = "THIS";
+  (*a)(0, 4) = replace;
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS is just a TEST", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS", replace);
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *b);
+
+  *a = "this is just a TEST";
+  *b = *a;
+  replace = "THAT";
+  (*a)(0, 4) = "THAT";
+  CPPUNIT_ASSERT_STRING_EQUAL("THAT is just a TEST", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("THAT", replace);
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *b);
+
+  *a = "this is just a TEST";
+  *b = *a;
+  (*a)(0, 4) = (*b)(15, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST is just a TEST", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *b);
+
+  *a = "this is just a TEST";
+  *b = *a;
+  (*a)(0, 4) = (*a)(15, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST is just a TEST", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *b);
+
+  /* this is more of a compile check */
+  const String constString("THIS CANNOT BE MODIFIED");
+  *a = constString(0, 4);
+
+  constString(0, 4) = "blah"; //Returns a new string
+
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS", *a);
 //  (*a)(-4, 4) = "TEST";
 //  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);
 }
