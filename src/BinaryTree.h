@@ -188,9 +188,7 @@ class BinaryTree {
       * @sa getValue
       * @param key The key to search for
       */
-    const Value operator [](const Key& key) const {
-      return getValue(key);
-    }
+    const Value operator [](const Key& key) const { return getValue(key); }
 
     /**
       * @brief Associate array type accessor (lvalue)
