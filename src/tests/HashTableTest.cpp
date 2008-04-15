@@ -86,6 +86,31 @@ void HashTableTest :: containsTest (void)
   CPPUNIT_ASSERT_EQUAL(false, a->contains(5));
 }
 
+void HashTableTest :: clearTest (void)
+{
+    a->insert(1, "Blah");
+    a->insert(1, "Bleck");
+    a->insert(2, "Blah");
+    a->insert(8, "Blah");
+    a->insert(4, "Blah");
+
+    CPPUNIT_ASSERT_EQUAL((size_t)4, (*a).size());
+
+    a->clear();
+
+    CPPUNIT_ASSERT_EQUAL((size_t)0, (*a).size());
+    CPPUNIT_ASSERT_EQUAL(true, a->isEmpty());
+
+    a->insert(1, "Blah1");
+    a->insert(2, "Blah2");
+    a->insert(3, "Blah3");
+
+    CPPUNIT_ASSERT_EQUAL((size_t)3, (*a).size());
+    CPPUNIT_ASSERT_EQUAL(true, a->contains(1));
+    CPPUNIT_ASSERT_EQUAL(true, a->contains(2));
+    CPPUNIT_ASSERT_EQUAL(true, a->contains(3));
+}
+
 void HashTableTest :: getValueTest (void)
 {
   a->insert(1, "Blah1");

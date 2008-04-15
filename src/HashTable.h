@@ -36,7 +36,6 @@ template <class Key, class Value>
   * @todo Hashing
   * @todo Accessors
   * @todo replace()
-  * @todo clear()
   * @todo iterators
   *
   */
@@ -64,7 +63,9 @@ class HashTable {
   
     void clear() {
       for (size_t i = 0; i < _capacity; ++i)
-        list[i] = 
+        list[i].clear();
+      _size = 0;
+    }
 
     HashTable &operator = (const HashTable<Key, Value> &table) { 
       if (&table != this) {
