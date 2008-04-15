@@ -172,6 +172,11 @@ class List {
                                              current(iter.current),
                                              end(iter.end) {
         };
+        ListIterator() : Iterator<iterator_type>(),
+                         list(NULL),
+                         current(NULL),
+                         end(0) {
+        };
 
         iterator& operator =(const iterator& iter) {
           list = iter.list;

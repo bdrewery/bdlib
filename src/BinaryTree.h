@@ -295,6 +295,13 @@ class BinaryTree {
             storage[i] = iter.storage[i];
         }
 
+        BinaryTreeIterator() : Iterator<iterator_type>(),
+                               tree(NULL),
+                               index(0),
+                               my_size(0),
+                               storage(NULL) {
+        };
+
         iterator& operator =(const iterator& iter) {
           if (&iter != this) {
             if (my_size != iter.my_size) {

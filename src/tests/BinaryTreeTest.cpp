@@ -44,8 +44,12 @@ void BinaryTreeTest :: insertTest (void)
   a->insert(4, "Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
 
-  (*a)[6] = "testIe";
+  String ignored = (*a)[53];
+  CPPUNIT_ASSERT_EQUAL(true, ignored.isEmpty());
   CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
+
+  (*a)[6] = "testIe";
+  CPPUNIT_ASSERT_EQUAL((size_t)6, a->size());
 }
 
 void BinaryTreeTest :: containsTest (void)
