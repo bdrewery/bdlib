@@ -33,6 +33,12 @@ template <class Key, class Value>
 /**
   * @class HashTable
   * @brief HashTable data structure
+  * @todo Hashing
+  * @todo Accessors
+  * @todo replace()
+  * @todo clear()
+  * @todo iterators
+  *
   */
 class HashTable {
   private:
@@ -54,7 +60,11 @@ class HashTable {
 
     virtual ~HashTable() {
       delete[] list;
-    };
+    }
+  
+    void clear() {
+      for (size_t i = 0; i < _capacity; ++i)
+        list[i] = 
 
     HashTable &operator = (const HashTable<Key, Value> &table) { 
       if (&table != this) {
