@@ -54,6 +54,9 @@ void HashTableTest :: insertTest (void)
   (*b) = (*a);
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
   CPPUNIT_ASSERT_EQUAL((size_t)4, b->size());
+
+  (*a)[42] = "42";
+  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
 }
 
 void HashTableTest :: containsTest (void)
@@ -84,6 +87,10 @@ void HashTableTest :: containsTest (void)
   CPPUNIT_ASSERT_EQUAL(true, b->contains(4));
   CPPUNIT_ASSERT_EQUAL(false, b->contains(5));
   CPPUNIT_ASSERT_EQUAL(false, a->contains(5));
+
+  (*a)[42] = "42";
+  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
+  CPPUNIT_ASSERT_EQUAL(true, a->contains(42));
 }
 
 void HashTableTest :: clearTest (void)
@@ -134,31 +141,36 @@ void HashTableTest :: getValueTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)3, a->size());
 
   a->insert(4, "Blah4");
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a->getValue(4));
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a->getValue(1));
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a->getValue(2));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (*a)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah1", (*a)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (*a)[2]);
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", a->getValue(8));
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
 
   
-  String result = a->getValue(58);
+  String result = (*a)[58];
   CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
+  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
 
   (*b) = (*a);
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", b->getValue(4));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", b->getValue(1));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", b->getValue(2));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", b->getValue(8));
-  CPPUNIT_ASSERT_EQUAL((size_t)4, b->size());
-  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+  CPPUNIT_ASSERT_EQUAL((size_t)5, b->size());
+  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
 
   HashTable<int, String> test(*a);
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", test.getValue(4));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", test.getValue(1));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", test.getValue(2));
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", test.getValue(8));
-  CPPUNIT_ASSERT_EQUAL((size_t)4, test.size());
-  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+  CPPUNIT_ASSERT_EQUAL((size_t)5, test.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
+
+  (*a)[42] = "42";
+  CPPUNIT_ASSERT_STRING_EQUAL("42", (*a)[42]);
+
 }
 
 #ifdef DISABLED

@@ -34,7 +34,6 @@ template <class Key, class Value>
   * @class HashTable
   * @brief HashTable data structure
   * @todo Hashing
-  * @todo Accessors
   * @todo replace()
   * @todo iterators
   *
@@ -114,6 +113,25 @@ class HashTable {
       int index = getIndex(key);
       return list[index].find(iterator_type(key, Value())).value();
     };
+
+    /**
+      * @brief Associate array type accessor (rvalue)
+      * @param key The key to search for
+      */
+    const Value operator [](const Key& key) const { return getValue(key); }
+    
+    /**
+      * @brief Associate array type accessor (lvalue)
+      * @param key The key to search for
+      * @sa insert
+      * @code table["key"] = "value";
+      * If the key is not in the table, it is inserted, and the value set to the rvalue given.
+      */
+    Value& operator [](const Key& key) {
+      if (!contains(key))
+        insert(key, Value());
+      return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+    }
 };
 
 BDLIB_NS_END
