@@ -331,6 +331,7 @@ class BinaryTree {
 
         virtual operator bool() { return (index > 0 && index < my_size); };
 
+        virtual operator iterator_type () { return operator*(); };
         virtual iterator_type& operator *() { return storage[index]; }
 
         //Postfix
