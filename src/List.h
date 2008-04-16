@@ -43,7 +43,7 @@ class List {
     typedef T iterator_type;
 
 
-  private:
+  protected:
     struct Node {
       iterator_type ptr;
       Node* next;
