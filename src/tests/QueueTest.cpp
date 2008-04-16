@@ -49,6 +49,9 @@ void QueueTest :: enqueueTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
   a->enqueue("Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
+
+  (*a) << "Blah1" << "Blah2";
+  CPPUNIT_ASSERT_EQUAL((size_t)7, a->size());
 }
 
 void QueueTest :: dequeueTest (void)
@@ -75,5 +78,15 @@ void QueueTest :: dequeueTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Blahend", a->dequeue());
   
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->size());
+
+  (*a) << "One" << "Two" << "Three";
+  String one, two, three;
+  (*a) >> one >> two;
+  CPPUNIT_ASSERT_EQUAL((size_t)1, a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("One", one);
+  CPPUNIT_ASSERT_STRING_EQUAL("Two", two);
+  (*a) >> three;
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Three", three);
 }
 

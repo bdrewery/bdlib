@@ -51,6 +51,15 @@ class Queue : public List<T> {
       return item;
     };
 
+    /**
+     * @sa dequeue
+     */
+    friend Queue<iterator_type>& operator>> (Queue<iterator_type>& queue, iterator_type& item) {
+      item = queue.dequeue();
+      return queue;
+    }
+
+
     /*
      * @brief Enqueue an element into the queue
      * @param item The element to enqueue
@@ -58,6 +67,14 @@ class Queue : public List<T> {
     void enqueue(const iterator_type &item) {
       insert(item);
     };
+
+    /**
+     * @sa push
+     */
+    friend Queue<iterator_type>& operator<< (Queue<iterator_type>& queue, const iterator_type& item) {
+      queue.enqueue(item);
+      return queue;
+    }
 };
 
 BDLIB_NS_END

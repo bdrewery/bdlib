@@ -49,6 +49,9 @@ void StackTest :: pushTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
   a->push("Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
+
+  (*a) << "Blah1" << "Blah2";
+  CPPUNIT_ASSERT_EQUAL((size_t)7, a->size());
 }
 
 void StackTest :: popTest (void)
@@ -75,5 +78,15 @@ void StackTest :: popTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Blahstart", a->pop());
   
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->size());
+
+  (*a) << "One" << "Two" << "Three";
+  String one, two, three;
+  (*a) >> three >> two;
+  CPPUNIT_ASSERT_EQUAL((size_t)1, a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Three", three);
+  CPPUNIT_ASSERT_STRING_EQUAL("Two", two);
+  (*a) >> one;
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("One", one);
 }
 

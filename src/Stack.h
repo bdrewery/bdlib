@@ -51,6 +51,14 @@ class Stack : public List<T> {
       return item;
     };
 
+    /**
+     * @sa pop
+     */
+    friend Stack<iterator_type>& operator>> (Stack<iterator_type>& stack, iterator_type& item) {
+      item = stack.pop();
+      return stack;
+    }
+
     /*
      * @brief Push an element on to the top of stack
      * @param item The element to push back
@@ -58,6 +66,14 @@ class Stack : public List<T> {
     void push(const iterator_type &item) {
       insert(item);
     };
+
+    /**
+     * @sa push
+     */
+    friend Stack<iterator_type>& operator<< (Stack<iterator_type>& stack, const iterator_type& item) {
+      stack.insert(item);
+      return stack;
+    }
 };
 
 BDLIB_NS_END
