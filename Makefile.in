@@ -86,17 +86,19 @@ debug: checkclean.debug general
 general:
 
 buildcheck: checkclean.debug
-	+@cd src && $(MAKE) bdlib
+	+@cd src && $(MAKE_DEBUG) bdlib
 	+@cd src/tests && $(MAKE_UNITS) units
 	+@cd build && ${MAKE_DEBUG} check
-	@echo "[*] Running unit tests..."
 
 
 check: checkclean.debug general buildcheck
+	@echo "[*] Running unit tests..."
 	@$(VALGRIND) build/UnitRunner@EXEEXT@
 
 check.quiet: checkclean.debug general buildcheck
+	@echo "[*] Running unit tests..."
 	@$(VALGRIND) build/UnitRunner@EXEEXT@ quiet
 
 checkquick: checkclean.debug general buildcheck
+	@echo "[*] Running unit tests..."
 	build/UnitRunner@EXEEXT@
