@@ -52,6 +52,21 @@ class List {
       Node(const iterator_type& p) : ptr(p), next(NULL), prev(NULL) {};
     };
 
+    void deleteNode(Node* node) {
+      Node* next = node->next; //NULL if node = tail
+      Node* prev = node->prev; //NULL if node = head
+
+      delete node;
+
+      if (next) next->prev = prev;
+      if (prev) prev->next = next;
+
+      if (node == head) head = next;
+      if (node == tail) tail = prev;
+
+      --my_size;
+    }
+
     Node* head;
     Node* tail;
     size_t my_size;
@@ -148,18 +163,7 @@ class List {
        */
         for (Node* node = head; node; node = node->next) {
           if (node->ptr == ptr) {
-            Node* next = node->next; //NULL if node = tail
-            Node* prev = node->prev; //NULL if node = head
-
-            delete node;
-
-            if (next) next->prev = prev;
-            if (prev) prev->next = next;
-
-            if (node == head) head = next;
-            if (node == tail) tail = prev;
-
-            --my_size;
+            deleteNode(node);
             return true;
           }
         }
