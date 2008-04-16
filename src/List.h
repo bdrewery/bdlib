@@ -214,7 +214,7 @@ class List {
         virtual void remove() {
           Node *nextValue = end == 0 ? current->next : current->prev;
 
-          list->remove(current->ptr);
+          list->deleteNode(current);
 
           current = nextValue;
 /*
