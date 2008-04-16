@@ -118,6 +118,14 @@ class List {
       ++my_size;
     }
 
+    /**
+     * @sa insert
+     */
+    friend List<iterator_type>& operator<< (List<iterator_type>& list, const iterator_type& item) {
+      list.insert(item);
+      return list;
+    }
+
     bool contains(const iterator_type& ptr) const {
       if (head) {
         for (Node* node = head; node; node = node->next) {

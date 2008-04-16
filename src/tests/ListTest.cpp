@@ -49,6 +49,11 @@ void ListTest :: insertTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
   a->insert("Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
+
+  (*a) << "One";
+  CPPUNIT_ASSERT_EQUAL((size_t)6, a->size());
+  (*a) << "Two" << "Three";
+  CPPUNIT_ASSERT_EQUAL((size_t)8, a->size());
 }
 
 void ListTest :: containsTest (void)
@@ -58,14 +63,17 @@ void ListTest :: containsTest (void)
   a->insert("Blah");
   a->insert("Blah");
   a->insert("Blahend");
+  (*a) << "One" << "Two";
 
-  CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());  
+  CPPUNIT_ASSERT_EQUAL((size_t)7, a->size());  
   CPPUNIT_ASSERT_EQUAL(true, a->contains("Blahstart"));
   CPPUNIT_ASSERT_EQUAL(true, a->contains("Blah"));
   CPPUNIT_ASSERT_EQUAL(true, a->contains("Bleck"));
   CPPUNIT_ASSERT_EQUAL(true, a->contains("Blah"));
   CPPUNIT_ASSERT_EQUAL(true, a->contains("Blahend"));
   CPPUNIT_ASSERT_EQUAL(false, a->contains("Blahk"));
+  CPPUNIT_ASSERT_EQUAL(true, a->contains("One"));
+  CPPUNIT_ASSERT_EQUAL(true, a->contains("Two"));
 }
 
 void ListTest :: copyTest (void)
