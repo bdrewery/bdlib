@@ -16,6 +16,7 @@ class QueueTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST_SUITE (QueueTest);
     CPPUNIT_TEST (enqueueTest);
     CPPUNIT_TEST (dequeueTest);
+    CPPUNIT_TEST (iterateTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -25,6 +26,7 @@ class QueueTest : public CPPUNIT_NS :: TestFixture
     protected:
         void enqueueTest(void);
         void dequeueTest(void);
+        void iterateTest(void);
     private:
         Queue<String> *a, *b, *c, *d;
         Queue<String*> *e, *f, *g, *h;

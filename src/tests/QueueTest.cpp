@@ -90,3 +90,15 @@ void QueueTest :: dequeueTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Three", three);
 }
 
+void QueueTest :: iterateTest (void)
+{
+  (*a) << "1" << "2" << "3" << "4";
+  Queue<String>::iterator iter(a->begin());
+  int count = 1;
+  for (; iter; ++iter) {
+    char buf[2] = "";
+    sprintf(buf, "%d", count);
+    ++count;
+    CPPUNIT_ASSERT_STRING_EQUAL(buf, a->dequeue());
+  }
+}
