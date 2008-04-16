@@ -35,10 +35,13 @@ template <class T>
  * @brief A FIFO Queue, what else!
  */
 class Queue : public List<T> {
-  typedef T iterator_type;
-  typedef typename List<iterator_type>::Node Node;
+  class QueueIterator;
+  typedef typename List<T>::Node Node;
 
   public:
+    typedef QueueIterator iterator;
+    typedef T iterator_type;
+
     Queue() : List<iterator_type>() {};
     virtual ~Queue() {};
 
@@ -75,6 +78,81 @@ class Queue : public List<T> {
       queue.enqueue(item);
       return queue;
     }
+
+  private:
+    class QueueIterator : public Iterator<iterator_type> {
+      friend class Queue;
+      private:
+        Queue *queue;
+        Node *current;
+        bool end;
+
+        QueueIterator(Queue &_queue, bool _end = 0) : Iterator<iterator_type>(),
+                                                      queue(&_queue),
+                                                      current(_end ? _queue.tail : _queue.head), /* head is beginning */
+                                                      end(_end) {
+        };
+      public:
+        QueueIterator(const iterator& iter) : Iterator<iterator_type>(),
+                                              queue(iter.queue),
+                                              current(iter.current),
+                                              end(iter.end) {
+        };
+        QueueIterator() : Iterator<iterator_type>(),
+                          queue(NULL),
+                          current(NULL),
+                          end(0) {
+        };
+
+        iterator& operator =(const iterator& iter) {
+          queue = iter.queue;
+          current = iter.current;
+          end = iter.end;
+          return *this;
+        }
+
+        virtual ~QueueIterator() { }
+
+        virtual void remove() {
+          Node *nextValue = end == 0 ? current->next : current->prev;
+
+          queue->deleteNode(current);
+
+          current = nextValue;
+        }
+
+        virtual operator bool() { return (current != NULL); };
+        virtual operator iterator_type () { return operator*(); };
+
+        virtual iterator_type& operator *() { return (iterator_type&)current->ptr; }
+
+        //Postfix
+        virtual iterator operator ++(int) {
+          iterator tmp(*this);
+          current = current->next;
+          return tmp;
+        }
+
+        virtual iterator& operator ++() {
+          current = current->next;
+          return *this;
+        }
+
+        //Postfix
+        virtual iterator operator --(int) {
+          iterator tmp(*this);
+          current = current->prev;
+          return tmp;
+        }
+
+        virtual iterator& operator --() {
+          current = current->prev;
+          return *this;
+        }
+    };
+  public:
+    iterator begin() { return iterator(*this); };
+    iterator end() { return iterator(*this, 1); };
 };
 
 BDLIB_NS_END
