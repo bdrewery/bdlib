@@ -86,7 +86,7 @@ class HashTable {
     bool insert(const Key &key, const Value &value) { 
       if (contains(key)) return false;
       int index = getIndex(key);
-      list[index].insert(iterator_type(key, value));
+      list[index] << iterator_type(key, value);
       ++_size;
       return true;
     };
