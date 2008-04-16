@@ -217,13 +217,6 @@ class List {
           list->deleteNode(current);
 
           current = nextValue;
-/*
-          --my_size;
-          for (int i = index; i < my_size; ++i)
-            storage[i] = storage[i + 1];
-          //The iterator is 'invalid' now, but the index is shifter down in case iter++ is called
-          --index;
-*/
         }
 
         virtual operator bool() { return (current != NULL); };
