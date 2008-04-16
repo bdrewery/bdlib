@@ -24,8 +24,6 @@
 #ifndef _W_LIST_H
 #define _W_LIST_H 1
 
-#include <iostream>
-#include "String.h"
 #include "bdlib.h"
 #include "Iterator.h"
 BDLIB_NS_BEGIN

@@ -27,7 +27,6 @@
 #include "bdlib.h"
 #include "Iterator.h"
 
-#include "String.h"
 BDLIB_NS_BEGIN
 
 
