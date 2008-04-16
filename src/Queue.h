@@ -62,6 +62,14 @@ class Queue : public List<T> {
       return queue;
     }
 
+    /**
+     * @brief Peek at the first element, but don't dequeue it
+     * @todo Throw an exception?
+     */
+    const iterator_type peek() const {
+      return this->isEmpty() ? iterator_type() : this->tail->ptr;
+    }
+
 
     /*
      * @brief Enqueue an element into the queue

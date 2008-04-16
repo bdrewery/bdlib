@@ -66,6 +66,13 @@ void StackTest :: popTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Blahend", a->pop());
 
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->peek());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->peek());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
   CPPUNIT_ASSERT_STRING_EQUAL("Blah", a->pop());
   
   CPPUNIT_ASSERT_EQUAL((size_t)3, a->size());

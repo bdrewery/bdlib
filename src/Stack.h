@@ -59,6 +59,14 @@ class Stack : public List<T> {
       return stack;
     }
 
+    /**
+     * @brief Peek at the first element, but don't pop it off
+     * @todo Throw an exception?
+     */
+    const iterator_type peek() const {
+      return this->isEmpty() ? iterator_type() : this->head->ptr;
+    }
+
     /*
      * @brief Push an element on to the top of stack
      * @param item The element to push back

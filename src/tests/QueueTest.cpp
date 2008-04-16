@@ -66,6 +66,13 @@ void QueueTest :: dequeueTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Blahstart", a->dequeue());
 
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", a->peek());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", a->peek());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
+
   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", a->dequeue());
   
   CPPUNIT_ASSERT_EQUAL((size_t)3, a->size());
