@@ -90,3 +90,15 @@ void StackTest :: popTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("One", one);
 }
 
+void StackTest :: iterateTest (void)
+{
+  (*a) << "1" << "2" << "3" << "4";
+  Stack<String>::iterator iter(a->begin());
+  int count = 4;
+  for (; iter; ++iter) {
+    char buf[2] = "";
+    sprintf(buf, "%d", count);
+    --count;
+    CPPUNIT_ASSERT_STRING_EQUAL(buf, a->pop());
+  }
+}

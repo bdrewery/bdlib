@@ -16,6 +16,7 @@ class StackTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST_SUITE (StackTest);
     CPPUNIT_TEST (pushTest);
     CPPUNIT_TEST (popTest);
+    CPPUNIT_TEST (iterateTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -25,6 +26,7 @@ class StackTest : public CPPUNIT_NS :: TestFixture
     protected:
         void pushTest(void);
         void popTest(void);
+        void iterateTest(void);
     private:
         Stack<String> *a, *b, *c, *d;
         Stack<String*> *e, *f, *g, *h;
