@@ -1,11 +1,11 @@
-/* main.c
+/* @FILE@.cpp
  *
  * Copyright (C) Bryan Drewery
  *
  * This program is private and may not be distributed, modified
  * or used without express permission of Bryan Drewery.
  *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. 
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.
  * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY
  * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
  * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY
@@ -25,4 +25,8 @@
 static const char rcsid[] = "$Id: $";
 #endif /* lint */
 
+#include "@FILE@.h"
+
+BDLIB_NS_BEGIN
+BDLIB_NS_END
 

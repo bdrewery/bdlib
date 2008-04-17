@@ -1,4 +1,4 @@
-/* main.h
+/* @FILE@.h
  *
  * Copyright (C) Bryan Drewery
  *
@@ -19,8 +19,23 @@
  * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
  * MODIFICATIONS.
  *
- * $Id: main.h 3022 2006-09-08 22:40:09Z bryan $
+ * $Id: $
  */
-#ifndef _W_MAIN_H
-#define _W_MAIN_H 1
-#endif /* !_W_MAIN_H */ 
+#ifndef _W_@FILECAP@_H
+#define _W_@FILECAP@_H 1
+
+#include "bdlib.h"
+
+BDLIB_NS_BEGIN
+/**
+ * @class @FILE@
+ * @brief
+ */
+class @FILE@ {
+  public:
+    @FILE@();
+    virtual ~@FILE@();
+};
+BDLIB_NS_END
+
+#endif /* !_W_@FILECAP@_H */ 
