@@ -1,19 +1,19 @@
-/* OrderedListTest.h
+/* SortedListTest.h
  *
  * $Id$
  */
-#ifndef _OrderedListTEST_H
-#define _OrderedListTEST_H 1
+#ifndef _SORTEDLISTTEST_H
+#define _SORTEDLISTTEST_H 1
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include "String.h"
-#include "OrderedList.h"
+#include "SortedList.h"
 using namespace BDLIB_NS;
 
-class OrderedListTest : public CPPUNIT_NS :: TestFixture
+class SortedListTest : public CPPUNIT_NS :: TestFixture
 {
-    CPPUNIT_TEST_SUITE (OrderedListTest);
+    CPPUNIT_TEST_SUITE (SortedListTest);
     CPPUNIT_TEST (insertTest);
     CPPUNIT_TEST (containsTest);
     CPPUNIT_TEST (copyTest);
@@ -36,7 +36,7 @@ class OrderedListTest : public CPPUNIT_NS :: TestFixture
         void removeTest(void);
         void iterateTest(void);
     private:
-        OrderedList<String> *a, *b, *c, *d;
-        OrderedList<String*> *e, *f, *g, *h;
+        SortedList<String> *a, *b, *c, *d;
+        SortedList<String*> *e, *f, *g, *h;
 };
-#endif /* !_OrderedListTEST_H */
+#endif /* !_SORTEDLISTTEST_H */

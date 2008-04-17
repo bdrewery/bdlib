@@ -1,4 +1,4 @@
-/* OrderedList.cpp
+/* SortedList.cpp
  *
  * Copyright (C) Bryan Drewery
  *
@@ -25,7 +25,7 @@
 static const char rcsid[] = "$Id$";
 #endif /* lint */
 
-#include "OrderedList.h"
+#include "SortedList.h"
 
 BDLIB_NS_BEGIN
 BDLIB_NS_END

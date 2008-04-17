@@ -1,4 +1,4 @@
-/* OrderedList.h
+/* SortedList.h
  *
  * Copyright (C) Bryan Drewery
  *
@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_ORDEREDLIST_H
-#define _W_ORDEREDLIST_H 1
+#ifndef _W_SORTEDLIST_H
+#define _W_SORTEDLIST_H 1
 
 #include "bdlib.h"
 #include "List.h"
@@ -31,16 +31,16 @@ BDLIB_NS_BEGIN
 
 template <class T>
 /**
- * @class OrderedList
- * @brief An Ordered List 
+ * @class SortedList
+ * @brief A List which sorts on insert
  */
-class OrderedList : public List<T> {
+class SortedList : public List<T> {
   typedef T iterator_type;
   typedef typename List<iterator_type>::Node Node;
 
   public:
-    OrderedList() : List<iterator_type>() {};
-    virtual ~OrderedList() {};
+    SortedList() : List<iterator_type>() {};
+    virtual ~SortedList() {};
 
     /**
      * @brief Insert an element into the list (ordered)
@@ -82,4 +82,4 @@ class OrderedList : public List<T> {
 };
 
 BDLIB_NS_END
-#endif /* !_W_ORDEREDLIST_H */ 
+#endif /* !_W_SORTEDLIST_H */ 

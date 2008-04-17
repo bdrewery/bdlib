@@ -1,12 +1,12 @@
-/* OrderedListTest.c
+/* SortedListTest.c
  *
  * $Id$
  */
-#include "OrderedListTest.h"
+#include "SortedListTest.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION (OrderedListTest);
+CPPUNIT_TEST_SUITE_REGISTRATION (SortedListTest);
 
-void OrderedListTest :: setUp (void)
+void SortedListTest :: setUp (void)
 {
 /*
     // set up test environment (initializing objects)
@@ -19,24 +19,24 @@ void OrderedListTest :: setUp (void)
     g = new String('x');
     h = new String(35);
 */
-  a = new OrderedList<String>();
-  b = new OrderedList<String>();
-  c = new OrderedList<String>();
-  d = new OrderedList<String>();
-  e = new OrderedList<String*>();
-  f = new OrderedList<String*>();
-  g = new OrderedList<String*>();
-  h = new OrderedList<String*>();
+  a = new SortedList<String>();
+  b = new SortedList<String>();
+  c = new SortedList<String>();
+  d = new SortedList<String>();
+  e = new SortedList<String*>();
+  f = new SortedList<String*>();
+  g = new SortedList<String*>();
+  h = new SortedList<String*>();
 }
 
-void OrderedListTest :: tearDown (void)
+void SortedListTest :: tearDown (void)
 {
     // finally delete objects
     delete a; delete b; delete c; delete d;
     delete e; delete f; delete g; delete h;
 }
 
-void OrderedListTest :: insertTest (void)
+void SortedListTest :: insertTest (void)
 {
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->size());
   a->insert("Blah1");
@@ -56,7 +56,7 @@ void OrderedListTest :: insertTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)8, a->size());
 }
 
-void OrderedListTest :: containsTest (void)
+void SortedListTest :: containsTest (void)
 {
   a->insert("Blah2");
   a->insert("Blah5");
@@ -76,7 +76,7 @@ void OrderedListTest :: containsTest (void)
   CPPUNIT_ASSERT_EQUAL(true, a->contains("Blah12"));
 }
 
-void OrderedListTest :: copyTest (void)
+void SortedListTest :: copyTest (void)
 {
   a->insert("Blah2");
   a->insert("Blah5");
@@ -85,7 +85,7 @@ void OrderedListTest :: copyTest (void)
   a->insert("Blah1");
 
   delete b;
-  b = new OrderedList<String>(*a);
+  b = new SortedList<String>(*a);
   CPPUNIT_ASSERT_EQUAL((size_t)5, b->size());  
   CPPUNIT_ASSERT_EQUAL(true, b->contains("Blah1"));
   CPPUNIT_ASSERT_EQUAL(true, b->contains("Blah2"));
@@ -113,7 +113,7 @@ void OrderedListTest :: copyTest (void)
   CPPUNIT_ASSERT_EQUAL(false, b->contains("Blahk"));
 }
 
-void OrderedListTest :: findTest(void)
+void SortedListTest :: findTest(void)
 {
   a->insert("Blah2");
   (*a) << "Blah5" << "Blah3";
@@ -148,7 +148,7 @@ void OrderedListTest :: findTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("", a->find("WONT FIND THIS"));
 }
 
-void OrderedListTest :: clearTest (void)
+void SortedListTest :: clearTest (void)
 {
   a->insert("Blahstart");
   a->insert("Bleck");
@@ -165,7 +165,7 @@ void OrderedListTest :: clearTest (void)
   CPPUNIT_ASSERT_EQUAL(true, a->isEmpty());
 }
 
-void OrderedListTest :: removeTest (void)
+void SortedListTest :: removeTest (void)
 {
   a->insert("Blah2");
   a->insert("Blah5");
@@ -229,7 +229,7 @@ void OrderedListTest :: removeTest (void)
 }
 
 #ifdef NO
-void OrderedListTest :: iterateTest (void)
+void SortedListTest :: iterateTest (void)
 {
   a->insert("Blah1");
   a->insert("Blah2");
@@ -237,7 +237,7 @@ void OrderedListTest :: iterateTest (void)
   a->insert("Blah4");
   a->insert("Blah5");
 
-  OrderedList<int, String>::iterator iter = a->begin();
+  SortedList<int, String>::iterator iter = a->begin();
   while (iter.hasNext()) {
 //    int key = (int) iter.next();
 //    printf("%d\n", key);
@@ -272,7 +272,7 @@ void OrderedListTest :: iterateTest (void)
 }
 #endif
 
-void OrderedListTest :: iterateTest (void)
+void SortedListTest :: iterateTest (void)
 {
   a->insert("Blah1");
   a->insert("Blah2");
@@ -280,7 +280,7 @@ void OrderedListTest :: iterateTest (void)
   a->insert("Blah4");
   a->insert("Blah5");
 
-  OrderedList<String>::iterator iter = a->begin();
+  SortedList<String>::iterator iter = a->begin();
 /*
   while (iter) {
 //    int key = (int) iter.next();
