@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_THREAD_H
-#define _W_THREAD_H 1
+#ifndef _BD_THREAD_H
+#define _BD_THREAD_H 1
 
 #include "bdlib.h"
 
@@ -91,4 +91,4 @@ class Thread {
 
 BDLIB_NS_END
 
-#endif /* !_W_THREAD_H */ 
+#endif /* !_BD_THREAD_H */ 

@@ -2,8 +2,8 @@
  *
  * $Id$
  */
-#ifndef _mSTRING_H
-#define _mSTRING_H 1
+#ifndef _BD_STRING_H
+#define _BD_STRING_H 1
 
 #include "bdlib.h"
 
@@ -736,5 +736,5 @@ std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
-#endif /* !_mSTRING_H */
+#endif /* !_BD_STRING_H */
 

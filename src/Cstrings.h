@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_CSTRINGS_H
-#define _W_CSTRINGS_H 1
+#ifndef _BD_CSTRINGS_H
+#define _BD_CSTRINGS_H 1
 
 #include "bdlib.h"
 
@@ -42,4 +42,4 @@ void *realloc(void *, size_t);
 
 BDLIB_NS_END
 
-#endif /* !_W_CSTRINGS_H */ 
+#endif /* !_BD_CSTRINGS_H */ 

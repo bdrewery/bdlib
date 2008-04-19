@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_ITERATOR_H
-#define _W_ITERATOR_H 1
+#ifndef _BD_ITERATOR_H
+#define _BD_ITERATOR_H 1
 
 #include <iterator>
 #include "bdlib.h"
@@ -87,4 +87,4 @@ struct KeyValue {
 };
 
 BDLIB_NS_END
-#endif /* !_W_ITERATOR_H */ 
+#endif /* !_BD_ITERATOR_H */ 

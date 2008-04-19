@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_STACK_H
-#define _W_STACK_H 1
+#ifndef _BD_STACK_H
+#define _BD_STACK_H 1
 
 #include "bdlib.h"
 #include "List.h"
@@ -85,4 +85,4 @@ class Stack : public List<T> {
 };
 
 BDLIB_NS_END
-#endif /* !_W_STACK_H */ 
+#endif /* !_BD_STACK_H */ 

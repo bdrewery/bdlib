@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_HASHTABLE_H
-#define _W_HASHTABLE_H 1
+#ifndef _BD_HASHTABLE_H
+#define _BD_HASHTABLE_H 1
 
 #include "bdlib.h"
 #include "Iterator.h"
@@ -136,4 +136,4 @@ class HashTable {
 
 BDLIB_NS_END
 
-#endif /* !_W_HASHTABLE_H */ 
+#endif /* !_BD_HASHTABLE_H */ 

@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_SOCKET_H
-#define _W_SOCKET_H 1
+#ifndef _BD_SOCKET_H
+#define _BD_SOCKET_H 1
 
 #include "bdlib.h"
 
@@ -104,4 +104,4 @@ class ServerSocket : public Socket {
     virtual ~ServerSocket();
 };
 BDLIB_NS_END
-#endif /* !_W_SOCKET_H */ 
+#endif /* !_BD_SOCKET_H */ 

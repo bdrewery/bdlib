@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_BASE64_H
-#define _W_BASE64_H 1
+#ifndef _BD_BASE64_H
+#define _BD_BASE64_H 1
 
 #include "bdlib.h"
 
@@ -63,4 +63,4 @@ char *b64dec(const unsigned char *data, size_t *len);
 void b64dec_buf(const unsigned char *data, size_t *len, char *dest);
 
 BDLIB_NS_END
-#endif /* !_W_BASE64_H */ 
+#endif /* !_BD_BASE64_H */ 

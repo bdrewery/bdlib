@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_SORTEDLIST_H
-#define _W_SORTEDLIST_H 1
+#ifndef _BD_SORTEDLIST_H
+#define _BD_SORTEDLIST_H 1
 
 #include "bdlib.h"
 #include "List.h"
@@ -82,4 +82,4 @@ class SortedList : public List<T> {
 };
 
 BDLIB_NS_END
-#endif /* !_W_SORTEDLIST_H */ 
+#endif /* !_BD_SORTEDLIST_H */ 

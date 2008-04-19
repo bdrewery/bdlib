@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_QUEUE_H
-#define _W_QUEUE_H 1
+#ifndef _BD_QUEUE_H
+#define _BD_QUEUE_H 1
 
 #include "bdlib.h"
 #include "List.h"
@@ -164,4 +164,4 @@ class Queue : public List<T> {
 };
 
 BDLIB_NS_END
-#endif /* !_W_QUEUE_H */
+#endif /* !_BD_QUEUE_H */

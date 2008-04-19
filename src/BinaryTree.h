@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_BINARYTREE_H
-#define _W_BINARYTREE_H 1
+#ifndef _BD_BINARYTREE_H
+#define _BD_BINARYTREE_H 1
 
 #include "bdlib.h"
 #include "Iterator.h"
@@ -367,4 +367,4 @@ class BinaryTree {
 };
 
 BDLIB_NS_END
-#endif /* !_W_BINARYTREE_H */ 
+#endif /* !_BD_BINARYTREE_H */ 

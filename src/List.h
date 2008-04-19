@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_LIST_H
-#define _W_LIST_H 1
+#ifndef _BD_LIST_H
+#define _BD_LIST_H 1
 
 #include "bdlib.h"
 #include "Iterator.h"
@@ -255,4 +255,4 @@ class List {
 
 BDLIB_NS_END
 
-#endif /* !_W_LIST_H */ 
+#endif /* !_BD_LIST_H */ 

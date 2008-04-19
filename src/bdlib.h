@@ -21,8 +21,8 @@
  *
  * $Id$
  */
-#ifndef _W_BDLIB_H
-#define _W_BDLIB_H 1
+#ifndef _BD_BDLIB_H
+#define _BD_BDLIB_H 1
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -43,4 +43,4 @@
 #define BDLIB_NS_END }
 #define BDLIB_NS bd
 
-#endif /* !_W_BDLIB_H */ 
+#endif /* !_BD_BDLIB_H */ 
