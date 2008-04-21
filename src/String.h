@@ -524,19 +524,6 @@ class String {
 #else
 	virtual void printf(const char*, ...);
 #endif
-#ifdef DISABLED
-	const String encrypt(String);
-	const String decrypt(String);
-#endif /* DISABLED */
-        /**
-          * @brief Encode the string into base64
-          */
-        const String base64Encode(void);
-        /**
-          * @brief Decode the string from base64
-          */
-        const String base64Decode(void);
-
         /* Operators */
 
         String& operator += (const char);

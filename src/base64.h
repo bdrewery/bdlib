@@ -27,6 +27,8 @@
 #include "bdlib.h"
 
 BDLIB_NS_BEGIN
+class String;
+
 class Base64 {
 };
 
@@ -37,6 +39,13 @@ class Base64 {
   * @return An encoded NULL-terminated c-style string (must be free()d later)
   */
 char *b64enc(const unsigned char *src, size_t *len);
+
+/**
+ * @brief Base64 encode a string
+ * @param string The string to encode
+ * @return A new, encoded string
+ */
+String base64Encode(const String&);
 
 /**
   * @brief Encode a plaintext string into base64 (using a given buffer)
@@ -53,6 +62,13 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest);
   * @return A decoded NULL-terminated c-style string (must be free()d later)
   */
 char *b64dec(const unsigned char *data, size_t *len);
+
+/**
+ * @brief Base64 decode a string
+ * @param string The string to decode
+ * @return A new, decoded string
+ */
+String base64Decode(const String&);
 
 /**
   * @brief Decode a base64 encoded string into plaintext (using a given buffer)

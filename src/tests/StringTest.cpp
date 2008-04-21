@@ -4,6 +4,7 @@
  */
 #include <ctype.h>
 #include "StringTest.h"
+#include <base64.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
 
@@ -346,53 +347,53 @@ void StringTest :: base64Test(void)
 {
   *b = "b";
   *c = *b;
-  b->base64Encode();
-  CPPUNIT_ASSERT(*b != *c);
-  CPPUNIT_ASSERT(*b != "b");
-  CPPUNIT_ASSERT_STRING_EQUAL("Yg==", *b);
-  b->base64Decode();
+  *a = base64Encode(*b);
+  CPPUNIT_ASSERT(*a != *c);
+  CPPUNIT_ASSERT(*a != "b");
+  CPPUNIT_ASSERT_STRING_EQUAL("Yg==", *a);
+  *b = base64Decode(*a);
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("b", *b);
 
   *b = "bl";
   *c = *b;
-  b->base64Encode();
-  CPPUNIT_ASSERT(*b != *c);
-  CPPUNIT_ASSERT(*b != "bl");
-  CPPUNIT_ASSERT_STRING_EQUAL("Ymw=", *b);
-  b->base64Decode();
+  *a = base64Encode(*b);
+  CPPUNIT_ASSERT(*a != *c);
+  CPPUNIT_ASSERT(*a != "bl");
+  CPPUNIT_ASSERT_STRING_EQUAL("Ymw=", *a);
+  *b = base64Decode(*a);
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("bl", *b);
 
   *b = "bla";
   *c = *b;
-  b->base64Encode();
-  CPPUNIT_ASSERT(*b != *c);
-  CPPUNIT_ASSERT(*b != "bla");
-  CPPUNIT_ASSERT_STRING_EQUAL("Ymxh", *b);
-  b->base64Decode();
+  *a = base64Encode(*b);
+  CPPUNIT_ASSERT(*a != *c);
+  CPPUNIT_ASSERT(*a != "bla");
+  CPPUNIT_ASSERT_STRING_EQUAL("Ymxh", *a);
+  *b = base64Decode(*a);
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("bla", *b);
 
   *b = "blah";
   *c = *b;
-  b->base64Encode();
-  CPPUNIT_ASSERT(*b != *c);
-  CPPUNIT_ASSERT(*b != "blah");
-  CPPUNIT_ASSERT_STRING_EQUAL("YmxhaA==", *b);
-  b->base64Decode();
+  *a = base64Encode(*b);
+  CPPUNIT_ASSERT(*a != *c);
+  CPPUNIT_ASSERT(*a != "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("YmxhaA==", *a);
+  *b = base64Decode(*a);
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
 
 
 
-  d->base64Encode();
-  d->base64Decode();
+  *d = base64Encode(*d);
+  *d = base64Decode(*d);
   CPPUNIT_ASSERT_STRING_EQUAL(cstring, *d);
 
   String eff = String(*f);
-  f->base64Encode();
-  f->base64Decode();
+  *f = base64Encode(*f);
+  *f = base64Decode(*f);
   CPPUNIT_ASSERT_STRING_EQUAL(*f, eff);
 
   /* Test misc lengths of alphabet */
@@ -407,12 +408,11 @@ void StringTest :: base64Test(void)
       strcat(buf, letter);
     }
     buf[i] = 0;
-    String tmpbuf = buf;
-    tmpbuf.base64Encode();
+    String tmpbuf(base64Encode(buf));
 //printf("%s -> %s\n", buf, tmpbuf.c_str());
-    tmpbuf.base64Decode();
-    CPPUNIT_ASSERT_STRING_EQUAL(buf, tmpbuf);
-    CPPUNIT_ASSERT_EQUAL((size_t) i, tmpbuf.length());
+    String decoded(base64Decode(tmpbuf));
+    CPPUNIT_ASSERT_STRING_EQUAL(buf, decoded);
+    CPPUNIT_ASSERT_EQUAL((size_t) i, decoded.length());
   }
   free(buf);
 
@@ -420,15 +420,15 @@ void StringTest :: base64Test(void)
 
   const char *twentysix = "this is 26 characters long";
   tmp = twentysix;
-  tmp.base64Encode();
-  tmp.base64Decode();
+  tmp = base64Encode(tmp);
+  tmp = base64Decode(tmp);
   CPPUNIT_ASSERT_STRING_EQUAL(twentysix, tmp);
   CPPUNIT_ASSERT_EQUAL(strlen(twentysix), tmp.length());
 
   const char *twentynine = "this is 29 characters long ok";
   tmp = twentynine;
-  tmp.base64Encode();
-  tmp.base64Decode();
+  tmp = base64Encode(tmp);
+  tmp = base64Decode(tmp);
   CPPUNIT_ASSERT_STRING_EQUAL(twentynine, tmp);
   CPPUNIT_ASSERT_EQUAL(strlen(twentynine), tmp.length());
 
@@ -437,8 +437,8 @@ void StringTest :: base64Test(void)
   for (unsigned char c = 0; c < 255; c++)
     tmp.append(c);
   String save = String(tmp);
-  tmp.base64Encode();
-  tmp.base64Decode();
+  tmp = base64Encode(tmp);
+  tmp = base64Decode(tmp);
   CPPUNIT_ASSERT_EQUAL((size_t)255, tmp.length());
   CPPUNIT_ASSERT_STRING_EQUAL(save, tmp);
   CPPUNIT_ASSERT_EQUAL(save.length(), tmp.length());

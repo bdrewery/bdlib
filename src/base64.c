@@ -27,6 +27,7 @@ static const char rcsid[] = "$Id$";
 
 #include <cstdlib>
 #include "base64.h"
+#include "String.h"
 
 BDLIB_NS_BEGIN
 
@@ -125,6 +126,14 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
   *len = buf - dest;
 }
 
+String base64Encode(const String& string) {
+  size_t len = string.length();
+  char *p = b64enc((unsigned char*) string.data(), &len);
+  bd::String encoded(p, len);
+  free(p);
+  return encoded;
+}
+
 char *b64enc(const unsigned char *src, size_t *len)
 {
   /* Take the length and round up the next 4-byte boundary */
@@ -168,6 +177,14 @@ char *b64dec(const unsigned char *data, size_t *len)
   b64dec_buf(data, len, dest);
   dest[*len] = '\0';
   return dest;
+}
+
+String base64Decode(const String& string) {
+  size_t len = string.length();
+  char *p = b64dec((unsigned char*) string.data(), &len);
+  bd::String decoded(p, len);
+  free(p);
+  return decoded;
 }
 
 BDLIB_NS_END
