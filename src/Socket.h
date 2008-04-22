@@ -83,7 +83,7 @@ class Socket {
     bool recv(String&) const;
 
     int setNonBlocking(bool = 1);
-    bool isValid() const { return sock != -1; };
+    inline bool isValid() const { return sock != -1; };
 };
 
 class ClientSocket : public Socket {

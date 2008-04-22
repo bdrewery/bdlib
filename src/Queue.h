@@ -57,7 +57,7 @@ class Queue : public List<T> {
     /**
      * @sa dequeue
      */
-    friend Queue<iterator_type>& operator>> (Queue<iterator_type>& queue, iterator_type& item) {
+    inline friend Queue<iterator_type>& operator>> (Queue<iterator_type>& queue, iterator_type& item) {
       item = queue.dequeue();
       return queue;
     }
@@ -66,7 +66,7 @@ class Queue : public List<T> {
      * @brief Peek at the first element, but don't dequeue it
      * @todo Throw an exception?
      */
-    const iterator_type peek() const {
+    inline const iterator_type peek() const {
       return this->isEmpty() ? iterator_type() : this->tail->ptr;
     }
 
@@ -75,14 +75,14 @@ class Queue : public List<T> {
      * @brief Enqueue an element into the queue
      * @param item The element to enqueue
      */
-    void enqueue(const iterator_type &item) {
+    inline void enqueue(const iterator_type &item) {
       insert(item);
     };
 
     /**
      * @sa push
      */
-    friend Queue<iterator_type>& operator<< (Queue<iterator_type>& queue, const iterator_type& item) {
+    inline friend Queue<iterator_type>& operator<< (Queue<iterator_type>& queue, const iterator_type& item) {
       queue.enqueue(item);
       return queue;
     }
@@ -159,8 +159,8 @@ class Queue : public List<T> {
         }
     };
   public:
-    iterator begin() { return iterator(*this); };
-    iterator end() { return iterator(*this, 1); };
+    inline iterator begin() { return iterator(*this); };
+    inline iterator end() { return iterator(*this, 1); };
 };
 
 BDLIB_NS_END

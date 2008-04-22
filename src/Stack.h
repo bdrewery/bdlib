@@ -54,7 +54,7 @@ class Stack : public List<T> {
     /**
      * @sa pop
      */
-    friend Stack<iterator_type>& operator>> (Stack<iterator_type>& stack, iterator_type& item) {
+    inline friend Stack<iterator_type>& operator>> (Stack<iterator_type>& stack, iterator_type& item) {
       item = stack.pop();
       return stack;
     }
@@ -63,7 +63,7 @@ class Stack : public List<T> {
      * @brief Peek at the first element, but don't pop it off
      * @todo Throw an exception?
      */
-    const iterator_type peek() const {
+    inline const iterator_type peek() const {
       return this->isEmpty() ? iterator_type() : this->head->ptr;
     }
 
@@ -71,14 +71,14 @@ class Stack : public List<T> {
      * @brief Push an element on to the top of stack
      * @param item The element to push back
      */
-    void push(const iterator_type &item) {
+    inline void push(const iterator_type &item) {
       insert(item);
     };
 
     /**
      * @sa push
      */
-    friend Stack<iterator_type>& operator<< (Stack<iterator_type>& stack, const iterator_type& item) {
+    inline friend Stack<iterator_type>& operator<< (Stack<iterator_type>& stack, const iterator_type& item) {
       stack.insert(item);
       return stack;
     }

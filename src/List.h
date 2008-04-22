@@ -98,9 +98,9 @@ class List {
       my_size = 0;
     };
 
-    const size_t size() const { return my_size; };
-    bool isEmpty() const { return size() == 0; };
-    operator bool() const { return !isEmpty(); };
+    inline const size_t size() const { return my_size; };
+    inline bool isEmpty() const { return size() == 0; };
+    inline operator bool() const { return !isEmpty(); };
 
     /**
      * @brief Insert into the list at the head
@@ -121,7 +121,7 @@ class List {
     /**
      * @sa insert
      */
-    friend List<iterator_type>& operator<< (List<iterator_type>& list, const iterator_type& item) {
+    inline friend List<iterator_type>& operator<< (List<iterator_type>& list, const iterator_type& item) {
       list.insert(item);
       return list;
     }
@@ -249,8 +249,8 @@ class List {
         }
     };
   public:
-    iterator begin() { return iterator(*this); };
-    iterator end() { return iterator(*this, 1); };
+    inline iterator begin() { return iterator(*this); };
+    inline iterator end() { return iterator(*this, 1); };
 };
 
 BDLIB_NS_END

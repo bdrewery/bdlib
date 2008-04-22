@@ -85,12 +85,12 @@ class BinaryTree {
       * This first looks for the where the node SHOULD be in the tree.
       * It will of course fail, but this is the location to place the node.
       */
-    void insertNode(Node** search, Node* const node) {
+    inline void insertNode(Node** search, Node* const node) {
       Node* &insertAt = fetchNode(search, node->kv.key());
       insertNode(insertAt);
     }
 
-    void insertNode(Node*& insertAt, Node* const node) {
+    inline void insertNode(Node*& insertAt, Node* const node) {
       insertAt = node;
       ++my_size;
     }
@@ -140,9 +140,9 @@ class BinaryTree {
       * @brief Returns the current size of the tree
       * @return The current size of the tree
       */
-    size_t size() const { return my_size; };
-    bool isEmpty() const { return size() == 0; };
-    operator bool() const { return !isEmpty(); };
+    inline size_t size() const { return my_size; };
+    inline bool isEmpty() const { return size() == 0; };
+    inline operator bool() const { return !isEmpty(); };
 
   public:
     BinaryTree() : my_size(0), root(NULL) {};
@@ -187,7 +187,7 @@ class BinaryTree {
       * @sa getValue
       * @param key The key to search for
       */
-    const Value operator [](const Key& key) const { return getValue(key); }
+    inline const Value operator [](const Key& key) const { return getValue(key); }
 
     /**
       * @brief Associate array type accessor (lvalue)
@@ -219,7 +219,7 @@ class BinaryTree {
       return false;
     }
 
-    void clear() {
+    inline void clear() {
       while (root != NULL)
         deleteNode(root);
     }
@@ -361,8 +361,8 @@ class BinaryTree {
         }
     };
   public:
-    iterator begin() { return iterator(this, root, my_size); };
-    iterator end() { return iterator(this, root, my_size, 1); };
+    inline iterator begin() { return iterator(this, root, my_size); };
+    inline iterator end() { return iterator(this, root, my_size, 1); };
 
 };
 

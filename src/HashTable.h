@@ -46,7 +46,7 @@ class HashTable {
     size_t _size;
     size_t _capacity;
 
-    int getIndex(const Key &key) const {
+    inline int getIndex(const Key &key) const {
       return key % _capacity;
     }
   public:
@@ -78,10 +78,10 @@ class HashTable {
       return *this; 
     }
 
-    size_t size() const { return _size; };
-    size_t capacity() const { return _capacity; };
-    bool isEmpty() const { return size() == 0; };
-    operator bool() const { return !isEmpty(); };
+    inline size_t size() const { return _size; };
+    inline size_t capacity() const { return _capacity; };
+    inline bool isEmpty() const { return size() == 0; };
+    inline operator bool() const { return !isEmpty(); };
 
     bool insert(const Key &key, const Value &value) { 
       if (contains(key)) return false;
@@ -118,7 +118,7 @@ class HashTable {
       * @brief Associate array type accessor (rvalue)
       * @param key The key to search for
       */
-    const Value operator [](const Key& key) const { return getValue(key); }
+    inline const Value operator [](const Key& key) const { return getValue(key); }
     
     /**
       * @brief Associate array type accessor (lvalue)

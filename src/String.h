@@ -62,14 +62,14 @@ class StringBuf {
          * @post The buffer is deleted.
          * @todo Implement mempool here.
          */
-        void FreeBuf(const char* p) const {
+        inline void FreeBuf(const char* p) const {
           if (p != sbuf) delete[] p;
         }
 
         /**
           * @brief Is this string shared?
           */
-        bool isShared() const { return n > 1; };
+        inline bool isShared() const { return n > 1; };
 private:
         // No copying allowed
         StringBuf(const StringBuf&); ///<Block implicit copy constructor
@@ -116,7 +116,7 @@ class String {
             /**
              * @sa char String::operator[]
              */
-            operator char() const { return s.read(k); };
+            inline operator char() const { return s.read(k); };
 
             /**
              * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
@@ -149,7 +149,7 @@ class String {
           public:
             SubString(const SubString& substring) : s(substring.s), start(substring.start), len(substring.len) {};
 
-            SubString& operator= (const SubString& substring) {
+            inline SubString& operator= (const SubString& substring) {
               (*this) = (String) substring;
               return (*this);
             }
@@ -158,17 +158,17 @@ class String {
             /*
              * @brief return a new (const) substring
              */
-            operator String() const { return s.substring(start, len); };
+            inline operator String() const { return s.substring(start, len); };
 
             /**
              * @todo This needs to account for negative start/len
              */
-            SubString& operator= (const String& string) {
+            inline SubString& operator= (const String& string) {
               s.replace(start, string, len);
               return (*this);
             }
 
-            SubString& operator= (const char* string) {
+            inline SubString& operator= (const char* string) {
               s.replace(start, string, len);
               return (*this);
             }
@@ -194,17 +194,17 @@ class String {
           * @brief Set the lengths to the specified length
           * @param newLen the new length to set to
           */
-        void setLength(size_t newLen) const { Ref->len = sublen = newLen; };
+        inline void setLength(size_t newLen) const { Ref->len = sublen = newLen; };
 
         /**
           * @sa setLength()
           */
-        void addLength(size_t diff) const { Ref->len += diff; sublen += diff; };
+        inline void addLength(size_t diff) const { Ref->len += diff; sublen += diff; };
 
         /**
           * @sa setLength()
           */
-        void subLength(size_t diff) const { Ref->len -= diff; sublen -= diff; };
+        inline void subLength(size_t diff) const { Ref->len -= diff; sublen -= diff; };
 
         /**
           * @brief Mutable Ref->buf+offset reference for use internally
@@ -214,27 +214,27 @@ class String {
         /**
           * @brief Mutable Ref->buf reference for use internally
           */
-        char* Buf(int i = 0) const { return Ref->buf + offset + i; };
+        inline char* Buf(int i = 0) const { return Ref->buf + offset + i; };
 
         /**
           * @brief Ref->buf reference for use internally
           */
-        const char* constBuf(int i = 0) const { return Buf(i); };
+        inline const char* constBuf(int i = 0) const { return Buf(i); };
 
         /**
           * @brief Increment our reference counter.
           */
-        uint8_t incRef() const { return ++Ref->n; };
+        inline uint8_t incRef() const { return ++Ref->n; };
 
         /**
           * @brief Decrement our reference counter.
           */
-        uint8_t decRef() const { return --Ref->n; };
+        inline uint8_t decRef() const { return --Ref->n; };
 
         /**
           * @return True if this string is shared; false if not.
           */
-         bool isShared() const { return Ref->isShared(); };         
+        inline bool isShared() const { return Ref->isShared(); };
   protected:
         /**
           * @brief The string reference for reference counting 
@@ -258,7 +258,7 @@ class String {
          * This is only called in ~String() and operator=(String&).
          * It checks whether of not this String was the last reference to the buffer, and if it was, it removes it.
          */
-        void CheckDeallocRef() {
+        inline void CheckDeallocRef() {
           if (decRef() < 1)
             delete Ref;
         }
@@ -285,7 +285,7 @@ class String {
           else
             Reserve(n);
         }
-        void getOwnCopy() const { AboutToModify(capacity()); };
+        inline void getOwnCopy() const { AboutToModify(capacity()); };
   public:
         int rcount() const { return Ref->n; };
 
@@ -341,9 +341,9 @@ class String {
 	 * @post If the String's Reference IS shared, it is decremented and detached.
 	 */
         virtual ~String() { CheckDeallocRef(); };
-        
-        const char* begin() const { return data(); };
-        const char* end() const { return begin() + length(); };
+
+        inline const char* begin() const { return data(); };
+        inline const char* end() const { return begin() + length(); };
 
 
         /* Accessors */
@@ -351,25 +351,25 @@ class String {
          * @brief Returns length of the string.
          * @return Length of the string.
          */
-        const size_t length() const { return sublen; };
+        inline const size_t length() const { return sublen; };
 
         /**
          * @brief Returns capacity of the String object.
          * @return Capacity of the String object.
          */
-        const size_t capacity() const { return Ref->size; };
+        inline const size_t capacity() const { return Ref->size; };
 
         /**
           * @brief Check whether the string is 'empty'
           * @return True if empty, false if non-empty
           */
-        bool isEmpty() const { return length() == 0; };
+        inline bool isEmpty() const { return length() == 0; };
         /**
           * @sa isEmpty()
           * This is for: if (!string)
           * Having if(string) conflicts with another operator
           */
-        bool operator ! () const { return isEmpty(); };
+        inline bool operator ! () const { return isEmpty(); };
 
 	/**
 	 * @brief Cstring accessor
@@ -391,7 +391,7 @@ class String {
          * String string("blah");
          * const char* cstring = (const char*) string;
          */
-        const char* operator * () const { return c_str(); };
+        inline const char* operator * () const { return c_str(); };
 
 	/**
 	 * @brief Returns a new String containing integer copies of the receiver.
@@ -404,14 +404,14 @@ class String {
 	 * @brief Data accessor
 	 * @return Pointer to array of characters (not necesarily null-terminated).
 	 */
-        const char* data() const { return Ref->buf + offset; }
+        inline const char* data() const { return Ref->buf + offset; }
 
         /**
          * @brief Checks if the buffer has the given index or not.
          * @return Boolean true/false as to whether or not index exists.
          * @param i Index to check.
         */
-        bool hasIndex(int i) const { 
+        inline bool hasIndex(int i) const { 
 #ifdef DEBUG
         if (i < 0 || i >= (int) (offset + length())) std::printf("ATTEMPT TO ACCESS INDEX %d/%d\n", i, (offset + length()));
 #endif
@@ -422,9 +422,9 @@ class String {
          * @sa charAt()
          * Unlinke charAt() this is unchecked.
          */
-        char read(int i) const { return *(constBuf(i)); };
+        inline char read(int i) const { return *(constBuf(i)); };
 
-        void write(int i, char c) {
+        inline void write(int i, char c) {
           getOwnCopy();
           *(Buf(i)) = c;
         };
@@ -433,13 +433,13 @@ class String {
          * @brief Safe element access operator
          * @todo This is only called on a (const) String, but should for a String as well.
          */
-        const char operator [](int i) const { return read(i); };
+        inline const char operator [](int i) const { return read(i); };
 
         /**
          * @brief Returns 'Cref' class for safe (cow) writing into String.
          * @sa Cref
          */ 
-        Cref operator [](int i) { return Cref(*this, i); };
+        inline Cref operator [](int i) { return Cref(*this, i); };
 
         /**
          * @brief Returns the character at the given index.
@@ -449,7 +449,7 @@ class String {
          * @sa operator[]()
          * @todo Perhaps this should throw an exception if out of range?
          */
-        const char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
+        inline const char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
 
         String substring(int, int) const;
 
@@ -457,19 +457,19 @@ class String {
          * @brief Returns a 'SubString' class for safe (cow) writing into String
          * @sa SubString
          */
-        SubString operator()(int start, int len) { return SubString(*this, start, len); };
+        inline SubString operator()(int start, int len) { return SubString(*this, start, len); };
         /**
          * @brief Returns a const substring
          * @sa SubString
          */
-        String operator()(int start, int len) const { return substring(start, len); };
+        inline String operator()(int start, int len) const { return substring(start, len); };
 
         /**
 	 * @brief Compare our String object with another String object
 	 * @param string The String object to compare to
 	 * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
 	 */
-	int compare(const String& string) const { return compare(string, string.length()); };
+	inline int compare(const String& string) const { return compare(string, string.length()); };
         int compare(const String&, size_t) const;
 //        const StringList split(const char);
 
@@ -481,7 +481,7 @@ class String {
          * @post The character is appended at the end of the buffer.
          * This is the same as inserting the character at the end of the buffer.
          */
-        void append(const char ch) { insert(length(), ch); };
+        inline void append(const char ch) { insert(length(), ch); };
 
         /**
          * @brief Appends given cstring to end of buffer.
@@ -490,7 +490,7 @@ class String {
          * @post The buffer is allocated.
          * This is the same as inserting the string at the end of the buffer.
          */
-        void append(const char* string, int n = -1) { insert(length(), string, n); };
+        inline void append(const char* string, int n = -1) { insert(length(), string, n); };
 
         /**
          * @brief Appends given string to the end of buffer
@@ -499,7 +499,7 @@ class String {
          * @post The buffer is allocated.
          * This is the same as inserting the string at the end of the buffer.
          */
-        void append(const String& string, int n = -1) { insert(length(), string, n); };
+        inline void append(const String& string, int n = -1) { insert(length(), string, n); };
 
         void insert(int, const char);
         void insert(int, const char*, int = -1);
@@ -548,7 +548,7 @@ class String {
         virtual const String& operator = (const char);
 	virtual const String& operator = (const char*);
 	const String& operator = (const String&);
-        
+
         friend String operator + (const String&, const String&);
         friend bool operator == (const String&, const String&);
         friend bool operator != (const String&, const String&);
@@ -567,7 +567,7 @@ class String {
           ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
         }
 #endif /* CPPUNIT_VERSION */
-        
+
 };
 
 /**
