@@ -25,6 +25,7 @@
 #define _BD_HASHTABLE_H 1
 
 #include "bdlib.h"
+#include "hash.h"
 #include "Iterator.h"
 #include "List.h"
 BDLIB_NS_BEGIN
@@ -33,7 +34,6 @@ template <class Key, class Value>
 /**
   * @class HashTable
   * @brief HashTable data structure
-  * @todo Hashing
   * @todo replace()
   * @todo iterators
   *
@@ -41,17 +41,19 @@ template <class Key, class Value>
 class HashTable {
   private:
     typedef KeyValue<Key, Value> iterator_type;
+    typedef hash<Key> hasher;
 
     List<iterator_type> *list;
     size_t _size;
     size_t _capacity;
+    hasher _hash;
 
-    inline int getIndex(const Key &key) const {
-      return key % _capacity;
+    inline size_t getIndex(const Key &key) const {
+      return _hash(key) % _capacity;
     }
   public:
-    HashTable(size_t capacity = 100) : list(new List<iterator_type>[capacity]), _size(0), _capacity(capacity) {};
-    HashTable(const HashTable<Key, Value> &table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity) {
+    HashTable(size_t capacity = 100) : list(new List<iterator_type>[capacity]), _size(0), _capacity(capacity), _hash() {};
+    HashTable(const HashTable<Key, Value> &table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
       for (size_t i = 0; i < _capacity; ++i)
           list[i] = table.list[i];
     };
@@ -59,7 +61,7 @@ class HashTable {
     virtual ~HashTable() {
       delete[] list;
     }
-  
+
     void clear() {
       for (size_t i = 0; i < _capacity; ++i)
         list[i].clear();
@@ -69,11 +71,12 @@ class HashTable {
     HashTable &operator = (const HashTable<Key, Value> &table) { 
       if (&table != this) {
         delete[] list;
-        _size = table._size;
-        _capacity = table._capacity;
         list = new List<iterator_type>[_capacity];
         for (size_t i = 0; i < _capacity; ++i) 
           list[i] = table.list[i];
+        _size = table._size;
+        _capacity = table._capacity;
+        _hash = table._hash;
       }
       return *this; 
     }
@@ -85,33 +88,29 @@ class HashTable {
 
     bool insert(const Key &key, const Value &value) { 
       if (contains(key)) return false;
-      int index = getIndex(key);
-      list[index] << iterator_type(key, value);
+      list[getIndex(key)] << iterator_type(key, value);
       ++_size;
       return true;
     };
   
-    bool contains(const Key &key) const {
+    inline bool contains(const Key &key) const {
       if (isEmpty()) return false;
-      int index = getIndex(key);
-      return list[index].contains(iterator_type(key, Value()));
+      return list[getIndex(key)].contains(iterator_type(key, Value()));
     };
 
     bool remove(const Key &key) {
       if (isEmpty()) return false;
-      int index = getIndex(key);
-      if (list[index].remove(iterator_type(key, Value()))) {
+      if (list[getIndex(key)].remove(iterator_type(key, Value()))) {
         --_size;
         return true;
       }
       return false;
     };
 
-    Value getValue(const Key &key) const {
+    inline Value getValue(const Key &key) const {
       Value empty;
       if (isEmpty()) return empty;
-      int index = getIndex(key);
-      return list[index].find(iterator_type(key, Value())).value();
+      return list[getIndex(key)].find(iterator_type(key, Value())).value();
     };
 
     /**
@@ -127,7 +126,7 @@ class HashTable {
       * @code table["key"] = "value";
       * If the key is not in the table, it is inserted, and the value set to the rvalue given.
       */
-    Value& operator [](const Key& key) {
+    inline Value& operator [](const Key& key) {
       if (!contains(key))
         insert(key, Value());
       return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
