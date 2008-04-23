@@ -52,7 +52,8 @@ class HashTable {
       return _hash(key) % _capacity;
     }
   public:
-    HashTable(size_t capacity = 100) : list(new List<iterator_type>[capacity]), _size(0), _capacity(capacity), _hash() {};
+    HashTable() : list(new List<iterator_type>[100]), _size(0), _capacity(100), _hash() {};
+    explicit HashTable(size_t capacity) : list(new List<iterator_type>[capacity]), _size(0), _capacity(capacity), _hash() {};
     HashTable(const HashTable<Key, Value> &table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
       for (size_t i = 0; i < _capacity; ++i)
           list[i] = table.list[i];
@@ -84,7 +85,7 @@ class HashTable {
     inline size_t size() const { return _size; };
     inline size_t capacity() const { return _capacity; };
     inline bool isEmpty() const { return size() == 0; };
-    inline operator bool() const { return !isEmpty(); };
+    //inline operator bool() const { return !isEmpty(); };
 
     bool insert(const Key &key, const Value &value) { 
       if (contains(key)) return false;

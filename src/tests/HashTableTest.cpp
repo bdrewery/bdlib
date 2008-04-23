@@ -21,13 +21,17 @@ void HashTableTest :: setUp (void)
 */
   a = new HashTable<int, String>();
   b = new HashTable<int, String>();
+  sa = new HashTable<String, String>();
+  sb = new HashTable<String, String>();
 }
 
 void HashTableTest :: tearDown (void)
 {
     // finally delete objects
-    delete a; 
+    delete a;
     delete b;
+    delete sa;
+    delete sb;
 /*
     delete b; delete c; delete d;
     delete e; delete f; delete g; delete h;
@@ -57,6 +61,32 @@ void HashTableTest :: insertTest (void)
 
   (*a)[42] = "42";
   CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
+
+
+  CPPUNIT_ASSERT_EQUAL((size_t)0, sa->size());
+  sa->insert("1", "Blah");
+  CPPUNIT_ASSERT_EQUAL((size_t)1, sa->size());
+  sa->insert("1", "Blah");
+  CPPUNIT_ASSERT_EQUAL((size_t)1, sa->size());
+  sa->insert("2", "Blah");
+  CPPUNIT_ASSERT_EQUAL((size_t)2, sa->size());
+  sa->insert("8", "Blah");
+  CPPUNIT_ASSERT_EQUAL((size_t)3, sa->size());
+  sa->insert("4", "Blah");
+  CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+
+  sb->insert("27", "Test");
+  CPPUNIT_ASSERT_EQUAL((size_t)1, sb->size());
+
+  (*sb) = (*sa);
+  CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+  CPPUNIT_ASSERT_EQUAL((size_t)4, sb->size());
+
+  (*sa)["hmmzz"] = "hmmm";
+  CPPUNIT_ASSERT_EQUAL((size_t)5, sa->size());
+
+  (*sa)["7"] = "seven";
+  CPPUNIT_ASSERT_EQUAL((size_t)6, sa->size());
 }
 
 void HashTableTest :: containsTest (void)
@@ -91,6 +121,38 @@ void HashTableTest :: containsTest (void)
   (*a)[42] = "42";
   CPPUNIT_ASSERT_EQUAL((size_t)5, a->size());
   CPPUNIT_ASSERT_EQUAL(true, a->contains(42));
+
+
+  sa->insert("1", "Blah");
+  sa->insert("1", "Bleck");
+  sa->insert("2", "Blah");
+  sa->insert("8", "Blah");
+  sa->insert("4", "Blah");
+  
+  CPPUNIT_ASSERT_EQUAL(true, sa->contains("1"));
+  CPPUNIT_ASSERT_EQUAL(false, sa->contains("3"));
+  CPPUNIT_ASSERT_EQUAL(true, sa->contains("4"));
+
+  (*sb) = (*sa);
+
+  CPPUNIT_ASSERT_EQUAL(true, sb->contains("1"));
+  CPPUNIT_ASSERT_EQUAL(false, sb->contains("3"));
+  CPPUNIT_ASSERT_EQUAL(true, sb->contains("4"));
+
+  sb->insert("5", "test");
+  CPPUNIT_ASSERT_EQUAL(true, sb->contains("5"));
+  CPPUNIT_ASSERT_EQUAL(false, sa->contains("5"));
+
+  (*sb) = (*sa);
+  CPPUNIT_ASSERT_EQUAL(true, sb->contains("1"));
+  CPPUNIT_ASSERT_EQUAL(false, sb->contains("3"));
+  CPPUNIT_ASSERT_EQUAL(true, sb->contains("4"));
+  CPPUNIT_ASSERT_EQUAL(false, sb->contains("5"));
+  CPPUNIT_ASSERT_EQUAL(false, sa->contains("5"));
+
+  (*sa)["42"] = "42";
+  CPPUNIT_ASSERT_EQUAL((size_t)5, sa->size());
+  CPPUNIT_ASSERT_EQUAL(true, sa->contains("42"));
 }
 
 void HashTableTest :: clearTest (void)
@@ -116,6 +178,29 @@ void HashTableTest :: clearTest (void)
     CPPUNIT_ASSERT_EQUAL(true, a->contains(1));
     CPPUNIT_ASSERT_EQUAL(true, a->contains(2));
     CPPUNIT_ASSERT_EQUAL(true, a->contains(3));
+
+
+    sa->insert("1", "Blah");
+    sa->insert("1", "Bleck");
+    sa->insert("2", "Blah");
+    sa->insert("8", "Blah");
+    sa->insert("4", "Blah");
+
+    CPPUNIT_ASSERT_EQUAL((size_t)4, (*sa).size());
+
+    sa->clear();
+
+    CPPUNIT_ASSERT_EQUAL((size_t)0, (*sa).size());
+    CPPUNIT_ASSERT_EQUAL(true, sa->isEmpty());
+
+    sa->insert("1", "Blah1");
+    sa->insert("2", "Blah2");
+    sa->insert("3", "Blah3");
+
+    CPPUNIT_ASSERT_EQUAL((size_t)3, (*sa).size());
+    CPPUNIT_ASSERT_EQUAL(true, sa->contains("1"));
+    CPPUNIT_ASSERT_EQUAL(true, sa->contains("2"));
+    CPPUNIT_ASSERT_EQUAL(true, sa->contains("3"));
 }
 
 void HashTableTest :: getValueTest (void)

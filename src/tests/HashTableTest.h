@@ -37,6 +37,7 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
 //        void iterateTest(void);
     private:
         HashTable<int, String> *a, *b, *c, *d, *e, *f, *g, *h;
+        HashTable<String, String> *sa, *sb;
 	int k1, k2, k3, k4;
 	String v1, v2, v3, v4;
 };
