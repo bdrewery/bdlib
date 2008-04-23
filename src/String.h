@@ -386,12 +386,17 @@ class String {
 
         /**
          * @sa c_str()
+         */
+        inline const char* operator * () const { return c_str(); };
+
+        /**
+         * @sa c_str()
          * @brief This is a cast operator to const char*
          * This would be used in this situation: 
          * String string("blah");
          * const char* cstring = (const char*) string;
          */
-        inline const char* operator * () const { return c_str(); };
+        //inline operator const char* () const { return c_str(); };
 
 	/**
 	 * @brief Returns a new String containing integer copies of the receiver.
