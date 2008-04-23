@@ -55,7 +55,7 @@ class BinaryTree {
                               kv(n.kv) {};
     };
 
-    int my_size;
+    size_t my_size;
     Node *root;
 
     /** 
@@ -263,8 +263,8 @@ class BinaryTree {
       typedef BinaryTree<Key, Value> Tree;
       private:
         Tree* tree;
-        int index;
-        int my_size;
+        size_t index;
+        size_t my_size;
         iterator_type* storage;
 
         void fillArray(int& i, const Node* node) {
@@ -275,7 +275,7 @@ class BinaryTree {
           fillArray(i, node->right);
         }
 
-        BinaryTreeIterator(Tree* t, Node* node, int size, bool end = 0) : Iterator<iterator_type>(), 
+        BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator<iterator_type>(), 
                                                                           tree(t),
                                                                           index(end ? size - 1: 0), 
                                                                           my_size(size), 
@@ -290,7 +290,7 @@ class BinaryTree {
                                                    index(iter.index), 
                                                    my_size(iter.my_size), 
                                                    storage(new iterator_type[iter.my_size]) {
-          for (int i = 0; i < my_size; ++i)
+          for (size_t i = 0; i < my_size; ++i)
             storage[i] = iter.storage[i];
         }
 
@@ -312,7 +312,7 @@ class BinaryTree {
             index = iter.index;
             my_size = iter.my_size;
 
-            for (int i = 0; i < my_size; ++i)
+            for (size_t i = 0; i < my_size; ++i)
               storage[i] = iter.storage[i];
           }
           return *this;
