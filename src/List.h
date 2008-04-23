@@ -100,7 +100,7 @@ class List {
 
     inline const size_t size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
-    inline operator bool() const { return !isEmpty(); };
+    //inline operator bool() const { return !isEmpty(); };
 
     /**
      * @brief Insert into the list at the head

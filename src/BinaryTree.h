@@ -142,7 +142,7 @@ class BinaryTree {
       */
     inline size_t size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
-    inline operator bool() const { return !isEmpty(); };
+    //inline operator bool() const { return !isEmpty(); };
 
   public:
     BinaryTree() : my_size(0), root(NULL) {};
