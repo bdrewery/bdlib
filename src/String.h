@@ -51,7 +51,7 @@ class StringBuf {
          * @post A new block of memory is allocated.
          * @todo Implement mempool here.
          */
-        char* AllocBuf(const size_t bytes) const {
+        inline char* AllocBuf(const size_t bytes) const {
           if (bytes <= sizeof(sbuf)) return sbuf;
           else return new char[bytes];
         }
@@ -107,7 +107,7 @@ class String {
 
           public:            
             Cref(const Cref& cref) : s(cref.s), k(cref.k) {};
-            Cref& operator=(const Cref& cref) {
+            inline Cref& operator=(const Cref& cref) {
               (*this) = (char) cref;
               return (*this);
             }
@@ -121,7 +121,7 @@ class String {
             /**
              * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
              */
-            Cref& operator=(char c) { 
+            inline Cref& operator=(char c) { 
               s.write(k, c); 
               return (*this);
             };
@@ -279,7 +279,7 @@ class String {
 
         void COW(size_t) const;
 
-        void AboutToModify(size_t n) const {
+        inline void AboutToModify(size_t n) const {
           if (isShared())
             COW(n);
           else
@@ -287,7 +287,7 @@ class String {
         }
         inline void getOwnCopy() const { AboutToModify(capacity()); };
   public:
-        int rcount() const { return Ref->n; };
+        inline int rcount() const { return Ref->n; };
 
         /* Constructors */
         String() : Ref(new StringBuf()), offset(0), sublen(0) {};
@@ -330,7 +330,7 @@ class String {
 	 * The idea behind this is that if a specific size was asked for, the buffer is like
 	 * a char buf[N];
          */
-        String(const int newSize) : Ref(new StringBuf()), offset(0), sublen(0) {
+        explicit String(const int newSize) : Ref(new StringBuf()), offset(0), sublen(0) {
           if (newSize <= 0) return;
           Reserve(newSize);
         };
