@@ -469,6 +469,8 @@ class String {
          */
         inline String operator()(int start, int len) const { return substring(start, len); };
 
+        size_t hash() const;
+
         /**
 	 * @brief Compare our String object with another String object
 	 * @param string The String object to compare to
@@ -575,6 +577,14 @@ class String {
 
 };
 
+template<typename T>
+  struct hash;
+
+template<>
+  struct hash<String>
+    {
+          inline size_t operator()(const String& val) const { return val.hash(); }
+    };
 /**
  * @relates String
  * @brief Concatenates two string objects together.

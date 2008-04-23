@@ -387,4 +387,15 @@ void String::printf(const char* format, ...) {
 
   *this = va_out;
 }
+
+/**
+ * @brief DJB's hash function
+ */
+unsigned int String::hash() const {
+  unsigned int hash = 5381;
+
+  for(size_t i = 0; i < length(); ++i)
+    hash = ((hash << 5) + hash) + data()[i];
+  return (hash & 0x7FFFFFFF);
+}
 BDLIB_NS_END
