@@ -36,6 +36,7 @@ template <class Key, class Value>
   * @brief HashTable data structure
   * @todo replace()
   * @todo iterators
+  * @todo resizing/growing
   *
   */
 class HashTable {
@@ -92,8 +93,8 @@ class HashTable {
       list[getIndex(key)] << iterator_type(key, value);
       ++_size;
       return true;
-    };
-  
+    }
+
     inline bool contains(const Key &key) const {
       if (isEmpty()) return false;
       return list[getIndex(key)].contains(iterator_type(key, Value()));
@@ -123,11 +124,18 @@ class HashTable {
     /**
       * @brief Associate array type accessor (lvalue)
       * @param key The key to search for
-      * @sa insert
+      * @sa find_or_insert_key 
       * @code table["key"] = "value";
       * If the key is not in the table, it is inserted, and the value set to the rvalue given.
       */
     inline Value& operator [](const Key& key) {
+      return find_or_insert_key(key);
+    }
+ 
+    /**
+     * @brief Find a key in the list or insert it.
+     */
+    inline Value& find_or_insert_key(const Key& key) {
       if (!contains(key))
         insert(key, Value());
       return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
