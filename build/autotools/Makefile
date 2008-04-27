@@ -30,10 +30,10 @@ autoconf:
 
 clean:
 	@echo "Cleaning..."
-	@rm -rf autom4te.cache/ configure config.h.in aclocal.m4
+	@rm -rf autom4te.cache/ configure config.h.in aclocal.m4 configure.tmp
 	@rm -rf build
 
 clean_again:
 	@echo "Cleaning..."
-	@rm -rf autom4te.cache/ configure config.h.in aclocal.m4
+	@rm -rf autom4te.cache/ configure config.h.in aclocal.m4 configure.tmp
 	@rm -rf build
