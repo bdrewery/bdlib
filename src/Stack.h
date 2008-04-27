@@ -72,7 +72,7 @@ class Stack : public List<T> {
      * @param item The element to push back
      */
     inline void push(const iterator_type &item) {
-      insert(item);
+      this->insert(item);
     };
 
     /**

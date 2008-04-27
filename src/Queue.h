@@ -76,7 +76,7 @@ class Queue : public List<T> {
      * @param item The element to enqueue
      */
     inline void enqueue(const iterator_type &item) {
-      insert(item);
+      this->insert(item);
     };
 
     /**
