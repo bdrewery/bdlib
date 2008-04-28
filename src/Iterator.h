@@ -29,7 +29,22 @@
 
 BDLIB_NS_BEGIN
 template <typename T>
-class Iterator {
+class Iterator { //This should not exist.
+/*
+      ** http://www.fifi.org/doc/stl-manual/html/Iterators.html **
+
+      typedef hashtable<_Val, _Key, _HashFcn, _ExtractKey, _EqualKey, _Alloc>			_Hashtable;
+      typedef _Hashtable_iterator<_Val, _Key, _HashFcn, _ExtractKey, _EqualKey, _Alloc>		iterator;
+      typedef _Hashtable_const_iterator<_Val, _Key, _HashFcn, _ExtractKey, _EqualKey, _Alloc>	const_iterator;
+//      typedef _Hashtable_node<_Val> _Node;
+      typedef forward_iterator_tag 								iterator_category;
+      typedef _Val value_type;
+      typedef ptrdiff_t 									difference_type;
+      typedef size_t 										size_type;
+      typedef _Val& 										reference;
+      typedef _Val* 										pointer;
+
+*/
   public:
     virtual bool hasNext() { return bool(*this); };
     virtual ~Iterator() {};
@@ -38,10 +53,12 @@ class Iterator {
     virtual T& operator*() = 0;
     virtual T* operator->() { return &(operator*()); };
 
+//    virtual bool operator==(const Iterator& iter) const;
+//    virtual bool operator!=(const Iterator& iter) const;
 //    virtual Iterator& operator++() = 0;
 //    virtual Iterator operator++(int) = 0;
-//    virtual Iterator& operator--() = 0;
-//    virtual Iterator operator--(int) = 0;
+//    virtual Iterator& operator--() = 0; //should not be in all
+//    virtual Iterator operator--(int) = 0; //should not be in all
 
 //    virtual void remove() = 0;
 };

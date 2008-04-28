@@ -67,10 +67,10 @@ void QueueTest :: dequeueTest (void)
 
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
 
-  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", a->peek());
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", *(a->front()));
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
 
-  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", a->peek());
+  CPPUNIT_ASSERT_STRING_EQUAL("Bleck", *(a->front()));
   CPPUNIT_ASSERT_EQUAL((size_t)4, a->size());
 
   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", a->dequeue());
@@ -102,10 +102,10 @@ void QueueTest :: iterateTest (void)
   (*a) << "1" << "2" << "3" << "4";
   Queue<String>::iterator iter(a->begin());
   int count = 1;
-  for (; iter; ++iter) {
+  for (iter = a->begin(); iter != a->end(); ++iter) {
     char buf[2] = "";
     sprintf(buf, "%d", count);
     ++count;
-    CPPUNIT_ASSERT_STRING_EQUAL(buf, a->dequeue());
+    CPPUNIT_ASSERT_STRING_EQUAL(buf, *iter);
   }
 }
