@@ -39,7 +39,30 @@ void StringTest :: lengthTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t) 11, f->length());
   CPPUNIT_ASSERT_EQUAL((size_t) 1, g->length());
   CPPUNIT_ASSERT_EQUAL((size_t) 0, h->length());
+
 }
+
+void StringTest :: clearTest (void)
+{
+  *b = "test";
+  *a = *b;
+
+  CPPUNIT_ASSERT_EQUAL((size_t) 4, b->length());
+  b->clear();
+  CPPUNIT_ASSERT_EQUAL((size_t) 0, b->length());
+  CPPUNIT_ASSERT_EQUAL(true, b->isEmpty());
+
+  *b = "TEST1234";
+  CPPUNIT_ASSERT_EQUAL((size_t) 8, b->length());
+  CPPUNIT_ASSERT_EQUAL(false, b->isEmpty());
+
+  b->clear();
+  CPPUNIT_ASSERT_EQUAL((size_t) 0, b->length());
+  CPPUNIT_ASSERT_EQUAL(true, b->isEmpty());
+
+  CPPUNIT_ASSERT_EQUAL((size_t) 4, a->length());
+}
+
 
 void StringTest :: capacityTest (void)
 {

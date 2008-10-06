@@ -14,6 +14,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
 {
     CPPUNIT_TEST_SUITE (StringTest);
     CPPUNIT_TEST (lengthTest);
+    CPPUNIT_TEST (clearTest);
     CPPUNIT_TEST (capacityTest);
     CPPUNIT_TEST (compareTest);
     CPPUNIT_TEST (equalTest);
@@ -43,6 +44,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
 
     protected:
         void lengthTest(void);
+        void clearTest(void);
         void capacityTest(void);
         void compareTest (void);
         void equalTest (void);

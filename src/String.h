@@ -364,6 +364,11 @@ class String {
         inline const char* begin() const { return data(); };
         inline const char* end() const { return begin() + length(); };
 
+        /**
+         * @brief Clear contents of String and set length to 0
+         */
+        inline void clear() { Detach(); };
+
 
         /* Accessors */
         /**
