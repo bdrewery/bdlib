@@ -79,7 +79,7 @@ int Thread::start(void* param) {
 }
 
 void Thread::detach(void) {
-  if (shouldDetach())
+  if (shouldDetach()) {
 #if defined(USE_PTHREAD)
     pthread_detach(this->handle);
 #elif defined(WIN32)
@@ -87,6 +87,7 @@ void Thread::detach(void) {
 #elif defined(NO_THREADS) /* NO THREAD SUPPORT */
     ; /* nop */
 #endif
+  }
   setDetached();
 }
 

@@ -27,6 +27,9 @@ static const char rcsid[] = "$Id$";
 
 #include "String.h"
 #include <stdarg.h>
+#include <cstring>
+using std::strlen;
+using std::memmove;
 #include "base64.h"
 //#include <memory>
 //#include <iostream>

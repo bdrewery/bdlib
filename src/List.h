@@ -98,7 +98,7 @@ class List {
       my_size = 0;
     };
 
-    inline const size_t size() const { return my_size; };
+    inline size_t size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
     //inline operator bool() const { return !isEmpty(); };
 

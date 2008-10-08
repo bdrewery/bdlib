@@ -114,10 +114,10 @@ class QueueIterator {
   friend class QueueConstIterator<T>;
 
   public:
-    typedef Queue<T> Queue;
+    typedef Queue<T> Queue_t;
     typedef QueueIterator<T> iterator;
     typedef QueueConstIterator<T> const_iterator;
-    typedef typename Queue::Node Node;
+    typedef typename Queue_t::Node Node;
     typedef std::forward_iterator_tag iterator_category;
     typedef T value_type;
     typedef ptrdiff_t difference_type;
@@ -126,10 +126,10 @@ class QueueIterator {
     typedef T* pointer;
 
   private:
-    Queue *queue;
+    Queue_t *queue;
     Node *current;
 
-    QueueIterator(Queue* _queue, Node* start) : queue(_queue), current(start) {};
+    QueueIterator(Queue_t* _queue, Node* start) : queue(_queue), current(start) {};
   public:
     QueueIterator() : queue(NULL), current(NULL) {};
     ~QueueIterator() { }
@@ -160,10 +160,10 @@ class QueueConstIterator {
   friend class QueueIterator<T>;
 
   public:
-    typedef Queue<T> Queue;
+    typedef Queue<T> Queue_t;
     typedef QueueIterator<T> iterator;
     typedef QueueConstIterator<T> const_iterator;
-    typedef typename Queue::Node Node;
+    typedef typename Queue_t::Node Node;
     typedef std::forward_iterator_tag iterator_category;
     typedef T value_type;
     typedef ptrdiff_t difference_type;
@@ -172,10 +172,10 @@ class QueueConstIterator {
     typedef const T* pointer;
 
   private:
-    const Queue *queue;
+    const Queue_t *queue;
     const Node *current;
 
-    QueueConstIterator(const Queue* _queue, const Node* start) : queue(_queue), current(start) {};
+    QueueConstIterator(const Queue_t* _queue, const Node* start) : queue(_queue), current(start) {};
   public:
     QueueConstIterator(const iterator& iter) : queue(iter.queue), current(iter.current) {};
     QueueConstIterator() : queue(NULL), current(NULL) {};

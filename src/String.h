@@ -375,13 +375,13 @@ class String {
          * @brief Returns length of the string.
          * @return Length of the string.
          */
-        inline const size_t length() const { return sublen; };
+        inline size_t length() const { return sublen; };
 
         /**
          * @brief Returns capacity of the String object.
          * @return Capacity of the String object.
          */
-        inline const size_t capacity() const { return Ref->size; };
+        inline size_t capacity() const { return Ref->size; };
 
         /**
           * @brief Check whether the string is 'empty'
@@ -462,7 +462,7 @@ class String {
          * @brief Safe element access operator
          * @todo This is only called on a (const) String, but should for a String as well.
          */
-        inline const char operator [](int i) const { return read(i); };
+        inline char operator [](int i) const { return read(i); };
 
         /**
          * @brief Returns 'Cref' class for safe (cow) writing into String.
@@ -478,7 +478,7 @@ class String {
          * @sa operator[]()
          * @todo Perhaps this should throw an exception if out of range?
          */
-        inline const char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
+        inline char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
 
         String substring(int, int) const;
 
