@@ -5,6 +5,8 @@
 #include <ctype.h>
 #include "StringTest.h"
 #include <base64.h>
+#include <cstring>
+using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
 
