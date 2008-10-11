@@ -394,8 +394,8 @@ void String::printf(const char* format, ...) {
 /**
  * @brief DJB's hash function
  */
-unsigned int String::hash() const {
-  unsigned int hash = 5381;
+size_t String::hash() const {
+  size_t hash = 5381;
 
   for(size_t i = 0; i < length(); ++i)
     hash = ((hash << 5) + hash) + data()[i];
