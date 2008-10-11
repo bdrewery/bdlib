@@ -10,7 +10,7 @@ CCDEPMODE=gcc
 num=`$CXX -dumpversion | sed "s/^\\\(.\\\).*/\\\1/"`
 if test $num -ge "3"; then
   CCDEPMODE=gcc3
-  GCC3="-W -std=c++98 -Wabi -Wextra -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
+  GCC3="-W -std=c++98 -Wabi -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
   NOUNITSGCC3="-fno-rtti -fstrict-aliasing"
   DEBGCC3="-Wno-disabled-optimization"
   DEBNOUNITSGCC3="-Weffc++ -Wwrite-strings -fno-nonansi-builtins -fno-elide-constructors -fstack-protector-all -Winvalid-pch"
