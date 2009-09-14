@@ -31,9 +31,7 @@
 #include <sys/types.h>
 #include <algorithm> // min() / max()
 
-#ifdef DEBUG
 #include <stdio.h>
-#endif
 
 #ifdef CPPUNIT_VERSION
 #include <cppunit/SourceLine.h>
