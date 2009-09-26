@@ -75,6 +75,7 @@ class Stream {
 //        operator void*() { return tell() <= length(); };
 
         int seek(int, int);
+        void clear() { str.clear(); pos = 0; }
         inline void puts (const String& string) { puts(string.data(), string.length()); }
         inline void puts (const char* string, size_t len) {
           str.replace(tell(), string, len);

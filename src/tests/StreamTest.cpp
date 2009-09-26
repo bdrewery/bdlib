@@ -91,7 +91,14 @@ void StreamTest :: putsTest (void)
 
 void StreamTest :: truncateTest (void)
 {
-  putsTest();
+  a->puts("This is a test of my buffer\n");
+  a->puts("This is line 2, isn't it amazing?\n");
+  a->clear();
+  CPPUNIT_ASSERT_EQUAL((size_t) 0, a->length());
+  CPPUNIT_ASSERT(*a == "");
+
+  a->puts("This is a test of my buffer\n");
+  a->puts("This is line 2, isn't it amazing?\n");
   a->seek(10, SEEK_SET);
   a->truncate();
   CPPUNIT_ASSERT_EQUAL((size_t) 10, a->length());
