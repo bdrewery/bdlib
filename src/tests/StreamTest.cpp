@@ -87,6 +87,21 @@ void StreamTest :: putsTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t) 62, a->length());
   CPPUNIT_ASSERT_EQUAL(b->capacity(), a->capacity());
   CPPUNIT_ASSERT_EQUAL(b->length(), a->length());
+
+  a->clear();
+  b->clear();
+
+  *a << "This is a test of my buffer\n";
+  *a << "This is line 2, isn't it amazing?\n";
+  CPPUNIT_ASSERT(*a == "This is a test of my buffer\nThis is line 2, isn't it amazing?\n");
+  CPPUNIT_ASSERT_EQUAL((size_t) 62, a->length());
+  *b = *a;
+  a->seek(10, SEEK_SET);
+  *a << "look";
+  CPPUNIT_ASSERT(*a == "This is a look of my buffer\nThis is line 2, isn't it amazing?\n");
+  CPPUNIT_ASSERT_EQUAL((size_t) 62, a->length());
+  CPPUNIT_ASSERT_EQUAL(b->capacity(), a->capacity());
+  CPPUNIT_ASSERT_EQUAL(b->length(), a->length());
 }
 
 void StreamTest :: truncateTest (void)

@@ -92,7 +92,11 @@ class Stream {
         inline size_t length() const { return str.length(); };
         inline size_t capacity() const { return str.capacity(); };
         inline bool operator ! () const { return str.isEmpty(); };
+
+        friend Stream& operator << (Stream&, const String&);
 };
+
+inline Stream& operator << (Stream& stream, const String& string) { stream.puts(string); return stream; }
 
 BDLIB_NS_END
 #endif /* !_BD_STREAM_H */
