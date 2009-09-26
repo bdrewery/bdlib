@@ -38,17 +38,6 @@ int Stream::seek (int offset, int whence) {
   return newpos;
 }
 
-void Stream::puts (const String& string) {
-  puts(string.data(), string.length());
-}
-
-void Stream::puts (const char* string, size_t len) {
-  str.replace(tell(), string, len);
-  pos += len;
-  /* WTF **/
-  //Ref->size = max(tell(), capacity());
-}
-
 int Stream::gets (char *_data, size_t maxSize) {
   size_t toRead, read = 0;
   char c = 0;
