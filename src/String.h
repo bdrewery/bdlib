@@ -439,7 +439,7 @@ class String {
         */
         inline bool hasIndex(int i) const { 
 #ifdef DEBUG
-        if (i < 0 || i >= (int) (offset + length())) std::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
+        if (i < 0 || i >= (int) (offset + length())) ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
 #endif
           return (i < (int) length()); 
         };
