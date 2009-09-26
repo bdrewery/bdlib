@@ -1,6 +1,5 @@
 /* HashTableTest.c
  *
- * $Id$
  */
 #include "HashTableTest.h"
 

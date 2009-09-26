@@ -1,6 +1,5 @@
 /* SortedListTest.h
  *
- * $Id$
  */
 #ifndef _SORTEDLISTTEST_H
 #define _SORTEDLISTTEST_H 1

@@ -1,6 +1,5 @@
 /* SortedListTest.c
  *
- * $Id$
  */
 #include "SortedListTest.h"
 

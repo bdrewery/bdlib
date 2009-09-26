@@ -1,6 +1,5 @@
 /* BinaryTreeTest.h
  *
- * $Id$
  */
 #ifndef _BINARYTREETEST_H
 #define _BINARYTREETEST_H 1

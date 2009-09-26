@@ -1,6 +1,5 @@
 /* ListTest.h
  *
- * $Id$
  */
 #ifndef _LISTTEST_H
 #define _LISTTEST_H 1

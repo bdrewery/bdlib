@@ -1,6 +1,5 @@
 /* StringTest.c
  *
- * $Id$
  */
 #include <ctype.h>
 #include "StringTest.h"

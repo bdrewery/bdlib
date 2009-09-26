@@ -1,6 +1,5 @@
 /* UnitRunner.c
  *
- * $Id$
  */
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>

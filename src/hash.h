@@ -1,4 +1,3 @@
-/* $Id$ */
 
 // TR1 functional header -*- C++ -*-
 

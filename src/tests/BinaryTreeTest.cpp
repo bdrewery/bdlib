@@ -1,6 +1,5 @@
 /* BinaryTreeTest.c
  *
- * $Id$
  */
 #include "BinaryTreeTest.h"
 

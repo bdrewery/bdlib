@@ -1,6 +1,5 @@
 /* QueueTest.c
  *
- * $Id$
  */
 #include "QueueTest.h"
 

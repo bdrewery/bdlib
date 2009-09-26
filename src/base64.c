@@ -21,9 +21,6 @@
  *
  */
 
-#ifndef lint
-static const char rcsid[] = "$Id$";
-#endif                          /* lint */
 
 #include <cstdlib>
 #include "base64.h"

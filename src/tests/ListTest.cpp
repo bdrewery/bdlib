@@ -1,6 +1,5 @@
 /* ListTest.c
  *
- * $Id$
  */
 #include "ListTest.h"
 

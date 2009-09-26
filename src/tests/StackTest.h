@@ -1,6 +1,5 @@
 /* StackTest.h
  *
- * $Id$
  */
 #ifndef _STACKTEST_H
 #define _STACKTEST_H 1

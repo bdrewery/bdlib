@@ -1,6 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl
-dnl $Id$
 dnl
 
 AC_PREREQ(2.59)

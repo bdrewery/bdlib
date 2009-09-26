@@ -1,6 +1,5 @@
 /* QueueTest.h
  *
- * $Id$
  */
 #ifndef _QUEUETEST_H
 #define _QUEUETEST_H 1

@@ -1,6 +1,5 @@
 /* HashTableTest.h
  *
- * $Id$
  */
 #ifndef _HASHTABLETEST_H
 #define _HASHTABLETEST_H 1

@@ -1,6 +1,5 @@
 /* StackTest.c
  *
- * $Id$
  */
 #include "StackTest.h"
 
