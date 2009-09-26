@@ -55,11 +55,11 @@ class Stream {
            Since non-static C++ methods have an implicit this argument, the arguments of such methods
            should be counted from two, not one, when giving values for string-index and first-to-check.
          */
-        virtual void printf(const char*, ...) __attribute__ ((format(printf, 2, 3)));
+        void printf(const char*, ...) __attribute__ ((format(printf, 2, 3)));
 #else
-        virtual void printf(const char*, ...);
+        void printf(const char*, ...);
 #endif
-        virtual void Reserve(const size_t) const;
+        void Reserve(const size_t) const;
 
         /**
          * @brief Returns the position of the Stream.
@@ -85,7 +85,7 @@ class Stream {
           //Ref->size = max(tell(), capacity());
         }
 
-        virtual int gets(char *, size_t);
+        int gets(char *, size_t);
         int loadFile(const char*);
 
         inline const char* data() const { return str.data(); };
