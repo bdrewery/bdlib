@@ -38,18 +38,6 @@ int Stream::seek (int offset, int whence) {
   return newpos;
 }
 
-void Stream::printf (const char* format, ...)
-{
-  char va_out[1024] = "";
-  va_list va;
-
-  va_start(va, format);
-  size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
-  va_end(va);
-
-  puts(String(va_out, len));
-}
-
 int Stream::loadFile(const char* file)
 {
   FILE *f = NULL;

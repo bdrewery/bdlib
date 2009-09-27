@@ -196,38 +196,6 @@ void StreamTest :: getlineTest (void)
   CPPUNIT_ASSERT_EQUAL(13, x);
 }
 
-void StreamTest :: printfTest (void)
-{
-  String gbuf, sbuf;
-
-  a->printf("This is line 1\n");
-  a->printf("This is line 2\n");
-  a->printf("This is line 3\n");
-  a->printf("This is line 4\n");
-  a->printf("This is line 5\n");
-  a->printf("This is line 6\n");
-  a->printf("This is line 7\n");
-  a->printf("This is line 8\n");
-  a->printf("This is line 9\n");
-  a->printf("This is line10\n");
-  a->printf("This is line11\n");
-  a->printf("This is line12\n");
-  a->printf("This is line13\n");
-  a->seek(0, SEEK_SET);
-  int x = 0;
-  size_t pos = 0;
-  while (a->tell() < a->length()) {
-    ++x;
-    sbuf.printf("This is line%2d\n", x);
-    gbuf = a->getline();
-    pos += gbuf.length();
-    CPPUNIT_ASSERT_EQUAL(pos, a->tell());
-    CPPUNIT_ASSERT_EQUAL((size_t) 15, gbuf.length());
-    CPPUNIT_ASSERT_STRING_EQUAL(gbuf, sbuf);
-  }
-  CPPUNIT_ASSERT_EQUAL(13, x);
-}
-
 void StreamTest :: loadFileTest (void)
 {
   const char *file = "/etc/passwd";

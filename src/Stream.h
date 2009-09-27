@@ -50,15 +50,6 @@ class Stream {
         Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };
         virtual ~Stream() {};
 
-#ifdef __GNUC__
-        /* GNU GCC DOC:
-           Since non-static C++ methods have an implicit this argument, the arguments of such methods
-           should be counted from two, not one, when giving values for string-index and first-to-check.
-         */
-        void printf(const char*, ...) __attribute__ ((format(printf, 2, 3)));
-#else
-        void printf(const char*, ...);
-#endif
         void Reserve(const size_t) const;
 
         /**
