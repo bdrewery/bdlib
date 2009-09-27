@@ -47,7 +47,7 @@ void Stream::printf (const char* format, ...)
   size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
-  puts(va_out, len);
+  puts(String(va_out, len));
 }
 
 int Stream::loadFile(const char* file)
@@ -66,8 +66,9 @@ int Stream::loadFile(const char* file)
   size_t len = 0;
   char buf[STREAM_BLOCKSIZE + 1];
 
-  while ((len = fread(buf, 1, sizeof(buf) - 1, f)))
-    puts(buf, len);
+  while ((len = fread(buf, 1, sizeof(buf) - 1, f))) {
+    puts(String(buf, len));
+  }
 
   fclose(f);
   seek(0, SEEK_SET);

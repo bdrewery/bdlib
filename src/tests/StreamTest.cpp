@@ -12,12 +12,12 @@ void StreamTest :: setUp (void)
     strcpy(cstring, "Some static cstring to play with");
     // set up test environment (initializing objects)
     a = new Stream();
-    b = new Stream("blah");
+    b = new Stream(String("blah"));
     c = new Stream(*b);
-    d = new Stream(cstring);
+    d = new Stream(String(cstring));
     e = new Stream(*d);
-    f = new Stream(cstring, 11);
-    g = new Stream('x');
+    f = new Stream(String(cstring, 11));
+    g = new Stream(String('x'));
     h = new Stream(35);
 }
 
@@ -122,8 +122,7 @@ void StreamTest :: truncateTest (void)
 
 void StreamTest :: getsTest (void)
 {
-  char buf[51] = "";
-  String sbuf;
+  String sbuf, gbuf;
 
   a->puts("This is line 1\n");
   a->puts("This is line 2\n");
@@ -141,15 +140,14 @@ void StreamTest :: getsTest (void)
   a->puts("This is line14\n");
   a->seek(0, SEEK_SET);
   int x = 0;
-  size_t pos = 0, size = 0;
+  size_t pos = 0;
   while (a->tell() < a->length()) {
-    sbuf.printf("This is line%2d\nThis is line%2d\n", x + 1, x+ 2);
-    size = a->gets(buf, 30);
-    pos += size;
+    sbuf.printf("This is line%2d\nThis is line%2d\n", x + 1, x + 2);
+    gbuf = a->gets(30);
+    pos += gbuf.length();
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());
-    CPPUNIT_ASSERT_EQUAL((size_t) 30, strlen(buf));
-    CPPUNIT_ASSERT_EQUAL((size_t) 30, size);
-    CPPUNIT_ASSERT_EQUAL(0, strcmp(buf, sbuf.c_str()));
+    CPPUNIT_ASSERT_EQUAL((size_t) 30, gbuf.length());
+    CPPUNIT_ASSERT_STRING_EQUAL(sbuf, gbuf);
     x += 2;
   }
   CPPUNIT_ASSERT_EQUAL(14, x);
@@ -159,17 +157,16 @@ void StreamTest :: getsTest (void)
   a->puts("This is line15\n");
   a->seek(savelen, SEEK_SET);
   sbuf = "This is line15\n";
-  size = a->gets(buf, 30);
-  pos += size;
+  gbuf = a->gets(30);
+  pos += gbuf.length();
   CPPUNIT_ASSERT_EQUAL(pos, a->tell());
-  CPPUNIT_ASSERT_EQUAL((size_t) 15, strlen(buf));
-  CPPUNIT_ASSERT_EQUAL((size_t) 15, size);
-  CPPUNIT_ASSERT_EQUAL(0, strcmp(buf, sbuf.c_str()));
+  CPPUNIT_ASSERT_EQUAL((size_t) 15, gbuf.length());
+  CPPUNIT_ASSERT_STRING_EQUAL(gbuf, sbuf);
 }
 
 void StreamTest :: getlineTest (void)
 {
-  char buf[51];
+  String sbuf, gbuf;
 
   a->puts("This is line 1\n");
   a->puts("This is line 2\n");
@@ -186,21 +183,22 @@ void StreamTest :: getlineTest (void)
   a->puts("This is line13\n");
   a->seek(0, SEEK_SET);
   int x = 0;
-  size_t pos = 0, size = 0;
+  size_t pos = 0;
   while (a->tell() < a->length()) {
     ++x;
-    size = a->getline(buf, sizeof(buf));
-    pos += size;
+    sbuf.printf("This is line%2d\n", x);
+    gbuf = a->getline();
+    pos += gbuf.length();
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());
-    CPPUNIT_ASSERT_EQUAL((size_t) 15, strlen(buf));
-    CPPUNIT_ASSERT_EQUAL((size_t) 15, size);
+    CPPUNIT_ASSERT_EQUAL((size_t) 15, gbuf.length());
+    CPPUNIT_ASSERT_STRING_EQUAL(gbuf, sbuf);
   }
   CPPUNIT_ASSERT_EQUAL(13, x);
 }
 
 void StreamTest :: printfTest (void)
 {
-  char buf[51];
+  String gbuf, sbuf;
 
   a->printf("This is line 1\n");
   a->printf("This is line 2\n");
@@ -217,14 +215,15 @@ void StreamTest :: printfTest (void)
   a->printf("This is line13\n");
   a->seek(0, SEEK_SET);
   int x = 0;
-  size_t pos = 0, size = 0;;
+  size_t pos = 0;
   while (a->tell() < a->length()) {
     ++x;
-    size = a->getline(buf, sizeof(buf));
-    pos += size;
+    sbuf.printf("This is line%2d\n", x);
+    gbuf = a->getline();
+    pos += gbuf.length();
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());
-    CPPUNIT_ASSERT_EQUAL((size_t) 15, strlen(buf));
-    CPPUNIT_ASSERT_EQUAL((size_t) 15, size);
+    CPPUNIT_ASSERT_EQUAL((size_t) 15, gbuf.length());
+    CPPUNIT_ASSERT_STRING_EQUAL(gbuf, sbuf);
   }
   CPPUNIT_ASSERT_EQUAL(13, x);
 }
@@ -253,13 +252,12 @@ void StreamTest :: loadFileTest (void)
   free(buffer);
 
   char buf[1024] = "";
-  char sbuf[1024] = "";
-  size_t len = 0;
+  String gbuf;
 
   fseek(f, 0, SEEK_SET);
   while (fgets(buf, sizeof(buf), f) != NULL) {
-    len = a->getline(sbuf, sizeof(sbuf));
-    CPPUNIT_ASSERT_EQUAL(0, strcmp(buf, sbuf));
+    gbuf = a->getline(sizeof(buf) - 1);
+    CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
 //std::cout << sbuf << std::endl;
 //std::cout << buf << std::endl;
   }

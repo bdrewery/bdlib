@@ -24,6 +24,7 @@
 #define _BD_STREAM_H 1
 
 #include <iostream>
+#include <algorithm>
 #include "bdlib.h"
 #include "String.h"
 
@@ -44,10 +45,8 @@ class Stream {
 
   public:
         Stream() : str(), pos(0), loading(0) {};
-        Stream(Stream &stream) : str(stream.str), pos(stream.pos), loading(0) {};
-        Stream(const char* string) : str(string), pos(0), loading(0) {};
-        Stream(const char* string, size_t len) : str(string, len), pos(0), loading(0) {};
-        Stream(const char ch) : str(ch), pos(0), loading(0) {};
+        Stream(const Stream& stream) : str(stream.str), pos(stream.pos), loading(0) {};
+        Stream(const String& str) : str(str), pos(0), loading(0) {};
         Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };
         virtual ~Stream() {};
 
@@ -79,12 +78,6 @@ class Stream {
         void clear() { str.clear(); pos = 0; }
 
         /*
-         * @brief Insert a null-terminated character array into the stream.
-         * The stream pointer is advanced as well
-         */
-        void puts (const char* string, size_t len) { puts(String(string, len)); }
-
-        /*
          * @brief Insert a string into the stream.
          * @note The stream pointer is advanced as well
          */
@@ -96,36 +89,41 @@ class Stream {
         }
 
         /*
-         * @brief Reads 1 line from the stream into a null-terminated character array
+         * @brief Reads 1 line from the stream
          * @note The stream pointer is advanced as well
+         * @param maxSize Optional param which specifies max data to pull
          * @sa gets
-         * @returns Size of the line
          */
-        virtual int getline (char *_data, size_t maxSize) { return gets(_data, maxSize, '\n'); }
+        virtual String getline (size_t maxSize = 99999999) { return gets(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
 
         /*
-         * @brief Reads specified number of bytes from the stream into a null-terminated character array
+         * @brief Reads specified number of bytes from the stream
          * @param maxSize How many bytes to read
          * @param delim What to split the read on. For example: '\n' will return 1 line.
          * @note The stream pointer is advanced as well
-         * @returns Size of the data read
          */
-        virtual int gets (char *_data, size_t maxSize, char delim = 0) {
-          size_t toRead, read = 0;
-          char c = 0;
+        virtual String gets (size_t maxSize, char delim = 0) {
+          size_t toRead = std::min(maxSize, capacity() - tell());
 
-          toRead = (maxSize <= (capacity() - tell())) ? maxSize : (capacity() - tell());
-
-          while ((read < toRead) && (!delim || (c != '\n'))) {
-            c = str[pos++];
-            *_data++ = c;
-            ++read;
+          /* No need to split the string, return a substring */
+          if (!delim) {
+            String ret(str(pos, toRead));
+            pos += toRead;
+            return ret;
           }
 
-          if ( (read < toRead) || (toRead < maxSize))
-            *_data = 0;
+          /* Must reconstruct a new string */
+          String ret(toRead);
 
-          return read;
+          while ((ret.length() < toRead) && (str[pos] != delim)) {
+            ret += str[pos++];
+          }
+          if (str[pos] == delim) {
+            ret += delim;
+            ++pos;
+          }
+
+          return ret;
         }
 
         /*
@@ -137,7 +135,6 @@ class Stream {
          */
         int loadFile(const char*);
 
-        inline const char* data() const { return str.data(); };
         inline operator String() const { return str; };
         inline size_t length() const { return str.length(); };
         inline size_t capacity() const { return str.capacity(); };
