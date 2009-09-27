@@ -4,6 +4,17 @@
 #include "Stream.h"
 #include <stdarg.h>
 #include <algorithm> // min() / max()
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
+
+#ifdef HAVE_MMAP
+#  include <sys/mman.h>
+#  include <unistd.h>
+#  include <sys/types.h>
+#  include <sys/stat.h>
+#  include <fcntl.h>
+#endif
 
 BDLIB_NS_BEGIN
 
@@ -40,6 +51,25 @@ int Stream::seek (int offset, int whence) {
 
 int Stream::loadFile(const char* file)
 {
+  clear();
+#ifdef HAVE_MMAP
+  int fd = open(file, O_RDONLY);
+  if (fd == -1)
+    return 1;
+  size_t size = lseek(fd, 0, SEEK_END);
+  Reserve(size);
+  unsigned char* map = (unsigned char*) mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
+  if ((void*)map == MAP_FAILED) {
+    close(fd);
+    return 1;
+  }
+  loading = 1;
+
+  puts(String((const char*)map, size));
+
+  munmap(map, size);
+  close(fd);
+#else
   FILE *f = NULL;
   f = fopen(file, "rb");
   if (f == NULL)
@@ -59,6 +89,7 @@ int Stream::loadFile(const char* file)
   }
 
   fclose(f);
+#endif
   seek(0, SEEK_SET);
   loading = 0;
   return 0;

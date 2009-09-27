@@ -75,8 +75,6 @@ class Stream {
         virtual void puts (const String& string) {
           str.replace(tell(), string);
           pos += string.length();
-          /* WTF **/
-          //Ref->size = max(tell(), capacity());
         }
 
         /*
