@@ -122,6 +122,53 @@ void StreamTest :: truncateTest (void)
 
 void StreamTest :: getsTest (void)
 {
+  char buf[51] = "";
+  String sbuf;
+
+  a->puts("This is line 1\n");
+  a->puts("This is line 2\n");
+  a->puts("This is line 3\n");
+  a->puts("This is line 4\n");
+  a->puts("This is line 5\n");
+  a->puts("This is line 6\n");
+  a->puts("This is line 7\n");
+  a->puts("This is line 8\n");
+  a->puts("This is line 9\n");
+  a->puts("This is line10\n");
+  a->puts("This is line11\n");
+  a->puts("This is line12\n");
+  a->puts("This is line13\n");
+  a->puts("This is line14\n");
+  a->seek(0, SEEK_SET);
+  int x = 0;
+  size_t pos = 0, size = 0;
+  while (a->tell() < a->length()) {
+    sbuf.printf("This is line%2d\nThis is line%2d\n", x + 1, x+ 2);
+    size = a->gets(buf, 30);
+    pos += size;
+    CPPUNIT_ASSERT_EQUAL(pos, a->tell());
+    CPPUNIT_ASSERT_EQUAL((size_t) 30, strlen(buf));
+    CPPUNIT_ASSERT_EQUAL((size_t) 30, size);
+    CPPUNIT_ASSERT_EQUAL(0, strcmp(buf, sbuf.c_str()));
+    x += 2;
+  }
+  CPPUNIT_ASSERT_EQUAL(14, x);
+
+  size_t savelen = a->tell();
+  a->seek(a->tell(), SEEK_SET);
+  a->puts("This is line15\n");
+  a->seek(savelen, SEEK_SET);
+  sbuf = "This is line15\n";
+  size = a->gets(buf, 30);
+  pos += size;
+  CPPUNIT_ASSERT_EQUAL(pos, a->tell());
+  CPPUNIT_ASSERT_EQUAL((size_t) 15, strlen(buf));
+  CPPUNIT_ASSERT_EQUAL((size_t) 15, size);
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(buf, sbuf.c_str()));
+}
+
+void StreamTest :: getlineTest (void)
+{
   char buf[51];
 
   a->puts("This is line 1\n");
@@ -142,7 +189,7 @@ void StreamTest :: getsTest (void)
   size_t pos = 0, size = 0;
   while (a->tell() < a->length()) {
     ++x;
-    size = a->gets(buf, sizeof(buf));
+    size = a->getline(buf, sizeof(buf));
     pos += size;
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());
     CPPUNIT_ASSERT_EQUAL((size_t) 15, strlen(buf));
@@ -173,7 +220,7 @@ void StreamTest :: printfTest (void)
   size_t pos = 0, size = 0;;
   while (a->tell() < a->length()) {
     ++x;
-    size = a->gets(buf, sizeof(buf));
+    size = a->getline(buf, sizeof(buf));
     pos += size;
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());
     CPPUNIT_ASSERT_EQUAL((size_t) 15, strlen(buf));
@@ -211,7 +258,7 @@ void StreamTest :: loadFileTest (void)
 
   fseek(f, 0, SEEK_SET);
   while (fgets(buf, sizeof(buf), f) != NULL) {
-    len = a->gets(sbuf, sizeof(sbuf));
+    len = a->getline(sbuf, sizeof(sbuf));
     CPPUNIT_ASSERT_EQUAL(0, strcmp(buf, sbuf));
 //std::cout << sbuf << std::endl;
 //std::cout << buf << std::endl;

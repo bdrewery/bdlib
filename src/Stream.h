@@ -78,7 +78,16 @@ class Stream {
         int seek(int, int);
         void clear() { str.clear(); pos = 0; }
 
+        /*
+         * @brief Insert a null-terminated character array into the stream.
+         * The stream pointer is advanced as well
+         */
         void puts (const char* string, size_t len) { puts(String(string, len)); }
+
+        /*
+         * @brief Insert a string into the stream.
+         * @note The stream pointer is advanced as well
+         */
         virtual void puts (const String& string) {
           str.replace(tell(), string);
           pos += string.length();
@@ -86,13 +95,28 @@ class Stream {
           //Ref->size = max(tell(), capacity());
         }
 
-        virtual int gets (char *_data, size_t maxSize) {
+        /*
+         * @brief Reads 1 line from the stream into a null-terminated character array
+         * @note The stream pointer is advanced as well
+         * @sa gets
+         * @returns Size of the line
+         */
+        virtual int getline (char *_data, size_t maxSize) { return gets(_data, maxSize, '\n'); }
+
+        /*
+         * @brief Reads specified number of bytes from the stream into a null-terminated character array
+         * @param maxSize How many bytes to read
+         * @param delim What to split the read on. For example: '\n' will return 1 line.
+         * @note The stream pointer is advanced as well
+         * @returns Size of the data read
+         */
+        virtual int gets (char *_data, size_t maxSize, char delim = 0) {
           size_t toRead, read = 0;
           char c = 0;
 
           toRead = (maxSize <= (capacity() - tell())) ? maxSize : (capacity() - tell());
 
-          while ((read < toRead) && (c != '\n')) {
+          while ((read < toRead) && (!delim || (c != '\n'))) {
             c = str[pos++];
             *_data++ = c;
             ++read;
@@ -104,6 +128,11 @@ class Stream {
           return read;
         }
 
+        /*
+         * @brief Load a file into the stream
+         * @returns 1 on error, 0 on success.
+         * @note this.loading is set to 1 during this process.
+         */
         int loadFile(const char*);
 
         inline const char* data() const { return str.data(); };

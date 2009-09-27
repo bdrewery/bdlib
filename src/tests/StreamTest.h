@@ -18,6 +18,7 @@ class StreamTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (putsTest);
     CPPUNIT_TEST (truncateTest);
     CPPUNIT_TEST (getsTest);
+    CPPUNIT_TEST (getlineTest);
     CPPUNIT_TEST (printfTest);
     CPPUNIT_TEST (loadFileTest);
     CPPUNIT_TEST_SUITE_END ();
@@ -33,6 +34,7 @@ class StreamTest : public CPPUNIT_NS :: TestFixture
         void putsTest(void);
         void truncateTest(void);
         void getsTest(void);
+        void getlineTest(void);
         void printfTest(void);
         void loadFileTest(void);
     private:
