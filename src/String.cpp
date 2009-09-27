@@ -407,10 +407,10 @@ void String::printf(const char* format, ...) {
  * @brief DJB's hash function
  */
 size_t String::hash() const {
-  size_t hash = 5381;
+  size_t _hash = 5381;
 
   for(size_t i = 0; i < length(); ++i)
-    hash = ((hash << 5) + hash) + data()[i];
-  return (hash & 0x7FFFFFFF);
+    _hash = ((_hash << 5) + _hash) + data()[i];
+  return (_hash & 0x7FFFFFFF);
 }
 BDLIB_NS_END

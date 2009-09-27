@@ -43,9 +43,9 @@ static threadMainRet_t threadMain(void* object) {
   return (threadMainRet_t) thread->run(thread->param);
 }
 
-int Thread::start(void* param) {
+int Thread::start(void* _param) {
   if (!isStarted()) {
-    this->param = param;
+    param = _param;
 #if defined(USE_PTHREAD)
     /* Initialize the pthread_attr needed for pthread .. */
     pthread_attr_t attr;
@@ -89,19 +89,19 @@ void Thread::detach(void) {
 }
 
 void* Thread::wait(void) {
-  void* status = NULL;
+  void* _status = NULL;
 
   if (shouldDetach()) {
 #if defined(USE_PTHREAD)
-    pthread_join(this->handle, &status);
+    pthread_join(this->handle, &_status);
 #elif defined(WIN32)
     WaitForSingleObject(this->handle, INFINITE);
-    GetExitCodeThread(this->handle, (DWORD*) &status);
+    GetExitCodeThread(this->handle, (DWORD*) &_status);
     CloseHandle(this->handle);
 #endif /* WIN32 */
     setDetached();
   }
-  return status;
+  return _status;
 }
 
 void Thread::stop(void) {

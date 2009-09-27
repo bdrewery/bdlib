@@ -53,7 +53,7 @@ class HashTable {
     }
   public:
     HashTable() : list(new List<iterator_type>[100]), _size(0), _capacity(100), _hash() {};
-    explicit HashTable(size_t capacity) : list(new List<iterator_type>[capacity]), _size(0), _capacity(capacity), _hash() {};
+    explicit HashTable(size_t capacity_in) : list(new List<iterator_type>[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
     HashTable(const HashTable<Key, Value> &table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
       for (size_t i = 0; i < _capacity; ++i)
           list[i] = table.list[i];

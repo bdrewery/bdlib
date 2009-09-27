@@ -46,7 +46,7 @@ class Stream {
   public:
         Stream() : str(), pos(0), loading(0) {};
         Stream(const Stream& stream) : str(stream.str), pos(stream.pos), loading(0) {};
-        Stream(const String& str) : str(str), pos(0), loading(0) {};
+        Stream(const String& string) : str(string), pos(0), loading(0) {};
         Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };
         virtual ~Stream() {};
 
