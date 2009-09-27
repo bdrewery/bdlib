@@ -20,7 +20,7 @@ void StringTest :: setUp (void)
     e = new String(*d);
     f = new String(cstring, 11);
     g = new String('x');
-    h = new String(35);
+    h = new String(size_t(35));
 }
 
 void StringTest :: tearDown (void)
@@ -224,7 +224,7 @@ void StringTest :: appendTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("blahblah blahblah   blah", *c);
 
   /* Test binary data! */
-  String tmp(255);
+  String tmp(size_t(255));
   for (unsigned char c = 0; c < 255; c++)
     tmp.append(c);
   CPPUNIT_ASSERT_EQUAL((size_t)255, tmp.length());

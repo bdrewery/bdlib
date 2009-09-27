@@ -346,7 +346,7 @@ class String {
 	 * The idea behind this is that if a specific size was asked for, the buffer is like
 	 * a char buf[N];
          */
-        explicit String(const int newSize) : Ref(new StringBuf()), offset(0), sublen(0) {
+        explicit String(const size_t newSize) : Ref(new StringBuf()), offset(0), sublen(0) {
           if (newSize <= 0) return;
           Reserve(newSize);
         };

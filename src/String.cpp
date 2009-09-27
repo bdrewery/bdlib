@@ -371,7 +371,7 @@ ostream& operator << (ostream& os, const vector<String> list) {
 #endif /* experimental */
 
 String String::operator*(int times) const {
-  String newString((int) (this->length() * times));
+  String newString((this->length() * times));
   for (int i = 0; i < times; ++i)
     newString += *this;
   return newString;
