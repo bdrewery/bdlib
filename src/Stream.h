@@ -40,14 +40,15 @@ class Stream {
   protected:
         String str;
         unsigned int pos;
+        bool loading;
 
   public:
-        Stream() : str(), pos(0) {};
-        Stream(Stream &stream) : str(stream.str), pos(stream.pos) {};
-        Stream(const char* string) : str(string), pos(0) {};
-        Stream(const char* string, size_t len) : str(string, len), pos(0) {};
-        Stream(const char ch) : str(ch), pos(0) {};
-        Stream(const int newSize) : str(), pos(0) { if (newSize > 0) Reserve(newSize); };
+        Stream() : str(), pos(0), loading(0) {};
+        Stream(Stream &stream) : str(stream.str), pos(stream.pos), loading(0) {};
+        Stream(const char* string) : str(string), pos(0), loading(0) {};
+        Stream(const char* string, size_t len) : str(string, len), pos(0), loading(0) {};
+        Stream(const char ch) : str(ch), pos(0), loading(0) {};
+        Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };
         virtual ~Stream() {};
 
 #ifdef __GNUC__
