@@ -93,6 +93,9 @@ int String::compare(const String &str, size_t n) const
   size_t slen = std::min(str.length(), n);
   size_t len = std::min(my_len, slen);
 
+  /* Same string? */
+  if (data() == str.data() && my_len == str.length())
+    return 0;
 
   for (size_t i = 0; i < len; ++i) {
     if ((*this)[i] < str[i])
@@ -196,6 +199,12 @@ void String::insert(int k, const String &string, int n) {
   
   int slen = string.length();
 
+  /* New string is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
+  if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
+    *this = string;
+    return;
+  }
+
   if (n == -1 || n > slen)
     n = slen;
   slen -= slen - n;
@@ -216,6 +225,12 @@ void String::replace(int k, const String &string, int n) {
   if (k && !hasIndex(k-1)) return;
 
   int slen = string.length();
+
+  /* Replace string is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
+  if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
+    *this = string;
+    return;
+  }
   
   if (n == -1 || n > slen)
     n = slen;
