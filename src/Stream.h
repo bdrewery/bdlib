@@ -132,6 +132,8 @@ class Stream {
          * @brief Load a file into the stream
          * @returns 1 on error, 0 on success.
          * @note this.loading is set to 1 during this process.
+         * @note Uses puts() for populating the stream.
+         * @sa puts
          */
         int loadFile(const char*);
 
