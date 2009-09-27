@@ -38,24 +38,6 @@ int Stream::seek (int offset, int whence) {
   return newpos;
 }
 
-int Stream::gets (char *_data, size_t maxSize) {
-  size_t toRead, read = 0;
-  char c = 0;
-
-  toRead = (maxSize <= (capacity() - tell())) ? maxSize : (capacity() - tell());
-
-  while ((read < toRead) && (c != '\n')) {
-    c = str[pos++];
-    *_data++ = c;
-    ++read;
-  }
-
-  if ( (read < toRead) || (toRead < maxSize))
-    *_data = 0;
-
-  return read;
-}
-
 void Stream::printf (const char* format, ...)
 {
   char va_out[1024] = "";

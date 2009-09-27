@@ -86,7 +86,24 @@ class Stream {
           //Ref->size = max(tell(), capacity());
         }
 
-        int gets(char *, size_t);
+        virtual int gets (char *_data, size_t maxSize) {
+          size_t toRead, read = 0;
+          char c = 0;
+
+          toRead = (maxSize <= (capacity() - tell())) ? maxSize : (capacity() - tell());
+
+          while ((read < toRead) && (c != '\n')) {
+            c = str[pos++];
+            *_data++ = c;
+            ++read;
+          }
+
+          if ( (read < toRead) || (toRead < maxSize))
+            *_data = 0;
+
+          return read;
+        }
+
         int loadFile(const char*);
 
         inline const char* data() const { return str.data(); };
