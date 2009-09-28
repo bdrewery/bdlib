@@ -392,7 +392,7 @@ String String::operator*(int times) const {
   return newString;
 }
 
-void String::printf(const char* format, ...) {
+String String::printf(const char* format, ...) {
   char va_out[1024] = "";
   va_list va;
 
@@ -400,7 +400,7 @@ void String::printf(const char* format, ...) {
   vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
-  *this = va_out;
+  return (*this = va_out);
 }
 
 /**

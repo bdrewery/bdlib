@@ -354,6 +354,8 @@ void StringTest :: printfTest(void)
 
   a->printf("%s %d", s, n);
   CPPUNIT_ASSERT_STRING_EQUAL("something 506", *a);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("506 something 506", a->printf("%d %s %d", n, s, n));
 }
 
 /*
