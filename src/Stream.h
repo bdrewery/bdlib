@@ -124,6 +124,23 @@ class Stream {
          */
         int loadFile(const char*);
 
+        /*
+         * @brief Write stream out to a file
+         * @returns 1 on error, 0 on success
+         * @param fd File descriptor to write to
+         * @note The fd is not closed.
+         */
+        int writeFile(const int) const;
+
+        /*
+         * @brief Write stream out to a file
+         * @returns 1 on error, 0 on success
+         * @param fname Filename to write to
+         * @param mode Optional param to specify mode for new file
+         */
+        int writeFile(const char*, mode_t mode = 600) const;
+
+
         inline operator String() const { return str; };
         inline size_t length() const { return str.length(); };
         inline size_t capacity() const { return str.capacity(); };

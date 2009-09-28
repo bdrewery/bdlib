@@ -226,14 +226,49 @@ void StreamTest :: loadFileTest (void)
   while (fgets(buf, sizeof(buf), f) != NULL) {
     gbuf = a->getline(sizeof(buf) - 1);
     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
-//std::cout << sbuf << std::endl;
-//std::cout << buf << std::endl;
   }
   fclose(f);
+}
 
 
-//  char buf[1024];
-//  while (a->tell() < a->length()) {
-//    a->gets(buf, sizeof(buf));
-//  }
+void StreamTest :: writeFileTest (void)
+{
+  char fname[20] = "";
+  strcpy(fname, ".stream-out-XXXXXX");
+  int fd = mkstemp(fname);
+  const char *file = "/etc/passwd";
+
+  a->loadFile(file);
+  a->writeFile(fd);
+
+  /* Verify that the written file matches the source file */
+
+  FILE *f = NULL;
+  f = fopen(file, "rb");
+  if (f == NULL)
+    return;
+
+  fseek(f, 0, SEEK_END);
+  size_t size = ftell(f);
+  fseek(f, 0, SEEK_SET);
+
+  char *buffer = (char*) malloc(size + 1);
+  fread(buffer, 1, size, f);
+  buffer[size] = 0;
+
+  CPPUNIT_ASSERT_EQUAL(size, a->length());
+  CPPUNIT_ASSERT(*a == buffer);
+  free(buffer);
+
+  char buf[1024] = "";
+  String gbuf;
+
+  fseek(f, 0, SEEK_SET);
+  while (fgets(buf, sizeof(buf), f) != NULL) {
+    gbuf = a->getline(sizeof(buf) - 1);
+    CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+  }
+  unlink(fname);
+  fclose(f);
+  close(fd);
 }

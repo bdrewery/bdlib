@@ -20,6 +20,7 @@ class StreamTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (getsTest);
     CPPUNIT_TEST (getlineTest);
     CPPUNIT_TEST (loadFileTest);
+    CPPUNIT_TEST (writeFileTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -35,6 +36,7 @@ class StreamTest : public CPPUNIT_NS :: TestFixture
         void getsTest(void);
         void getlineTest(void);
         void loadFileTest(void);
+        void writeFileTest(void);
     private:
         Stream *a, *b, *c, *d, *e, *F, *g, *h;
 	char cstring[50];

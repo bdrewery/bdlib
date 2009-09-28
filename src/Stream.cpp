@@ -14,7 +14,9 @@
 #  include <sys/types.h>
 #  include <sys/stat.h>
 #  include <fcntl.h>
+#  include <cstring>
 #endif
+
 
 BDLIB_NS_BEGIN
 
@@ -92,6 +94,44 @@ int Stream::loadFile(const char* file)
 #endif
   seek(0, SEEK_SET);
   loading = 0;
+  return 0;
+}
+
+int Stream::writeFile(const char* file, mode_t mode) const
+{
+  int fd = open(file, O_CREAT|O_RDWR|O_TRUNC, mode);
+  if (fd == -1)
+    return 1;
+  int ret = writeFile(fd);
+  close(fd);
+  return ret;
+}
+
+int Stream::writeFile(const int fd) const
+{
+#ifdef HAVE_MMAP
+  /* Write to end of file to make its size match */
+  if (lseek(fd, length() - 1, SEEK_SET) == -1) return 1;
+  if (write(fd, "", 1) == -1) return 1;
+
+  unsigned char* map = (unsigned char*) mmap(0, length(), PROT_WRITE, MAP_SHARED, fd, 0);
+
+  if ((void*)map == MAP_FAILED) return 1;
+
+  std::memcpy(map, str.data(), length());
+
+  if (munmap(map, length()) == -1) return 1;
+#else
+  FILE *f = fdopen(fd, "wb");
+  if (f == NULL)
+    return 1;
+
+  size_t len = 0;
+  char buf[STREAM_BLOCKSIZE + 1];
+
+  if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f)))
+    return 1;
+#endif
   return 0;
 }
 
