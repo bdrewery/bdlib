@@ -12,12 +12,12 @@ void StreamTest :: setUp (void)
     strcpy(cstring, "Some static cstring to play with");
     // set up test environment (initializing objects)
     a = new Stream();
-    b = new Stream(String("blah"));
+    b = new Stream("blah");
     c = new Stream(*b);
-    d = new Stream(String(cstring));
+    d = new Stream(cstring);
     e = new Stream(*d);
-    f = new Stream(String(cstring, 11));
-    g = new Stream(String('x'));
+    F = new Stream(String(cstring, 11));
+    g = new Stream('x');
     h = new Stream(35);
 }
 
@@ -25,7 +25,7 @@ void StreamTest :: tearDown (void)
 {
     // finally delete objects
     delete a; delete b; delete c; delete d;
-    delete e; delete f; delete g; delete h;
+    delete e; delete F; delete g; delete h;
 }
 
 void StreamTest :: reserveTest (void)

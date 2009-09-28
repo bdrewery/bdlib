@@ -225,13 +225,13 @@ void StringTest :: appendTest(void)
 
   /* Test binary data! */
   String tmp(size_t(255));
-  for (unsigned char c = 0; c < 255; c++)
-    tmp.append(c);
+  for (unsigned char C = 0; C < 255; C++)
+    tmp.append(C);
   CPPUNIT_ASSERT_EQUAL((size_t)255, tmp.length());
 
   char *s = (char*) malloc(255);
-  for (unsigned char c = 0; c < 255; c++)
-    s[(unsigned int) c] = c;
+  for (unsigned char C = 0; C < 255; C++)
+    s[(unsigned int) C] = C;
   String tmp2 = String(s, 255);
 
   CPPUNIT_ASSERT_STRING_EQUAL(tmp2, tmp);
@@ -458,8 +458,8 @@ void StringTest :: base64Test(void)
 
   tmp = "";
   tmp.Reserve(255);
-  for (unsigned char c = 0; c < 255; c++)
-    tmp.append(c);
+  for (unsigned char C = 0; C < 255; C++)
+    tmp.append(C);
   String save = String(tmp);
   tmp = base64Encode(tmp);
   tmp = base64Decode(tmp);

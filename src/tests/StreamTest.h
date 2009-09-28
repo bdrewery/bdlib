@@ -36,7 +36,7 @@ class StreamTest : public CPPUNIT_NS :: TestFixture
         void getlineTest(void);
         void loadFileTest(void);
     private:
-        Stream *a, *b, *c, *d, *e, *f, *g, *h;
+        Stream *a, *b, *c, *d, *e, *F, *g, *h;
 	char cstring[50];
 };
 #endif
