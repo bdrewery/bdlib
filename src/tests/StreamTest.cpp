@@ -3,6 +3,9 @@
  */
 #include "StreamTest.h"
 #include <cstring>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StreamTest);
@@ -228,6 +231,10 @@ void StreamTest :: loadFileTest (void)
     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
   }
   fclose(f);
+
+  struct stat s;
+  stat(file, &s);
+  CPPUNIT_ASSERT_EQUAL(a->length(), size_t(s.st_size));
 }
 
 
@@ -268,6 +275,13 @@ void StreamTest :: writeFileTest (void)
     gbuf = a->getline(sizeof(buf) - 1);
     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
   }
+
+  struct stat s;
+  fstat(fd, &s);
+  CPPUNIT_ASSERT_EQUAL(a->length(), size_t(s.st_size));
+  stat(file, &s);
+  CPPUNIT_ASSERT_EQUAL(a->length(), size_t(s.st_size));
+
   unlink(fname);
   fclose(f);
   close(fd);
