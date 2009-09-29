@@ -126,9 +126,6 @@ int Stream::writeFile(const int fd) const
   if (f == NULL)
     return 1;
 
-  size_t len = 0;
-  char buf[STREAM_BLOCKSIZE + 1];
-
   if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f)))
     return 1;
 #endif
