@@ -393,7 +393,7 @@ String String::operator*(int times) const {
 }
 
 String String::printf(const char* format, ...) {
-  char va_out[1024] = "";
+  char va_out[4096] = "";
   va_list va;
 
   va_start(va, format);
