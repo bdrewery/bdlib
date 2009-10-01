@@ -456,6 +456,17 @@ class String {
         };
 
         /**
+         * @brief Trim off \n,\r,\r\n from end
+         */
+        void chomp();
+
+        /**
+         * @brief Trim off \n,\r,\r\n from end
+         * @return New string
+         */
+        String chomp() const { String ret(*this); ret.chomp(); return ret; }
+
+        /**
          * @brief Safe element access operator
          * @todo This is only called on a (const) String, but should for a String as well.
          */

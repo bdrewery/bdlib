@@ -271,6 +271,49 @@ void StringTest :: replaceTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("xml", *g);
 }
 
+void StringTest :: chompTest(void)
+{
+  (*a) = "testing123";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a));
+
+  (*a) = "testing123\n";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a));
+
+  (*a) = "testing123\n\n";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123\n", (*a));
+
+  (*a) = "testing123\r";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a));
+
+  (*a) = "testing123\r";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a));
+
+  (*a) = "testing123\r\n";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a));
+
+  (*a) = "testing123\n\r\n";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123\n", (*a));
+
+  (*a) = "testing123\n\r\n\r";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123\n\r\n", (*a));
+
+  (*a) = "testing123\n\r\n\r\n";
+  (*a).chomp();
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123\n\r\n", (*a));
+
+  /* Also check the const version */
+  const String cstr("testing123\r\n");
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.chomp());
+}
+
 void StringTest :: concatTest(void)
 {
  *a = *b + " " + *b;

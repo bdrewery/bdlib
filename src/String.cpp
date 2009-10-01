@@ -403,6 +403,11 @@ String String::printf(const char* format, ...) {
   return (*this = va_out);
 }
 
+void String::chomp() {
+  if ((*this)[length() - 1] == '\n') --(*this);
+  if ((*this)[length() - 1] == '\r') --(*this);
+}
+
 /**
  * @brief DJB's hash function
  */
