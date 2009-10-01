@@ -114,7 +114,8 @@ int Stream::writeFile(const int fd) const
 {
 #ifdef HAVE_MMAP
   /* Write to end of file to make its size match */
-  if (lseek(fd, length() - 1, SEEK_SET) == -1) return 1;
+  /* Seek past wherever it is at now plus our length */
+  if (lseek(fd, length() - 1, SEEK_CUR) == -1) return 1;
   if (write(fd, "", 1) == -1) return 1;
 
   unsigned char* map = (unsigned char*) mmap(0, length(), PROT_WRITE, MAP_SHARED, fd, 0);
