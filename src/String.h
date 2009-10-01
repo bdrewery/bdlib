@@ -784,6 +784,8 @@ inline std::ostream& operator << (std::ostream& os, const String& string) {
   //return os << string.c_str();
 }
 
+String newsplit(String& str, char delim = ' ');
+
 std::istream& operator >> (std::istream&, String&);
 std::istream& getline(std::istream&, String&);
 

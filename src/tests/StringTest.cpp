@@ -329,6 +329,38 @@ void StringTest :: findTest(void)
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("notfound"));
 }
 
+void StringTest :: newsplitTest(void)
+{
+  String sentence = "WORD1 WORD2 WORD3 WORD4 WORD5";
+  String w1 = newsplit(sentence);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD2 WORD3 WORD4 WORD5", sentence);
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD1", w1);
+
+  String w2 = newsplit(sentence);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD3 WORD4 WORD5", sentence);
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD2", w2);
+
+  String w3 = newsplit(sentence);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD4 WORD5", sentence);
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD3", w3);
+
+  String w4 = newsplit(sentence);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD5", sentence);
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD4", w4);
+
+  String w5 = newsplit(sentence);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD5", sentence);
+  CPPUNIT_ASSERT_STRING_EQUAL("", w5);
+  CPPUNIT_ASSERT_EQUAL(size_t(5), sentence.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), w5.length());
+
+}
+
 void StringTest :: concatTest(void)
 {
  *a = *b + " " + *b;
