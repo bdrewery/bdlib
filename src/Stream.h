@@ -91,29 +91,7 @@ class Stream {
          * @param delim What to split the read on. For example: '\n' will return 1 line.
          * @note The stream pointer is advanced as well
          */
-        virtual String gets (size_t maxSize, char delim = 0) {
-          size_t toRead = std::min(maxSize, capacity() - tell());
-
-          /* No need to split the string, return a substring */
-          if (!delim) {
-            String ret(str(pos, toRead));
-            pos += toRead;
-            return ret;
-          }
-
-          /* Must reconstruct a new string */
-          String ret(toRead);
-
-          while ((ret.length() < toRead) && (str[pos] != delim)) {
-            ret += str[pos++];
-          }
-          if (str[pos] == delim) {
-            ret += delim;
-            ++pos;
-          }
-
-          return ret;
-        }
+        virtual String gets (size_t maxSize, char delim = 0);
 
         /*
          * @brief Load a file into the stream
@@ -124,7 +102,7 @@ class Stream {
          * @note The fd is not closed.
          * @sa puts
          */
-        int loadFile(const int);
+        virtual int loadFile(const int);
 
         /*
          * @brief Load a file into the stream
@@ -134,7 +112,7 @@ class Stream {
          * @note Uses puts() for populating the stream.
          * @sa puts
          */
-        int loadFile(const char*);
+        virtual int loadFile(const char*);
 
         /*
          * @brief Write stream out to a file
@@ -142,7 +120,7 @@ class Stream {
          * @param fd File descriptor to write to
          * @note The fd is not closed.
          */
-        int writeFile(const int) const;
+        virtual int writeFile(const int) const;
 
         /*
          * @brief Write stream out to a file
@@ -150,7 +128,7 @@ class Stream {
          * @param fname Filename to write to
          * @param mode Optional param to specify mode for new file
          */
-        int writeFile(const char*, mode_t mode = 600) const;
+        virtual int writeFile(const char*, mode_t mode = 600) const;
 
 
         inline operator String() const { return str; };

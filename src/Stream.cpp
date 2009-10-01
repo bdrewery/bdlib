@@ -51,6 +51,30 @@ int Stream::seek (int offset, int whence) {
   return newpos;
 }
 
+String Stream::gets (size_t maxSize, char delim) {
+  size_t toRead = std::min(maxSize, capacity() - tell());
+
+  /* No need to split the string, return a substring */
+  if (!delim) {
+    String ret(str(pos, toRead));
+    pos += toRead;
+    return ret;
+  }
+
+  /* Must reconstruct a new string */
+  String ret(toRead);
+
+  while ((ret.length() < toRead) && (str[pos] != delim)) {
+    ret += str[pos++];
+  }
+  if (str[pos] == delim) {
+    ret += delim;
+    ++pos;
+  }
+
+  return ret;
+}
+
 int Stream::loadFile(const char* file)
 {
   int fd = open(file, O_RDONLY);
