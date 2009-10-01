@@ -457,14 +457,15 @@ class String {
 
         /**
          * @brief Trim off \n,\r,\r\n from end
+         * @return The string, to allow for chaining
          */
-        void chomp();
+        String chomp();
 
         /**
          * @brief Trim off \n,\r,\r\n from end
          * @return New string
          */
-        String chomp() const { String ret(*this); ret.chomp(); return ret; }
+        String chomp() const { return String(*this).chomp(); }
 
         /**
          * @brief Safe element access operator
