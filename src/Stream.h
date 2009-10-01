@@ -118,6 +118,18 @@ class Stream {
         /*
          * @brief Load a file into the stream
          * @returns 1 on error, 0 on success.
+         * @param fd File descriptor to read from
+         * @note this.loading is set to 1 during this process.
+         * @note Uses puts() for populating the stream.
+         * @note The fd is not closed.
+         * @sa puts
+         */
+        int loadFile(const int);
+
+        /*
+         * @brief Load a file into the stream
+         * @returns 1 on error, 0 on success.
+         * @param fname File to read from
          * @note this.loading is set to 1 during this process.
          * @note Uses puts() for populating the stream.
          * @sa puts

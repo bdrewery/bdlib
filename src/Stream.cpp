@@ -53,11 +53,18 @@ int Stream::seek (int offset, int whence) {
 
 int Stream::loadFile(const char* file)
 {
-  clear();
-#ifdef HAVE_MMAP
   int fd = open(file, O_RDONLY);
   if (fd == -1)
     return 1;
+  int ret = loadFile(fd);
+  close(fd);
+  return ret;
+}
+
+int Stream::loadFile(const int fd)
+{
+  clear();
+#ifdef HAVE_MMAP
   size_t size = lseek(fd, 0, SEEK_END);
   Reserve(size);
   unsigned char* map = (unsigned char*) mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
@@ -70,10 +77,8 @@ int Stream::loadFile(const char* file)
   puts(String((const char*)map, size));
 
   munmap(map, size);
-  close(fd);
 #else
-  FILE *f = NULL;
-  f = fopen(file, "rb");
+  FILE *f = fdopen(fd, "rb");
   if (f == NULL)
     return 1;
 
@@ -89,8 +94,6 @@ int Stream::loadFile(const char* file)
   while ((len = fread(buf, 1, sizeof(buf) - 1, f))) {
     puts(String(buf, len));
   }
-
-  fclose(f);
 #endif
   seek(0, SEEK_SET);
   loading = 0;
