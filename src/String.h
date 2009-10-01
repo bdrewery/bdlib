@@ -303,6 +303,8 @@ class String {
         }
         inline void getOwnCopy() const { AboutToModify(capacity()); };
   public:
+        static const size_t npos = size_t(-1);
+
         inline int rcount() const { return Ref->n; };
 
         /* Constructors */
@@ -373,6 +375,18 @@ class String {
          * @return Length of the string.
          */
         inline size_t length() const { return sublen; };
+
+        /*
+         * @brief Find a character in the string
+         * @return The position of the character if found, or String::npos if not found
+         **/
+        size_t find(const char) const;
+
+        /*
+         * @brief Find a string in the string
+         * @return The position of the string if found, or String::npos if not found
+         **/
+        size_t find(const String&) const;
 
         /**
          * @brief Returns capacity of the String object.

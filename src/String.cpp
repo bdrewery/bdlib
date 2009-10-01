@@ -34,6 +34,8 @@ using std::memmove;
 
 BDLIB_NS_BEGIN
 
+const size_t String::npos;
+
 /**
  * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
  * @param newSize A size that we need to Allocate the buffer to.
@@ -407,6 +409,20 @@ String String::chomp() {
   if ((*this)[length() - 1] == '\n') --(*this);
   if ((*this)[length() - 1] == '\r') --(*this);
   return *this;
+}
+
+size_t String::find (const char ch) const {
+  for (const char* c = begin(); c != end(); ++c)
+    if (*c == ch)
+      return size_t(c - begin());
+  return npos;
+}
+
+size_t String::find (const String& str) const {
+  for (const char* c = begin(); c != end(); ++c)
+    if (strncmp(c, str.c_str(), std::min(str.length(), size_t(end() - c))) == 0)
+      return size_t(c - begin());
+  return npos;
 }
 
 /**

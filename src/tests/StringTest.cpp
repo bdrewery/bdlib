@@ -314,6 +314,21 @@ void StringTest :: chompTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.chomp());
 }
 
+void StringTest :: findTest(void)
+{
+  *a = "This is some long string";
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->find('T'));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, a->find('h'));
+  CPPUNIT_ASSERT_EQUAL((size_t)2, a->find('i'));
+  CPPUNIT_ASSERT_EQUAL((size_t)3, a->find('s'));
+  CPPUNIT_ASSERT_EQUAL((size_t)13, a->find('l'));
+  CPPUNIT_ASSERT_EQUAL((size_t)13, a->find("long"));
+  CPPUNIT_ASSERT_EQUAL((size_t)18, a->find("string"));
+
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->find("z"));
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->find("notfound"));
+}
+
 void StringTest :: concatTest(void)
 {
  *a = *b + " " + *b;
