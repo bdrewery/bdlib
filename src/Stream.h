@@ -28,6 +28,10 @@
 #include "bdlib.h"
 #include "String.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 BDLIB_NS_BEGIN
 
 #define STREAM_BLOCKSIZE	1024
@@ -128,7 +132,7 @@ class Stream {
          * @param fname Filename to write to
          * @param mode Optional param to specify mode for new file
          */
-        virtual int writeFile(const char*, mode_t mode = 600) const;
+        virtual int writeFile(const char*, mode_t mode = (S_IRUSR|S_IWUSR)) const;
 
 
         inline operator String() const { return str; };
