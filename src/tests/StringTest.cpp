@@ -598,6 +598,22 @@ void StringTest :: substringTest(void)
   *a = "now it is really gone";
   CPPUNIT_ASSERT_STRING_EQUAL("goes", substring);
 
+  *a = "0123456789";
+  substring = a->substring(5, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
+
+  /* Check substring of substring */
+  String substring2 = substring.substring(0, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
+  CPPUNIT_ASSERT_STRING_EQUAL("56789", substring2);
+
+  /* Check substring of substring of substring */
+  substring2 = substring.substring(0, 5);
+  String substring3 = substring2.substring(1, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
+  CPPUNIT_ASSERT_STRING_EQUAL("56789", substring2);
+  CPPUNIT_ASSERT_STRING_EQUAL("6789", substring3);
+
   *a = "abcdefgh";
   substring = a->substring(3,-2);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", *a);
@@ -619,7 +635,7 @@ void StringTest :: substringTest(void)
   substring = (*a)(-4,4);
   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
 
-  String substring2(substring);
+  substring2 = substring;
   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
   CPPUNIT_ASSERT_STRING_EQUAL("test", substring2);
   CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);

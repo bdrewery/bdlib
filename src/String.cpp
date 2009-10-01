@@ -348,7 +348,7 @@ String String::substring(int start, int len) const
   if (start < 0)
     start = 0;
 
-  newString.offset = start;
+  newString.offset = offset + start;
   //If the length of the substring exceeds the end of the string, truncate to the end of the string
   if (start + len >= (signed) length())
     len = length() - start;

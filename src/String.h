@@ -508,10 +508,14 @@ class String {
         /**
          * @brief Returns a 'SubString' class for safe (cow) writing into String
          * @sa SubString
+         * @param start Starting position
+         * @param len How many bytes to take off
          */
         inline SubString operator()(int start, int len) { return SubString(*this, start, len); };
         /**
          * @brief Returns a const substring
+         * @param start Starting position
+         * @param len How many bytes to take off
          * @sa SubString
          */
         inline String operator()(int start, int len) const { return substring(start, len); };
