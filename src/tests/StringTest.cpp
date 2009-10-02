@@ -359,6 +359,18 @@ void StringTest :: newsplitTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(5), sentence.length());
   CPPUNIT_ASSERT_EQUAL(size_t(0), w5.length());
 
+  /* Try eliminating runs of whitespace */
+  *a = "This  is      a  test  ";
+  CPPUNIT_ASSERT_STRING_EQUAL("This", newsplit(*a));
+  CPPUNIT_ASSERT_STRING_EQUAL("is      a  test  ", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("is", newsplit(*a));
+  CPPUNIT_ASSERT_STRING_EQUAL("a  test  ", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("a", newsplit(*a));
+  CPPUNIT_ASSERT_STRING_EQUAL("test  ", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test", newsplit(*a));
+  CPPUNIT_ASSERT_STRING_EQUAL("", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("", newsplit(*a));
+
 }
 
 void StringTest :: concatTest(void)

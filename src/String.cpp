@@ -448,6 +448,13 @@ String newsplit(String& str, char delim)
   size_t pos = str.find(delim);
   if (pos != bd::String::npos) {
     String first(str(0, pos));
+
+    /* Trim out runs of whitespaces */
+    if (delim == ' ') {
+      while ((str.begin() + pos + 1) < str.end() && str[pos + 1] == ' ')
+        ++pos;
+    }
+
     str = str(pos + 1, str.length() - pos + 1);
     return first;
   }
