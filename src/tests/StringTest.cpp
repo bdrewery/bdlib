@@ -407,14 +407,44 @@ void StringTest :: incDecTest(void)
 
 void StringTest :: incDecEqualTest(void)
 {
+  *a = "test word";
+  *b = *a;
+  *a += 5;
+  CPPUNIT_ASSERT_STRING_EQUAL("test word", *b);
+  CPPUNIT_ASSERT_EQUAL((size_t) 9, b->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("word", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 4, a->length());
+
+
+  *b = "blah";
+  a->clear();
   *a += "longtest";
+  CPPUNIT_ASSERT_EQUAL((size_t) 8, a->length());
+  CPPUNIT_ASSERT_EQUAL((size_t) 4, b->length());
+
   CPPUNIT_ASSERT_STRING_EQUAL("longtest", *a);
   *a -= 3;
+  CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
   CPPUNIT_ASSERT_STRING_EQUAL("longt", *a);
   *a += 4;
   CPPUNIT_ASSERT_STRING_EQUAL("t", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 1, a->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
+  CPPUNIT_ASSERT_EQUAL((size_t) 4, b->length());
+
+  *a = *a + *b;
+  CPPUNIT_ASSERT_STRING_EQUAL("tblah", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
+
+  *b = "blah";
+  *a = "longtest";
+  *a -= 3;
+  *a += 4;
+  CPPUNIT_ASSERT_STRING_EQUAL("t", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 1, a->length());
+
   *a += *b;
+
   CPPUNIT_ASSERT_STRING_EQUAL("tblah", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
 
@@ -739,6 +769,85 @@ void StringTest :: substringTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS", *a);
+
+
+
+  *a = "does arbitrary inserting and replacing work with substrings?";
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+
+  *b = (*a)(5, 9);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), b->length());
+
+  *c = (*a)(15, 9);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inserting", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), c->length());
+
+  *d = *a;
+  *d += 20;
+
+  CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?", *d);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inserting", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), c->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(40), d->length());
+
+  *b += " words";
+  CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?", *d);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary words", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inserting", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(15), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), c->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(40), d->length());
+
+  *b += *c;
+  CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?", *d);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary wordsinserting", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inserting", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(24), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), c->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(40), d->length());
+
+  *d += "test";
+  CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?test", *d);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary wordsinserting", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inserting", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(24), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(9), c->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(b->c_str(), "arbitrary wordsinserting"));
+
+  *c -= 1;
+  *c += 5;
+  *c += "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+  *c -= 1;
+  *c += "test";
+  *c += 1;
+  CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?test", *d);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary wordsinserting", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatest", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(24), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(105), c->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
+
+
 //  (*a)(-4, 4) = "TEST";
 //  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);
 }

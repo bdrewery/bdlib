@@ -29,6 +29,7 @@
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
+#include <cstring>
 
 #include <stdio.h>
 
@@ -198,6 +199,7 @@ class String {
         /**
          * @brief Detach from the shared reference.
          * This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used)
+         * @note This does not free the old reference, as it is still in use
          */
 	void doDetach() const {
           decRef();
@@ -297,9 +299,16 @@ class String {
 
         inline void AboutToModify(size_t n) const {
           if (isShared())
-            COW(n);
-          else
+            COW(n); // Clears the offset
+          else {
             Reserve(n);
+            /* Shift the offset away */
+            if (offset) {
+              // FIXME: The offset just needs to be used properly after every call to AboutToModify.
+              std::memmove(Ref->buf, Buf(), length());
+              offset = 0;
+            }
+          }
         }
         inline void getOwnCopy() const { AboutToModify(capacity()); };
   public:
@@ -704,16 +713,14 @@ inline String& String::operator += (const String& string) {
 inline String& String::operator += (const int n) {
   if (!length())
     return *this;
-  int len = length() - n;
-  replace(0, &Ref->buf[n], len);
-  setLength(len);
+  offset += n;
+  subLength(n);
   return *this;
 }
 
 inline String& String::operator -= (const int n) {
   if (!length())
     return *this;
-  getOwnCopy();
   subLength(n);
   return *this;
 }
