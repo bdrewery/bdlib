@@ -708,15 +708,24 @@ inline String& String::operator += (const String& string) {
 inline String& String::operator += (const int n) {
   if (!length())
     return *this;
-  offset += n;
-  subLength(n);
+  if (int(length()) - n < 0) {
+    offset = length();
+    setLength(0);
+  } else {
+    offset += n;
+    subLength(n);
+  }
   return *this;
 }
 
 inline String& String::operator -= (const int n) {
   if (!length())
     return *this;
-  subLength(n);
+  if (int(length()) - n < 0) {
+    offset = length();
+    setLength(0);
+  } else
+    subLength(n);
   return *this;
 }
 
