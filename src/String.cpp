@@ -43,7 +43,7 @@ const size_t String::npos;
  * @post The buffer is at least nsize bytes long.
  * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
  */
-void StringBuf::Reserve(const size_t newSize) const
+void StringBuf::Reserve(const size_t newSize, size_t& offset) const
 {
   /* Don't new if we already have enough room! */
   if (size < newSize) { 
@@ -52,9 +52,11 @@ void StringBuf::Reserve(const size_t newSize) const
     char *newbuf = AllocBuf(size);
 
     if (newbuf != buf) {
-      std::copy(buf, buf + len, newbuf);
+      /* Copy old buffer into new - only copy the substring */
+      std::copy(buf + offset, buf + offset + len, newbuf);
       FreeBuf(buf);
       buf = newbuf;
+      offset = 0;
     }
   }
 }
@@ -123,8 +125,8 @@ void String::insert(int k, const char ch)
   if (k && !hasIndex(k-1)) return;
 
   AboutToModify(length() + 1);
-  memmove(Ref->buf + k + 1, Ref->buf + k, length() - k);
-  Ref->buf[k] = ch;
+  memmove(Buf() + k + 1, Buf() + k, length() - k);
+  *(Buf(k)) = ch;
   addLength(1);
 }
 
@@ -139,7 +141,7 @@ void String::replace(int k, const char ch) {
   if (k && !hasIndex(k-1)) return;
 
   getOwnCopy();
-  Ref->buf[k] = ch;
+  *(Buf(k)) = ch;
 }
 
 /**
@@ -159,8 +161,8 @@ void String::insert(int k, const char *string, int n)
   size_t slen = (n == -1) ? strlen(string) : (size_t) n;
 
   AboutToModify(length() + slen);
-  memmove(Ref->buf + k + slen, Ref->buf + k, length() - k);
-  std::copy(string, string + slen, Ref->buf + k);
+  memmove(Buf() + k + slen, Buf() + k, length() - k);
+  std::copy(string, string + slen, Buf() + k);
   addLength(slen);
 }
 
@@ -184,7 +186,7 @@ void String::replace(int k, const char *string, int n)
     newlen = length();
     getOwnCopy();
   }
-  std::copy(string, string + slen, Ref->buf + k);
+  std::copy(string, string + slen, Buf() + k);
   setLength(newlen);
 }
 
@@ -211,8 +213,8 @@ void String::insert(int k, const String &string, int n) {
     n = slen;
   slen -= slen - n;
   AboutToModify(length() + slen);
-  memmove(Ref->buf + k + slen, Ref->buf + k, length() - k);
-  std::copy(string.begin(), string.begin() + slen, Ref->buf + k);
+  memmove(Buf() + k + slen, Buf() + k, length() - k);
+  std::copy(string.begin(), string.begin() + slen, Buf() + k);
   addLength(slen);
 }
 
@@ -246,7 +248,7 @@ void String::replace(int k, const String &string, int n) {
     newlen = length();
     getOwnCopy();
   }
-  std::copy(string.begin(), string.begin() + slen, Ref->buf + k);
+  std::copy(string.begin(), string.begin() + slen, Buf() + k);
   setLength(newlen);
 }
 
@@ -361,14 +363,14 @@ String String::substring(int start, int len) const
   
 #ifdef experimental
 const StringList String::split(const char delim) {
-  char *p = Ref->buf, *pn = NULL;
+  char *p = Buf(), *pn = NULL;
   StringList list;
   
   list.delim(delim);
   do {
     pn = strchr(p, delim);
     if (!pn)
-      pn = Ref->buf + length();
+      pn = Buf() + length();
     list.append(p, pn);
     p = strchr(p, delim);
     if (!p || !*p)

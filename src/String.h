@@ -61,7 +61,7 @@ class StringBuf {
         mutable char sbuf[16];
     
         StringBuf() : len(0), size(0), buf(NULL), n(1) {};
-        void Reserve(const size_t) const;
+        void Reserve(const size_t, size_t&) const;
         /**
          * @brief Allocates a buffer and returns it's address.
          * @param bytes The number of bytes to allocate.
@@ -303,11 +303,6 @@ class String {
           else {
             Reserve(n);
             /* Shift the offset away */
-            if (offset) {
-              // FIXME: The offset just needs to be used properly after every call to AboutToModify.
-              std::memmove(Ref->buf, Buf(), length());
-              offset = 0;
-            }
           }
         }
         inline void getOwnCopy() const { AboutToModify(capacity()); };
@@ -424,7 +419,7 @@ class String {
 	 */
         const char* c_str() const {
           AboutToModify(length() + 1);
-          Ref->buf[length()] = '\0';
+          *(Buf(length())) = '\0';
           return data();
         }
 
@@ -453,7 +448,7 @@ class String {
 	 * @brief Data accessor
 	 * @return Pointer to array of characters (not necesarily null-terminated).
 	 */
-        inline const char* data() const { return Ref->buf + offset; }
+        inline const char* data() const { return constBuf(); }
 
         /**
          * @brief Checks if the buffer has the given index or not.
@@ -580,7 +575,7 @@ class String {
          * @sa StringBuf::Reserve()
          * @post The String will also never shrink after this.
         */
-        virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize); };
+        virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize, offset); };
 
 #ifdef __GNUC__
         /* GNU GCC DOC: 

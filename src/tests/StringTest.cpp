@@ -436,6 +436,7 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("tblah", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
 
+  a->Reserve(30); // Avoid COW during these offset tests
   *b = "blah";
   *a = "longtest";
   *a -= 3;
@@ -447,6 +448,52 @@ void StringTest :: incDecEqualTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("tblah", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
+
+
+  a->replace(0, "test");
+  CPPUNIT_ASSERT_STRING_EQUAL("testh", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
+
+  a->insert(1, "TEST");
+  CPPUNIT_ASSERT_STRING_EQUAL("tTESTesth", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 9, a->length());
+
+  a->insert(2, String("BLAH"));
+  CPPUNIT_ASSERT_STRING_EQUAL("tTBLAHESTesth", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 13, a->length());
+
+  a->replace(2, String("blah"));
+  CPPUNIT_ASSERT_STRING_EQUAL("tTblahESTesth", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 13, a->length());
+
+  a->replace(2, 'B');
+  CPPUNIT_ASSERT_STRING_EQUAL("tTBlahESTesth", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 13, a->length());
+
+  a->insert(5, 'C');
+  CPPUNIT_ASSERT_STRING_EQUAL("tTBlaChESTesth", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 14, a->length());
+
+  *a = "someword";
+  *a += 4;
+  CPPUNIT_ASSERT_STRING_EQUAL("word", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 4, a->length());
+  *a += String("test1234") * 20;
+  CPPUNIT_ASSERT_STRING_EQUAL("wordtest1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234", *a);
+  CPPUNIT_ASSERT_EQUAL((size_t) 4 + (8 * 20), a->length());
+
+  *b = *a;
+  *b += 4;
+  CPPUNIT_ASSERT_STRING_EQUAL("test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234", *b);
+  CPPUNIT_ASSERT_EQUAL((size_t) (8 * 20), b->length());
+
+  a->clear();
+  *b += String("test") * 500;
+  CPPUNIT_ASSERT_STRING_EQUAL("test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest", *b);
+  CPPUNIT_ASSERT_EQUAL((size_t) ((8 * 20) + (4 * 500)), b->length());
+
+  *a = "tblah";
+  *b = "blah";
 
   *d += *d + *d;
   char check[100];
@@ -770,6 +817,26 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS", *a);
 
+  *a = "tESt TEST2 test3 TEST4";
+  *b = a->substring(0, 4);
+  *e = b->substring(1, 2);
+  *c = a->substring(5, 5);
+  *d = a->substring(11, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("tESt TEST2 test3 TEST4", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("tESt", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("ES", *e);
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST2", *c);
+  CPPUNIT_ASSERT_STRING_EQUAL("test3", *d);
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(a->c_str(), "tESt TEST2 test3 TEST4"));
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(b->c_str(), "tESt"));
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(e->c_str(), "ES"));
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(c->c_str(), "TEST2"));
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(d->c_str(), "test3"));
+  CPPUNIT_ASSERT_STRING_EQUAL("tESt TEST2 test3 TEST4", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("tESt", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("ES", *e);
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST2", *c);
+  CPPUNIT_ASSERT_STRING_EQUAL("test3", *d);
 
 
   *a = "does arbitrary inserting and replacing work with substrings?";
@@ -822,6 +889,7 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(40), d->length());
 
   *d += "test";
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(b->c_str(), "arbitrary wordsinserting"));
   CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?test", *d);
   CPPUNIT_ASSERT_STRING_EQUAL("arbitrary wordsinserting", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
@@ -830,7 +898,6 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(24), b->length());
   CPPUNIT_ASSERT_EQUAL(size_t(9), c->length());
   CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
-  CPPUNIT_ASSERT_EQUAL(0, strcmp(b->c_str(), "arbitrary wordsinserting"));
 
   *c -= 1;
   *c += 5;
@@ -846,6 +913,35 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(24), b->length());
   CPPUNIT_ASSERT_EQUAL(size_t(105), c->length());
   CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
+
+  *e = (*d)(5, d->length() - 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("and replacing work with substrings?test", *e);
+  CPPUNIT_ASSERT_EQUAL(size_t(44 - 5), e->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?test", *d);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary wordsinserting", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatest", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(24), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(105), c->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
+
+  *e = (*d)(5, d->length() - 5);
+  *f = *e;
+  *e += *d * 20;
+  CPPUNIT_ASSERT_STRING_EQUAL("and replacing work with substrings?test", *f);
+  CPPUNIT_ASSERT_STRING_EQUAL("and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?testting and replacing work with substrings?test", *e);
+  CPPUNIT_ASSERT_EQUAL(size_t((21 * 44) - 5), e->length());
+  CPPUNIT_ASSERT(e->capacity() > d->capacity());
+  CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?test", *d);
+  CPPUNIT_ASSERT_STRING_EQUAL("arbitrary wordsinserting", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("inaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatest", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(60), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(24), b->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(105), c->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
+
 
 
 //  (*a)(-4, 4) = "TEST";
