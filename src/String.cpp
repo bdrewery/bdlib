@@ -401,10 +401,10 @@ String String::printf(const char* format, ...) {
   va_list va;
 
   va_start(va, format);
-  vsnprintf(va_out, sizeof(va_out), format, va);
+  size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
-  return (*this = va_out);
+  return (*this = String(va_out, len));
 }
 
 String& String::chomp() {
