@@ -309,6 +309,10 @@ void StringTest :: chompTest(void)
   (*a).chomp();
   CPPUNIT_ASSERT_STRING_EQUAL("testing123\n\r\n", (*a));
 
+  /* Check chaining */
+  (*a) = "testing123\n\r\n\r\n";
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123\n\r\n", (*a).chomp());
+
   /* Also check the const version */
   const String cstr("testing123\r\n");
   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.chomp());

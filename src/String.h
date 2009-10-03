@@ -477,7 +477,7 @@ class String {
          * @brief Trim off \n,\r,\r\n from end
          * @return The string, to allow for chaining
          */
-        String chomp();
+        String& chomp();
 
         /**
          * @brief Trim off \n,\r,\r\n from end
