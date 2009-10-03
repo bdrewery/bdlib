@@ -486,6 +486,18 @@ class String {
         String chomp() const { return String(*this).chomp(); }
 
         /**
+         * @brief Trim off whitespace
+         * @return The string, to allow for chaining
+         */
+        String& trim();
+
+        /**
+         * @brief Trim off whitespace
+         * @return New string
+         */
+        String trim() const { return String(*this).trim(); }
+
+        /**
          * @brief Safe element access operator
          * @todo This is only called on a (const) String, but should for a String as well.
          */

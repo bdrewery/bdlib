@@ -413,6 +413,14 @@ String& String::chomp() {
   return *this;
 }
 
+String& String::trim() {
+  // ltrim
+  while (length() && isspace((*this)[0])) { ++offset; subLength(1); }
+  // rtrim
+  while (length() && isspace((*this)[length() - 1])) subLength(1);
+  return *this;
+}
+
 size_t String::find (const char ch) const {
   for (const char* c = begin(); c != end(); ++c)
     if (*c == ch)

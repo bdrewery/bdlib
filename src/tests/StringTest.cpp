@@ -316,6 +316,38 @@ void StringTest :: chompTest(void)
   /* Also check the const version */
   const String cstr("testing123\r\n");
   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.chomp());
+  CPPUNIT_ASSERT_EQUAL(size_t(12), cstr.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.chomp().length());
+}
+
+void StringTest :: trimTest(void)
+{
+  (*a) = "   testing123   ";
+  a->trim();
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a).trim());
+
+  (*a) = "   \ttesting123\n   \r";
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a).trim());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+
+  (*a) = "   	\ntesting123   \t";
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a).trim());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+
+  (*a) = "   \n\n\n\ttesting123\v   ";
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", (*a).trim());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+
+  (*a) = "\n\n\n\t  \v   ";
+  CPPUNIT_ASSERT_STRING_EQUAL("", (*a).trim());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), a->length());
+
+  /* Also check the const version */
+  const String cstr("   \t\ftesting123\r\n");
+  CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.trim());
+  CPPUNIT_ASSERT_EQUAL(size_t(17), cstr.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.trim().length());
 }
 
 void StringTest :: findTest(void)
