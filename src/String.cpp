@@ -451,23 +451,24 @@ size_t String::hash() const {
  * @param str The string to split a token off of
  * @param delim The delimiter to tokenize with
  * This will modify the given string to remove the first token, which is returned.
- * If no more tokens exist a blank String("") is returned and the given string is unmodified
+ * If no more tokens exist, the remaining string is returned and the string becomes "". Future calls will return a blank String("")
  */
 String newsplit(String& str, char delim)
 {
+  if (!str.length()) return "";
   size_t pos = str.find(delim);
-  if (pos != bd::String::npos) {
-    String first(str(0, pos));
+  if (pos == bd::String::npos)
+    pos = str.length();
 
-    /* Trim out runs of whitespaces */
-    if (delim == ' ') {
-      while ((str.begin() + pos + 1) < str.end() && str[pos + 1] == ' ')
-        ++pos;
-    }
+  String first(str(0, pos));
 
-    str = str(pos + 1, str.length() - pos + 1);
-    return first;
+  /* Trim out runs of whitespaces */
+  if (delim == ' ') {
+    while ((str.begin() + pos + 1) < str.end() && str[pos + 1] == ' ')
+      ++pos;
   }
-  return "";
+
+  str = str(pos + 1, str.length() - pos + 1);
+  return first;
 }
 BDLIB_NS_END

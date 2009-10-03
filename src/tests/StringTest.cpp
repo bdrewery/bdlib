@@ -390,10 +390,16 @@ void StringTest :: newsplitTest(void)
 
   String w5 = newsplit(sentence);
 
-  CPPUNIT_ASSERT_STRING_EQUAL("WORD5", sentence);
-  CPPUNIT_ASSERT_STRING_EQUAL("", w5);
-  CPPUNIT_ASSERT_EQUAL(size_t(5), sentence.length());
-  CPPUNIT_ASSERT_EQUAL(size_t(0), w5.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("WORD5", w5);
+  CPPUNIT_ASSERT_STRING_EQUAL("", sentence);
+  CPPUNIT_ASSERT_EQUAL(size_t(0), sentence.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(5), w5.length());
+
+  String w6 = newsplit(sentence);
+  CPPUNIT_ASSERT_STRING_EQUAL("", w6);
+  CPPUNIT_ASSERT_STRING_EQUAL("", sentence);
+  CPPUNIT_ASSERT_EQUAL(size_t(0), sentence.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), w6.length());
 
   /* Try eliminating runs of whitespace */
   *a = "This  is      a  test  ";
