@@ -408,8 +408,8 @@ String String::printf(const char* format, ...) {
 }
 
 String& String::chomp() {
-  if ((*this)[length() - 1] == '\n') --(*this);
-  if ((*this)[length() - 1] == '\r') --(*this);
+  if (length() && (*this)[length() - 1] == '\n') --(*this);
+  if (length() && (*this)[length() - 1] == '\r') --(*this);
   return *this;
 }
 
