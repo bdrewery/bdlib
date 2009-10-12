@@ -995,6 +995,21 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
 
 
+  String big("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaa");
+  CPPUNIT_ASSERT_EQUAL(size_t(130), big.capacity());
+  CPPUNIT_ASSERT_EQUAL(size_t(130), big.length());
+
+  String sub = big(120, 10);
+  // Detach so 'sub' is no longer shared
+  big += "blah";
+  CPPUNIT_ASSERT_EQUAL(size_t(10), sub.capacity());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
+
+  // This will throw an error in valgrind in String::Reserve due to offsetting problems if not correct
+  CPPUNIT_ASSERT_EQUAL(0, strcmp(sub.c_str(), "aaaaaaaaaa"));
+  CPPUNIT_ASSERT(sub.capacity() >= 11);
+
+  CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
 
 //  (*a)(-4, 4) = "TEST";
 //  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);

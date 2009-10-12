@@ -46,7 +46,7 @@ const size_t String::npos;
 void StringBuf::Reserve(const size_t newSize, size_t& offset) const
 {
   /* Don't new if we already have enough room! */
-  if (size < newSize) { 
+  if ((size - offset) < newSize) {
     size = std::max(size_t(size * 1.5), newSize);
 
     char *newbuf = AllocBuf(size);
