@@ -396,7 +396,7 @@ class String {
          * @brief Returns capacity of the String object.
          * @return Capacity of the String object.
          */
-        inline size_t capacity() const { return Ref->size - offset; };
+        inline size_t capacity() const { return Ref->size; };
 
         /**
           * @brief Check whether the string is 'empty'

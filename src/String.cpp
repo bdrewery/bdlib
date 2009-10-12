@@ -46,7 +46,7 @@ const size_t String::npos;
 void StringBuf::Reserve(const size_t newSize, size_t& offset) const
 {
   /* Don't new if we already have enough room! */
-  if ((size - offset) < newSize) {
+  if (size < newSize) {
     size = std::max(size_t(size * 1.5), newSize);
 
     char *newbuf = AllocBuf(size);
@@ -58,6 +58,12 @@ void StringBuf::Reserve(const size_t newSize, size_t& offset) const
       buf = newbuf;
       offset = 0;
     }
+  } else if ((size - offset) < newSize) {
+    // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
+    // Shift everything to the beginning and reset the offset
+    /* Only copy the substring */
+    memmove(buf, buf + offset, len);
+    offset = 0;
   }
 }
 

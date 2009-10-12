@@ -1002,14 +1002,17 @@ void StringTest :: substringTest(void)
   String sub = big(120, 10);
   // Detach so 'sub' is no longer shared
   big += "blah";
-  CPPUNIT_ASSERT_EQUAL(size_t(10), sub.capacity());
+  CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
   CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
 
   // This will throw an error in valgrind in String::Reserve due to offsetting problems if not correct
   CPPUNIT_ASSERT_EQUAL(0, strcmp(sub.c_str(), "aaaaaaaaaa"));
   CPPUNIT_ASSERT(sub.capacity() >= 11);
+  // This is an optimization check, it should be reusing the original buffer which was 130 big
+  CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
 
   CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("aaaaaaaaaa", sub);
 
 //  (*a)(-4, 4) = "TEST";
 //  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);
