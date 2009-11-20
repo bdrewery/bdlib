@@ -42,6 +42,7 @@ MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$
 'CFLGS=$(CFLGS) $(DEBCXXFLAGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
 .PHONY: default clean distclean bdlib debug general check check.quiet checkclean.bdlib checkclean.debug buildcheck
+.NOTPARALELL: checkclean.bdlib checkclean.debug
 
 default: bdlib
 
