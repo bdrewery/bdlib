@@ -1,6 +1,4 @@
 /* @FILE@Test.c
- *
- * $Id: $
  */
 #include "@FILE@Test.h"
 

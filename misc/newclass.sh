@@ -6,7 +6,7 @@ cap=$(echo "$1" | tr a-z A-Z)
 add() {
 
   svn revert $1 > /dev/null 2>&1
-  svn add $1
+  git add $1
   svn propset svn:keywords 'Id' $1
 }
 

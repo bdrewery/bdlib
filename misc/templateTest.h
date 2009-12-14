@@ -1,6 +1,4 @@
 /* @FILE@Test.h
- *
- * $Id: $
  */
 #ifndef _@FILECAP@TEST_H
 #define _@FILECAP@TEST_H 1
