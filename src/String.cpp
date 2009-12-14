@@ -36,60 +36,6 @@ BDLIB_NS_BEGIN
 
 const size_t String::npos;
 
-/**
- * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
- * @param newSize A size that we need to Allocate the buffer to.
- * @pre newSize is > 0 (assumed as size_t is unsigned)
- * @post The buffer is at least nsize bytes long.
- * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
- */
-void StringBuf::Reserve(const size_t newSize, size_t& offset) const
-{
-  /* Don't new if we already have enough room! */
-  if (size < newSize) {
-    size = std::max(size_t(size * 1.5), newSize);
-
-    char *newbuf = AllocBuf(size);
-
-    if (newbuf != buf) {
-      /* Copy old buffer into new - only copy the substring */
-      std::copy(buf + offset, buf + offset + len, newbuf);
-      FreeBuf(buf);
-      buf = newbuf;
-      offset = 0;
-    }
-  } else if ((size - offset) < newSize) {
-    // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
-    // Shift everything to the beginning and reset the offset
-    /* Only copy the substring */
-    memmove(buf, buf + offset, len);
-    offset = 0;
-  }
-}
-
-/**
- * @brief Ensure that our internal buffer is unshared.
- * @param n Create/Grow the buffer to this size.
- * @pre n is > 0; this is assumed due to size_t being unsigned though.
- * @post The internal buffer/data is unshared
- * @post The buffer is at least size n.
- * @post The buffer is deep copied to a new buffer.
- * 
- * Ensure that our internal buffer is unshared.
- * If needed, performs a deep copy into a new buffer (COW).
- * Also take a hint size n of the new string's size as to avoid needless copying/allocing.
- */
-void String::COW(size_t n) const {
-  const char *oldBuf = constBuf();
-  size_t oldLength = length();
-  size_t oldCapacity = capacity();
-
-  doDetach(); //Detach from the shared reference
-  Reserve( std::max(oldCapacity, n) ); //Will set capacity()/size
-  std::copy(oldBuf, oldBuf + oldLength, Buf());
-  setLength(oldLength);
-}
-
 /* Accessors */
 /**
  * @brief Compare our String object with another String object, but only n characters

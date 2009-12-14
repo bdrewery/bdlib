@@ -24,6 +24,7 @@
 #define _BD_STRING_H 1
 
 #include "bdlib.h"
+#include "ReferenceCountedArray.h"
 
 #include <stdint.h>
 #include <iostream>
@@ -45,53 +46,7 @@ BDLIB_NS_BEGIN
 class String;
 class StringBuf;
 
-/**
-  * @class StringBuf
-  * @brief Helps the String class with reference counting
-  * @todo look into something like a string object made of string pointers, and << displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the << stream
-  */
-
-class StringBuf {
-  public:
-        ~StringBuf() { FreeBuf(buf); };
-        mutable size_t len; //Length of string
-        mutable size_t size; //Capacity of buffer
-        mutable char* buf;
-        mutable uint8_t n; //References
-        mutable char sbuf[16];
-    
-        StringBuf() : len(0), size(0), buf(NULL), n(1) {};
-        void Reserve(const size_t, size_t&) const;
-        /**
-         * @brief Allocates a buffer and returns it's address.
-         * @param bytes The number of bytes to allocate.
-         * @post A new block of memory is allocated.
-         * @todo Implement mempool here.
-         */
-        inline char* AllocBuf(const size_t bytes) const {
-          if (bytes <= sizeof(sbuf)) return sbuf;
-          else return new char[bytes];
-        }
-
-        /**
-         * @brief Free's up the allocated buffer.
-         * @param p The buffer to be free'd
-         * @post The buffer is deleted.
-         * @todo Implement mempool here.
-         */
-        inline void FreeBuf(const char* p) const {
-          if (p != sbuf) delete[] p;
-        }
-
-        /**
-          * @brief Is this string shared?
-          */
-        inline bool isShared() const { return n > 1; };
-private:
-        // No copying allowed
-        StringBuf(const StringBuf&); ///<Block implicit copy constructor
-        StringBuf& operator=(const StringBuf&); ///<Block implicit copy constructor
-};
+typedef char String_Array_Type;
 
 /**
  * @class String
@@ -99,7 +54,7 @@ private:
  * @todo compute hash on insert, then use to compare instead of strcmp
  * @todo an updating hash as the copy is done.
  */
-class String {
+class String : public ReferenceCountedArray<String_Array_Type> {
   private:
         /**
          * @class Cref
@@ -196,124 +151,12 @@ class String {
          * ie, into the first element of the buffer
          */
 
-        /**
-         * @brief Detach from the shared reference.
-         * This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used)
-         * @note This does not free the old reference, as it is still in use
-         */
-	void doDetach() const {
-          decRef();
-          Ref = new StringBuf();
-          sublen = 0;
-          offset = 0;
-        }
-
-        /**
-          * @brief Set the lengths to the specified length
-          * @param newLen the new length to set to
-          */
-        inline void setLength(size_t newLen) const { Ref->len = sublen = newLen; };
-
-        /**
-          * @sa setLength()
-          */
-        inline void addLength(size_t diff) const { Ref->len += diff; sublen += diff; };
-
-        /**
-          * @sa setLength()
-          */
-        inline void subLength(size_t diff) const { Ref->len -= diff; sublen -= diff; };
-
-        /**
-          * @brief Mutable Ref->buf+offset reference for use internally
-          */
-//        char* mdata() const { return Buf() + offset; };
-
-        /**
-          * @brief Mutable Ref->buf reference for use internally
-          */
-        inline char* Buf(int i = 0) const { return Ref->buf + offset + i; };
-
-        /**
-          * @brief Ref->buf reference for use internally
-          */
-        inline const char* constBuf(int i = 0) const { return Buf(i); };
-
-        /**
-          * @brief Increment our reference counter.
-          */
-        inline uint8_t incRef() const { return ++Ref->n; };
-
-        /**
-          * @brief Decrement our reference counter.
-          */
-        inline uint8_t decRef() const { return --Ref->n; };
-
-        /**
-          * @return True if this string is shared; false if not.
-          */
-        inline bool isShared() const { return Ref->isShared(); };
-  protected:
-        /**
-          * @brief The string reference for reference counting 
-          * This is mutable so that Ref->n can be modified, which really is mutable
-          */
-        mutable StringBuf *Ref;
-        
-        /**
-          * This is for substrings: so we know where the substring starts.
-          */
-        mutable size_t offset;
-        /**
-          * This is for substrings: so we know where the substring ends.
-          */
-        mutable size_t sublen;
-
-        /**
-         * @brief Free up our reference if we have the last one.
-         * @post The reference counter is decremented.
-         * @post If this was the last Reference, it is free'd
-         * This is only called in ~String() and operator=(String&).
-         * It checks whether of not this String was the last reference to the buffer, and if it was, it removes it.
-         */
-        inline void CheckDeallocRef() {
-          if (decRef() < 1)
-            delete Ref;
-        }
-
-        /**
-          * @brief Detach from the reference
-          * This is called when the old buffer is no longer needed for this String.
-          * ie, operator=() was called.
-          */
-        void Detach() {
-          if (isShared()) {
-            doDetach();
-          } else {
-            setLength(0);
-            offset = 0;
-          }
-        }
-
-        void COW(size_t) const;
-
-        inline void AboutToModify(size_t n) const {
-          if (isShared())
-            COW(n); // Clears the offset
-          else {
-            Reserve(n);
-            /* Shift the offset away */
-          }
-        }
-        inline void getOwnCopy() const { AboutToModify(capacity()); };
   public:
         static const size_t npos = size_t(-1);
 
-        inline int rcount() const { return Ref->n; };
-
         /* Constructors */
-        String() : Ref(new StringBuf()), offset(0), sublen(0) {};
-	String(const String& string) : Ref(string.Ref), offset(string.offset), sublen(string.sublen) { incRef(); };
+        String() : ReferenceCountedArray<String_Array_Type>() {};
+	String(const String& string) : ReferenceCountedArray<String_Array_Type>(string) {};
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
@@ -321,7 +164,7 @@ class String {
 	 * @post The buffer has been filled with the string.
 	 * @test String test("Some string");
  	*/
-	String(const char* cstring) : Ref(new StringBuf()), offset(0), sublen(0) { if (cstring) append(cstring); };
+	String(const char* cstring) : ReferenceCountedArray<String_Array_Type>() { if (cstring) append(cstring); };
 
 	/**
 	 * @brief Create a String from a given cstring with the given strlen.
@@ -332,7 +175,7 @@ class String {
 	 * @post The buffer has been filled with the string (up to len characters).
 	 * @test String test("Some string");
          */
-        String(const char* cstring, size_t slen) : Ref(new StringBuf()), offset(0), sublen(0) { append(cstring, slen); };
+        String(const char* cstring, size_t slen) : ReferenceCountedArray<String_Array_Type>() { append(cstring, slen); };
 
 	/**
 	 * @brief Create a String from a given character.
@@ -341,7 +184,7 @@ class String {
 	 * @post The buffer has been filled with the caracter.
 	 * @test String test('a');
 	 */
-        String(const char ch) : Ref(new StringBuf()), offset(0), sublen(0) { append(ch); };
+        String(const char ch) : ReferenceCountedArray<String_Array_Type>() { append(ch); };
 
 	/**
 	 * @brief Create an empty String container with at least the specified bytes in size.
@@ -352,33 +195,13 @@ class String {
 	 * The idea behind this is that if a specific size was asked for, the buffer is like
 	 * a char buf[N];
          */
-        explicit String(const size_t newSize) : Ref(new StringBuf()), offset(0), sublen(0) {
-          if (newSize <= 0) return;
-          Reserve(newSize);
-        };
+        explicit String(const size_t newSize) : ReferenceCountedArray<String_Array_Type>(newSize) {};
 
-	/**
-	 * @brief String Destructor
-	 * @post If the String's Reference is not shared, it is free'd.
-	 * @post If the String's Reference IS shared, it is decremented and detached.
-	 */
-        virtual ~String() { CheckDeallocRef(); };
+
+        virtual ~String() {};
 
         inline const char* begin() const { return data(); };
         inline const char* end() const { return begin() + length(); };
-
-        /**
-         * @brief Clear contents of String and set length to 0
-         */
-        inline void clear() { Detach(); };
-
-
-        /* Accessors */
-        /**
-         * @brief Returns length of the string.
-         * @return Length of the string.
-         */
-        inline size_t length() const { return sublen; };
 
         /*
          * @brief Find a character in the string
@@ -391,24 +214,6 @@ class String {
          * @return The position of the string if found, or String::npos if not found
          **/
         size_t find(const String&) const;
-
-        /**
-         * @brief Returns capacity of the String object.
-         * @return Capacity of the String object.
-         */
-        inline size_t capacity() const { return Ref->size; };
-
-        /**
-          * @brief Check whether the string is 'empty'
-          * @return True if empty, false if non-empty
-          */
-        inline bool isEmpty() const { return length() == 0; };
-        /**
-          * @sa isEmpty()
-          * This is for: if (!string)
-          * Having if(string) conflicts with another operator
-          */
-        inline bool operator ! () const { return isEmpty(); };
 
 	/**
 	 * @brief Cstring accessor
@@ -443,12 +248,6 @@ class String {
 	 * from Ruby
 	 */
 	String operator * (int) const;
-
-	/**
-	 * @brief Data accessor
-	 * @return Pointer to array of characters (not necesarily null-terminated).
-	 */
-        inline const char* data() const { return constBuf(); }
 
         /**
          * @brief Checks if the buffer has the given index or not.
@@ -536,7 +335,7 @@ class String {
          */
         inline String operator()(int start, int len) const { return substring(start, len); };
 
-        size_t hash() const;
+        virtual size_t hash() const;
 
         /**
 	 * @brief Compare our String object with another String object
@@ -582,12 +381,6 @@ class String {
         void replace(int, const char);
         void replace(int, const char*, int = -1);
         void replace(int, const String&, int = -1);
-
-        /**
-         * @sa StringBuf::Reserve()
-         * @post The String will also never shrink after this.
-        */
-        virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize, offset); };
 
 #ifdef __GNUC__
         /* GNU GCC DOC: 
