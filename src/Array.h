@@ -94,12 +94,27 @@ class Array : public ReferenceCountedArray<T> {
 
     virtual size_t hash() const {return 0;};
 
+    /*
+     * @brief Add an item to the end of the array
+     */
     void push(const value_type item) {
       AboutToModify(this->length() + 1);
       *(Buf(this->length())) = item;
       this->addLength(1);
     }
 
+    /**
+     * @sa push
+     */
+    inline friend Array<value_type>& operator<< (Array<value_type>& array, const_reference item) {
+      array.push(item);
+      return array;
+    }
+
+    /*
+     * @brief Shift a value off the end of the array
+     * @return the item
+     */
     value_type pop() {
       if (this->isEmpty()) return value_type();
 
@@ -107,6 +122,14 @@ class Array : public ReferenceCountedArray<T> {
       AboutToModify(this->length() - 1);
       this->subLength(1);
       return temp;
+    }
+
+    /**
+     * @sa pop
+     */
+    inline friend Array<value_type>& operator>> (Array<value_type>& array, reference item) {
+      item = array.pop();
+      return array;
     }
 };
 BDLIB_NS_END

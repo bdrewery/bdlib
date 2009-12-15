@@ -42,7 +42,7 @@ void ArrayTest :: sizeTest (void)
 void ArrayTest :: push_popTest (void)
 {
   str_a->push(String("Test1"));
-  str_a->push(String("Test2"));
+  (*str_a) << String("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
   CPPUNIT_ASSERT(str_a->capacity() >= 2);
   CPPUNIT_ASSERT_STRING_EQUAL(String("Test2"), str_a->pop());
@@ -69,7 +69,7 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(4), str_a->size());
 
   b += "changed";
-  res = str_a->pop();
+  (*str_a) >> res;
   CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->size());
   CPPUNIT_ASSERT_STRING_EQUAL(c, res);//b
   b -= 7;
