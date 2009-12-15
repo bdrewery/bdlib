@@ -15,8 +15,6 @@ void ArrayTest :: setUp (void)
     // set up test environment (initializing objects)
     str_a = new Array<String>();
     str_b = new Array<String>(20);
-    String carray[] = {"Test1", "Test2"};
-    str_c = new Array<String>(carray);
     int_a = new Array<int>();
     int_b = new Array<int>();
     int_c = new Array<int>();
@@ -86,6 +84,26 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
 
   CPPUNIT_ASSERT_STRING_EQUAL(String(), str_a->pop());
+}
+
+void ArrayTest :: arrayConsTest(void)
+{
+  String carray2[] = {"2Test1", "2Test2"};
+  str_c = new Array<String>(carray2, 2);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_c->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("2Test2", str_c->pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("2Test1", str_c->pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), str_c->size());
+
+  int carray[] = {1, 2, 0};
+  Array<int>* int_d = new Array<int>(carray);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(2, int_d->pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(1, int_d->pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), int_d->size());
+  delete int_d;
 }
 
 void ArrayTest :: clearTest (void)

@@ -55,12 +55,32 @@ class Array : public ReferenceCountedArray<T> {
     Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
     /**
      * @brief Create a Array from a given carray.
-     * @param carray The null-terminated character array to create the object from.
+     * @param carray The null-terminated array to create the object from.
      * @post A ArrayBuf has been initialized.
      * @post The buffer has been filled with the array.
      * @test Array test("Some array");
      */
-    Array(const_pointer carray) : ReferenceCountedArray<value_type>() {};
+    Array(const_pointer carray) : ReferenceCountedArray<value_type>() {
+      size_t i = 0;
+      while (1) {
+        if (!carray[i]) break;
+        push(carray[i]);
+        ++i;
+      }
+    };
+
+    /**
+     * @brief Create a Array from a given carray.
+     * @param carray The null-terminated array to create the object from.
+     * @post A ArrayBuf has been initialized.
+     * @post The buffer has been filled with the array.
+     * @test Array test("Some array");
+     */
+    Array(const_pointer carray, size_t len) : ReferenceCountedArray<value_type>() {
+      this->Reserve(len);
+      for (size_t i = 0; i < len; ++i)
+        push(carray[i]);
+    };
 
     /**
      * @brief Create an empty Array container with at least the specified elements in size.

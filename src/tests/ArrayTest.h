@@ -17,6 +17,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
 //    CPPUNIT_TEST (indexTest);
 //    CPPUNIT_TEST (joinTest);
     CPPUNIT_TEST (push_popTest);
+    CPPUNIT_TEST (arrayConsTest);
     CPPUNIT_TEST (clearTest);
     CPPUNIT_TEST (refTest);
 //    CPPUNIT_TEST (sortTest);
@@ -33,6 +34,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
 //        void indexTest(void);
 //        void joinTest(void);
         void push_popTest(void);
+        void arrayConsTest(void);
         void clearTest(void);
         void refTest(void);
 //        void sortTest(void);
