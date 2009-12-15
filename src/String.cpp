@@ -23,6 +23,7 @@
 
 
 #include "String.h"
+#include "Array.h"
 #include <stdarg.h>
 #include <cstring>
 using std::strlen;

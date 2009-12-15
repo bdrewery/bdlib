@@ -26,9 +26,11 @@
 
 #include "bdlib.h"
 #include "ReferenceCountedArray.h"
+#include "String.h"
 #include <stdio.h>
 
 BDLIB_NS_BEGIN
+class String;
 template <class T>
 /**
  * @class Array
@@ -130,6 +132,18 @@ class Array : public ReferenceCountedArray<T> {
     inline friend Array<value_type>& operator>> (Array<value_type>& array, reference item) {
       item = array.pop();
       return array;
+    }
+
+    /*
+     * @brief Join an array by a delimiter into a string
+     */
+    String join(const String& delim) const {
+      if (!this->length()) return String();
+      String str(*(this->Buf(0)));
+      for (size_t i = 1; i < this->length(); ++i) {
+        str += delim + *(this->Buf(i));
+      }
+      return str;
     }
 };
 BDLIB_NS_END

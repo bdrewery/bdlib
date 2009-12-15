@@ -45,7 +45,7 @@ void ArrayTest :: push_popTest (void)
   (*str_a) << String("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
   CPPUNIT_ASSERT(str_a->capacity() >= 2);
-  CPPUNIT_ASSERT_STRING_EQUAL(String("Test2"), str_a->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a->pop());
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_a->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
   CPPUNIT_ASSERT(str_a->capacity() >= 2);
@@ -171,4 +171,17 @@ void ArrayTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_c->rcount());
+}
+
+void ArrayTest :: joinTest(void)
+{
+  str_a->push("Test1");
+  str_a->push("Test2");
+  str_a->push("Test3");
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1 Test2 Test3", str_a->join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test3", str_a->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_a->pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
 }

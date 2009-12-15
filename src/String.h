@@ -42,6 +42,8 @@
 
 
 BDLIB_NS_BEGIN
+template <class T>
+class Array;
 
 class String;
 class StringBuf;
