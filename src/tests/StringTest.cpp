@@ -3,6 +3,7 @@
  */
 #include <ctype.h>
 #include "StringTest.h"
+#include "Array.h"
 #include <base64.h>
 #include <cstring>
 using namespace std;
@@ -1016,4 +1017,116 @@ void StringTest :: substringTest(void)
 
 //  (*a)(-4, 4) = "TEST";
 //  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);
+}
+
+void StringTest :: splitTest(void)
+{
+  Array<String> list;
+
+  (*a) = "1 2 3 4";
+  list = a->split(' ');
+  CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", (*a));
+
+  (*a) = "1 2 3 4";
+  list = a->split(' ', 4);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", (*a));
+
+  (*a) = "1 2 3 4";
+  list = a->split(' ', 3);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("3 4", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", (*a));
+
+
+  (*a) = "1 2 3 4";
+  list = a->split(' ', 2);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", (*a));
+
+  (*a) = "1 2 3 4";
+  list = a->split(' ', 1);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", (*a));
+
+  (*a) = "  1   2   3   4  ";
+  list = a->split(' ');
+  CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("  1   2   3   4  ", (*a));
+
+  (*a) = "  1   2   3   4  ";
+  list = a->split(' ', 2);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("2   3   4  ", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("  1   2   3   4  ", (*a));
+
+  (*a) = "1--2--3--4";
+  list = a->split("--");
+  CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1--2--3--4", (*a));
+
+}
+
+void StringTest :: hashTest(void)
+{
+  (*a) = "test";
+  (*b) = "test";
+  (*c) = (*b);
+  CPPUNIT_ASSERT_EQUAL(a->hash(), b->hash());
+  CPPUNIT_ASSERT_EQUAL(a->hash(), c->hash());
+  CPPUNIT_ASSERT_EQUAL(b->hash(), c->hash());
+
+  (*a) = "test1";
+  (*b) = "test";
+  (*c) = (*b);
+  CPPUNIT_ASSERT(a->hash() != b->hash());
+  CPPUNIT_ASSERT(a->hash() != c->hash());
+  CPPUNIT_ASSERT_EQUAL(b->hash(), c->hash());
 }

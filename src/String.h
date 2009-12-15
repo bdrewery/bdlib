@@ -25,6 +25,7 @@
 
 #include "bdlib.h"
 #include "ReferenceCountedArray.h"
+//#include "Array.h"
 
 #include <stdint.h>
 #include <iostream>
@@ -320,6 +321,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
 
+        /*
+         * @sa operator()
+         */
         String substring(int, int) const;
 
         /**
@@ -346,7 +350,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 */
 	inline int compare(const String& string) const { return compare(string, string.length()); };
         int compare(const String&, size_t) const;
-//        const StringList split(const char);
+        Array<String> split(const String&, size_t limit = npos) const;
 
         /* Setters */
         /**

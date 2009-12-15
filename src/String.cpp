@@ -313,27 +313,49 @@ String String::substring(int start, int len) const
   newString.setLength(len);
   return newString;
 }
-  
-#ifdef experimental
-const StringList String::split(const char delim) {
-  char *p = Buf(), *pn = NULL;
-  StringList list;
-  
-  list.delim(delim);
-  do {
-    pn = strchr(p, delim);
-    if (!pn)
-      pn = Buf() + length();
-    list.append(p, pn);
-    p = strchr(p, delim);
-    if (!p || !*p)
-      break;
-    p++;
-  } while (1);
 
-  return list;
+/*
+ * @brief Split a string by a delimiter
+ * @param delim The delimiter to use
+ * @param limit Optional param which specified the max number of elements to return
+ * @note Excess whitespace is trimmed similar to Ruby's split.
+ */
+Array<String> String::split(const String& delim, size_t limit) const {
+  if (!length()) return Array<String>();
+  if (limit == 1) {
+    String list[] = {*this};
+    return Array<String>(list, 1);
+  }
+
+  Array<String> array;
+  // Use a temporary - is a fast reference and never modified, so no COW ever used.
+  String str(*this);
+  size_t pos = 0;
+
+  while (array.size() < limit - 1) {
+    // Trim out left whitespace
+    if (delim == ' ') while (str.length() && str[0] == ' ') ++str;
+
+    // All done when there's nothing left
+    if (!str) break;
+
+    if ((pos = str.find(delim)) == npos)
+      pos = str.length();
+    array << str(0, pos);
+    str += int(pos + delim.length());
+  }
+
+  // Add on extra
+  if (limit != npos) {
+    // Trim out left whitespace
+    if (delim == ' ') while (str.length() && str[0] == ' ') ++str;
+    array << str;
+  }
+
+  return array;
 }
 
+#ifdef experimental
 //LIST TEST
 ostream& operator << (ostream& os, const vector<String> list) {
   for (unsigned int i=0; i < list.size(); ++i)
@@ -410,7 +432,7 @@ String newsplit(String& str, char delim)
 {
   if (!str.length()) return "";
   size_t pos = str.find(delim);
-  if (pos == bd::String::npos)
+  if (pos == String::npos)
     pos = str.length();
 
   String first(str(0, pos));
