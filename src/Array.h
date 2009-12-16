@@ -145,6 +145,39 @@ class Array : public ReferenceCountedArray<T> {
       }
       return str;
     }
+
+    inline bool equals(const Array& array) const { return equals(array, array.length()); };
+    /**
+     * @brief Compare our Array object with another Array object, but only n elements
+     * @param array The Array object to equals to.
+     * @param n The number of items to equals.
+     * @return True if the number of elements are the same, and they all are equal.
+     */
+    bool equals(const Array &array, size_t n) const
+    {
+      size_t my_len = this->length();
+      bool same_length = (my_len == array.length());
+
+      /* Same array? */
+      if (this->data() == array.data() && same_length)
+        return true;
+
+      if (!same_length)
+        return false;
+
+      size_t slen = std::min(array.length(), n);
+      size_t len = std::min(my_len, slen);
+
+      for (size_t i = 0; i < len; ++i) {
+        if (*(this->Buf(i)) != *(array.Buf(i)))
+//        if ((*this)[i] != array[i])
+          return false;
+      }
+      return true;
+    }
+
+    inline friend bool operator == (const Array& lhs, const Array& rhs) { return lhs.equals(rhs); };
+    inline friend bool operator != (const Array& lhs, const Array& rhs) {return ! (lhs == rhs);};
 };
 BDLIB_NS_END
 

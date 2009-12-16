@@ -1129,4 +1129,9 @@ void StringTest :: hashTest(void)
   CPPUNIT_ASSERT(a->hash() != b->hash());
   CPPUNIT_ASSERT(a->hash() != c->hash());
   CPPUNIT_ASSERT_EQUAL(b->hash(), c->hash());
+
+  (*b) = (*a)(0, 4);
+  CPPUNIT_ASSERT(a->hash() != b->hash());
+  (*b) = (*a)(0, 5);
+  CPPUNIT_ASSERT(a->hash() == b->hash());
 }

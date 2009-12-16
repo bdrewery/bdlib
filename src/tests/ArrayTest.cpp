@@ -185,3 +185,15 @@ void ArrayTest :: joinTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_a->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
 }
+
+void ArrayTest :: compareTest(void)
+{
+  str_a->push("Test1");
+  str_a->push("Test2");
+
+  str_b->push("Test1");
+  CPPUNIT_ASSERT_EQUAL(false, (*str_a) == (*str_b));
+  str_b->push("Test2");
+
+  CPPUNIT_ASSERT_EQUAL(true, (*str_a) == (*str_b));
+}
