@@ -402,36 +402,37 @@ class ReferenceCountedArray {
      * s.write(0, 'a');
      */
     class Cref {
-      friend class ReferenceCountedArray;
-      ReferenceCountedArray& rca;
-      int k;
+      private:
+        friend class ReferenceCountedArray;
+        ReferenceCountedArray& rca;
+        int k;
 
-      /**
-       * @brief Used by String::Cref operator[]
-       */
-      Cref(ReferenceCountedArray& _rca, int i) : rca(_rca), k(i) {};
-      Cref(); //Not defined - never used
-
-      public:
-      Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
-      inline Cref& operator=(const Cref& cref) {
-        (*this) = value_type(cref);
-        return (*this);
-      }
+        /**
+         * @brief Used by String::Cref operator[]
+         */
+        Cref(ReferenceCountedArray& _rca, int i) : rca(_rca), k(i) {};
+        Cref(); //Not defined - never used
 
       public:
-      /**
-       * @sa ReferenceCountedArray::operator[]
-       */
-      inline operator value_type() const { return rca.read(k); };
+        Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
+        inline Cref& operator=(const Cref& cref) {
+          (*this) = value_type(cref);
+          return (*this);
+        }
 
-      /**
-       * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
-       */
-      inline Cref& operator=(value_type c) {
-        rca.write(k, c);
-        return (*this);
-      };
+        public:
+        /**
+         * @sa ReferenceCountedArray::operator[]
+         */
+        inline operator value_type() const { return rca.read(k); };
+
+        /**
+         * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
+         */
+        inline Cref& operator=(value_type c) {
+          rca.write(k, c);
+          return (*this);
+        };
     };
 
     /**
