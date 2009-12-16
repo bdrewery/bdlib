@@ -169,8 +169,7 @@ class Array : public ReferenceCountedArray<T> {
       size_t len = std::min(my_len, slen);
 
       for (size_t i = 0; i < len; ++i) {
-        if (*(this->Buf(i)) != *(array.Buf(i)))
-//        if ((*this)[i] != array[i])
+        if ((*this)[i] != array[i])
           return false;
       }
       return true;

@@ -26,6 +26,9 @@
 #include <iterator>
 #include <stdint.h>
 #include <sys/types.h>
+#ifdef DEBUG
+#include <stdio.h>
+#endif
 
 BDLIB_NS_BEGIN
 template <class T>
@@ -346,6 +349,95 @@ class ReferenceCountedArray {
     inline const_pointer data() const { return constBuf(); }
 
     virtual size_t hash() const = 0;
+
+    // Safe index accessors
+    /**
+     * @brief Checks if the buffer has the given index or not.
+     * @return Boolean true/false as to whether or not index exists.
+     * @param i Index to check.
+     */
+    inline bool hasIndex(int i) const {
+#ifdef DEBUG
+      if (i < 0 || i >= (int) (offset + length())) ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
+#endif
+      return (i < (int) length());
+    };
+
+    /**
+     * @sa at()
+     * Unlinke at() this is unchecked.
+     */
+    inline value_type read(int i) const { return *(constBuf(i)); };
+
+    inline void write(int i, value_type item) {
+      getOwnCopy();
+      *(Buf(i)) = item;
+    };
+
+    /**
+     * @brief Safe element access operator
+     * @todo This is only called on a (const) String, but should for a String as well.
+     */
+    inline value_type operator [](int i) const { return read(i); };
+
+    /**
+     * @class Cref
+     * @brief Safe element reading and writing.
+     * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
+     * This class should be optimized away and fully inlined such that:
+     * String s;
+     * s[0] = 'a';
+     * Should be rewritten as:
+     * s.write(0, 'a');
+     */
+    class Cref {
+      friend class ReferenceCountedArray;
+      ReferenceCountedArray& ritem;
+      int k;
+
+      /**
+       * @brief Used by String::Cref operator[]
+       */
+      Cref(ReferenceCountedArray& item, int i) : ritem(item), k(i) {};
+      Cref(); //Not defined - never used
+
+      public:
+      Cref(const Cref& cref) : ritem(cref.ritem), k(cref.k) {};
+      inline Cref& operator=(const Cref& cref) {
+        (*this) = value_type(cref);
+        return (*this);
+      }
+
+      public:
+      /**
+       * @sa ReferenceCountedArray::operator[]
+       */
+      inline operator value_type() const { return ritem.read(k); };
+
+      /**
+       * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
+       */
+      inline Cref& operator=(value_type c) {
+        ritem.write(k, c);
+        return (*this);
+      };
+    };
+
+    /**
+     * @brief Returns 'Cref' class for safe (cow) writing into String.
+     * @sa Cref
+     */
+    inline Cref operator [](int i) { return Cref(*this, i); };
+
+    /**
+     * @brief Returns the character at the given index.
+     * @return The character at the given index.
+     * @param i Index to return.
+     * @pre The index must exist.
+     * @sa operator[]()
+     * @todo Perhaps this should throw an exception if out of range?
+     */
+    inline value_type at(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
 };
 BDLIB_NS_END
 

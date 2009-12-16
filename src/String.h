@@ -60,49 +60,6 @@ typedef char String_Array_Type;
 class String : public ReferenceCountedArray<String_Array_Type> {
   private:
         /**
-         * @class Cref
-         * @brief Safe element reading and writing.
-         * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
-         * This class should be optimized away and fully inlined such that:
-         * String s;
-         * s[0] = 'a';
-         * Should be rewritten as:
-         * s.write(0, 'a');
-         */
-        class Cref {
-            friend class String;
-            String& s;
-            int k;
-
-            /**
-              * @brief Used by String::Cref operator[]
-              */
-            Cref(String& string, int i) : s(string), k(i) {};
-            Cref(); //Not defined - never used
-
-          public:            
-            Cref(const Cref& cref) : s(cref.s), k(cref.k) {};
-            inline Cref& operator=(const Cref& cref) {
-              (*this) = (char) cref;
-              return (*this);
-            }
-
-          public:
-            /**
-             * @sa char String::operator[]
-             */
-            inline operator char() const { return s.read(k); };
-
-            /**
-             * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
-             */
-            inline Cref& operator=(char c) { 
-              s.write(k, c); 
-              return (*this);
-            };
-        };
-
-        /**
          * @class SubString
          * @brief Safe substring reading and writing.
          * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
@@ -253,29 +210,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	String operator * (int) const;
 
         /**
-         * @brief Checks if the buffer has the given index or not.
-         * @return Boolean true/false as to whether or not index exists.
-         * @param i Index to check.
-        */
-        inline bool hasIndex(int i) const { 
-#ifdef DEBUG
-        if (i < 0 || i >= (int) (offset + length())) ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
-#endif
-          return (i < (int) length()); 
-        };
-
-        /**
-         * @sa charAt()
-         * Unlinke charAt() this is unchecked.
-         */
-        inline char read(int i) const { return *(constBuf(i)); };
-
-        inline void write(int i, char c) {
-          getOwnCopy();
-          *(Buf(i)) = c;
-        };
-
-        /**
          * @brief Trim off \n,\r,\r\n from end
          * @return The string, to allow for chaining
          */
@@ -299,27 +233,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         String trim() const { return String(*this).trim(); }
 
-        /**
-         * @brief Safe element access operator
-         * @todo This is only called on a (const) String, but should for a String as well.
-         */
-        inline char operator [](int i) const { return read(i); };
-
-        /**
-         * @brief Returns 'Cref' class for safe (cow) writing into String.
-         * @sa Cref
-         */ 
-        inline Cref operator [](int i) { return Cref(*this, i); };
-
-        /**
-         * @brief Returns the character at the given index.
-         * @return The character at the given index.
-         * @param i Index to return.
-         * @pre The index must exist.
-         * @sa operator[]()
-         * @todo Perhaps this should throw an exception if out of range?
-         */
-        inline char charAt(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
+        inline char charAt(int i) const { return at(i); };
 
         /*
          * @sa operator()
