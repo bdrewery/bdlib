@@ -350,6 +350,17 @@ class ReferenceCountedArray {
 
     virtual size_t hash() const = 0;
 
+    /*
+     * @brief Find an item in the array
+     * @return The position of the item if found, or npos if not found
+     **/
+    size_t find(const_reference item) const {
+      for (size_t i = 0; i < length(); ++i)
+        if (*(Buf(i)) == item)
+          return i;
+      return size_t(-1);
+    }
+
     // Safe index accessors
     /**
      * @brief Checks if the buffer has the given index or not.

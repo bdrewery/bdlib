@@ -396,13 +396,6 @@ String& String::trim() {
   return *this;
 }
 
-size_t String::find (const char ch) const {
-  for (const char* c = begin(); c != end(); ++c)
-    if (*c == ch)
-      return size_t(c - begin());
-  return npos;
-}
-
 size_t String::find (const String& str) const {
   for (const char* c = begin(); c != end(); ++c)
     if (strncmp(c, str.c_str(), std::min(str.length(), size_t(end() - c))) == 0)

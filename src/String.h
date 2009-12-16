@@ -164,16 +164,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         inline const char* end() const { return begin() + length(); };
 
         /*
-         * @brief Find a character in the string
-         * @return The position of the character if found, or String::npos if not found
-         **/
-        size_t find(const char) const;
-
-        /*
          * @brief Find a string in the string
          * @return The position of the string if found, or String::npos if not found
          **/
         size_t find(const String&) const;
+        using ReferenceCountedArray<String_Array_Type>::find;
 
 	/**
 	 * @brief Cstring accessor

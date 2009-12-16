@@ -14,7 +14,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
 {
     CPPUNIT_TEST_SUITE (ArrayTest);
     CPPUNIT_TEST (sizeTest);
-//    CPPUNIT_TEST (indexTest);
+    CPPUNIT_TEST (indexTest);
     CPPUNIT_TEST (push_popTest);
     CPPUNIT_TEST (arrayConsTest);
     CPPUNIT_TEST (clearTest);
@@ -23,7 +23,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (compareTest);
 //    CPPUNIT_TEST (sortTest);
 //    CPPUNIT_TEST (queueTest);
-//    CPPUNIT_TEST (findTest);
+    CPPUNIT_TEST (findTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -32,7 +32,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
 
     protected:
         void sizeTest(void);
-//        void indexTest(void);
+        void indexTest(void);
         void push_popTest(void);
         void arrayConsTest(void);
         void clearTest(void);
@@ -41,7 +41,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
         void compareTest(void);
 //        void sortTest(void);
 //        void queueTest(void);
-//        void findTest(void);
+        void findTest(void);
     private:
         Array<String> *str_a, *str_b, *str_c;
         Array<char> *char_a, *char_b;

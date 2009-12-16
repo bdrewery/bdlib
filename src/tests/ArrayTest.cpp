@@ -197,3 +197,29 @@ void ArrayTest :: compareTest(void)
 
   CPPUNIT_ASSERT_EQUAL(true, (*str_a) == (*str_b));
 }
+
+void ArrayTest :: findTest(void)
+{
+  str_a->push("Test1");
+  str_a->push("Test2");
+  CPPUNIT_ASSERT_EQUAL(size_t(-1), str_a->find("Test3"));
+  CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->find("Test1"));
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_a->find("Test2"));
+}
+
+void ArrayTest :: indexTest(void)
+{
+  str_a->push("Test1");
+  str_a->push("Test2");
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_a)[1]);
+
+  (*str_b) = (*str_a);
+
+  (*str_a)[1] = "Test3";
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_a)[1]);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
+}
