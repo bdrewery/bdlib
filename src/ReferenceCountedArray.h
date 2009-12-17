@@ -347,6 +347,19 @@ class ReferenceCountedArray {
       return *this;
     }
 
+    /**
+     * @brief Sets our buffer to the given item.
+     * @param item The item to set our buffer to.
+     * @post The old buffer (if we had one) is free'd.
+     * @post A sufficiently sized new buffer is made with the item within.
+     * @return The new array object.
+     */
+    const ReferenceCountedArray& operator=(const_reference item) {
+      Detach();
+      append(item);
+      return *this;
+    }
+
     inline size_t rcount() const { return Ref->n; };
 
     /**
@@ -532,6 +545,84 @@ class ReferenceCountedArray {
       else if (len < 0)
         len = length() - start + len;
       setLength(len);
+    }
+
+    /**
+     * @brief Appends one item to end of buffer.
+     * @param item The item to be appended.
+     * @post The buffer is allocated.
+     * @post The item is appended at the end of the buffer.
+     * This is the same as inserting the item at the end of the buffer.
+     */
+    inline void append(const_reference item) { insert(length(), item); };
+    /**
+     * @brief Appends given rca to the end of buffer
+     * @param rca The rca to be appended.
+     * @param n How many characters to copy from the ReferenceCountedArray object.
+     * @post The buffer is allocated.
+     * This is the same as inserting the rca at the end of the buffer.
+     */
+    inline void append(const ReferenceCountedArray& rca, int n = -1) { insert(length(), rca, n); };
+
+
+    /**
+     * @brief Inserts a ReferenceCountedArray object into our buffer
+     * @param k The index to insert at.
+     * @param rca The rca to insert.
+     * @param n The length to insert.
+     * @post The buffer contains n items from rca inserted at index k.
+     */
+    void insert(int k, const ReferenceCountedArray& rca, int n = -1) {
+      if (n == 0) return;
+      if (k && !hasIndex(k-1)) return;
+
+      int slen = rca.length();
+
+      /* New rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
+      if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
+        *this = rca;
+        return;
+      }
+
+      if (n == -1 || n > slen)
+        n = slen;
+      slen -= slen - n;
+      AboutToModify(length() + slen);
+      memmove(Buf() + k + slen, Buf() + k, length() - k);
+      std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
+      addLength(slen);
+    }
+
+    /**
+     * @brief Insert an item at the given index.
+     * @param k The index to insert at.
+     * @param item The item to be inserted.
+     * @post A buffer is allocated.
+     * @post If the old buffer was too small, it is enlarged.
+     * @post The item is inserted at the given index.
+     */
+    void insert(int k, const_reference item)
+    {
+      if (k && !hasIndex(k-1)) return;
+
+      AboutToModify(length() + 1);
+      memmove(Buf() + k + 1, Buf() + k, length() - k);
+      *(Buf(k)) = item;
+      addLength(1);
+    }
+
+    /**
+     * @brief Replace the given index with the given item.
+     * @param k The index to replace.
+     * @param item The item to replace with.
+     * @post The given index has been replaced.
+     * @post COW is done if needed.
+     */
+    void replace(int k, const_reference item) {
+      if (k && !hasIndex(k-1)) return;
+
+      getOwnCopy();
+      *(Buf(k)) = item;
     }
 
     /**

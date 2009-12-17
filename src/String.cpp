@@ -66,38 +66,6 @@ int String::compare(const String &str, size_t n) const
 /* Setters */
 
 /**
- * @brief Insert a character at the given index.
- * @param k The index to insert at.
- * @param ch The character to be inserted.
- * @post A buffer is allocated.
- * @post If the old buffer was too small, it is enlarged.
- * @post The character is inserted at the given index.
- */
-void String::insert(int k, const char ch)
-{
-  if (k && !hasIndex(k-1)) return;
-
-  AboutToModify(length() + 1);
-  memmove(Buf() + k + 1, Buf() + k, length() - k);
-  *(Buf(k)) = ch;
-  addLength(1);
-}
-
-/**
- * @brief Replace the given index with the given character.
- * @param k The index to replace.
- * @param ch The character to replace with.
- * @post The given index has been replaced.
- * @post COW is done if needed.
- */
-void String::replace(int k, const char ch) {
-  if (k && !hasIndex(k-1)) return;
-
-  getOwnCopy();
-  *(Buf(k)) = ch;
-}
-
-/**
  * @brief Insert a cstring at the given index.
  * @param string The cstring to be inserted.
  * @param k The index to insert at.
@@ -141,47 +109,6 @@ void String::replace(int k, const char *string, int n)
   }
   std::copy(string, string + slen, Buf() + k);
   setLength(newlen);
-}
-
-/**
- * @brief Inserts a String object into our buffer
- * @param k The index to insert at.
- * @param string The string to insert.
- * @param n The length to insert.
- * @post The buffer contains n characters from string inserted at index k.
- */
-void String::insert(int k, const String &string, int n) {
-  if (n == 0) return;
-  if (k && !hasIndex(k-1)) return;
-  
-  int slen = string.length();
-
-  /* New string is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
-  if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
-    *this = string;
-    return;
-  }
-
-  if (n == -1 || n > slen)
-    n = slen;
-  slen -= slen - n;
-  AboutToModify(length() + slen);
-  memmove(Buf() + k + slen, Buf() + k, length() - k);
-  std::copy(string.begin(), string.begin() + slen, Buf() + k);
-  addLength(slen);
-}
-
-/**
- * @brief Sets our buffer to the given character.
- * @param ch The character to set our buffer to.
- * @post The old buffer (if we had one) is free'd.
- * @post A sufficiently sized new buffer is made with the character within.
- * @return The new string object.
- */
-const String &String::operator=(const char ch) {
-  Detach();
-  append(ch);
-  return *this;
 }
 
 /**

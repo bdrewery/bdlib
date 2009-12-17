@@ -215,15 +215,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         /* Setters */
         /**
-         * @brief Appends one character to end of buffer.
-         * @param ch The character to be appended.
-         * @post The buffer is allocated.
-         * @post The character is appended at the end of the buffer.
-         * This is the same as inserting the character at the end of the buffer.
-         */
-        inline void append(const char ch) { insert(length(), ch); };
-
-        /**
          * @brief Appends given cstring to end of buffer.
          * @param string The cstring to be appended.
          * @param n How many characters to copy from the string.
@@ -232,20 +223,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline void append(const char* string, int n = -1) { insert(length(), string, n); };
 
-        /**
-         * @brief Appends given string to the end of buffer
-         * @param string The string to be appended.
-         * @param n How many characters to copy from the String object.
-         * @post The buffer is allocated.
-         * This is the same as inserting the string at the end of the buffer.
-         */
-        inline void append(const String& string, int n = -1) { insert(length(), string, n); };
+        using ReferenceCountedArray<String_Array_Type>::append;
 
-        void insert(int, const char);
         void insert(int, const char*, int = -1);
-        void insert(int, const String&, int = -1);
+        using ReferenceCountedArray<String_Array_Type>::insert;
 
-        void replace(int, const char);
         void replace(int, const char*, int = -1);
         using ReferenceCountedArray<String_Array_Type>::replace;
 
@@ -279,10 +261,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         //operator bool ();
 
 
-        virtual const String& operator = (const char);
-	virtual const String& operator = (const char*);
-        // Not needed unless operator= is virtual in base.
-        //using ReferenceCountedArray<String_Array_Type>::operator=;
+	virtual const String& operator= (const char*);
+        using ReferenceCountedArray<String_Array_Type>::operator=;
 
         friend String operator + (const String&, const String&);
         friend bool operator == (const String&, const String&);
