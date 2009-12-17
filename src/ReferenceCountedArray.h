@@ -110,6 +110,54 @@ class ArrayRef {
 
 template <class T>
 /**
+ * @class Slice
+ * @brief Safe subarray reading and writing.
+ * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
+ * This class should be optimized away and fully inlined such that:
+ * String s("look over there");
+ * s(0, 4) = "blah"';
+ * Should be rewritten as:
+ * s.replace(0, "blah", 4);
+ */
+class Slice {
+  private:
+    T& rca;
+    int start;
+    int len;
+
+    Slice();
+
+  public:
+    Slice(T& _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
+    Slice(const Slice& slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
+
+    /*
+     * @brief return a new (const) slice
+     */
+
+    inline operator T() const {
+      T newArray(rca);
+      newArray.slice(start, len);
+      return newArray;
+    };
+
+    inline Slice& operator= (const Slice& slice) {
+      (*this) = T(slice);
+      return (*this);
+    }
+
+    /**
+     * @todo This needs to account for negative start/len
+     */
+    inline Slice& operator= (const T& array) {
+      rca.replace(start, array, len);
+      return (*this);
+    }
+};
+
+
+template <class T>
+/**
  * @class ReferenceCountedArray
  * @brief
  */
@@ -450,6 +498,40 @@ class ReferenceCountedArray {
      * @todo Perhaps this should throw an exception if out of range?
      */
     inline value_type at(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
+
+    /**
+     * @brief Return a new array from a subarray
+     * @return a new ReferenceCountedArray
+     * @param start The offset to begin the subarray from (indexed from 0)
+     * @param len The length of the subarray to return
+     * The returned slice is a reference to the original array until modified.
+     */
+    void slice(int start, int len) {
+      // Start is after the end, set us to an empty array
+      if (start >= (signed) length()) {
+        offset = length();
+        setLength(0);
+        return;
+      }
+
+      //Count backwards from the end
+      if (start < 0)
+        start = length() + start;
+      // Start was before the beginning, just reset to the beginning
+      if (start < 0)
+        start = 0;
+
+      size_t newOffset = offset + start;
+      offset = newOffset;
+      //If the length of the subarray exceeds the end of the array, truncate to the end of the array
+      if (start + len >= (signed) length())
+        len = length() - start;
+      // If the length is negative, stop from counting backwards from the end
+      else if (len < 0)
+        len = length() - start + len;
+      setLength(len);
+    }
+
 };
 BDLIB_NS_END
 

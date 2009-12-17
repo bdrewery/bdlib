@@ -59,54 +59,6 @@ typedef char String_Array_Type;
  */
 class String : public ReferenceCountedArray<String_Array_Type> {
   private:
-        /**
-         * @class SubString
-         * @brief Safe substring reading and writing.
-         * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
-         * This class should be optimized away and fully inlined such that:
-         * String s("look over there");
-         * s(0, 4) = "blah"';
-         * Should be rewritten as:
-         * s.replace(0, "blah", 4);
-         */
-         class SubString {
-            friend class String;
-            String &s;
-            int start;
-            int len;
-
-            SubString(String& string, int _start, int _len) : s(string), start(_start), len(_len) {};
-            SubString();
-
-          public:
-            SubString(const SubString& substring) : s(substring.s), start(substring.start), len(substring.len) {};
-
-            inline SubString& operator= (const SubString& substring) {
-              (*this) = (String) substring;
-              return (*this);
-            }
-
-
-            /*
-             * @brief return a new (const) substring
-             */
-            inline operator String() const { return s.substring(start, len); };
-
-            /**
-             * @todo This needs to account for negative start/len
-             */
-            inline SubString& operator= (const String& string) {
-              s.replace(start, string, len);
-              return (*this);
-            }
-
-            inline SubString& operator= (const char* string) {
-              s.replace(start, string, len);
-              return (*this);
-            }
-        };
-
-
         /* Most of these are helper abstractions in case I chose to change the reference implementation
          * ie, into the first element of the buffer
          */
@@ -230,25 +182,28 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         inline char charAt(int i) const { return at(i); };
 
+        // Substrings
         /*
-         * @sa operator()
+         * @sa ReferenceCountedArray::slice()
          */
-        String substring(int, int) const;
+        String substring(int start, int len) const {
+          String newString(*this);
+          newString.slice(start, len);
+          return newString;
+        };
 
-        /**
-         * @brief Returns a 'SubString' class for safe (cow) writing into String
-         * @sa SubString
-         * @param start Starting position
-         * @param len How many bytes to take off
-         */
-        inline SubString operator()(int start, int len) { return SubString(*this, start, len); };
-        /**
-         * @brief Returns a const substring
-         * @param start Starting position
-         * @param len How many bytes to take off
-         * @sa SubString
+        /*
+         * @sa substring
          */
         inline String operator()(int start, int len) const { return substring(start, len); };
+
+        /**
+         * @brief Returns a 'Slice' class for safe (cow) writing into the array
+         * @sa Slice
+         * @param start Starting position
+         * @param len How many items to use
+         */
+        inline Slice<String> operator()(int start, int len) { return Slice<String>(*this, start, len); };
 
         virtual size_t hash() const;
 

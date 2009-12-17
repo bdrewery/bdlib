@@ -281,39 +281,6 @@ std::istream& getline(std::istream& is, String &string) {
   return is;
 }
 
-/**
- * @brief Return a new string from a substring
- * @return a new String
- * @param start The offset to begin the substring from (indexed from 0)
- * @param len The length of the substring to return
- * The returned substring is a reference to the original string until modified.
- */
-String String::substring(int start, int len) const
-{
-  // Start is after the end, return an empty string
-  if (start >= (signed) length())
-    return String("");
- 
-  String newString(*this);
-
-  //Count backwards from the end
-  if (start < 0)
-    start = length() + start;
-  // Start was before the beginning, just reset to the beginning
-  if (start < 0)
-    start = 0;
-
-  newString.offset = offset + start;
-  //If the length of the substring exceeds the end of the string, truncate to the end of the string
-  if (start + len >= (signed) length())
-    len = length() - start;
-  // If the length is negative, stop from counting backwards from the end
-  else if (len < 0)
-    len = length() - start + len;
-  newString.setLength(len);
-  return newString;
-}
-
 /*
  * @brief Split a string by a delimiter
  * @param delim The delimiter to use
