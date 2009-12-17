@@ -127,7 +127,6 @@ class Array : public ReferenceCountedArray<T> {
       if (this->isEmpty()) return value_type();
 
       value_type temp(*(Buf(this->length() - 1)));
-      AboutToModify(this->length() - 1);
       this->subLength(1);
       return temp;
     }
