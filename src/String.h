@@ -284,7 +284,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         virtual const String& operator = (const char);
 	virtual const String& operator = (const char*);
-	const String& operator = (const String&);
+        // Not needed unless operator= is virtual in base.
+        //using ReferenceCountedArray<String_Array_Type>::operator=;
 
         friend String operator + (const String&, const String&);
         friend bool operator == (const String&, const String&);

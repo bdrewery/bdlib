@@ -231,24 +231,6 @@ const String &String::operator=(const char *string) {
   return *this;
 }
 
-/**
- * @brief Sets our Reference to the given String reference.
- * @param string The String object to reference.
- * @post The old buffer (if we had one) is free'd.
- * @post Our Reference now points to the given String.
- * @post Our old string object has been deleted (disconnected).
- * @return The new string object.
- * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
- */
-const String &String::operator=(const String &string) {
-  string.incRef();
-  offset = string.offset;
-  sublen = string.sublen;
-  CheckDeallocRef();
-  Ref = string.Ref;
-  return *this;
-}
-
 std::istream& operator >> (std::istream& is, String &string) {
   char ch;
   string = "";    // empty string, will build one char at-a-time
