@@ -172,40 +172,6 @@ void String::insert(int k, const String &string, int n) {
 }
 
 /**
- * @brief Replaces n characters in our buffer at index k with the given String object
- * @param k The index to replace at.
- * @param string The String object to replace with.
- * @param n The number of characters to use for the replace.
- */
-void String::replace(int k, const String &string, int n) {
-  if (n == 0) return;
-  if (k && !hasIndex(k-1)) return;
-
-  int slen = string.length();
-
-  /* Replace string is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
-  if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
-    *this = string;
-    return;
-  }
-  
-  if (n == -1 || n > slen)
-    n = slen;
-  slen -= slen - n;
-
-  size_t newlen = k + slen;
-  
-  if (newlen >= length()) {
-    AboutToModify(newlen);
-  } else {
-    newlen = length();
-    getOwnCopy();
-  }
-  std::copy(string.begin(), string.begin() + slen, Buf() + k);
-  setLength(newlen);
-}
-
-/**
  * @brief Sets our buffer to the given character.
  * @param ch The character to set our buffer to.
  * @post The old buffer (if we had one) is free'd.

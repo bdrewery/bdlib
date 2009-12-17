@@ -105,7 +105,7 @@ class Array : public ReferenceCountedArray<T> {
     /*
      * @brief Add an item to the end of the array
      */
-    void push(const value_type item) {
+    inline void push(const value_type item) {
       AboutToModify(this->length() + 1);
       *(Buf(this->length())) = item;
       this->addLength(1);
@@ -183,6 +183,29 @@ class Array : public ReferenceCountedArray<T> {
 
     inline friend bool operator == (const Array& lhs, const Array& rhs) { return lhs.equals(rhs); };
     inline friend bool operator != (const Array& lhs, const Array& rhs) {return ! (lhs == rhs);};
+
+    // Subarrays
+    /*
+     * @sa ReferenceCountedArray::slice()
+     */
+    inline Array subarray(int start, int len) const {
+      Array newArray(*this);
+      newArray.slice(start, len);
+      return newArray;
+    };
+
+    /*
+     * @sa substring
+     */
+    inline Array operator()(int start, int len) const { return subarray(start, len); };
+
+    /**
+     * @brief Returns a 'Slice' class for safe (cow) writing into the array
+     * @sa Slice
+     * @param start Starting position
+     * @param len How many items to use
+     */
+    inline Slice<Array> operator()(int start, int len) { return Slice<Array>(*this, start, len); };
 
 #ifdef CPPUNIT_VERSION
     void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {

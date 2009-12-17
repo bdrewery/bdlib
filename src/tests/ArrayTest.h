@@ -24,6 +24,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
 //    CPPUNIT_TEST (sortTest);
 //    CPPUNIT_TEST (queueTest);
     CPPUNIT_TEST (findTest);
+    CPPUNIT_TEST (subArrayTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -42,6 +43,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
 //        void sortTest(void);
 //        void queueTest(void);
         void findTest(void);
+        void subArrayTest(void);
     private:
         Array<String> *str_a, *str_b, *str_c;
         Array<char> *char_a, *char_b;

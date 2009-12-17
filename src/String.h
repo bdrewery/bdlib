@@ -112,9 +112,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         virtual ~String() {};
 
-        inline const char* begin() const { return data(); };
-        inline const char* end() const { return begin() + length(); };
-
         /*
          * @brief Find a string in the string
          * @return The position of the string if found, or String::npos if not found
@@ -250,7 +247,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         void replace(int, const char);
         void replace(int, const char*, int = -1);
-        void replace(int, const String&, int = -1);
+        using ReferenceCountedArray<String_Array_Type>::replace;
 
 #ifdef __GNUC__
         /* GNU GCC DOC: 

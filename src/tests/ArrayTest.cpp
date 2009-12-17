@@ -223,3 +223,45 @@ void ArrayTest :: indexTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
 }
+
+void ArrayTest :: subArrayTest (void)
+{
+  str_a->push("Test0");
+  str_a->push("Test1");
+  str_a->push("Test2");
+  str_a->push("Test3");
+  str_a->push("Test4");
+  str_a->push("Test5");
+  str_a->push("Test6");
+  str_a->push("Test7");
+
+  str_c = new Array<String>();
+  (*str_c) = (*str_a);
+  (*str_b) = (*str_a)(0, 2);
+
+  CPPUNIT_ASSERT_ARRAY_EQUAL((*str_c), (*str_a));
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_a->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test0", (*str_b)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[1]);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_b->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test0", (*str_b)[0]);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_b->size());
+
+  // In place test
+  Array<String> inplaceTest;
+  inplaceTest.push("TEST0");
+  inplaceTest.push("TEST1");
+  inplaceTest.push("TEST2");
+  inplaceTest.push("TEST3");
+  (*str_b) = (*str_a);
+  (*str_b)(0, 2) = inplaceTest;
+
+  Array<String> expectedResults(*str_a);
+  expectedResults[0] = "TEST0";
+  expectedResults[1] = "TEST1";
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_a->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_b->size());
+  CPPUNIT_ASSERT_ARRAY_EQUAL((*str_b), expectedResults);
+}

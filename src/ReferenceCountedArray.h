@@ -395,6 +395,8 @@ class ReferenceCountedArray {
      * @return Pointer to array of characters (not necesarily null-terminated).
      */
     inline const_pointer data() const { return constBuf(); }
+    inline const_pointer begin() const { return data(); };
+    inline const_pointer end() const { return begin() + length(); };
 
     virtual size_t hash() const = 0;
 
@@ -530,6 +532,40 @@ class ReferenceCountedArray {
       else if (len < 0)
         len = length() - start + len;
       setLength(len);
+    }
+
+    /**
+     * @brief Replaces n elements in our buffer at index k with the given ReferenceCountedArray object
+     * @param k The index to replace at.
+     * @param rca The ReferenceCountedArray object to replace with.
+     * @param n The number of characters to use for the replace.
+     */
+    void replace(int k, const ReferenceCountedArray &rca, int n = -1) {
+      if (n == 0) return;
+      if (k && !hasIndex(k-1)) return;
+
+      int slen = rca.length();
+
+      /* Replace rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
+      if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
+        *this = rca;
+        return;
+      }
+
+      if (n == -1 || n > slen)
+        n = slen;
+      slen -= slen - n;
+
+      size_t newlen = k + slen;
+
+      if (newlen >= length()) {
+        AboutToModify(newlen);
+      } else {
+        newlen = length();
+        getOwnCopy();
+      }
+      std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
+      setLength(newlen);
     }
 
 };
