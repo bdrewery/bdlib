@@ -29,6 +29,12 @@
 #include "String.h"
 #include <stdio.h>
 
+#ifdef CPPUNIT_VERSION
+#include <cppunit/SourceLine.h>
+#include <cppunit/TestAssert.h>
+#define CPPUNIT_ASSERT_ARRAY_EQUAL(expected, actual) expected.CPPUNIT_checkArrayEqual(actual, CPPUNIT_SOURCELINE())
+#endif /* CPPUNIT_VERSION */
+
 BDLIB_NS_BEGIN
 class String;
 template <class T>
@@ -177,6 +183,13 @@ class Array : public ReferenceCountedArray<T> {
 
     inline friend bool operator == (const Array& lhs, const Array& rhs) { return lhs.equals(rhs); };
     inline friend bool operator != (const Array& lhs, const Array& rhs) {return ! (lhs == rhs);};
+
+#ifdef CPPUNIT_VERSION
+    void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+      if ((*this) == actual) return;
+      ::CPPUNIT_NS::Asserter::failNotEqual(this->join("|").c_str(), actual.join("|").c_str(), sourceLine);
+    }
+#endif /* CPPUNIT_VERSION */
 };
 BDLIB_NS_END
 

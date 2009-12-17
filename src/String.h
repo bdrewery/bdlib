@@ -300,7 +300,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 #ifdef CPPUNIT_VERSION
         static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
           if (expected == actual) return;
-//          std::cout << "'" << expected << "':" << expected.length() << " == " << "'" << actual << "':" << actual.length() << std::endl;
           ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
         }
 #endif /* CPPUNIT_VERSION */
