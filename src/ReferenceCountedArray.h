@@ -23,6 +23,7 @@
 #define _W_REFERENCE_COUNTED_ARRAY_H 1
 
 #include "bdlib.h"
+#include "hash.h"
 #include <iterator>
 #include <stdint.h>
 #include <sys/types.h>
@@ -426,7 +427,21 @@ class ReferenceCountedArray {
     inline const_pointer begin() const { return data(); };
     inline const_pointer end() const { return begin() + length(); };
 
-    virtual size_t hash() const = 0;
+    typedef Hash<value_type> HashType;
+
+   /*
+     * @brief Return a hash of every element in the array
+     * @note DJB's hash function
+     */
+    virtual size_t hash() const {
+      HashType hasher;
+      size_t _hash = 5381;
+
+      for(size_t i = 0; i < this->length(); ++i)
+        _hash = ((_hash << 5) + _hash) + hasher(this->data()[i]);
+      return (_hash & 0x7FFFFFFF);
+    }
+
 
     /*
      * @brief Find an item in the array

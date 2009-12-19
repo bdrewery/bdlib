@@ -233,17 +233,6 @@ size_t String::find (const String& str) const {
 }
 
 /**
- * @brief DJB's hash function
- */
-size_t String::hash() const {
-  size_t _hash = 5381;
-
-  for(size_t i = 0; i < length(); ++i)
-    _hash = ((_hash << 5) + _hash) + data()[i];
-  return (_hash & 0x7FFFFFFF);
-}
-
-/**
  * @brief Splits off tokens
  * @param str The string to split a token off of
  * @param delim The delimiter to tokenize with

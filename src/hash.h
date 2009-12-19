@@ -37,11 +37,11 @@
 BDLIB_NS_BEGIN
 
 template<typename T>
-  struct hash;
+  struct Hash;
 
 #define tr1_hashtable_define_trivial_hash(T)                                      \
 template<>                                                                        \
-  struct hash<T>                                                                  \
+  struct Hash<T>                                                                  \
   {                                                                               \
     inline size_t operator()(T val) const { return static_cast<size_t>(val); }    \
   }
@@ -70,7 +70,7 @@ String
 */
 
 template<typename T>
-  struct hash<T*>
+  struct Hash<T*>
   {
     inline size_t operator()(T* p) const { return reinterpret_cast<size_t>(p); }
   };

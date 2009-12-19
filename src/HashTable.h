@@ -41,7 +41,7 @@ template <class Key, class Value>
 class HashTable {
   private:
     typedef KeyValue<Key, Value> iterator_type;
-    typedef hash<Key> hasher;
+    typedef Hash<Key> hasher;
 
     List<iterator_type> *list;
     size_t _size;

@@ -99,8 +99,6 @@ class Array : public ReferenceCountedArray<T> {
 
     virtual ~Array() {};
 
-    virtual size_t hash() const {return 0;};
-
     /*
      * @brief Add an item to the end of the array
      */
@@ -212,6 +210,16 @@ class Array : public ReferenceCountedArray<T> {
     }
 #endif /* CPPUNIT_VERSION */
 };
+
+template<typename T>
+  struct Hash;
+
+template<>
+  template<typename T>
+    struct Hash< Array<T> >
+      {
+            inline size_t operator()(const Array<T>& val) const { return val.hash(); }
+      };
 BDLIB_NS_END
 
 #endif /* !_W_ARRAY_H */

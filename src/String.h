@@ -202,8 +202,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline Slice<String> operator()(int start, int len) { return Slice<String>(*this, start, len); };
 
-        virtual size_t hash() const;
-
         /**
 	 * @brief Compare our String object with another String object
 	 * @param string The String object to compare to
@@ -285,10 +283,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 };
 
 template<typename T>
-  struct hash;
+  struct Hash;
 
 template<>
-  struct hash<String>
+  struct Hash<String>
     {
           inline size_t operator()(const String& val) const { return val.hash(); }
     };

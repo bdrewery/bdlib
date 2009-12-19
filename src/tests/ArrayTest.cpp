@@ -2,6 +2,7 @@
  *
  */
 #include "ArrayTest.h"
+#include "HashTable.h"
 #include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -264,4 +265,58 @@ void ArrayTest :: subArrayTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(8), str_a->size());
   CPPUNIT_ASSERT_EQUAL(size_t(8), str_b->size());
   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_b), expectedResults);
+}
+
+
+void ArrayTest :: hashTest(void)
+{
+  str_c = new Array<String>();
+
+  (*str_a).push("test");
+  (*str_a).push("test2");
+  (*str_b).push("test");
+  (*str_b).push("test2");
+  (*str_c) = (*str_b);
+  CPPUNIT_ASSERT_EQUAL(str_a->hash(), str_b->hash());
+  CPPUNIT_ASSERT_EQUAL(str_a->hash(), str_c->hash());
+  CPPUNIT_ASSERT_EQUAL(str_b->hash(), str_c->hash());
+
+  str_a->clear();
+  str_b->clear();
+  (*str_a).push("test");
+  (*str_a).push("test1");
+  (*str_b).push("test");
+  (*str_c) = (*str_b);
+  CPPUNIT_ASSERT(str_a->hash() != str_b->hash());
+  CPPUNIT_ASSERT(str_a->hash() != str_c->hash());
+  CPPUNIT_ASSERT_EQUAL(str_b->hash(), str_c->hash());
+
+  str_b->clear();
+  (*str_b) = (*str_a)(0, 1);
+  CPPUNIT_ASSERT(str_a->hash() != str_b->hash());
+  (*str_b) = (*str_a)(0, 2);
+  CPPUNIT_ASSERT(str_a->hash() == str_b->hash());
+
+  *str_b = *str_a;
+
+  HashTable< String, Array<String> > ht;
+  ht["blaha"] = *str_a;
+
+  HashTable< String, Array<String> > ht2;
+  ht2["blahb"] = *str_b;
+
+  CPPUNIT_ASSERT_ARRAY_EQUAL(ht["blaha"], ht2["blahb"]);
+
+  ht2["blah3"] = *str_c;
+
+  CPPUNIT_ASSERT(ht["blah"] != ht2["blah3"]);
+
+  HashTable< Array<String>, int > ha1;
+  HashTable< Array<String>, int > ha2;
+
+  ha1[*str_b] = 1;
+  ha2[*str_a] = 1;
+  ha2[*str_c] = 5;
+  CPPUNIT_ASSERT_EQUAL(ha1[*str_b], ha2[*str_b]);
+  CPPUNIT_ASSERT(ha1[*str_b] != ha2[*str_c]);
 }
