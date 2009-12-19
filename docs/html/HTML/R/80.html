@@ -1,19 +1,18 @@
 <html>
 <head>
-<title>const_reference</title>
+<title>const_pointer</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/57.html#L116'>const_reference</a>   116 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt; (Array&lt;value_type&gt;&amp; array, const_reference item) {
-<a href='../S/58.html#L92'>const_reference</a>    92 Queue.h            inline void enqueue(const_reference item) {
-<a href='../S/58.html#L99'>const_reference</a>    99 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
-<a href='../S/38.html#L364'>const_reference</a>   364 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const_reference item) {
-<a href='../S/38.html#L435'>const_reference</a>   435 ReferenceCountedArray.h     size_t find(const_reference item) const {
-<a href='../S/38.html#L575'>const_reference</a>   575 ReferenceCountedArray.h     inline void append(const_reference item) { insert(length(), item); };
-<a href='../S/38.html#L622'>const_reference</a>   622 ReferenceCountedArray.h     void insert(int k, const_reference item)
-<a href='../S/38.html#L639'>const_reference</a>   639 ReferenceCountedArray.h     void replace(int k, const_reference item) {
+<a href='../S/57.html#L70'>const_pointer</a>      70 Array.h            Array(const_pointer carray) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/57.html#L86'>const_pointer</a>      86 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/38.html#L228'>const_pointer</a>     228 ReferenceCountedArray.h     inline const_pointer constBuf(int i = 0) const { return Buf(i); };
+<a href='../S/38.html#L286'>const_pointer</a>     286 ReferenceCountedArray.h       const_pointer oldBuf = constBuf();
+<a href='../S/38.html#L426'>const_pointer</a>     426 ReferenceCountedArray.h     inline const_pointer data() const { return constBuf(); }
+<a href='../S/38.html#L427'>const_pointer</a>     427 ReferenceCountedArray.h     inline const_pointer begin() const { return data(); };
+<a href='../S/38.html#L428'>const_pointer</a>     428 ReferenceCountedArray.h     inline const_pointer end() const { return begin() + length(); };
 </pre>
 </body>
 </html>

@@ -1,130 +1,77 @@
 <html>
 <head>
-<title>buf</title>
+<title>bool</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/38.html#L42'>buf</a>                42 ReferenceCountedArray.h     ~ArrayRef() { FreeBuf(buf); };
-<a href='../S/38.html#L45'>buf</a>                45 ReferenceCountedArray.h     mutable T* buf;
-<a href='../S/38.html#L48'>buf</a>                48 ReferenceCountedArray.h     ArrayRef() : len(0), size(0), buf(NULL), n(1) {};
-<a href='../S/38.html#L64'>buf</a>                64 ReferenceCountedArray.h         if (newbuf != buf) {
-<a href='../S/38.html#L66'>buf</a>                66 ReferenceCountedArray.h           std::copy(buf + offset, buf + offset + len, newbuf);
-<a href='../S/38.html#L67'>buf</a>                67 ReferenceCountedArray.h           FreeBuf(buf);
-<a href='../S/38.html#L68'>buf</a>                68 ReferenceCountedArray.h           buf = newbuf;
-<a href='../S/38.html#L75'>buf</a>                75 ReferenceCountedArray.h         memmove(buf, buf + offset, len);
-<a href='../S/38.html#L222'>buf</a>               222 ReferenceCountedArray.h     inline pointer Buf(int i = 0) const { return &amp;Ref-&gt;buf[offset + i]; };
-<a href='../S/35.html#L116'>buf</a>               116 Stream.cpp       char buf[STREAM_BLOCKSIZE + 1];
-<a href='../S/35.html#L118'>buf</a>               118 Stream.cpp       while ((len = fread(buf, 1, sizeof(buf) - 1, f))) {
-<a href='../S/35.html#L119'>buf</a>               119 Stream.cpp         puts(String(buf, len));
-<a href='../S/45.html#L57'>buf</a>                57 base64.c         char *buf = dest;
-<a href='../S/45.html#L84'>buf</a>                84 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
-<a href='../S/45.html#L86'>buf</a>                86 base64.c           buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
-<a href='../S/45.html#L88'>buf</a>                88 base64.c           buf[2] = b64_charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
-<a href='../S/45.html#L90'>buf</a>                90 base64.c           buf[3] = b64_charset[data[2] &amp; 0x3f];
-<a href='../S/45.html#L93'>buf</a>                93 base64.c           buf += NUM_ENCODED_BYTES;
-<a href='../S/45.html#L99'>buf</a>                99 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
-<a href='../S/45.html#L101'>buf</a>               101 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
-<a href='../S/45.html#L102'>buf</a>               102 base64.c             buf[2] = PADDING_CHAR;
-<a href='../S/45.html#L105'>buf</a>               105 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
-<a href='../S/45.html#L106'>buf</a>               106 base64.c             buf[2] = b64_charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
-<a href='../S/45.html#L108'>buf</a>               108 base64.c           buf[3] = PADDING_CHAR;
-<a href='../S/45.html#L109'>buf</a>               109 base64.c           buf += NUM_ENCODED_BYTES;
-<a href='../S/45.html#L112'>buf</a>               112 base64.c         *len = buf - dest;
-<a href='../S/45.html#L136'>buf</a>               136 base64.c         char *buf = dest;
-<a href='../S/45.html#L142'>buf</a>               142 base64.c           *buf++ = (b64_indexes[data[0]] &lt;&lt; 2) + ((b64_indexes[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
-<a href='../S/45.html#L145'>buf</a>               145 base64.c             *buf++ = ((b64_indexes[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((b64_indexes[data[2]] &amp; 0x3c) &gt;&gt; 2);
-<a href='../S/45.html#L148'>buf</a>               148 base64.c               *buf++ = ((b64_indexes[data[2]] &amp; 0x03) &lt;&lt; 6) + b64_indexes[data[3]];
-<a href='../S/45.html#L155'>buf</a>               155 base64.c         *len = (buf - dest);
-<a href='../S/10.html#L314'>buf</a>               314 tests/BinaryTreeTest.cpp     char buf[10] = "";
-<a href='../S/10.html#L315'>buf</a>               315 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", i);
-<a href='../S/10.html#L316'>buf</a>               316 tests/BinaryTreeTest.cpp     (*a).insert(i, String(buf));
-<a href='../S/10.html#L322'>buf</a>               322 tests/BinaryTreeTest.cpp     char buf[10] = "";
-<a href='../S/10.html#L323'>buf</a>               323 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/10.html#L325'>buf</a>               325 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
-<a href='../S/10.html#L332'>buf</a>               332 tests/BinaryTreeTest.cpp     char buf[10] = "";
-<a href='../S/10.html#L333'>buf</a>               333 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/10.html#L335'>buf</a>               335 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
-<a href='../S/10.html#L343'>buf</a>               343 tests/BinaryTreeTest.cpp     char buf[10] = "";
-<a href='../S/10.html#L344'>buf</a>               344 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/10.html#L346'>buf</a>               346 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
-<a href='../S/10.html#L366'>buf</a>               366 tests/BinaryTreeTest.cpp     char buf[10] = "";
-<a href='../S/10.html#L367'>buf</a>               367 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/10.html#L369'>buf</a>               369 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
-<a href='../S/10.html#L377'>buf</a>               377 tests/BinaryTreeTest.cpp     char buf[10] = "";
-<a href='../S/10.html#L378'>buf</a>               378 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", i);
-<a href='../S/10.html#L379'>buf</a>               379 tests/BinaryTreeTest.cpp     (*a).insert(i, String(buf));
-<a href='../S/10.html#L402'>buf</a>               402 tests/BinaryTreeTest.cpp     char buf[10] = "";
-<a href='../S/10.html#L403'>buf</a>               403 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/10.html#L405'>buf</a>               405 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
-<a href='../S/16.html#L339'>buf</a>               339 tests/ListTest.cpp     char buf[10] = "";
-<a href='../S/16.html#L340'>buf</a>               340 tests/ListTest.cpp     sprintf(buf, "test%d", i);
-<a href='../S/16.html#L341'>buf</a>               341 tests/ListTest.cpp     (*a).insert(String(buf));
-<a href='../S/16.html#L347'>buf</a>               347 tests/ListTest.cpp     char buf[10] = "";
-<a href='../S/16.html#L348'>buf</a>               348 tests/ListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/16.html#L349'>buf</a>               349 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/16.html#L356'>buf</a>               356 tests/ListTest.cpp     char buf[10] = "";
-<a href='../S/16.html#L357'>buf</a>               357 tests/ListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/16.html#L358'>buf</a>               358 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/16.html#L366'>buf</a>               366 tests/ListTest.cpp     char buf[10] = "";
-<a href='../S/16.html#L367'>buf</a>               367 tests/ListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/16.html#L368'>buf</a>               368 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/16.html#L387'>buf</a>               387 tests/ListTest.cpp     char buf[10] = "";
-<a href='../S/16.html#L388'>buf</a>               388 tests/ListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/16.html#L389'>buf</a>               389 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/16.html#L397'>buf</a>               397 tests/ListTest.cpp     char buf[10] = "";
-<a href='../S/16.html#L398'>buf</a>               398 tests/ListTest.cpp     sprintf(buf, "test%d", i);
-<a href='../S/16.html#L399'>buf</a>               399 tests/ListTest.cpp     (*a).insert(String(buf));
-<a href='../S/16.html#L421'>buf</a>               421 tests/ListTest.cpp     char buf[10] = "";
-<a href='../S/16.html#L422'>buf</a>               422 tests/ListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/16.html#L423'>buf</a>               423 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/7.html#L105'>buf</a>               105 tests/QueueTest.cpp     char buf[2] = "";
-<a href='../S/7.html#L106'>buf</a>               106 tests/QueueTest.cpp     sprintf(buf, "%d", count);
-<a href='../S/7.html#L108'>buf</a>               108 tests/QueueTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, *iter);
-<a href='../S/18.html#L329'>buf</a>               329 tests/SortedListTest.cpp     char buf[10] = "";
-<a href='../S/18.html#L330'>buf</a>               330 tests/SortedListTest.cpp     sprintf(buf, "test%d", i);
-<a href='../S/18.html#L331'>buf</a>               331 tests/SortedListTest.cpp     (*a).insert(String(buf));
-<a href='../S/18.html#L337'>buf</a>               337 tests/SortedListTest.cpp     char buf[10] = "";
-<a href='../S/18.html#L338'>buf</a>               338 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/18.html#L339'>buf</a>               339 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/18.html#L346'>buf</a>               346 tests/SortedListTest.cpp     char buf[10] = "";
-<a href='../S/18.html#L347'>buf</a>               347 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/18.html#L348'>buf</a>               348 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/18.html#L356'>buf</a>               356 tests/SortedListTest.cpp     char buf[10] = "";
-<a href='../S/18.html#L357'>buf</a>               357 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/18.html#L358'>buf</a>               358 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/18.html#L377'>buf</a>               377 tests/SortedListTest.cpp     char buf[10] = "";
-<a href='../S/18.html#L378'>buf</a>               378 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/18.html#L379'>buf</a>               379 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/18.html#L387'>buf</a>               387 tests/SortedListTest.cpp     char buf[10] = "";
-<a href='../S/18.html#L388'>buf</a>               388 tests/SortedListTest.cpp     sprintf(buf, "test%d", i);
-<a href='../S/18.html#L389'>buf</a>               389 tests/SortedListTest.cpp     (*a).insert(String(buf));
-<a href='../S/18.html#L411'>buf</a>               411 tests/SortedListTest.cpp     char buf[10] = "";
-<a href='../S/18.html#L412'>buf</a>               412 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
-<a href='../S/18.html#L413'>buf</a>               413 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
-<a href='../S/9.html#L105'>buf</a>               105 tests/StackTest.cpp     char buf[2] = "";
-<a href='../S/9.html#L106'>buf</a>               106 tests/StackTest.cpp     sprintf(buf, "%d", count);
-<a href='../S/9.html#L108'>buf</a>               108 tests/StackTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, a-&gt;pop());
-<a href='../S/23.html#L44'>buf</a>                44 tests/StreamTest.cpp   char buf[2048];
-<a href='../S/23.html#L45'>buf</a>                45 tests/StreamTest.cpp   memset(buf, 'c', 2048);
-<a href='../S/23.html#L46'>buf</a>                46 tests/StreamTest.cpp   g-&gt;puts(buf);
-<a href='../S/23.html#L50'>buf</a>                50 tests/StreamTest.cpp   b-&gt;puts(buf);
-<a href='../S/23.html#L225'>buf</a>               225 tests/StreamTest.cpp   char buf[1024] = "";
-<a href='../S/23.html#L229'>buf</a>               229 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != NULL) {
-<a href='../S/23.html#L230'>buf</a>               230 tests/StreamTest.cpp     gbuf = a-&gt;getline(sizeof(buf) - 1);
-<a href='../S/23.html#L231'>buf</a>               231 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
-<a href='../S/23.html#L270'>buf</a>               270 tests/StreamTest.cpp   char buf[1024] = "";
-<a href='../S/23.html#L274'>buf</a>               274 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != NULL) {
-<a href='../S/23.html#L275'>buf</a>               275 tests/StreamTest.cpp     gbuf = a-&gt;getline(sizeof(buf) - 1);
-<a href='../S/23.html#L276'>buf</a>               276 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
-<a href='../S/19.html#L658'>buf</a>               658 tests/StringTest.cpp   char *buf = (char*) malloc(100);
-<a href='../S/19.html#L660'>buf</a>               660 tests/StringTest.cpp     buf[0] = 0;
-<a href='../S/19.html#L666'>buf</a>               666 tests/StringTest.cpp       strcat(buf, letter);
-<a href='../S/19.html#L668'>buf</a>               668 tests/StringTest.cpp     buf[i] = 0;
-<a href='../S/19.html#L669'>buf</a>               669 tests/StringTest.cpp     String tmpbuf(base64Encode(buf));
-<a href='../S/19.html#L672'>buf</a>               672 tests/StringTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, decoded);
-<a href='../S/19.html#L675'>buf</a>               675 tests/StringTest.cpp   free(buf);
+<a href='../S/57.html#L151'>bool</a>              151 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
+<a href='../S/57.html#L158'>bool</a>              158 Array.h            bool equals(const Array &amp;array, size_t n) const
+<a href='../S/57.html#L161'>bool</a>              161 Array.h              bool same_length = (my_len == array.length());
+<a href='../S/57.html#L180'>bool</a>              180 Array.h            inline friend bool operator == (const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
+<a href='../S/57.html#L181'>bool</a>              181 Array.h            inline friend bool operator != (const Array&amp; lhs, const Array&amp; rhs) {return ! (lhs == rhs);};
+<a href='../S/52.html#L130'>bool</a>              130 BinaryTree.h       bool contains(const Key &amp;key) const {
+<a href='../S/52.html#L143'>bool</a>              143 BinaryTree.h       inline bool isEmpty() const { return size() == 0; };
+<a href='../S/52.html#L173'>bool</a>              173 BinaryTree.h       bool insert(const Key &amp;key, const Value &amp;value) {
+<a href='../S/52.html#L211'>bool</a>              211 BinaryTree.h       bool remove(const Key &amp;key) {
+<a href='../S/52.html#L277'>bool</a>              277 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator&lt;iterator_type&gt;(), 
+<a href='../S/52.html#L333'>bool</a>              333 BinaryTree.h           virtual operator bool() { return (index &gt; 0 &amp;&amp; index &lt; my_size); };
+<a href='../S/28.html#L87'>bool</a>               87 HashTable.h        inline bool isEmpty() const { return size() == 0; };
+<a href='../S/28.html#L90'>bool</a>               90 HashTable.h        bool insert(const Key &amp;key, const Value &amp;value) { 
+<a href='../S/28.html#L97'>bool</a>               97 HashTable.h        inline bool contains(const Key &amp;key) const {
+<a href='../S/28.html#L102'>bool</a>              102 HashTable.h        bool remove(const Key &amp;key) {
+<a href='../S/39.html#L48'>bool</a>               48 Iterator.h         virtual bool hasNext() { return bool(*this); };
+<a href='../S/39.html#L51'>bool</a>               51 Iterator.h         virtual operator bool() = 0;
+<a href='../S/39.html#L97'>bool</a>               97 Iterator.h           inline friend bool operator == (const KeyValue &amp;lhs, const KeyValue &amp;rhs) { return lhs.key() == rhs.key(); }
+<a href='../S/33.html#L101'>bool</a>              101 List.h             inline bool isEmpty() const { return size() == 0; };
+<a href='../S/33.html#L128'>bool</a>              128 List.h             bool contains(const iterator_type&amp; ptr) const {
+<a href='../S/33.html#L161'>bool</a>              161 List.h             bool remove(const iterator_type&amp; ptr) {
+<a href='../S/33.html#L185'>bool</a>              185 List.h                 bool end;
+<a href='../S/33.html#L187'>bool</a>              187 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;iterator_type&gt;(),
+<a href='../S/33.html#L221'>bool</a>              221 List.h                 virtual operator bool() { return (current != NULL); };
+<a href='../S/58.html#L140'>bool</a>              140 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
+<a href='../S/58.html#L141'>bool</a>              141 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
+<a href='../S/58.html#L197'>bool</a>              197 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
+<a href='../S/58.html#L198'>bool</a>              198 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
+<a href='../S/38.html#L105'>bool</a>              105 ReferenceCountedArray.h     inline bool isShared() const { return n &gt; 1; };
+<a href='../S/38.html#L378'>bool</a>              378 ReferenceCountedArray.h     inline bool isShared() const { return Ref-&gt;isShared(); };
+<a href='../S/38.html#L414'>bool</a>              414 ReferenceCountedArray.h     inline bool isEmpty() const { return length() == 0; };
+<a href='../S/38.html#L420'>bool</a>              420 ReferenceCountedArray.h     inline bool operator ! () const { return isEmpty(); };
+<a href='../S/38.html#L463'>bool</a>              463 ReferenceCountedArray.h     inline bool hasIndex(int i) const {
+<a href='../S/2.html#L75'>bool</a>               75 Socket.h           bool create();
+<a href='../S/2.html#L76'>bool</a>               76 Socket.h           bool connect(const String host, const in_port_t port);
+<a href='../S/2.html#L77'>bool</a>               77 Socket.h           bool bind(const in_port_t port);
+<a href='../S/2.html#L78'>bool</a>               78 Socket.h           bool listen() const;
+<a href='../S/2.html#L79'>bool</a>               79 Socket.h           bool accept (Socket&amp;) const;
+<a href='../S/2.html#L81'>bool</a>               81 Socket.h           bool send(const String) const;
+<a href='../S/2.html#L82'>bool</a>               82 Socket.h           bool recv(String&amp;) const;
+<a href='../S/2.html#L84'>bool</a>               84 Socket.h           int setNonBlocking(bool = 1);
+<a href='../S/2.html#L85'>bool</a>               85 Socket.h           inline bool isValid() const { return sock != -1; };
+<a href='../S/54.html#L48'>bool</a>               48 Stream.h               bool loading;
+<a href='../S/54.html#L141'>bool</a>              141 Stream.h               inline bool operator ! () const { return str.isEmpty(); };
+<a href='../S/46.html#L266'>bool</a>              266 String.h               friend bool operator == (const String&amp;, const String&amp;);
+<a href='../S/46.html#L267'>bool</a>              267 String.h               friend bool operator != (const String&amp;, const String&amp;);
+<a href='../S/46.html#L268'>bool</a>              268 String.h               friend bool operator &lt; (const String&amp;, const String&amp;);
+<a href='../S/46.html#L269'>bool</a>              269 String.h               friend bool operator &lt;= (const String&amp;, const String&amp;);
+<a href='../S/46.html#L270'>bool</a>              270 String.h               friend bool operator &gt; (const String&amp;, const String&amp;);
+<a href='../S/46.html#L271'>bool</a>              271 String.h               friend bool operator &gt;= (const String&amp;, const String&amp;);
+<a href='../S/46.html#L385'>bool</a>              385 String.h       inline bool operator == (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L389'>bool</a>              389 String.h       inline bool operator != (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L393'>bool</a>              393 String.h       inline bool operator &lt;  (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L397'>bool</a>              397 String.h       inline bool operator &lt;= (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L401'>bool</a>              401 String.h       inline bool operator &gt;  (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L405'>bool</a>              405 String.h       inline bool operator &gt;= (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L413'>bool</a>              413 String.h       inline bool operator == (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L417'>bool</a>              417 String.h       inline bool String::operator != (const String&amp; rhs) const {
+<a href='../S/46.html#L421'>bool</a>              421 String.h       inline bool String::operator &lt;  (const String&amp; rhs) const {
+<a href='../S/46.html#L425'>bool</a>              425 String.h       inline bool String::operator &lt;= (const String&amp; rhs) const {
+<a href='../S/46.html#L429'>bool</a>              429 String.h       inline bool String::operator &gt;  (const String&amp; rhs) const {
+<a href='../S/46.html#L433'>bool</a>              433 String.h       inline bool String::operator &gt;= (const String&amp; rhs) const {
+<a href='../S/26.html#L79'>bool</a>               79 Thread.h           inline bool isStarted() { return status &amp; THREAD_STARTED; };
+<a href='../S/26.html#L81'>bool</a>               81 Thread.h           inline bool isDetached() { return status &amp; THREAD_DETACHED; };
+<a href='../S/26.html#L88'>bool</a>               88 Thread.h           inline bool shouldDetach() { return status == THREAD_STARTED; };
+<a href='../S/1.html#L49'>bool</a>               49 hash.h         tr1_hashtable_define_trivial_hash(bool);
 </pre>
 </body>
 </html>

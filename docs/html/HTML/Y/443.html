@@ -1,25 +1,21 @@
 <html>
 <head>
-<title>tail</title>
+<title>sublen</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/33.html#L62'>tail</a>               62 List.h               if (node == tail) tail = prev;
-<a href='../S/33.html#L68'>tail</a>               68 List.h             Node* tail;
-<a href='../S/33.html#L72'>tail</a>               72 List.h             List() : head(NULL), tail(NULL), my_size(0) {};
-<a href='../S/33.html#L75'>tail</a>               75 List.h             List(const List&amp; list) : head(NULL), tail(NULL), my_size(0) {
-<a href='../S/33.html#L96'>tail</a>               96 List.h               head = tail = NULL;
-<a href='../S/33.html#L111'>tail</a>              111 List.h                 head = tail = node;
-<a href='../S/33.html#L189'>tail</a>              189 List.h                                                                       current(_end ? _list.head : _list.tail), /* tail is beginning */
-<a href='../S/58.html#L66'>tail</a>               66 Queue.h              value_type item = this-&gt;tail-&gt;ptr;
-<a href='../S/58.html#L67'>tail</a>               67 Queue.h              this-&gt;deleteNode(this-&gt;tail);
-<a href='../S/58.html#L83'>tail</a>               83 Queue.h              return this-&gt;isEmpty() ? this-&gt;end() : const_iterator(this, this-&gt;tail);
-<a href='../S/58.html#L104'>tail</a>              104 Queue.h            inline iterator begin() { return iterator(this, this-&gt;tail); };
-<a href='../S/58.html#L106'>tail</a>              106 Queue.h            inline const_iterator begin() const { return const_iterator(this, this-&gt;tail); };
-<a href='../S/31.html#L63'>tail</a>               63 SortedList.h           this-&gt;head = this-&gt;tail = node;
-<a href='../S/31.html#L65'>tail</a>               65 SortedList.h           this-&gt;tail = prev-&gt;next = node;
+<a href='../S/38.html#L185'>sublen</a>            185 ReferenceCountedArray.h       sublen = 0;
+<a href='../S/38.html#L203'>sublen</a>            203 ReferenceCountedArray.h     inline void setLength(size_t newLen) const { Ref-&gt;len = sublen = newLen; };
+<a href='../S/38.html#L208'>sublen</a>            208 ReferenceCountedArray.h     inline void addLength(size_t diff) const { Ref-&gt;len += diff; sublen += diff; };
+<a href='../S/38.html#L213'>sublen</a>            213 ReferenceCountedArray.h     inline void subLength(size_t diff) const { Ref-&gt;len -= diff; sublen -= diff; };
+<a href='../S/38.html#L243'>sublen</a>            243 ReferenceCountedArray.h     mutable size_t sublen;
+<a href='../S/38.html#L317'>sublen</a>            317 ReferenceCountedArray.h     ReferenceCountedArray() : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {};
+<a href='../S/38.html#L318'>sublen</a>            318 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen) { incRef(); };
+<a href='../S/38.html#L328'>sublen</a>            328 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {
+<a href='../S/38.html#L352'>sublen</a>            352 ReferenceCountedArray.h       sublen = rca.sublen;
+<a href='../S/38.html#L404'>sublen</a>            404 ReferenceCountedArray.h     inline size_t length() const { return sublen; };
 </pre>
 </body>
 </html>

@@ -1,31 +1,33 @@
 <html>
 <head>
-<title>array</title>
+<title>append</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/57.html#L62'>array</a>              62 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
-<a href='../S/57.html#L116'>array</a>             116 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt; (Array&lt;value_type&gt;&amp; array, const_reference item) {
-<a href='../S/57.html#L117'>array</a>             117 Array.h              array.push(item);
-<a href='../S/57.html#L118'>array</a>             118 Array.h              return array;
-<a href='../S/57.html#L136'>array</a>             136 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt; (Array&lt;value_type&gt;&amp; array, reference item) {
-<a href='../S/57.html#L137'>array</a>             137 Array.h              item = array.pop();
-<a href='../S/57.html#L138'>array</a>             138 Array.h              return array;
-<a href='../S/57.html#L153'>array</a>             153 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
-<a href='../S/57.html#L160'>array</a>             160 Array.h            bool equals(const Array &amp;array, size_t n) const
-<a href='../S/57.html#L163'>array</a>             163 Array.h              bool same_length = (my_len == array.length());
-<a href='../S/57.html#L166'>array</a>             166 Array.h              if (this-&gt;data() == array.data() &amp;&amp; same_length)
-<a href='../S/57.html#L172'>array</a>             172 Array.h              size_t slen = std::min(array.length(), n);
-<a href='../S/57.html#L176'>array</a>             176 Array.h                if ((*this)[i] != array[i])
-<a href='../S/38.html#L152'>array</a>             152 ReferenceCountedArray.h     inline Slice&amp; operator= (const T&amp; array) {
-<a href='../S/38.html#L153'>array</a>             153 ReferenceCountedArray.h       rca.replace(start, array, len);
-<a href='../S/37.html#L159'>array</a>             159 String.cpp       Array&lt;String&gt; array;
-<a href='../S/37.html#L164'>array</a>             164 String.cpp       while (array.size() &lt; limit - 1) {
-<a href='../S/37.html#L173'>array</a>             173 String.cpp         array &lt;&lt; str(0, pos);
-<a href='../S/37.html#L181'>array</a>             181 String.cpp         array &lt;&lt; str;
-<a href='../S/37.html#L184'>array</a>             184 String.cpp       return array;
+<a href='../S/38.html#L367'>append</a>            367 ReferenceCountedArray.h       append(item);
+<a href='../S/38.html#L590'>append</a>            590 ReferenceCountedArray.h     inline void append(const_reference item) { insert(length(), item); };
+<a href='../S/38.html#L598'>append</a>            598 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, int n = -1) { insert(length(), rca, n); };
+<a href='../S/46.html#L77'>append</a>             77 String.h       	String(const char* cstring) : ReferenceCountedArray&lt;String_Array_Type&gt;() { if (cstring) append(cstring); };
+<a href='../S/46.html#L87'>append</a>             87 String.h               String(const char* cstring, size_t slen) : ReferenceCountedArray&lt;String_Array_Type&gt;() { append(cstring, slen); };
+<a href='../S/46.html#L96'>append</a>             96 String.h               String(const char ch) : ReferenceCountedArray&lt;String_Array_Type&gt;() { append(ch); };
+<a href='../S/46.html#L223'>append</a>            223 String.h               inline void append(const char* string, int n = -1) { insert(length(), string, n); };
+<a href='../S/46.html#L225'>append</a>            225 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::append;
+<a href='../S/46.html#L338'>append</a>            338 String.h         append(ch);
+<a href='../S/46.html#L346'>append</a>            346 String.h         append(string);
+<a href='../S/46.html#L354'>append</a>            354 String.h         append(string);
+<a href='../S/19.html#L210'>append</a>            210 tests/StringTest.cpp   a-&gt;append('a');
+<a href='../S/19.html#L212'>append</a>            212 tests/StringTest.cpp   a-&gt;append("bcd");
+<a href='../S/19.html#L214'>append</a>            214 tests/StringTest.cpp   a-&gt;append("test", 0);
+<a href='../S/19.html#L216'>append</a>            216 tests/StringTest.cpp   f-&gt;append(&amp;cstring[11], strlen(cstring) - 11);
+<a href='../S/19.html#L218'>append</a>            218 tests/StringTest.cpp   c-&gt;append(*b);
+<a href='../S/19.html#L220'>append</a>            220 tests/StringTest.cpp   c-&gt;append(' ');
+<a href='../S/19.html#L221'>append</a>            221 tests/StringTest.cpp   c-&gt;append(*c);
+<a href='../S/19.html#L223'>append</a>            223 tests/StringTest.cpp   c-&gt;append("  ");
+<a href='../S/19.html#L224'>append</a>            224 tests/StringTest.cpp   c-&gt;append(*b);
+<a href='../S/19.html#L230'>append</a>            230 tests/StringTest.cpp     tmp.append(C);
+<a href='../S/19.html#L696'>append</a>            696 tests/StringTest.cpp     tmp.append(C);
 </pre>
 </body>
 </html>

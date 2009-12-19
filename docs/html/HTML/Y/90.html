@@ -1,25 +1,27 @@
 <html>
 <head>
-<title>StreamTest</title>
+<title>Stream</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/23.html#L11'>StreamTest</a>         11 tests/StreamTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (StreamTest);
-<a href='../S/23.html#L13'>StreamTest</a>         13 tests/StreamTest.cpp void StreamTest :: setUp (void)
-<a href='../S/23.html#L27'>StreamTest</a>         27 tests/StreamTest.cpp void StreamTest :: tearDown (void)
-<a href='../S/23.html#L34'>StreamTest</a>         34 tests/StreamTest.cpp void StreamTest :: reserveTest (void)
-<a href='../S/23.html#L54'>StreamTest</a>         54 tests/StreamTest.cpp void StreamTest :: tellTest (void)
-<a href='../S/23.html#L61'>StreamTest</a>         61 tests/StreamTest.cpp void StreamTest :: seekTest (void)
-<a href='../S/23.html#L80'>StreamTest</a>         80 tests/StreamTest.cpp void StreamTest :: putsTest (void)
-<a href='../S/23.html#L110'>StreamTest</a>        110 tests/StreamTest.cpp void StreamTest :: truncateTest (void)
-<a href='../S/23.html#L126'>StreamTest</a>        126 tests/StreamTest.cpp void StreamTest :: getsTest (void)
-<a href='../S/23.html#L170'>StreamTest</a>        170 tests/StreamTest.cpp void StreamTest :: getlineTest (void)
-<a href='../S/23.html#L202'>StreamTest</a>        202 tests/StreamTest.cpp void StreamTest :: loadFileTest (void)
-<a href='../S/23.html#L241'>StreamTest</a>        241 tests/StreamTest.cpp void StreamTest :: writeFileTest (void)
-<a href='../S/17.html#L12'>StreamTest</a>         12 tests/StreamTest.h class StreamTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/17.html#L14'>StreamTest</a>         14 tests/StreamTest.h     CPPUNIT_TEST_SUITE (StreamTest);
+<a href='../S/35.html#L23'>Stream</a>             23 Stream.cpp     void Stream::Reserve (const size_t newSize) const {
+<a href='../S/35.html#L29'>Stream</a>             29 Stream.cpp     int Stream::seek (int offset, int whence) {
+<a href='../S/35.html#L54'>Stream</a>             54 Stream.cpp     String Stream::gets (size_t maxSize, char delim) {
+<a href='../S/35.html#L78'>Stream</a>             78 Stream.cpp     int Stream::loadFile(const char* file)
+<a href='../S/35.html#L88'>Stream</a>             88 Stream.cpp     int Stream::loadFile(const int fd)
+<a href='../S/35.html#L127'>Stream</a>            127 Stream.cpp     int Stream::writeFile(const char* file, mode_t mode) const
+<a href='../S/35.html#L137'>Stream</a>            137 Stream.cpp     int Stream::writeFile(const int fd) const
+<a href='../S/54.html#L44'>Stream</a>             44 Stream.h       class Stream {
+<a href='../S/54.html#L51'>Stream</a>             51 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/54.html#L52'>Stream</a>             52 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/54.html#L53'>Stream</a>             53 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/54.html#L54'>Stream</a>             54 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/54.html#L55'>Stream</a>             55 Stream.h               virtual ~Stream() {};
+<a href='../S/54.html#L143'>Stream</a>            143 Stream.h               friend Stream&amp; operator &lt;&lt; (Stream&amp;, const String&amp;);
+<a href='../S/54.html#L146'>Stream</a>            146 Stream.h       inline Stream&amp; operator &lt;&lt; (Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/17.html#L41'>Stream</a>             41 tests/StreamTest.h         Stream *a, *b, *c, *d, *e, *F, *g, *h;
 </pre>
 </body>
 </html>

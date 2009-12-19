@@ -1,13 +1,31 @@
 <html>
 <head>
-<title>at</title>
+<title>array</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/38.html#L533'>at</a>                533 ReferenceCountedArray.h     inline value_type at(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
-<a href='../S/46.html#L180'>at</a>                180 String.h               inline char charAt(int i) const { return at(i); };
+<a href='../S/57.html#L62'>array</a>              62 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
+<a href='../S/57.html#L114'>array</a>             114 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt; (Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/57.html#L115'>array</a>             115 Array.h              array.push(item);
+<a href='../S/57.html#L116'>array</a>             116 Array.h              return array;
+<a href='../S/57.html#L134'>array</a>             134 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt; (Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/57.html#L135'>array</a>             135 Array.h              item = array.pop();
+<a href='../S/57.html#L136'>array</a>             136 Array.h              return array;
+<a href='../S/57.html#L151'>array</a>             151 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
+<a href='../S/57.html#L158'>array</a>             158 Array.h            bool equals(const Array &amp;array, size_t n) const
+<a href='../S/57.html#L161'>array</a>             161 Array.h              bool same_length = (my_len == array.length());
+<a href='../S/57.html#L164'>array</a>             164 Array.h              if (this-&gt;data() == array.data() &amp;&amp; same_length)
+<a href='../S/57.html#L170'>array</a>             170 Array.h              size_t slen = std::min(array.length(), n);
+<a href='../S/57.html#L174'>array</a>             174 Array.h                if ((*this)[i] != array[i])
+<a href='../S/38.html#L153'>array</a>             153 ReferenceCountedArray.h     inline Slice&amp; operator= (const T&amp; array) {
+<a href='../S/38.html#L154'>array</a>             154 ReferenceCountedArray.h       rca.replace(start, array, len);
+<a href='../S/37.html#L159'>array</a>             159 String.cpp       Array&lt;String&gt; array;
+<a href='../S/37.html#L164'>array</a>             164 String.cpp       while (array.size() &lt; limit - 1) {
+<a href='../S/37.html#L173'>array</a>             173 String.cpp         array &lt;&lt; str(0, pos);
+<a href='../S/37.html#L181'>array</a>             181 String.cpp         array &lt;&lt; str;
+<a href='../S/37.html#L184'>array</a>             184 String.cpp       return array;
 </pre>
 </body>
 </html>

@@ -1,22 +1,18 @@
 <html>
 <head>
-<title>str_c</title>
+<title>status</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/15.html#L26'>str_c</a>              26 tests/ArrayTest.cpp     delete str_a; delete str_b; delete str_c;
-<a href='../S/15.html#L92'>str_c</a>              92 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;(carray2, 2);
-<a href='../S/15.html#L93'>str_c</a>              93 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_c-&gt;size());
-<a href='../S/15.html#L94'>str_c</a>              94 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2Test2", str_c-&gt;pop());
-<a href='../S/15.html#L95'>str_c</a>              95 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_c-&gt;size());
-<a href='../S/15.html#L96'>str_c</a>              96 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2Test1", str_c-&gt;pop());
-<a href='../S/15.html#L97'>str_c</a>              97 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_c-&gt;size());
-<a href='../S/15.html#L238'>str_c</a>             238 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;();
-<a href='../S/15.html#L239'>str_c</a>             239 tests/ArrayTest.cpp   (*str_c) = (*str_a);
-<a href='../S/15.html#L242'>str_c</a>             242 tests/ArrayTest.cpp   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_c), (*str_a));
-<a href='../S/13.html#L48'>str_c</a>              48 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
+<a href='../S/26.html#L62'>status</a>             62 Thread.h           short status;
+<a href='../S/26.html#L67'>status</a>             67 Thread.h           Thread(void) : handle(0), id(0), status(0), param(NULL) {};
+<a href='../S/26.html#L79'>status</a>             79 Thread.h           inline bool isStarted() { return status &amp; THREAD_STARTED; };
+<a href='../S/26.html#L80'>status</a>             80 Thread.h           inline void setStarted() { status |= THREAD_STARTED; };
+<a href='../S/26.html#L81'>status</a>             81 Thread.h           inline bool isDetached() { return status &amp; THREAD_DETACHED; };
+<a href='../S/26.html#L82'>status</a>             82 Thread.h           inline void setDetached() { status |= THREAD_DETACHED; };
+<a href='../S/26.html#L88'>status</a>             88 Thread.h           inline bool shouldDetach() { return status == THREAD_STARTED; };
 </pre>
 </body>
 </html>

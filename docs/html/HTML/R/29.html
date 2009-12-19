@@ -1,22 +1,21 @@
 <html>
 <head>
-<title>String_Array_Type</title>
+<title>Socket</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/46.html#L59'>String_Array_Type</a>   59 String.h       class String : public ReferenceCountedArray&lt;String_Array_Type&gt; {
-<a href='../S/46.html#L69'>String_Array_Type</a>   69 String.h               String() : ReferenceCountedArray&lt;String_Array_Type&gt;() {};
-<a href='../S/46.html#L70'>String_Array_Type</a>   70 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type&gt;(string) {};
-<a href='../S/46.html#L77'>String_Array_Type</a>   77 String.h       	String(const char* cstring) : ReferenceCountedArray&lt;String_Array_Type&gt;() { if (cstring) append(cstring); };
-<a href='../S/46.html#L87'>String_Array_Type</a>   87 String.h               String(const char* cstring, size_t slen) : ReferenceCountedArray&lt;String_Array_Type&gt;() { append(cstring, slen); };
-<a href='../S/46.html#L96'>String_Array_Type</a>   96 String.h               String(const char ch) : ReferenceCountedArray&lt;String_Array_Type&gt;() { append(ch); };
-<a href='../S/46.html#L107'>String_Array_Type</a>  107 String.h               explicit String(const size_t newSize) : ReferenceCountedArray&lt;String_Array_Type&gt;(newSize) {};
-<a href='../S/46.html#L117'>String_Array_Type</a>  117 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::find;
-<a href='../S/46.html#L227'>String_Array_Type</a>  227 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::append;
-<a href='../S/46.html#L230'>String_Array_Type</a>  230 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::insert;
-<a href='../S/46.html#L233'>String_Array_Type</a>  233 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::replace;
+<a href='../S/47.html#L28'>Socket</a>             28 Socket.cpp     Socket::~Socket() {
+<a href='../S/47.html#L35'>Socket</a>             35 Socket.cpp     bool Socket::create() {
+<a href='../S/2.html#L64'>Socket</a>             64 Socket.h       class Socket {
+<a href='../S/2.html#L70'>Socket</a>             70 Socket.h           Socket() : sock(-1), addr(0), pfamily(0) {};
+<a href='../S/2.html#L71'>Socket</a>             71 Socket.h           Socket(int f) : sock(-1), addr(0), flags(f) {};
+<a href='../S/2.html#L72'>Socket</a>             72 Socket.h           Socket(Socket&amp; s) : sock(s.sock), addr(s.addr), flags(s.flags) {};
+<a href='../S/2.html#L73'>Socket</a>             73 Socket.h           virtual ~Socket();
+<a href='../S/2.html#L79'>Socket</a>             79 Socket.h           bool accept (Socket&amp;) const;
+<a href='../S/2.html#L88'>Socket</a>             88 Socket.h       class ClientSocket : public Socket {
+<a href='../S/2.html#L97'>Socket</a>             97 Socket.h       class ServerSocket : public Socket {
 </pre>
 </body>
 </html>

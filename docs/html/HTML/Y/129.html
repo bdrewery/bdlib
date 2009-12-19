@@ -1,14 +1,15 @@
 <html>
 <head>
-<title>b_test</title>
+<title>b64_indexes</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/19.html#L130'>b_test</a>            130 tests/StringTest.cpp   const char *b_test = b-&gt;c_str();
-<a href='../S/19.html#L136'>b_test</a>            136 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, strcmp(b_test, "blah"));
-<a href='../S/19.html#L137'>b_test</a>            137 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, strcmp(b_test, c_test));
+<a href='../S/45.html#L36'>b64_indexes</a>        36 base64.c       static const signed char b64_indexes[256] = {
+<a href='../S/45.html#L142'>b64_indexes</a>       142 base64.c           *buf++ = (b64_indexes[data[0]] &lt;&lt; 2) + ((b64_indexes[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/45.html#L145'>b64_indexes</a>       145 base64.c             *buf++ = ((b64_indexes[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((b64_indexes[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/45.html#L148'>b64_indexes</a>       148 base64.c               *buf++ = ((b64_indexes[data[2]] &amp; 0x03) &lt;&lt; 6) + b64_indexes[data[3]];
 </pre>
 </body>
 </html>

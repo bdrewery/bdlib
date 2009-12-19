@@ -1,14 +1,43 @@
 <html>
 <head>
-<title>decRef</title>
+<title>data</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/38.html#L182'>decRef</a>            182 ReferenceCountedArray.h       decRef();
-<a href='../S/38.html#L195'>decRef</a>            195 ReferenceCountedArray.h     inline uint8_t decRef() const { return --Ref-&gt;n; };
-<a href='../S/38.html#L267'>decRef</a>            267 ReferenceCountedArray.h       if (decRef() &lt; 1)
+<a href='../S/57.html#L164'>data</a>              164 Array.h              if (this-&gt;data() == array.data() &amp;&amp; same_length)
+<a href='../S/38.html#L426'>data</a>              426 ReferenceCountedArray.h     inline const_pointer data() const { return constBuf(); }
+<a href='../S/38.html#L427'>data</a>              427 ReferenceCountedArray.h     inline const_pointer begin() const { return data(); };
+<a href='../S/38.html#L441'>data</a>              441 ReferenceCountedArray.h         _hash = ((_hash &lt;&lt; 5) + _hash) + hasher(this-&gt;data()[i]);
+<a href='../S/35.html#L149'>data</a>              149 Stream.cpp       std::memcpy(map, str.data(), length());
+<a href='../S/35.html#L157'>data</a>              157 Stream.cpp       if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f)))
+<a href='../S/37.html#L54'>data</a>               54 String.cpp       if (data() == str.data() &amp;&amp; my_len == str.length())
+<a href='../S/46.html#L129'>data</a>              129 String.h                 return data();
+<a href='../S/45.html#L55'>data</a>               55 base64.c       void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
+<a href='../S/45.html#L84'>data</a>               84 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/45.html#L86'>data</a>               86 base64.c           buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/45.html#L88'>data</a>               88 base64.c           buf[2] = b64_charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
+<a href='../S/45.html#L90'>data</a>               90 base64.c           buf[3] = b64_charset[data[2] &amp; 0x3f];
+<a href='../S/45.html#L92'>data</a>               92 base64.c           data += NUM_ASCII_BYTES;
+<a href='../S/45.html#L99'>data</a>               99 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/45.html#L101'>data</a>              101 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
+<a href='../S/45.html#L105'>data</a>              105 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/45.html#L106'>data</a>              106 base64.c             buf[2] = b64_charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
+<a href='../S/45.html#L117'>data</a>              117 base64.c         char *p = b64enc((unsigned char*) string.data(), &amp;len);
+<a href='../S/45.html#L134'>data</a>              134 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest)
+<a href='../S/45.html#L142'>data</a>              142 base64.c           *buf++ = (b64_indexes[data[0]] &lt;&lt; 2) + ((b64_indexes[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/45.html#L143'>data</a>              143 base64.c           if (data[2] != PADDING_CHAR) {
+<a href='../S/45.html#L145'>data</a>              145 base64.c             *buf++ = ((b64_indexes[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((b64_indexes[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/45.html#L146'>data</a>              146 base64.c             if (data[3] != PADDING_CHAR) {
+<a href='../S/45.html#L148'>data</a>              148 base64.c               *buf++ = ((b64_indexes[data[2]] &amp; 0x03) &lt;&lt; 6) + b64_indexes[data[3]];
+<a href='../S/45.html#L151'>data</a>              151 base64.c           data += NUM_ENCODED_BYTES;
+<a href='../S/45.html#L158'>data</a>              158 base64.c       char *b64dec(const unsigned char *data, size_t *len)
+<a href='../S/45.html#L163'>data</a>              163 base64.c         b64dec_buf(data, len, dest);
+<a href='../S/45.html#L170'>data</a>              170 base64.c         char *p = b64dec((unsigned char*) string.data(), &amp;len);
+<a href='../S/25.html#L55'>data</a>               55 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest);
+<a href='../S/25.html#L63'>data</a>               63 base64.h       char *b64dec(const unsigned char *data, size_t *len);
+<a href='../S/25.html#L78'>data</a>               78 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest);
 </pre>
 </body>
 </html>

@@ -1,43 +1,55 @@
 <html>
 <head>
-<title>string</title>
+<title>str_b</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/54.html#L53'>string</a>             53 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
-<a href='../S/54.html#L79'>string</a>             79 Stream.h               virtual void puts (const String&amp; string) {
-<a href='../S/54.html#L80'>string</a>             80 Stream.h                 str.replace(tell(), string);
-<a href='../S/54.html#L81'>string</a>             81 Stream.h                 pos += string.length();
-<a href='../S/54.html#L146'>string</a>            146 Stream.h       inline Stream&amp; operator &lt;&lt; (Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
-<a href='../S/37.html#L77'>string</a>             77 String.cpp     void String::insert(int k, const char *string, int n)
-<a href='../S/37.html#L82'>string</a>             82 String.cpp       size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-<a href='../S/37.html#L86'>string</a>             86 String.cpp       std::copy(string, string + slen, Buf() + k);
-<a href='../S/37.html#L96'>string</a>             96 String.cpp     void String::replace(int k, const char *string, int n)
-<a href='../S/37.html#L101'>string</a>            101 String.cpp       size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-<a href='../S/37.html#L110'>string</a>            110 String.cpp       std::copy(string, string + slen, Buf() + k);
-<a href='../S/37.html#L114'>string</a>            114 String.cpp     std::istream&amp; operator &gt;&gt; (std::istream&amp; is, String &amp;string) {
-<a href='../S/37.html#L116'>string</a>            116 String.cpp       string = "";    // empty string, will build one char at-a-time
-<a href='../S/37.html#L123'>string</a>            123 String.cpp           string += ch;
-<a href='../S/37.html#L135'>string</a>            135 String.cpp     std::istream&amp; getline(std::istream&amp; is, String &amp;string) {   
-<a href='../S/37.html#L138'>string</a>            138 String.cpp       string = "";     // empty string, will build one char at-a-time
-<a href='../S/37.html#L141'>string</a>            141 String.cpp         string += ch;
-<a href='../S/46.html#L70'>string</a>             70 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type&gt;(string) {};
-<a href='../S/46.html#L212'>string</a>            212 String.h       	inline int compare(const String&amp; string) const { return compare(string, string.length()); };
-<a href='../S/46.html#L225'>string</a>            225 String.h               inline void append(const char* string, int n = -1) { insert(length(), string, n); };
-<a href='../S/46.html#L347'>string</a>            347 String.h       inline String&amp; String::operator += (const char* string) {
-<a href='../S/46.html#L348'>string</a>            348 String.h         append(string);
-<a href='../S/46.html#L355'>string</a>            355 String.h       inline String&amp; String::operator += (const String&amp; string) {
-<a href='../S/46.html#L356'>string</a>            356 String.h         append(string);
-<a href='../S/46.html#L443'>string</a>            443 String.h       inline std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os, const String&amp; string) {
-<a href='../S/46.html#L444'>string</a>            444 String.h         for (const char* c = string.begin(); c != string.end(); ++c)
-<a href='../S/45.html#L115'>string</a>            115 base64.c       String base64Encode(const String&amp; string) {
-<a href='../S/45.html#L116'>string</a>            116 base64.c         size_t len = string.length();
-<a href='../S/45.html#L117'>string</a>            117 base64.c         char *p = b64enc((unsigned char*) string.data(), &amp;len);
-<a href='../S/45.html#L168'>string</a>            168 base64.c       String base64Decode(const String&amp; string) {
-<a href='../S/45.html#L169'>string</a>            169 base64.c         size_t len = string.length();
-<a href='../S/45.html#L170'>string</a>            170 base64.c         char *p = b64dec((unsigned char*) string.data(), &amp;len);
+<a href='../S/15.html#L18'>str_b</a>              18 tests/ArrayTest.cpp     str_b = new Array&lt;String&gt;(20);
+<a href='../S/15.html#L27'>str_b</a>              27 tests/ArrayTest.cpp     delete str_a; delete str_b; delete str_c;
+<a href='../S/15.html#L35'>str_b</a>              35 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_b-&gt;size());
+<a href='../S/15.html#L36'>str_b</a>              36 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(true, str_b-&gt;isEmpty());
+<a href='../S/15.html#L37'>str_b</a>              37 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_b-&gt;capacity() &gt;= 20);
+<a href='../S/15.html#L195'>str_b</a>             195 tests/ArrayTest.cpp   str_b-&gt;push("Test1");
+<a href='../S/15.html#L196'>str_b</a>             196 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (*str_a) == (*str_b));
+<a href='../S/15.html#L197'>str_b</a>             197 tests/ArrayTest.cpp   str_b-&gt;push("Test2");
+<a href='../S/15.html#L199'>str_b</a>             199 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(true, (*str_a) == (*str_b));
+<a href='../S/15.html#L218'>str_b</a>             218 tests/ArrayTest.cpp   (*str_b) = (*str_a);
+<a href='../S/15.html#L224'>str_b</a>             224 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
+<a href='../S/15.html#L225'>str_b</a>             225 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
+<a href='../S/15.html#L241'>str_b</a>             241 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 2);
+<a href='../S/15.html#L245'>str_b</a>             245 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_b-&gt;size());
+<a href='../S/15.html#L246'>str_b</a>             246 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test0", (*str_b)[0]);
+<a href='../S/15.html#L247'>str_b</a>             247 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[1]);
+<a href='../S/15.html#L249'>str_b</a>             249 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_b-&gt;pop());
+<a href='../S/15.html#L250'>str_b</a>             250 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test0", (*str_b)[0]);
+<a href='../S/15.html#L251'>str_b</a>             251 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_b-&gt;size());
+<a href='../S/15.html#L259'>str_b</a>             259 tests/ArrayTest.cpp   (*str_b) = (*str_a);
+<a href='../S/15.html#L260'>str_b</a>             260 tests/ArrayTest.cpp   (*str_b)(0, 2) = inplaceTest;
+<a href='../S/15.html#L266'>str_b</a>             266 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(8), str_b-&gt;size());
+<a href='../S/15.html#L267'>str_b</a>             267 tests/ArrayTest.cpp   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_b), expectedResults);
+<a href='../S/15.html#L277'>str_b</a>             277 tests/ArrayTest.cpp   (*str_b).push("test");
+<a href='../S/15.html#L278'>str_b</a>             278 tests/ArrayTest.cpp   (*str_b).push("test2");
+<a href='../S/15.html#L279'>str_b</a>             279 tests/ArrayTest.cpp   (*str_c) = (*str_b);
+<a href='../S/15.html#L280'>str_b</a>             280 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_a-&gt;hash(), str_b-&gt;hash());
+<a href='../S/15.html#L282'>str_b</a>             282 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_b-&gt;hash(), str_c-&gt;hash());
+<a href='../S/15.html#L285'>str_b</a>             285 tests/ArrayTest.cpp   str_b-&gt;clear();
+<a href='../S/15.html#L288'>str_b</a>             288 tests/ArrayTest.cpp   (*str_b).push("test");
+<a href='../S/15.html#L289'>str_b</a>             289 tests/ArrayTest.cpp   (*str_c) = (*str_b);
+<a href='../S/15.html#L290'>str_b</a>             290 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_b-&gt;hash());
+<a href='../S/15.html#L292'>str_b</a>             292 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_b-&gt;hash(), str_c-&gt;hash());
+<a href='../S/15.html#L294'>str_b</a>             294 tests/ArrayTest.cpp   str_b-&gt;clear();
+<a href='../S/15.html#L295'>str_b</a>             295 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 1);
+<a href='../S/15.html#L296'>str_b</a>             296 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_b-&gt;hash());
+<a href='../S/15.html#L297'>str_b</a>             297 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 2);
+<a href='../S/15.html#L298'>str_b</a>             298 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() == str_b-&gt;hash());
+<a href='../S/15.html#L300'>str_b</a>             300 tests/ArrayTest.cpp   *str_b = *str_a;
+<a href='../S/15.html#L306'>str_b</a>             306 tests/ArrayTest.cpp   ht2["blahb"] = *str_b;
+<a href='../S/15.html#L317'>str_b</a>             317 tests/ArrayTest.cpp   ha1[*str_b] = 1;
+<a href='../S/15.html#L320'>str_b</a>             320 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(ha1[*str_b], ha2[*str_b]);
+<a href='../S/15.html#L321'>str_b</a>             321 tests/ArrayTest.cpp   CPPUNIT_ASSERT(ha1[*str_b] != ha2[*str_c]);
+<a href='../S/13.html#L50'>str_b</a>              50 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
 </pre>
 </body>
 </html>

@@ -1,17 +1,24 @@
 <html>
 <head>
-<title>charAt</title>
+<title>ch</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/46.html#L180'>charAt</a>            180 String.h               inline char charAt(int i) const { return at(i); };
-<a href='../S/19.html#L154'>charAt</a>            154 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('b', b-&gt;charAt(0));
-<a href='../S/19.html#L155'>charAt</a>            155 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('h', b-&gt;charAt(3));
-<a href='../S/19.html#L156'>charAt</a>            156 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((char) 0, b-&gt;charAt(4));
-<a href='../S/19.html#L157'>charAt</a>            157 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(cstring[5], d-&gt;charAt(5));
-<a href='../S/19.html#L158'>charAt</a>            158 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('x', g-&gt;charAt(0));
+<a href='../S/37.html#L115'>ch</a>                115 String.cpp       char ch;
+<a href='../S/37.html#L117'>ch</a>                117 String.cpp       is &gt;&gt; ch;    // whitespace skipped, first non-white char in ch
+<a href='../S/37.html#L123'>ch</a>                123 String.cpp           string += ch;
+<a href='../S/37.html#L124'>ch</a>                124 String.cpp           is.get(ch);
+<a href='../S/37.html#L125'>ch</a>                125 String.cpp         } while (!is.fail() &amp;&amp; !isspace(ch));
+<a href='../S/37.html#L127'>ch</a>                127 String.cpp         if (isspace(ch))    // put whitespace back on the stream
+<a href='../S/37.html#L129'>ch</a>                129 String.cpp           is.putback(ch);
+<a href='../S/37.html#L137'>ch</a>                137 String.cpp       char ch;
+<a href='../S/37.html#L140'>ch</a>                140 String.cpp       while (is.get(ch) &amp;&amp; ch != '\n')
+<a href='../S/37.html#L141'>ch</a>                141 String.cpp         string += ch;
+<a href='../S/46.html#L96'>ch</a>                 96 String.h               String(const char ch) : ReferenceCountedArray&lt;String_Array_Type&gt;() { append(ch); };
+<a href='../S/46.html#L337'>ch</a>                337 String.h       inline String&amp; String::operator += (const char ch) {
+<a href='../S/46.html#L338'>ch</a>                338 String.h         append(ch);
 </pre>
 </body>
 </html>

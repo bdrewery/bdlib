@@ -1,77 +1,45 @@
 <html>
 <head>
-<title>T</title>
+<title>StringTest</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/57.html#L39'>T</a>                  39 Array.h        template &lt;class T&gt;
-<a href='../S/57.html#L44'>T</a>                  44 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
-<a href='../S/57.html#L51'>T</a>                  51 Array.h            typedef T value_type;
-<a href='../S/39.html#L30'>T</a>                  30 Iterator.h     template &lt;typename T&gt;
-<a href='../S/39.html#L52'>T</a>                  52 Iterator.h         virtual T&amp; operator*() = 0;
-<a href='../S/39.html#L53'>T</a>                  53 Iterator.h         virtual T* operator-&gt;() { return &amp;(operator*()); };
-<a href='../S/33.html#L30'>T</a>                  30 List.h         template &lt;class T&gt;
-<a href='../S/33.html#L40'>T</a>                  40 List.h             typedef T iterator_type;
-<a href='../S/58.html#L32'>T</a>                  32 Queue.h        template &lt;class T&gt; class QueueIterator;
-<a href='../S/58.html#L33'>T</a>                  33 Queue.h        template &lt;class T&gt; class QueueConstIterator;
-<a href='../S/58.html#L35'>T</a>                  35 Queue.h        template &lt;class T&gt;
-<a href='../S/58.html#L40'>T</a>                  40 Queue.h        class Queue : public List&lt;T&gt; {
-<a href='../S/58.html#L41'>T</a>                  41 Queue.h          typedef typename List&lt;T&gt;::Node Node;
-<a href='../S/58.html#L44'>T</a>                  44 Queue.h            friend class QueueIterator&lt;T&gt;;
-<a href='../S/58.html#L45'>T</a>                  45 Queue.h            friend class QueueConstIterator&lt;T&gt;;
-<a href='../S/58.html#L47'>T</a>                  47 Queue.h            typedef QueueIterator&lt;T&gt; iterator;
-<a href='../S/58.html#L48'>T</a>                  48 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
-<a href='../S/58.html#L49'>T</a>                  49 Queue.h            typedef T value_type;
-<a href='../S/58.html#L110'>T</a>                 110 Queue.h        template &lt;class T&gt;
-<a href='../S/58.html#L112'>T</a>                 112 Queue.h          friend class Queue&lt;T&gt;;
-<a href='../S/58.html#L113'>T</a>                 113 Queue.h          friend class QueueConstIterator&lt;T&gt;;
-<a href='../S/58.html#L116'>T</a>                 116 Queue.h            typedef Queue&lt;T&gt; Queue_t;
-<a href='../S/58.html#L117'>T</a>                 117 Queue.h            typedef QueueIterator&lt;T&gt; iterator;
-<a href='../S/58.html#L118'>T</a>                 118 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
-<a href='../S/58.html#L121'>T</a>                 121 Queue.h            typedef T value_type;
-<a href='../S/58.html#L124'>T</a>                 124 Queue.h            typedef T&amp; reference;
-<a href='../S/58.html#L125'>T</a>                 125 Queue.h            typedef T* pointer;
-<a href='../S/58.html#L156'>T</a>                 156 Queue.h        template &lt;class T&gt;
-<a href='../S/58.html#L158'>T</a>                 158 Queue.h          friend class Queue&lt;T&gt;;
-<a href='../S/58.html#L159'>T</a>                 159 Queue.h          friend class QueueIterator&lt;T&gt;;
-<a href='../S/58.html#L162'>T</a>                 162 Queue.h            typedef Queue&lt;T&gt; Queue_t;
-<a href='../S/58.html#L163'>T</a>                 163 Queue.h            typedef QueueIterator&lt;T&gt; iterator;
-<a href='../S/58.html#L164'>T</a>                 164 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
-<a href='../S/58.html#L167'>T</a>                 167 Queue.h            typedef T value_type;
-<a href='../S/58.html#L170'>T</a>                 170 Queue.h            typedef const T&amp; reference;
-<a href='../S/58.html#L171'>T</a>                 171 Queue.h            typedef const T* pointer;
-<a href='../S/38.html#L34'>T</a>                  34 ReferenceCountedArray.h template &lt;class T&gt;
-<a href='../S/38.html#L45'>T</a>                  45 ReferenceCountedArray.h     mutable T* buf;
-<a href='../S/38.html#L62'>T</a>                  62 ReferenceCountedArray.h         T *newbuf = AllocBuf(size);
-<a href='../S/38.html#L87'>T</a>                  87 ReferenceCountedArray.h     inline T* AllocBuf(const size_t bytes) const {
-<a href='../S/38.html#L88'>T</a>                  88 ReferenceCountedArray.h       return new T[bytes];
-<a href='../S/38.html#L97'>T</a>                  97 ReferenceCountedArray.h     inline void FreeBuf(T* p) const {
-<a href='../S/38.html#L111'>T</a>                 111 ReferenceCountedArray.h template &lt;class T&gt;
-<a href='../S/38.html#L124'>T</a>                 124 ReferenceCountedArray.h     T&amp; rca;
-<a href='../S/38.html#L131'>T</a>                 131 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-<a href='../S/38.html#L138'>T</a>                 138 ReferenceCountedArray.h     inline operator T() const {
-<a href='../S/38.html#L139'>T</a>                 139 ReferenceCountedArray.h       T newArray(rca);
-<a href='../S/38.html#L145'>T</a>                 145 ReferenceCountedArray.h       (*this) = T(slice);
-<a href='../S/38.html#L152'>T</a>                 152 ReferenceCountedArray.h     inline Slice&amp; operator= (const T&amp; array) {
-<a href='../S/38.html#L159'>T</a>                 159 ReferenceCountedArray.h template &lt;class T&gt;
-<a href='../S/38.html#L166'>T</a>                 166 ReferenceCountedArray.h     typedef T value_type;
-<a href='../S/31.html#L31'>T</a>                  31 SortedList.h   template &lt;class T&gt;
-<a href='../S/31.html#L36'>T</a>                  36 SortedList.h   class SortedList : public List&lt;T&gt; {
-<a href='../S/31.html#L37'>T</a>                  37 SortedList.h     typedef T iterator_type;
-<a href='../S/40.html#L31'>T</a>                  31 Stack.h        template &lt;class T&gt;
-<a href='../S/40.html#L36'>T</a>                  36 Stack.h        class Stack : public List&lt;T&gt; {
-<a href='../S/40.html#L37'>T</a>                  37 Stack.h          typedef T iterator_type;
-<a href='../S/46.html#L46'>T</a>                  46 String.h       template &lt;class T&gt;
-<a href='../S/46.html#L287'>T</a>                 287 String.h       template&lt;typename T&gt;
-<a href='../S/1.html#L39'>T</a>                  39 hash.h         template&lt;typename T&gt;
-<a href='../S/1.html#L42'>T</a>                  42 hash.h         #define tr1_hashtable_define_trivial_hash(T)                                      \
-<a href='../S/1.html#L44'>T</a>                  44 hash.h           struct hash&lt;T&gt;                                                                  \
-<a href='../S/1.html#L46'>T</a>                  46 hash.h             inline size_t operator()(T val) const { return static_cast&lt;size_t&gt;(val); }    \
-<a href='../S/1.html#L72'>T</a>                  72 hash.h         template&lt;typename T&gt;
-<a href='../S/1.html#L73'>T</a>                  73 hash.h           struct hash&lt;T*&gt;
-<a href='../S/1.html#L75'>T</a>                  75 hash.h             inline size_t operator()(T* p) const { return reinterpret_cast&lt;size_t&gt;(p); }
+<a href='../S/19.html#L11'>StringTest</a>         11 tests/StringTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
+<a href='../S/19.html#L13'>StringTest</a>         13 tests/StringTest.cpp void StringTest :: setUp (void)
+<a href='../S/19.html#L27'>StringTest</a>         27 tests/StringTest.cpp void StringTest :: tearDown (void)
+<a href='../S/19.html#L34'>StringTest</a>         34 tests/StringTest.cpp void StringTest :: lengthTest (void)
+<a href='../S/19.html#L47'>StringTest</a>         47 tests/StringTest.cpp void StringTest :: clearTest (void)
+<a href='../S/19.html#L69'>StringTest</a>         69 tests/StringTest.cpp void StringTest :: capacityTest (void)
+<a href='../S/19.html#L80'>StringTest</a>         80 tests/StringTest.cpp void StringTest :: compareTest (void)
+<a href='../S/19.html#L90'>StringTest</a>         90 tests/StringTest.cpp void StringTest :: equalTest (void)
+<a href='../S/19.html#L108'>StringTest</a>        108 tests/StringTest.cpp void StringTest :: setTest (void)
+<a href='../S/19.html#L128'>StringTest</a>        128 tests/StringTest.cpp void StringTest :: c_strTest(void)
+<a href='../S/19.html#L143'>StringTest</a>        143 tests/StringTest.cpp void StringTest :: hasIndexTest(void)
+<a href='../S/19.html#L152'>StringTest</a>        152 tests/StringTest.cpp void StringTest :: charAtTest(void)
+<a href='../S/19.html#L161'>StringTest</a>        161 tests/StringTest.cpp void StringTest :: indexTest(void)
+<a href='../S/19.html#L191'>StringTest</a>        191 tests/StringTest.cpp void StringTest :: iteratorTest(void)
+<a href='../S/19.html#L208'>StringTest</a>        208 tests/StringTest.cpp void StringTest :: appendTest(void)
+<a href='../S/19.html#L244'>StringTest</a>        244 tests/StringTest.cpp void StringTest :: insertTest(void)
+<a href='../S/19.html#L262'>StringTest</a>        262 tests/StringTest.cpp void StringTest :: replaceTest(void)
+<a href='../S/19.html#L275'>StringTest</a>        275 tests/StringTest.cpp void StringTest :: chompTest(void)
+<a href='../S/19.html#L324'>StringTest</a>        324 tests/StringTest.cpp void StringTest :: trimTest(void)
+<a href='../S/19.html#L354'>StringTest</a>        354 tests/StringTest.cpp void StringTest :: findTest(void)
+<a href='../S/19.html#L369'>StringTest</a>        369 tests/StringTest.cpp void StringTest :: newsplitTest(void)
+<a href='../S/19.html#L419'>StringTest</a>        419 tests/StringTest.cpp void StringTest :: concatTest(void)
+<a href='../S/19.html#L431'>StringTest</a>        431 tests/StringTest.cpp void StringTest :: incDecTest(void)
+<a href='../S/19.html#L451'>StringTest</a>        451 tests/StringTest.cpp void StringTest :: incDecEqualTest(void)
+<a href='../S/19.html#L571'>StringTest</a>        571 tests/StringTest.cpp void StringTest :: operatorStarTest(void)
+<a href='../S/19.html#L582'>StringTest</a>        582 tests/StringTest.cpp void StringTest :: printfTest(void)
+<a href='../S/19.html#L604'>StringTest</a>        604 tests/StringTest.cpp void StringTest :: base64Test(void)
+<a href='../S/19.html#L706'>StringTest</a>        706 tests/StringTest.cpp void StringTest :: encryptTest(void)
+<a href='../S/19.html#L732'>StringTest</a>        732 tests/StringTest.cpp void StringTest :: encryptBase64Test(void)
+<a href='../S/19.html#L754'>StringTest</a>        754 tests/StringTest.cpp void StringTest :: substringTest(void)
+<a href='../S/19.html#L1022'>StringTest</a>       1022 tests/StringTest.cpp void StringTest :: splitTest(void)
+<a href='../S/19.html#L1117'>StringTest</a>       1117 tests/StringTest.cpp void StringTest :: hashTest(void)
+<a href='../S/11.html#L12'>StringTest</a>         12 tests/StringTest.h class StringTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/11.html#L14'>StringTest</a>         14 tests/StringTest.h     CPPUNIT_TEST_SUITE (StringTest);
 </pre>
 </body>
 </html>
