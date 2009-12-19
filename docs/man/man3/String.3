@@ -123,7 +123,7 @@ Inherits ReferenceCountedArray<String_Array_Type>.
 .br
 .RI "\fICompare our \fBString\fP object with another \fBString\fP object, but only n characters. \fP"
 .ti -1c
-.RI "Array< \fBString\fP > \fBsplit\fP (const \fBString\fP &, size_t limit=npos) const "
+.RI "\fBArray\fP< \fBString\fP > \fBsplit\fP (const \fBString\fP &, size_t limit=npos) const "
 .br
 .ti -1c
 .RI "void \fBappend\fP (const char *string, int n=-1)"
@@ -313,7 +313,7 @@ Inherits ReferenceCountedArray<String_Array_Type>.
 .ti -1c
 .RI "void \fBDetach\fP ()"
 .br
-.RI "\fIDetach from the reference This is called when the old buffer is no longer needed for this Array. ie, operator=() was called. \fP"
+.RI "\fIDetach from the reference This is called when the old buffer is no longer needed for this \fBArray\fP. ie, operator=() was called. \fP"
 .ti -1c
 .RI "void \fBCOW\fP (size_t n) const "
 .br
@@ -634,7 +634,7 @@ Free up our reference if we have the last one.
 .RS 4
 The reference counter is decremented. 
 .PP
-If this was the last Reference, it is free'd This is only called in ~Array() and operator=(Array&). It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it. 
+If this was the last Reference, it is free'd This is only called in ~Array() and operator=(Array&). It checks whether of not this \fBArray\fP was the last reference to the buffer, and if it was, it removes it. 
 .RE
 .PP
 
