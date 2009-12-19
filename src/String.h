@@ -47,7 +47,6 @@ template <class T>
 class Array;
 
 class String;
-class StringBuf;
 
 typedef char String_Array_Type;
 
@@ -72,7 +71,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
-	 * @post A StringBuf has been initialized.
 	 * @post The buffer has been filled with the string.
 	 * @test String test("Some string");
  	*/
@@ -83,7 +81,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @param cstring The null-terminated character array to create the object from.
 	 * @param slen The length of the given string to use.
 	 * @pre len > 0
-	 * @post A StringBuf has been initialized.
 	 * @post The buffer has been filled with the string (up to len characters).
 	 * @test String test("Some string");
          */
@@ -261,8 +258,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         //operator bool ();
 
 
-	virtual const String& operator= (const char*);
-        using ReferenceCountedArray<String_Array_Type>::operator=;
+        //using ReferenceCountedArray<String_Array_Type>::operator=;
 
         friend String operator + (const String&, const String&);
         friend bool operator == (const String&, const String&);

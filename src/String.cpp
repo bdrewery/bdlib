@@ -111,19 +111,6 @@ void String::replace(int k, const char *string, int n)
   setLength(newlen);
 }
 
-/**
- * @brief Sets our buffer to the given string.
- * @param string The string to set our buffer to.
- * @post The old buffer (if we had one) is free'd.
- * @post A sufficiently sized new buffer is made with the string within.
- * @return The new string object.
- */
-const String &String::operator=(const char *string) {
-  Detach();
-  append(string);
-  return *this;
-}
-
 std::istream& operator >> (std::istream& is, String &string) {
   char ch;
   string = "";    // empty string, will build one char at-a-time

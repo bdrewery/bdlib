@@ -33,7 +33,7 @@
 BDLIB_NS_BEGIN
 template <class T>
 /**
- * @class StringBuf
+ * @class ArrayRef
  * @brief Helps the String class with reference counting
  * @todo look into something like a string object made of string pointers, and << displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the << stream
  */
@@ -172,7 +172,7 @@ class ReferenceCountedArray {
     typedef value_type&        reference;
     typedef const value_type&  const_reference;
 
-  protected:
+  private:
     /**
      * @brief Detach from the shared reference.
      * This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used)
@@ -184,7 +184,17 @@ class ReferenceCountedArray {
       sublen = 0;
       offset = 0;
     }
+    /**
+     * @brief Increment our reference counter.
+     */
+    inline uint8_t incRef() const { return ++Ref->n; };
 
+    /**
+     * @brief Decrement our reference counter.
+     */
+    inline uint8_t decRef() const { return --Ref->n; };
+
+  protected:
     /**
      * @brief Set the lengths to the specified length
      * @param newLen the new length to set to
@@ -215,28 +225,13 @@ class ReferenceCountedArray {
      * @brief Ref->buf reference for use internally
      */
     inline const_pointer constBuf(int i = 0) const { return Buf(i); };
-
-    /**
-     * @brief Increment our reference counter.
-     */
-    inline uint8_t incRef() const { return ++Ref->n; };
-
-    /**
-     * @brief Decrement our reference counter.
-     */
-    inline uint8_t decRef() const { return --Ref->n; };
-
-    /**
-     * @return True if this string is shared; false if not.
-     */
-    inline bool isShared() const { return Ref->isShared(); };
-  protected:
+  private:
     /**
      * @brief The array reference for reference counting
      * This is mutable so that Ref->n can be modified, which really is mutable
      */
     mutable ArrayRef<value_type> *Ref;
-
+  protected:
     /**
      * This is for subarrays: so we know where the subarray starts.
      */
@@ -246,18 +241,7 @@ class ReferenceCountedArray {
      */
     mutable size_t sublen;
 
-    /**
-     * @brief Free up our reference if we have the last one.
-     * @post The reference counter is decremented.
-     * @post If this was the last Reference, it is free'd
-     * This is only called in ~Array() and operator=(Array&).
-     * It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it.
-     */
-    inline void CheckDeallocRef() {
-      if (decRef() < 1)
-        delete Ref;
-    }
-
+  private:
     /**
      * @brief Detach from the reference
      * This is called when the old buffer is no longer needed for this Array.
@@ -270,6 +254,18 @@ class ReferenceCountedArray {
         setLength(0);
         offset = 0;
       }
+    }
+
+    /**
+     * @brief Free up our reference if we have the last one.
+     * @post The reference counter is decremented.
+     * @post If this was the last Reference, it is free'd
+     * This is only called in ~Array() and operator=(Array&).
+     * It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it.
+     */
+    inline void CheckDeallocRef() {
+      if (decRef() < 1)
+        delete Ref;
     }
 
     //    void COW(size_t) const;
@@ -296,6 +292,8 @@ class ReferenceCountedArray {
       setLength(oldLength);
     }
 
+  protected:
+    inline void getOwnCopy() const { AboutToModify(capacity()); };
     inline void AboutToModify(size_t n) const {
       if (isShared())
         COW(n); // Clears the offset
@@ -304,7 +302,6 @@ class ReferenceCountedArray {
         /* Shift the offset away */
       }
     }
-    inline void getOwnCopy() const { AboutToModify(capacity()); };
   public:
     ReferenceCountedArray() : Ref(new ArrayRef<value_type>()), offset(0), sublen(0) {};
     ReferenceCountedArray(const ReferenceCountedArray& rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen) { incRef(); };
@@ -360,7 +357,15 @@ class ReferenceCountedArray {
       return *this;
     }
 
+    /*
+     * @brief How many references does this object have?
+     */
     inline size_t rcount() const { return Ref->n; };
+    /**
+     * @return True if this object is shared; false if not.
+     */
+    inline bool isShared() const { return Ref->isShared(); };
+
 
     /**
      * @sa ArrayRef::Reserve()
