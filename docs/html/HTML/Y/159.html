@@ -1,15 +1,15 @@
 <html>
 <head>
-<title>constBuf</title>
+<title>constString</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/38.html#L217'>constBuf</a>          217 ReferenceCountedArray.h     inline const_pointer constBuf(int i = 0) const { return Buf(i); };
-<a href='../S/38.html#L289'>constBuf</a>          289 ReferenceCountedArray.h       const_pointer oldBuf = constBuf();
-<a href='../S/38.html#L410'>constBuf</a>          410 ReferenceCountedArray.h     inline const_pointer data() const { return constBuf(); }
-<a href='../S/38.html#L444'>constBuf</a>          444 ReferenceCountedArray.h     inline value_type read(int i) const { return *(constBuf(i)); };
+<a href='../S/19.html#L865'>constString</a>       865 tests/StringTest.cpp   const String constString("THIS CANNOT BE MODIFIED");
+<a href='../S/19.html#L866'>constString</a>       866 tests/StringTest.cpp   *a = constString(0, 4);
+<a href='../S/19.html#L868'>constString</a>       868 tests/StringTest.cpp   constString(0, 4) = "blah"; //Returns a new string
+<a href='../S/19.html#L870'>constString</a>       870 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
 </pre>
 </body>
 </html>

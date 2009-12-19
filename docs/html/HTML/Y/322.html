@@ -1,21 +1,22 @@
 <html>
 <head>
-<title>newlen</title>
+<title>newpos</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/38.html#L650'>newlen</a>            650 ReferenceCountedArray.h       size_t newlen = k + slen;
-<a href='../S/38.html#L652'>newlen</a>            652 ReferenceCountedArray.h       if (newlen &gt;= length()) {
-<a href='../S/38.html#L653'>newlen</a>            653 ReferenceCountedArray.h         AboutToModify(newlen);
-<a href='../S/38.html#L655'>newlen</a>            655 ReferenceCountedArray.h         newlen = length();
-<a href='../S/38.html#L659'>newlen</a>            659 ReferenceCountedArray.h       setLength(newlen);
-<a href='../S/37.html#L102'>newlen</a>            102 String.cpp       size_t newlen = k + slen;
-<a href='../S/37.html#L104'>newlen</a>            104 String.cpp       if (newlen &gt;= length()) {
-<a href='../S/37.html#L105'>newlen</a>            105 String.cpp         AboutToModify(newlen);
-<a href='../S/37.html#L107'>newlen</a>            107 String.cpp         newlen = length();
-<a href='../S/37.html#L111'>newlen</a>            111 String.cpp       setLength(newlen);
+<a href='../S/35.html#L30'>newpos</a>             30 Stream.cpp       int newpos;
+<a href='../S/35.html#L34'>newpos</a>             34 Stream.cpp           newpos = offset;
+<a href='../S/35.html#L37'>newpos</a>             37 Stream.cpp           newpos = tell() + offset;
+<a href='../S/35.html#L40'>newpos</a>             40 Stream.cpp           newpos = capacity() - offset;
+<a href='../S/35.html#L43'>newpos</a>             43 Stream.cpp           newpos = tell();
+<a href='../S/35.html#L45'>newpos</a>             45 Stream.cpp       if (newpos &lt; 0)
+<a href='../S/35.html#L46'>newpos</a>             46 Stream.cpp         newpos = 0;
+<a href='../S/35.html#L47'>newpos</a>             47 Stream.cpp       else if ((unsigned) newpos &gt; capacity())
+<a href='../S/35.html#L48'>newpos</a>             48 Stream.cpp         newpos = capacity();
+<a href='../S/35.html#L49'>newpos</a>             49 Stream.cpp       pos = newpos;
+<a href='../S/35.html#L51'>newpos</a>             51 Stream.cpp       return newpos;
 </pre>
 </body>
 </html>

@@ -1,20 +1,15 @@
 <html>
 <head>
-<title>b64_charset</title>
+<title>b64_indexes</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/45.html#L35'>b64_charset</a>        35 base64.c       static const char b64_charset[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";;
-<a href='../S/45.html#L84'>b64_charset</a>        84 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
-<a href='../S/45.html#L86'>b64_charset</a>        86 base64.c           buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
-<a href='../S/45.html#L88'>b64_charset</a>        88 base64.c           buf[2] = b64_charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
-<a href='../S/45.html#L90'>b64_charset</a>        90 base64.c           buf[3] = b64_charset[data[2] &amp; 0x3f];
-<a href='../S/45.html#L99'>b64_charset</a>        99 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
-<a href='../S/45.html#L101'>b64_charset</a>       101 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
-<a href='../S/45.html#L105'>b64_charset</a>       105 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
-<a href='../S/45.html#L106'>b64_charset</a>       106 base64.c             buf[2] = b64_charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
+<a href='../S/45.html#L36'>b64_indexes</a>        36 base64.c       static const signed char b64_indexes[256] = {
+<a href='../S/45.html#L142'>b64_indexes</a>       142 base64.c           *buf++ = (b64_indexes[data[0]] &lt;&lt; 2) + ((b64_indexes[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/45.html#L145'>b64_indexes</a>       145 base64.c             *buf++ = ((b64_indexes[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((b64_indexes[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/45.html#L148'>b64_indexes</a>       148 base64.c               *buf++ = ((b64_indexes[data[2]] &amp; 0x03) &lt;&lt; 6) + b64_indexes[data[3]];
 </pre>
 </body>
 </html>

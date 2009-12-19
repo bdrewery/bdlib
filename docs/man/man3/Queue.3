@@ -16,77 +16,63 @@ Inherits \fBList< T >\fP.
 
 .in +1c
 .ti -1c
-.RI "typedef QueueIterator< T > \fBiterator\fP"
-.br
-.ti -1c
 .RI "typedef QueueConstIterator< T > \fBconst_iterator\fP"
-.br
-.ti -1c
-.RI "typedef T \fBvalue_type\fP"
-.br
-.ti -1c
-.RI "typedef size_t \fBsize_type\fP"
-.br
-.ti -1c
-.RI "typedef ptrdiff_t \fBdifference_type\fP"
-.br
-.ti -1c
-.RI "typedef value_type * \fBpointer\fP"
 .br
 .ti -1c
 .RI "typedef const value_type * \fBconst_pointer\fP"
 .br
 .ti -1c
-.RI "typedef value_type & \fBreference\fP"
-.br
-.ti -1c
 .RI "typedef const value_type & \fBconst_reference\fP"
 .br
 .ti -1c
+.RI "typedef ptrdiff_t \fBdifference_type\fP"
+.br
+.ti -1c
+.RI "typedef QueueIterator< T > \fBiterator\fP"
+.br
+.ti -1c
 .RI "typedef T \fBiterator_type\fP"
+.br
+.ti -1c
+.RI "typedef value_type * \fBpointer\fP"
+.br
+.ti -1c
+.RI "typedef value_type & \fBreference\fP"
+.br
+.ti -1c
+.RI "typedef size_t \fBsize_type\fP"
+.br
+.ti -1c
+.RI "typedef T \fBvalue_type\fP"
 .br
 .in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "value_type \fBdequeue\fP ()"
-.br
-.RI "\fIDequeue an element from the tail. \fP"
-.ti -1c
-.RI "const_iterator \fBfront\fP ()"
-.br
-.RI "\fIReturn the first element, but don't dequeue it. \fP"
-.ti -1c
-.RI "void \fBenqueue\fP (const_reference item)"
+.RI "const_iterator \fBbegin\fP () const "
 .br
 .ti -1c
 .RI "iterator \fBbegin\fP ()"
 .br
 .ti -1c
-.RI "iterator \fBend\fP ()"
+.RI "void \fBclear\fP ()"
 .br
 .ti -1c
-.RI "const_iterator \fBbegin\fP () const "
+.RI "bool \fBcontains\fP (const iterator_type &ptr) const"
 .br
+.ti -1c
+.RI "value_type \fBdequeue\fP ()"
+.br
+.RI "\fIDequeue an element from the tail. \fP"
 .ti -1c
 .RI "const_iterator \fBend\fP () const "
 .br
 .ti -1c
-.RI "void \fBclear\fP ()"
+.RI "iterator \fBend\fP ()"
 .br
 .ti -1c
-.RI "size_t \fBsize\fP () const"
-.br
-.ti -1c
-.RI "bool \fBisEmpty\fP () const"
-.br
-.ti -1c
-.RI "void \fBinsert\fP (const iterator_type &ptr)"
-.br
-.RI "\fIInsert into the list at the head. \fP"
-.ti -1c
-.RI "bool \fBcontains\fP (const iterator_type &ptr) const"
+.RI "void \fBenqueue\fP (const_reference item)"
 .br
 .ti -1c
 .RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const"
@@ -96,7 +82,21 @@ Inherits \fBList< T >\fP.
 .br
 .RI "\fIReturn a reference to the found element. \fP"
 .ti -1c
+.RI "const_iterator \fBfront\fP ()"
+.br
+.RI "\fIReturn the first element, but don't dequeue it. \fP"
+.ti -1c
+.RI "void \fBinsert\fP (const iterator_type &ptr)"
+.br
+.RI "\fIInsert into the list at the head. \fP"
+.ti -1c
+.RI "bool \fBisEmpty\fP () const"
+.br
+.ti -1c
 .RI "bool \fBremove\fP (const iterator_type &ptr)"
+.br
+.ti -1c
+.RI "size_t \fBsize\fP () const"
 .br
 .in -1c
 .SS "Protected Member Functions"
@@ -113,29 +113,29 @@ Inherits \fBList< T >\fP.
 .RI "Node * \fBhead\fP"
 .br
 .ti -1c
-.RI "Node * \fBtail\fP"
+.RI "size_t \fBmy_size\fP"
 .br
 .ti -1c
-.RI "size_t \fBmy_size\fP"
+.RI "Node * \fBtail\fP"
 .br
 .in -1c
 .SS "Friends"
 
 .in +1c
 .ti -1c
-.RI "class \fBQueueIterator< T >\fP"
-.br
-.ti -1c
-.RI "class \fBQueueConstIterator< T >\fP"
-.br
-.ti -1c
-.RI "\fBQueue\fP< value_type > & \fBoperator>>\fP (\fBQueue\fP< value_type > &queue, reference item)"
+.RI "\fBList\fP< iterator_type > & \fBoperator<<\fP (\fBList\fP< iterator_type > &list, const iterator_type &item)"
 .br
 .ti -1c
 .RI "\fBQueue\fP< value_type > & \fBoperator<<\fP (\fBQueue\fP< value_type > &queue, const_reference item)"
 .br
 .ti -1c
-.RI "\fBList\fP< iterator_type > & \fBoperator<<\fP (\fBList\fP< iterator_type > &list, const iterator_type &item)"
+.RI "\fBQueue\fP< value_type > & \fBoperator>>\fP (\fBQueue\fP< value_type > &queue, reference item)"
+.br
+.ti -1c
+.RI "class \fBQueueConstIterator< T >\fP"
+.br
+.ti -1c
+.RI "class \fBQueueIterator< T >\fP"
 .br
 .in -1c
 .SH "Detailed Description"

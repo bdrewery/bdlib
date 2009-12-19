@@ -23,20 +23,16 @@ Inherits \fBList< T >\fP.
 
 .in +1c
 .ti -1c
-.RI "virtual void \fBinsert\fP (const iterator_type &ptr)"
+.RI "iterator \fBbegin\fP ()"
 .br
-.RI "\fIInsert an element into the list (ordered). \fP"
 .ti -1c
 .RI "void \fBclear\fP ()"
 .br
 .ti -1c
-.RI "size_t \fBsize\fP () const"
-.br
-.ti -1c
-.RI "bool \fBisEmpty\fP () const"
-.br
-.ti -1c
 .RI "bool \fBcontains\fP (const iterator_type &ptr) const"
+.br
+.ti -1c
+.RI "iterator \fBend\fP ()"
 .br
 .ti -1c
 .RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const"
@@ -46,13 +42,17 @@ Inherits \fBList< T >\fP.
 .br
 .RI "\fIReturn a reference to the found element. \fP"
 .ti -1c
+.RI "virtual void \fBinsert\fP (const iterator_type &ptr)"
+.br
+.RI "\fIInsert an element into the list (ordered). \fP"
+.ti -1c
+.RI "bool \fBisEmpty\fP () const"
+.br
+.ti -1c
 .RI "bool \fBremove\fP (const iterator_type &ptr)"
 .br
 .ti -1c
-.RI "iterator \fBbegin\fP ()"
-.br
-.ti -1c
-.RI "iterator \fBend\fP ()"
+.RI "size_t \fBsize\fP () const"
 .br
 .in -1c
 .SS "Protected Member Functions"
@@ -69,10 +69,10 @@ Inherits \fBList< T >\fP.
 .RI "Node * \fBhead\fP"
 .br
 .ti -1c
-.RI "Node * \fBtail\fP"
+.RI "size_t \fBmy_size\fP"
 .br
 .ti -1c
-.RI "size_t \fBmy_size\fP"
+.RI "Node * \fBtail\fP"
 .br
 .in -1c
 .SS "Friends"

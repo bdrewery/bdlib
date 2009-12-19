@@ -38,15 +38,15 @@
 <a name='L25'>  25 
 <a name='L26'>  26 <font color='darkred'>#include</font> "<a href='42.html'>bdlib.h</a>"
 <a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#if</font> !<b>defined</b>(<a href='../Y/98.html' title='Multiple used in 8 places.'>USE_PTHREAD</a>) &amp;&amp; !<b>defined</b>(<a href='../Y/100.html' title='Multiple used in 9 places.'>WIN32</a>)
+<a name='L28'>  28 <font color='darkred'>#if</font> !<b>defined</b>(<a href='../Y/97.html' title='Multiple used in 8 places.'>USE_PTHREAD</a>) &amp;&amp; !<b>defined</b>(<a href='../Y/99.html' title='Multiple used in 9 places.'>WIN32</a>)
 <a name='L29'>  29 <font color='darkred'># define</font> <a href='../R/14.html' title='Multiple refered from 5 places.'>NO_THREADS</a> 1
 <a name='L30'>  30 <font color='darkred'>#endif</font>
 <a name='L31'>  31 
-<a name='L32'>  32 <font color='darkred'>#if</font> <b>defined</b>(<a href='../Y/98.html' title='Multiple used in 8 places.'>USE_PTHREAD</a>)
+<a name='L32'>  32 <font color='darkred'>#if</font> <b>defined</b>(<a href='../Y/97.html' title='Multiple used in 8 places.'>USE_PTHREAD</a>)
 <a name='L33'>  33 <font color='darkred'># include</font> &lt;pthread.h&gt;
 <a name='L34'>  34 <b>typedef</b> <b>void</b>* <a href='../R/156.html' title='Multiple refered from 4 places.'>threadMainRet_t</a>;
 <a name='L35'>  35 <b>typedef</b> pthread_t <a href='../S/26.html#L60' title='Refered from 60 in Thread.h.'>threadHandle_t</a>;
-<a name='L36'>  36 <font color='darkred'>#elif</font> <b>defined</b>(<a href='../Y/100.html' title='Multiple used in 9 places.'>WIN32</a>)
+<a name='L36'>  36 <font color='darkred'>#elif</font> <b>defined</b>(<a href='../Y/99.html' title='Multiple used in 9 places.'>WIN32</a>)
 <a name='L37'>  37 <font color='darkred'># include</font> &lt;windows.h&gt;
 <a name='L38'>  38 <b>typedef</b> <b>unsigned</b> <b>int</b> __stdcall <a href='../R/156.html' title='Multiple refered from 4 places.'>threadMainRet_t</a>;
 <a name='L39'>  39 <b>typedef</b> <a href='../Y/38.html' title='Multiple used in 2 places.'>HANDLE</a> <a href='../S/26.html#L60' title='Refered from 60 in Thread.h.'>threadHandle_t</a>;
@@ -68,17 +68,17 @@
 <a name='L55'>  55 <i><font color='green'>  * @class Thread</font></i>
 <a name='L56'>  56 <i><font color='green'>  * @brief Extendable thread class</font></i>
 <a name='L57'>  57 <i><font color='green'>  */</font></i>
-<a name='L58'>  58 <a href='../Y/155.html' title='Multiple used in 67 places.'>class</a> <a href='../Y/97.html' title='Multiple used in 11 places.'>Thread</a> <font color='red'>{</font>
-<a name='L59'>  59   <a href='../Y/351.html' title='Multiple used in 27 places.'>private</a>:
-<a name='L60'>  60     <a href='../D/187.html' title='Multiple defined in 3 places.'>threadHandle_t</a> <a href='../Y/241.html' title='Multiple used in 15 places.'>handle</a>;
-<a name='L61'>  61     <a href='../S/26.html#L45' title='Defined at 45 in Thread.h.'>threadId_t</a> <a href='../Y/247.html' title='Multiple used in 4 places.'>id</a>;
-<a name='L62'>  62     <b>short</b> <a href='../Y/419.html' title='Multiple used in 7 places.'>status</a>;
-<a name='L63'>  63     <b>void</b>* <a href='../Y/344.html' title='Multiple used in 4 places.'>param</a>;
+<a name='L58'>  58 <a href='../Y/154.html' title='Multiple used in 66 places.'>class</a> <a href='../Y/96.html' title='Multiple used in 11 places.'>Thread</a> <font color='red'>{</font>
+<a name='L59'>  59   <a href='../Y/350.html' title='Multiple used in 30 places.'>private</a>:
+<a name='L60'>  60     <a href='../D/187.html' title='Multiple defined in 3 places.'>threadHandle_t</a> <a href='../Y/240.html' title='Multiple used in 15 places.'>handle</a>;
+<a name='L61'>  61     <a href='../S/26.html#L45' title='Defined at 45 in Thread.h.'>threadId_t</a> <a href='../Y/246.html' title='Multiple used in 4 places.'>id</a>;
+<a name='L62'>  62     <b>short</b> <a href='../Y/418.html' title='Multiple used in 7 places.'>status</a>;
+<a name='L63'>  63     <b>void</b>* <a href='../Y/343.html' title='Multiple used in 4 places.'>param</a>;
 <a name='L64'>  64 
-<a name='L65'>  65   <a href='../Y/227.html' title='Multiple used in 30 places.'>friend</a> <a href='../D/190.html' title='Multiple defined in 3 places.'>threadMainRet_t</a> <a href='../S/56.html#L41' title='Defined at 41 in Thread.cpp.'>threadMain</a>(<b>void</b>*);
-<a name='L66'>  66   <a href='../Y/365.html' title='Multiple used in 61 places.'>public</a>:
-<a name='L67'>  67     <a href='../Y/97.html' title='Multiple used in 11 places.'>Thread</a>(<b>void</b>) : <a href='../Y/241.html' title='Multiple used in 15 places.'>handle</a>(0), <a href='../Y/247.html' title='Multiple used in 4 places.'>id</a>(0), <a href='../Y/419.html' title='Multiple used in 7 places.'>status</a>(0), <a href='../Y/344.html' title='Multiple used in 4 places.'>param</a>(<a href='../Y/60.html' title='Multiple used in 52 places.'>NULL</a>) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L68'>  68     <a href='../Y/489.html' title='Multiple used in 54 places.'>virtual</a> ~<a href='../Y/97.html' title='Multiple used in 11 places.'>Thread</a>() <font color='red'>{</font> <a href='../S/56.html#L107' title='Defined at 107 in Thread.cpp.'>stop</a>(); <font color='red'>}</font>;
+<a name='L65'>  65   <a href='../Y/226.html' title='Multiple used in 30 places.'>friend</a> <a href='../D/190.html' title='Multiple defined in 3 places.'>threadMainRet_t</a> <a href='../S/56.html#L41' title='Defined at 41 in Thread.cpp.'>threadMain</a>(<b>void</b>*);
+<a name='L66'>  66   <a href='../Y/364.html' title='Multiple used in 61 places.'>public</a>:
+<a name='L67'>  67     <a href='../Y/96.html' title='Multiple used in 11 places.'>Thread</a>(<b>void</b>) : <a href='../Y/240.html' title='Multiple used in 15 places.'>handle</a>(0), <a href='../Y/246.html' title='Multiple used in 4 places.'>id</a>(0), <a href='../Y/418.html' title='Multiple used in 7 places.'>status</a>(0), <a href='../Y/343.html' title='Multiple used in 4 places.'>param</a>(<a href='../Y/60.html' title='Multiple used in 52 places.'>NULL</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L68'>  68     <a href='../Y/488.html' title='Multiple used in 53 places.'>virtual</a> ~<a href='../Y/96.html' title='Multiple used in 11 places.'>Thread</a>() <font color='red'>{</font> <a href='../S/56.html#L107' title='Defined at 107 in Thread.cpp.'>stop</a>(); <font color='red'>}</font>;
 <a name='L69'>  69     <b>int</b> <a href='../S/56.html#L46' title='Defined at 46 in Thread.cpp.'>start</a>(<b>void</b>* = <a href='../Y/60.html' title='Multiple used in 52 places.'>NULL</a>);
 <a name='L70'>  70     <b>void</b> <a href='../S/56.html#L78' title='Defined at 78 in Thread.cpp.'>detach</a>(<b>void</b>);
 <a name='L71'>  71     <b>void</b>* <a href='../S/56.html#L91' title='Defined at 91 in Thread.cpp.'>wait</a>(<b>void</b>);
@@ -86,19 +86,19 @@
 <a name='L73'>  73     <a href='../S/26.html#L45' title='Defined at 45 in Thread.h.'>threadId_t</a> <a href='../S/56.html#L120' title='Defined at 120 in Thread.cpp.'>getThreadId</a>(<b>void</b>);
 <a name='L74'>  74     <b>static</b> <a href='../S/26.html#L45' title='Defined at 45 in Thread.h.'>threadId_t</a> <a href='../S/56.html#L124' title='Defined at 124 in Thread.cpp.'>getCurrentThreadId</a>(<b>void</b>);
 <a name='L75'>  75     <b>static</b> <b>void</b> <a href='../S/56.html#L132' title='Defined at 132 in Thread.cpp.'>sleep</a>(<b>int</b>);
-<a name='L76'>  76   <a href='../Y/352.html' title='Multiple used in 14 places.'>protected</a>: 
-<a name='L77'>  77     <a href='../Y/489.html' title='Multiple used in 54 places.'>virtual</a> <b>void</b>* <a href='../Y/383.html' title='Multiple used in 2 places.'>run</a>(<b>void</b>*)=0;
-<a name='L78'>  78   <a href='../Y/351.html' title='Multiple used in 27 places.'>private</a>:
-<a name='L79'>  79     <b>inline</b> <a href='../Y/137.html' title='Multiple used in 66 places.'>bool</a> <a href='../Y/265.html' title='Multiple used in 3 places.'>isStarted</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/419.html' title='Multiple used in 7 places.'>status</a> &amp; <a href='../S/26.html#L49' title='Defined at 49 in Thread.h.'>THREAD_STARTED</a>; <font color='red'>}</font>;
-<a name='L80'>  80     <b>inline</b> <b>void</b> <a href='../Y/398.html' title='Multiple used in 4 places.'>setStarted</a>() <font color='red'>{</font> <a href='../Y/419.html' title='Multiple used in 7 places.'>status</a> |= <a href='../S/26.html#L49' title='Defined at 49 in Thread.h.'>THREAD_STARTED</a>; <font color='red'>}</font>;
-<a name='L81'>  81     <b>inline</b> <a href='../Y/137.html' title='Multiple used in 66 places.'>bool</a> <a href='../Y/262.html' title='Multiple used in 3 places.'>isDetached</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/419.html' title='Multiple used in 7 places.'>status</a> &amp; <a href='../S/26.html#L50' title='Defined at 50 in Thread.h.'>THREAD_DETACHED</a>; <font color='red'>}</font>;
-<a name='L82'>  82     <b>inline</b> <b>void</b> <a href='../Y/395.html' title='Multiple used in 4 places.'>setDetached</a>() <font color='red'>{</font> <a href='../Y/419.html' title='Multiple used in 7 places.'>status</a> |= <a href='../S/26.html#L50' title='Defined at 50 in Thread.h.'>THREAD_DETACHED</a>; <font color='red'>}</font>;
+<a name='L76'>  76   <a href='../Y/351.html' title='Multiple used in 15 places.'>protected</a>: 
+<a name='L77'>  77     <a href='../Y/488.html' title='Multiple used in 53 places.'>virtual</a> <b>void</b>* <a href='../Y/382.html' title='Multiple used in 2 places.'>run</a>(<b>void</b>*)=0;
+<a name='L78'>  78   <a href='../Y/350.html' title='Multiple used in 30 places.'>private</a>:
+<a name='L79'>  79     <b>inline</b> <a href='../Y/136.html' title='Multiple used in 66 places.'>bool</a> <a href='../Y/264.html' title='Multiple used in 3 places.'>isStarted</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/418.html' title='Multiple used in 7 places.'>status</a> &amp; <a href='../S/26.html#L49' title='Defined at 49 in Thread.h.'>THREAD_STARTED</a>; <font color='red'>}</font>;
+<a name='L80'>  80     <b>inline</b> <b>void</b> <a href='../Y/397.html' title='Multiple used in 4 places.'>setStarted</a>() <font color='red'>{</font> <a href='../Y/418.html' title='Multiple used in 7 places.'>status</a> |= <a href='../S/26.html#L49' title='Defined at 49 in Thread.h.'>THREAD_STARTED</a>; <font color='red'>}</font>;
+<a name='L81'>  81     <b>inline</b> <a href='../Y/136.html' title='Multiple used in 66 places.'>bool</a> <a href='../Y/261.html' title='Multiple used in 3 places.'>isDetached</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/418.html' title='Multiple used in 7 places.'>status</a> &amp; <a href='../S/26.html#L50' title='Defined at 50 in Thread.h.'>THREAD_DETACHED</a>; <font color='red'>}</font>;
+<a name='L82'>  82     <b>inline</b> <b>void</b> <a href='../Y/394.html' title='Multiple used in 4 places.'>setDetached</a>() <font color='red'>{</font> <a href='../Y/418.html' title='Multiple used in 7 places.'>status</a> |= <a href='../S/26.html#L50' title='Defined at 50 in Thread.h.'>THREAD_DETACHED</a>; <font color='red'>}</font>;
 <a name='L83'>  83     <i><font color='green'>/**</font></i>
 <a name='L84'>  84 <i><font color='green'>     * @brief Is the thread started and not detached?</font></i>
 <a name='L85'>  85 <i><font color='green'>     * If status == THREAD_STARTED (1), then the THREAD_DETACHED bit is not set, </font></i>
 <a name='L86'>  86 <i><font color='green'>     * so this is equivalent to: isStarted() &amp;&amp; !isDetached()</font></i>
 <a name='L87'>  87 <i><font color='green'>     */</font></i>
-<a name='L88'>  88     <b>inline</b> <a href='../Y/137.html' title='Multiple used in 66 places.'>bool</a> <a href='../Y/399.html' title='Multiple used in 4 places.'>shouldDetach</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/419.html' title='Multiple used in 7 places.'>status</a> == <a href='../S/26.html#L49' title='Defined at 49 in Thread.h.'>THREAD_STARTED</a>; <font color='red'>}</font>;
+<a name='L88'>  88     <b>inline</b> <a href='../Y/136.html' title='Multiple used in 66 places.'>bool</a> <a href='../Y/398.html' title='Multiple used in 4 places.'>shouldDetach</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/418.html' title='Multiple used in 7 places.'>status</a> == <a href='../S/26.html#L49' title='Defined at 49 in Thread.h.'>THREAD_STARTED</a>; <font color='red'>}</font>;
 <a name='L89'>  89 <font color='red'>}</font>;
 <a name='L90'>  90 
 <a name='L91'>  91 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_END</a>

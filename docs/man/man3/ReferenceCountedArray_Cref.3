@@ -17,13 +17,13 @@ ReferenceCountedArray::Cref \- Safe element reading and writing.
 .RI "\fBCref\fP (const \fBCref\fP &cref)"
 .br
 .ti -1c
-.RI "\fBCref\fP & \fBoperator=\fP (const \fBCref\fP &cref)"
-.br
-.ti -1c
 .RI "\fBoperator value_type\fP () const "
 .br
 .ti -1c
 .RI "\fBCref\fP & \fBoperator=\fP (value_type c)"
+.br
+.ti -1c
+.RI "\fBCref\fP & \fBoperator=\fP (const \fBCref\fP &cref)"
 .br
 .in -1c
 .SS "Friends"
@@ -46,7 +46,7 @@ This should not provide copy constructors for \fBCref\fP, they shouldn't be need
 .PP
 
 .PP
-Definition at line 467 of file ReferenceCountedArray.h.
+Definition at line 472 of file ReferenceCountedArray.h.
 .SH "Member Function Documentation"
 .PP 
 .SS "template<class T> ReferenceCountedArray< T >::ReferenceCountedArray::Cref::operator value_type () const\fC [inline]\fP"
@@ -58,12 +58,12 @@ ReferenceCountedArray::operator[]
 .PP
 
 .PP
-Definition at line 490 of file ReferenceCountedArray.h.
+Definition at line 495 of file ReferenceCountedArray.h.
 .SS "template<class T> \fBCref\fP& ReferenceCountedArray< T >::ReferenceCountedArray::Cref::operator= (value_type c)\fC [inline]\fP"
 .PP
 Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b'; 
 .PP
-Definition at line 495 of file ReferenceCountedArray.h.
+Definition at line 500 of file ReferenceCountedArray.h.
 
 .SH "Author"
 .PP 

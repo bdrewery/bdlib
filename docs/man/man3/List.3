@@ -34,26 +34,16 @@ List \- \fBList\fP data structure.
 
 .in +1c
 .ti -1c
-.RI "\fBList\fP (const \fBList\fP &list)"
-.br
-.ti -1c
-.RI "\fBList\fP & \fBoperator=\fP (const \fBList\fP &list)"
+.RI "iterator \fBbegin\fP ()"
 .br
 .ti -1c
 .RI "void \fBclear\fP ()"
 .br
 .ti -1c
-.RI "size_t \fBsize\fP () const "
-.br
-.ti -1c
-.RI "bool \fBisEmpty\fP () const "
-.br
-.ti -1c
-.RI "void \fBinsert\fP (const iterator_type &ptr)"
-.br
-.RI "\fIInsert into the list at the head. \fP"
-.ti -1c
 .RI "bool \fBcontains\fP (const iterator_type &ptr) const "
+.br
+.ti -1c
+.RI "iterator \fBend\fP ()"
 .br
 .ti -1c
 .RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const "
@@ -63,13 +53,23 @@ List \- \fBList\fP data structure.
 .br
 .RI "\fIReturn a reference to the found element. \fP"
 .ti -1c
+.RI "void \fBinsert\fP (const iterator_type &ptr)"
+.br
+.RI "\fIInsert into the list at the head. \fP"
+.ti -1c
+.RI "bool \fBisEmpty\fP () const "
+.br
+.ti -1c
+.RI "\fBList\fP (const \fBList\fP &list)"
+.br
+.ti -1c
+.RI "\fBList\fP & \fBoperator=\fP (const \fBList\fP &list)"
+.br
+.ti -1c
 .RI "bool \fBremove\fP (const iterator_type &ptr)"
 .br
 .ti -1c
-.RI "iterator \fBbegin\fP ()"
-.br
-.ti -1c
-.RI "iterator \fBend\fP ()"
+.RI "size_t \fBsize\fP () const "
 .br
 .in -1c
 .SS "Protected Member Functions"
@@ -86,10 +86,10 @@ List \- \fBList\fP data structure.
 .RI "Node * \fBhead\fP"
 .br
 .ti -1c
-.RI "Node * \fBtail\fP"
+.RI "size_t \fBmy_size\fP"
 .br
 .ti -1c
-.RI "size_t \fBmy_size\fP"
+.RI "Node * \fBtail\fP"
 .br
 .in -1c
 .SS "Friends"

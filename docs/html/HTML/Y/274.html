@@ -1,14 +1,49 @@
 <html>
 <head>
-<title>join</title>
+<title>k</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/57.html#L144'>join</a>              144 Array.h            String join(const String&amp; delim) const {
-<a href='../S/57.html#L211'>join</a>              211 Array.h              ::CPPUNIT_NS::Asserter::failNotEqual(this-&gt;join("|").c_str(), actual.join("|").c_str(), sourceLine);
-<a href='../S/15.html#L181'>join</a>              181 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1 Test2 Test3", str_a-&gt;join(' '));
+<a href='../S/52.html#L51'>k</a>                  51 BinaryTree.h           Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
+<a href='../S/39.html#L86'>k</a>                  86 Iterator.h         Key k;
+<a href='../S/39.html#L89'>k</a>                  89 Iterator.h         KeyValue() : k(), v() {};
+<a href='../S/39.html#L90'>k</a>                  90 Iterator.h         KeyValue(const Key&amp; _key, const Value&amp; _value) : k(_key), v(_value) {};
+<a href='../S/39.html#L91'>k</a>                  91 Iterator.h         KeyValue(const KeyValue&amp; kv) : k(kv.k), v(kv.v) {};
+<a href='../S/39.html#L93'>k</a>                  93 Iterator.h         inline const Key&amp; key() const { return k; };
+<a href='../S/38.html#L476'>k</a>                 476 ReferenceCountedArray.h         int k;
+<a href='../S/38.html#L481'>k</a>                 481 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, int i) : rca(_rca), k(i) {};
+<a href='../S/38.html#L485'>k</a>                 485 ReferenceCountedArray.h         Cref(const Cref&amp; cref) : rca(cref.rca), k(cref.k) {};
+<a href='../S/38.html#L495'>k</a>                 495 ReferenceCountedArray.h         inline operator value_type() const { return rca.read(k); };
+<a href='../S/38.html#L501'>k</a>                 501 ReferenceCountedArray.h           rca.write(k, c);
+<a href='../S/38.html#L580'>k</a>                 580 ReferenceCountedArray.h     void insert(int k, const ReferenceCountedArray&amp; rca, int n = -1) {
+<a href='../S/38.html#L582'>k</a>                 582 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/38.html#L587'>k</a>                 587 ReferenceCountedArray.h       if (k == 0 &amp;&amp; size_t(slen) &gt; length() &amp;&amp; (n == -1 || n == slen)) {
+<a href='../S/38.html#L596'>k</a>                 596 ReferenceCountedArray.h       memmove(Buf() + k + slen, Buf() + k, length() - k);
+<a href='../S/38.html#L597'>k</a>                 597 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
+<a href='../S/38.html#L609'>k</a>                 609 ReferenceCountedArray.h     void insert(int k, const_reference item)
+<a href='../S/38.html#L611'>k</a>                 611 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/38.html#L614'>k</a>                 614 ReferenceCountedArray.h       memmove(Buf() + k + 1, Buf() + k, length() - k);
+<a href='../S/38.html#L615'>k</a>                 615 ReferenceCountedArray.h       *(Buf(k)) = item;
+<a href='../S/38.html#L626'>k</a>                 626 ReferenceCountedArray.h     void replace(int k, const_reference item) {
+<a href='../S/38.html#L627'>k</a>                 627 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/38.html#L630'>k</a>                 630 ReferenceCountedArray.h       *(Buf(k)) = item;
+<a href='../S/38.html#L639'>k</a>                 639 ReferenceCountedArray.h     void replace(int k, const ReferenceCountedArray &amp;rca, int n = -1) {
+<a href='../S/38.html#L641'>k</a>                 641 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/38.html#L646'>k</a>                 646 ReferenceCountedArray.h       if (k == 0 &amp;&amp; size_t(slen) &gt; length() &amp;&amp; (n == -1 || n == slen)) {
+<a href='../S/38.html#L655'>k</a>                 655 ReferenceCountedArray.h       size_t newlen = k + slen;
+<a href='../S/38.html#L663'>k</a>                 663 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
+<a href='../S/37.html#L77'>k</a>                  77 String.cpp     void String::insert(int k, const char *string, int n)
+<a href='../S/37.html#L80'>k</a>                  80 String.cpp       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/37.html#L85'>k</a>                  85 String.cpp       memmove(Buf() + k + slen, Buf() + k, length() - k);
+<a href='../S/37.html#L86'>k</a>                  86 String.cpp       std::copy(string, string + slen, Buf() + k);
+<a href='../S/37.html#L96'>k</a>                  96 String.cpp     void String::replace(int k, const char *string, int n)
+<a href='../S/37.html#L99'>k</a>                  99 String.cpp       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/37.html#L102'>k</a>                 102 String.cpp       size_t newlen = k + slen;
+<a href='../S/37.html#L110'>k</a>                 110 String.cpp       std::copy(string, string + slen, Buf() + k);
+<a href='../S/19.html#L662'>k</a>                 662 tests/StringTest.cpp     for (int k = 0; k &lt; i; k++) {
+<a href='../S/19.html#L664'>k</a>                 664 tests/StringTest.cpp       letter[0] = 'a' + k;
 </pre>
 </body>
 </html>
