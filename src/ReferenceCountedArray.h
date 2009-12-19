@@ -293,7 +293,17 @@ class ReferenceCountedArray {
     }
 
   protected:
+    /*
+     * @brief Force COW if needed
+     * @post The array is no longer shared, if it was.
+     */
     inline void getOwnCopy() const { AboutToModify(capacity()); };
+
+    /*
+     * @brief Warn the reference counting that it may need to COW
+     * @post The buffer is detached/COW, and possibly larger
+     * @todo If the buffer is shared and needs to shrink, the sublen should just be decreased.
+     */
     inline void AboutToModify(size_t n) const {
       if (isShared())
         COW(n); // Clears the offset
@@ -448,6 +458,9 @@ class ReferenceCountedArray {
      */
     inline value_type read(int i) const { return *(constBuf(i)); };
 
+    /*
+     * @brief Write an item to the given index
+     */
     inline void write(int i, value_type item) {
       getOwnCopy();
       *(Buf(i)) = item;

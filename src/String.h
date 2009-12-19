@@ -174,6 +174,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         String trim() const { return String(*this).trim(); }
 
+        /*
+         * @sa at
+         */
         inline char charAt(int i) const { return at(i); };
 
         // Substrings
@@ -208,6 +211,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 */
 	inline int compare(const String& string) const { return compare(string, string.length()); };
         int compare(const String&, size_t) const;
+
         Array<String> split(const String&, size_t limit = npos) const;
 
         /* Setters */
