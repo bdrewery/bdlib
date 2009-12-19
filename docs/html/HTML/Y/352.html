@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>sublen</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/27.html#L277'>sublen</a>            277 String.cpp       sublen = string.sublen;
+<a href='../S/46.html#L208'>sublen</a>            208 String.h                 sublen = 0;
+<a href='../S/46.html#L216'>sublen</a>            216 String.h               inline void setLength(size_t newLen) const { Ref-&gt;len = sublen = newLen; };
+<a href='../S/46.html#L221'>sublen</a>            221 String.h               inline void addLength(size_t diff) const { Ref-&gt;len += diff; sublen += diff; };
+<a href='../S/46.html#L226'>sublen</a>            226 String.h               inline void subLength(size_t diff) const { Ref-&gt;len -= diff; sublen -= diff; };
+<a href='../S/46.html#L271'>sublen</a>            271 String.h               mutable size_t sublen;
+<a href='../S/46.html#L312'>sublen</a>            312 String.h               String() : Ref(new StringBuf()), offset(0), sublen(0) {};
+<a href='../S/46.html#L313'>sublen</a>            313 String.h       	String(const String&amp; string) : Ref(string.Ref), offset(string.offset), sublen(string.sublen) { incRef(); };
+<a href='../S/46.html#L321'>sublen</a>            321 String.h       	String(const char* cstring) : Ref(new StringBuf()), offset(0), sublen(0) { if (cstring) append(cstring); };
+<a href='../S/46.html#L332'>sublen</a>            332 String.h               String(const char* cstring, size_t slen) : Ref(new StringBuf()), offset(0), sublen(0) { append(cstring, slen); };
+<a href='../S/46.html#L341'>sublen</a>            341 String.h               String(const char ch) : Ref(new StringBuf()), offset(0), sublen(0) { append(ch); };
+<a href='../S/46.html#L352'>sublen</a>            352 String.h               explicit String(const int newSize) : Ref(new StringBuf()), offset(0), sublen(0) {
+<a href='../S/46.html#L378'>sublen</a>            378 String.h               inline size_t length() const { return sublen; };
+</pre>
+</body>
+</html>

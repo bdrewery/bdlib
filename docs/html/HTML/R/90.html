@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>iterator_type</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/31.html#L50'>iterator_type</a>      50 BinaryTree.h           iterator_type kv;
+<a href='../S/31.html#L177'>iterator_type</a>     177 BinaryTree.h           rNode-&gt;kv = iterator_type(key, value);
+<a href='../S/31.html#L261'>iterator_type</a>     261 BinaryTree.h       class BinaryTreeIterator : public Iterator&lt;iterator_type&gt; {
+<a href='../S/31.html#L268'>iterator_type</a>     268 BinaryTree.h           iterator_type* storage;
+<a href='../S/31.html#L274'>iterator_type</a>     274 BinaryTree.h             storage[i++] = iterator_type(node-&gt;kv);
+<a href='../S/31.html#L278'>iterator_type</a>     278 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator&lt;iterator_type&gt;(), 
+<a href='../S/31.html#L282'>iterator_type</a>     282 BinaryTree.h                                                                             storage(new iterator_type[size]) {
+<a href='../S/31.html#L288'>iterator_type</a>     288 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
+<a href='../S/31.html#L292'>iterator_type</a>     292 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
+<a href='../S/31.html#L297'>iterator_type</a>     297 BinaryTree.h           BinaryTreeIterator() : Iterator&lt;iterator_type&gt;(),
+<a href='../S/31.html#L308'>iterator_type</a>     308 BinaryTree.h                 storage = new iterator_type[iter.my_size];
+<a href='../S/31.html#L336'>iterator_type</a>     336 BinaryTree.h           virtual operator iterator_type () { return operator*(); };
+<a href='../S/31.html#L337'>iterator_type</a>     337 BinaryTree.h           virtual iterator_type&amp; operator *() { return storage[index]; }
+<a href='../S/28.html#L47'>iterator_type</a>      47 HashTable.h        List&lt;iterator_type&gt; *list;
+<a href='../S/28.html#L56'>iterator_type</a>      56 HashTable.h        HashTable() : list(new List&lt;iterator_type&gt;[100]), _size(0), _capacity(100), _hash() {};
+<a href='../S/28.html#L57'>iterator_type</a>      57 HashTable.h        explicit HashTable(size_t capacity) : list(new List&lt;iterator_type&gt;[capacity]), _size(0), _capacity(capacity), _hash() {};
+<a href='../S/28.html#L58'>iterator_type</a>      58 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/28.html#L76'>iterator_type</a>      76 HashTable.h            list = new List&lt;iterator_type&gt;[_capacity];
+<a href='../S/28.html#L93'>iterator_type</a>      93 HashTable.h          list[getIndex(key)] &lt;&lt; iterator_type(key, value);
+<a href='../S/28.html#L100'>iterator_type</a>     100 HashTable.h          return list[getIndex(key)].contains(iterator_type(key, Value()));
+<a href='../S/28.html#L105'>iterator_type</a>     105 HashTable.h          if (list[getIndex(key)].remove(iterator_type(key, Value()))) {
+<a href='../S/28.html#L115'>iterator_type</a>     115 HashTable.h          return list[getIndex(key)].find(iterator_type(key, Value())).value();
+<a href='../S/28.html#L141'>iterator_type</a>     141 HashTable.h          return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+<a href='../S/26.html#L46'>iterator_type</a>      46 List.h               iterator_type ptr;
+<a href='../S/26.html#L50'>iterator_type</a>      50 List.h               Node(const iterator_type&amp; p) : ptr(p), next(NULL), prev(NULL) {};
+<a href='../S/26.html#L109'>iterator_type</a>     109 List.h             void insert(const iterator_type&amp; ptr) {
+<a href='../S/26.html#L124'>iterator_type</a>     124 List.h             inline friend List&lt;iterator_type&gt;&amp; operator&lt;&lt; (List&lt;iterator_type&gt;&amp; list, const iterator_type&amp; item) {
+<a href='../S/26.html#L129'>iterator_type</a>     129 List.h             bool contains(const iterator_type&amp; ptr) const {
+<a href='../S/26.html#L139'>iterator_type</a>     139 List.h            const iterator_type find(const iterator_type&amp; ptr) const {
+<a href='../S/26.html#L140'>iterator_type</a>     140 List.h               const iterator_type empty;
+<a href='../S/26.html#L153'>iterator_type</a>     153 List.h             iterator_type&amp; findRef(const iterator_type&amp; ptr) {
+<a href='../S/26.html#L162'>iterator_type</a>     162 List.h             bool remove(const iterator_type&amp; ptr) {
+<a href='../S/26.html#L181'>iterator_type</a>     181 List.h             class ListIterator : public Iterator&lt;iterator_type&gt; {
+<a href='../S/26.html#L188'>iterator_type</a>     188 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;iterator_type&gt;(),
+<a href='../S/26.html#L194'>iterator_type</a>     194 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(),
+<a href='../S/26.html#L199'>iterator_type</a>     199 List.h                 ListIterator() : Iterator&lt;iterator_type&gt;(),
+<a href='../S/26.html#L223'>iterator_type</a>     223 List.h                 virtual operator iterator_type () { return operator*(); };
+<a href='../S/26.html#L225'>iterator_type</a>     225 List.h                 virtual iterator_type&amp; operator *() { return (iterator_type&amp;)current-&gt;ptr; }
+<a href='../S/36.html#L42'>iterator_type</a>      42 SortedList.h       SortedList() : List&lt;iterator_type&gt;() {};
+<a href='../S/36.html#L50'>iterator_type</a>      50 SortedList.h       virtual void insert(const iterator_type&amp; ptr) {
+<a href='../S/39.html#L42'>iterator_type</a>      42 Stack.h            Stack() : List&lt;iterator_type&gt;() {};
+<a href='../S/39.html#L48'>iterator_type</a>      48 Stack.h            iterator_type pop() {
+<a href='../S/39.html#L49'>iterator_type</a>      49 Stack.h              iterator_type item = this-&gt;head-&gt;ptr;
+<a href='../S/39.html#L57'>iterator_type</a>      57 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&gt;&gt; (Stack&lt;iterator_type&gt;&amp; stack, iterator_type&amp; item) {
+<a href='../S/39.html#L66'>iterator_type</a>      66 Stack.h            inline const iterator_type peek() const {
+<a href='../S/39.html#L67'>iterator_type</a>      67 Stack.h              return this-&gt;isEmpty() ? iterator_type() : this-&gt;head-&gt;ptr;
+<a href='../S/39.html#L74'>iterator_type</a>      74 Stack.h            inline void push(const iterator_type &amp;item) {
+<a href='../S/39.html#L81'>iterator_type</a>      81 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&lt;&lt; (Stack&lt;iterator_type&gt;&amp; stack, const iterator_type&amp; item) {
+</pre>
+</body>
+</html>

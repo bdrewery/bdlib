@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Value</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/31.html#L33'>Value</a>              33 BinaryTree.h   template &lt;class Key, class Value&gt;
+<a href='../S/31.html#L43'>Value</a>              43 BinaryTree.h       typedef KeyValue&lt;Key, Value&gt; iterator_type;
+<a href='../S/31.html#L52'>Value</a>              52 BinaryTree.h           Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
+<a href='../S/31.html#L174'>Value</a>             174 BinaryTree.h       bool insert(const Key &amp;key, const Value &amp;value) {
+<a href='../S/31.html#L190'>Value</a>             190 BinaryTree.h       inline const Value operator [](const Key&amp; key) const { return getValue(key); }
+<a href='../S/31.html#L199'>Value</a>             199 BinaryTree.h       Value&amp; operator [](const Key&amp; key) {
+<a href='../S/31.html#L202'>Value</a>             202 BinaryTree.h           insertNode(node, new Node(key, Value()));
+<a href='../S/31.html#L232'>Value</a>             232 BinaryTree.h       Value getValue(const Key &amp;key) const {
+<a href='../S/31.html#L233'>Value</a>             233 BinaryTree.h         const Value empty;
+<a href='../S/31.html#L248'>Value</a>             248 BinaryTree.h       Value getKey(const Value &amp;value) const {
+<a href='../S/31.html#L263'>Value</a>             263 BinaryTree.h         typedef BinaryTree&lt;Key, Value&gt; Tree;
+<a href='../S/28.html#L33'>Value</a>              33 HashTable.h    template &lt;class Key, class Value&gt;
+<a href='../S/28.html#L44'>Value</a>              44 HashTable.h        typedef KeyValue&lt;Key, Value&gt; iterator_type;
+<a href='../S/28.html#L58'>Value</a>              58 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/28.html#L73'>Value</a>              73 HashTable.h        HashTable &amp;operator = (const HashTable&lt;Key, Value&gt; &amp;table) { 
+<a href='../S/28.html#L91'>Value</a>              91 HashTable.h        bool insert(const Key &amp;key, const Value &amp;value) { 
+<a href='../S/28.html#L100'>Value</a>             100 HashTable.h          return list[getIndex(key)].contains(iterator_type(key, Value()));
+<a href='../S/28.html#L105'>Value</a>             105 HashTable.h          if (list[getIndex(key)].remove(iterator_type(key, Value()))) {
+<a href='../S/28.html#L112'>Value</a>             112 HashTable.h        inline Value getValue(const Key &amp;key) const {
+<a href='../S/28.html#L113'>Value</a>             113 HashTable.h          Value empty;
+<a href='../S/28.html#L115'>Value</a>             115 HashTable.h          return list[getIndex(key)].find(iterator_type(key, Value())).value();
+<a href='../S/28.html#L122'>Value</a>             122 HashTable.h        inline const Value operator [](const Key&amp; key) const { return getValue(key); }
+<a href='../S/28.html#L131'>Value</a>             131 HashTable.h        inline Value&amp; operator [](const Key&amp; key) {
+<a href='../S/28.html#L138'>Value</a>             138 HashTable.h        inline Value&amp; find_or_insert_key(const Key&amp; key) {
+<a href='../S/28.html#L140'>Value</a>             140 HashTable.h            insert(key, Value());
+<a href='../S/28.html#L141'>Value</a>             141 HashTable.h          return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+<a href='../S/44.html#L84'>Value</a>              84 Iterator.h     template &lt;class Key, class Value&gt;
+<a href='../S/44.html#L88'>Value</a>              88 Iterator.h         Value v;
+<a href='../S/44.html#L91'>Value</a>              91 Iterator.h         KeyValue(const Key&amp; _key, const Value&amp; _value) : k(_key), v(_value) {};
+<a href='../S/44.html#L95'>Value</a>              95 Iterator.h         inline const Value&amp; value() const { return v; };
+</pre>
+</body>
+</html>

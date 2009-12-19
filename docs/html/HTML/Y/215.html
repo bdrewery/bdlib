@@ -1,0 +1,215 @@
+<html>
+<head>
+<title>iter</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/31.html#L252'>iter</a>              252 BinaryTree.h         for (iterator iter = begin(); iter; ++iter) {
+<a href='../S/31.html#L253'>iter</a>              253 BinaryTree.h           if (iter-&gt;value() == value)
+<a href='../S/31.html#L254'>iter</a>              254 BinaryTree.h             return iter-&gt;key();
+<a href='../S/31.html#L288'>iter</a>              288 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
+<a href='../S/31.html#L289'>iter</a>              289 BinaryTree.h                                                      tree(iter.tree),
+<a href='../S/31.html#L290'>iter</a>              290 BinaryTree.h                                                      index(iter.index), 
+<a href='../S/31.html#L291'>iter</a>              291 BinaryTree.h                                                      my_size(iter.my_size), 
+<a href='../S/31.html#L292'>iter</a>              292 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
+<a href='../S/31.html#L294'>iter</a>              294 BinaryTree.h               storage[i] = iter.storage[i];
+<a href='../S/31.html#L304'>iter</a>              304 BinaryTree.h           iterator&amp; operator =(const iterator&amp; iter) {
+<a href='../S/31.html#L305'>iter</a>              305 BinaryTree.h             if (&amp;iter != this) {
+<a href='../S/31.html#L306'>iter</a>              306 BinaryTree.h               if (my_size != iter.my_size) {
+<a href='../S/31.html#L308'>iter</a>              308 BinaryTree.h                 storage = new iterator_type[iter.my_size];
+<a href='../S/31.html#L311'>iter</a>              311 BinaryTree.h               tree = iter.tree;
+<a href='../S/31.html#L312'>iter</a>              312 BinaryTree.h               index = iter.index;
+<a href='../S/31.html#L313'>iter</a>              313 BinaryTree.h               my_size = iter.my_size;
+<a href='../S/31.html#L316'>iter</a>              316 BinaryTree.h                 storage[i] = iter.storage[i];
+<a href='../S/26.html#L194'>iter</a>              194 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(),
+<a href='../S/26.html#L195'>iter</a>              195 List.h                                                      list(iter.list),
+<a href='../S/26.html#L196'>iter</a>              196 List.h                                                      current(iter.current),
+<a href='../S/26.html#L197'>iter</a>              197 List.h                                                      end(iter.end) {
+<a href='../S/26.html#L205'>iter</a>              205 List.h                 iterator&amp; operator =(const iterator&amp; iter) {
+<a href='../S/26.html#L206'>iter</a>              206 List.h                   list = iter.list;
+<a href='../S/26.html#L207'>iter</a>              207 List.h                   current = iter.current;
+<a href='../S/26.html#L208'>iter</a>              208 List.h                   end = iter.end;
+<a href='../S/38.html#L141'>iter</a>              141 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
+<a href='../S/38.html#L142'>iter</a>              142 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
+<a href='../S/38.html#L180'>iter</a>              180 Queue.h            QueueConstIterator(const iterator&amp; iter) : queue(iter.queue), current(iter.current) {};
+<a href='../S/38.html#L198'>iter</a>              198 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
+<a href='../S/38.html#L199'>iter</a>              199 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
+<a href='../S/22.html#L279'>iter</a>              279 tests/BinaryTreeTest.cpp   BinaryTree&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/22.html#L281'>iter</a>              281 tests/BinaryTreeTest.cpp   while (iter) {
+<a href='../S/22.html#L284'>iter</a>              284 tests/BinaryTreeTest.cpp     String value = (iter++)-&gt;value();
+<a href='../S/22.html#L288'>iter</a>              288 tests/BinaryTreeTest.cpp   iter = a-&gt;begin();
+<a href='../S/22.html#L289'>iter</a>              289 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)-&gt;value());
+<a href='../S/22.html#L290'>iter</a>              290 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)-&gt;value());
+<a href='../S/22.html#L291'>iter</a>              291 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (iter++)-&gt;value());
+<a href='../S/22.html#L292'>iter</a>              292 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)-&gt;value());
+<a href='../S/22.html#L295'>iter</a>              295 tests/BinaryTreeTest.cpp   iter = a-&gt;begin();
+<a href='../S/22.html#L296'>iter</a>              296 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)-&gt;value());
+<a href='../S/22.html#L297'>iter</a>              297 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)-&gt;value());
+<a href='../S/22.html#L298'>iter</a>              298 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)-&gt;value());
+<a href='../S/22.html#L301'>iter</a>              301 tests/BinaryTreeTest.cpp   iter = a-&gt;begin();
+<a href='../S/22.html#L302'>iter</a>              302 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)-&gt;value());
+<a href='../S/22.html#L303'>iter</a>              303 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)-&gt;value());
+<a href='../S/22.html#L306'>iter</a>              306 tests/BinaryTreeTest.cpp   iter = a-&gt;begin();
+<a href='../S/22.html#L307'>iter</a>              307 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)-&gt;value());
+<a href='../S/22.html#L310'>iter</a>              310 tests/BinaryTreeTest.cpp   iter = a-&gt;begin();
+<a href='../S/22.html#L311'>iter</a>              311 tests/BinaryTreeTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool) iter);
+<a href='../S/22.html#L322'>iter</a>              322 tests/BinaryTreeTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/22.html#L325'>iter</a>              325 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/22.html#L326'>iter</a>              326 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/22.html#L332'>iter</a>              332 tests/BinaryTreeTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/22.html#L335'>iter</a>              335 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/22.html#L336'>iter</a>              336 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/22.html#L343'>iter</a>              343 tests/BinaryTreeTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/22.html#L346'>iter</a>              346 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/22.html#L347'>iter</a>              347 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/22.html#L353'>iter</a>              353 tests/BinaryTreeTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/22.html#L355'>iter</a>              355 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/22.html#L357'>iter</a>              357 tests/BinaryTreeTest.cpp       iter.remove();
+<a href='../S/22.html#L366'>iter</a>              366 tests/BinaryTreeTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/22.html#L369'>iter</a>              369 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/22.html#L370'>iter</a>              370 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/22.html#L387'>iter</a>              387 tests/BinaryTreeTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/22.html#L389'>iter</a>              389 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/22.html#L391'>iter</a>              391 tests/BinaryTreeTest.cpp       iter.remove();
+<a href='../S/22.html#L402'>iter</a>              402 tests/BinaryTreeTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/22.html#L405'>iter</a>              405 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/22.html#L406'>iter</a>              406 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/14.html#L327'>iter</a>              327 tests/HashTableTest.cpp   HashTable&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/14.html#L328'>iter</a>              328 tests/HashTableTest.cpp   while (iter.hasNext()) {
+<a href='../S/14.html#L331'>iter</a>              331 tests/HashTableTest.cpp     String value = iter.next();
+<a href='../S/14.html#L335'>iter</a>              335 tests/HashTableTest.cpp   iter = a-&gt;begin();
+<a href='../S/14.html#L336'>iter</a>              336 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/14.html#L337'>iter</a>              337 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/14.html#L338'>iter</a>              338 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
+<a href='../S/14.html#L339'>iter</a>              339 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/14.html#L342'>iter</a>              342 tests/HashTableTest.cpp   iter = a-&gt;begin();
+<a href='../S/14.html#L343'>iter</a>              343 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/14.html#L344'>iter</a>              344 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/14.html#L345'>iter</a>              345 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/14.html#L348'>iter</a>              348 tests/HashTableTest.cpp   iter = a-&gt;begin();
+<a href='../S/14.html#L349'>iter</a>              349 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/14.html#L350'>iter</a>              350 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/14.html#L353'>iter</a>              353 tests/HashTableTest.cpp   iter = a-&gt;begin();
+<a href='../S/14.html#L354'>iter</a>              354 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/14.html#L357'>iter</a>              357 tests/HashTableTest.cpp   iter = a-&gt;begin();
+<a href='../S/14.html#L358'>iter</a>              358 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, iter.hasNext());
+<a href='../S/11.html#L250'>iter</a>              250 tests/ListTest.cpp   List&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/11.html#L251'>iter</a>              251 tests/ListTest.cpp   while (iter.hasNext()) {
+<a href='../S/11.html#L254'>iter</a>              254 tests/ListTest.cpp     String value = iter.next();
+<a href='../S/11.html#L258'>iter</a>              258 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L259'>iter</a>              259 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", iter.next());
+<a href='../S/11.html#L260'>iter</a>              260 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/11.html#L261'>iter</a>              261 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
+<a href='../S/11.html#L262'>iter</a>              262 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/11.html#L265'>iter</a>              265 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L266'>iter</a>              266 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/11.html#L267'>iter</a>              267 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/11.html#L268'>iter</a>              268 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/11.html#L271'>iter</a>              271 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L272'>iter</a>              272 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/11.html#L273'>iter</a>              273 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/11.html#L276'>iter</a>              276 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L277'>iter</a>              277 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/11.html#L280'>iter</a>              280 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L281'>iter</a>              281 tests/ListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, iter.hasNext());
+<a href='../S/11.html#L293'>iter</a>              293 tests/ListTest.cpp   List&lt;String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/11.html#L304'>iter</a>              304 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L306'>iter</a>              306 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter);
+<a href='../S/11.html#L308'>iter</a>              308 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", *(iter++));
+<a href='../S/11.html#L309'>iter</a>              309 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", *(iter++));
+<a href='../S/11.html#L310'>iter</a>              310 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+<a href='../S/11.html#L311'>iter</a>              311 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah5", *(iter++));
+<a href='../S/11.html#L312'>iter</a>              312 tests/ListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+<a href='../S/11.html#L315'>iter</a>              315 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L316'>iter</a>              316 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", *(iter++));
+<a href='../S/11.html#L317'>iter</a>              317 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+<a href='../S/11.html#L318'>iter</a>              318 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah5", *(iter++));
+<a href='../S/11.html#L319'>iter</a>              319 tests/ListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+<a href='../S/11.html#L322'>iter</a>              322 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L323'>iter</a>              323 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (++iter));
+<a href='../S/11.html#L324'>iter</a>              324 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (iter));
+<a href='../S/11.html#L325'>iter</a>              325 tests/ListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool) ++iter);
+<a href='../S/11.html#L328'>iter</a>              328 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L329'>iter</a>              329 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+<a href='../S/11.html#L330'>iter</a>              330 tests/ListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+<a href='../S/11.html#L333'>iter</a>              333 tests/ListTest.cpp   iter = a-&gt;begin();
+<a href='../S/11.html#L334'>iter</a>              334 tests/ListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool) iter);
+<a href='../S/11.html#L347'>iter</a>              347 tests/ListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/11.html#L350'>iter</a>              350 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/11.html#L356'>iter</a>              356 tests/ListTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/11.html#L359'>iter</a>              359 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/11.html#L366'>iter</a>              366 tests/ListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/11.html#L369'>iter</a>              369 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/11.html#L375'>iter</a>              375 tests/ListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/11.html#L378'>iter</a>              378 tests/ListTest.cpp       iter.remove();
+<a href='../S/11.html#L387'>iter</a>              387 tests/ListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/11.html#L390'>iter</a>              390 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/11.html#L407'>iter</a>              407 tests/ListTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/11.html#L410'>iter</a>              410 tests/ListTest.cpp       iter.remove();
+<a href='../S/11.html#L421'>iter</a>              421 tests/ListTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/11.html#L424'>iter</a>              424 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/15.html#L103'>iter</a>              103 tests/QueueTest.cpp   Queue&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/15.html#L105'>iter</a>              105 tests/QueueTest.cpp   for (iter = a-&gt;begin(); iter != a-&gt;end(); ++iter) {
+<a href='../S/15.html#L109'>iter</a>              109 tests/QueueTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, *iter);
+<a href='../S/23.html#L240'>iter</a>              240 tests/SortedListTest.cpp   SortedList&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/23.html#L241'>iter</a>              241 tests/SortedListTest.cpp   while (iter.hasNext()) {
+<a href='../S/23.html#L244'>iter</a>              244 tests/SortedListTest.cpp     String value = iter.next();
+<a href='../S/23.html#L248'>iter</a>              248 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L249'>iter</a>              249 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", iter.next());
+<a href='../S/23.html#L250'>iter</a>              250 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/23.html#L251'>iter</a>              251 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
+<a href='../S/23.html#L252'>iter</a>              252 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/23.html#L255'>iter</a>              255 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L256'>iter</a>              256 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/23.html#L257'>iter</a>              257 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/23.html#L258'>iter</a>              258 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/23.html#L261'>iter</a>              261 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L262'>iter</a>              262 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/23.html#L263'>iter</a>              263 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/23.html#L266'>iter</a>              266 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L267'>iter</a>              267 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/23.html#L270'>iter</a>              270 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L271'>iter</a>              271 tests/SortedListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, iter.hasNext());
+<a href='../S/23.html#L283'>iter</a>              283 tests/SortedListTest.cpp   SortedList&lt;String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/23.html#L294'>iter</a>              294 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L296'>iter</a>              296 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter);
+<a href='../S/23.html#L298'>iter</a>              298 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", *(iter++));
+<a href='../S/23.html#L299'>iter</a>              299 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", *(iter++));
+<a href='../S/23.html#L300'>iter</a>              300 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+<a href='../S/23.html#L301'>iter</a>              301 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah5", *(iter++));
+<a href='../S/23.html#L302'>iter</a>              302 tests/SortedListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+<a href='../S/23.html#L305'>iter</a>              305 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L306'>iter</a>              306 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", *(iter++));
+<a href='../S/23.html#L307'>iter</a>              307 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+<a href='../S/23.html#L308'>iter</a>              308 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah5", *(iter++));
+<a href='../S/23.html#L309'>iter</a>              309 tests/SortedListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+<a href='../S/23.html#L312'>iter</a>              312 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L313'>iter</a>              313 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (++iter));
+<a href='../S/23.html#L314'>iter</a>              314 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (iter));
+<a href='../S/23.html#L315'>iter</a>              315 tests/SortedListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool) ++iter);
+<a href='../S/23.html#L318'>iter</a>              318 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L319'>iter</a>              319 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", *(iter++));
+<a href='../S/23.html#L320'>iter</a>              320 tests/SortedListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool)iter);
+<a href='../S/23.html#L323'>iter</a>              323 tests/SortedListTest.cpp   iter = a-&gt;begin();
+<a href='../S/23.html#L324'>iter</a>              324 tests/SortedListTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (bool) iter);
+<a href='../S/23.html#L337'>iter</a>              337 tests/SortedListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/23.html#L340'>iter</a>              340 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L346'>iter</a>              346 tests/SortedListTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/23.html#L349'>iter</a>              349 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L356'>iter</a>              356 tests/SortedListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/23.html#L359'>iter</a>              359 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L365'>iter</a>              365 tests/SortedListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/23.html#L368'>iter</a>              368 tests/SortedListTest.cpp       iter.remove();
+<a href='../S/23.html#L377'>iter</a>              377 tests/SortedListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
+<a href='../S/23.html#L380'>iter</a>              380 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L397'>iter</a>              397 tests/SortedListTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/23.html#L400'>iter</a>              400 tests/SortedListTest.cpp       iter.remove();
+<a href='../S/23.html#L411'>iter</a>              411 tests/SortedListTest.cpp   for (iter = (*a).end(); iter; (--iter)) {
+<a href='../S/23.html#L414'>iter</a>              414 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/19.html#L103'>iter</a>              103 tests/StackTest.cpp   Stack&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/19.html#L105'>iter</a>              105 tests/StackTest.cpp   for (; iter; ++iter) {
+</pre>
+</body>
+</html>

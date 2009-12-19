@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>b64_indexes</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/37.html#L39'>b64_indexes</a>        39 base64.c       static const signed char b64_indexes[256] = {
+<a href='../S/37.html#L156'>b64_indexes</a>       156 base64.c           *buf++ = (b64_indexes[data[0]] &lt;&lt; 2) + ((b64_indexes[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/37.html#L159'>b64_indexes</a>       159 base64.c             *buf++ = ((b64_indexes[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((b64_indexes[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/37.html#L162'>b64_indexes</a>       162 base64.c               *buf++ = ((b64_indexes[data[2]] &amp; 0x03) &lt;&lt; 6) + b64_indexes[data[3]];
+</pre>
+</body>
+</html>

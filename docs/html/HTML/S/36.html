@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>SortedList.h</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/SortedList.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2><a href='../J/17.html' title='Multiple included from 2 places.'>INCLUDED FROM</a></h2>
+<hr>
+<pre>
+<a name='L1'>   1 <i><font color='green'>/* SortedList.h</font></i>
+<a name='L2'>   2 <i><font color='green'> *</font></i>
+<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
+<a name='L4'>   4 <i><font color='green'> *</font></i>
+<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
+<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
+<a name='L7'>   7 <i><font color='green'> *</font></i>
+<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.</font></i>
+<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
+<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
+<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
+<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L14'>  14 <i><font color='green'> *</font></i>
+<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
+<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
+<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
+<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
+<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
+<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
+<a name='L21'>  21 <i><font color='green'> *</font></i>
+<a name='L22'>  22 <i><font color='green'> * $Id: SortedList.h 176 2008-04-19 13:50:26Z bryan $</font></i>
+<a name='L23'>  23 <i><font color='green'> */</font></i>
+<a name='L24'>  24 <font color='darkred'>#ifndef</font> <a href='../S/36.html#L25' title='Defined at 25 in SortedList.h.'>_BD_SORTEDLIST_H</a>
+<a name='L25'>  25 <font color='darkred'>#define</font> <a href='../S/36.html#L24' title='Refered from 24 in SortedList.h.'>_BD_SORTEDLIST_H</a> 1
+<a name='L26'>  26 
+<a name='L27'>  27 <font color='darkred'>#include</font> "<a href='33.html'>bdlib.h</a>"
+<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='26.html'>List.h</a>"
+<a name='L29'>  29 
+<a name='L30'>  30 <a href='../S/33.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L31'>  31 
+<a name='L32'>  32 <a href='../Y/359.html' title='Multiple used in 17 places.'>template</a> &lt;<a href='../Y/122.html' title='Multiple used in 56 places.'>class</a> <a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>&gt;
+<a name='L33'>  33 <i><font color='green'>/**</font></i>
+<a name='L34'>  34 <i><font color='green'> * @class SortedList</font></i>
+<a name='L35'>  35 <i><font color='green'> * @brief A List which sorts on insert</font></i>
+<a name='L36'>  36 <i><font color='green'> */</font></i>
+<a name='L37'>  37 <a href='../Y/122.html' title='Multiple used in 56 places.'>class</a> <a href='../Y/63.html' title='Multiple used in 7 places.'>SortedList</a> : <a href='../Y/293.html' title='Multiple used in 51 places.'>public</a> <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>&gt; <font color='red'>{</font>
+<a name='L38'>  38   <b>typedef</b> <a href='../Y/73.html' title='Multiple used in 47 places.'>T</a> <a href='../R/90.html' title='Multiple refered from 48 places.'>iterator_type</a>;
+<a name='L39'>  39   <b>typedef</b> <a href='../Y/379.html' title='Multiple used in 9 places.'>typename</a> <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../Y/216.html' title='Multiple used in 2 places.'>iterator_type</a>&gt;::<a href='../R/17.html' title='Multiple refered from 50 places.'>Node</a> <a href='../Y/50.html' title='Multiple used in 5 places.'>Node</a>;
+<a name='L40'>  40 
+<a name='L41'>  41   <a href='../Y/293.html' title='Multiple used in 51 places.'>public</a>:
+<a name='L42'>  42     <a href='../Y/63.html' title='Multiple used in 7 places.'>SortedList</a>() : <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>&gt;() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L43'>  43     <a href='../Y/397.html' title='Multiple used in 41 places.'>virtual</a> ~<a href='../Y/63.html' title='Multiple used in 7 places.'>SortedList</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L44'>  44 
+<a name='L45'>  45     <i><font color='green'>/**</font></i>
+<a name='L46'>  46 <i><font color='green'>     * @brief Insert an element into the list (ordered)</font></i>
+<a name='L47'>  47 <i><font color='green'>     * @param ptr The element to insert</font></i>
+<a name='L48'>  48 <i><font color='green'>     * This operation is O(n/2)</font></i>
+<a name='L49'>  49 <i><font color='green'>     */</font></i>
+<a name='L50'>  50     <a href='../Y/397.html' title='Multiple used in 41 places.'>virtual</a> <b>void</b> <a href='../D/120.html' title='Multiple defined in 3 places.'>insert</a>(<b>const</b> <a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>&amp; <a href='../Y/290.html' title='Multiple used in 30 places.'>ptr</a>) <font color='red'>{</font>
+<a name='L51'>  51       <i><font color='green'>/*</font></i>
+<a name='L52'>  52 <i><font color='green'>       * 1) list = NULL</font></i>
+<a name='L53'>  53 <i><font color='green'>       * 2) list = (X)</font></i>
+<a name='L54'>  54 <i><font color='green'>       * 3) list = (X)-&gt;(Y)</font></i>
+<a name='L55'>  55 <i><font color='green'>       * 4) list = (W)-&gt;(X)-&gt;(Y)</font></i>
+<a name='L56'>  56 <i><font color='green'>       */</font></i>
+<a name='L57'>  57       <a href='../D/43.html' title='Multiple defined in 6 places.'>Node</a>* <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a> = <a href='../Y/248.html' title='Multiple used in 22 places.'>new</a> <a href='../D/43.html' title='Multiple defined in 6 places.'>Node</a>(<a href='../Y/290.html' title='Multiple used in 30 places.'>ptr</a>), *<a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a> = <a href='../Y/49.html' title='Multiple used in 45 places.'>NULL</a>, *<a href='../Y/135.html' title='Multiple used in 48 places.'>current</a> = <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/194.html' title='Multiple used in 28 places.'>head</a>;
+<a name='L58'>  58       <b>while</b> (<a href='../Y/135.html' title='Multiple used in 48 places.'>current</a> != <a href='../Y/49.html' title='Multiple used in 45 places.'>NULL</a> &amp;&amp; <a href='../Y/290.html' title='Multiple used in 30 places.'>ptr</a> &lt; <a href='../Y/135.html' title='Multiple used in 48 places.'>current</a>-&gt;<a href='../Y/290.html' title='Multiple used in 30 places.'>ptr</a>) <font color='red'>{</font>
+<a name='L59'>  59         <a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a> = <a href='../Y/135.html' title='Multiple used in 48 places.'>current</a>;
+<a name='L60'>  60         <a href='../Y/135.html' title='Multiple used in 48 places.'>current</a> = <a href='../Y/135.html' title='Multiple used in 48 places.'>current</a>-&gt;<a href='../Y/256.html' title='Multiple used in 59 places.'>next</a>;
+<a name='L61'>  61       <font color='red'>}</font>
+<a name='L62'>  62 
+<a name='L63'>  63       <b>if</b> (<a href='../Y/135.html' title='Multiple used in 48 places.'>current</a> == <a href='../Y/49.html' title='Multiple used in 45 places.'>NULL</a> &amp;&amp; <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/194.html' title='Multiple used in 28 places.'>head</a> == <a href='../Y/49.html' title='Multiple used in 45 places.'>NULL</a>) <font color='red'>{</font>
+<a name='L64'>  64         <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/194.html' title='Multiple used in 28 places.'>head</a> = <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/356.html' title='Multiple used in 14 places.'>tail</a> = <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>;
+<a name='L65'>  65       <font color='red'>}</font> <b>else</b> <b>if</b> (<a href='../Y/135.html' title='Multiple used in 48 places.'>current</a> == <a href='../Y/49.html' title='Multiple used in 45 places.'>NULL</a>) <font color='red'>{</font> <i><font color='green'>//Ran off the end, insert AS tail</font></i>
+<a name='L66'>  66         <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/356.html' title='Multiple used in 14 places.'>tail</a> = <a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a>-&gt;<a href='../Y/256.html' title='Multiple used in 59 places.'>next</a> = <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>;
+<a name='L67'>  67         <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>-&gt;<a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a> = <a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a>; <i><font color='green'>//prev=tail</font></i>
+<a name='L68'>  68       <font color='red'>}</font> <b>else</b> <b>if</b> (<a href='../Y/135.html' title='Multiple used in 48 places.'>current</a> == <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/194.html' title='Multiple used in 28 places.'>head</a>) <font color='red'>{</font>
+<a name='L69'>  69         <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>-&gt;<a href='../Y/256.html' title='Multiple used in 59 places.'>next</a> = <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/194.html' title='Multiple used in 28 places.'>head</a>;
+<a name='L70'>  70         <a href='../Y/135.html' title='Multiple used in 48 places.'>current</a>-&gt;<a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a> = <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>;
+<a name='L71'>  71         <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/194.html' title='Multiple used in 28 places.'>head</a> = <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>;
+<a name='L72'>  72       <font color='red'>}</font> <b>else</b> <font color='red'>{</font>
+<a name='L73'>  73         <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>-&gt;<a href='../Y/256.html' title='Multiple used in 59 places.'>next</a> = <a href='../Y/135.html' title='Multiple used in 48 places.'>current</a>;
+<a name='L74'>  74         <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>-&gt;<a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a> = <a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a>;
+<a name='L75'>  75         <a href='../Y/135.html' title='Multiple used in 48 places.'>current</a>-&gt;<a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a> = <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>;
+<a name='L76'>  76         <a href='../Y/278.html' title='Multiple used in 18 places.'>prev</a>-&gt;<a href='../Y/256.html' title='Multiple used in 59 places.'>next</a> = <a href='../Y/260.html' title='Multiple used in 65 places.'>node</a>;
+<a name='L77'>  77       <font color='red'>}</font>
+<a name='L78'>  78 
+<a name='L79'>  79       ++(<a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>-&gt;<a href='../Y/244.html' title='Multiple used in 29 places.'>my_size</a>);
+<a name='L80'>  80     <font color='red'>}</font>
+<a name='L81'>  81 
+<a name='L82'>  82 <font color='red'>}</font>;
+<a name='L83'>  83 
+<a name='L84'>  84 <a href='../S/33.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L85'>  85 <font color='darkred'>#endif</font> <i><font color='green'>/* !_BD_SORTEDLIST_H */</font></i> 
+</pre>
+<hr>
+<a name='BOTTOM'>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+</body>
+</html>

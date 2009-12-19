@@ -1,0 +1,140 @@
+.TH "List" 3 "18 Dec 2009" "Version 1.0" "BDLIB" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+List \- \fBList\fP data structure.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <List.h>\fP
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBListIterator\fP"
+.br
+.ti -1c
+.RI "struct \fBNode\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef ListIterator \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef T \fBiterator_type\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBList\fP (const \fBList\fP &list)"
+.br
+.ti -1c
+.RI "\fBList\fP & \fBoperator=\fP (const \fBList\fP &list)"
+.br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "size_t \fBsize\fP () const "
+.br
+.ti -1c
+.RI "bool \fBisEmpty\fP () const "
+.br
+.ti -1c
+.RI "void \fBinsert\fP (const iterator_type &ptr)"
+.br
+.RI "\fIInsert into the list at the head. \fP"
+.ti -1c
+.RI "bool \fBcontains\fP (const iterator_type &ptr) const "
+.br
+.ti -1c
+.RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const "
+.br
+.ti -1c
+.RI "iterator_type & \fBfindRef\fP (const iterator_type &ptr)"
+.br
+.RI "\fIReturn a reference to the found element. \fP"
+.ti -1c
+.RI "bool \fBremove\fP (const iterator_type &ptr)"
+.br
+.ti -1c
+.RI "iterator \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "iterator \fBend\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdeleteNode\fP (Node *node)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "Node * \fBhead\fP"
+.br
+.ti -1c
+.RI "Node * \fBtail\fP"
+.br
+.ti -1c
+.RI "size_t \fBmy_size\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "\fBList\fP< iterator_type > & \fBoperator<<\fP (\fBList\fP< iterator_type > &list, const iterator_type &item)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class List< T >"
+\fBList\fP data structure. 
+.PP
+Definition at line 36 of file List.h.
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T> void \fBList\fP< T >::insert (const iterator_type & ptr)\fC [inline]\fP"
+.PP
+Insert into the list at the head. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP The ptr to insert 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSortedList< T >\fP.
+.PP
+Definition at line 109 of file List.h.
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "template<class T> \fBList\fP<iterator_type>& operator<< (\fBList\fP< iterator_type > & list, const iterator_type & item)\fC [friend]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinsert\fP 
+.RE
+.PP
+
+.PP
+Definition at line 124 of file List.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BDLIB from the source code.

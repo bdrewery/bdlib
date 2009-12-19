@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>ch</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/27.html#L119'>ch</a>                119 String.cpp     void String::insert(int k, const char ch)
+<a href='../S/27.html#L125'>ch</a>                125 String.cpp       Ref-&gt;buf[k] = ch;
+<a href='../S/27.html#L136'>ch</a>                136 String.cpp     void String::replace(int k, const char ch) {
+<a href='../S/27.html#L140'>ch</a>                140 String.cpp       Ref-&gt;buf[k] = ch;
+<a href='../S/27.html#L246'>ch</a>                246 String.cpp     const String &amp;String::operator=(const char ch) {
+<a href='../S/27.html#L248'>ch</a>                248 String.cpp       append(ch);
+<a href='../S/27.html#L284'>ch</a>                284 String.cpp       char ch;
+<a href='../S/27.html#L286'>ch</a>                286 String.cpp       is &gt;&gt; ch;    // whitespace skipped, first non-white char in ch
+<a href='../S/27.html#L292'>ch</a>                292 String.cpp           string += ch;
+<a href='../S/27.html#L293'>ch</a>                293 String.cpp           is.get(ch);
+<a href='../S/27.html#L294'>ch</a>                294 String.cpp         } while (!is.fail() &amp;&amp; !isspace(ch));
+<a href='../S/27.html#L296'>ch</a>                296 String.cpp         if (isspace(ch))    // put whitespace back on the stream
+<a href='../S/27.html#L298'>ch</a>                298 String.cpp           is.putback(ch);
+<a href='../S/27.html#L306'>ch</a>                306 String.cpp       char ch;
+<a href='../S/27.html#L309'>ch</a>                309 String.cpp       while (is.get(ch) &amp;&amp; ch != '\n')
+<a href='../S/27.html#L310'>ch</a>                310 String.cpp         string += ch;
+<a href='../S/46.html#L341'>ch</a>                341 String.h               String(const char ch) : Ref(new StringBuf()), offset(0), sublen(0) { append(ch); };
+<a href='../S/46.html#L515'>ch</a>                515 String.h               inline void append(const char ch) { insert(length(), ch); };
+<a href='../S/46.html#L656'>ch</a>                656 String.h       inline String&amp; String::operator += (const char ch) {
+<a href='../S/46.html#L657'>ch</a>                657 String.h         append(ch);
+</pre>
+</body>
+</html>

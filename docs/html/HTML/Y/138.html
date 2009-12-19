@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>data</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/27.html#L401'>data</a>              401 String.cpp         hash = ((hash &lt;&lt; 5) + hash) + data()[i];
+<a href='../S/46.html#L364'>data</a>              364 String.h               inline const char* begin() const { return data(); };
+<a href='../S/46.html#L408'>data</a>              408 String.h                 return data();
+<a href='../S/46.html#L436'>data</a>              436 String.h               inline const char* data() const { return Ref-&gt;buf + offset; }
+<a href='../S/37.html#L69'>data</a>               69 base64.c       void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
+<a href='../S/37.html#L98'>data</a>               98 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/37.html#L100'>data</a>              100 base64.c           buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/37.html#L102'>data</a>              102 base64.c           buf[2] = b64_charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
+<a href='../S/37.html#L104'>data</a>              104 base64.c           buf[3] = b64_charset[data[2] &amp; 0x3f];
+<a href='../S/37.html#L106'>data</a>              106 base64.c           data += NUM_ASCII_BYTES;
+<a href='../S/37.html#L113'>data</a>              113 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/37.html#L115'>data</a>              115 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
+<a href='../S/37.html#L119'>data</a>              119 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/37.html#L120'>data</a>              120 base64.c             buf[2] = b64_charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
+<a href='../S/37.html#L131'>data</a>              131 base64.c         char *p = b64enc((unsigned char*) string.data(), &amp;len);
+<a href='../S/37.html#L148'>data</a>              148 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest)
+<a href='../S/37.html#L156'>data</a>              156 base64.c           *buf++ = (b64_indexes[data[0]] &lt;&lt; 2) + ((b64_indexes[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/37.html#L157'>data</a>              157 base64.c           if (data[2] != PADDING_CHAR) {
+<a href='../S/37.html#L159'>data</a>              159 base64.c             *buf++ = ((b64_indexes[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((b64_indexes[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/37.html#L160'>data</a>              160 base64.c             if (data[3] != PADDING_CHAR) {
+<a href='../S/37.html#L162'>data</a>              162 base64.c               *buf++ = ((b64_indexes[data[2]] &amp; 0x03) &lt;&lt; 6) + b64_indexes[data[3]];
+<a href='../S/37.html#L165'>data</a>              165 base64.c           data += NUM_ENCODED_BYTES;
+<a href='../S/37.html#L172'>data</a>              172 base64.c       char *b64dec(const unsigned char *data, size_t *len)
+<a href='../S/37.html#L177'>data</a>              177 base64.c         b64dec_buf(data, len, dest);
+<a href='../S/37.html#L184'>data</a>              184 base64.c         char *p = b64dec((unsigned char*) string.data(), &amp;len);
+<a href='../S/40.html#L56'>data</a>               56 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest);
+<a href='../S/40.html#L64'>data</a>               64 base64.h       char *b64dec(const unsigned char *data, size_t *len);
+<a href='../S/40.html#L79'>data</a>               79 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest);
+</pre>
+</body>
+</html>

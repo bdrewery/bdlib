@@ -1,0 +1,166 @@
+<html>
+<head>
+<title>HashTable.h</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/HashTable.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2><a href='../J/8.html' title='Multiple included from 2 places.'>INCLUDED FROM</a></h2>
+<hr>
+<pre>
+<a name='L1'>   1 <i><font color='green'>/* HashTable.h</font></i>
+<a name='L2'>   2 <i><font color='green'> *</font></i>
+<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
+<a name='L4'>   4 <i><font color='green'> *</font></i>
+<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
+<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
+<a name='L7'>   7 <i><font color='green'> *</font></i>
+<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.</font></i>
+<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
+<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
+<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
+<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L14'>  14 <i><font color='green'> *</font></i>
+<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
+<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
+<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
+<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
+<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
+<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
+<a name='L21'>  21 <i><font color='green'> *</font></i>
+<a name='L22'>  22 <i><font color='green'> * $Id: HashTable.h 192 2008-04-25 14:53:33Z bryan $</font></i>
+<a name='L23'>  23 <i><font color='green'> */</font></i>
+<a name='L24'>  24 <font color='darkred'>#ifndef</font> <a href='../S/28.html#L25' title='Defined at 25 in HashTable.h.'>_BD_HASHTABLE_H</a>
+<a name='L25'>  25 <font color='darkred'>#define</font> <a href='../S/28.html#L24' title='Refered from 24 in HashTable.h.'>_BD_HASHTABLE_H</a> 1
+<a name='L26'>  26 
+<a name='L27'>  27 <font color='darkred'>#include</font> "<a href='33.html'>bdlib.h</a>"
+<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='41.html'>hash.h</a>"
+<a name='L29'>  29 <font color='darkred'>#include</font> "<a href='44.html'>Iterator.h</a>"
+<a name='L30'>  30 <font color='darkred'>#include</font> "<a href='26.html'>List.h</a>"
+<a name='L31'>  31 <a href='../S/33.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L32'>  32 
+<a name='L33'>  33 <a href='../Y/359.html' title='Multiple used in 17 places.'>template</a> &lt;<a href='../Y/122.html' title='Multiple used in 56 places.'>class</a> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a>, <a href='../Y/122.html' title='Multiple used in 56 places.'>class</a> <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>&gt;
+<a name='L34'>  34 <i><font color='green'>/**</font></i>
+<a name='L35'>  35 <i><font color='green'>  * @class HashTable</font></i>
+<a name='L36'>  36 <i><font color='green'>  * @brief HashTable data structure</font></i>
+<a name='L37'>  37 <i><font color='green'>  * @todo replace()</font></i>
+<a name='L38'>  38 <i><font color='green'>  * @todo iterators</font></i>
+<a name='L39'>  39 <i><font color='green'>  * @todo resizing/growing</font></i>
+<a name='L40'>  40 <i><font color='green'>  *</font></i>
+<a name='L41'>  41 <i><font color='green'>  */</font></i>
+<a name='L42'>  42 <a href='../Y/122.html' title='Multiple used in 56 places.'>class</a> <a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a> <font color='red'>{</font>
+<a name='L43'>  43   <a href='../Y/279.html' title='Multiple used in 23 places.'>private</a>:
+<a name='L44'>  44     <b>typedef</b> <a href='../S/44.html#L85' title='Defined at 85 in Iterator.h.'>KeyValue</a>&lt;<a href='../R/12.html' title='Multiple refered from 25 places.'>Key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>&gt; <a href='../R/90.html' title='Multiple refered from 48 places.'>iterator_type</a>;
+<a name='L45'>  45     <b>typedef</b> <a href='../S/27.html#L397' title='Defined at 397 in String.cpp.'>hash</a>&lt;Key&gt; <a href='../S/28.html#L50' title='Refered from 50 in HashTable.h.'>hasher</a>;
+<a name='L46'>  46 
+<a name='L47'>  47     <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>&gt; *<a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>;
+<a name='L48'>  48     <a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>;
+<a name='L49'>  49     <a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>;
+<a name='L50'>  50     <a href='../S/28.html#L45' title='Defined at 45 in HashTable.h.'>hasher</a> <a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a>;
+<a name='L51'>  51 
+<a name='L52'>  52     <b>inline</b> <a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/186.html' title='Multiple used in 6 places.'>getIndex</a>(<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a> &amp;<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) <b>const</b> <font color='red'>{</font>
+<a name='L53'>  53       <b>return</b> <a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) % <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>;
+<a name='L54'>  54     <font color='red'>}</font>
+<a name='L55'>  55   <a href='../Y/293.html' title='Multiple used in 51 places.'>public</a>:
+<a name='L56'>  56     <a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a>() : <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>(<a href='../Y/248.html' title='Multiple used in 22 places.'>new</a> <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>&gt;[100]), <a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>(0), <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>(100), <a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L57'>  57     <a href='../Y/165.html' title='Multiple used in 2 places.'>explicit</a> <a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a>(<a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/116.html' title='Multiple used in 12 places.'>capacity</a>) : <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>(<a href='../Y/248.html' title='Multiple used in 22 places.'>new</a> <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>&gt;[<a href='../Y/116.html' title='Multiple used in 12 places.'>capacity</a>]), <a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>(0), <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>(<a href='../Y/116.html' title='Multiple used in 12 places.'>capacity</a>), <a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L58'>  58     <a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a>(<b>const</b> <a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a>&lt;<a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>&gt; &amp;<a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>) : <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>(<a href='../Y/248.html' title='Multiple used in 22 places.'>new</a> <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>&gt;[<a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>]), <a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>(<a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>), <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>(<a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>), <a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a>(<a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a>) <font color='red'>{</font>
+<a name='L59'>  59       <b>for</b> (<a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/196.html' title='Multiple used in 62 places.'>i</a> = 0; <a href='../Y/196.html' title='Multiple used in 62 places.'>i</a> &lt; <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>; ++<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>)
+<a name='L60'>  60           <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>] = <a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>];
+<a name='L61'>  61     <font color='red'>}</font>;
+<a name='L62'>  62 
+<a name='L63'>  63     <a href='../Y/397.html' title='Multiple used in 41 places.'>virtual</a> ~<a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a>() <font color='red'>{</font>
+<a name='L64'>  64       <a href='../Y/143.html' title='Multiple used in 10 places.'>delete</a>[] <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>;
+<a name='L65'>  65     <font color='red'>}</font>
+<a name='L66'>  66 
+<a name='L67'>  67     <b>void</b> <a href='../Y/123.html' title='Multiple used in 19 places.'>clear</a>() <font color='red'>{</font>
+<a name='L68'>  68       <b>for</b> (<a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/196.html' title='Multiple used in 62 places.'>i</a> = 0; <a href='../Y/196.html' title='Multiple used in 62 places.'>i</a> &lt; <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>; ++<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>)
+<a name='L69'>  69         <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>].<a href='../Y/123.html' title='Multiple used in 19 places.'>clear</a>();
+<a name='L70'>  70       <a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a> = 0;
+<a name='L71'>  71     <font color='red'>}</font>
+<a name='L72'>  72 
+<a name='L73'>  73     <a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a> &amp;<a href='../Y/268.html' title='Multiple used in 107 places.'>operator</a> = (<b>const</b> <a href='../Y/40.html' title='Multiple used in 10 places.'>HashTable</a>&lt;<a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>&gt; &amp;<a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>) <font color='red'>{</font> 
+<a name='L74'>  74       <b>if</b> (&amp;<a href='../Y/355.html' title='Multiple used in 8 places.'>table</a> != <a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>) <font color='red'>{</font>
+<a name='L75'>  75         <a href='../Y/143.html' title='Multiple used in 10 places.'>delete</a>[] <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>;
+<a name='L76'>  76         <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a> = <a href='../Y/248.html' title='Multiple used in 22 places.'>new</a> <a href='../Y/45.html' title='Multiple used in 27 places.'>List</a>&lt;<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>&gt;[<a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>];
+<a name='L77'>  77         <b>for</b> (<a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/196.html' title='Multiple used in 62 places.'>i</a> = 0; <a href='../Y/196.html' title='Multiple used in 62 places.'>i</a> &lt; <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>; ++<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>) 
+<a name='L78'>  78           <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>] = <a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/196.html' title='Multiple used in 62 places.'>i</a>];
+<a name='L79'>  79         <a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a> = <a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>;
+<a name='L80'>  80         <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a> = <a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>;
+<a name='L81'>  81         <a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a> = <a href='../Y/355.html' title='Multiple used in 8 places.'>table</a>.<a href='../Y/86.html' title='Multiple used in 6 places.'>_hash</a>;
+<a name='L82'>  82       <font color='red'>}</font>
+<a name='L83'>  83       <b>return</b> *<a href='../Y/361.html' title='Multiple used in 73 places.'>this</a>; 
+<a name='L84'>  84     <font color='red'>}</font>
+<a name='L85'>  85 
+<a name='L86'>  86     <b>inline</b> <a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/324.html' title='Multiple used in 155 places.'>size</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>; <font color='red'>}</font>;
+<a name='L87'>  87     <b>inline</b> <a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/116.html' title='Multiple used in 12 places.'>capacity</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/84.html' title='Multiple used in 11 places.'>_capacity</a>; <font color='red'>}</font>;
+<a name='L88'>  88     <b>inline</b> <a href='../Y/110.html' title='Multiple used in 59 places.'>bool</a> <a href='../Y/208.html' title='Multiple used in 62 places.'>isEmpty</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/324.html' title='Multiple used in 155 places.'>size</a>() == 0; <font color='red'>}</font>;
+<a name='L89'>  89     <i><font color='green'>//inline operator bool() const { return !isEmpty(); };</font></i>
+<a name='L90'>  90 
+<a name='L91'>  91     <a href='../Y/110.html' title='Multiple used in 59 places.'>bool</a> <a href='../D/120.html' title='Multiple defined in 3 places.'>insert</a>(<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a> &amp;<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>, <b>const</b> <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a> &amp;<a href='../Y/395.html' title='Multiple used in 29 places.'>value</a>) <font color='red'>{</font> 
+<a name='L92'>  92       <b>if</b> (<a href='../Y/128.html' title='Multiple used in 175 places.'>contains</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>)) <b>return</b> <a href='../Y/170.html' title='Multiple used in 8 places.'>false</a>;
+<a name='L93'>  93       <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/186.html' title='Multiple used in 6 places.'>getIndex</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>)] &lt;&lt; <a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>, <a href='../Y/395.html' title='Multiple used in 29 places.'>value</a>);
+<a name='L94'>  94       ++<a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>;
+<a name='L95'>  95       <b>return</b> <a href='../Y/373.html' title='Multiple used in 6 places.'>true</a>;
+<a name='L96'>  96     <font color='red'>}</font>
+<a name='L97'>  97 
+<a name='L98'>  98     <b>inline</b> <a href='../Y/110.html' title='Multiple used in 59 places.'>bool</a> <a href='../Y/128.html' title='Multiple used in 175 places.'>contains</a>(<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a> &amp;<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) <b>const</b> <font color='red'>{</font>
+<a name='L99'>  99       <b>if</b> (<a href='../Y/208.html' title='Multiple used in 62 places.'>isEmpty</a>()) <b>return</b> <a href='../Y/170.html' title='Multiple used in 8 places.'>false</a>;
+<a name='L100'> 100       <b>return</b> <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/186.html' title='Multiple used in 6 places.'>getIndex</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>)].<a href='../Y/128.html' title='Multiple used in 175 places.'>contains</a>(<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>()));
+<a name='L101'> 101     <font color='red'>}</font>;
+<a name='L102'> 102 
+<a name='L103'> 103     <a href='../Y/110.html' title='Multiple used in 59 places.'>bool</a> <a href='../Y/303.html' title='Multiple used in 73 places.'>remove</a>(<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a> &amp;<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) <font color='red'>{</font>
+<a name='L104'> 104       <b>if</b> (<a href='../Y/208.html' title='Multiple used in 62 places.'>isEmpty</a>()) <b>return</b> <a href='../Y/170.html' title='Multiple used in 8 places.'>false</a>;
+<a name='L105'> 105       <b>if</b> (<a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/186.html' title='Multiple used in 6 places.'>getIndex</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>)].<a href='../Y/303.html' title='Multiple used in 73 places.'>remove</a>(<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>()))) <font color='red'>{</font>
+<a name='L106'> 106         --<a href='../Y/91.html' title='Multiple used in 9 places.'>_size</a>;
+<a name='L107'> 107         <b>return</b> <a href='../Y/373.html' title='Multiple used in 6 places.'>true</a>;
+<a name='L108'> 108       <font color='red'>}</font>
+<a name='L109'> 109       <b>return</b> <a href='../Y/170.html' title='Multiple used in 8 places.'>false</a>;
+<a name='L110'> 110     <font color='red'>}</font>;
+<a name='L111'> 111 
+<a name='L112'> 112     <b>inline</b> <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a> <a href='../Y/189.html' title='Multiple used in 73 places.'>getValue</a>(<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a> &amp;<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) <b>const</b> <font color='red'>{</font>
+<a name='L113'> 113       <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a> <a href='../Y/156.html' title='Multiple used in 11 places.'>empty</a>;
+<a name='L114'> 114       <b>if</b> (<a href='../Y/208.html' title='Multiple used in 62 places.'>isEmpty</a>()) <b>return</b> <a href='../Y/156.html' title='Multiple used in 11 places.'>empty</a>;
+<a name='L115'> 115       <b>return</b> <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/186.html' title='Multiple used in 6 places.'>getIndex</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>)].<a href='../Y/175.html' title='Multiple used in 27 places.'>find</a>(<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>())).<a href='../Y/395.html' title='Multiple used in 29 places.'>value</a>();
+<a name='L116'> 116     <font color='red'>}</font>;
+<a name='L117'> 117 
+<a name='L118'> 118     <i><font color='green'>/**</font></i>
+<a name='L119'> 119 <i><font color='green'>      * @brief Associate array type accessor (rvalue)</font></i>
+<a name='L120'> 120 <i><font color='green'>      * @param key The key to search for</font></i>
+<a name='L121'> 121 <i><font color='green'>      */</font></i>
+<a name='L122'> 122     <b>inline</b> <b>const</b> <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a> <a href='../Y/268.html' title='Multiple used in 107 places.'>operator</a> [](<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a>&amp; <a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/189.html' title='Multiple used in 73 places.'>getValue</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>); <font color='red'>}</font>
+<a name='L123'> 123     
+<a name='L124'> 124     <i><font color='green'>/**</font></i>
+<a name='L125'> 125 <i><font color='green'>      * @brief Associate array type accessor (lvalue)</font></i>
+<a name='L126'> 126 <i><font color='green'>      * @param key The key to search for</font></i>
+<a name='L127'> 127 <i><font color='green'>      * @sa find_or_insert_key </font></i>
+<a name='L128'> 128 <i><font color='green'>      * @code table["key"] = "value";</font></i>
+<a name='L129'> 129 <i><font color='green'>      * If the key is not in the table, it is inserted, and the value set to the rvalue given.</font></i>
+<a name='L130'> 130 <i><font color='green'>      */</font></i>
+<a name='L131'> 131     <b>inline</b> <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>&amp; <a href='../Y/268.html' title='Multiple used in 107 places.'>operator</a> [](<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a>&amp; <a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) <font color='red'>{</font>
+<a name='L132'> 132       <b>return</b> <a href='../Y/177.html' title='Multiple used in 2 places.'>find_or_insert_key</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>);
+<a name='L133'> 133     <font color='red'>}</font>
+<a name='L134'> 134  
+<a name='L135'> 135     <i><font color='green'>/**</font></i>
+<a name='L136'> 136 <i><font color='green'>     * @brief Find a key in the list or insert it.</font></i>
+<a name='L137'> 137 <i><font color='green'>     */</font></i>
+<a name='L138'> 138     <b>inline</b> <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>&amp; <a href='../Y/177.html' title='Multiple used in 2 places.'>find_or_insert_key</a>(<b>const</b> <a href='../D/38.html' title='Multiple defined in 3 places.'>Key</a>&amp; <a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>) <font color='red'>{</font>
+<a name='L139'> 139       <b>if</b> (!<a href='../Y/128.html' title='Multiple used in 175 places.'>contains</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>))
+<a name='L140'> 140         <a href='../D/120.html' title='Multiple defined in 3 places.'>insert</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>());
+<a name='L141'> 141       <b>return</b> <a href='../Y/234.html' title='Multiple used in 36 places.'>list</a>[<a href='../Y/186.html' title='Multiple used in 6 places.'>getIndex</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>)].<a href='../Y/176.html' title='Multiple used in 2 places.'>findRef</a>(<a href='../D/126.html' title='Multiple defined in 5 places.'>iterator_type</a>(<a href='../Y/225.html' title='Multiple used in 48 places.'>key</a>, <a href='../Y/78.html' title='Multiple used in 30 places.'>Value</a>())).<a href='../Y/384.html' title='Multiple used in 8 places.'>v</a>;
+<a name='L142'> 142     <font color='red'>}</font>
+<a name='L143'> 143 <font color='red'>}</font>;
+<a name='L144'> 144 
+<a name='L145'> 145 <a href='../S/33.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L146'> 146 
+<a name='L147'> 147 <font color='darkred'>#endif</font> <i><font color='green'>/* !_BD_HASHTABLE_H */</font></i> 
+</pre>
+<hr>
+<a name='BOTTOM'>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+</body>
+</html>

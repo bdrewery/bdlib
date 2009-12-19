@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>b64_charset</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/37.html#L38'>b64_charset</a>        38 base64.c       static const char b64_charset[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";;
+<a href='../S/37.html#L98'>b64_charset</a>        98 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/37.html#L100'>b64_charset</a>       100 base64.c           buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/37.html#L102'>b64_charset</a>       102 base64.c           buf[2] = b64_charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
+<a href='../S/37.html#L104'>b64_charset</a>       104 base64.c           buf[3] = b64_charset[data[2] &amp; 0x3f];
+<a href='../S/37.html#L113'>b64_charset</a>       113 base64.c           buf[0] = b64_charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/37.html#L115'>b64_charset</a>       115 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
+<a href='../S/37.html#L119'>b64_charset</a>       119 base64.c             buf[1] = b64_charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/37.html#L120'>b64_charset</a>       120 base64.c             buf[2] = b64_charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
+</pre>
+</body>
+</html>

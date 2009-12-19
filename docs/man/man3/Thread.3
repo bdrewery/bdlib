@@ -1,0 +1,64 @@
+.TH "Thread" 3 "18 Dec 2009" "Version 1.0" "BDLIB" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Thread \- Extendable thread class.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Thread.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBstart\fP (void *=NULL)"
+.br
+.ti -1c
+.RI "void \fBdetach\fP (void)"
+.br
+.ti -1c
+.RI "void * \fBwait\fP (void)"
+.br
+.ti -1c
+.RI "void \fBstop\fP (void)"
+.br
+.ti -1c
+.RI "threadId_t \fBgetThreadId\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static threadId_t \fBgetCurrentThreadId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsleep\fP (int)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void * \fBrun\fP (void *)=0"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "threadMainRet_t \fBthreadMain\fP (void *)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Extendable thread class. 
+.PP
+Definition at line 59 of file Thread.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BDLIB from the source code.

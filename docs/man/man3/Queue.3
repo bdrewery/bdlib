@@ -1,0 +1,121 @@
+.TH "Queue" 3 "18 Dec 2009" "Version 1.0" "BDLIB" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Queue \- A FIFO \fBQueue\fP, what else!  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Queue.h>\fP
+.PP
+Inherits \fBList< T >\fP.
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef QueueIterator< T > \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef QueueConstIterator< T > \fBconst_iterator\fP"
+.br
+.ti -1c
+.RI "typedef T \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef size_t \fBsize_type\fP"
+.br
+.ti -1c
+.RI "typedef ptrdiff_t \fBdifference_type\fP"
+.br
+.ti -1c
+.RI "typedef value_type * \fBpointer\fP"
+.br
+.ti -1c
+.RI "typedef const value_type * \fBconst_pointer\fP"
+.br
+.ti -1c
+.RI "typedef value_type & \fBreference\fP"
+.br
+.ti -1c
+.RI "typedef const value_type & \fBconst_reference\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "value_type \fBdequeue\fP ()"
+.br
+.RI "\fIDequeue an element from the tail. \fP"
+.ti -1c
+.RI "const_iterator \fBfront\fP ()"
+.br
+.RI "\fIReturn the first element, but don't dequeue it. \fP"
+.ti -1c
+.RI "void \fBenqueue\fP (const_reference item)"
+.br
+.ti -1c
+.RI "iterator \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "iterator \fBend\fP ()"
+.br
+.ti -1c
+.RI "const_iterator \fBbegin\fP () const "
+.br
+.ti -1c
+.RI "const_iterator \fBend\fP () const "
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBQueueIterator< T >\fP"
+.br
+.ti -1c
+.RI "class \fBQueueConstIterator< T >\fP"
+.br
+.ti -1c
+.RI "\fBQueue\fP< value_type > & \fBoperator>>\fP (\fBQueue\fP< value_type > &queue, reference item)"
+.br
+.ti -1c
+.RI "\fBQueue\fP< value_type > & \fBoperator<<\fP (\fBQueue\fP< value_type > &queue, const_reference item)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class Queue< T >"
+A FIFO \fBQueue\fP, what else! 
+.PP
+Definition at line 41 of file Queue.h.
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "template<class T > \fBQueue\fP<value_type>& operator<< (\fBQueue\fP< value_type > & queue, const_reference item)\fC [friend]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+push 
+.RE
+.PP
+
+.PP
+Definition at line 100 of file Queue.h.
+.SS "template<class T > \fBQueue\fP<value_type>& operator>> (\fBQueue\fP< value_type > & queue, reference item)\fC [friend]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+\fBdequeue\fP 
+.RE
+.PP
+
+.PP
+Definition at line 75 of file Queue.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BDLIB from the source code.
