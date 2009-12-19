@@ -44,7 +44,7 @@
 <a name='L31'>  31 <font color='darkred'>#include</font> &lt;stdio.h&gt;
 <a name='L32'>  32 <font color='darkred'>#endif</font>
 <a name='L33'>  33 
-<a name='L34'>  34 <a href='../S/42.html#L41' title='Defined at 41 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L34'>  34 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
 <a name='L35'>  35 <a href='../Y/453.html' title='Multiple used in 25 places.'>template</a> &lt;<a href='../Y/155.html' title='Multiple used in 66 places.'>class</a> <a href='../Y/94.html' title='Multiple used in 70 places.'>T</a>&gt;
 <a name='L36'>  36 <i><font color='green'>/**</font></i>
 <a name='L37'>  37 <i><font color='green'> * @class ArrayRef</font></i>
@@ -63,34 +63,34 @@
 <a name='L50'>  50     <i><font color='green'>/**</font></i>
 <a name='L51'>  51 <i><font color='green'>     * @brief Ensure that the buffer capacity() is &gt;= newSize; else grow/copy into larger buffer.</font></i>
 <a name='L52'>  52 <i><font color='green'>     * @param newSize A size that we need to Allocate the buffer to.</font></i>
-<a name='L53'>  53 <i><font color='green'>     * @pre newSize is &gt; 0 (assumed as size_t is unsigned)</font></i>
-<a name='L54'>  54 <i><font color='green'>     * @post The buffer is at least nsize bytes long.</font></i>
-<a name='L55'>  55 <i><font color='green'>     * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.</font></i>
-<a name='L56'>  56 <i><font color='green'>     */</font></i>
-<a name='L57'>  57     <b>void</b> <a href='../S/35.html#L23' title='Defined at 23 in Stream.cpp.'>Reserve</a>(<b>const</b> <a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a> <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>, <a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a>&amp; <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>) <b>const</b>
-<a name='L58'>  58     <font color='red'>{</font>
-<a name='L59'>  59       <i><font color='green'>/* Don't new if we already have enough room! */</font></i>
-<a name='L60'>  60       <b>if</b> (<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> &lt; <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>) <font color='red'>{</font>
-<a name='L61'>  61         <a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> = <a href='../Y/425.html' title='Multiple used in 26 places.'>std</a>::<a href='../Y/301.html' title='Multiple used in 2 places.'>max</a>(<a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a>(<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> * 1.5), <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>);
-<a name='L62'>  62 
-<a name='L63'>  63         <a href='../Y/94.html' title='Multiple used in 70 places.'>T</a> *<a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a> = <a href='../Y/2.html' title='Multiple used in 2 places.'>AllocBuf</a>(<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a>);
-<a name='L64'>  64 
-<a name='L65'>  65         <b>if</b> (<a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a> != <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a>) <font color='red'>{</font>
-<a name='L66'>  66           <i><font color='green'>/* Copy old buffer into new - only copy the substring */</font></i>
-<a name='L67'>  67           <a href='../Y/425.html' title='Multiple used in 26 places.'>std</a>::<a href='../Y/162.html' title='Multiple used in 6 places.'>copy</a>(<a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> + <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>, <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> + <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a> + <a href='../Y/290.html' title='Multiple used in 79 places.'>len</a>, <a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a>);
-<a name='L68'>  68           <a href='../Y/35.html' title='Multiple used in 3 places.'>FreeBuf</a>(<a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a>);
-<a name='L69'>  69           <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> = <a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a>;
-<a name='L70'>  70           <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a> = 0;
-<a name='L71'>  71         <font color='red'>}</font>
-<a name='L72'>  72       <font color='red'>}</font> <b>else</b> <b>if</b> ((<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> - <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>) &lt; <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>) <font color='red'>{</font>
-<a name='L73'>  73         <i><font color='green'>// There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left</font></i>
-<a name='L74'>  74         <i><font color='green'>// Shift everything to the beginning and reset the offset</font></i>
-<a name='L75'>  75         <i><font color='green'>/* Only copy the substring */</font></i>
-<a name='L76'>  76         <a href='../Y/305.html' title='Multiple used in 5 places.'>memmove</a>(<a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a>, <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> + <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>, <a href='../Y/290.html' title='Multiple used in 79 places.'>len</a>);
-<a name='L77'>  77         <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a> = 0;
-<a name='L78'>  78       <font color='red'>}</font>
-<a name='L79'>  79     <font color='red'>}</font>
-<a name='L80'>  80     <i><font color='green'>//void Reserve(const size_t, size_t&amp;) const;</font></i>
+<a name='L53'>  53 <i><font color='green'>     * @param offset The offset of the old buffer so we know where to start</font></i>
+<a name='L54'>  54 <i><font color='green'>     * @pre newSize is &gt; 0 (assumed as size_t is unsigned)</font></i>
+<a name='L55'>  55 <i><font color='green'>     * @post The buffer is at least nsize bytes long.</font></i>
+<a name='L56'>  56 <i><font color='green'>     * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.</font></i>
+<a name='L57'>  57 <i><font color='green'>     */</font></i>
+<a name='L58'>  58     <b>void</b> <a href='../S/35.html#L23' title='Defined at 23 in Stream.cpp.'>Reserve</a>(<b>const</b> <a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a> <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>, <a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a>&amp; <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>) <b>const</b>
+<a name='L59'>  59     <font color='red'>{</font>
+<a name='L60'>  60       <i><font color='green'>/* Don't new if we already have enough room! */</font></i>
+<a name='L61'>  61       <b>if</b> (<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> &lt; <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>) <font color='red'>{</font>
+<a name='L62'>  62         <a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> = <a href='../Y/425.html' title='Multiple used in 26 places.'>std</a>::<a href='../Y/301.html' title='Multiple used in 2 places.'>max</a>(<a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a>(<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> * 1.5), <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>);
+<a name='L63'>  63 
+<a name='L64'>  64         <a href='../Y/94.html' title='Multiple used in 70 places.'>T</a> *<a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a> = <a href='../Y/2.html' title='Multiple used in 2 places.'>AllocBuf</a>(<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a>);
+<a name='L65'>  65 
+<a name='L66'>  66         <b>if</b> (<a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a> != <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a>) <font color='red'>{</font>
+<a name='L67'>  67           <i><font color='green'>/* Copy old buffer into new - only copy the substring */</font></i>
+<a name='L68'>  68           <a href='../Y/425.html' title='Multiple used in 26 places.'>std</a>::<a href='../Y/162.html' title='Multiple used in 6 places.'>copy</a>(<a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> + <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>, <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> + <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a> + <a href='../Y/290.html' title='Multiple used in 79 places.'>len</a>, <a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a>);
+<a name='L69'>  69           <a href='../Y/35.html' title='Multiple used in 3 places.'>FreeBuf</a>(<a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a>);
+<a name='L70'>  70           <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> = <a href='../Y/326.html' title='Multiple used in 4 places.'>newbuf</a>;
+<a name='L71'>  71           <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a> = 0;
+<a name='L72'>  72         <font color='red'>}</font>
+<a name='L73'>  73       <font color='red'>}</font> <b>else</b> <b>if</b> ((<a href='../Y/407.html' title='Multiple used in 218 places.'>size</a> - <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>) &lt; <a href='../Y/324.html' title='Multiple used in 14 places.'>newSize</a>) <font color='red'>{</font>
+<a name='L74'>  74         <i><font color='green'>// There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left</font></i>
+<a name='L75'>  75         <i><font color='green'>// Shift everything to the beginning and reset the offset</font></i>
+<a name='L76'>  76         <i><font color='green'>/* Only copy the substring */</font></i>
+<a name='L77'>  77         <a href='../Y/305.html' title='Multiple used in 5 places.'>memmove</a>(<a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a>, <a href='../Y/138.html' title='Multiple used in 119 places.'>buf</a> + <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a>, <a href='../Y/290.html' title='Multiple used in 79 places.'>len</a>);
+<a name='L78'>  78         <a href='../Y/338.html' title='Multiple used in 27 places.'>offset</a> = 0;
+<a name='L79'>  79       <font color='red'>}</font>
+<a name='L80'>  80     <font color='red'>}</font>
 <a name='L81'>  81 
 <a name='L82'>  82     <i><font color='green'>/**</font></i>
 <a name='L83'>  83 <i><font color='green'>     * @brief Allocates a buffer and returns it's address.</font></i>
@@ -179,7 +179,7 @@
 <a name='L166'> 166   <a href='../Y/370.html' title='Multiple used in 61 places.'>public</a>:
 <a name='L167'> 167     <b>typedef</b> <a href='../Y/94.html' title='Multiple used in 70 places.'>T</a> <a href='../R/161.html' title='Multiple refered from 39 places.'>value_type</a>;
 <a name='L168'> 168 
-<a name='L169'> 169     <b>typedef</b> <a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a>             <a href='../S/57.html#L98' title='Refered from 98 in Array.h.'>size_type</a>;
+<a name='L169'> 169     <b>typedef</b> <a href='../Y/408.html' title='Multiple used in 481 places.'>size_t</a>             <a href='../S/57.html#L99' title='Refered from 99 in Array.h.'>size_type</a>;
 <a name='L170'> 170     <b>typedef</b> <a href='../Y/368.html' title='Multiple used in 5 places.'>ptrdiff_t</a>          difference_type;
 <a name='L171'> 171     <b>typedef</b> <a href='../D/195.html' title='Multiple defined in 5 places.'>value_type</a>*        <a href='../R/117.html' title='Multiple refered from 3 places.'>pointer</a>;
 <a name='L172'> 172     <b>typedef</b> <b>const</b> <a href='../D/195.html' title='Multiple defined in 5 places.'>value_type</a>*  <a href='../R/80.html' title='Multiple refered from 7 places.'>const_pointer</a>;
@@ -706,7 +706,7 @@
 <a name='L693'> 693     <font color='red'>}</font>
 <a name='L694'> 694 
 <a name='L695'> 695 <font color='red'>}</font>;
-<a name='L696'> 696 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L696'> 696 <a href='../S/42.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
 <a name='L697'> 697 
 <a name='L698'> 698 <font color='darkred'>#endif</font>
 </pre>

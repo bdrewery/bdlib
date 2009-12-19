@@ -10,22 +10,22 @@
 <a href='../S/57.html#L61'>Array</a>              61 Array.h            Array() : ReferenceCountedArray&lt;value_type&gt;() {};
 <a href='../S/57.html#L62'>Array</a>              62 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
 <a href='../S/57.html#L70'>Array</a>              70 Array.h            Array(const_pointer carray) : ReferenceCountedArray&lt;value_type&gt;() {
-<a href='../S/57.html#L86'>Array</a>              86 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
-<a href='../S/57.html#L98'>Array</a>              98 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
-<a href='../S/57.html#L100'>Array</a>             100 Array.h            virtual ~Array() {};
-<a href='../S/57.html#L114'>Array</a>             114 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt; (Array&lt;value_type&gt;&amp; array, const_reference item) {
-<a href='../S/57.html#L134'>Array</a>             134 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt; (Array&lt;value_type&gt;&amp; array, reference item) {
-<a href='../S/57.html#L151'>Array</a>             151 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
-<a href='../S/57.html#L158'>Array</a>             158 Array.h            bool equals(const Array &amp;array, size_t n) const
-<a href='../S/57.html#L180'>Array</a>             180 Array.h            inline friend bool operator == (const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
-<a href='../S/57.html#L181'>Array</a>             181 Array.h            inline friend bool operator != (const Array&amp; lhs, const Array&amp; rhs) {return ! (lhs == rhs);};
-<a href='../S/57.html#L187'>Array</a>             187 Array.h            inline Array subarray(int start, int len) const {
-<a href='../S/57.html#L188'>Array</a>             188 Array.h              Array newArray(*this);
-<a href='../S/57.html#L196'>Array</a>             196 Array.h            inline Array operator()(int start, int len) const { return subarray(start, len); };
-<a href='../S/57.html#L204'>Array</a>             204 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len) { return Slice&lt;Array&gt;(*this, start, len); };
-<a href='../S/57.html#L207'>Array</a>             207 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
-<a href='../S/57.html#L219'>Array</a>             219 Array.h            struct Hash&lt; Array&lt;T&gt; &gt;
-<a href='../S/57.html#L221'>Array</a>             221 Array.h                    inline size_t operator()(const Array&lt;T&gt;&amp; val) const { return val.hash(); }
+<a href='../S/57.html#L87'>Array</a>              87 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/57.html#L99'>Array</a>              99 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/57.html#L101'>Array</a>             101 Array.h            virtual ~Array() {};
+<a href='../S/57.html#L115'>Array</a>             115 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt; (Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/57.html#L135'>Array</a>             135 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt; (Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/57.html#L152'>Array</a>             152 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
+<a href='../S/57.html#L159'>Array</a>             159 Array.h            bool equals(const Array &amp;array, size_t n) const
+<a href='../S/57.html#L181'>Array</a>             181 Array.h            inline friend bool operator == (const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
+<a href='../S/57.html#L182'>Array</a>             182 Array.h            inline friend bool operator != (const Array&amp; lhs, const Array&amp; rhs) {return ! (lhs == rhs);};
+<a href='../S/57.html#L188'>Array</a>             188 Array.h            inline Array subarray(int start, int len) const {
+<a href='../S/57.html#L189'>Array</a>             189 Array.h              Array newArray(*this);
+<a href='../S/57.html#L197'>Array</a>             197 Array.h            inline Array operator()(int start, int len) const { return subarray(start, len); };
+<a href='../S/57.html#L205'>Array</a>             205 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len) { return Slice&lt;Array&gt;(*this, start, len); };
+<a href='../S/57.html#L208'>Array</a>             208 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/57.html#L220'>Array</a>             220 Array.h            struct Hash&lt; Array&lt;T&gt; &gt;
+<a href='../S/57.html#L222'>Array</a>             222 Array.h                    inline size_t operator()(const Array&lt;T&gt;&amp; val) const { return val.hash(); }
 <a href='../S/37.html#L152'>Array</a>             152 String.cpp     Array&lt;String&gt; String::split(const String&amp; delim, size_t limit) const {
 <a href='../S/37.html#L153'>Array</a>             153 String.cpp       if (!length()) return Array&lt;String&gt;();
 <a href='../S/37.html#L156'>Array</a>             156 String.cpp         return Array&lt;String&gt;(list, 1);
