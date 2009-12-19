@@ -375,7 +375,7 @@ main();
 
 
 ?>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 19 10:00:03 2009 for BDLIB by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 19 10:19:41 2009 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

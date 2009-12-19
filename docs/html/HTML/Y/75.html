@@ -13,18 +13,18 @@
 <a href='../S/57.html#L86'>ReferenceCountedArray</a>   86 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
 <a href='../S/57.html#L98'>ReferenceCountedArray</a>   98 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
 <a href='../S/38.html#L164'>ReferenceCountedArray</a>  164 ReferenceCountedArray.h class ReferenceCountedArray {
-<a href='../S/38.html#L306'>ReferenceCountedArray</a>  306 ReferenceCountedArray.h     ReferenceCountedArray() : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {};
-<a href='../S/38.html#L307'>ReferenceCountedArray</a>  307 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen) { incRef(); };
-<a href='../S/38.html#L317'>ReferenceCountedArray</a>  317 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {
-<a href='../S/38.html#L327'>ReferenceCountedArray</a>  327 ReferenceCountedArray.h     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
-<a href='../S/38.html#L338'>ReferenceCountedArray</a>  338 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const ReferenceCountedArray &amp;rca) {
-<a href='../S/38.html#L354'>ReferenceCountedArray</a>  354 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const_reference item) {
-<a href='../S/38.html#L474'>ReferenceCountedArray</a>  474 ReferenceCountedArray.h         friend class ReferenceCountedArray;
-<a href='../S/38.html#L475'>ReferenceCountedArray</a>  475 ReferenceCountedArray.h         ReferenceCountedArray&amp; rca;
-<a href='../S/38.html#L481'>ReferenceCountedArray</a>  481 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, int i) : rca(_rca), k(i) {};
-<a href='../S/38.html#L570'>ReferenceCountedArray</a>  570 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, int n = -1) { insert(length(), rca, n); };
-<a href='../S/38.html#L580'>ReferenceCountedArray</a>  580 ReferenceCountedArray.h     void insert(int k, const ReferenceCountedArray&amp; rca, int n = -1) {
-<a href='../S/38.html#L639'>ReferenceCountedArray</a>  639 ReferenceCountedArray.h     void replace(int k, const ReferenceCountedArray &amp;rca, int n = -1) {
+<a href='../S/38.html#L316'>ReferenceCountedArray</a>  316 ReferenceCountedArray.h     ReferenceCountedArray() : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {};
+<a href='../S/38.html#L317'>ReferenceCountedArray</a>  317 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen) { incRef(); };
+<a href='../S/38.html#L327'>ReferenceCountedArray</a>  327 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {
+<a href='../S/38.html#L337'>ReferenceCountedArray</a>  337 ReferenceCountedArray.h     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
+<a href='../S/38.html#L348'>ReferenceCountedArray</a>  348 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const ReferenceCountedArray &amp;rca) {
+<a href='../S/38.html#L364'>ReferenceCountedArray</a>  364 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const_reference item) {
+<a href='../S/38.html#L487'>ReferenceCountedArray</a>  487 ReferenceCountedArray.h         friend class ReferenceCountedArray;
+<a href='../S/38.html#L488'>ReferenceCountedArray</a>  488 ReferenceCountedArray.h         ReferenceCountedArray&amp; rca;
+<a href='../S/38.html#L494'>ReferenceCountedArray</a>  494 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, int i) : rca(_rca), k(i) {};
+<a href='../S/38.html#L583'>ReferenceCountedArray</a>  583 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, int n = -1) { insert(length(), rca, n); };
+<a href='../S/38.html#L593'>ReferenceCountedArray</a>  593 ReferenceCountedArray.h     void insert(int k, const ReferenceCountedArray&amp; rca, int n = -1) {
+<a href='../S/38.html#L652'>ReferenceCountedArray</a>  652 ReferenceCountedArray.h     void replace(int k, const ReferenceCountedArray &amp;rca, int n = -1) {
 <a href='../S/46.html#L59'>ReferenceCountedArray</a>   59 String.h       class String : public ReferenceCountedArray&lt;String_Array_Type&gt; {
 <a href='../S/46.html#L69'>ReferenceCountedArray</a>   69 String.h               String() : ReferenceCountedArray&lt;String_Array_Type&gt;() {};
 <a href='../S/46.html#L70'>ReferenceCountedArray</a>   70 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type&gt;(string) {};
@@ -33,9 +33,9 @@
 <a href='../S/46.html#L96'>ReferenceCountedArray</a>   96 String.h               String(const char ch) : ReferenceCountedArray&lt;String_Array_Type&gt;() { append(ch); };
 <a href='../S/46.html#L107'>ReferenceCountedArray</a>  107 String.h               explicit String(const size_t newSize) : ReferenceCountedArray&lt;String_Array_Type&gt;(newSize) {};
 <a href='../S/46.html#L117'>ReferenceCountedArray</a>  117 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::find;
-<a href='../S/46.html#L223'>ReferenceCountedArray</a>  223 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::append;
-<a href='../S/46.html#L226'>ReferenceCountedArray</a>  226 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::insert;
-<a href='../S/46.html#L229'>ReferenceCountedArray</a>  229 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::replace;
+<a href='../S/46.html#L227'>ReferenceCountedArray</a>  227 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::append;
+<a href='../S/46.html#L230'>ReferenceCountedArray</a>  230 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::insert;
+<a href='../S/46.html#L233'>ReferenceCountedArray</a>  233 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::replace;
 </pre>
 </body>
 </html>

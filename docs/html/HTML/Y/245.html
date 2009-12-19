@@ -34,19 +34,19 @@
 <a href='../S/28.html#L77'>i</a>                  77 HashTable.h              list[i] = table.list[i];
 <a href='../S/38.html#L222'>i</a>                 222 ReferenceCountedArray.h     inline pointer Buf(int i = 0) const { return &amp;Ref-&gt;buf[offset + i]; };
 <a href='../S/38.html#L227'>i</a>                 227 ReferenceCountedArray.h     inline const_pointer constBuf(int i = 0) const { return Buf(i); };
-<a href='../S/38.html#L426'>i</a>                 426 ReferenceCountedArray.h       for (size_t i = 0; i &lt; length(); ++i)
-<a href='../S/38.html#L427'>i</a>                 427 ReferenceCountedArray.h         if (*(Buf(i)) == item)
-<a href='../S/38.html#L428'>i</a>                 428 ReferenceCountedArray.h           return i;
-<a href='../S/38.html#L438'>i</a>                 438 ReferenceCountedArray.h     inline bool hasIndex(int i) const {
-<a href='../S/38.html#L440'>i</a>                 440 ReferenceCountedArray.h       if (i &lt; 0 || i &gt;= (int) (offset + length())) ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
-<a href='../S/38.html#L442'>i</a>                 442 ReferenceCountedArray.h       return (i &lt; (int) length());
-<a href='../S/38.html#L449'>i</a>                 449 ReferenceCountedArray.h     inline value_type read(int i) const { return *(constBuf(i)); };
-<a href='../S/38.html#L451'>i</a>                 451 ReferenceCountedArray.h     inline void write(int i, value_type item) {
-<a href='../S/38.html#L453'>i</a>                 453 ReferenceCountedArray.h       *(Buf(i)) = item;
-<a href='../S/38.html#L460'>i</a>                 460 ReferenceCountedArray.h     inline value_type operator [](int i) const { return read(i); };
-<a href='../S/38.html#L481'>i</a>                 481 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, int i) : rca(_rca), k(i) {};
-<a href='../S/38.html#L510'>i</a>                 510 ReferenceCountedArray.h     inline Cref operator [](int i) { return Cref(*this, i); };
-<a href='../S/38.html#L520'>i</a>                 520 ReferenceCountedArray.h     inline value_type at(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
+<a href='../S/38.html#L436'>i</a>                 436 ReferenceCountedArray.h       for (size_t i = 0; i &lt; length(); ++i)
+<a href='../S/38.html#L437'>i</a>                 437 ReferenceCountedArray.h         if (*(Buf(i)) == item)
+<a href='../S/38.html#L438'>i</a>                 438 ReferenceCountedArray.h           return i;
+<a href='../S/38.html#L448'>i</a>                 448 ReferenceCountedArray.h     inline bool hasIndex(int i) const {
+<a href='../S/38.html#L450'>i</a>                 450 ReferenceCountedArray.h       if (i &lt; 0 || i &gt;= (int) (offset + length())) ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
+<a href='../S/38.html#L452'>i</a>                 452 ReferenceCountedArray.h       return (i &lt; (int) length());
+<a href='../S/38.html#L459'>i</a>                 459 ReferenceCountedArray.h     inline value_type read(int i) const { return *(constBuf(i)); };
+<a href='../S/38.html#L464'>i</a>                 464 ReferenceCountedArray.h     inline void write(int i, value_type item) {
+<a href='../S/38.html#L466'>i</a>                 466 ReferenceCountedArray.h       *(Buf(i)) = item;
+<a href='../S/38.html#L473'>i</a>                 473 ReferenceCountedArray.h     inline value_type operator [](int i) const { return read(i); };
+<a href='../S/38.html#L494'>i</a>                 494 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, int i) : rca(_rca), k(i) {};
+<a href='../S/38.html#L523'>i</a>                 523 ReferenceCountedArray.h     inline Cref operator [](int i) { return Cref(*this, i); };
+<a href='../S/38.html#L533'>i</a>                 533 ReferenceCountedArray.h     inline value_type at(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
 <a href='../S/37.html#L57'>i</a>                  57 String.cpp       for (size_t i = 0; i &lt; len; ++i) {
 <a href='../S/37.html#L58'>i</a>                  58 String.cpp         if ((*this)[i] &lt; str[i])
 <a href='../S/37.html#L60'>i</a>                  60 String.cpp         else if (str[i] &lt; (*this)[i])
@@ -55,7 +55,7 @@
 <a href='../S/37.html#L198'>i</a>                 198 String.cpp       for (int i = 0; i &lt; times; ++i)
 <a href='../S/37.html#L241'>i</a>                 241 String.cpp       for(size_t i = 0; i &lt; length(); ++i)
 <a href='../S/37.html#L242'>i</a>                 242 String.cpp         _hash = ((_hash &lt;&lt; 5) + _hash) + data()[i];
-<a href='../S/46.html#L177'>i</a>                 177 String.h               inline char charAt(int i) const { return at(i); };
+<a href='../S/46.html#L180'>i</a>                 180 String.h               inline char charAt(int i) const { return at(i); };
 <a href='../S/15.html#L111'>i</a>                 111 tests/ArrayTest.cpp   for (int i = 0; i &lt; 10; ++i)
 <a href='../S/15.html#L112'>i</a>                 112 tests/ArrayTest.cpp     int_a-&gt;push(i);
 <a href='../S/15.html#L122'>i</a>                 122 tests/ArrayTest.cpp   for (int i = 0; i &lt; 10; ++i)

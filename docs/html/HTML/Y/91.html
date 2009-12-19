@@ -70,65 +70,65 @@
 <a href='../S/46.html#L163'>String</a>            163 String.h               String chomp() const { return String(*this).chomp(); }
 <a href='../S/46.html#L169'>String</a>            169 String.h               String&amp; trim();
 <a href='../S/46.html#L175'>String</a>            175 String.h               String trim() const { return String(*this).trim(); }
-<a href='../S/46.html#L183'>String</a>            183 String.h               String substring(int start, int len) const {
-<a href='../S/46.html#L184'>String</a>            184 String.h                 String newString(*this);
-<a href='../S/46.html#L192'>String</a>            192 String.h               inline String operator()(int start, int len) const { return substring(start, len); };
-<a href='../S/46.html#L200'>String</a>            200 String.h               inline Slice&lt;String&gt; operator()(int start, int len) { return Slice&lt;String&gt;(*this, start, len); };
-<a href='../S/46.html#L209'>String</a>            209 String.h       	inline int compare(const String&amp; string) const { return compare(string, string.length()); };
-<a href='../S/46.html#L210'>String</a>            210 String.h               int compare(const String&amp;, size_t) const;
-<a href='../S/46.html#L211'>String</a>            211 String.h               Array&lt;String&gt; split(const String&amp;, size_t limit = npos) const;
-<a href='../S/46.html#L236'>String</a>            236 String.h       	virtual String printf(const char*, ...)  __attribute__((format(printf, 2, 3)));
-<a href='../S/46.html#L238'>String</a>            238 String.h       	virtual String printf(const char*, ...);
-<a href='../S/46.html#L242'>String</a>            242 String.h               String&amp; operator += (const char);
-<a href='../S/46.html#L243'>String</a>            243 String.h               String&amp; operator += (const char*);
-<a href='../S/46.html#L244'>String</a>            244 String.h               String&amp; operator += (const String&amp;);
-<a href='../S/46.html#L245'>String</a>            245 String.h               String&amp; operator += (int);
-<a href='../S/46.html#L246'>String</a>            246 String.h               String&amp; operator -= (int);
-<a href='../S/46.html#L248'>String</a>            248 String.h               const String&amp; operator ++ (); //Prefix
-<a href='../S/46.html#L249'>String</a>            249 String.h               const String operator ++ (int); //Postfix
-<a href='../S/46.html#L250'>String</a>            250 String.h               const String&amp; operator -- (); //Prefix 
-<a href='../S/46.html#L251'>String</a>            251 String.h               const String operator -- (int); //Postfix
-<a href='../S/46.html#L263'>String</a>            263 String.h               friend String operator + (const String&amp;, const String&amp;);
-<a href='../S/46.html#L264'>String</a>            264 String.h               friend bool operator == (const String&amp;, const String&amp;);
-<a href='../S/46.html#L265'>String</a>            265 String.h               friend bool operator != (const String&amp;, const String&amp;);
-<a href='../S/46.html#L266'>String</a>            266 String.h               friend bool operator &lt; (const String&amp;, const String&amp;);
-<a href='../S/46.html#L267'>String</a>            267 String.h               friend bool operator &lt;= (const String&amp;, const String&amp;);
-<a href='../S/46.html#L268'>String</a>            268 String.h               friend bool operator &gt; (const String&amp;, const String&amp;);
-<a href='../S/46.html#L269'>String</a>            269 String.h               friend bool operator &gt;= (const String&amp;, const String&amp;);
-<a href='../S/46.html#L271'>String</a>            271 String.h               friend std::ostream&amp; operator &lt;&lt; (std::ostream&amp;, const String&amp;);
-<a href='../S/46.html#L272'>String</a>            272 String.h               friend std::ostream&amp; operator &gt;&gt; (std::ostream&amp;, const String&amp;);
-<a href='../S/46.html#L275'>String</a>            275 String.h               static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
-<a href='../S/46.html#L287'>String</a>            287 String.h         struct hash&lt;String&gt;
-<a href='../S/46.html#L289'>String</a>            289 String.h                 inline size_t operator()(const String&amp; val) const { return val.hash(); }
-<a href='../S/46.html#L299'>String</a>            299 String.h       inline String operator + (const String&amp; string1, const String&amp; string2) {
-<a href='../S/46.html#L300'>String</a>            300 String.h         String temp(string1);
-<a href='../S/46.html#L305'>String</a>            305 String.h       inline const String&amp; String::operator ++ () { //Prefix
-<a href='../S/46.html#L309'>String</a>            309 String.h       inline const String String::operator ++ (int) //Postfix
-<a href='../S/46.html#L311'>String</a>            311 String.h         String tmp(*this);
-<a href='../S/46.html#L316'>String</a>            316 String.h       inline const String&amp; String::operator -- () { //Prefix
-<a href='../S/46.html#L320'>String</a>            320 String.h       inline const String String::operator -- (int) //Postfix
-<a href='../S/46.html#L322'>String</a>            322 String.h         String tmp(*this);
-<a href='../S/46.html#L335'>String</a>            335 String.h       inline String&amp; String::operator += (const char ch) {
-<a href='../S/46.html#L343'>String</a>            343 String.h       inline String&amp; String::operator += (const char* string) {
-<a href='../S/46.html#L351'>String</a>            351 String.h       inline String&amp; String::operator += (const String&amp; string) {
-<a href='../S/46.html#L356'>String</a>            356 String.h       inline String&amp; String::operator += (const int n) {
-<a href='../S/46.html#L369'>String</a>            369 String.h       inline String&amp; String::operator -= (const int n) {
-<a href='../S/46.html#L383'>String</a>            383 String.h       inline bool operator == (const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/46.html#L387'>String</a>            387 String.h       inline bool operator != (const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/46.html#L391'>String</a>            391 String.h       inline bool operator &lt;  (const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/46.html#L395'>String</a>            395 String.h       inline bool operator &lt;= (const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/46.html#L399'>String</a>            399 String.h       inline bool operator &gt;  (const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/46.html#L403'>String</a>            403 String.h       inline bool operator &gt;= (const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/46.html#L411'>String</a>            411 String.h       inline bool operator == (const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/46.html#L415'>String</a>            415 String.h       inline bool String::operator != (const String&amp; rhs) const {
-<a href='../S/46.html#L419'>String</a>            419 String.h       inline bool String::operator &lt;  (const String&amp; rhs) const {
-<a href='../S/46.html#L423'>String</a>            423 String.h       inline bool String::operator &lt;= (const String&amp; rhs) const {
-<a href='../S/46.html#L427'>String</a>            427 String.h       inline bool String::operator &gt;  (const String&amp; rhs) const {
-<a href='../S/46.html#L431'>String</a>            431 String.h       inline bool String::operator &gt;= (const String&amp; rhs) const {
-<a href='../S/46.html#L439'>String</a>            439 String.h       inline std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os, const String&amp; string) {
-<a href='../S/46.html#L446'>String</a>            446 String.h       String newsplit(String&amp; str, char delim = ' ');
-<a href='../S/46.html#L448'>String</a>            448 String.h       std::istream&amp; operator &gt;&gt; (std::istream&amp;, String&amp;);
-<a href='../S/46.html#L449'>String</a>            449 String.h       std::istream&amp; getline(std::istream&amp;, String&amp;);
+<a href='../S/46.html#L186'>String</a>            186 String.h               String substring(int start, int len) const {
+<a href='../S/46.html#L187'>String</a>            187 String.h                 String newString(*this);
+<a href='../S/46.html#L195'>String</a>            195 String.h               inline String operator()(int start, int len) const { return substring(start, len); };
+<a href='../S/46.html#L203'>String</a>            203 String.h               inline Slice&lt;String&gt; operator()(int start, int len) { return Slice&lt;String&gt;(*this, start, len); };
+<a href='../S/46.html#L212'>String</a>            212 String.h       	inline int compare(const String&amp; string) const { return compare(string, string.length()); };
+<a href='../S/46.html#L213'>String</a>            213 String.h               int compare(const String&amp;, size_t) const;
+<a href='../S/46.html#L215'>String</a>            215 String.h               Array&lt;String&gt; split(const String&amp;, size_t limit = npos) const;
+<a href='../S/46.html#L240'>String</a>            240 String.h       	virtual String printf(const char*, ...)  __attribute__((format(printf, 2, 3)));
+<a href='../S/46.html#L242'>String</a>            242 String.h       	virtual String printf(const char*, ...);
+<a href='../S/46.html#L246'>String</a>            246 String.h               String&amp; operator += (const char);
+<a href='../S/46.html#L247'>String</a>            247 String.h               String&amp; operator += (const char*);
+<a href='../S/46.html#L248'>String</a>            248 String.h               String&amp; operator += (const String&amp;);
+<a href='../S/46.html#L249'>String</a>            249 String.h               String&amp; operator += (int);
+<a href='../S/46.html#L250'>String</a>            250 String.h               String&amp; operator -= (int);
+<a href='../S/46.html#L252'>String</a>            252 String.h               const String&amp; operator ++ (); //Prefix
+<a href='../S/46.html#L253'>String</a>            253 String.h               const String operator ++ (int); //Postfix
+<a href='../S/46.html#L254'>String</a>            254 String.h               const String&amp; operator -- (); //Prefix 
+<a href='../S/46.html#L255'>String</a>            255 String.h               const String operator -- (int); //Postfix
+<a href='../S/46.html#L267'>String</a>            267 String.h               friend String operator + (const String&amp;, const String&amp;);
+<a href='../S/46.html#L268'>String</a>            268 String.h               friend bool operator == (const String&amp;, const String&amp;);
+<a href='../S/46.html#L269'>String</a>            269 String.h               friend bool operator != (const String&amp;, const String&amp;);
+<a href='../S/46.html#L270'>String</a>            270 String.h               friend bool operator &lt; (const String&amp;, const String&amp;);
+<a href='../S/46.html#L271'>String</a>            271 String.h               friend bool operator &lt;= (const String&amp;, const String&amp;);
+<a href='../S/46.html#L272'>String</a>            272 String.h               friend bool operator &gt; (const String&amp;, const String&amp;);
+<a href='../S/46.html#L273'>String</a>            273 String.h               friend bool operator &gt;= (const String&amp;, const String&amp;);
+<a href='../S/46.html#L275'>String</a>            275 String.h               friend std::ostream&amp; operator &lt;&lt; (std::ostream&amp;, const String&amp;);
+<a href='../S/46.html#L276'>String</a>            276 String.h               friend std::ostream&amp; operator &gt;&gt; (std::ostream&amp;, const String&amp;);
+<a href='../S/46.html#L279'>String</a>            279 String.h               static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/46.html#L291'>String</a>            291 String.h         struct hash&lt;String&gt;
+<a href='../S/46.html#L293'>String</a>            293 String.h                 inline size_t operator()(const String&amp; val) const { return val.hash(); }
+<a href='../S/46.html#L303'>String</a>            303 String.h       inline String operator + (const String&amp; string1, const String&amp; string2) {
+<a href='../S/46.html#L304'>String</a>            304 String.h         String temp(string1);
+<a href='../S/46.html#L309'>String</a>            309 String.h       inline const String&amp; String::operator ++ () { //Prefix
+<a href='../S/46.html#L313'>String</a>            313 String.h       inline const String String::operator ++ (int) //Postfix
+<a href='../S/46.html#L315'>String</a>            315 String.h         String tmp(*this);
+<a href='../S/46.html#L320'>String</a>            320 String.h       inline const String&amp; String::operator -- () { //Prefix
+<a href='../S/46.html#L324'>String</a>            324 String.h       inline const String String::operator -- (int) //Postfix
+<a href='../S/46.html#L326'>String</a>            326 String.h         String tmp(*this);
+<a href='../S/46.html#L339'>String</a>            339 String.h       inline String&amp; String::operator += (const char ch) {
+<a href='../S/46.html#L347'>String</a>            347 String.h       inline String&amp; String::operator += (const char* string) {
+<a href='../S/46.html#L355'>String</a>            355 String.h       inline String&amp; String::operator += (const String&amp; string) {
+<a href='../S/46.html#L360'>String</a>            360 String.h       inline String&amp; String::operator += (const int n) {
+<a href='../S/46.html#L373'>String</a>            373 String.h       inline String&amp; String::operator -= (const int n) {
+<a href='../S/46.html#L387'>String</a>            387 String.h       inline bool operator == (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L391'>String</a>            391 String.h       inline bool operator != (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L395'>String</a>            395 String.h       inline bool operator &lt;  (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L399'>String</a>            399 String.h       inline bool operator &lt;= (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L403'>String</a>            403 String.h       inline bool operator &gt;  (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L407'>String</a>            407 String.h       inline bool operator &gt;= (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L415'>String</a>            415 String.h       inline bool operator == (const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/46.html#L419'>String</a>            419 String.h       inline bool String::operator != (const String&amp; rhs) const {
+<a href='../S/46.html#L423'>String</a>            423 String.h       inline bool String::operator &lt;  (const String&amp; rhs) const {
+<a href='../S/46.html#L427'>String</a>            427 String.h       inline bool String::operator &lt;= (const String&amp; rhs) const {
+<a href='../S/46.html#L431'>String</a>            431 String.h       inline bool String::operator &gt;  (const String&amp; rhs) const {
+<a href='../S/46.html#L435'>String</a>            435 String.h       inline bool String::operator &gt;= (const String&amp; rhs) const {
+<a href='../S/46.html#L443'>String</a>            443 String.h       inline std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os, const String&amp; string) {
+<a href='../S/46.html#L450'>String</a>            450 String.h       String newsplit(String&amp; str, char delim = ' ');
+<a href='../S/46.html#L452'>String</a>            452 String.h       std::istream&amp; operator &gt;&gt; (std::istream&amp;, String&amp;);
+<a href='../S/46.html#L453'>String</a>            453 String.h       std::istream&amp; getline(std::istream&amp;, String&amp;);
 <a href='../S/45.html#L115'>String</a>            115 base64.c       String base64Encode(const String&amp; string) {
 <a href='../S/45.html#L118'>String</a>            118 base64.c         bd::String encoded(p, len);
 <a href='../S/45.html#L168'>String</a>            168 base64.c       String base64Decode(const String&amp; string) {

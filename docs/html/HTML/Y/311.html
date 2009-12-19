@@ -28,23 +28,23 @@
 <a href='../S/38.html#L195'>n</a>                 195 ReferenceCountedArray.h     inline uint8_t decRef() const { return --Ref-&gt;n; };
 <a href='../S/38.html#L284'>n</a>                 284 ReferenceCountedArray.h     void COW(size_t n) const {
 <a href='../S/38.html#L290'>n</a>                 290 ReferenceCountedArray.h       Reserve( std::max(oldCapacity, n) ); //Will set capacity()/size
-<a href='../S/38.html#L297'>n</a>                 297 ReferenceCountedArray.h     inline void AboutToModify(size_t n) const {
-<a href='../S/38.html#L299'>n</a>                 299 ReferenceCountedArray.h         COW(n); // Clears the offset
-<a href='../S/38.html#L301'>n</a>                 301 ReferenceCountedArray.h         Reserve(n);
-<a href='../S/38.html#L363'>n</a>                 363 ReferenceCountedArray.h     inline size_t rcount() const { return Ref-&gt;n; };
-<a href='../S/38.html#L570'>n</a>                 570 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, int n = -1) { insert(length(), rca, n); };
-<a href='../S/38.html#L580'>n</a>                 580 ReferenceCountedArray.h     void insert(int k, const ReferenceCountedArray&amp; rca, int n = -1) {
-<a href='../S/38.html#L581'>n</a>                 581 ReferenceCountedArray.h       if (n == 0) return;
-<a href='../S/38.html#L587'>n</a>                 587 ReferenceCountedArray.h       if (k == 0 &amp;&amp; size_t(slen) &gt; length() &amp;&amp; (n == -1 || n == slen)) {
-<a href='../S/38.html#L592'>n</a>                 592 ReferenceCountedArray.h       if (n == -1 || n &gt; slen)
-<a href='../S/38.html#L593'>n</a>                 593 ReferenceCountedArray.h         n = slen;
-<a href='../S/38.html#L594'>n</a>                 594 ReferenceCountedArray.h       slen -= slen - n;
-<a href='../S/38.html#L639'>n</a>                 639 ReferenceCountedArray.h     void replace(int k, const ReferenceCountedArray &amp;rca, int n = -1) {
-<a href='../S/38.html#L640'>n</a>                 640 ReferenceCountedArray.h       if (n == 0) return;
-<a href='../S/38.html#L646'>n</a>                 646 ReferenceCountedArray.h       if (k == 0 &amp;&amp; size_t(slen) &gt; length() &amp;&amp; (n == -1 || n == slen)) {
-<a href='../S/38.html#L651'>n</a>                 651 ReferenceCountedArray.h       if (n == -1 || n &gt; slen)
-<a href='../S/38.html#L652'>n</a>                 652 ReferenceCountedArray.h         n = slen;
-<a href='../S/38.html#L653'>n</a>                 653 ReferenceCountedArray.h       slen -= slen - n;
+<a href='../S/38.html#L307'>n</a>                 307 ReferenceCountedArray.h     inline void AboutToModify(size_t n) const {
+<a href='../S/38.html#L309'>n</a>                 309 ReferenceCountedArray.h         COW(n); // Clears the offset
+<a href='../S/38.html#L311'>n</a>                 311 ReferenceCountedArray.h         Reserve(n);
+<a href='../S/38.html#L373'>n</a>                 373 ReferenceCountedArray.h     inline size_t rcount() const { return Ref-&gt;n; };
+<a href='../S/38.html#L583'>n</a>                 583 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, int n = -1) { insert(length(), rca, n); };
+<a href='../S/38.html#L593'>n</a>                 593 ReferenceCountedArray.h     void insert(int k, const ReferenceCountedArray&amp; rca, int n = -1) {
+<a href='../S/38.html#L594'>n</a>                 594 ReferenceCountedArray.h       if (n == 0) return;
+<a href='../S/38.html#L600'>n</a>                 600 ReferenceCountedArray.h       if (k == 0 &amp;&amp; size_t(slen) &gt; length() &amp;&amp; (n == -1 || n == slen)) {
+<a href='../S/38.html#L605'>n</a>                 605 ReferenceCountedArray.h       if (n == -1 || n &gt; slen)
+<a href='../S/38.html#L606'>n</a>                 606 ReferenceCountedArray.h         n = slen;
+<a href='../S/38.html#L607'>n</a>                 607 ReferenceCountedArray.h       slen -= slen - n;
+<a href='../S/38.html#L652'>n</a>                 652 ReferenceCountedArray.h     void replace(int k, const ReferenceCountedArray &amp;rca, int n = -1) {
+<a href='../S/38.html#L653'>n</a>                 653 ReferenceCountedArray.h       if (n == 0) return;
+<a href='../S/38.html#L659'>n</a>                 659 ReferenceCountedArray.h       if (k == 0 &amp;&amp; size_t(slen) &gt; length() &amp;&amp; (n == -1 || n == slen)) {
+<a href='../S/38.html#L664'>n</a>                 664 ReferenceCountedArray.h       if (n == -1 || n &gt; slen)
+<a href='../S/38.html#L665'>n</a>                 665 ReferenceCountedArray.h         n = slen;
+<a href='../S/38.html#L666'>n</a>                 666 ReferenceCountedArray.h       slen -= slen - n;
 <a href='../S/37.html#L47'>n</a>                  47 String.cpp     int String::compare(const String &amp;str, size_t n) const
 <a href='../S/37.html#L50'>n</a>                  50 String.cpp       size_t slen = std::min(str.length(), n);
 <a href='../S/37.html#L77'>n</a>                  77 String.cpp     void String::insert(int k, const char *string, int n)
@@ -53,14 +53,14 @@
 <a href='../S/37.html#L96'>n</a>                  96 String.cpp     void String::replace(int k, const char *string, int n)
 <a href='../S/37.html#L98'>n</a>                  98 String.cpp       if (n == 0) return;
 <a href='../S/37.html#L101'>n</a>                 101 String.cpp       size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-<a href='../S/46.html#L221'>n</a>                 221 String.h               inline void append(const char* string, int n = -1) { insert(length(), string, n); };
-<a href='../S/46.html#L356'>n</a>                 356 String.h       inline String&amp; String::operator += (const int n) {
-<a href='../S/46.html#L359'>n</a>                 359 String.h         if (int(length()) - n &lt; 0) {
-<a href='../S/46.html#L363'>n</a>                 363 String.h           offset += n;
-<a href='../S/46.html#L364'>n</a>                 364 String.h           subLength(n);
-<a href='../S/46.html#L369'>n</a>                 369 String.h       inline String&amp; String::operator -= (const int n) {
-<a href='../S/46.html#L372'>n</a>                 372 String.h         if (int(length()) - n &lt; 0) {
-<a href='../S/46.html#L376'>n</a>                 376 String.h           subLength(n);
+<a href='../S/46.html#L225'>n</a>                 225 String.h               inline void append(const char* string, int n = -1) { insert(length(), string, n); };
+<a href='../S/46.html#L360'>n</a>                 360 String.h       inline String&amp; String::operator += (const int n) {
+<a href='../S/46.html#L363'>n</a>                 363 String.h         if (int(length()) - n &lt; 0) {
+<a href='../S/46.html#L367'>n</a>                 367 String.h           offset += n;
+<a href='../S/46.html#L368'>n</a>                 368 String.h           subLength(n);
+<a href='../S/46.html#L373'>n</a>                 373 String.h       inline String&amp; String::operator -= (const int n) {
+<a href='../S/46.html#L376'>n</a>                 376 String.h         if (int(length()) - n &lt; 0) {
+<a href='../S/46.html#L380'>n</a>                 380 String.h           subLength(n);
 <a href='../S/10.html#L319'>n</a>                 319 tests/BinaryTreeTest.cpp   int n = 0;
 <a href='../S/10.html#L323'>n</a>                 323 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
 <a href='../S/10.html#L324'>n</a>                 324 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
