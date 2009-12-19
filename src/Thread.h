@@ -90,4 +90,4 @@ class Thread {
 
 BDLIB_NS_END
 
-#endif /* !_BD_THREAD_H */ 
+#endif /* _BD_THREAD_H */ 

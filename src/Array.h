@@ -20,8 +20,8 @@
  * MODIFICATIONS.
  *
  */
-#ifndef _W_ARRAY_H
-#define _W_ARRAY_H 1
+#ifndef _BD_ARRAY_H
+#define _BD_ARRAY_H 1
 
 #include "bdlib.h"
 #include "ReferenceCountedArray.h"
@@ -79,6 +79,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Create a Array from a given carray.
      * @param carray The null-terminated array to create the object from.
+     * @param len How big is the carray?
      * @post A ArrayBuf has been initialized.
      * @post The buffer has been filled with the array.
      * @test Array test("Some array");
@@ -222,4 +223,4 @@ template<>
       };
 BDLIB_NS_END
 
-#endif /* !_W_ARRAY_H */
+#endif /* _BD_ARRAY_H */

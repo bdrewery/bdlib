@@ -366,4 +366,4 @@ class BinaryTree {
 };
 
 BDLIB_NS_END
-#endif /* !_BD_BINARYTREE_H */ 
+#endif /* _BD_BINARYTREE_H */ 

@@ -38,8 +38,8 @@
 #include "bits.h"
 
 
-#define BDLIB_NS_BEGIN namespace bd {
-#define BDLIB_NS_END }
 #define BDLIB_NS bd
+#define BDLIB_NS_BEGIN namespace BDLIB_NS {
+#define BDLIB_NS_END }
 
-#endif /* !_BD_BDLIB_H */ 
+#endif /* _BD_BDLIB_H */ 

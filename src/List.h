@@ -254,4 +254,4 @@ class List {
 
 BDLIB_NS_END
 
-#endif /* !_BD_LIST_H */ 
+#endif /* _BD_LIST_H */ 

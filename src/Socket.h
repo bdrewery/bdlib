@@ -103,4 +103,4 @@ class ServerSocket : public Socket {
     virtual ~ServerSocket();
 };
 BDLIB_NS_END
-#endif /* !_BD_SOCKET_H */ 
+#endif /* _BD_SOCKET_H */ 

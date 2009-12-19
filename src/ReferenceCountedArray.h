@@ -50,6 +50,7 @@ class ArrayRef {
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
      * @param newSize A size that we need to Allocate the buffer to.
+     * @param offset The offset of the old buffer so we know where to start
      * @pre newSize is > 0 (assumed as size_t is unsigned)
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
@@ -77,7 +78,6 @@ class ArrayRef {
         offset = 0;
       }
     }
-    //void Reserve(const size_t, size_t&) const;
 
     /**
      * @brief Allocates a buffer and returns it's address.

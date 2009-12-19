@@ -146,4 +146,4 @@ class Stream {
 inline Stream& operator << (Stream& stream, const String& string) { stream.puts(string); return stream; }
 
 BDLIB_NS_END
-#endif /* !_BD_STREAM_H */
+#endif /* _BD_STREAM_H */

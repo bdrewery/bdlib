@@ -119,8 +119,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	/**
 	 * @brief Cstring accessor
 	 * @return A null-terminated character array (cstring).
-	 * @post The buffer size is (possibly) incremented by 1 for the '\0' character.
-	 * @post There is a '\0' at the end of the buffer.
+	 * @post The buffer size is (possibly) incremented by 1 for the '\\0' character.
+	 * @post There is a '\\0' at the end of the buffer.
 	 * @post The actual String size is unchanged.
 	 */
         const char* c_str() const {
@@ -151,13 +151,13 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	String operator * (int) const;
 
         /**
-         * @brief Trim off \n,\r,\r\n from end
+         * @brief Trim off \\n,\\r,\\r\\n from end
          * @return The string, to allow for chaining
          */
         String& chomp();
 
         /**
-         * @brief Trim off \n,\r,\r\n from end
+         * @brief Trim off \\n,\\r,\\r\n from end
          * @return New string
          */
         String chomp() const { return String(*this).chomp(); }
@@ -452,5 +452,4 @@ std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
-#endif /* !_BD_STRING_H */
-
+#endif /* _BD_STRING_H */

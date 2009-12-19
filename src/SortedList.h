@@ -81,4 +81,4 @@ class SortedList : public List<T> {
 };
 
 BDLIB_NS_END
-#endif /* !_BD_SORTEDLIST_H */ 
+#endif /* _BD_SORTEDLIST_H */ 

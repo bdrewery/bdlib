@@ -143,4 +143,4 @@ class HashTable {
 
 BDLIB_NS_END
 
-#endif /* !_BD_HASHTABLE_H */ 
+#endif /* _BD_HASHTABLE_H */ 

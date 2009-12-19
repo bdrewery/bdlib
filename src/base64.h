@@ -44,7 +44,7 @@ char *b64enc(const unsigned char *src, size_t *len);
  * @param string The string to encode
  * @return A new, encoded string
  */
-String base64Encode(const String&);
+String base64Encode(const String& string);
 
 /**
   * @brief Encode a plaintext string into base64 (using a given buffer)
@@ -56,7 +56,7 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest);
 
 /**
   * @brief Decode a base64 encoded string into plaintext (returns a buffer)
-  * @param src A c-style string to decode
+  * @param data A c-style string to decode
   * @param len Reference to length of string (to be updated on return)
   * @return A decoded NULL-terminated c-style string (must be free()d later)
   */
@@ -67,7 +67,7 @@ char *b64dec(const unsigned char *data, size_t *len);
  * @param string The string to decode
  * @return A new, decoded string
  */
-String base64Decode(const String&);
+String base64Decode(const String& string);
 
 /**
   * @brief Decode a base64 encoded string into plaintext (using a given buffer)
@@ -78,4 +78,4 @@ String base64Decode(const String&);
 void b64dec_buf(const unsigned char *data, size_t *len, char *dest);
 
 BDLIB_NS_END
-#endif /* !_BD_BASE64_H */ 
+#endif /* _BD_BASE64_H */ 

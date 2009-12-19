@@ -211,4 +211,4 @@ class QueueConstIterator {
 };
 
 BDLIB_NS_END
-#endif /* !_BD_QUEUE_H */
+#endif /* _BD_QUEUE_H */

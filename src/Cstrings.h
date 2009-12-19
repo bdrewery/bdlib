@@ -41,4 +41,4 @@ void *realloc(void *, size_t);
 
 BDLIB_NS_END
 
-#endif /* !_BD_CSTRINGS_H */ 
+#endif /* _BD_CSTRINGS_H */ 

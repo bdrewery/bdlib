@@ -84,4 +84,4 @@ class Stack : public List<T> {
 };
 
 BDLIB_NS_END
-#endif /* !_BD_STACK_H */ 
+#endif /* _BD_STACK_H */ 

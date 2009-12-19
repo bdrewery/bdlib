@@ -20,8 +20,8 @@
  * MODIFICATIONS.
  *
  */
-#ifndef W_CRYPTO_H
-#define W_CRYPTO_H 1
+#ifndef _BD_CRYPTO_H
+#define _BD_CRYPTO_H 1
 
 #include "bdlib.h"
 BDLIB_NS_BEGIN
@@ -43,4 +43,4 @@ class Crypto {
 
 BDLIB_NS_END
 
-#endif /* !W_CRYPTO_H */ 
+#endif /* _BD_CRYPTO_H */ 
