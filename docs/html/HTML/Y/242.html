@@ -1,19 +1,27 @@
 <html>
 <head>
-<title>mutable</title>
+<title>hasIndex</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/46.html#L59'>mutable</a>            59 String.h               mutable size_t len; //Length of string
-<a href='../S/46.html#L60'>mutable</a>            60 String.h               mutable size_t size; //Capacity of buffer
-<a href='../S/46.html#L61'>mutable</a>            61 String.h               mutable char* buf;
-<a href='../S/46.html#L62'>mutable</a>            62 String.h               mutable uint8_t n; //References
-<a href='../S/46.html#L63'>mutable</a>            63 String.h               mutable char sbuf[16];
-<a href='../S/46.html#L262'>mutable</a>           262 String.h               mutable StringBuf *Ref;
-<a href='../S/46.html#L267'>mutable</a>           267 String.h               mutable size_t offset;
-<a href='../S/46.html#L271'>mutable</a>           271 String.h               mutable size_t sublen;
+<a href='../S/38.html#L433'>hasIndex</a>          433 ReferenceCountedArray.h     inline bool hasIndex(int i) const {
+<a href='../S/38.html#L515'>hasIndex</a>          515 ReferenceCountedArray.h     inline value_type at(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
+<a href='../S/38.html#L577'>hasIndex</a>          577 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/38.html#L606'>hasIndex</a>          606 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/38.html#L622'>hasIndex</a>          622 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/38.html#L636'>hasIndex</a>          636 ReferenceCountedArray.h       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/37.html#L80'>hasIndex</a>           80 String.cpp       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/37.html#L99'>hasIndex</a>           99 String.cpp       if (k &amp;&amp; !hasIndex(k-1)) return;
+<a href='../S/19.html#L145'>hasIndex</a>          145 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(0));
+<a href='../S/19.html#L146'>hasIndex</a>          146 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(true, b-&gt;hasIndex(3));
+<a href='../S/19.html#L147'>hasIndex</a>          147 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, b-&gt;hasIndex(4));
+<a href='../S/19.html#L148'>hasIndex</a>          148 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(true, f-&gt;hasIndex(10));
+<a href='../S/19.html#L149'>hasIndex</a>          149 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, f-&gt;hasIndex(11));
+<a href='../S/19.html#L247'>hasIndex</a>          247 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(0));
+<a href='../S/19.html#L250'>hasIndex</a>          250 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(1));
+<a href='../S/19.html#L265'>hasIndex</a>          265 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(0));
 </pre>
 </body>
 </html>

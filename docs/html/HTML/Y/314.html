@@ -1,25 +1,30 @@
 <html>
 <head>
-<title>search</title>
+<title>new</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/31.html#L67'>search</a>             67 BinaryTree.h       Node* &amp;fetchNode(Node* const* search, const Key &amp;key) const {
-<a href='../S/31.html#L68'>search</a>             68 BinaryTree.h         while ((*search) != NULL) {
-<a href='../S/31.html#L69'>search</a>             69 BinaryTree.h           if (key &lt; (*search)-&gt;kv.key())
-<a href='../S/31.html#L70'>search</a>             70 BinaryTree.h             search = &amp;(*search)-&gt;left;
-<a href='../S/31.html#L71'>search</a>             71 BinaryTree.h           else if (key &gt; (*search)-&gt;kv.key())
-<a href='../S/31.html#L72'>search</a>             72 BinaryTree.h             search = &amp;(*search)-&gt;right;
-<a href='../S/31.html#L74'>search</a>             74 BinaryTree.h             return (Node*&amp;) *search;
-<a href='../S/31.html#L77'>search</a>             77 BinaryTree.h         return (Node*&amp;) *search;
-<a href='../S/31.html#L88'>search</a>             88 BinaryTree.h       inline void insertNode(Node** search, Node* const node) {
-<a href='../S/31.html#L89'>search</a>             89 BinaryTree.h         Node* &amp;insertAt = fetchNode(search, node-&gt;kv.key());
-<a href='../S/26.html#L77'>search</a>             77 List.h               for (Node* search = list.head; search; search = search-&gt;next)
-<a href='../S/26.html#L78'>search</a>             78 List.h                 insert(search-&gt;ptr);
-<a href='../S/26.html#L84'>search</a>             84 List.h                 for (Node* search = list.head; search; search = search-&gt;next)
-<a href='../S/26.html#L85'>search</a>             85 List.h                   insert(search-&gt;ptr);
+<a href='../S/52.html#L52'>new</a>                52 BinaryTree.h           Node(const Node&amp; n) : left(n.left ? new Node(*(n.left)) : NULL),
+<a href='../S/52.html#L53'>new</a>                53 BinaryTree.h                                 right(n.right ? new Node(*(n.right)) : NULL),
+<a href='../S/52.html#L148'>new</a>               148 BinaryTree.h       BinaryTree(const BinaryTree&amp; tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+<a href='../S/52.html#L154'>new</a>               154 BinaryTree.h           root = new Node(*(tree.root));
+<a href='../S/52.html#L178'>new</a>               178 BinaryTree.h           Node *newNode = new Node(key, value);
+<a href='../S/52.html#L201'>new</a>               201 BinaryTree.h           insertNode(node, new Node(key, Value()));
+<a href='../S/52.html#L281'>new</a>               281 BinaryTree.h                                                                             storage(new iterator_type[size]) {
+<a href='../S/52.html#L291'>new</a>               291 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
+<a href='../S/52.html#L307'>new</a>               307 BinaryTree.h                 storage = new iterator_type[iter.my_size];
+<a href='../S/28.html#L55'>new</a>                55 HashTable.h        HashTable() : list(new List&lt;iterator_type&gt;[100]), _size(0), _capacity(100), _hash() {};
+<a href='../S/28.html#L56'>new</a>                56 HashTable.h        explicit HashTable(size_t capacity_in) : list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+<a href='../S/28.html#L57'>new</a>                57 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/28.html#L75'>new</a>                75 HashTable.h            list = new List&lt;iterator_type&gt;[_capacity];
+<a href='../S/33.html#L109'>new</a>               109 List.h               Node* node = new Node(ptr);
+<a href='../S/38.html#L88'>new</a>                88 ReferenceCountedArray.h       return new T[bytes];
+<a href='../S/38.html#L183'>new</a>               183 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type&gt;();
+<a href='../S/38.html#L309'>new</a>               309 ReferenceCountedArray.h     ReferenceCountedArray() : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {};
+<a href='../S/38.html#L320'>new</a>               320 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {
+<a href='../S/31.html#L56'>new</a>                56 SortedList.h         Node* node = new Node(ptr), *prev = NULL, *current = this-&gt;head;
 </pre>
 </body>
 </html>

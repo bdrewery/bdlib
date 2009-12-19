@@ -1,62 +1,40 @@
 <html>
 <head>
-<title>sa</title>
+<title>my_size</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/14.html#L24'>sa</a>                 24 tests/HashTableTest.cpp   sa = new HashTable&lt;String, String&gt;();
-<a href='../S/14.html#L33'>sa</a>                 33 tests/HashTableTest.cpp     delete sa;
-<a href='../S/14.html#L66'>sa</a>                 66 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)0, sa-&gt;size());
-<a href='../S/14.html#L67'>sa</a>                 67 tests/HashTableTest.cpp   sa-&gt;insert("1", "Blah");
-<a href='../S/14.html#L68'>sa</a>                 68 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)1, sa-&gt;size());
-<a href='../S/14.html#L69'>sa</a>                 69 tests/HashTableTest.cpp   sa-&gt;insert("1", "Blah");
-<a href='../S/14.html#L70'>sa</a>                 70 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)1, sa-&gt;size());
-<a href='../S/14.html#L71'>sa</a>                 71 tests/HashTableTest.cpp   sa-&gt;insert("2", "Blah");
-<a href='../S/14.html#L72'>sa</a>                 72 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)2, sa-&gt;size());
-<a href='../S/14.html#L73'>sa</a>                 73 tests/HashTableTest.cpp   sa-&gt;insert("8", "Blah");
-<a href='../S/14.html#L74'>sa</a>                 74 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)3, sa-&gt;size());
-<a href='../S/14.html#L75'>sa</a>                 75 tests/HashTableTest.cpp   sa-&gt;insert("4", "Blah");
-<a href='../S/14.html#L76'>sa</a>                 76 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)4, sa-&gt;size());
-<a href='../S/14.html#L81'>sa</a>                 81 tests/HashTableTest.cpp   (*sb) = (*sa);
-<a href='../S/14.html#L82'>sa</a>                 82 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)4, sa-&gt;size());
-<a href='../S/14.html#L85'>sa</a>                 85 tests/HashTableTest.cpp   (*sa)["hmmzz"] = "hmmm";
-<a href='../S/14.html#L86'>sa</a>                 86 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)5, sa-&gt;size());
-<a href='../S/14.html#L88'>sa</a>                 88 tests/HashTableTest.cpp   (*sa)["7"] = "seven";
-<a href='../S/14.html#L89'>sa</a>                 89 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)6, sa-&gt;size());
-<a href='../S/14.html#L126'>sa</a>                126 tests/HashTableTest.cpp   sa-&gt;insert("1", "Blah");
-<a href='../S/14.html#L127'>sa</a>                127 tests/HashTableTest.cpp   sa-&gt;insert("1", "Bleck");
-<a href='../S/14.html#L128'>sa</a>                128 tests/HashTableTest.cpp   sa-&gt;insert("2", "Blah");
-<a href='../S/14.html#L129'>sa</a>                129 tests/HashTableTest.cpp   sa-&gt;insert("8", "Blah");
-<a href='../S/14.html#L130'>sa</a>                130 tests/HashTableTest.cpp   sa-&gt;insert("4", "Blah");
-<a href='../S/14.html#L132'>sa</a>                132 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("1"));
-<a href='../S/14.html#L133'>sa</a>                133 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sa-&gt;contains("3"));
-<a href='../S/14.html#L134'>sa</a>                134 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("4"));
-<a href='../S/14.html#L136'>sa</a>                136 tests/HashTableTest.cpp   (*sb) = (*sa);
-<a href='../S/14.html#L144'>sa</a>                144 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sa-&gt;contains("5"));
-<a href='../S/14.html#L146'>sa</a>                146 tests/HashTableTest.cpp   (*sb) = (*sa);
-<a href='../S/14.html#L151'>sa</a>                151 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sa-&gt;contains("5"));
-<a href='../S/14.html#L153'>sa</a>                153 tests/HashTableTest.cpp   (*sa)["42"] = "42";
-<a href='../S/14.html#L154'>sa</a>                154 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)5, sa-&gt;size());
-<a href='../S/14.html#L155'>sa</a>                155 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("42"));
-<a href='../S/14.html#L183'>sa</a>                183 tests/HashTableTest.cpp     sa-&gt;insert("1", "Blah");
-<a href='../S/14.html#L184'>sa</a>                184 tests/HashTableTest.cpp     sa-&gt;insert("1", "Bleck");
-<a href='../S/14.html#L185'>sa</a>                185 tests/HashTableTest.cpp     sa-&gt;insert("2", "Blah");
-<a href='../S/14.html#L186'>sa</a>                186 tests/HashTableTest.cpp     sa-&gt;insert("8", "Blah");
-<a href='../S/14.html#L187'>sa</a>                187 tests/HashTableTest.cpp     sa-&gt;insert("4", "Blah");
-<a href='../S/14.html#L189'>sa</a>                189 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL((size_t)4, (*sa).size());
-<a href='../S/14.html#L191'>sa</a>                191 tests/HashTableTest.cpp     sa-&gt;clear();
-<a href='../S/14.html#L193'>sa</a>                193 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL((size_t)0, (*sa).size());
-<a href='../S/14.html#L194'>sa</a>                194 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, sa-&gt;isEmpty());
-<a href='../S/14.html#L196'>sa</a>                196 tests/HashTableTest.cpp     sa-&gt;insert("1", "Blah1");
-<a href='../S/14.html#L197'>sa</a>                197 tests/HashTableTest.cpp     sa-&gt;insert("2", "Blah2");
-<a href='../S/14.html#L198'>sa</a>                198 tests/HashTableTest.cpp     sa-&gt;insert("3", "Blah3");
-<a href='../S/14.html#L200'>sa</a>                200 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL((size_t)3, (*sa).size());
-<a href='../S/14.html#L201'>sa</a>                201 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("1"));
-<a href='../S/14.html#L202'>sa</a>                202 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("2"));
-<a href='../S/14.html#L203'>sa</a>                203 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("3"));
-<a href='../S/10.html#L40'>sa</a>                 40 tests/HashTableTest.h         HashTable&lt;String, String&gt; *sa, *sb;
+<a href='../S/52.html#L57'>my_size</a>            57 BinaryTree.h       size_t my_size;
+<a href='../S/52.html#L94'>my_size</a>            94 BinaryTree.h         ++my_size;
+<a href='../S/52.html#L108'>my_size</a>           108 BinaryTree.h           --my_size;
+<a href='../S/52.html#L113'>my_size</a>           113 BinaryTree.h           --my_size;
+<a href='../S/52.html#L142'>my_size</a>           142 BinaryTree.h       inline size_t size() const { return my_size; };
+<a href='../S/52.html#L147'>my_size</a>           147 BinaryTree.h       BinaryTree() : my_size(0), root(NULL) {};
+<a href='../S/52.html#L148'>my_size</a>           148 BinaryTree.h       BinaryTree(const BinaryTree&amp; tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+<a href='../S/52.html#L153'>my_size</a>           153 BinaryTree.h           my_size = tree.my_size;
+<a href='../S/52.html#L266'>my_size</a>           266 BinaryTree.h           size_t my_size;
+<a href='../S/52.html#L280'>my_size</a>           280 BinaryTree.h                                                                             my_size(size), 
+<a href='../S/52.html#L290'>my_size</a>           290 BinaryTree.h                                                      my_size(iter.my_size), 
+<a href='../S/52.html#L291'>my_size</a>           291 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
+<a href='../S/52.html#L292'>my_size</a>           292 BinaryTree.h             for (size_t i = 0; i &lt; my_size; ++i)
+<a href='../S/52.html#L299'>my_size</a>           299 BinaryTree.h                                  my_size(0),
+<a href='../S/52.html#L305'>my_size</a>           305 BinaryTree.h               if (my_size != iter.my_size) {
+<a href='../S/52.html#L307'>my_size</a>           307 BinaryTree.h                 storage = new iterator_type[iter.my_size];
+<a href='../S/52.html#L312'>my_size</a>           312 BinaryTree.h               my_size = iter.my_size;
+<a href='../S/52.html#L314'>my_size</a>           314 BinaryTree.h               for (size_t i = 0; i &lt; my_size; ++i)
+<a href='../S/52.html#L333'>my_size</a>           333 BinaryTree.h           virtual operator bool() { return (index &gt; 0 &amp;&amp; index &lt; my_size); };
+<a href='../S/52.html#L363'>my_size</a>           363 BinaryTree.h       inline iterator begin() { return iterator(this, root, my_size); };
+<a href='../S/52.html#L364'>my_size</a>           364 BinaryTree.h       inline iterator end() { return iterator(this, root, my_size, 1); };
+<a href='../S/33.html#L64'>my_size</a>            64 List.h               --my_size;
+<a href='../S/33.html#L69'>my_size</a>            69 List.h             size_t my_size;
+<a href='../S/33.html#L72'>my_size</a>            72 List.h             List() : head(NULL), tail(NULL), my_size(0) {};
+<a href='../S/33.html#L75'>my_size</a>            75 List.h             List(const List&amp; list) : head(NULL), tail(NULL), my_size(0) {
+<a href='../S/33.html#L97'>my_size</a>            97 List.h               my_size = 0;
+<a href='../S/33.html#L100'>my_size</a>           100 List.h             inline size_t size() const { return my_size; };
+<a href='../S/33.html#L117'>my_size</a>           117 List.h               ++my_size;
+<a href='../S/31.html#L78'>my_size</a>            78 SortedList.h         ++(this-&gt;my_size);
 </pre>
 </body>
 </html>

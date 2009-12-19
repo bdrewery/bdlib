@@ -1,23 +1,29 @@
 <html>
 <head>
-<title>strlen</title>
+<title>prev</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/7.html#L82'>strlen</a>             82 Cstrings.c         return (dlen + strlen(s));
-<a href='../S/7.html#L105'>strlen</a>            105 Cstrings.c             len = strlen(newstr) + 1;
-<a href='../S/7.html#L113'>strlen</a>            113 Cstrings.c       size_t len = strlen(entry);
-<a href='../S/7.html#L123'>strlen</a>            123 Cstrings.c       size_t slen = strlen(entry);
-<a href='../S/27.html#L31'>strlen</a>             31 String.cpp     using std::strlen;
-<a href='../S/27.html#L157'>strlen</a>            157 String.cpp       size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-<a href='../S/27.html#L176'>strlen</a>            176 String.cpp       size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-<a href='../S/21.html#L39'>strlen</a>             39 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(strlen(cstring), d-&gt;length());
-<a href='../S/21.html#L73'>strlen</a>             73 tests/StringTest.cpp   CPPUNIT_ASSERT(d-&gt;capacity() &gt;= strlen(cstring));
-<a href='../S/21.html#L216'>strlen</a>            216 tests/StringTest.cpp   f-&gt;append(&amp;cstring[11], strlen(cstring) - 11);
-<a href='../S/21.html#L451'>strlen</a>            451 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(strlen(twentysix), tmp.length());
-<a href='../S/21.html#L458'>strlen</a>            458 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(strlen(twentynine), tmp.length());
+<a href='../S/33.html#L47'>prev</a>               47 List.h               Node* prev;
+<a href='../S/33.html#L49'>prev</a>               49 List.h               Node(const iterator_type&amp; p) : ptr(p), next(NULL), prev(NULL) {};
+<a href='../S/33.html#L54'>prev</a>               54 List.h               Node* prev = node-&gt;prev; //NULL if node = head
+<a href='../S/33.html#L58'>prev</a>               58 List.h               if (next) next-&gt;prev = prev;
+<a href='../S/33.html#L59'>prev</a>               59 List.h               if (prev) prev-&gt;next = next;
+<a href='../S/33.html#L62'>prev</a>               62 List.h               if (node == tail) tail = prev;
+<a href='../S/33.html#L113'>prev</a>              113 List.h                 head-&gt;prev = node;
+<a href='../S/33.html#L214'>prev</a>              214 List.h                   Node *nextValue = end == 0 ? current-&gt;next : current-&gt;prev;
+<a href='../S/33.html#L229'>prev</a>              229 List.h                   current = current-&gt;prev;
+<a href='../S/33.html#L234'>prev</a>              234 List.h                   current = current-&gt;prev;
+<a href='../S/31.html#L56'>prev</a>               56 SortedList.h         Node* node = new Node(ptr), *prev = NULL, *current = this-&gt;head;
+<a href='../S/31.html#L58'>prev</a>               58 SortedList.h           prev = current;
+<a href='../S/31.html#L65'>prev</a>               65 SortedList.h           this-&gt;tail = prev-&gt;next = node;
+<a href='../S/31.html#L66'>prev</a>               66 SortedList.h           node-&gt;prev = prev; //prev=tail
+<a href='../S/31.html#L69'>prev</a>               69 SortedList.h           current-&gt;prev = node;
+<a href='../S/31.html#L73'>prev</a>               73 SortedList.h           node-&gt;prev = prev;
+<a href='../S/31.html#L74'>prev</a>               74 SortedList.h           current-&gt;prev = node;
+<a href='../S/31.html#L75'>prev</a>               75 SortedList.h           prev-&gt;next = node;
 </pre>
 </body>
 </html>

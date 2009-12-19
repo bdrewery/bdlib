@@ -1,14 +1,36 @@
 <html>
 <head>
-<title>toupper</title>
+<title>rca</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/21.html#L196'>toupper</a>           196 tests/StringTest.cpp     (*a)[i] = toupper((*a)[i]);
-<a href='../S/21.html#L572'>toupper</a>           572 tests/StringTest.cpp     (*a)[i] = toupper((*a)[i]);
-<a href='../S/21.html#L581'>toupper</a>           581 tests/StringTest.cpp     substring[i] = toupper(substring[i]);
+<a href='../S/38.html#L124'>rca</a>               124 ReferenceCountedArray.h     T&amp; rca;
+<a href='../S/38.html#L131'>rca</a>               131 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
+<a href='../S/38.html#L132'>rca</a>               132 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
+<a href='../S/38.html#L139'>rca</a>               139 ReferenceCountedArray.h       T newArray(rca);
+<a href='../S/38.html#L153'>rca</a>               153 ReferenceCountedArray.h       rca.replace(start, array, len);
+<a href='../S/38.html#L310'>rca</a>               310 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen) { incRef(); };
+<a href='../S/38.html#L341'>rca</a>               341 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const ReferenceCountedArray &amp;rca) {
+<a href='../S/38.html#L342'>rca</a>               342 ReferenceCountedArray.h       rca.incRef();
+<a href='../S/38.html#L343'>rca</a>               343 ReferenceCountedArray.h       offset = rca.offset;
+<a href='../S/38.html#L344'>rca</a>               344 ReferenceCountedArray.h       sublen = rca.sublen;
+<a href='../S/38.html#L346'>rca</a>               346 ReferenceCountedArray.h       Ref = rca.Ref;
+<a href='../S/38.html#L470'>rca</a>               470 ReferenceCountedArray.h         ReferenceCountedArray&amp; rca;
+<a href='../S/38.html#L476'>rca</a>               476 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, int i) : rca(_rca), k(i) {};
+<a href='../S/38.html#L480'>rca</a>               480 ReferenceCountedArray.h         Cref(const Cref&amp; cref) : rca(cref.rca), k(cref.k) {};
+<a href='../S/38.html#L490'>rca</a>               490 ReferenceCountedArray.h         inline operator value_type() const { return rca.read(k); };
+<a href='../S/38.html#L496'>rca</a>               496 ReferenceCountedArray.h           rca.write(k, c);
+<a href='../S/38.html#L565'>rca</a>               565 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, int n = -1) { insert(length(), rca, n); };
+<a href='../S/38.html#L575'>rca</a>               575 ReferenceCountedArray.h     void insert(int k, const ReferenceCountedArray&amp; rca, int n = -1) {
+<a href='../S/38.html#L579'>rca</a>               579 ReferenceCountedArray.h       int slen = rca.length();
+<a href='../S/38.html#L583'>rca</a>               583 ReferenceCountedArray.h         *this = rca;
+<a href='../S/38.html#L592'>rca</a>               592 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
+<a href='../S/38.html#L634'>rca</a>               634 ReferenceCountedArray.h     void replace(int k, const ReferenceCountedArray &amp;rca, int n = -1) {
+<a href='../S/38.html#L638'>rca</a>               638 ReferenceCountedArray.h       int slen = rca.length();
+<a href='../S/38.html#L642'>rca</a>               642 ReferenceCountedArray.h         *this = rca;
+<a href='../S/38.html#L658'>rca</a>               658 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
 </pre>
 </body>
 </html>

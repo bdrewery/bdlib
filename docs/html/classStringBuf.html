@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>BDLIB: StringBuf Class Reference</title>
+<title>BDLIB: StringBuf&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css">
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -34,151 +34,25 @@
   </div>
 </div>
 <div class="contents">
-<h1>StringBuf Class Reference</h1><!-- doxytag: class="StringBuf" -->Helps the <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> class with reference counting.  
+<h1>StringBuf&lt; T &gt; Class Template Reference</h1><!-- doxytag: class="StringBuf" -->Helps the <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> class with reference counting.  
 <a href="#_details">More...</a>
 <p>
-<code>#include &lt;<a class="el" href="HTML/S/46.html">String.h</a>&gt;</code>
+<code>#include &lt;<a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>&gt;</code>
 <p>
-
-<p>
-<a href="classStringBuf-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
+<table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStringBuf.html#94ee8b74ef246a2c8dc34730b83984d5">Reserve</a> (const size_t) const </td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ensure that the buffer capacity() is &gt;= newSize; else grow/copy into larger buffer.  <a href="#94ee8b74ef246a2c8dc34730b83984d5"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStringBuf.html#bda2421d4939f56b33dddf7cf6f017d8">AllocBuf</a> (const size_t bytes) const </td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Allocates a buffer and returns it's address.  <a href="#bda2421d4939f56b33dddf7cf6f017d8"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStringBuf.html#85d4b0e8b814ddc76b280558332886a7">FreeBuf</a> (const char *p) const </td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Free's up the allocated buffer.  <a href="#85d4b0e8b814ddc76b280558332886a7"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="12ea2d7e06b74ff63937727df8cd2896"></a><!-- doxytag: member="StringBuf::isShared" ref="12ea2d7e06b74ff63937727df8cd2896" args="() const " -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStringBuf.html#12ea2d7e06b74ff63937727df8cd2896">isShared</a> () const </td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Is this string shared? <br></td></tr>
-<tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="263884e4f6324ad791c2da6cecafefcc"></a><!-- doxytag: member="StringBuf::len" ref="263884e4f6324ad791c2da6cecafefcc" args="" -->
-size_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>len</b></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="9c63ee71fc4941db5c3d20d2fc63598e"></a><!-- doxytag: member="StringBuf::size" ref="9c63ee71fc4941db5c3d20d2fc63598e" args="" -->
-size_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>size</b></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="04263adbcf2995a8bb36d4125ed65247"></a><!-- doxytag: member="StringBuf::buf" ref="04263adbcf2995a8bb36d4125ed65247" args="" -->
-char *&nbsp;</td><td class="memItemRight" valign="bottom"><b>buf</b></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="1e648fd3cb2c165e6ba9fc5d1208b16c"></a><!-- doxytag: member="StringBuf::n" ref="1e648fd3cb2c165e6ba9fc5d1208b16c" args="" -->
-uint8_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>n</b></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="021b6e7bdefd80906ef446e06999687d"></a><!-- doxytag: member="StringBuf::sbuf" ref="021b6e7bdefd80906ef446e06999687d" args="[16]" -->
-char&nbsp;</td><td class="memItemRight" valign="bottom"><b>sbuf</b> [16]</td></tr>
-
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
+<h3>template&lt;class T&gt;<br>
+ class StringBuf&lt; T &gt;</h3>
+
 Helps the <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> class with reference counting. 
 <p>
-<dl compact><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>look into something like a string object made of string pointers, and &lt;&lt; displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the &lt;&lt; stream </dd></dl>
-
-<p>Definition at line <a class="el" href="HTML/S/46.html#L56">56</a> of file <a class="el" href="HTML/S/46.html">String.h</a>.</p>
-<hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="bda2421d4939f56b33dddf7cf6f017d8"></a><!-- doxytag: member="StringBuf::AllocBuf" ref="bda2421d4939f56b33dddf7cf6f017d8" args="(const size_t bytes) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* StringBuf::AllocBuf           </td>
-          <td>(</td>
-          <td class="paramtype">const size_t&nbsp;</td>
-          <td class="paramname"> <em>bytes</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
+<dl compact><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>look into something like a string object made of string pointers, and &lt;&lt; displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the &lt;&lt; stream </dd></dl>
+<hr>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a></ul>
 </div>
-<div class="memdoc">
-
-<p>
-Allocates a buffer and returns it's address. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>bytes</em>&nbsp;</td><td>The number of bytes to allocate. </td></tr>
-  </table>
-</dl>
-<dl class="post" compact><dt><b>Postcondition:</b></dt><dd>A new block of memory is allocated. </dd></dl>
-<dl compact><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Implement mempool here. </dd></dl>
-
-<p>Definition at line <a class="el" href="HTML/S/46.html#L73">73</a> of file <a class="el" href="HTML/S/46.html">String.h</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="85d4b0e8b814ddc76b280558332886a7"></a><!-- doxytag: member="StringBuf::FreeBuf" ref="85d4b0e8b814ddc76b280558332886a7" args="(const char *p) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void StringBuf::FreeBuf           </td>
-          <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>p</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Free's up the allocated buffer. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>p</em>&nbsp;</td><td>The buffer to be free'd </td></tr>
-  </table>
-</dl>
-<dl class="post" compact><dt><b>Postcondition:</b></dt><dd>The buffer is deleted. </dd></dl>
-<dl compact><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Implement mempool here. </dd></dl>
-
-<p>Definition at line <a class="el" href="HTML/S/46.html#L84">84</a> of file <a class="el" href="HTML/S/46.html">String.h</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="94ee8b74ef246a2c8dc34730b83984d5"></a><!-- doxytag: member="StringBuf::Reserve" ref="94ee8b74ef246a2c8dc34730b83984d5" args="(const size_t) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">BDLIB_NS_BEGIN void StringBuf::Reserve           </td>
-          <td>(</td>
-          <td class="paramtype">const size_t&nbsp;</td>
-          <td class="paramname"> <em>newSize</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Ensure that the buffer capacity() is &gt;= newSize; else grow/copy into larger buffer. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>newSize</em>&nbsp;</td><td>A size that we need to Allocate the buffer to. </td></tr>
-  </table>
-</dl>
-<dl class="pre" compact><dt><b>Precondition:</b></dt><dd>newSize is &gt; 0 (assumed as size_t is unsigned) </dd></dl>
-<dl class="post" compact><dt><b>Postcondition:</b></dt><dd>The buffer is at least nsize bytes long. <p>
-If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted. </dd></dl>
-
-<p>Definition at line <a class="el" href="HTML/S/27.html#L47">47</a> of file <a class="el" href="HTML/S/27.html">String.cpp</a>.</p>
-
-</div>
-</div><p>
-<hr>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="HTML/S/46.html">String.h</a><li><a class="el" href="HTML/S/27.html">String.cpp</a></ul>
-</div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Dec 18 21:28:48 2009 for BDLIB by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Dec 18 21:33:38 2009 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

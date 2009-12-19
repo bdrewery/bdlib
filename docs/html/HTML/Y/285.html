@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>len</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/57.html#L87'>len</a>                87 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/57.html#L88'>len</a>                88 Array.h              this-&gt;Reserve(len);
+<a href='../S/57.html#L89'>len</a>                89 Array.h              for (size_t i = 0; i &lt; len; ++i)
+<a href='../S/57.html#L174'>len</a>               174 Array.h              size_t len = std::min(my_len, slen);
+<a href='../S/57.html#L176'>len</a>               176 Array.h              for (size_t i = 0; i &lt; len; ++i) {
+<a href='../S/57.html#L190'>len</a>               190 Array.h            inline Array subarray(int start, int len) const {
+<a href='../S/57.html#L192'>len</a>               192 Array.h              newArray.slice(start, len);
+<a href='../S/57.html#L199'>len</a>               199 Array.h            inline Array operator()(int start, int len) const { return subarray(start, len); };
+<a href='../S/57.html#L207'>len</a>               207 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len) { return Slice&lt;Array&gt;(*this, start, len); };
+<a href='../S/44.html#L95'>len</a>                95 Cstrings.c             size_t len;
+<a href='../S/44.html#L102'>len</a>               102 Cstrings.c             len = strlen(newstr) + 1;
+<a href='../S/44.html#L103'>len</a>               103 Cstrings.c             *str = (char *) realloc(*str, len);
+<a href='../S/44.html#L104'>len</a>               104 Cstrings.c             memcpy(*str, newstr, len);
+<a href='../S/44.html#L110'>len</a>               110 Cstrings.c       size_t len = strlen(entry);
+<a href='../S/44.html#L111'>len</a>               111 Cstrings.c       char *target = (char *) calloc(1, len + 1);
+<a href='../S/44.html#L113'>len</a>               113 Cstrings.c       target[len] = 0;
+<a href='../S/44.html#L114'>len</a>               114 Cstrings.c       return (char *) memcpy(target, entry, len);
+<a href='../S/44.html#L121'>len</a>               121 Cstrings.c       size_t len = slen &lt; maxlen ? slen : maxlen;
+<a href='../S/44.html#L122'>len</a>               122 Cstrings.c       char *target = (char *) calloc(1, len + 1);
+<a href='../S/44.html#L124'>len</a>               124 Cstrings.c       target[len] = 0;
+<a href='../S/44.html#L125'>len</a>               125 Cstrings.c       return (char *) memcpy(target, entry, len);
+<a href='../S/38.html#L43'>len</a>                43 ReferenceCountedArray.h     mutable size_t len; //Length of string
+<a href='../S/38.html#L48'>len</a>                48 ReferenceCountedArray.h     ArrayRef() : len(0), size(0), buf(NULL), n(1) {};
+<a href='../S/38.html#L66'>len</a>                66 ReferenceCountedArray.h           std::copy(buf + offset, buf + offset + len, newbuf);
+<a href='../S/38.html#L75'>len</a>                75 ReferenceCountedArray.h         memmove(buf, buf + offset, len);
+<a href='../S/38.html#L126'>len</a>               126 ReferenceCountedArray.h     int len;
+<a href='../S/38.html#L131'>len</a>               131 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
+<a href='../S/38.html#L132'>len</a>               132 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
+<a href='../S/38.html#L140'>len</a>               140 ReferenceCountedArray.h       newArray.slice(start, len);
+<a href='../S/38.html#L153'>len</a>               153 ReferenceCountedArray.h       rca.replace(start, array, len);
+<a href='../S/38.html#L192'>len</a>               192 ReferenceCountedArray.h     inline void setLength(size_t newLen) const { Ref-&gt;len = sublen = newLen; };
+<a href='../S/38.html#L197'>len</a>               197 ReferenceCountedArray.h     inline void addLength(size_t diff) const { Ref-&gt;len += diff; sublen += diff; };
+<a href='../S/38.html#L202'>len</a>               202 ReferenceCountedArray.h     inline void subLength(size_t diff) const { Ref-&gt;len -= diff; sublen -= diff; };
+<a href='../S/38.html#L524'>len</a>               524 ReferenceCountedArray.h     void slice(int start, int len) {
+<a href='../S/38.html#L542'>len</a>               542 ReferenceCountedArray.h       if (start + len &gt;= (signed) length())
+<a href='../S/38.html#L543'>len</a>               543 ReferenceCountedArray.h         len = length() - start;
+<a href='../S/38.html#L545'>len</a>               545 ReferenceCountedArray.h       else if (len &lt; 0)
+<a href='../S/38.html#L546'>len</a>               546 ReferenceCountedArray.h         len = length() - start + len;
+<a href='../S/38.html#L547'>len</a>               547 ReferenceCountedArray.h       setLength(len);
+<a href='../S/2.html#L48'>len</a>                48 Socket.h               int len;
+<a href='../S/35.html#L115'>len</a>               115 Stream.cpp       size_t len = 0;
+<a href='../S/35.html#L118'>len</a>               118 Stream.cpp       while ((len = fread(buf, 1, sizeof(buf) - 1, f))) {
+<a href='../S/35.html#L119'>len</a>               119 Stream.cpp         puts(String(buf, len));
+<a href='../S/37.html#L51'>len</a>                51 String.cpp       size_t len = std::min(my_len, slen);
+<a href='../S/37.html#L57'>len</a>                57 String.cpp       for (size_t i = 0; i &lt; len; ++i) {
+<a href='../S/37.html#L221'>len</a>               221 String.cpp       size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
+<a href='../S/37.html#L224'>len</a>               224 String.cpp       return (*this = String(va_out, len));
+<a href='../S/46.html#L186'>len</a>               186 String.h               String substring(int start, int len) const {
+<a href='../S/46.html#L188'>len</a>               188 String.h                 newString.slice(start, len);
+<a href='../S/46.html#L195'>len</a>               195 String.h               inline String operator()(int start, int len) const { return substring(start, len); };
+<a href='../S/46.html#L203'>len</a>               203 String.h               inline Slice&lt;String&gt; operator()(int start, int len) { return Slice&lt;String&gt;(*this, start, len); };
+<a href='../S/45.html#L55'>len</a>                55 base64.c       void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
+<a href='../S/45.html#L82'>len</a>                82 base64.c         while (*len &gt;= NUM_ASCII_BYTES) {
+<a href='../S/45.html#L94'>len</a>                94 base64.c           *len -= NUM_ASCII_BYTES;
+<a href='../S/45.html#L98'>len</a>                98 base64.c         if (*len &gt; 0) {
+<a href='../S/45.html#L100'>len</a>               100 base64.c           if (*len == 1) {
+<a href='../S/45.html#L103'>len</a>               103 base64.c           } else if (*len &gt; 1) { /* == 2 .. left as &gt;1 to help optimize with last if */
+<a href='../S/45.html#L112'>len</a>               112 base64.c         *len = buf - dest;
+<a href='../S/45.html#L116'>len</a>               116 base64.c         size_t len = string.length();
+<a href='../S/45.html#L117'>len</a>               117 base64.c         char *p = b64enc((unsigned char*) string.data(), &amp;len);
+<a href='../S/45.html#L118'>len</a>               118 base64.c         bd::String encoded(p, len);
+<a href='../S/45.html#L123'>len</a>               123 base64.c       char *b64enc(const unsigned char *src, size_t *len)
+<a href='../S/45.html#L126'>len</a>               126 base64.c         size_t dlen = (((*len + (NUM_ASCII_BYTES - 1)) / NUM_ASCII_BYTES) * NUM_ENCODED_BYTES);
+<a href='../S/45.html#L129'>len</a>               129 base64.c         b64enc_buf(src, len, dest);
+<a href='../S/45.html#L130'>len</a>               130 base64.c         dest[*len] = '\0';
+<a href='../S/45.html#L134'>len</a>               134 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest)
+<a href='../S/45.html#L137'>len</a>               137 base64.c         size_t blocks = (*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0);
+<a href='../S/45.html#L155'>len</a>               155 base64.c         *len = (buf - dest);
+<a href='../S/45.html#L158'>len</a>               158 base64.c       char *b64dec(const unsigned char *data, size_t *len)
+<a href='../S/45.html#L160'>len</a>               160 base64.c         size_t dlen = ((*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0)) * NUM_ASCII_BYTES;
+<a href='../S/45.html#L163'>len</a>               163 base64.c         b64dec_buf(data, len, dest);
+<a href='../S/45.html#L164'>len</a>               164 base64.c         dest[*len] = '\0';
+<a href='../S/45.html#L169'>len</a>               169 base64.c         size_t len = string.length();
+<a href='../S/45.html#L170'>len</a>               170 base64.c         char *p = b64dec((unsigned char*) string.data(), &amp;len);
+<a href='../S/45.html#L171'>len</a>               171 base64.c         bd::String decoded(p, len);
+<a href='../S/25.html#L40'>len</a>                40 base64.h       char *b64enc(const unsigned char *src, size_t *len);
+<a href='../S/25.html#L55'>len</a>                55 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest);
+<a href='../S/25.html#L63'>len</a>                63 base64.h       char *b64dec(const unsigned char *data, size_t *len);
+<a href='../S/25.html#L78'>len</a>                78 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest);
+</pre>
+</body>
+</html>

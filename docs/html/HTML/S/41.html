@@ -1,96 +1,42 @@
 <html>
 <head>
-<title>hash.h</title>
+<title>SortedList.cpp</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/hash.h</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/SortedList.cpp</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='28.html#L28' title='Included from 28 in HashTable.h.'>INCLUDED FROM</a></h2>
-<hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* $Id: hash.h 190 2008-04-23 13:24:16Z bryan $ */</font></i>
-<a name='L2'>   2 
-<a name='L3'>   3 <i><font color='green'>// TR1 functional header -*- C++ -*-</font></i>
-<a name='L4'>   4 
-<a name='L5'>   5 <i><font color='green'>// Copyright (C) 2004, 2005 Free Software Foundation, Inc.</font></i>
-<a name='L6'>   6 <i><font color='green'>//</font></i>
-<a name='L7'>   7 <i><font color='green'>// This file is part of the GNU ISO C++ Library.  This library is free</font></i>
-<a name='L8'>   8 <i><font color='green'>// software; you can redistribute it and/or modify it under the</font></i>
-<a name='L9'>   9 <i><font color='green'>// terms of the GNU General Public License as published by the</font></i>
-<a name='L10'>  10 <i><font color='green'>// Free Software Foundation; either version 2, or (at your option)</font></i>
-<a name='L11'>  11 <i><font color='green'>// any later version.</font></i>
-<a name='L12'>  12 
-<a name='L13'>  13 <i><font color='green'>// This library is distributed in the hope that it will be useful,</font></i>
-<a name='L14'>  14 <i><font color='green'>// but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
-<a name='L15'>  15 <i><font color='green'>// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
-<a name='L16'>  16 <i><font color='green'>// GNU General Public License for more details.</font></i>
-<a name='L17'>  17 
-<a name='L18'>  18 <i><font color='green'>// You should have received a copy of the GNU General Public License along</font></i>
-<a name='L19'>  19 <i><font color='green'>// with this library; see the file COPYING.  If not, write to the Free</font></i>
-<a name='L20'>  20 <i><font color='green'>// Software Foundation, 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,</font></i>
-<a name='L21'>  21 <i><font color='green'>// USA.</font></i>
-<a name='L22'>  22 
-<a name='L23'>  23 <i><font color='green'>// As a special exception, you may use this file as part of a free software</font></i>
-<a name='L24'>  24 <i><font color='green'>// library without restriction.  Specifically, if other files instantiate</font></i>
-<a name='L25'>  25 <i><font color='green'>// templates or use macros or inline functions from this file, or you compile</font></i>
-<a name='L26'>  26 <i><font color='green'>// this file and link it with other files to produce an executable, this</font></i>
-<a name='L27'>  27 <i><font color='green'>// file does not by itself cause the resulting executable to be covered by</font></i>
-<a name='L28'>  28 <i><font color='green'>// the GNU General Public License.  This exception does not however</font></i>
-<a name='L29'>  29 <i><font color='green'>// invalidate any other reasons why the executable file might be covered by</font></i>
-<a name='L30'>  30 <i><font color='green'>// the GNU General Public License.</font></i>
-<a name='L31'>  31 
-<a name='L32'>  32 <font color='darkred'>#ifndef</font> <a href='../S/41.html#L33' title='Defined at 33 in hash.h.'>_BD_HASH_H</a>
-<a name='L33'>  33 <font color='darkred'>#define</font> <a href='../S/41.html#L32' title='Refered from 32 in hash.h.'>_BD_HASH_H</a> 1
-<a name='L34'>  34 
-<a name='L35'>  35 <font color='darkred'>#include</font> "<a href='33.html'>bdlib.h</a>"
-<a name='L36'>  36 <font color='darkred'>#include</font> &lt;sys/types.h&gt;
-<a name='L37'>  37 
-<a name='L38'>  38 <a href='../S/33.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L39'>  39 
-<a name='L40'>  40 <a href='../Y/359.html' title='Multiple used in 17 places.'>template</a>&lt;<a href='../Y/379.html' title='Multiple used in 9 places.'>typename</a> <a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>&gt;
-<a name='L41'>  41   <b>struct</b> <a href='../S/27.html#L397' title='Defined at 397 in String.cpp.'>hash</a>;
-<a name='L42'>  42 
-<a name='L43'>  43 <font color='darkred'>#define</font> <a href='../R/122.html' title='Multiple refered from 10 places.'>tr1_hashtable_define_trivial_hash</a>(<a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>)                                      \
-<a name='L44'>  44 <a href='../Y/359.html' title='Multiple used in 17 places.'>template</a>&lt;&gt;                                                                        \
-<a name='L45'>  45   <b>struct</b> <a href='../S/27.html#L397' title='Defined at 397 in String.cpp.'>hash</a>&lt;<a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>&gt;                                                                  \
-<a name='L46'>  46   <font color='red'>{</font>                                                                               \
-<a name='L47'>  47     <b>inline</b> <a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/268.html' title='Multiple used in 107 places.'>operator</a>()(<a href='../Y/73.html' title='Multiple used in 47 places.'>T</a> <a href='../Y/394.html' title='Multiple used in 2 places.'>val</a>) <b>const</b> <font color='red'>{</font> <b>return</b> static_cast&lt;<a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a>&gt;(<a href='../Y/394.html' title='Multiple used in 2 places.'>val</a>); <font color='red'>}</font>    \
-<a name='L48'>  48   <font color='red'>}</font>
-<a name='L49'>  49 
-<a name='L50'>  50 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<a href='../Y/110.html' title='Multiple used in 59 places.'>bool</a>);
-<a name='L51'>  51 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>char</b>);
-<a name='L52'>  52 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>signed</b> <b>char</b>);
-<a name='L53'>  53 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>char</b>);
-<a name='L54'>  54 <i><font color='green'>//tr1_hashtable_define_trivial_hash(wchar_t);</font></i>
-<a name='L55'>  55 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>short</b>);
-<a name='L56'>  56 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>int</b>);
-<a name='L57'>  57 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>long</b>);
-<a name='L58'>  58 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>short</b>);
-<a name='L59'>  59 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>int</b>);
-<a name='L60'>  60 <a href='../D/159.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>long</b>);
-<a name='L61'>  61 
-<a name='L62'>  62 <font color='darkred'>#undef</font> <a href='../R/122.html' title='Multiple refered from 10 places.'>tr1_hashtable_define_trivial_hash</a>
-<a name='L63'>  63 
-<a name='L64'>  64 <i><font color='green'>/** TODO:</font></i>
-<a name='L65'>  65 <i><font color='green'>float</font></i>
-<a name='L66'>  66 <i><font color='green'>double</font></i>
-<a name='L67'>  67 <i><font color='green'>long double</font></i>
-<a name='L68'>  68 <i><font color='green'>char *</font></i>
-<a name='L69'>  69 <i><font color='green'>const char *</font></i>
-<a name='L70'>  70 <i><font color='green'>String</font></i>
-<a name='L71'>  71 <i><font color='green'>*/</font></i>
-<a name='L72'>  72 
-<a name='L73'>  73 <a href='../Y/359.html' title='Multiple used in 17 places.'>template</a>&lt;<a href='../Y/379.html' title='Multiple used in 9 places.'>typename</a> <a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>&gt;
-<a name='L74'>  74   <b>struct</b> <a href='../S/27.html#L397' title='Defined at 397 in String.cpp.'>hash</a>&lt;<a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>*&gt;
-<a name='L75'>  75   <font color='red'>{</font>
-<a name='L76'>  76     <b>inline</b> <a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a> <a href='../Y/268.html' title='Multiple used in 107 places.'>operator</a>()(<a href='../Y/73.html' title='Multiple used in 47 places.'>T</a>* <a href='../Y/271.html' title='Multiple used in 18 places.'>p</a>) <b>const</b> <font color='red'>{</font> <b>return</b> reinterpret_cast&lt;<a href='../Y/325.html' title='Multiple used in 242 places.'>size_t</a>&gt;(<a href='../Y/271.html' title='Multiple used in 18 places.'>p</a>); <font color='red'>}</font>
-<a name='L77'>  77   <font color='red'>}</font>;
-<a name='L78'>  78 
-<a name='L79'>  79 <a href='../S/33.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L80'>  80 <font color='darkred'>#endif</font>
+<a name='L1'>   1 <i><font color='green'>/* SortedList.cpp</font></i>
+<a name='L2'>   2 <i><font color='green'> *</font></i>
+<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
+<a name='L4'>   4 <i><font color='green'> *</font></i>
+<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
+<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
+<a name='L7'>   7 <i><font color='green'> *</font></i>
+<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. </font></i>
+<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
+<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
+<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
+<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L14'>  14 <i><font color='green'> *</font></i>
+<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
+<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
+<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
+<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
+<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
+<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
+<a name='L21'>  21 <i><font color='green'> *</font></i>
+<a name='L22'>  22 <i><font color='green'> */</font></i>
+<a name='L23'>  23 
+<a name='L24'>  24 
+<a name='L25'>  25 <font color='darkred'>#include</font> "<a href='31.html'>SortedList.h</a>"
+<a name='L26'>  26 
+<a name='L27'>  27 <a href='../S/42.html#L41' title='Defined at 41 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L28'>  28 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_END</a>
 </pre>
 <hr>
 <a name='BOTTOM'>

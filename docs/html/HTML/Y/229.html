@@ -1,77 +1,19 @@
 <html>
 <head>
-<title>len</title>
+<title>fseek</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/7.html#L98'>len</a>                98 Cstrings.c             size_t len;
-<a href='../S/7.html#L105'>len</a>               105 Cstrings.c             len = strlen(newstr) + 1;
-<a href='../S/7.html#L106'>len</a>               106 Cstrings.c             *str = (char *) realloc(*str, len);
-<a href='../S/7.html#L107'>len</a>               107 Cstrings.c             memcpy(*str, newstr, len);
-<a href='../S/7.html#L113'>len</a>               113 Cstrings.c       size_t len = strlen(entry);
-<a href='../S/7.html#L114'>len</a>               114 Cstrings.c       char *target = (char *) calloc(1, len + 1);
-<a href='../S/7.html#L116'>len</a>               116 Cstrings.c       target[len] = 0;
-<a href='../S/7.html#L117'>len</a>               117 Cstrings.c       return (char *) memcpy(target, entry, len);
-<a href='../S/7.html#L124'>len</a>               124 Cstrings.c       size_t len = slen &lt; maxlen ? slen : maxlen;
-<a href='../S/7.html#L125'>len</a>               125 Cstrings.c       char *target = (char *) calloc(1, len + 1);
-<a href='../S/7.html#L127'>len</a>               127 Cstrings.c       target[len] = 0;
-<a href='../S/7.html#L128'>len</a>               128 Cstrings.c       return (char *) memcpy(target, entry, len);
-<a href='../S/3.html#L49'>len</a>                49 Socket.h               int len;
-<a href='../S/27.html#L56'>len</a>                56 String.cpp           std::copy(buf, buf + len, newbuf);
-<a href='../S/27.html#L97'>len</a>                97 String.cpp       size_t len = std::min(my_len, slen);
-<a href='../S/27.html#L100'>len</a>               100 String.cpp       for (size_t i = 0; i &lt; len; ++i) {
-<a href='../S/27.html#L322'>len</a>               322 String.cpp     String String::substring(int start, int len) const
-<a href='../S/27.html#L339'>len</a>               339 String.cpp       if (start + len &gt;= (signed) length())
-<a href='../S/27.html#L340'>len</a>               340 String.cpp         len = length() - start;
-<a href='../S/27.html#L342'>len</a>               342 String.cpp       else if (len &lt; 0)
-<a href='../S/27.html#L343'>len</a>               343 String.cpp         len = length() - start + len;
-<a href='../S/27.html#L344'>len</a>               344 String.cpp       newString.setLength(len);
-<a href='../S/46.html#L59'>len</a>                59 String.h               mutable size_t len; //Length of string
-<a href='../S/46.html#L65'>len</a>                65 String.h               StringBuf() : len(0), size(0), buf(NULL), n(1) {};
-<a href='../S/46.html#L163'>len</a>               163 String.h                   int len;
-<a href='../S/46.html#L165'>len</a>               165 String.h                   SubString(String&amp; string, int _start, int _len) : s(string), start(_start), len(_len) {};
-<a href='../S/46.html#L169'>len</a>               169 String.h                   SubString(const SubString&amp; substring) : s(substring.s), start(substring.start), len(substring.len) {};
-<a href='../S/46.html#L180'>len</a>               180 String.h                   inline operator String() const { return s.substring(start, len); };
-<a href='../S/46.html#L186'>len</a>               186 String.h                     s.replace(start, string, len);
-<a href='../S/46.html#L191'>len</a>               191 String.h                     s.replace(start, string, len);
-<a href='../S/46.html#L216'>len</a>               216 String.h               inline void setLength(size_t newLen) const { Ref-&gt;len = sublen = newLen; };
-<a href='../S/46.html#L221'>len</a>               221 String.h               inline void addLength(size_t diff) const { Ref-&gt;len += diff; sublen += diff; };
-<a href='../S/46.html#L226'>len</a>               226 String.h               inline void subLength(size_t diff) const { Ref-&gt;len -= diff; sublen -= diff; };
-<a href='../S/46.html#L489'>len</a>               489 String.h               inline SubString operator()(int start, int len) { return SubString(*this, start, len); };
-<a href='../S/46.html#L494'>len</a>               494 String.h               inline String operator()(int start, int len) const { return substring(start, len); };
-<a href='../S/46.html#L680'>len</a>               680 String.h         int len = length() - n;
-<a href='../S/46.html#L681'>len</a>               681 String.h         replace(0, &amp;Ref-&gt;buf[n], len);
-<a href='../S/46.html#L682'>len</a>               682 String.h         setLength(len);
-<a href='../S/37.html#L69'>len</a>                69 base64.c       void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
-<a href='../S/37.html#L96'>len</a>                96 base64.c         while (*len &gt;= NUM_ASCII_BYTES) {
-<a href='../S/37.html#L108'>len</a>               108 base64.c           *len -= NUM_ASCII_BYTES;
-<a href='../S/37.html#L112'>len</a>               112 base64.c         if (*len &gt; 0) {
-<a href='../S/37.html#L114'>len</a>               114 base64.c           if (*len == 1) {
-<a href='../S/37.html#L117'>len</a>               117 base64.c           } else if (*len &gt; 1) { /* == 2 .. left as &gt;1 to help optimize with last if */
-<a href='../S/37.html#L126'>len</a>               126 base64.c         *len = buf - dest;
-<a href='../S/37.html#L130'>len</a>               130 base64.c         size_t len = string.length();
-<a href='../S/37.html#L131'>len</a>               131 base64.c         char *p = b64enc((unsigned char*) string.data(), &amp;len);
-<a href='../S/37.html#L132'>len</a>               132 base64.c         bd::String encoded(p, len);
-<a href='../S/37.html#L137'>len</a>               137 base64.c       char *b64enc(const unsigned char *src, size_t *len)
-<a href='../S/37.html#L140'>len</a>               140 base64.c         size_t dlen = (((*len + (NUM_ASCII_BYTES - 1)) / NUM_ASCII_BYTES) * NUM_ENCODED_BYTES);
-<a href='../S/37.html#L143'>len</a>               143 base64.c         b64enc_buf(src, len, dest);
-<a href='../S/37.html#L144'>len</a>               144 base64.c         dest[*len] = '\0';
-<a href='../S/37.html#L148'>len</a>               148 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest)
-<a href='../S/37.html#L151'>len</a>               151 base64.c         size_t blocks = (*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0);
-<a href='../S/37.html#L169'>len</a>               169 base64.c         *len = (buf - dest);
-<a href='../S/37.html#L172'>len</a>               172 base64.c       char *b64dec(const unsigned char *data, size_t *len)
-<a href='../S/37.html#L174'>len</a>               174 base64.c         size_t dlen = ((*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0)) * NUM_ASCII_BYTES;
-<a href='../S/37.html#L177'>len</a>               177 base64.c         b64dec_buf(data, len, dest);
-<a href='../S/37.html#L178'>len</a>               178 base64.c         dest[*len] = '\0';
-<a href='../S/37.html#L183'>len</a>               183 base64.c         size_t len = string.length();
-<a href='../S/37.html#L184'>len</a>               184 base64.c         char *p = b64dec((unsigned char*) string.data(), &amp;len);
-<a href='../S/37.html#L185'>len</a>               185 base64.c         bd::String decoded(p, len);
-<a href='../S/40.html#L41'>len</a>                41 base64.h       char *b64enc(const unsigned char *src, size_t *len);
-<a href='../S/40.html#L56'>len</a>                56 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest);
-<a href='../S/40.html#L64'>len</a>                64 base64.h       char *b64dec(const unsigned char *data, size_t *len);
-<a href='../S/40.html#L79'>len</a>                79 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest);
+<a href='../S/35.html#L110'>fseek</a>             110 Stream.cpp       fseek(f, 0, SEEK_END);
+<a href='../S/35.html#L112'>fseek</a>             112 Stream.cpp       fseek(f, 0, SEEK_SET);
+<a href='../S/23.html#L211'>fseek</a>             211 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/23.html#L213'>fseek</a>             213 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/23.html#L228'>fseek</a>             228 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/23.html#L258'>fseek</a>             258 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/23.html#L260'>fseek</a>             260 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/23.html#L273'>fseek</a>             273 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
 </pre>
 </body>
 </html>

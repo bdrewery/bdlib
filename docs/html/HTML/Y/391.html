@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>search</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/52.html#L66'>search</a>             66 BinaryTree.h       Node* &amp;fetchNode(Node* const* search, const Key &amp;key) const {
+<a href='../S/52.html#L67'>search</a>             67 BinaryTree.h         while ((*search) != NULL) {
+<a href='../S/52.html#L68'>search</a>             68 BinaryTree.h           if (key &lt; (*search)-&gt;kv.key())
+<a href='../S/52.html#L69'>search</a>             69 BinaryTree.h             search = &amp;(*search)-&gt;left;
+<a href='../S/52.html#L70'>search</a>             70 BinaryTree.h           else if (key &gt; (*search)-&gt;kv.key())
+<a href='../S/52.html#L71'>search</a>             71 BinaryTree.h             search = &amp;(*search)-&gt;right;
+<a href='../S/52.html#L73'>search</a>             73 BinaryTree.h             return (Node*&amp;) *search;
+<a href='../S/52.html#L76'>search</a>             76 BinaryTree.h         return (Node*&amp;) *search;
+<a href='../S/52.html#L87'>search</a>             87 BinaryTree.h       inline void insertNode(Node** search, Node* const node) {
+<a href='../S/52.html#L88'>search</a>             88 BinaryTree.h         Node* &amp;insertAt = fetchNode(search, node-&gt;kv.key());
+<a href='../S/33.html#L76'>search</a>             76 List.h               for (Node* search = list.head; search; search = search-&gt;next)
+<a href='../S/33.html#L77'>search</a>             77 List.h                 insert(search-&gt;ptr);
+<a href='../S/33.html#L83'>search</a>             83 List.h                 for (Node* search = list.head; search; search = search-&gt;next)
+<a href='../S/33.html#L84'>search</a>             84 List.h                   insert(search-&gt;ptr);
+</pre>
+</body>
+</html>

@@ -1,14 +1,29 @@
 <html>
 <head>
-<title>realloc</title>
+<title>hash</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/7.html#L106'>realloc</a>           106 Cstrings.c             *str = (char *) realloc(*str, len);
-<a href='../S/7.html#L143'>realloc</a>           143 Cstrings.c       void *x = ::realloc(ptr, size);
-<a href='../S/32.html#L41'>realloc</a>            41 Cstrings.h     void *realloc(void *, size_t);
+<a href='../S/57.html#L103'>hash</a>              103 Array.h            virtual size_t hash() const {return 0;};
+<a href='../S/28.html#L44'>hash</a>               44 HashTable.h        typedef hash&lt;Key&gt; hasher;
+<a href='../S/38.html#L414'>hash</a>              414 ReferenceCountedArray.h     virtual size_t hash() const = 0;
+<a href='../S/46.html#L205'>hash</a>              205 String.h               virtual size_t hash() const;
+<a href='../S/46.html#L288'>hash</a>              288 String.h         struct hash;
+<a href='../S/46.html#L291'>hash</a>              291 String.h         struct hash&lt;String&gt;
+<a href='../S/46.html#L293'>hash</a>              293 String.h                 inline size_t operator()(const String&amp; val) const { return val.hash(); }
+<a href='../S/1.html#L40'>hash</a>               40 hash.h           struct hash;
+<a href='../S/1.html#L44'>hash</a>               44 hash.h           struct hash&lt;T&gt;                                                                  \
+<a href='../S/1.html#L73'>hash</a>               73 hash.h           struct hash&lt;T*&gt;
+<a href='../S/19.html#L1122'>hash</a>             1122 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;hash(), b-&gt;hash());
+<a href='../S/19.html#L1123'>hash</a>             1123 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;hash(), c-&gt;hash());
+<a href='../S/19.html#L1124'>hash</a>             1124 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;hash(), c-&gt;hash());
+<a href='../S/19.html#L1129'>hash</a>             1129 tests/StringTest.cpp   CPPUNIT_ASSERT(a-&gt;hash() != b-&gt;hash());
+<a href='../S/19.html#L1130'>hash</a>             1130 tests/StringTest.cpp   CPPUNIT_ASSERT(a-&gt;hash() != c-&gt;hash());
+<a href='../S/19.html#L1131'>hash</a>             1131 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;hash(), c-&gt;hash());
+<a href='../S/19.html#L1134'>hash</a>             1134 tests/StringTest.cpp   CPPUNIT_ASSERT(a-&gt;hash() != b-&gt;hash());
+<a href='../S/19.html#L1136'>hash</a>             1136 tests/StringTest.cpp   CPPUNIT_ASSERT(a-&gt;hash() == b-&gt;hash());
 </pre>
 </body>
 </html>

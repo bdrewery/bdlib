@@ -1,51 +1,55 @@
 <html>
 <head>
-<title>iterator</title>
+<title>find</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/31.html#L252'>iterator</a>          252 BinaryTree.h         for (iterator iter = begin(); iter; ++iter) {
-<a href='../S/31.html#L288'>iterator</a>          288 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/31.html#L304'>iterator</a>          304 BinaryTree.h           iterator&amp; operator =(const iterator&amp; iter) {
-<a href='../S/31.html#L340'>iterator</a>          340 BinaryTree.h           virtual iterator operator ++(int) {
-<a href='../S/31.html#L341'>iterator</a>          341 BinaryTree.h             iterator tmp(*this);
-<a href='../S/31.html#L346'>iterator</a>          346 BinaryTree.h           virtual iterator&amp; operator ++() {
-<a href='../S/31.html#L352'>iterator</a>          352 BinaryTree.h           virtual iterator operator --(int) {
-<a href='../S/31.html#L353'>iterator</a>          353 BinaryTree.h             iterator tmp(*this);
-<a href='../S/31.html#L358'>iterator</a>          358 BinaryTree.h           virtual iterator&amp; operator --() {
-<a href='../S/31.html#L364'>iterator</a>          364 BinaryTree.h       inline iterator begin() { return iterator(this, root, my_size); };
-<a href='../S/31.html#L365'>iterator</a>          365 BinaryTree.h       inline iterator end() { return iterator(this, root, my_size, 1); };
-<a href='../S/26.html#L194'>iterator</a>          194 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/26.html#L205'>iterator</a>          205 List.h                 iterator&amp; operator =(const iterator&amp; iter) {
-<a href='../S/26.html#L228'>iterator</a>          228 List.h                 virtual iterator operator ++(int) {
-<a href='../S/26.html#L229'>iterator</a>          229 List.h                   iterator tmp(*this);
-<a href='../S/26.html#L234'>iterator</a>          234 List.h                 virtual iterator&amp; operator ++() {
-<a href='../S/26.html#L240'>iterator</a>          240 List.h                 virtual iterator operator --(int) {
-<a href='../S/26.html#L241'>iterator</a>          241 List.h                   iterator tmp(*this);
-<a href='../S/26.html#L246'>iterator</a>          246 List.h                 virtual iterator&amp; operator --() {
-<a href='../S/26.html#L252'>iterator</a>          252 List.h             inline iterator begin() { return iterator(*this); };
-<a href='../S/26.html#L253'>iterator</a>          253 List.h             inline iterator end() { return iterator(*this, 1); };
-<a href='../S/38.html#L105'>iterator</a>          105 Queue.h            inline iterator begin() { return iterator(this, this-&gt;tail); };
-<a href='../S/38.html#L106'>iterator</a>          106 Queue.h            inline iterator end() { return iterator(this, NULL); };
-<a href='../S/38.html#L141'>iterator</a>          141 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/38.html#L142'>iterator</a>          142 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/38.html#L145'>iterator</a>          145 Queue.h            iterator operator ++(int) {
-<a href='../S/38.html#L146'>iterator</a>          146 Queue.h              iterator tmp(*this);
-<a href='../S/38.html#L151'>iterator</a>          151 Queue.h            iterator&amp; operator ++() {
-<a href='../S/38.html#L180'>iterator</a>          180 Queue.h            QueueConstIterator(const iterator&amp; iter) : queue(iter.queue), current(iter.current) {};
-<a href='../S/38.html#L198'>iterator</a>          198 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/38.html#L199'>iterator</a>          199 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/38.html#L203'>iterator</a>          203 Queue.h              iterator tmp(*this);
-<a href='../S/22.html#L279'>iterator</a>          279 tests/BinaryTreeTest.cpp   BinaryTree&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/14.html#L327'>iterator</a>          327 tests/HashTableTest.cpp   HashTable&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/11.html#L250'>iterator</a>          250 tests/ListTest.cpp   List&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/11.html#L293'>iterator</a>          293 tests/ListTest.cpp   List&lt;String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/15.html#L103'>iterator</a>          103 tests/QueueTest.cpp   Queue&lt;String&gt;::iterator iter(a-&gt;begin());
-<a href='../S/23.html#L240'>iterator</a>          240 tests/SortedListTest.cpp   SortedList&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/23.html#L283'>iterator</a>          283 tests/SortedListTest.cpp   SortedList&lt;String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/19.html#L103'>iterator</a>          103 tests/StackTest.cpp   Stack&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/28.html#L114'>find</a>              114 HashTable.h          return list[getIndex(key)].find(iterator_type(key, Value())).value();
+<a href='../S/33.html#L138'>find</a>              138 List.h            const iterator_type find(const iterator_type&amp; ptr) const {
+<a href='../S/38.html#L420'>find</a>              420 ReferenceCountedArray.h     size_t find(const_reference item) const {
+<a href='../S/37.html#L184'>find</a>              184 String.cpp         if ((pos = str.find(delim)) == npos)
+<a href='../S/37.html#L269'>find</a>              269 String.cpp       size_t pos = str.find(delim);
+<a href='../S/46.html#L119'>find</a>              119 String.h               size_t find(const String&amp;) const;
+<a href='../S/46.html#L120'>find</a>              120 String.h               using ReferenceCountedArray&lt;String_Array_Type&gt;::find;
+<a href='../S/15.html#L205'>find</a>              205 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(-1), str_a-&gt;find("Test3"));
+<a href='../S/15.html#L206'>find</a>              206 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a-&gt;find("Test1"));
+<a href='../S/15.html#L207'>find</a>              207 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a-&gt;find("Test2"));
+<a href='../S/16.html#L122'>find</a>              122 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/16.html#L125'>find</a>              125 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/16.html#L126'>find</a>              126 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a-&gt;find("Blah2"));
+<a href='../S/16.html#L127'>find</a>              127 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/16.html#L128'>find</a>              128 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/16.html#L132'>find</a>              132 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/16.html#L133'>find</a>              133 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/16.html#L134'>find</a>              134 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/16.html#L138'>find</a>              138 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/16.html#L139'>find</a>              139 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/16.html#L143'>find</a>              143 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/16.html#L146'>find</a>              146 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/18.html#L122'>find</a>              122 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/18.html#L125'>find</a>              125 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/18.html#L126'>find</a>              126 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a-&gt;find("Blah2"));
+<a href='../S/18.html#L127'>find</a>              127 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/18.html#L128'>find</a>              128 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/18.html#L129'>find</a>              129 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah5", a-&gt;find("Blah5"));
+<a href='../S/18.html#L133'>find</a>              133 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/18.html#L134'>find</a>              134 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/18.html#L135'>find</a>              135 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/18.html#L139'>find</a>              139 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/18.html#L140'>find</a>              140 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/18.html#L144'>find</a>              144 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/18.html#L147'>find</a>              147 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/19.html#L357'>find</a>              357 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)0, a-&gt;find('T'));
+<a href='../S/19.html#L358'>find</a>              358 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)1, a-&gt;find('h'));
+<a href='../S/19.html#L359'>find</a>              359 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)2, a-&gt;find('i'));
+<a href='../S/19.html#L360'>find</a>              360 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)3, a-&gt;find('s'));
+<a href='../S/19.html#L361'>find</a>              361 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)13, a-&gt;find('l'));
+<a href='../S/19.html#L362'>find</a>              362 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)13, a-&gt;find("long"));
+<a href='../S/19.html#L363'>find</a>              363 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)18, a-&gt;find("string"));
+<a href='../S/19.html#L365'>find</a>              365 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;find("z"));
+<a href='../S/19.html#L366'>find</a>              366 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;find("notfound"));
 </pre>
 </body>
 </html>

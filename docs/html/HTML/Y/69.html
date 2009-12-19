@@ -1,25 +1,23 @@
 <html>
 <head>
-<title>StringBuf</title>
+<title>Queue</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/27.html#L47'>StringBuf</a>          47 String.cpp     void StringBuf::Reserve(const size_t newSize) const
-<a href='../S/46.html#L48'>StringBuf</a>          48 String.h       class StringBuf;
-<a href='../S/46.html#L56'>StringBuf</a>          56 String.h       class StringBuf {
-<a href='../S/46.html#L58'>StringBuf</a>          58 String.h               ~StringBuf() { FreeBuf(buf); };
-<a href='../S/46.html#L65'>StringBuf</a>          65 String.h               StringBuf() : len(0), size(0), buf(NULL), n(1) {};
-<a href='../S/46.html#L94'>StringBuf</a>          94 String.h               StringBuf(const StringBuf&amp;); ///&lt;Block implicit copy constructor
-<a href='../S/46.html#L95'>StringBuf</a>          95 String.h               StringBuf&amp; operator=(const StringBuf&amp;); ///&lt;Block implicit copy constructor
-<a href='../S/46.html#L207'>StringBuf</a>         207 String.h                 Ref = new StringBuf();
-<a href='../S/46.html#L262'>StringBuf</a>         262 String.h               mutable StringBuf *Ref;
-<a href='../S/46.html#L312'>StringBuf</a>         312 String.h               String() : Ref(new StringBuf()), offset(0), sublen(0) {};
-<a href='../S/46.html#L321'>StringBuf</a>         321 String.h       	String(const char* cstring) : Ref(new StringBuf()), offset(0), sublen(0) { if (cstring) append(cstring); };
-<a href='../S/46.html#L332'>StringBuf</a>         332 String.h               String(const char* cstring, size_t slen) : Ref(new StringBuf()), offset(0), sublen(0) { append(cstring, slen); };
-<a href='../S/46.html#L341'>StringBuf</a>         341 String.h               String(const char ch) : Ref(new StringBuf()), offset(0), sublen(0) { append(ch); };
-<a href='../S/46.html#L352'>StringBuf</a>         352 String.h               explicit String(const int newSize) : Ref(new StringBuf()), offset(0), sublen(0) {
+<a href='../S/58.html#L40'>Queue</a>              40 Queue.h        class Queue : public List&lt;T&gt; {
+<a href='../S/58.html#L59'>Queue</a>              59 Queue.h            Queue() : List&lt;value_type&gt;() {};
+<a href='../S/58.html#L60'>Queue</a>              60 Queue.h            virtual ~Queue() {};
+<a href='../S/58.html#L74'>Queue</a>              74 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&gt;&gt; (Queue&lt;value_type&gt;&amp; queue, reference item) {
+<a href='../S/58.html#L99'>Queue</a>              99 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
+<a href='../S/58.html#L112'>Queue</a>             112 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/58.html#L116'>Queue</a>             116 Queue.h            typedef Queue&lt;T&gt; Queue_t;
+<a href='../S/58.html#L158'>Queue</a>             158 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/58.html#L162'>Queue</a>             162 Queue.h            typedef Queue&lt;T&gt; Queue_t;
+<a href='../S/7.html#L102'>Queue</a>             102 tests/QueueTest.cpp   Queue&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/22.html#L30'>Queue</a>              30 tests/QueueTest.h         Queue&lt;String&gt; *a, *b, *c, *d;
+<a href='../S/22.html#L31'>Queue</a>              31 tests/QueueTest.h         Queue&lt;String*&gt; *e, *f, *g, *h;
 </pre>
 </body>
 </html>

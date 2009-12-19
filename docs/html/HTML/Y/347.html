@@ -1,58 +1,64 @@
 <html>
 <head>
-<title>string</title>
+<title>pop</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/27.html#L152'>string</a>            152 String.cpp     void String::insert(int k, const char *string, int n)
-<a href='../S/27.html#L157'>string</a>            157 String.cpp       size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-<a href='../S/27.html#L161'>string</a>            161 String.cpp       std::copy(string, string + slen, Ref-&gt;buf + k);
-<a href='../S/27.html#L171'>string</a>            171 String.cpp     void String::replace(int k, const char *string, int n)
-<a href='../S/27.html#L176'>string</a>            176 String.cpp       size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-<a href='../S/27.html#L185'>string</a>            185 String.cpp       std::copy(string, string + slen, Ref-&gt;buf + k);
-<a href='../S/27.html#L196'>string</a>            196 String.cpp     void String::insert(int k, const String &amp;string, int n) {
-<a href='../S/27.html#L200'>string</a>            200 String.cpp       int slen = string.length();
-<a href='../S/27.html#L207'>string</a>            207 String.cpp       std::copy(string.begin(), string.begin() + slen, Ref-&gt;buf + k);
-<a href='../S/27.html#L217'>string</a>            217 String.cpp     void String::replace(int k, const String &amp;string, int n) {
-<a href='../S/27.html#L221'>string</a>            221 String.cpp       int slen = string.length();
-<a href='../S/27.html#L235'>string</a>            235 String.cpp       std::copy(string.begin(), string.begin() + slen, Ref-&gt;buf + k);
-<a href='../S/27.html#L259'>string</a>            259 String.cpp     const String &amp;String::operator=(const char *string) {
-<a href='../S/27.html#L261'>string</a>            261 String.cpp       append(string);
-<a href='../S/27.html#L274'>string</a>            274 String.cpp     const String &amp;String::operator=(const String &amp;string) {
-<a href='../S/27.html#L275'>string</a>            275 String.cpp       string.incRef();
-<a href='../S/27.html#L276'>string</a>            276 String.cpp       offset = string.offset;
-<a href='../S/27.html#L277'>string</a>            277 String.cpp       sublen = string.sublen;
-<a href='../S/27.html#L279'>string</a>            279 String.cpp       Ref = string.Ref;
-<a href='../S/27.html#L283'>string</a>            283 String.cpp     std::istream&amp; operator &gt;&gt; (std::istream&amp; is, String &amp;string) {
-<a href='../S/27.html#L285'>string</a>            285 String.cpp       string = "";    // empty string, will build one char at-a-time
-<a href='../S/27.html#L292'>string</a>            292 String.cpp           string += ch;
-<a href='../S/27.html#L304'>string</a>            304 String.cpp     std::istream&amp; getline(std::istream&amp; is, String &amp;string) {   
-<a href='../S/27.html#L307'>string</a>            307 String.cpp       string = "";     // empty string, will build one char at-a-time
-<a href='../S/27.html#L310'>string</a>            310 String.cpp         string += ch;
-<a href='../S/46.html#L124'>string</a>            124 String.h                   Cref(String&amp; string, int i) : s(string), k(i) {};
-<a href='../S/46.html#L165'>string</a>            165 String.h                   SubString(String&amp; string, int _start, int _len) : s(string), start(_start), len(_len) {};
-<a href='../S/46.html#L185'>string</a>            185 String.h                   inline SubString&amp; operator= (const String&amp; string) {
-<a href='../S/46.html#L186'>string</a>            186 String.h                     s.replace(start, string, len);
-<a href='../S/46.html#L190'>string</a>            190 String.h                   inline SubString&amp; operator= (const char* string) {
-<a href='../S/46.html#L191'>string</a>            191 String.h                     s.replace(start, string, len);
-<a href='../S/46.html#L313'>string</a>            313 String.h       	String(const String&amp; string) : Ref(string.Ref), offset(string.offset), sublen(string.sublen) { incRef(); };
-<a href='../S/46.html#L503'>string</a>            503 String.h       	inline int compare(const String&amp; string) const { return compare(string, string.length()); };
-<a href='../S/46.html#L524'>string</a>            524 String.h               inline void append(const char* string, int n = -1) { insert(length(), string, n); };
-<a href='../S/46.html#L533'>string</a>            533 String.h               inline void append(const String&amp; string, int n = -1) { insert(length(), string, n); };
-<a href='../S/46.html#L664'>string</a>            664 String.h       inline String&amp; String::operator += (const char* string) {
-<a href='../S/46.html#L665'>string</a>            665 String.h         append(string);
-<a href='../S/46.html#L672'>string</a>            672 String.h       inline String&amp; String::operator += (const String&amp; string) {
-<a href='../S/46.html#L673'>string</a>            673 String.h         append(string);
-<a href='../S/46.html#L753'>string</a>            753 String.h       inline std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os, const String&amp; string) {
-<a href='../S/46.html#L754'>string</a>            754 String.h         for (const char* c = string.begin(); c != string.end(); ++c)
-<a href='../S/37.html#L129'>string</a>            129 base64.c       String base64Encode(const String&amp; string) {
-<a href='../S/37.html#L130'>string</a>            130 base64.c         size_t len = string.length();
-<a href='../S/37.html#L131'>string</a>            131 base64.c         char *p = b64enc((unsigned char*) string.data(), &amp;len);
-<a href='../S/37.html#L182'>string</a>            182 base64.c       String base64Decode(const String&amp; string) {
-<a href='../S/37.html#L183'>string</a>            183 base64.c         size_t len = string.length();
-<a href='../S/37.html#L184'>string</a>            184 base64.c         char *p = b64dec((unsigned char*) string.data(), &amp;len);
+<a href='../S/57.html#L126'>pop</a>               126 Array.h            value_type pop() {
+<a href='../S/57.html#L138'>pop</a>               138 Array.h              item = array.pop();
+<a href='../S/40.html#L47'>pop</a>                47 Stack.h            iterator_type pop() {
+<a href='../S/40.html#L57'>pop</a>                57 Stack.h              item = stack.pop();
+<a href='../S/15.html#L48'>pop</a>                48 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a-&gt;pop());
+<a href='../S/15.html#L49'>pop</a>                49 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_a-&gt;pop());
+<a href='../S/15.html#L59'>pop</a>                59 tests/ArrayTest.cpp   str_a-&gt;pop();
+<a href='../S/15.html#L67'>pop</a>                67 tests/ArrayTest.cpp   String res = str_a-&gt;pop();
+<a href='../S/15.html#L77'>pop</a>                77 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(a, str_a-&gt;pop());
+<a href='../S/15.html#L80'>pop</a>                80 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(b, str_a-&gt;pop());
+<a href='../S/15.html#L83'>pop</a>                83 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(a, str_a-&gt;pop());
+<a href='../S/15.html#L86'>pop</a>                86 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(String(), str_a-&gt;pop());
+<a href='../S/15.html#L94'>pop</a>                94 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2Test2", str_c-&gt;pop());
+<a href='../S/15.html#L96'>pop</a>                96 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2Test1", str_c-&gt;pop());
+<a href='../S/15.html#L102'>pop</a>               102 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(2, int_d-&gt;pop());
+<a href='../S/15.html#L104'>pop</a>               104 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(1, int_d-&gt;pop());
+<a href='../S/15.html#L149'>pop</a>               149 tests/ArrayTest.cpp     CPPUNIT_ASSERT_EQUAL(i, int_a-&gt;pop());
+<a href='../S/15.html#L157'>pop</a>               157 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(99, int_b-&gt;pop());
+<a href='../S/15.html#L159'>pop</a>               159 tests/ArrayTest.cpp     CPPUNIT_ASSERT_EQUAL(i, int_b-&gt;pop());
+<a href='../S/15.html#L183'>pop</a>               183 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test3", str_a-&gt;pop());
+<a href='../S/15.html#L184'>pop</a>               184 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a-&gt;pop());
+<a href='../S/15.html#L185'>pop</a>               185 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_a-&gt;pop());
+<a href='../S/15.html#L248'>pop</a>               248 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_b-&gt;pop());
+<a href='../S/9.html#L65'>pop</a>                65 tests/StackTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blahend", a-&gt;pop());
+<a href='../S/9.html#L75'>pop</a>                75 tests/StackTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", a-&gt;pop());
+<a href='../S/9.html#L78'>pop</a>                78 tests/StackTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", a-&gt;pop());
+<a href='../S/9.html#L81'>pop</a>                81 tests/StackTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", a-&gt;pop());
+<a href='../S/9.html#L84'>pop</a>                84 tests/StackTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blahstart", a-&gt;pop());
+<a href='../S/9.html#L108'>pop</a>               108 tests/StackTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, a-&gt;pop());
+<a href='../S/19.html#L1029'>pop</a>              1029 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/19.html#L1031'>pop</a>              1031 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/19.html#L1033'>pop</a>              1033 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/19.html#L1035'>pop</a>              1035 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/19.html#L1042'>pop</a>              1042 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/19.html#L1044'>pop</a>              1044 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/19.html#L1046'>pop</a>              1046 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/19.html#L1048'>pop</a>              1048 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/19.html#L1055'>pop</a>              1055 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3 4", list.pop());
+<a href='../S/19.html#L1057'>pop</a>              1057 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/19.html#L1059'>pop</a>              1059 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/19.html#L1067'>pop</a>              1067 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", list.pop());
+<a href='../S/19.html#L1069'>pop</a>              1069 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/19.html#L1076'>pop</a>              1076 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", list.pop());
+<a href='../S/19.html#L1083'>pop</a>              1083 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/19.html#L1085'>pop</a>              1085 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/19.html#L1087'>pop</a>              1087 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/19.html#L1089'>pop</a>              1089 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/19.html#L1096'>pop</a>              1096 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2   3   4  ", list.pop());
+<a href='../S/19.html#L1098'>pop</a>              1098 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/19.html#L1105'>pop</a>              1105 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/19.html#L1107'>pop</a>              1107 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/19.html#L1109'>pop</a>              1109 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/19.html#L1111'>pop</a>              1111 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
 </pre>
 </body>
 </html>

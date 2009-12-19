@@ -34,43 +34,38 @@ resizing/growing<p>
 </dd>
 </dl>
 <p>
-<a class="anchor" name="_todo000002"></a> <dl>
+<a class="anchor" name="_todo000008"></a> <dl>
+<dt>Class <a class="el" href="classReferenceCountedArray_1_1Cref.html">ReferenceCountedArray&lt; T &gt;::ReferenceCountedArray::Cref</a>  </dt>
+<dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); </dd>
+</dl>
+<p>
+<a class="anchor" name="_todo000003"></a> <dl>
+<dt>Class <a class="el" href="classSlice.html">Slice&lt; T &gt;</a>  </dt>
+<dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd>
+</dl>
+<p>
+<a class="anchor" name="_todo000006"></a> <dl>
+<dt>Member <a class="el" href="classSlice.html#9032e53e7901eeee7f854760e22e1c1f">Slice::operator=</a> (const T &amp;array) </dt>
+<dd>This needs to account for negative start/len </dd>
+</dl>
+<p>
+<a class="anchor" name="_todo000010"></a> <dl>
 <dt>Member <a class="el" href="classStack.html#307934ed532b0d58ba22a7e547267c5e">Stack::peek</a> () const  </dt>
 <dd>Throw an exception? </dd>
 </dl>
 <p>
-<a class="anchor" name="_todo000004"></a> <dl>
+<a class="anchor" name="_todo000011"></a> <dl>
 <dt>Class <a class="el" href="classString.html">String</a>  </dt>
 <dd>compute hash on insert, then use to compare instead of strcmp <p>
 an updating hash as the copy is done. </dd>
 </dl>
 <p>
-<a class="anchor" name="_todo000010"></a> <dl>
-<dt>Member <a class="el" href="classString.html#b61293c8074908d065a8eb4e67205900">String::charAt</a> (int i) const  </dt>
-<dd>Perhaps this should throw an exception if out of range? </dd>
-</dl>
-<p>
-<a class="anchor" name="_todo000009"></a> <dl>
-<dt>Member <a class="el" href="classString.html#9ac5451bd3de3801ed256895da3f9795">String::operator[]</a> (int i) const  </dt>
-<dd>This is only called on a (const) <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a>, but should for a <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> as well. </dd>
-</dl>
-<p>
-<a class="anchor" name="_todo000003"></a> <dl>
-<dt>Class <a class="el" href="classStringBuf.html">StringBuf</a>  </dt>
+<a class="anchor" name="_todo000002"></a> <dl>
+<dt>Class <a class="el" href="classStringBuf.html">StringBuf&lt; T &gt;</a>  </dt>
 <dd>look into something like a string object made of string pointers, and &lt;&lt; displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the &lt;&lt; stream </dd>
 </dl>
-<p>
-<a class="anchor" name="_todo000005"></a> <dl>
-<dt>Member <a class="el" href="classStringBuf.html#bda2421d4939f56b33dddf7cf6f017d8">StringBuf::AllocBuf</a> (const size_t bytes) const  </dt>
-<dd>Implement mempool here. </dd>
-</dl>
-<p>
-<a class="anchor" name="_todo000006"></a> <dl>
-<dt>Member <a class="el" href="classStringBuf.html#85d4b0e8b814ddc76b280558332886a7">StringBuf::FreeBuf</a> (const char *p) const  </dt>
-<dd>Implement mempool here. </dd>
-</dl>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Dec 18 21:28:48 2009 for BDLIB by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Dec 18 21:33:38 2009 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

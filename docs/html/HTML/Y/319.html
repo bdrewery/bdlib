@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>newSize</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.6'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/57.html#L99'>newSize</a>            99 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/38.html#L56'>newSize</a>            56 ReferenceCountedArray.h     void Reserve(const size_t newSize, size_t&amp; offset) const
+<a href='../S/38.html#L59'>newSize</a>            59 ReferenceCountedArray.h       if (size &lt; newSize) {
+<a href='../S/38.html#L60'>newSize</a>            60 ReferenceCountedArray.h         size = std::max(size_t(size * 1.5), newSize);
+<a href='../S/38.html#L71'>newSize</a>            71 ReferenceCountedArray.h       } else if ((size - offset) &lt; newSize) {
+<a href='../S/38.html#L320'>newSize</a>           320 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0) {
+<a href='../S/38.html#L321'>newSize</a>           321 ReferenceCountedArray.h       if (newSize &lt;= 0) return;
+<a href='../S/38.html#L322'>newSize</a>           322 ReferenceCountedArray.h       Reserve(newSize);
+<a href='../S/38.html#L369'>newSize</a>           369 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize) const { Ref-&gt;Reserve(newSize, offset); };
+<a href='../S/35.html#L23'>newSize</a>            23 Stream.cpp     void Stream::Reserve (const size_t newSize) const {
+<a href='../S/35.html#L24'>newSize</a>            24 Stream.cpp       if (newSize &lt; capacity())
+<a href='../S/35.html#L26'>newSize</a>            26 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
+<a href='../S/54.html#L54'>newSize</a>            54 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/46.html#L110'>newSize</a>           110 String.h               explicit String(const size_t newSize) : ReferenceCountedArray&lt;String_Array_Type&gt;(newSize) {};
+</pre>
+</body>
+</html>

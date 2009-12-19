@@ -1,47 +1,31 @@
 <html>
 <head>
-<title>list</title>
+<title>gbuf</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/28.html#L47'>list</a>               47 HashTable.h        List&lt;iterator_type&gt; *list;
-<a href='../S/28.html#L56'>list</a>               56 HashTable.h        HashTable() : list(new List&lt;iterator_type&gt;[100]), _size(0), _capacity(100), _hash() {};
-<a href='../S/28.html#L57'>list</a>               57 HashTable.h        explicit HashTable(size_t capacity) : list(new List&lt;iterator_type&gt;[capacity]), _size(0), _capacity(capacity), _hash() {};
-<a href='../S/28.html#L58'>list</a>               58 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/28.html#L60'>list</a>               60 HashTable.h              list[i] = table.list[i];
-<a href='../S/28.html#L64'>list</a>               64 HashTable.h          delete[] list;
-<a href='../S/28.html#L69'>list</a>               69 HashTable.h            list[i].clear();
-<a href='../S/28.html#L75'>list</a>               75 HashTable.h            delete[] list;
-<a href='../S/28.html#L76'>list</a>               76 HashTable.h            list = new List&lt;iterator_type&gt;[_capacity];
-<a href='../S/28.html#L78'>list</a>               78 HashTable.h              list[i] = table.list[i];
-<a href='../S/28.html#L93'>list</a>               93 HashTable.h          list[getIndex(key)] &lt;&lt; iterator_type(key, value);
-<a href='../S/28.html#L100'>list</a>              100 HashTable.h          return list[getIndex(key)].contains(iterator_type(key, Value()));
-<a href='../S/28.html#L105'>list</a>              105 HashTable.h          if (list[getIndex(key)].remove(iterator_type(key, Value()))) {
-<a href='../S/28.html#L115'>list</a>              115 HashTable.h          return list[getIndex(key)].find(iterator_type(key, Value())).value();
-<a href='../S/28.html#L141'>list</a>              141 HashTable.h          return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
-<a href='../S/26.html#L76'>list</a>               76 List.h             List(const List&amp; list) : head(NULL), tail(NULL), my_size(0) {
-<a href='../S/26.html#L77'>list</a>               77 List.h               for (Node* search = list.head; search; search = search-&gt;next)
-<a href='../S/26.html#L81'>list</a>               81 List.h             List&amp; operator =(const List&amp; list) {
-<a href='../S/26.html#L82'>list</a>               82 List.h               if (&amp;list != this) {
-<a href='../S/26.html#L84'>list</a>               84 List.h                 for (Node* search = list.head; search; search = search-&gt;next)
-<a href='../S/26.html#L124'>list</a>              124 List.h             inline friend List&lt;iterator_type&gt;&amp; operator&lt;&lt; (List&lt;iterator_type&gt;&amp; list, const iterator_type&amp; item) {
-<a href='../S/26.html#L125'>list</a>              125 List.h               list.insert(item);
-<a href='../S/26.html#L126'>list</a>              126 List.h               return list;
-<a href='../S/26.html#L184'>list</a>              184 List.h                 List *list;
-<a href='../S/26.html#L189'>list</a>              189 List.h                                                                       list(&amp;_list),
-<a href='../S/26.html#L195'>list</a>              195 List.h                                                      list(iter.list),
-<a href='../S/26.html#L200'>list</a>              200 List.h                                  list(NULL),
-<a href='../S/26.html#L206'>list</a>              206 List.h                   list = iter.list;
-<a href='../S/26.html#L217'>list</a>              217 List.h                   list-&gt;deleteNode(current);
-<a href='../S/27.html#L351'>list</a>              351 String.cpp       StringList list;
-<a href='../S/27.html#L353'>list</a>              353 String.cpp       list.delim(delim);
-<a href='../S/27.html#L358'>list</a>              358 String.cpp         list.append(p, pn);
-<a href='../S/27.html#L365'>list</a>              365 String.cpp       return list;
-<a href='../S/27.html#L369'>list</a>              369 String.cpp     ostream&amp; operator &lt;&lt; (ostream&amp; os, const vector&lt;String&gt; list) {
-<a href='../S/27.html#L370'>list</a>              370 String.cpp       for (unsigned int i=0; i &lt; list.size(); ++i)
-<a href='../S/27.html#L371'>list</a>              371 String.cpp         os &lt;&lt; list[i];
+<a href='../S/23.html#L128'>gbuf</a>              128 tests/StreamTest.cpp   String sbuf, gbuf;
+<a href='../S/23.html#L149'>gbuf</a>              149 tests/StreamTest.cpp     gbuf = a-&gt;gets(30);
+<a href='../S/23.html#L150'>gbuf</a>              150 tests/StreamTest.cpp     pos += gbuf.length();
+<a href='../S/23.html#L152'>gbuf</a>              152 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL((size_t) 30, gbuf.length());
+<a href='../S/23.html#L153'>gbuf</a>              153 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(sbuf, gbuf);
+<a href='../S/23.html#L163'>gbuf</a>              163 tests/StreamTest.cpp   gbuf = a-&gt;gets(30);
+<a href='../S/23.html#L164'>gbuf</a>              164 tests/StreamTest.cpp   pos += gbuf.length();
+<a href='../S/23.html#L166'>gbuf</a>              166 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 15, gbuf.length());
+<a href='../S/23.html#L167'>gbuf</a>              167 tests/StreamTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(gbuf, sbuf);
+<a href='../S/23.html#L172'>gbuf</a>              172 tests/StreamTest.cpp   String sbuf, gbuf;
+<a href='../S/23.html#L193'>gbuf</a>              193 tests/StreamTest.cpp     gbuf = a-&gt;getline();
+<a href='../S/23.html#L194'>gbuf</a>              194 tests/StreamTest.cpp     pos += gbuf.length();
+<a href='../S/23.html#L196'>gbuf</a>              196 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL((size_t) 15, gbuf.length());
+<a href='../S/23.html#L197'>gbuf</a>              197 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(gbuf, sbuf);
+<a href='../S/23.html#L226'>gbuf</a>              226 tests/StreamTest.cpp   String gbuf;
+<a href='../S/23.html#L230'>gbuf</a>              230 tests/StreamTest.cpp     gbuf = a-&gt;getline(sizeof(buf) - 1);
+<a href='../S/23.html#L231'>gbuf</a>              231 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+<a href='../S/23.html#L271'>gbuf</a>              271 tests/StreamTest.cpp   String gbuf;
+<a href='../S/23.html#L275'>gbuf</a>              275 tests/StreamTest.cpp     gbuf = a-&gt;getline(sizeof(buf) - 1);
+<a href='../S/23.html#L276'>gbuf</a>              276 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
 </pre>
 </body>
 </html>

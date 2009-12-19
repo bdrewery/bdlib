@@ -1,15 +1,18 @@
 <html>
 <head>
-<title>Detach</title>
+<title>Cref</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/27.html#L247'>Detach</a>            247 String.cpp       Detach();
-<a href='../S/27.html#L260'>Detach</a>            260 String.cpp       Detach();
-<a href='../S/46.html#L290'>Detach</a>            290 String.h               void Detach() {
-<a href='../S/46.html#L370'>Detach</a>            370 String.h               inline void clear() { Detach(); };
+<a href='../S/38.html#L467'>Cref</a>              467 ReferenceCountedArray.h     class Cref {
+<a href='../S/38.html#L476'>Cref</a>              476 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, int i) : rca(_rca), k(i) {};
+<a href='../S/38.html#L477'>Cref</a>              477 ReferenceCountedArray.h         Cref(); //Not defined - never used
+<a href='../S/38.html#L480'>Cref</a>              480 ReferenceCountedArray.h         Cref(const Cref&amp; cref) : rca(cref.rca), k(cref.k) {};
+<a href='../S/38.html#L481'>Cref</a>              481 ReferenceCountedArray.h         inline Cref&amp; operator=(const Cref&amp; cref) {
+<a href='../S/38.html#L495'>Cref</a>              495 ReferenceCountedArray.h         inline Cref&amp; operator=(value_type c) {
+<a href='../S/38.html#L505'>Cref</a>              505 ReferenceCountedArray.h     inline Cref operator [](int i) { return Cref(*this, i); };
 </pre>
 </body>
 </html>

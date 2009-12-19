@@ -10,24 +10,11 @@ String \- Provides custom string class for easy and optimized string manipulatio
 .PP
 \fC#include <String.h>\fP
 .PP
-.SS "Classes"
-
-.in +1c
-.ti -1c
-.RI "class \fBCref\fP"
-.br
-.RI "\fISafe element reading and writing. \fP"
-.ti -1c
-.RI "class \fBSubString\fP"
-.br
-.RI "\fISafe substring reading and writing. \fP"
-.in -1c
+Inherits ReferenceCountedArray<String_Array_Type>.
+.PP
 .SS "Public Member Functions"
 
 .in +1c
-.ti -1c
-.RI "int \fBrcount\fP () const "
-.br
 .ti -1c
 .RI "\fBString\fP (const \fBString\fP &string)"
 .br
@@ -44,37 +31,11 @@ String \- Provides custom string class for easy and optimized string manipulatio
 .br
 .RI "\fICreate a \fBString\fP from a given character. \fP"
 .ti -1c
-.RI "\fBString\fP (const int newSize)"
+.RI "\fBString\fP (const size_t newSize)"
 .br
 .RI "\fICreate an empty \fBString\fP container with at least the specified bytes in size. \fP"
 .ti -1c
-.RI "virtual \fB~String\fP ()"
-.br
-.RI "\fI\fBString\fP Destructor. \fP"
-.ti -1c
-.RI "const char * \fBbegin\fP () const "
-.br
-.ti -1c
-.RI "const char * \fBend\fP () const "
-.br
-.ti -1c
-.RI "void \fBclear\fP ()"
-.br
-.RI "\fIClear contents of \fBString\fP and set length to 0. \fP"
-.ti -1c
-.RI "size_t \fBlength\fP () const "
-.br
-.RI "\fIReturns length of the string. \fP"
-.ti -1c
-.RI "size_t \fBcapacity\fP () const "
-.br
-.RI "\fIReturns capacity of the \fBString\fP object. \fP"
-.ti -1c
-.RI "bool \fBisEmpty\fP () const "
-.br
-.RI "\fICheck whether the string is 'empty'. \fP"
-.ti -1c
-.RI "bool \fBoperator!\fP () const "
+.RI "size_t \fBfind\fP (const \fBString\fP &) const "
 .br
 .ti -1c
 .RI "const char * \fBc_str\fP () const "
@@ -88,45 +49,44 @@ String \- Provides custom string class for easy and optimized string manipulatio
 .br
 .RI "\fIThis is a cast operator to const char* This would be used in this situation: \fBString\fP string('blah'); const char* cstring = (const char*) string;. \fP"
 .ti -1c
-.RI "const char * \fBdata\fP () const "
+.RI "\fBString\fP & \fBchomp\fP ()"
 .br
-.RI "\fIData accessor. \fP"
+.RI "\fITrim off 
+.br
+,,
+.br
+ from end. \fP"
 .ti -1c
-.RI "bool \fBhasIndex\fP (int i) const "
+.RI "\fBString\fP \fBchomp\fP () const "
 .br
-.RI "\fIChecks if the buffer has the given index or not. \fP"
+.RI "\fITrim off 
+.br
+,,
+.br
+ from end. \fP"
 .ti -1c
-.RI "char \fBread\fP (int i) const "
+.RI "\fBString\fP & \fBtrim\fP ()"
 .br
+.RI "\fITrim off whitespace. \fP"
 .ti -1c
-.RI "void \fBwrite\fP (int i, char c)"
+.RI "\fBString\fP \fBtrim\fP () const "
 .br
-.ti -1c
-.RI "char \fBoperator[]\fP (int i) const "
-.br
-.RI "\fISafe element access operator. \fP"
-.ti -1c
-.RI "Cref \fBoperator[]\fP (int i)"
-.br
-.RI "\fIReturns 'Cref' class for safe (cow) writing into \fBString\fP. \fP"
+.RI "\fITrim off whitespace. \fP"
 .ti -1c
 .RI "char \fBcharAt\fP (int i) const "
 .br
-.RI "\fIReturns the character at the given index. \fP"
 .ti -1c
-.RI "\fBString\fP \fBsubstring\fP (int, int) const "
+.RI "\fBString\fP \fBsubstring\fP (int start, int len) const "
 .br
-.RI "\fIReturn a new string from a substring. \fP"
-.ti -1c
-.RI "SubString \fBoperator()\fP (int start, int len)"
-.br
-.RI "\fIReturns a 'SubString' class for safe (cow) writing into \fBString\fP. \fP"
 .ti -1c
 .RI "\fBString\fP \fBoperator()\fP (int start, int len) const "
 .br
-.RI "\fIReturns a const substring. \fP"
 .ti -1c
-.RI "size_t \fBhash\fP () const "
+.RI "\fBSlice\fP< \fBString\fP > \fBoperator()\fP (int start, int len)"
+.br
+.RI "\fIReturns a 'Slice' class for safe (cow) writing into the array. \fP"
+.ti -1c
+.RI "virtual size_t \fBhash\fP () const "
 .br
 .RI "\fIDJB's hash function. \fP"
 .ti -1c
@@ -138,46 +98,22 @@ String \- Provides custom string class for easy and optimized string manipulatio
 .br
 .RI "\fICompare our \fBString\fP object with another \fBString\fP object, but only n characters. \fP"
 .ti -1c
-.RI "void \fBappend\fP (const char ch)"
+.RI "Array< \fBString\fP > \fBsplit\fP (const \fBString\fP &, size_t limit=npos) const "
 .br
-.RI "\fIAppends one character to end of buffer. \fP"
 .ti -1c
 .RI "void \fBappend\fP (const char *string, int n=-1)"
 .br
 .RI "\fIAppends given cstring to end of buffer. \fP"
 .ti -1c
-.RI "void \fBappend\fP (const \fBString\fP &string, int n=-1)"
-.br
-.RI "\fIAppends given string to the end of buffer. \fP"
-.ti -1c
-.RI "void \fBinsert\fP (int, const char)"
-.br
-.RI "\fIInsert a character at the given index. \fP"
-.ti -1c
 .RI "void \fBinsert\fP (int, const char *, int=-1)"
 .br
 .RI "\fIInsert a cstring at the given index. \fP"
-.ti -1c
-.RI "void \fBinsert\fP (int, const \fBString\fP &, int=-1)"
-.br
-.RI "\fIInserts a \fBString\fP object into our buffer. \fP"
-.ti -1c
-.RI "void \fBreplace\fP (int, const char)"
-.br
-.RI "\fIReplace the given index with the given character. \fP"
 .ti -1c
 .RI "void \fBreplace\fP (int, const char *, int=-1)"
 .br
 .RI "\fIReplaces the given index with the given cstring up to the given amount of characters. \fP"
 .ti -1c
-.RI "void \fBreplace\fP (int, const \fBString\fP &, int=-1)"
-.br
-.RI "\fIReplaces n characters in our buffer at index k with the given \fBString\fP object. \fP"
-.ti -1c
-.RI "virtual void \fBReserve\fP (const size_t newSize) const "
-.br
-.ti -1c
-.RI "virtual void \fBprintf\fP (const char *,...)"
+.RI "virtual \fBString\fP \fBprintf\fP (const char *,...)"
 .br
 .ti -1c
 .RI "\fBString\fP & \fBoperator+=\fP (const char)"
@@ -207,52 +143,15 @@ String \- Provides custom string class for easy and optimized string manipulatio
 .RI "const \fBString\fP \fBoperator--\fP (int)"
 .br
 .ti -1c
-.RI "virtual const \fBString\fP & \fBoperator=\fP (const char)"
-.br
-.RI "\fISets our buffer to the given character. \fP"
-.ti -1c
 .RI "virtual const \fBString\fP & \fBoperator=\fP (const char *)"
 .br
 .RI "\fISets our buffer to the given string. \fP"
-.ti -1c
-.RI "const \fBString\fP & \fBoperator=\fP (const \fBString\fP &)"
-.br
-.RI "\fISets our Reference to the given \fBString\fP reference. \fP"
 .in -1c
-.SS "Protected Member Functions"
+.SS "Static Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "void \fBCheckDeallocRef\fP ()"
-.br
-.RI "\fIFree up our reference if we have the last one. \fP"
-.ti -1c
-.RI "void \fBDetach\fP ()"
-.br
-.RI "\fIDetach from the reference This is called when the old buffer is no longer needed for this \fBString\fP. ie, \fBoperator=()\fP was called. \fP"
-.ti -1c
-.RI "void \fBCOW\fP (size_t) const "
-.br
-.RI "\fIEnsure that our internal buffer is unshared. \fP"
-.ti -1c
-.RI "void \fBAboutToModify\fP (size_t n) const "
-.br
-.ti -1c
-.RI "void \fBgetOwnCopy\fP () const "
-.br
-.in -1c
-.SS "Protected Attributes"
-
-.in +1c
-.ti -1c
-.RI "\fBStringBuf\fP * \fBRef\fP"
-.br
-.RI "\fIThe string reference for reference counting This is mutable so that Ref->n can be modified, which really is mutable. \fP"
-.ti -1c
-.RI "size_t \fBoffset\fP"
-.br
-.ti -1c
-.RI "size_t \fBsublen\fP"
+.RI "static const size_t \fBnpos\fP = size_t(-1)"
 .br
 .in -1c
 .SS "Friends"
@@ -300,7 +199,7 @@ an updating hash as the copy is done.
 .PP
 
 .PP
-Definition at line 104 of file String.h.
+Definition at line 60 of file String.h.
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "String::String (const char * cstring)\fC [inline]\fP"
@@ -326,7 +225,7 @@ The buffer has been filled with the string.
 .PP
 
 .PP
-Definition at line 321 of file String.h.
+Definition at line 79 of file String.h.
 .SS "String::String (const char * cstring, size_t slen)\fC [inline]\fP"
 .PP
 Create a \fBString\fP from a given cstring with the given strlen. 
@@ -357,7 +256,7 @@ The buffer has been filled with the string (up to len characters).
 .PP
 
 .PP
-Definition at line 332 of file String.h.
+Definition at line 90 of file String.h.
 .SS "String::String (const char ch)\fC [inline]\fP"
 .PP
 Create a \fBString\fP from a given character. 
@@ -381,8 +280,8 @@ The buffer has been filled with the caracter.
 .PP
 
 .PP
-Definition at line 341 of file String.h.
-.SS "String::String (const int newSize)\fC [inline, explicit]\fP"
+Definition at line 99 of file String.h.
+.SS "String::String (const size_t newSize)\fC [inline, explicit]\fP"
 .PP
 Create an empty \fBString\fP container with at least the specified bytes in size. 
 .PP
@@ -400,42 +299,9 @@ A buffer has been created.
 .PP
 The idea behind this is that if a specific size was asked for, the buffer is like a char buf[N]; 
 .PP
-Definition at line 352 of file String.h.
-.SS "virtual String::~String ()\fC [inline, virtual]\fP"
-.PP
-\fBString\fP Destructor. 
-.PP
-\fBPostcondition:\fP
-.RS 4
-If the String's Reference is not shared, it is free'd. 
-.PP
-If the String's Reference IS shared, it is decremented and detached. 
-.RE
-.PP
-
-.PP
-Definition at line 362 of file String.h.
+Definition at line 110 of file String.h.
 .SH "Member Function Documentation"
 .PP 
-.SS "void String::append (const \fBString\fP & string, int n = \fC-1\fP)\fC [inline]\fP"
-.PP
-Appends given string to the end of buffer. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIstring\fP The string to be appended. 
-.br
-\fIn\fP How many characters to copy from the \fBString\fP object. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The buffer is allocated. This is the same as inserting the string at the end of the buffer. 
-.RE
-.PP
-
-.PP
-Definition at line 533 of file String.h.
 .SS "void String::append (const char * string, int n = \fC-1\fP)\fC [inline]\fP"
 .PP
 Appends given cstring to end of buffer. 
@@ -454,26 +320,7 @@ The buffer is allocated. This is the same as inserting the string at the end of 
 .PP
 
 .PP
-Definition at line 524 of file String.h.
-.SS "void String::append (const char ch)\fC [inline]\fP"
-.PP
-Appends one character to end of buffer. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIch\fP The character to be appended. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The buffer is allocated. 
-.PP
-The character is appended at the end of the buffer. This is the same as inserting the character at the end of the buffer. 
-.RE
-.PP
-
-.PP
-Definition at line 515 of file String.h.
+Definition at line 224 of file String.h.
 .SS "const char* String::c_str () const\fC [inline]\fP"
 .PP
 Cstring accessor. 
@@ -494,65 +341,39 @@ The actual \fBString\fP size is unchanged.
 .PP
 
 .PP
-Definition at line 405 of file String.h.
-.SS "size_t String::capacity () const\fC [inline]\fP"
+Definition at line 129 of file String.h.
+.SS "\fBString\fP String::chomp () const\fC [inline]\fP"
 .PP
-Returns capacity of the \fBString\fP object. 
-.PP
-\fBReturns:\fP
-.RS 4
-Capacity of the \fBString\fP object. 
-.RE
-.PP
-
-.PP
-Definition at line 384 of file String.h.
-.SS "char String::charAt (int i) const\fC [inline]\fP"
-.PP
-Returns the character at the given index. 
+Trim off 
+.br
+,,
+.br
+ from end. 
 .PP
 \fBReturns:\fP
 .RS 4
-The character at the given index. 
-.RE
-.PP
-\fBParameters:\fP
-.RS 4
-\fIi\fP Index to return. 
-.RE
-.PP
-\fBPrecondition:\fP
-.RS 4
-The index must exist. 
-.RE
-.PP
-\fBSee also:\fP
-.RS 4
-\fBoperator[]()\fP 
-.RE
-.PP
-\fBTodo\fP
-.RS 4
-Perhaps this should throw an exception if out of range? 
+New string 
 .RE
 .PP
 
 .PP
-Definition at line 481 of file String.h.
-.SS "void String::CheckDeallocRef ()\fC [inline, protected]\fP"
+Definition at line 166 of file String.h.
+.SS "\fBString\fP & String::chomp ()"
 .PP
-Free up our reference if we have the last one. 
+Trim off 
+.br
+,,
+.br
+ from end. 
 .PP
-\fBPostcondition:\fP
+\fBReturns:\fP
 .RS 4
-The reference counter is decremented. 
-.PP
-If this was the last Reference, it is free'd This is only called in \fB~String()\fP and operator=(String&). It checks whether of not this \fBString\fP was the last reference to the buffer, and if it was, it removes it. 
+The string, to allow for chaining 
 .RE
 .PP
 
 .PP
-Definition at line 280 of file String.h.
+Definition at line 227 of file String.cpp.
 .SS "int String::compare (const \fBString\fP & str, size_t n) const"
 .PP
 Compare our \fBString\fP object with another \fBString\fP object, but only n characters. 
@@ -571,7 +392,7 @@ an integer less than, equal to, or greater than zero if our buffer is found, res
 .PP
 
 .PP
-Definition at line 93 of file String.cpp.
+Definition at line 47 of file String.cpp.
 .SS "int String::compare (const \fBString\fP & string) const\fC [inline]\fP"
 .PP
 Compare our \fBString\fP object with another \fBString\fP object. 
@@ -588,83 +409,7 @@ an integer less than, equal to, or greater than zero if our buffer is found, res
 .PP
 
 .PP
-Definition at line 503 of file String.h.
-.SS "void String::COW (size_t n) const\fC [protected]\fP"
-.PP
-Ensure that our internal buffer is unshared. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIn\fP Create/Grow the buffer to this size. 
-.RE
-.PP
-\fBPrecondition:\fP
-.RS 4
-n is > 0; this is assumed due to size_t being unsigned though. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The internal buffer/data is unshared 
-.PP
-The buffer is at least size n. 
-.PP
-The buffer is deep copied to a new buffer.
-.RE
-.PP
-Ensure that our internal buffer is unshared. If needed, performs a deep copy into a new buffer (COW). Also take a hint size n of the new string's size as to avoid needless copying/allocing. 
-.PP
-Definition at line 75 of file String.cpp.
-.SS "const char* String::data () const\fC [inline]\fP"
-.PP
-Data accessor. 
-.PP
-\fBReturns:\fP
-.RS 4
-Pointer to array of characters (not necesarily null-terminated). 
-.RE
-.PP
-
-.PP
-Definition at line 436 of file String.h.
-.SS "bool String::hasIndex (int i) const\fC [inline]\fP"
-.PP
-Checks if the buffer has the given index or not. 
-.PP
-\fBReturns:\fP
-.RS 4
-Boolean true/false as to whether or not index exists. 
-.RE
-.PP
-\fBParameters:\fP
-.RS 4
-\fIi\fP Index to check. 
-.RE
-.PP
-
-.PP
-Definition at line 443 of file String.h.
-.SS "void String::insert (int k, const \fBString\fP & string, int n = \fC-1\fP)"
-.PP
-Inserts a \fBString\fP object into our buffer. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIk\fP The index to insert at. 
-.br
-\fIstring\fP The string to insert. 
-.br
-\fIn\fP The length to insert. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The buffer contains n characters from string inserted at index k. 
-.RE
-.PP
-
-.PP
-Definition at line 196 of file String.cpp.
+Definition at line 212 of file String.h.
 .SS "void String::insert (int k, const char * string, int n = \fC-1\fP)"
 .PP
 Insert a cstring at the given index. 
@@ -689,88 +434,26 @@ The string is inserted at the given index.
 .PP
 
 .PP
-Definition at line 152 of file String.cpp.
-.SS "void String::insert (int k, const char ch)"
+Definition at line 77 of file String.cpp.
+.SS "\fBSlice\fP<\fBString\fP> String::operator() (int start, int len)\fC [inline]\fP"
 .PP
-Insert a character at the given index. 
+Returns a 'Slice' class for safe (cow) writing into the array. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSlice\fP 
+.RE
 .PP
 \fBParameters:\fP
 .RS 4
-\fIk\fP The index to insert at. 
+\fIstart\fP Starting position 
 .br
-\fIch\fP The character to be inserted. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-A buffer is allocated. 
-.PP
-If the old buffer was too small, it is enlarged. 
-.PP
-The character is inserted at the given index. 
+\fIlen\fP How many items to use 
 .RE
 .PP
 
 .PP
-Definition at line 119 of file String.cpp.
-.SS "bool String::isEmpty () const\fC [inline]\fP"
-.PP
-Check whether the string is 'empty'. 
-.PP
-\fBReturns:\fP
-.RS 4
-True if empty, false if non-empty 
-.RE
-.PP
-
-.PP
-Definition at line 390 of file String.h.
-.SS "size_t String::length () const\fC [inline]\fP"
-.PP
-Returns length of the string. 
-.PP
-\fBReturns:\fP
-.RS 4
-Length of the string. 
-.RE
-.PP
-
-.PP
-Definition at line 378 of file String.h.
-.SS "bool String::operator! () const\fC [inline]\fP"
-.PP
-\fBSee also:\fP
-.RS 4
-\fBisEmpty()\fP This is for: if (!string) Having if(string) conflicts with another operator 
-.RE
-.PP
-
-.PP
-Definition at line 396 of file String.h.
-.SS "\fBString\fP String::operator() (int start, int len) const\fC [inline]\fP"
-.PP
-Returns a const substring. 
-.PP
-\fBSee also:\fP
-.RS 4
-SubString 
-.RE
-.PP
-
-.PP
-Definition at line 494 of file String.h.
-.SS "SubString String::operator() (int start, int len)\fC [inline]\fP"
-.PP
-Returns a 'SubString' class for safe (cow) writing into \fBString\fP. 
-.PP
-\fBSee also:\fP
-.RS 4
-SubString 
-.RE
-.PP
-
-.PP
-Definition at line 489 of file String.h.
+Definition at line 203 of file String.h.
 .SS "\fBString\fP String::operator* (int times) const"
 .PP
 This is a cast operator to const char* This would be used in this situation: \fBString\fP string('blah'); const char* cstring = (const char*) string;. 
@@ -787,7 +470,7 @@ a new \fBString\fP from Ruby
 .PP
 
 .PP
-Definition at line 376 of file String.cpp.
+Definition at line 209 of file String.cpp.
 .SS "const char* String::operator* () const\fC [inline]\fP"
 .PP
 \fBSee also:\fP
@@ -797,7 +480,7 @@ Definition at line 376 of file String.cpp.
 .PP
 
 .PP
-Definition at line 414 of file String.h.
+Definition at line 138 of file String.h.
 .SS "\fBString\fP & String::operator+= (const \fBString\fP & string)\fC [inline]\fP"
 .PP
 \fBSee also:\fP
@@ -807,7 +490,7 @@ append(const String&)
 .PP
 
 .PP
-Definition at line 672 of file String.h.
+Definition at line 355 of file String.h.
 .SS "\fBString\fP & String::operator+= (const char * string)\fC [inline]\fP"
 .PP
 \fBSee also:\fP
@@ -817,43 +500,17 @@ append(const char*)
 .PP
 
 .PP
-Definition at line 664 of file String.h.
+Definition at line 347 of file String.h.
 .SS "\fBString\fP & String::operator+= (const char ch)\fC [inline]\fP"
 .PP
 \fBSee also:\fP
 .RS 4
-\fBappend(const char)\fP 
+append(const char) 
 .RE
 .PP
 
 .PP
-Definition at line 656 of file String.h.
-.SS "const \fBString\fP & String::operator= (const \fBString\fP & string)"
-.PP
-Sets our Reference to the given \fBString\fP reference. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIstring\fP The \fBString\fP object to reference. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The old buffer (if we had one) is free'd. 
-.PP
-Our Reference now points to the given \fBString\fP. 
-.PP
-Our old string object has been deleted (disconnected). 
-.RE
-.PP
-\fBReturns:\fP
-.RS 4
-The new string object. This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases. 
-.RE
-.PP
-
-.PP
-Definition at line 274 of file String.cpp.
+Definition at line 339 of file String.h.
 .SS "const \fBString\fP & String::operator= (const char * string)\fC [virtual]\fP"
 .PP
 Sets our buffer to the given string. 
@@ -877,81 +534,7 @@ The new string object.
 .PP
 
 .PP
-Definition at line 259 of file String.cpp.
-.SS "const \fBString\fP & String::operator= (const char ch)\fC [virtual]\fP"
-.PP
-Sets our buffer to the given character. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIch\fP The character to set our buffer to. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The old buffer (if we had one) is free'd. 
-.PP
-A sufficiently sized new buffer is made with the character within. 
-.RE
-.PP
-\fBReturns:\fP
-.RS 4
-The new string object. 
-.RE
-.PP
-
-.PP
-Definition at line 246 of file String.cpp.
-.SS "Cref String::operator[] (int i)\fC [inline]\fP"
-.PP
-Returns 'Cref' class for safe (cow) writing into \fBString\fP. 
-.PP
-\fBSee also:\fP
-.RS 4
-Cref 
-.RE
-.PP
-
-.PP
-Definition at line 471 of file String.h.
-.SS "char String::operator[] (int i) const\fC [inline]\fP"
-.PP
-Safe element access operator. 
-.PP
-\fBTodo\fP
-.RS 4
-This is only called on a (const) \fBString\fP, but should for a \fBString\fP as well. 
-.RE
-.PP
-
-.PP
-Definition at line 465 of file String.h.
-.SS "char String::read (int i) const\fC [inline]\fP"
-.PP
-\fBSee also:\fP
-.RS 4
-\fBcharAt()\fP Unlinke \fBcharAt()\fP this is unchecked. 
-.RE
-.PP
-
-.PP
-Definition at line 454 of file String.h.
-.SS "void String::replace (int k, const \fBString\fP & string, int n = \fC-1\fP)"
-.PP
-Replaces n characters in our buffer at index k with the given \fBString\fP object. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIk\fP The index to replace at. 
-.br
-\fIstring\fP The \fBString\fP object to replace with. 
-.br
-\fIn\fP The number of characters to use for the replace. 
-.RE
-.PP
-
-.PP
-Definition at line 217 of file String.cpp.
+Definition at line 121 of file String.cpp.
 .SS "void String::replace (int k, const char * string, int n = \fC-1\fP)"
 .PP
 Replaces the given index with the given cstring up to the given amount of characters. 
@@ -967,62 +550,31 @@ Replaces the given index with the given cstring up to the given amount of charac
 .PP
 
 .PP
-Definition at line 171 of file String.cpp.
-.SS "void String::replace (int k, const char ch)"
+Definition at line 96 of file String.cpp.
+.SS "\fBString\fP String::trim () const\fC [inline]\fP"
 .PP
-Replace the given index with the given character. 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIk\fP The index to replace. 
-.br
-\fIch\fP The character to replace with. 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The given index has been replaced. 
-.PP
-COW is done if needed. 
-.RE
-.PP
-
-.PP
-Definition at line 136 of file String.cpp.
-.SS "virtual void String::Reserve (const size_t newSize) const\fC [inline, virtual]\fP"
-.PP
-\fBSee also:\fP
-.RS 4
-\fBStringBuf::Reserve()\fP 
-.RE
-.PP
-\fBPostcondition:\fP
-.RS 4
-The \fBString\fP will also never shrink after this. 
-.RE
-.PP
-
-.PP
-Definition at line 547 of file String.h.
-.SS "\fBString\fP String::substring (int start, int len) const"
-.PP
-Return a new string from a substring. 
+Trim off whitespace. 
 .PP
 \fBReturns:\fP
 .RS 4
-a new \fBString\fP 
-.RE
-.PP
-\fBParameters:\fP
-.RS 4
-\fIstart\fP The offset to begin the substring from (indexed from 0) 
-.br
-\fIlen\fP The length of the substring to return The returned substring is a reference to the original string until modified. 
+New string 
 .RE
 .PP
 
 .PP
-Definition at line 322 of file String.cpp.
+Definition at line 178 of file String.h.
+.SS "\fBString\fP & String::trim ()"
+.PP
+Trim off whitespace. 
+.PP
+\fBReturns:\fP
+.RS 4
+The string, to allow for chaining 
+.RE
+.PP
+
+.PP
+Definition at line 233 of file String.cpp.
 .SH "Friends And Related Function Documentation"
 .PP 
 .SS "\fBString\fP operator+ (const \fBString\fP & string1, const \fBString\fP & string2)\fC [friend]\fP"
@@ -1048,19 +600,7 @@ Returns a new string that can be reference copied by the lvalue.
 .PP
 
 .PP
-Definition at line 620 of file String.h.
-.SH "Member Data Documentation"
-.PP 
-.SS "size_t \fBString::offset\fP\fC [mutable, protected]\fP"
-.PP
-This is for substrings: so we know where the substring starts. 
-.PP
-Definition at line 267 of file String.h.
-.SS "size_t \fBString::sublen\fP\fC [mutable, protected]\fP"
-.PP
-This is for substrings: so we know where the substring ends. 
-.PP
-Definition at line 271 of file String.h.
+Definition at line 303 of file String.h.
 
 .SH "Author"
 .PP 

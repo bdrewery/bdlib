@@ -14,6 +14,21 @@ resizing/growing
 .PP
 .PP
  
+.IP "\fBClass \fBReferenceCountedArray< T >::ReferenceCountedArray::Cref\fP \fP" 1c
+This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: \fBString\fP s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); 
+.PP
+.PP
+ 
+.IP "\fBClass \fBSlice< T >\fP \fP" 1c
+This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: \fBString\fP s('look over there'); s(0, 4) = 'blah''; Should be rewritten as: s.replace(0, 'blah', 4); 
+.PP
+.PP
+ 
+.IP "\fBMember \fBSlice::operator=\fP(const T &array) \fP" 1c
+This needs to account for negative start/len 
+.PP
+.PP
+ 
 .IP "\fBMember \fBStack::peek\fP() const  \fP" 1c
 Throw an exception? 
 .PP
@@ -26,27 +41,7 @@ an updating hash as the copy is done.
 .PP
 .PP
  
-.IP "\fBMember \fBString::charAt\fP(int i) const  \fP" 1c
-Perhaps this should throw an exception if out of range? 
-.PP
-.PP
- 
-.IP "\fBMember \fBString::operator[]\fP(int i) const  \fP" 1c
-This is only called on a (const) \fBString\fP, but should for a \fBString\fP as well. 
-.PP
-.PP
- 
-.IP "\fBClass \fBStringBuf\fP \fP" 1c
+.IP "\fBClass \fBStringBuf< T >\fP \fP" 1c
 look into something like a string object made of string pointers, and << displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the << stream 
-.PP
-.PP
- 
-.IP "\fBMember \fBStringBuf::AllocBuf\fP(const size_t bytes) const  \fP" 1c
-Implement mempool here. 
-.PP
-.PP
- 
-.IP "\fBMember \fBStringBuf::FreeBuf\fP(const char *p) const  \fP" 1c
-Implement mempool here. 
 .PP
 

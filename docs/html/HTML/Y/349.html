@@ -1,13 +1,48 @@
 <html>
 <head>
-<title>string2</title>
+<title>pos</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.6'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/46.html#L620'>string2</a>           620 String.h       inline String operator + (const String&amp; string1, const String&amp; string2) {
-<a href='../S/46.html#L622'>string2</a>           622 String.h         temp += string2;
+<a href='../S/35.html#L49'>pos</a>                49 Stream.cpp       pos = newpos;
+<a href='../S/35.html#L59'>pos</a>                59 Stream.cpp         String ret(str(pos, toRead));
+<a href='../S/35.html#L60'>pos</a>                60 Stream.cpp         pos += toRead;
+<a href='../S/35.html#L67'>pos</a>                67 Stream.cpp       while ((ret.length() &lt; toRead) &amp;&amp; (str[pos] != delim)) {
+<a href='../S/35.html#L68'>pos</a>                68 Stream.cpp         ret += str[pos++];
+<a href='../S/35.html#L70'>pos</a>                70 Stream.cpp       if (str[pos] == delim) {
+<a href='../S/35.html#L72'>pos</a>                72 Stream.cpp         ++pos;
+<a href='../S/54.html#L47'>pos</a>                47 Stream.h               unsigned int pos;
+<a href='../S/54.html#L51'>pos</a>                51 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/54.html#L52'>pos</a>                52 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/54.html#L53'>pos</a>                53 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/54.html#L54'>pos</a>                54 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/54.html#L63'>pos</a>                63 Stream.h               size_t tell() const { return pos; };
+<a href='../S/54.html#L68'>pos</a>                68 Stream.h               void truncate() { str = str(0, pos); };
+<a href='../S/54.html#L73'>pos</a>                73 Stream.h               void clear() { str.clear(); pos = 0; }
+<a href='../S/54.html#L81'>pos</a>                81 Stream.h                 pos += string.length();
+<a href='../S/54.html#L90'>pos</a>                90 Stream.h               virtual String getline (size_t maxSize = 99999999) { return gets(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
+<a href='../S/37.html#L175'>pos</a>               175 String.cpp       size_t pos = 0;
+<a href='../S/37.html#L184'>pos</a>               184 String.cpp         if ((pos = str.find(delim)) == npos)
+<a href='../S/37.html#L185'>pos</a>               185 String.cpp           pos = str.length();
+<a href='../S/37.html#L186'>pos</a>               186 String.cpp         array &lt;&lt; str(0, pos);
+<a href='../S/37.html#L187'>pos</a>               187 String.cpp         str += int(pos + delim.length());
+<a href='../S/37.html#L269'>pos</a>               269 String.cpp       size_t pos = str.find(delim);
+<a href='../S/37.html#L270'>pos</a>               270 String.cpp       if (pos == String::npos)
+<a href='../S/37.html#L271'>pos</a>               271 String.cpp         pos = str.length();
+<a href='../S/37.html#L273'>pos</a>               273 String.cpp       String first(str(0, pos));
+<a href='../S/37.html#L277'>pos</a>               277 String.cpp         while ((str.begin() + pos + 1) &lt; str.end() &amp;&amp; str[pos + 1] == ' ')
+<a href='../S/37.html#L278'>pos</a>               278 String.cpp           ++pos;
+<a href='../S/37.html#L281'>pos</a>               281 String.cpp       str = str(pos + 1, str.length() - pos + 1);
+<a href='../S/23.html#L146'>pos</a>               146 tests/StreamTest.cpp   size_t pos = 0;
+<a href='../S/23.html#L150'>pos</a>               150 tests/StreamTest.cpp     pos += gbuf.length();
+<a href='../S/23.html#L151'>pos</a>               151 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
+<a href='../S/23.html#L164'>pos</a>               164 tests/StreamTest.cpp   pos += gbuf.length();
+<a href='../S/23.html#L165'>pos</a>               165 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
+<a href='../S/23.html#L189'>pos</a>               189 tests/StreamTest.cpp   size_t pos = 0;
+<a href='../S/23.html#L194'>pos</a>               194 tests/StreamTest.cpp     pos += gbuf.length();
+<a href='../S/23.html#L195'>pos</a>               195 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
 </pre>
 </body>
 </html>
