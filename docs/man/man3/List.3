@@ -34,26 +34,26 @@ List \- \fBList\fP data structure.
 
 .in +1c
 .ti -1c
-.RI "iterator \fBbegin\fP ()"
+.RI "\fBiterator\fP \fBbegin\fP ()"
 .br
 .ti -1c
 .RI "void \fBclear\fP ()"
 .br
 .ti -1c
-.RI "bool \fBcontains\fP (const iterator_type &ptr) const "
+.RI "bool \fBcontains\fP (const \fBiterator_type\fP &ptr) const "
 .br
 .ti -1c
-.RI "iterator \fBend\fP ()"
+.RI "\fBiterator\fP \fBend\fP ()"
 .br
 .ti -1c
-.RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const "
+.RI "const \fBiterator_type\fP \fBfind\fP (const \fBiterator_type\fP &ptr) const "
 .br
 .ti -1c
-.RI "iterator_type & \fBfindRef\fP (const iterator_type &ptr)"
+.RI "\fBiterator_type\fP & \fBfindRef\fP (const \fBiterator_type\fP &ptr)"
 .br
 .RI "\fIReturn a reference to the found element. \fP"
 .ti -1c
-.RI "void \fBinsert\fP (const iterator_type &ptr)"
+.RI "void \fBinsert\fP (const \fBiterator_type\fP &ptr)"
 .br
 .RI "\fIInsert into the list at the head. \fP"
 .ti -1c
@@ -63,40 +63,46 @@ List \- \fBList\fP data structure.
 .RI "\fBList\fP (const \fBList\fP &list)"
 .br
 .ti -1c
+.RI "\fBList\fP ()"
+.br
+.ti -1c
 .RI "\fBList\fP & \fBoperator=\fP (const \fBList\fP &list)"
 .br
 .ti -1c
-.RI "bool \fBremove\fP (const iterator_type &ptr)"
+.RI "bool \fBremove\fP (const \fBiterator_type\fP &ptr)"
 .br
 .ti -1c
 .RI "size_t \fBsize\fP () const "
+.br
+.ti -1c
+.RI "virtual \fB~List\fP ()"
 .br
 .in -1c
 .SS "Protected Member Functions"
 
 .in +1c
 .ti -1c
-.RI "void \fBdeleteNode\fP (Node *node)"
+.RI "void \fBdeleteNode\fP (\fBNode\fP *node)"
 .br
 .in -1c
 .SS "Protected Attributes"
 
 .in +1c
 .ti -1c
-.RI "Node * \fBhead\fP"
+.RI "\fBNode\fP * \fBhead\fP"
 .br
 .ti -1c
 .RI "size_t \fBmy_size\fP"
 .br
 .ti -1c
-.RI "Node * \fBtail\fP"
+.RI "\fBNode\fP * \fBtail\fP"
 .br
 .in -1c
 .SS "Friends"
 
 .in +1c
 .ti -1c
-.RI "\fBList\fP< iterator_type > & \fBoperator<<\fP (\fBList\fP< iterator_type > &list, const iterator_type &item)"
+.RI "\fBList\fP< \fBiterator_type\fP > & \fBoperator<<\fP (\fBList\fP< \fBiterator_type\fP > &list, const \fBiterator_type\fP &item)"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -106,9 +112,57 @@ List \- \fBList\fP data structure.
 \fBList\fP data structure. 
 .PP
 Definition at line 35 of file List.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<class T> typedef ListIterator \fBList\fP< T >::\fBiterator\fP"
+.PP
+Reimplemented in \fBQueue< T >\fP.
+.PP
+Definition at line 36 of file List.h.
+.SS "template<class T> typedef T \fBList\fP< T >::\fBiterator_type\fP"
+.PP
+Definition at line 40 of file List.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T> \fBList\fP< T >::\fBList\fP ()\fC [inline]\fP"
+.PP
+Definition at line 72 of file List.h.
+.SS "template<class T> virtual \fBList\fP< T >::~\fBList\fP ()\fC [inline, virtual]\fP"
+.PP
+Definition at line 73 of file List.h.
+.SS "template<class T> \fBList\fP< T >::\fBList\fP (const \fBList\fP< T > & list)\fC [inline]\fP"
+.PP
+Definition at line 75 of file List.h.
 .SH "Member Function Documentation"
 .PP 
-.SS "template<class T> void \fBList\fP< T >::insert (const iterator_type & ptr)\fC [inline]\fP"
+.SS "template<class T> \fBiterator\fP \fBList\fP< T >::begin ()\fC [inline]\fP"
+.PP
+Reimplemented in \fBQueue< T >\fP.
+.PP
+Definition at line 251 of file List.h.
+.SS "template<class T> void \fBList\fP< T >::clear ()\fC [inline]\fP"
+.PP
+Definition at line 89 of file List.h.
+.SS "template<class T> bool \fBList\fP< T >::contains (const \fBiterator_type\fP & ptr) const\fC [inline]\fP"
+.PP
+Definition at line 128 of file List.h.
+.SS "template<class T> void \fBList\fP< T >::deleteNode (\fBNode\fP * node)\fC [inline, protected]\fP"
+.PP
+Definition at line 52 of file List.h.
+.SS "template<class T> \fBiterator\fP \fBList\fP< T >::end ()\fC [inline]\fP"
+.PP
+Reimplemented in \fBQueue< T >\fP.
+.PP
+Definition at line 252 of file List.h.
+.SS "template<class T> const \fBiterator_type\fP \fBList\fP< T >::find (const \fBiterator_type\fP & ptr) const\fC [inline]\fP"
+.PP
+Definition at line 138 of file List.h.
+.SS "template<class T> \fBiterator_type\fP& \fBList\fP< T >::findRef (const \fBiterator_type\fP & ptr)\fC [inline]\fP"
+.PP
+Return a reference to the found element. 
+.PP
+Definition at line 152 of file List.h.
+.SS "template<class T> void \fBList\fP< T >::insert (const \fBiterator_type\fP & ptr)\fC [inline]\fP"
 .PP
 Insert into the list at the head. 
 .PP
@@ -122,9 +176,21 @@ Insert into the list at the head.
 Reimplemented in \fBSortedList< T >\fP.
 .PP
 Definition at line 108 of file List.h.
+.SS "template<class T> bool \fBList\fP< T >::isEmpty () const\fC [inline]\fP"
+.PP
+Definition at line 101 of file List.h.
+.SS "template<class T> \fBList\fP& \fBList\fP< T >::operator= (const \fBList\fP< T > & list)\fC [inline]\fP"
+.PP
+Definition at line 80 of file List.h.
+.SS "template<class T> bool \fBList\fP< T >::remove (const \fBiterator_type\fP & ptr)\fC [inline]\fP"
+.PP
+Definition at line 161 of file List.h.
+.SS "template<class T> size_t \fBList\fP< T >::size () const\fC [inline]\fP"
+.PP
+Definition at line 100 of file List.h.
 .SH "Friends And Related Function Documentation"
 .PP 
-.SS "template<class T> \fBList\fP<iterator_type>& operator<< (\fBList\fP< iterator_type > & list, const iterator_type & item)\fC [friend]\fP"
+.SS "template<class T> \fBList\fP<\fBiterator_type\fP>& operator<< (\fBList\fP< \fBiterator_type\fP > & list, const \fBiterator_type\fP & item)\fC [friend]\fP"
 .PP
 \fBSee also:\fP
 .RS 4
@@ -134,6 +200,17 @@ Definition at line 108 of file List.h.
 
 .PP
 Definition at line 123 of file List.h.
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class T> \fBNode\fP* \fBList\fP< T >::\fBhead\fP\fC [protected]\fP"
+.PP
+Definition at line 67 of file List.h.
+.SS "template<class T> size_t \fBList\fP< T >::\fBmy_size\fP\fC [protected]\fP"
+.PP
+Definition at line 69 of file List.h.
+.SS "template<class T> \fBNode\fP* \fBList\fP< T >::\fBtail\fP\fC [protected]\fP"
+.PP
+Definition at line 68 of file List.h.
 
 .SH "Author"
 .PP 

@@ -23,7 +23,7 @@ Inherits \fBList< T >\fP.
 
 .in +1c
 .ti -1c
-.RI "iterator \fBbegin\fP ()"
+.RI "\fBiterator\fP \fBbegin\fP ()"
 .br
 .ti -1c
 .RI "void \fBclear\fP ()"
@@ -32,7 +32,7 @@ Inherits \fBList< T >\fP.
 .RI "bool \fBcontains\fP (const iterator_type &ptr) const"
 .br
 .ti -1c
-.RI "iterator \fBend\fP ()"
+.RI "\fBiterator\fP \fBend\fP ()"
 .br
 .ti -1c
 .RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const"
@@ -54,25 +54,31 @@ Inherits \fBList< T >\fP.
 .ti -1c
 .RI "size_t \fBsize\fP () const"
 .br
+.ti -1c
+.RI "\fBSortedList\fP ()"
+.br
+.ti -1c
+.RI "virtual \fB~SortedList\fP ()"
+.br
 .in -1c
 .SS "Protected Member Functions"
 
 .in +1c
 .ti -1c
-.RI "void \fBdeleteNode\fP (Node *node)"
+.RI "void \fBdeleteNode\fP (\fBNode\fP *node)"
 .br
 .in -1c
 .SS "Protected Attributes"
 
 .in +1c
 .ti -1c
-.RI "Node * \fBhead\fP"
+.RI "\fBNode\fP * \fBhead\fP"
 .br
 .ti -1c
 .RI "size_t \fBmy_size\fP"
 .br
 .ti -1c
-.RI "Node * \fBtail\fP"
+.RI "\fBNode\fP * \fBtail\fP"
 .br
 .in -1c
 .SS "Friends"
@@ -89,8 +95,50 @@ Inherits \fBList< T >\fP.
 A \fBList\fP which sorts on insert. 
 .PP
 Definition at line 36 of file SortedList.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "typedef ListIterator \fBList\fP< T  >::\fBiterator\fP\fC [inherited]\fP"
+.PP
+Reimplemented in \fBQueue< T >\fP.
+.PP
+Definition at line 36 of file List.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T > \fBSortedList\fP< T >::\fBSortedList\fP ()\fC [inline]\fP"
+.PP
+Definition at line 41 of file SortedList.h.
+.SS "template<class T > virtual \fBSortedList\fP< T >::~\fBSortedList\fP ()\fC [inline, virtual]\fP"
+.PP
+Definition at line 42 of file SortedList.h.
 .SH "Member Function Documentation"
 .PP 
+.SS "\fBiterator\fP \fBList\fP< T  >::begin ()\fC [inline, inherited]\fP"
+.PP
+Reimplemented in \fBQueue< T >\fP.
+.PP
+Definition at line 251 of file List.h.
+.SS "void \fBList\fP< T  >::clear ()\fC [inline, inherited]\fP"
+.PP
+Definition at line 89 of file List.h.
+.SS "bool \fBList\fP< T  >::contains (const \fBiterator_type\fP & ptr) const\fC [inline, inherited]\fP"
+.PP
+Definition at line 128 of file List.h.
+.SS "void \fBList\fP< T  >::deleteNode (Node * node)\fC [inline, protected, inherited]\fP"
+.PP
+Definition at line 52 of file List.h.
+.SS "\fBiterator\fP \fBList\fP< T  >::end ()\fC [inline, inherited]\fP"
+.PP
+Reimplemented in \fBQueue< T >\fP.
+.PP
+Definition at line 252 of file List.h.
+.SS "const iterator_type \fBList\fP< T  >::find (const \fBiterator_type\fP & ptr) const\fC [inline, inherited]\fP"
+.PP
+Definition at line 138 of file List.h.
+.SS "iterator_type& \fBList\fP< T  >::findRef (const \fBiterator_type\fP & ptr)\fC [inline, inherited]\fP"
+.PP
+Return a reference to the found element. 
+.PP
+Definition at line 152 of file List.h.
 .SS "template<class T > virtual void \fBSortedList\fP< T >::insert (const iterator_type & ptr)\fC [inline, virtual]\fP"
 .PP
 Insert an element into the list (ordered). 
@@ -105,9 +153,18 @@ Insert an element into the list (ordered).
 Reimplemented from \fBList< T >\fP.
 .PP
 Definition at line 49 of file SortedList.h.
+.SS "bool \fBList\fP< T  >::isEmpty () const\fC [inline, inherited]\fP"
+.PP
+Definition at line 101 of file List.h.
+.SS "bool \fBList\fP< T  >::remove (const \fBiterator_type\fP & ptr)\fC [inline, inherited]\fP"
+.PP
+Definition at line 161 of file List.h.
+.SS "size_t \fBList\fP< T  >::size () const\fC [inline, inherited]\fP"
+.PP
+Definition at line 100 of file List.h.
 .SH "Friends And Related Function Documentation"
 .PP 
-.SS "\fBList\fP<iterator_type>& operator<< (\fBList\fP< iterator_type > & list, const iterator_type & item)\fC [friend, inherited]\fP"
+.SS "\fBList\fP<iterator_type>& operator<< (\fBList\fP< \fBiterator_type\fP > & list, const \fBiterator_type\fP & item)\fC [friend, inherited]\fP"
 .PP
 \fBSee also:\fP
 .RS 4
@@ -117,6 +174,17 @@ Definition at line 49 of file SortedList.h.
 
 .PP
 Definition at line 123 of file List.h.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNode\fP* \fBList\fP< T  >::\fBhead\fP\fC [protected, inherited]\fP"
+.PP
+Definition at line 67 of file List.h.
+.SS "size_t \fBList\fP< T  >::\fBmy_size\fP\fC [protected, inherited]\fP"
+.PP
+Definition at line 69 of file List.h.
+.SS "\fBNode\fP* \fBList\fP< T  >::\fBtail\fP\fC [protected, inherited]\fP"
+.PP
+Definition at line 68 of file List.h.
 
 .SH "Author"
 .PP 

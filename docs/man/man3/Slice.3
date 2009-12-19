@@ -37,14 +37,25 @@ Safe subarray reading and writing.
 
 \fBTodo\fP
 .RS 4
-This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: \fBString\fP s('look over there'); s(0, 4) = 'blah''; Should be rewritten as: s.replace(0, 'blah', 4); 
+This should not provide copy constructors for Cref, they shouldn't be needed because of const char \fBString::operator[]\fP This class should be optimized away and fully inlined such that: \fBString\fP s('look over there'); s(0, 4) = 'blah''; Should be rewritten as: s.replace(0, 'blah', 4); 
 .RE
 .PP
 
 .PP
 Definition at line 122 of file ReferenceCountedArray.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T > \fBSlice\fP< T >::\fBSlice\fP (T & _rca, int _start, int _len)\fC [inline]\fP"
+.PP
+Definition at line 131 of file ReferenceCountedArray.h.
+.SS "template<class T > \fBSlice\fP< T >::\fBSlice\fP (const \fBSlice\fP< T > & slice)\fC [inline]\fP"
+.PP
+Definition at line 132 of file ReferenceCountedArray.h.
 .SH "Member Function Documentation"
 .PP 
+.SS "template<class T > \fBSlice\fP< T >::operator T () const\fC [inline]\fP"
+.PP
+Definition at line 138 of file ReferenceCountedArray.h.
 .SS "template<class T > \fBSlice\fP& \fBSlice\fP< T >::operator= (const T & array)\fC [inline]\fP"
 .PP
 \fBTodo\fP
@@ -55,6 +66,9 @@ This needs to account for negative start/len
 
 .PP
 Definition at line 152 of file ReferenceCountedArray.h.
+.SS "template<class T > \fBSlice\fP& \fBSlice\fP< T >::operator= (const \fBSlice\fP< T > & slice)\fC [inline]\fP"
+.PP
+Definition at line 144 of file ReferenceCountedArray.h.
 
 .SH "Author"
 .PP 

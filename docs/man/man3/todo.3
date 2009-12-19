@@ -29,13 +29,23 @@ resizing/growing
 .PP
 .PP
  
+.IP "\fBMember \fBReferenceCountedArray::at\fP(int i) const  \fP" 1c
+Perhaps this should throw an exception if out of range? 
+.PP
+.PP
+ 
+.IP "\fBMember \fBReferenceCountedArray::operator[]\fP(int i) const  \fP" 1c
+This is only called on a (const) \fBString\fP, but should for a \fBString\fP as well. 
+.PP
+.PP
+ 
 .IP "\fBClass \fBReferenceCountedArray< T >::ReferenceCountedArray::Cref\fP \fP" 1c
-This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: \fBString\fP s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); 
+This should not provide copy constructors for Cref, they shouldn't be needed because of const char \fBString::operator[]\fP This class should be optimized away and fully inlined such that: \fBString\fP s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); 
 .PP
 .PP
  
 .IP "\fBClass \fBSlice< T >\fP \fP" 1c
-This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: \fBString\fP s('look over there'); s(0, 4) = 'blah''; Should be rewritten as: s.replace(0, 'blah', 4); 
+This should not provide copy constructors for Cref, they shouldn't be needed because of const char \fBString::operator[]\fP This class should be optimized away and fully inlined such that: \fBString\fP s('look over there'); s(0, 4) = 'blah''; Should be rewritten as: s.replace(0, 'blah', 4); 
 .PP
 .PP
  

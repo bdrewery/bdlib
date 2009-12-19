@@ -1,0 +1,141 @@
+.TH "String.h" 3 "18 Dec 2009" "Version 1.0" "BDLIB" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+String.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'bdlib.h'\fP
+.br
+\fC#include 'ReferenceCountedArray.h'\fP
+.br
+\fC#include <stdint.h>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <algorithm>\fP
+.br
+\fC#include <cstring>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBhash< String >\fP"
+.br
+.ti -1c
+.RI "class \fBString\fP"
+.br
+.RI "\fIProvides custom string class for easy and optimized string manipulation. \fP"
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_BD_STRING_H\fP   1"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef char \fBString_Array_Type\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "std::istream & \fBgetline\fP (std::istream &, \fBString\fP &)"
+.br
+.ti -1c
+.RI "\fBString\fP \fBnewsplit\fP (\fBString\fP &str, char delim= ' ')"
+.br
+.RI "\fISplits off tokens. \fP"
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBString\fP &lhs, const \fBString\fP &rhs)"
+.br
+.ti -1c
+.RI "bool \fBoperator<\fP (const \fBString\fP &lhs, const \fBString\fP &rhs)"
+.br
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBString\fP &string)"
+.br
+.ti -1c
+.RI "bool \fBoperator<=\fP (const \fBString\fP &lhs, const \fBString\fP &rhs)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBString\fP &lhs, const \fBString\fP &rhs)"
+.br
+.ti -1c
+.RI "bool \fBoperator>\fP (const \fBString\fP &lhs, const \fBString\fP &rhs)"
+.br
+.ti -1c
+.RI "bool \fBoperator>=\fP (const \fBString\fP &lhs, const \fBString\fP &rhs)"
+.br
+.ti -1c
+.RI "std::istream & \fBoperator>>\fP (std::istream &, \fBString\fP &)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define _BD_STRING_H   1"
+.PP
+Definition at line 24 of file String.h.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef char \fBString_Array_Type\fP"
+.PP
+Definition at line 49 of file String.h.
+.SH "Function Documentation"
+.PP 
+.SS "std::istream& getline (std::istream &, \fBString\fP &)"
+.PP
+Definition at line 135 of file String.cpp.
+.SS "\fBString\fP newsplit (\fBString\fP & str, char delim)"
+.PP
+Splits off tokens. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstr\fP The string to split a token off of 
+.br
+\fIdelim\fP The delimiter to tokenize with This will modify the given string to remove the first token, which is returned. If no more tokens exist, the remaining string is returned and the string becomes ''. Future calls will return a blank \fBString\fP('') 
+.RE
+.PP
+
+.PP
+Definition at line 253 of file String.cpp.
+.SS "bool operator!= (const \fBString\fP & lhs, const \fBString\fP & rhs)\fC [inline]\fP"
+.PP
+Definition at line 387 of file String.h.
+.SS "bool operator< (const \fBString\fP & lhs, const \fBString\fP & rhs)\fC [inline]\fP"
+.PP
+Definition at line 391 of file String.h.
+.SS "std::ostream& operator<< (std::ostream & os, const \fBString\fP & string)\fC [inline]\fP"
+.PP
+Definition at line 439 of file String.h.
+.SS "bool operator<= (const \fBString\fP & lhs, const \fBString\fP & rhs)\fC [inline]\fP"
+.PP
+Definition at line 395 of file String.h.
+.SS "bool operator== (const \fBString\fP & lhs, const \fBString\fP & rhs)\fC [inline]\fP"
+.PP
+Definition at line 383 of file String.h.
+.SS "bool operator> (const \fBString\fP & lhs, const \fBString\fP & rhs)\fC [inline]\fP"
+.PP
+Definition at line 399 of file String.h.
+.SS "bool operator>= (const \fBString\fP & lhs, const \fBString\fP & rhs)\fC [inline]\fP"
+.PP
+Definition at line 403 of file String.h.
+.SS "std::istream& operator>> (std::istream &, \fBString\fP &)"
+.PP
+Definition at line 114 of file String.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BDLIB from the source code.

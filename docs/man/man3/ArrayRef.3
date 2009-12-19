@@ -18,6 +18,9 @@ ArrayRef \- Helps the \fBString\fP class with reference counting.
 .br
 .RI "\fIAllocates a buffer and returns it's address. \fP"
 .ti -1c
+.RI "\fBArrayRef\fP ()"
+.br
+.ti -1c
 .RI "void \fBFreeBuf\fP (T *p) const "
 .br
 .RI "\fIFree's up the allocated buffer. \fP"
@@ -29,6 +32,9 @@ ArrayRef \- Helps the \fBString\fP class with reference counting.
 .RI "void \fBReserve\fP (const size_t newSize, size_t &offset) const "
 .br
 .RI "\fIEnsure that the buffer capacity() is >= newSize; else grow/copy into larger buffer. \fP"
+.ti -1c
+.RI "\fB~ArrayRef\fP ()"
+.br
 .in -1c
 .SS "Public Attributes"
 
@@ -60,6 +66,14 @@ look into something like a string object made of string pointers, and << display
 
 .PP
 Definition at line 40 of file ReferenceCountedArray.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T> \fBArrayRef\fP< T >::~\fBArrayRef\fP ()\fC [inline]\fP"
+.PP
+Definition at line 42 of file ReferenceCountedArray.h.
+.SS "template<class T> \fBArrayRef\fP< T >::\fBArrayRef\fP ()\fC [inline]\fP"
+.PP
+Definition at line 48 of file ReferenceCountedArray.h.
 .SH "Member Function Documentation"
 .PP 
 .SS "template<class T> T* \fBArrayRef\fP< T >::AllocBuf (const size_t bytes) const\fC [inline]\fP"
@@ -106,6 +120,11 @@ Implement mempool here.
 
 .PP
 Definition at line 97 of file ReferenceCountedArray.h.
+.SS "template<class T> bool \fBArrayRef\fP< T >::isShared () const\fC [inline]\fP"
+.PP
+Is this string shared? 
+.PP
+Definition at line 104 of file ReferenceCountedArray.h.
 .SS "template<class T> void \fBArrayRef\fP< T >::Reserve (const size_t newSize, size_t & offset) const\fC [inline]\fP"
 .PP
 Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer. 
@@ -130,6 +149,20 @@ If the buffer had to grow, the old data was deep copied into the new buffer and 
 
 .PP
 Definition at line 56 of file ReferenceCountedArray.h.
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class T> T* \fBArrayRef\fP< T >::\fBbuf\fP\fC [mutable]\fP"
+.PP
+Definition at line 45 of file ReferenceCountedArray.h.
+.SS "template<class T> size_t \fBArrayRef\fP< T >::\fBlen\fP\fC [mutable]\fP"
+.PP
+Definition at line 42 of file ReferenceCountedArray.h.
+.SS "template<class T> uint8_t \fBArrayRef\fP< T >::\fBn\fP\fC [mutable]\fP"
+.PP
+Definition at line 46 of file ReferenceCountedArray.h.
+.SS "template<class T> size_t \fBArrayRef\fP< T >::\fBsize\fP\fC [mutable]\fP"
+.PP
+Definition at line 44 of file ReferenceCountedArray.h.
 
 .SH "Author"
 .PP 

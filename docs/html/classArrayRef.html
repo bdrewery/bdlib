@@ -100,28 +100,27 @@ Collaboration diagram for ArrayRef&lt; T &gt;:</div>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">T *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#55625b53d2246bc46ba5e6c6efd0e304">AllocBuf</a> (const size_t bytes) const </td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Allocates a buffer and returns it's address.  <a href="#55625b53d2246bc46ba5e6c6efd0e304"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#f6ef1a67ef9a259d668441aec5222425">ArrayRef</a> ()</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#5f46dc8e2e320f296bad3259ad41dcab">FreeBuf</a> (T *p) const </td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Free's up the allocated buffer.  <a href="#5f46dc8e2e320f296bad3259ad41dcab"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="88a09a30be901e2ebe77b635399da783"></a><!-- doxytag: member="ArrayRef::isShared" ref="88a09a30be901e2ebe77b635399da783" args="() const " -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#88a09a30be901e2ebe77b635399da783">isShared</a> () const </td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#88a09a30be901e2ebe77b635399da783">isShared</a> () const </td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Is this string shared? <br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Is this string shared?  <a href="#88a09a30be901e2ebe77b635399da783"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#3432852e8e4ba2cc910388b4f5ee41a6">Reserve</a> (const size_t newSize, size_t &amp;offset) const </td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ensure that the buffer capacity() is &gt;= newSize; else grow/copy into larger buffer.  <a href="#3432852e8e4ba2cc910388b4f5ee41a6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#2faa7e8c9b173f701ec2f5bfbc9feed5">~ArrayRef</a> ()</td></tr>
+
 <tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b764dd981b581b44fec52a2ccf6a9f68"></a><!-- doxytag: member="ArrayRef::buf" ref="b764dd981b581b44fec52a2ccf6a9f68" args="" -->
-T *&nbsp;</td><td class="memItemRight" valign="bottom"><b>buf</b></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">T *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#b764dd981b581b44fec52a2ccf6a9f68">buf</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="bfa45da24e5b150bf38f711807040dd4"></a><!-- doxytag: member="ArrayRef::len" ref="bfa45da24e5b150bf38f711807040dd4" args="" -->
-size_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>len</b></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#bfa45da24e5b150bf38f711807040dd4">len</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="aea7ae320af609ff80a362af06f678cf"></a><!-- doxytag: member="ArrayRef::n" ref="aea7ae320af609ff80a362af06f678cf" args="" -->
-uint8_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>n</b></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint8_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#aea7ae320af609ff80a362af06f678cf">n</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="da31099278a85170c61723bd1cc85256"></a><!-- doxytag: member="ArrayRef::size" ref="da31099278a85170c61723bd1cc85256" args="" -->
-size_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>size</b></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArrayRef.html#da31099278a85170c61723bd1cc85256">size</a></td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -133,6 +132,53 @@ Helps the <a class="el" href="classString.html" title="Provides custom string cl
 <dl compact><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>look into something like a string object made of string pointers, and &lt;&lt; displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the &lt;&lt; stream </dd></dl>
 
 <p>Definition at line <a class="el" href="HTML/S/38.html#L40">40</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+<hr><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" name="2faa7e8c9b173f701ec2f5bfbc9feed5"></a><!-- doxytag: member="ArrayRef::~ArrayRef" ref="2faa7e8c9b173f701ec2f5bfbc9feed5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classArrayRef.html">ArrayRef</a>&lt; T &gt;::~<a class="el" href="classArrayRef.html">ArrayRef</a>           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definition at line <a class="el" href="HTML/S/38.html#L42">42</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f6ef1a67ef9a259d668441aec5222425"></a><!-- doxytag: member="ArrayRef::ArrayRef" ref="f6ef1a67ef9a259d668441aec5222425" args="()" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classArrayRef.html">ArrayRef</a>&lt; T &gt;::<a class="el" href="classArrayRef.html">ArrayRef</a>           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definition at line <a class="el" href="HTML/S/38.html#L48">48</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+
+</div>
+</div><p>
 <hr><h2>Member Function Documentation</h2>
 <a class="anchor" name="55625b53d2246bc46ba5e6c6efd0e304"></a><!-- doxytag: member="ArrayRef::AllocBuf" ref="55625b53d2246bc46ba5e6c6efd0e304" args="(const size_t bytes) const " -->
 <div class="memitem">
@@ -200,6 +246,31 @@ Free's up the allocated buffer.
 
 </div>
 </div><p>
+<a class="anchor" name="88a09a30be901e2ebe77b635399da783"></a><!-- doxytag: member="ArrayRef::isShared" ref="88a09a30be901e2ebe77b635399da783" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classArrayRef.html">ArrayRef</a>&lt; T &gt;::isShared           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Is this string shared? 
+<p>
+
+<p>Definition at line <a class="el" href="HTML/S/38.html#L104">104</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+
+</div>
+</div><p>
 <a class="anchor" name="3432852e8e4ba2cc910388b4f5ee41a6"></a><!-- doxytag: member="ArrayRef::Reserve" ref="3432852e8e4ba2cc910388b4f5ee41a6" args="(const size_t newSize, size_t &amp;offset) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -243,10 +314,87 @@ If the buffer had to grow, the old data was deep copied into the new buffer and 
 
 </div>
 </div><p>
+<hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="b764dd981b581b44fec52a2ccf6a9f68"></a><!-- doxytag: member="ArrayRef::buf" ref="b764dd981b581b44fec52a2ccf6a9f68" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="classArrayRef.html">ArrayRef</a>&lt; T &gt;::<a class="el" href="classArrayRef.html#b764dd981b581b44fec52a2ccf6a9f68">buf</a><code> [mutable]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definition at line <a class="el" href="HTML/S/38.html#L45">45</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="bfa45da24e5b150bf38f711807040dd4"></a><!-- doxytag: member="ArrayRef::len" ref="bfa45da24e5b150bf38f711807040dd4" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classArrayRef.html">ArrayRef</a>&lt; T &gt;::<a class="el" href="classArrayRef.html#bfa45da24e5b150bf38f711807040dd4">len</a><code> [mutable]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definition at line <a class="el" href="HTML/S/38.html#L42">42</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="aea7ae320af609ff80a362af06f678cf"></a><!-- doxytag: member="ArrayRef::n" ref="aea7ae320af609ff80a362af06f678cf" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t <a class="el" href="classArrayRef.html">ArrayRef</a>&lt; T &gt;::<a class="el" href="classArrayRef.html#aea7ae320af609ff80a362af06f678cf">n</a><code> [mutable]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definition at line <a class="el" href="HTML/S/38.html#L46">46</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="da31099278a85170c61723bd1cc85256"></a><!-- doxytag: member="ArrayRef::size" ref="da31099278a85170c61723bd1cc85256" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classArrayRef.html">ArrayRef</a>&lt; T &gt;::<a class="el" href="classArrayRef.html#da31099278a85170c61723bd1cc85256">size</a><code> [mutable]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definition at line <a class="el" href="HTML/S/38.html#L44">44</a> of file <a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a>.</p>
+
+</div>
+</div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="HTML/S/38.html">ReferenceCountedArray.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Dec 18 22:25:36 2009 for BDLIB by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Dec 18 22:31:57 2009 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
