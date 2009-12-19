@@ -12,6 +12,31 @@ String \- Provides custom string class for easy and optimized string manipulatio
 .PP
 Inherits ReferenceCountedArray<String_Array_Type>.
 .PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef T \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef size_t \fBsize_type\fP"
+.br
+.ti -1c
+.RI "typedef ptrdiff_t \fBdifference_type\fP"
+.br
+.ti -1c
+.RI "typedef value_type * \fBpointer\fP"
+.br
+.ti -1c
+.RI "typedef const value_type * \fBconst_pointer\fP"
+.br
+.ti -1c
+.RI "typedef value_type & \fBreference\fP"
+.br
+.ti -1c
+.RI "typedef const value_type & \fBconst_reference\fP"
+.br
+.in -1c
 .SS "Public Member Functions"
 
 .in +1c
@@ -146,12 +171,172 @@ Inherits ReferenceCountedArray<String_Array_Type>.
 .RI "virtual const \fBString\fP & \fBoperator=\fP (const char *)"
 .br
 .RI "\fISets our buffer to the given string. \fP"
+.ti -1c
+.RI "size_t \fBrcount\fP () const "
+.br
+.ti -1c
+.RI "virtual void \fBReserve\fP (const size_t newSize) const "
+.br
+.ti -1c
+.RI "virtual void \fBclear\fP ()"
+.br
+.RI "\fIClear contents of \fBString\fP and set length to 0. \fP"
+.ti -1c
+.RI "size_t \fBcapacity\fP () const "
+.br
+.RI "\fIReturns capacity of the \fBString\fP object. \fP"
+.ti -1c
+.RI "size_t \fBlength\fP () const "
+.br
+.RI "\fIReturns length of the string. \fP"
+.ti -1c
+.RI "size_t \fBsize\fP () const "
+.br
+.ti -1c
+.RI "bool \fBisEmpty\fP () const "
+.br
+.RI "\fICheck whether the string is 'empty'. \fP"
+.ti -1c
+.RI "bool \fBoperator!\fP () const "
+.br
+.ti -1c
+.RI "const_pointer \fBdata\fP () const "
+.br
+.RI "\fIData accessor. \fP"
+.ti -1c
+.RI "const_pointer \fBbegin\fP () const "
+.br
+.ti -1c
+.RI "const_pointer \fBend\fP () const "
+.br
+.ti -1c
+.RI "size_t \fBfind\fP (const_reference item) const "
+.br
+.ti -1c
+.RI "bool \fBhasIndex\fP (int i) const "
+.br
+.RI "\fIChecks if the buffer has the given index or not. \fP"
+.ti -1c
+.RI "value_type \fBread\fP (int i) const "
+.br
+.ti -1c
+.RI "void \fBwrite\fP (int i, value_type item)"
+.br
+.ti -1c
+.RI "value_type \fBoperator[]\fP (int i) const "
+.br
+.RI "\fISafe element access operator. \fP"
+.ti -1c
+.RI "\fBCref\fP \fBoperator[]\fP (int i)"
+.br
+.RI "\fIReturns 'Cref' class for safe (cow) writing into \fBString\fP. \fP"
+.ti -1c
+.RI "value_type \fBat\fP (int i) const "
+.br
+.RI "\fIReturns the character at the given index. \fP"
+.ti -1c
+.RI "void \fBslice\fP (int start, int len)"
+.br
+.RI "\fIReturn a new array from a subarray. \fP"
+.ti -1c
+.RI "void \fBappend\fP (const_reference item)"
+.br
+.RI "\fIAppends one item to end of buffer. \fP"
+.ti -1c
+.RI "void \fBappend\fP (const ReferenceCountedArray &rca, int n=-1)"
+.br
+.RI "\fIAppends given rca to the end of buffer. \fP"
+.ti -1c
+.RI "void \fBinsert\fP (int k, const ReferenceCountedArray &rca, int n=-1)"
+.br
+.RI "\fIInserts a ReferenceCountedArray object into our buffer. \fP"
+.ti -1c
+.RI "void \fBinsert\fP (int k, const_reference item)"
+.br
+.RI "\fIInsert an item at the given index. \fP"
+.ti -1c
+.RI "void \fBreplace\fP (int k, const_reference item)"
+.br
+.RI "\fIReplace the given index with the given item. \fP"
+.ti -1c
+.RI "void \fBreplace\fP (int k, const ReferenceCountedArray &rca, int n=-1)"
+.br
+.RI "\fIReplaces n elements in our buffer at index k with the given ReferenceCountedArray object. \fP"
 .in -1c
 .SS "Static Public Attributes"
 
 .in +1c
 .ti -1c
 .RI "static const size_t \fBnpos\fP = size_t(-1)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdoDetach\fP () const "
+.br
+.RI "\fIDetach from the shared reference. This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used). \fP"
+.ti -1c
+.RI "void \fBsetLength\fP (size_t newLen) const "
+.br
+.RI "\fISet the lengths to the specified length. \fP"
+.ti -1c
+.RI "void \fBaddLength\fP (size_t diff) const "
+.br
+.ti -1c
+.RI "void \fBsubLength\fP (size_t diff) const "
+.br
+.ti -1c
+.RI "pointer \fBBuf\fP (int i=0) const "
+.br
+.RI "\fIMutable Ref->buf+offset reference for use internally. \fP"
+.ti -1c
+.RI "const_pointer \fBconstBuf\fP (int i=0) const "
+.br
+.RI "\fIRef->buf reference for use internally. \fP"
+.ti -1c
+.RI "uint8_t \fBincRef\fP () const "
+.br
+.RI "\fIIncrement our reference counter. \fP"
+.ti -1c
+.RI "uint8_t \fBdecRef\fP () const "
+.br
+.RI "\fIDecrement our reference counter. \fP"
+.ti -1c
+.RI "bool \fBisShared\fP () const "
+.br
+.ti -1c
+.RI "void \fBCheckDeallocRef\fP ()"
+.br
+.RI "\fIFree up our reference if we have the last one. \fP"
+.ti -1c
+.RI "void \fBDetach\fP ()"
+.br
+.RI "\fIDetach from the reference This is called when the old buffer is no longer needed for this Array. ie, operator=() was called. \fP"
+.ti -1c
+.RI "void \fBCOW\fP (size_t n) const "
+.br
+.RI "\fIEnsure that our internal buffer is unshared. \fP"
+.ti -1c
+.RI "void \fBAboutToModify\fP (size_t n) const "
+.br
+.ti -1c
+.RI "void \fBgetOwnCopy\fP () const "
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "ArrayRef< value_type > * \fBRef\fP"
+.br
+.RI "\fIThe array reference for reference counting This is mutable so that Ref->n can be modified, which really is mutable. \fP"
+.ti -1c
+.RI "size_t \fBoffset\fP"
+.br
+.ti -1c
+.RI "size_t \fBsublen\fP"
 .br
 .in -1c
 .SS "Friends"
@@ -302,6 +487,54 @@ The idea behind this is that if a specific size was asked for, the buffer is lik
 Definition at line 110 of file String.h.
 .SH "Member Function Documentation"
 .PP 
+.SS "template<class T> void ReferenceCountedArray< T >::addLength (size_t diff) const\fC [inline, protected, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+setLength() 
+.RE
+.PP
+
+.PP
+Definition at line 197 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::append (const ReferenceCountedArray< T > & rca, int n = \fC-1\fP)\fC [inline, inherited]\fP"
+.PP
+Appends given rca to the end of buffer. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrca\fP The rca to be appended. 
+.br
+\fIn\fP How many characters to copy from the ReferenceCountedArray object. 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+The buffer is allocated. This is the same as inserting the rca at the end of the buffer. 
+.RE
+.PP
+
+.PP
+Definition at line 565 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::append (const_reference item)\fC [inline, inherited]\fP"
+.PP
+Appends one item to end of buffer. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIitem\fP The item to be appended. 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+The buffer is allocated. 
+.PP
+The item is appended at the end of the buffer. This is the same as inserting the item at the end of the buffer. 
+.RE
+.PP
+
+.PP
+Definition at line 557 of file ReferenceCountedArray.h.
 .SS "void String::append (const char * string, int n = \fC-1\fP)\fC [inline]\fP"
 .PP
 Appends given cstring to end of buffer. 
@@ -321,6 +554,45 @@ The buffer is allocated. This is the same as inserting the string at the end of 
 
 .PP
 Definition at line 224 of file String.h.
+.SS "template<class T> value_type ReferenceCountedArray< T >::at (int i) const\fC [inline, inherited]\fP"
+.PP
+Returns the character at the given index. 
+.PP
+\fBReturns:\fP
+.RS 4
+The character at the given index. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi\fP Index to return. 
+.RE
+.PP
+\fBPrecondition:\fP
+.RS 4
+The index must exist. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+operator[]() 
+.RE
+.PP
+\fBTodo\fP
+.RS 4
+Perhaps this should throw an exception if out of range? 
+.RE
+.PP
+
+.PP
+Definition at line 515 of file ReferenceCountedArray.h.
+.SS "template<class T> pointer ReferenceCountedArray< T >::Buf (int i = \fC0\fP) const\fC [inline, protected, inherited]\fP"
+.PP
+Mutable Ref->buf+offset reference for use internally. 
+.PP
+Mutable Ref->buf reference for use internally 
+.PP
+Definition at line 212 of file ReferenceCountedArray.h.
 .SS "const char* String::c_str () const\fC [inline]\fP"
 .PP
 Cstring accessor. 
@@ -342,6 +614,32 @@ The actual \fBString\fP size is unchanged.
 
 .PP
 Definition at line 129 of file String.h.
+.SS "template<class T> size_t ReferenceCountedArray< T >::capacity () const\fC [inline, inherited]\fP"
+.PP
+Returns capacity of the \fBString\fP object. 
+.PP
+\fBReturns:\fP
+.RS 4
+Capacity of the \fBString\fP object. 
+.RE
+.PP
+
+.PP
+Definition at line 380 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::CheckDeallocRef ()\fC [inline, protected, inherited]\fP"
+.PP
+Free up our reference if we have the last one. 
+.PP
+\fBPostcondition:\fP
+.RS 4
+The reference counter is decremented. 
+.PP
+If this was the last Reference, it is free'd This is only called in ~Array() and operator=(Array&). It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it. 
+.RE
+.PP
+
+.PP
+Definition at line 256 of file ReferenceCountedArray.h.
 .SS "\fBString\fP String::chomp () const\fC [inline]\fP"
 .PP
 Trim off 
@@ -410,6 +708,117 @@ an integer less than, equal to, or greater than zero if our buffer is found, res
 
 .PP
 Definition at line 212 of file String.h.
+.SS "template<class T> void ReferenceCountedArray< T >::COW (size_t n) const\fC [inline, protected, inherited]\fP"
+.PP
+Ensure that our internal buffer is unshared. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP Create/Grow the buffer to this size. 
+.RE
+.PP
+\fBPrecondition:\fP
+.RS 4
+n is > 0; this is assumed due to size_t being unsigned though. 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+The internal buffer/data is unshared 
+.PP
+The buffer is at least size n. 
+.PP
+The buffer is deep copied to a new buffer.
+.RE
+.PP
+Ensure that our internal buffer is unshared. If needed, performs a deep copy into a new buffer (COW). Also take a hint size n of the new string's size as to avoid needless copying/allocing. 
+.PP
+Definition at line 288 of file ReferenceCountedArray.h.
+.SS "template<class T> const_pointer ReferenceCountedArray< T >::data () const\fC [inline, inherited]\fP"
+.PP
+Data accessor. 
+.PP
+\fBReturns:\fP
+.RS 4
+Pointer to array of characters (not necesarily null-terminated). 
+.RE
+.PP
+
+.PP
+Definition at line 410 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::doDetach () const\fC [inline, protected, inherited]\fP"
+.PP
+Detach from the shared reference. This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used). 
+.PP
+\fBNote:\fP
+.RS 4
+This does not free the old reference, as it is still in use 
+.RE
+.PP
+
+.PP
+Definition at line 181 of file ReferenceCountedArray.h.
+.SS "template<class T> bool ReferenceCountedArray< T >::hasIndex (int i) const\fC [inline, inherited]\fP"
+.PP
+Checks if the buffer has the given index or not. 
+.PP
+\fBReturns:\fP
+.RS 4
+Boolean true/false as to whether or not index exists. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi\fP Index to check. 
+.RE
+.PP
+
+.PP
+Definition at line 433 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::insert (int k, const_reference item)\fC [inline, inherited]\fP"
+.PP
+Insert an item at the given index. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIk\fP The index to insert at. 
+.br
+\fIitem\fP The item to be inserted. 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+A buffer is allocated. 
+.PP
+If the old buffer was too small, it is enlarged. 
+.PP
+The item is inserted at the given index. 
+.RE
+.PP
+
+.PP
+Definition at line 604 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::insert (int k, const ReferenceCountedArray< T > & rca, int n = \fC-1\fP)\fC [inline, inherited]\fP"
+.PP
+Inserts a ReferenceCountedArray object into our buffer. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIk\fP The index to insert at. 
+.br
+\fIrca\fP The rca to insert. 
+.br
+\fIn\fP The length to insert. 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+The buffer contains n items from rca inserted at index k. 
+.RE
+.PP
+
+.PP
+Definition at line 575 of file ReferenceCountedArray.h.
 .SS "void String::insert (int k, const char * string, int n = \fC-1\fP)"
 .PP
 Insert a cstring at the given index. 
@@ -435,6 +844,50 @@ The string is inserted at the given index.
 
 .PP
 Definition at line 77 of file String.cpp.
+.SS "template<class T> bool ReferenceCountedArray< T >::isEmpty () const\fC [inline, inherited]\fP"
+.PP
+Check whether the string is 'empty'. 
+.PP
+\fBReturns:\fP
+.RS 4
+True if empty, false if non-empty 
+.RE
+.PP
+
+.PP
+Definition at line 398 of file ReferenceCountedArray.h.
+.SS "template<class T> bool ReferenceCountedArray< T >::isShared () const\fC [inline, protected, inherited]\fP"
+.PP
+\fBReturns:\fP
+.RS 4
+True if this string is shared; false if not. 
+.RE
+.PP
+
+.PP
+Definition at line 232 of file ReferenceCountedArray.h.
+.SS "template<class T> size_t ReferenceCountedArray< T >::length () const\fC [inline, inherited]\fP"
+.PP
+Returns length of the string. 
+.PP
+\fBReturns:\fP
+.RS 4
+Length of the string. 
+.RE
+.PP
+
+.PP
+Definition at line 388 of file ReferenceCountedArray.h.
+.SS "template<class T> bool ReferenceCountedArray< T >::operator! () const\fC [inline, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+isEmpty() This is for: if (!string) Having if(string) conflicts with another operator 
+.RE
+.PP
+
+.PP
+Definition at line 404 of file ReferenceCountedArray.h.
 .SS "\fBSlice\fP<\fBString\fP> String::operator() (int start, int len)\fC [inline]\fP"
 .PP
 Returns a 'Slice' class for safe (cow) writing into the array. 
@@ -535,6 +988,77 @@ The new string object.
 
 .PP
 Definition at line 121 of file String.cpp.
+.SS "template<class T> \fBCref\fP ReferenceCountedArray< T >::operator[] (int i)\fC [inline, inherited]\fP"
+.PP
+Returns 'Cref' class for safe (cow) writing into \fBString\fP. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBCref\fP 
+.RE
+.PP
+
+.PP
+Definition at line 505 of file ReferenceCountedArray.h.
+.SS "template<class T> value_type ReferenceCountedArray< T >::operator[] (int i) const\fC [inline, inherited]\fP"
+.PP
+Safe element access operator. 
+.PP
+\fBTodo\fP
+.RS 4
+This is only called on a (const) \fBString\fP, but should for a \fBString\fP as well. 
+.RE
+.PP
+
+.PP
+Definition at line 455 of file ReferenceCountedArray.h.
+.SS "template<class T> value_type ReferenceCountedArray< T >::read (int i) const\fC [inline, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+at() Unlinke at() this is unchecked. 
+.RE
+.PP
+
+.PP
+Definition at line 444 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::replace (int k, const ReferenceCountedArray< T > & rca, int n = \fC-1\fP)\fC [inline, inherited]\fP"
+.PP
+Replaces n elements in our buffer at index k with the given ReferenceCountedArray object. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIk\fP The index to replace at. 
+.br
+\fIrca\fP The ReferenceCountedArray object to replace with. 
+.br
+\fIn\fP The number of characters to use for the replace. 
+.RE
+.PP
+
+.PP
+Definition at line 634 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::replace (int k, const_reference item)\fC [inline, inherited]\fP"
+.PP
+Replace the given index with the given item. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIk\fP The index to replace. 
+.br
+\fIitem\fP The item to replace with. 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+The given index has been replaced. 
+.PP
+COW is done if needed. 
+.RE
+.PP
+
+.PP
+Definition at line 621 of file ReferenceCountedArray.h.
 .SS "void String::replace (int k, const char * string, int n = \fC-1\fP)"
 .PP
 Replaces the given index with the given cstring up to the given amount of characters. 
@@ -551,6 +1075,72 @@ Replaces the given index with the given cstring up to the given amount of charac
 
 .PP
 Definition at line 96 of file String.cpp.
+.SS "template<class T> virtual void ReferenceCountedArray< T >::Reserve (const size_t newSize) const\fC [inline, virtual, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+ArrayRef::Reserve() 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+The \fBString\fP will also never shrink after this. 
+.RE
+.PP
+
+.PP
+Definition at line 369 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::setLength (size_t newLen) const\fC [inline, protected, inherited]\fP"
+.PP
+Set the lengths to the specified length. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fInewLen\fP the new length to set to 
+.RE
+.PP
+
+.PP
+Definition at line 192 of file ReferenceCountedArray.h.
+.SS "template<class T> size_t ReferenceCountedArray< T >::size () const\fC [inline, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+length() 
+.RE
+.PP
+
+.PP
+Definition at line 392 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::slice (int start, int len)\fC [inline, inherited]\fP"
+.PP
+Return a new array from a subarray. 
+.PP
+\fBReturns:\fP
+.RS 4
+a new ReferenceCountedArray 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstart\fP The offset to begin the subarray from (indexed from 0) 
+.br
+\fIlen\fP The length of the subarray to return The returned slice is a reference to the original array until modified. 
+.RE
+.PP
+
+.PP
+Definition at line 524 of file ReferenceCountedArray.h.
+.SS "template<class T> void ReferenceCountedArray< T >::subLength (size_t diff) const\fC [inline, protected, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+setLength() 
+.RE
+.PP
+
+.PP
+Definition at line 202 of file ReferenceCountedArray.h.
 .SS "\fBString\fP String::trim () const\fC [inline]\fP"
 .PP
 Trim off whitespace. 
@@ -601,6 +1191,18 @@ Returns a new string that can be reference copied by the lvalue.
 
 .PP
 Definition at line 303 of file String.h.
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class T> size_t ReferenceCountedArray< T >::offset\fC [mutable, protected, inherited]\fP"
+.PP
+This is for subarrays: so we know where the subarray starts. 
+.PP
+Definition at line 243 of file ReferenceCountedArray.h.
+.SS "template<class T> size_t ReferenceCountedArray< T >::sublen\fC [mutable, protected, inherited]\fP"
+.PP
+This is for subarrays: so we know where the subarray ends. 
+.PP
+Definition at line 247 of file ReferenceCountedArray.h.
 
 .SH "Author"
 .PP 

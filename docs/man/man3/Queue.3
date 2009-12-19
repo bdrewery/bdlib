@@ -42,6 +42,9 @@ Inherits \fBList< T >\fP.
 .ti -1c
 .RI "typedef const value_type & \fBconst_reference\fP"
 .br
+.ti -1c
+.RI "typedef T \fBiterator_type\fP"
+.br
 .in -1c
 .SS "Public Member Functions"
 
@@ -69,6 +72,52 @@ Inherits \fBList< T >\fP.
 .ti -1c
 .RI "const_iterator \fBend\fP () const "
 .br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "size_t \fBsize\fP () const"
+.br
+.ti -1c
+.RI "bool \fBisEmpty\fP () const"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (const iterator_type &ptr)"
+.br
+.RI "\fIInsert into the list at the head. \fP"
+.ti -1c
+.RI "bool \fBcontains\fP (const iterator_type &ptr) const"
+.br
+.ti -1c
+.RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const"
+.br
+.ti -1c
+.RI "iterator_type & \fBfindRef\fP (const iterator_type &ptr)"
+.br
+.RI "\fIReturn a reference to the found element. \fP"
+.ti -1c
+.RI "bool \fBremove\fP (const iterator_type &ptr)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdeleteNode\fP (Node *node)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "Node * \fBhead\fP"
+.br
+.ti -1c
+.RI "Node * \fBtail\fP"
+.br
+.ti -1c
+.RI "size_t \fBmy_size\fP"
+.br
 .in -1c
 .SS "Friends"
 
@@ -85,6 +134,9 @@ Inherits \fBList< T >\fP.
 .ti -1c
 .RI "\fBQueue\fP< value_type > & \fBoperator<<\fP (\fBQueue\fP< value_type > &queue, const_reference item)"
 .br
+.ti -1c
+.RI "\fBList\fP< iterator_type > & \fBoperator<<\fP (\fBList\fP< iterator_type > &list, const iterator_type &item)"
+.br
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -93,8 +145,34 @@ Inherits \fBList< T >\fP.
 A FIFO \fBQueue\fP, what else! 
 .PP
 Definition at line 40 of file Queue.h.
+.SH "Member Function Documentation"
+.PP 
+.SS "void \fBList\fP< T  >::insert (const iterator_type & ptr)\fC [inline, inherited]\fP"
+.PP
+Insert into the list at the head. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP The ptr to insert 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSortedList< T >\fP.
+.PP
+Definition at line 108 of file List.h.
 .SH "Friends And Related Function Documentation"
 .PP 
+.SS "\fBList\fP<iterator_type>& operator<< (\fBList\fP< iterator_type > & list, const iterator_type & item)\fC [friend, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinsert\fP 
+.RE
+.PP
+
+.PP
+Definition at line 123 of file List.h.
 .SS "template<class T > \fBQueue\fP<value_type>& operator<< (\fBQueue\fP< value_type > & queue, const_reference item)\fC [friend]\fP"
 .PP
 \fBSee also:\fP

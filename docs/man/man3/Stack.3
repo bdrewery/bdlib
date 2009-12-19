@@ -12,6 +12,13 @@ Stack \- A FILO \fBStack\fP, what else!
 .PP
 Inherits \fBList< T >\fP.
 .PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef ListIterator \fBiterator\fP"
+.br
+.in -1c
 .SS "Public Member Functions"
 
 .in +1c
@@ -26,6 +33,58 @@ Inherits \fBList< T >\fP.
 .ti -1c
 .RI "void \fBpush\fP (const iterator_type &item)"
 .br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "size_t \fBsize\fP () const"
+.br
+.ti -1c
+.RI "bool \fBisEmpty\fP () const"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (const iterator_type &ptr)"
+.br
+.RI "\fIInsert into the list at the head. \fP"
+.ti -1c
+.RI "bool \fBcontains\fP (const iterator_type &ptr) const"
+.br
+.ti -1c
+.RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const"
+.br
+.ti -1c
+.RI "iterator_type & \fBfindRef\fP (const iterator_type &ptr)"
+.br
+.RI "\fIReturn a reference to the found element. \fP"
+.ti -1c
+.RI "bool \fBremove\fP (const iterator_type &ptr)"
+.br
+.ti -1c
+.RI "iterator \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "iterator \fBend\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdeleteNode\fP (Node *node)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "Node * \fBhead\fP"
+.br
+.ti -1c
+.RI "Node * \fBtail\fP"
+.br
+.ti -1c
+.RI "size_t \fBmy_size\fP"
+.br
 .in -1c
 .SS "Friends"
 
@@ -35,6 +94,9 @@ Inherits \fBList< T >\fP.
 .br
 .ti -1c
 .RI "\fBStack\fP< iterator_type > & \fBoperator<<\fP (\fBStack\fP< iterator_type > &stack, const iterator_type &item)"
+.br
+.ti -1c
+.RI "\fBList\fP< iterator_type > & \fBoperator<<\fP (\fBList\fP< iterator_type > &list, const iterator_type &item)"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -46,6 +108,20 @@ A FILO \fBStack\fP, what else!
 Definition at line 36 of file Stack.h.
 .SH "Member Function Documentation"
 .PP 
+.SS "void \fBList\fP< T  >::insert (const iterator_type & ptr)\fC [inline, inherited]\fP"
+.PP
+Insert into the list at the head. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP The ptr to insert 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSortedList< T >\fP.
+.PP
+Definition at line 108 of file List.h.
 .SS "template<class T > const iterator_type \fBStack\fP< T >::peek () const\fC [inline]\fP"
 .PP
 Peek at the first element, but don't pop it off. 
@@ -60,6 +136,16 @@ Throw an exception?
 Definition at line 65 of file Stack.h.
 .SH "Friends And Related Function Documentation"
 .PP 
+.SS "\fBList\fP<iterator_type>& operator<< (\fBList\fP< iterator_type > & list, const iterator_type & item)\fC [friend, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinsert\fP 
+.RE
+.PP
+
+.PP
+Definition at line 123 of file List.h.
 .SS "template<class T > \fBStack\fP<iterator_type>& operator<< (\fBStack\fP< iterator_type > & stack, const iterator_type & item)\fC [friend]\fP"
 .PP
 \fBSee also:\fP

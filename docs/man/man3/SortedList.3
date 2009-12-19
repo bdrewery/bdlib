@@ -12,6 +12,13 @@ SortedList \- A \fBList\fP which sorts on insert.
 .PP
 Inherits \fBList< T >\fP.
 .PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef ListIterator \fBiterator\fP"
+.br
+.in -1c
 .SS "Public Member Functions"
 
 .in +1c
@@ -19,6 +26,61 @@ Inherits \fBList< T >\fP.
 .RI "virtual void \fBinsert\fP (const iterator_type &ptr)"
 .br
 .RI "\fIInsert an element into the list (ordered). \fP"
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "size_t \fBsize\fP () const"
+.br
+.ti -1c
+.RI "bool \fBisEmpty\fP () const"
+.br
+.ti -1c
+.RI "bool \fBcontains\fP (const iterator_type &ptr) const"
+.br
+.ti -1c
+.RI "const iterator_type \fBfind\fP (const iterator_type &ptr) const"
+.br
+.ti -1c
+.RI "iterator_type & \fBfindRef\fP (const iterator_type &ptr)"
+.br
+.RI "\fIReturn a reference to the found element. \fP"
+.ti -1c
+.RI "bool \fBremove\fP (const iterator_type &ptr)"
+.br
+.ti -1c
+.RI "iterator \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "iterator \fBend\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdeleteNode\fP (Node *node)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "Node * \fBhead\fP"
+.br
+.ti -1c
+.RI "Node * \fBtail\fP"
+.br
+.ti -1c
+.RI "size_t \fBmy_size\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "\fBList\fP< iterator_type > & \fBoperator<<\fP (\fBList\fP< iterator_type > &list, const iterator_type &item)"
+.br
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -43,6 +105,18 @@ Insert an element into the list (ordered).
 Reimplemented from \fBList< T >\fP.
 .PP
 Definition at line 49 of file SortedList.h.
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBList\fP<iterator_type>& operator<< (\fBList\fP< iterator_type > & list, const iterator_type & item)\fC [friend, inherited]\fP"
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinsert\fP 
+.RE
+.PP
+
+.PP
+Definition at line 123 of file List.h.
 
 .SH "Author"
 .PP 
