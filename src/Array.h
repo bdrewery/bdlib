@@ -19,7 +19,6 @@
  * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
  * MODIFICATIONS.
  *
- * $Id: $
  */
 #ifndef _W_ARRAY_H
 #define _W_ARRAY_H 1
@@ -40,7 +39,7 @@ class String;
 template <class T>
 /**
  * @class Array
- * @brief
+ * @brief Dynamic Array
  */
 class Array : public ReferenceCountedArray<T> {
   public:
