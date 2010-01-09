@@ -142,7 +142,7 @@ int Stream::writeFile(const int fd) const
   if (lseek(fd, length() - 1, SEEK_CUR) == -1) return 1;
   if (write(fd, "", 1) == -1) return 1;
 
-  unsigned char* map = (unsigned char*) mmap(0, length(), PROT_WRITE, MAP_SHARED, fd, 0);
+  unsigned char* map = (unsigned char*) mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
 
   if ((void*)map == MAP_FAILED) return 1;
 
