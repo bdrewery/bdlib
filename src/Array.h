@@ -118,13 +118,26 @@ class Array : public ReferenceCountedArray<T> {
     }
 
     /*
-     * @brief Shift a value off the end of the array
-     * @return the item
+     * @brief Shift the array left, removing the first element.
+     * @return The first element.
      */
-    value_type pop() {
+    inline value_type shift() {
       if (this->isEmpty()) return value_type();
 
-      value_type temp(*(Buf(this->length() - 1)));
+      value_type temp(*(this->Buf(0)));
+      ++(this->offset);
+      this->subLength(1);
+      return temp;
+    }
+
+    /*
+     * @brief Pop a value off the end of the array
+     * @return The last element.
+     */
+    inline value_type pop() {
+      if (this->isEmpty()) return value_type();
+
+      value_type temp(*(this->Buf(this->length() - 1)));
       this->subLength(1);
       return temp;
     }
@@ -210,6 +223,85 @@ class Array : public ReferenceCountedArray<T> {
       ::CPPUNIT_NS::Asserter::failNotEqual(this->join("|").c_str(), actual.join("|").c_str(), sourceLine);
     }
 #endif /* CPPUNIT_VERSION */
+
+    /* Operators */
+    /**
+     * @relates Array
+     * @brief Concatenates two array objects together.
+     * @param array1 The LHS array.
+     * @param array2 The RHS array.
+     * @post A new array is allocated, reference copied and returned.
+     * @return Returns a new array that can be reference copied by the lvalue.
+     */
+    inline friend Array operator+ (const Array& array1, const Array& array2) {
+      Array temp(array1);
+      temp += array2;
+      return temp;
+    }
+
+    inline const Array& operator++ () { //Prefix
+      return (*this) += 1;
+    }
+
+    inline const Array operator++ (int) //Postfix
+    {
+      Array tmp((*this)(0, 1));
+      ++(this->offset);
+      this->subLength(1);
+      return tmp;
+    }
+
+    inline const Array& operator-- () { //Prefix
+      return (*this) -= 1;
+    }
+
+    inline const Array operator-- (int) //Postfix
+    {
+      Array tmp((*this)(this->length() - 1, 1));
+      this->subLength(1);
+      return tmp;
+    }
+
+    /**
+     * \sa append(const char)
+     */
+    inline Array& operator+= (const_reference item) {
+      append(item);
+      return *this;
+    }
+
+    /**
+     * \sa append(const Array&)
+     */
+    inline Array& operator+= (const Array& array) {
+      append(array);
+      return *this;
+    }
+
+    inline Array& operator+= (const int n) {
+      if (!this->length())
+        return *this;
+      if (int(this->length()) - n < 0) {
+        this->offset = this->length();
+        this->setLength(0);
+      } else {
+        this->offset += n;
+        this->subLength(n);
+      }
+      return *this;
+    }
+
+    inline Array& operator-= (const int n) {
+      if (!this->length())
+        return *this;
+      if (int(this->length()) - n < 0) {
+        this->offset = this->length();
+        this->setLength(0);
+      } else
+        this->subLength(n);
+      return *this;
+    }
+
 };
 
 template<typename T>

@@ -85,6 +85,24 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
 
   CPPUNIT_ASSERT_STRING_EQUAL(String(), str_a->pop());
+
+  (*str_a) << "1";
+  (*str_a) << "2";
+  (*str_a) << "3";
+  (*str_a) << "4";
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", str_a->join(' '));
+
+  String hm;
+  hm = (*str_a).pop();
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", str_a->join(' '));
+  CPPUNIT_ASSERT_STRING_EQUAL("4", hm);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->size());
+
+  hm = (*str_a).shift();
+  CPPUNIT_ASSERT_STRING_EQUAL("2 3", str_a->join(' '));
+  CPPUNIT_ASSERT_STRING_EQUAL("1", hm);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
+
 }
 
 void ArrayTest :: arrayConsTest(void)
@@ -319,4 +337,50 @@ void ArrayTest :: hashTest(void)
   ha2[*str_c] = 5;
   CPPUNIT_ASSERT_EQUAL(ha1[*str_b], ha2[*str_b]);
   CPPUNIT_ASSERT(ha1[*str_b] != ha2[*str_c]);
+}
+
+void ArrayTest :: operatorsTest(void)
+{
+  str_a->push("1");
+  str_a->push("2");
+  str_b->push("3");
+  str_b->push("4");
+
+  str_c = new Array<String>();
+  (*str_c) = (*str_a) + (*str_b);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", str_c->join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_c->size());
+
+  (*str_c) += 1;
+  CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", str_c->join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_c->size());
+
+  (*str_b)[0] = "5";
+  (*str_b)[1] = "6";
+  (*str_c) += (*str_b);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("2 3 4 5 6", str_c->join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(5), str_c->size());
+
+  (*str_b) = (*str_c)--;
+
+  CPPUNIT_ASSERT_STRING_EQUAL("6", str_b->join(' '));
+  CPPUNIT_ASSERT_STRING_EQUAL("2 3 4 5", str_c->join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_b->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_c->size());
+
+  --(*str_c);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", str_c->join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_c->size());
+
+  ++(*str_c);
+  CPPUNIT_ASSERT_STRING_EQUAL("3 4", str_c->join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_c->size());
+
+  (*str_b) = (*str_c)++;
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("3", str_b->join(' '));
+  CPPUNIT_ASSERT_STRING_EQUAL("4", str_c->join(' '));
 }
