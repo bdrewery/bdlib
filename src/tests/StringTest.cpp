@@ -257,6 +257,18 @@ void StringTest :: insertTest(void)
   b->insert(3, "TEST", 1);
   CPPUNIT_ASSERT_STRING_EQUAL("blBTLAHah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
+
+  *a = "this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string";
+  *c = *a;
+  *a = c->substring(10, a->length() - 10);
+  *b = "THIS IS SOME" + *a;
+  a->insert(0, "THIS IS SOME");
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS IS SOMEme long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string", *a);
+
+  *a += int(a->length());
+  a->insert(0, "SOME TEST");
+  CPPUNIT_ASSERT_STRING_EQUAL("SOME TEST", *a);
+
 }
 
 void StringTest :: replaceTest(void)
@@ -566,6 +578,25 @@ void StringTest :: incDecEqualTest(void)
   *a += 4;
   *a -= 4;
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->length());
+
+  *a = " \r\n";
+  *b = a->substring(0, 1);
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(1));
+  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(1));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(0));
+  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(0));
+  CPPUNIT_ASSERT_EQUAL(true, strcmp(" ", b->c_str()) == 0);
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(1));
+  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(1));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(0));
+  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(0));
+  (*a) += int(1) + 1;
+  (*a) += 1;
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(1));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->length(1));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(0));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->length(0));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, strlen(a->c_str()));
 }
 
 void StringTest :: operatorStarTest(void)
