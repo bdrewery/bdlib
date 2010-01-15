@@ -44,11 +44,12 @@ void StreamTest :: reserveTest (void)
   char buf[2048];
   memset(buf, 'c', 2048);
   g->puts(buf);
-  CPPUNIT_ASSERT((g->capacity() % 1024) == 0);
+
+  CPPUNIT_ASSERT((g->capacity() >= 2048));
 
   /* Reference counted */
   b->puts(buf);
-  CPPUNIT_ASSERT((b->capacity() % 1024) == 0);
+  CPPUNIT_ASSERT((b->capacity() >= 2048));
 }
 
 void StreamTest :: tellTest (void)
