@@ -36,6 +36,7 @@ using std::memmove;
 BDLIB_NS_BEGIN
 
 const size_t String::npos;
+unsigned char String::cleanse_ctr = 0;
 
 /* Accessors */
 /**

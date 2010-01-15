@@ -233,6 +233,11 @@ class ReferenceCountedArray {
      */
     mutable ArrayRef<value_type> *Ref;
   protected:
+    /*
+     * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
+     */
+    inline const_pointer real_begin() const { return Ref->buf; };
+
     /**
      * This is for subarrays: so we know where the subarray starts.
      */

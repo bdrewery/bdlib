@@ -58,10 +58,23 @@ typedef char String_Array_Type;
  */
 class String : public ReferenceCountedArray<String_Array_Type> {
   private:
-        /* Most of these are helper abstractions in case I chose to change the reference implementation
-         * ie, into the first element of the buffer
-         */
+        static unsigned char cleanse_ctr;
 
+        /* Cleanse our buffer using OPENSSL_cleanse() */
+        void cleanse() {
+          const size_t len = capacity();
+          const char* ptr = real_begin(); //real_begin() will ignore offset.
+
+          unsigned char *p = (unsigned char *) ptr;
+          size_t loop = len;
+          while(loop--)
+          {
+            *(p++) = cleanse_ctr;
+            cleanse_ctr += (17 + (unsigned char)((int)p & 0xF));
+          }
+          if(memchr(ptr, cleanse_ctr, len))
+            cleanse_ctr += 63;
+        }
   public:
         static const size_t npos = size_t(-1);
 
@@ -107,7 +120,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         explicit String(const size_t newSize) : ReferenceCountedArray<String_Array_Type>(newSize) {};
 
 
-        virtual ~String() {};
+        virtual ~String() {
+          /* If deallocating the last reference, cleanse the string buffer with OPENSSL_cleanse() */
+          if (rcount() <= 1)
+            cleanse();
+        }
 
         /*
          * @brief Find a string in the string
