@@ -40,6 +40,7 @@ template <class Key, class Value>
   */
 class HashTable {
   private:
+    static const size_t default_list_size = 100;
     typedef KeyValue<Key, Value> iterator_type;
     typedef Hash<Key> hasher;
 
@@ -52,7 +53,7 @@ class HashTable {
       return _hash(key) % _capacity;
     }
   public:
-    HashTable() : list(new List<iterator_type>[100]), _size(0), _capacity(100), _hash() {};
+    HashTable() : list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
     explicit HashTable(size_t capacity_in) : list(new List<iterator_type>[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
     HashTable(const HashTable<Key, Value> &table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
       for (size_t i = 0; i < _capacity; ++i)
