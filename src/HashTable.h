@@ -43,6 +43,7 @@ class HashTable {
     static const size_t default_list_size = 100;
     typedef KeyValue<Key, Value> iterator_type;
     typedef Hash<Key> hasher;
+    typedef void (*hash_table_block)(const Key, Value, void *param);
 
     List<iterator_type> *list;
     size_t _size;
@@ -68,6 +69,32 @@ class HashTable {
       for (size_t i = 0; i < _capacity; ++i)
         list[i].clear();
       _size = 0;
+    }
+
+    /*
+     * @brief A ruby stule block which will yield to the passed callback for each Key/Value pair.
+     * @param param An optional parameter to pass to the block.
+     */
+    void each(hash_table_block block, void* param = NULL) {
+      if (!size()) return;
+
+      typename List<iterator_type>::iterator iter;
+      // Make a list of KeyValues to yield from.
+      // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
+      List<iterator_type> items;
+      for (size_t i = 0; i < _capacity; ++i) {
+        if (list[i].size()) {
+          for (iter = list[i].begin(); iter; (++iter)) {
+            items << *iter;
+          }
+        }
+      }
+
+      // Now yield on our temporary, so (this) isn't a factor.
+      for (iter = items.begin(); iter; (++iter)) {
+        iterator_type kv = *iter;
+        block((const Key)kv.key(), kv.value(), param);
+      }
     }
 
     HashTable &operator = (const HashTable<Key, Value> &table) { 
