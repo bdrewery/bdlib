@@ -32,8 +32,8 @@ BDLIB_NS_BEGIN
 #define NUM_ENCODED_BYTES (4)
 #define PADDING_CHAR '='
 
-static const char b64_charset[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";;
-static const signed char b64_indexes[256] = {
+static const char b64_charset[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const char b64_indexes[256] = {
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
@@ -52,7 +52,8 @@ static const signed char b64_indexes[256] = {
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 };
 
-void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
+
+void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset)
 {
   char *buf = dest;
 
@@ -81,13 +82,13 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
 
   while (*len >= NUM_ASCII_BYTES) {
     /* buf[0] is the 6 left-most bits of data[0] */
-    buf[0] = b64_charset[(data[0] & 0xfc) >> 2];
+    buf[0] = charset[(data[0] & 0xfc) >> 2];
     /* buf[1] is the right-most 2 bits of data[0] and the left-most 4 bits of data[1] */
-    buf[1] = b64_charset[((data[0] & 0x03) << 4) | ((data[1] & 0xf0) >> 4)];
+    buf[1] = charset[((data[0] & 0x03) << 4) | ((data[1] & 0xf0) >> 4)];
     /* buf[2] is the right-most 4 bits of data[1] and the 2 left-most bits of data[2] */
-    buf[2] = b64_charset[((data[1] & 0x0f) << 2) | ((data[2] & 0xc0) >> 6)];
+    buf[2] = charset[((data[1] & 0x0f) << 2) | ((data[2] & 0xc0) >> 6)];
     /* buf[3] is the right-most 6 bits of data[2] */
-    buf[3] = b64_charset[data[2] & 0x3f];
+    buf[3] = charset[data[2] & 0x3f];
 
     data += NUM_ASCII_BYTES;
     buf += NUM_ENCODED_BYTES;
@@ -96,14 +97,14 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
 
   /* There is either 1 or 2 bytes left to encode (and possibly some padding to add) */
   if (*len > 0) {
-    buf[0] = b64_charset[(data[0] & 0xfc) >> 2];
+    buf[0] = charset[(data[0] & 0xfc) >> 2];
     if (*len == 1) {
-      buf[1] = b64_charset[((data[0] & 0x03) << 4)];
+      buf[1] = charset[((data[0] & 0x03) << 4)];
       buf[2] = PADDING_CHAR;
     } else if (*len > 1) { /* == 2 .. left as >1 to help optimize with last if */
       /* Tack on to buf[1] the left-most 4 bits of data[1] */
-      buf[1] = b64_charset[((data[0] & 0x03) << 4) | ((data[1] & 0xf0) >> 4)];
-      buf[2] = b64_charset[(data[1] & 0x0f) << 2];
+      buf[1] = charset[((data[0] & 0x03) << 4) | ((data[1] & 0xf0) >> 4)];
+      buf[2] = charset[(data[1] & 0x0f) << 2];
     }
     buf[3] = PADDING_CHAR;
     buf += NUM_ENCODED_BYTES;
@@ -112,26 +113,26 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest)
   *len = buf - dest;
 }
 
-String base64Encode(const String& string) {
+String base64Encode(const String& string, const char* charset) {
   size_t len = string.length();
-  char *p = b64enc((unsigned char*) string.data(), &len);
+  char *p = b64enc((unsigned char*) string.data(), &len, charset);
   bd::String encoded(p, len);
   free(p);
   return encoded;
 }
 
-char *b64enc(const unsigned char *src, size_t *len)
+char *b64enc(const unsigned char *src, size_t *len, const char* charset)
 {
   /* Take the length and round up the next 4-byte boundary */
   size_t dlen = (((*len + (NUM_ASCII_BYTES - 1)) / NUM_ASCII_BYTES) * NUM_ENCODED_BYTES);
   char *dest = (char *) malloc(dlen + 1);;
 
-  b64enc_buf(src, len, dest);
+  b64enc_buf(src, len, dest, charset ? charset : b64_charset);
   dest[*len] = '\0';
   return dest;
 }
 
-void b64dec_buf(const unsigned char *data, size_t *len, char *dest)
+void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
 {
   char *buf = dest;
   size_t blocks = (*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0);
@@ -139,13 +140,13 @@ void b64dec_buf(const unsigned char *data, size_t *len, char *dest)
   /* Convert the encoded base64 character back into our base255 ASCII character */
   while (blocks > 0) {
     /* buf[0] is the 6 bits from data[0] + left-most 2 bits of data[1] */
-    *buf++ = (b64_indexes[data[0]] << 2) + ((b64_indexes[data[1]] & 0x30) >> 4);  /* 0x30 not required but to be clear. */
+    *buf++ = (charset_index[data[0]] << 2) + ((charset_index[data[1]] & 0x30) >> 4);  /* 0x30 not required but to be clear. */
     if (data[2] != PADDING_CHAR) {
       /* buf[1] is the right-most 4 bits of data[1] + left-most 4 bits of data[2] */
-      *buf++ = ((b64_indexes[data[1]] & 0x0f) << 4) + ((b64_indexes[data[2]] & 0x3c) >> 2);
+      *buf++ = ((charset_index[data[1]] & 0x0f) << 4) + ((charset_index[data[2]] & 0x3c) >> 2);
       if (data[3] != PADDING_CHAR) {
         /* buf[2] is the right-most 2 bits of data[2] + data[3] */
-        *buf++ = ((b64_indexes[data[2]] & 0x03) << 6) + b64_indexes[data[3]];
+        *buf++ = ((charset_index[data[2]] & 0x03) << 6) + charset_index[data[3]];
       }
     }
     data += NUM_ENCODED_BYTES;
@@ -155,19 +156,29 @@ void b64dec_buf(const unsigned char *data, size_t *len, char *dest)
   *len = (buf - dest);
 }
 
-char *b64dec(const unsigned char *data, size_t *len)
+char *b64dec(const unsigned char *data, size_t *len, const char* charset)
 {
   size_t dlen = ((*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0)) * NUM_ASCII_BYTES;
   char *dest = (char *) malloc(dlen + 1);
 
-  b64dec_buf(data, len, dest);
+  if (charset) {
+    char charset_index[256];
+    memset(charset_index, -1, sizeof(charset_index));
+    for (const char* p = charset; *p; ++p) {
+      for (size_t index = 0; index < sizeof(charset_index); ++index) {
+        if (int(index) == int(*p)) charset_index[index] = p - charset;
+      }
+    }
+    b64dec_buf(data, len, dest, charset_index);
+  }  else
+    b64dec_buf(data, len, dest, b64_indexes);
   dest[*len] = '\0';
   return dest;
 }
 
-String base64Decode(const String& string) {
+String base64Decode(const String& string, const char* charset) {
   size_t len = string.length();
-  char *p = b64dec((unsigned char*) string.data(), &len);
+  char *p = b64dec((unsigned char*) string.data(), &len, charset);
   bd::String decoded(p, len);
   free(p);
   return decoded;
