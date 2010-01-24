@@ -34,6 +34,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (incDecTest);
     CPPUNIT_TEST (incDecEqualTest);
     CPPUNIT_TEST (operatorStarTest);
+    CPPUNIT_TEST (resizeTest);
 	CPPUNIT_TEST (printfTest);
 //    CPPUNIT_TEST (encryptTest);
     CPPUNIT_TEST (base64Test);
@@ -66,6 +67,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void trimTest(void);
         void findTest(void);
         void newsplitTest(void);
+        void resizeTest(void);
         void concatTest(void);
         void incDecTest(void);
         void incDecEqualTest(void);

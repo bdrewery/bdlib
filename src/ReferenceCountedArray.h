@@ -400,6 +400,21 @@ class ReferenceCountedArray {
      */
     inline size_t capacity() const { return Ref->size; };
 
+    /*
+     * @brief Resize the array to the given length.
+     * @param len The length to resize to.
+     * @param value The optional parameter to fill the space with if the array is expanded
+     */
+    void resize(size_t len, value_type value = value_type()) {
+      if (len < this->length()) {
+        this->subLength(this->length() - len);
+      } else {
+        this->AboutToModify(length() + len);
+        for (size_t i = 0; i < (len - this->length()); ++i)
+          *(Buf(this->length() + i)) = value;
+        this->addLength(len - this->length());
+      }
+    }
 
     /* Accessors */
     /**

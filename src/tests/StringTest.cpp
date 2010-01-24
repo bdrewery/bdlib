@@ -1166,3 +1166,55 @@ void StringTest :: hashTest(void)
   (*b) = (*a)(0, 5);
   CPPUNIT_ASSERT(a->hash() == b->hash());
 }
+
+void StringTest :: resizeTest(void)
+{
+  (*a) = "test012345";
+  (*b) = *a;
+  a->resize(4);
+  CPPUNIT_ASSERT_STRING_EQUAL("test", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
+
+  *a = *b;
+  a->resize(15, 'c');
+  CPPUNIT_ASSERT_STRING_EQUAL("test012345ccccc", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(15), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
+
+  *a = (*b)(4, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("01234", *a);
+  a->resize(3);
+  CPPUNIT_ASSERT_STRING_EQUAL("012", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
+
+  *a = (*b)(4, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("01234", *a);
+  a->resize(10);
+  CPPUNIT_ASSERT_STRING_EQUAL(bd::String("01234\0\0\0\0\0", 10), *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
+
+  *a = (*b)(4, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("01234", *a);
+  a->resize(10, 'a');
+  CPPUNIT_ASSERT_STRING_EQUAL("01234aaaaa", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
+
+  *a = (*b)(4, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL("01234", *a);
+  a->resize(4);
+  a->resize(10, 'q');
+  CPPUNIT_ASSERT_STRING_EQUAL("0123qqqqqq", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
+
+}
