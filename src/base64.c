@@ -164,11 +164,8 @@ char *b64dec(const unsigned char *data, size_t *len, const char* charset)
   if (charset) {
     char charset_index[256];
     memset(charset_index, -1, sizeof(charset_index));
-    for (const char* p = charset; *p; ++p) {
-      for (size_t index = 0; index < sizeof(charset_index); ++index) {
-        if (int(index) == int(*p)) charset_index[index] = p - charset;
-      }
-    }
+    for (size_t i = 0; i < 64; ++i)
+      charset_index[int(charset[i])] = i;
     b64dec_buf(data, len, dest, charset_index);
   }  else
     b64dec_buf(data, len, dest, b64_indexes);
