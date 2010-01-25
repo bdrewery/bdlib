@@ -138,6 +138,13 @@ void StringTest :: c_strTest(void)
   CPPUNIT_ASSERT_EQUAL(0, strcmp(d_test, cstring));
   CPPUNIT_ASSERT_EQUAL(0, strcmp(d_test, e_test));
   CPPUNIT_ASSERT(strcmp(f_test, d_test) < 0);
+
+  *f = "TESTING 1 2 3 4";
+  *a = (*f)(2, 5);
+  const char *x = a->dup();
+  CPPUNIT_ASSERT_STRING_EQUAL("STING", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("STING", x);
+  delete[] x;
 }
 
 void StringTest :: hasIndexTest(void)

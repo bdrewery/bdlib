@@ -146,6 +146,16 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           return data();
         }
 
+        /*
+         * @brief Duplicate the string into a c-style NULL-terminated buffer which must be deleted
+         */
+        inline char* dup() const {
+          char *ret = new char[length() + 1];
+          std::copy(begin(), end(), ret);
+          ret[length()] = '\0';
+          return ret;
+        }
+
         /**
          * @sa c_str()
          */
