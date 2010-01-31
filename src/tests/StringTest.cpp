@@ -290,6 +290,61 @@ void StringTest :: replaceTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
   g->replace(1, "ml");
   CPPUNIT_ASSERT_STRING_EQUAL("xml", *g);
+
+  *a = "1 2 3";
+  *b = a->sub(" ", ", ");
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("1, 2, 3", *b);
+
+  *a = "1 2 3";
+  *b = a->sub(" ", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("1,2,3", *b);
+
+  *a = "1 2 3";
+  *b = a->sub("a", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", *b);
+
+  *a = "a1 2 3";
+  *b = a->sub("a", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("a1 2 3", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(",1 2 3", *b);
+
+  *a = "a1 2 3a";
+  *b = a->sub("a", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("a1 2 3a", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(",1 2 3,", *b);
+
+  *a = "1 2 3a";
+  *b = a->sub("a", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3a", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3,", *b);
+
+  *a = "1 2 3aa";
+  *b = a->sub("a", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3aa", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3,,", *b);
+
+  *a = "aa1 2 3aa";
+  *b = a->sub("a", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("aa1 2 3aa", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(",,1 2 3,,", *b);
+
+  *a = "aa1 2 a 3aa";
+  *b = a->sub("a", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("aa1 2 a 3aa", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(",,1 2 , 3,,", *b);
+
+  *a = "aa1 2 a 3aa";
+  *b = a->sub("a", ",", 1);
+  CPPUNIT_ASSERT_STRING_EQUAL("aa1 2 a 3aa", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(",a1 2 a 3aa", *b);
+
+  *a = "aa1 2 a 3aa";
+  *b = a->sub("a", ",", 2);
+  CPPUNIT_ASSERT_STRING_EQUAL("aa1 2 a 3aa", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(",,1 2 a 3aa", *b);
 }
 
 void StringTest :: chompTest(void)

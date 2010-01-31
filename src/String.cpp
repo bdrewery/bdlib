@@ -233,6 +233,23 @@ size_t String::find (const String& str) const {
   return npos;
 }
 
+String String::sub(const String& search, const String& replacement, int limit) const {
+  String newStr(length()), search_str(*this);
+  size_t pos = 0;
+  int cnt = 0;
+  // Search in our const string so that stuff like \->\\ doesnt become \\\, \\\\ etc.
+  while ((pos = search_str.find(search)) != npos) {
+    newStr += search_str(0, pos);
+    newStr += replacement;
+    search_str += int(pos) + 1;
+    if (limit != -1 && ++cnt == limit) break;
+  }
+  // Left over
+  if (search_str.length())
+    newStr += search_str;
+  return newStr;
+}
+
 #ifdef no
 String String::subst(HashTable<String, String> hashes) const {
   hashes.each(lame_string_subst, (void*)this);

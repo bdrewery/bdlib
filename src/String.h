@@ -264,6 +264,15 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         void replace(int, const char*, int = -1);
         using ReferenceCountedArray<String_Array_Type>::replace;
 
+        /*
+         * @brief Replace all occurances of the given search with the given replacement.
+         * @param search The string to search for.
+         * @param replacement The string to replace with
+         * @param limit An optional limit to how many replacements to do
+         * @return A new String is returned
+         */
+        String sub(const String& search, const String& replacement, int limit = -1) const;
+
 #ifdef no
         String subst(HashTable<String, String> hashes) const;
 #endif
