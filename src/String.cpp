@@ -241,7 +241,7 @@ String String::sub(const String& search, const String& replacement, int limit) c
   while ((pos = search_str.find(search)) != npos) {
     newStr += search_str(0, pos);
     newStr += replacement;
-    search_str += int(pos) + 1;
+    search_str += int(pos) + int(search.length());
     if (limit != -1 && ++cnt == limit) break;
   }
   // Left over
