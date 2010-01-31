@@ -67,6 +67,8 @@ class Stream {
         */
         void truncate() { str = str(0, pos); };
 
+        String peek() { return str(pos, str.length() - pos); };
+
 //        operator void*() { return tell() <= length(); };
 
         int seek(int, int);
