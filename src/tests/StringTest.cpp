@@ -268,7 +268,7 @@ void StringTest :: insertTest(void)
 
   *a = "this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string";
   *c = *a;
-  *a = c->substring(10, a->length() - 10);
+  *a = c->substring(10);
   *b = "THIS IS SOME" + *a;
   a->insert(0, "THIS IS SOME");
   CPPUNIT_ASSERT_STRING_EQUAL("THIS IS SOMEme long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string", *a);
@@ -1061,7 +1061,7 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(105), c->length());
   CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
 
-  *e = (*d)(5, d->length() - 5);
+  *e = (*d)(5);
   CPPUNIT_ASSERT_STRING_EQUAL("and replacing work with substrings?test", *e);
   CPPUNIT_ASSERT_EQUAL(size_t(44 - 5), e->length());
   CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?test", *d);
@@ -1073,7 +1073,7 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(105), c->length());
   CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
 
-  *e = (*d)(5, d->length() - 5);
+  *e = (*d)(5);
   *f = *e;
   *e += *d * 20;
   CPPUNIT_ASSERT_STRING_EQUAL("and replacing work with substrings?test", *f);
@@ -1111,6 +1111,14 @@ void StringTest :: substringTest(void)
 
 //  (*a)(-4, 4) = "TEST";
 //  CPPUNIT_ASSERT_STRING_EQUAL("This is a TEST", *a);
+
+
+  *a = "a b c d";
+  *b = (*a)(0);
+  *c = (*a)(2);
+  CPPUNIT_ASSERT_STRING_EQUAL("a b c d", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("a b c d", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("b c d", *c);
 }
 
 void StringTest :: splitTest(void)

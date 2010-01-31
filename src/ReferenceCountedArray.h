@@ -574,8 +574,10 @@ class ReferenceCountedArray {
      * @param len The length of the subarray to return
      * The returned slice is a reference to the original array until modified.
      */
-    void slice(int start, int len) {
+    void slice(int start, int len = -1) {
       getOwnCopy();
+
+      if (len == -1) len = int(length()) - start;
       // Start is after the end, set us to an empty array
       if (start >= (signed) length()) {
         offset = length();

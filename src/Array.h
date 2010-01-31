@@ -198,7 +198,7 @@ class Array : public ReferenceCountedArray<T> {
     /*
      * @sa ReferenceCountedArray::slice()
      */
-    inline Array subarray(int start, int len) const {
+    inline Array subarray(int start, int len = -1) const {
       Array newArray(*this);
       newArray.slice(start, len);
       return newArray;
@@ -207,7 +207,7 @@ class Array : public ReferenceCountedArray<T> {
     /*
      * @sa substring
      */
-    inline Array operator()(int start, int len) const { return subarray(start, len); };
+    inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
 
     /**
      * @brief Returns a 'Slice' class for safe (cow) writing into the array
@@ -215,7 +215,7 @@ class Array : public ReferenceCountedArray<T> {
      * @param start Starting position
      * @param len How many items to use
      */
-    inline Slice<Array> operator()(int start, int len) { return Slice<Array>(*this, start, len); };
+    inline Slice<Array> operator()(int start, int len = -1) { return Slice<Array>(*this, start, len); };
 
 #ifdef CPPUNIT_VERSION
     void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {

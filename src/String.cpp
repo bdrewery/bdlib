@@ -278,7 +278,8 @@ String newsplit(String& str, char delim)
       ++pos;
   }
 
-  str = str(pos + 1, str.length() - pos + 1);
+//  str = str(pos + 1, str.length() - pos + 1);
+  str += int(pos) + 1;
   return first;
 }
 BDLIB_NS_END

@@ -217,7 +217,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /*
          * @sa ReferenceCountedArray::slice()
          */
-        String substring(int start, int len) const {
+        String substring(int start, int len = -1) const {
           String newString(*this);
           newString.slice(start, len);
           return newString;
@@ -226,7 +226,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /*
          * @sa substring
          */
-        inline String operator()(int start, int len) const { return substring(start, len); };
+        inline String operator()(int start, int len = -1) const { return substring(start, len); };
 
         /**
          * @brief Returns a 'Slice' class for safe (cow) writing into the array
@@ -234,7 +234,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param start Starting position
          * @param len How many items to use
          */
-        inline Slice<String> operator()(int start, int len) { return Slice<String>(*this, start, len); };
+        inline Slice<String> operator()(int start, int len = -1) { return Slice<String>(*this, start, len); };
 
         /**
 	 * @brief Compare our String object with another String object
