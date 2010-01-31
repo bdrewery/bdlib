@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "StringTest.h"
 #include "Array.h"
+#include "HashTable.h"
 #include <base64.h>
 #include <cstring>
 using namespace std;
@@ -1224,4 +1225,28 @@ void StringTest :: resizeTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
   CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
 
+}
+
+void StringTest :: substTest(void) {
+#ifdef no
+  *a = "$this $is $a $test";
+  HashTable<String, String> hashes;
+  hashes["$this"] = "THIS";
+  hashes["$is"] = "IS";
+  hashes["$a"] = "A";
+  hashes["$test"] = "TEST";
+  *b = a->subst(hashes);
+  CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS IS A TEST", *b);
+
+  *a += " $this";
+  *b = a->subst(hashes);
+  CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test *this", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS IS A TEST THIS", *b);
+
+  hashes[" "] = ",";
+  *b = a->subst(hashes);
+  CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test *this", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS,IS,A,TEST,THIS", *b);
+#endif
 }

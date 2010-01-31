@@ -24,6 +24,7 @@
 #define _BD_STRING_H 1
 
 #include "bdlib.h"
+#include "HashTable.h"
 #include "ReferenceCountedArray.h"
 //#include "Array.h"
 
@@ -262,6 +263,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         void replace(int, const char*, int = -1);
         using ReferenceCountedArray<String_Array_Type>::replace;
+
+#ifdef no
+        String subst(HashTable<String, String> hashes) const;
+#endif
 
 #ifdef __GNUC__
         /* GNU GCC DOC: 

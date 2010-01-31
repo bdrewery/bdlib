@@ -233,6 +233,12 @@ size_t String::find (const String& str) const {
   return npos;
 }
 
+#ifdef no
+String String::subst(HashTable<String, String> hashes) const {
+  hashes.each(lame_string_subst, (void*)this);
+}
+#endif
+
 /**
  * @brief Splits off tokens
  * @param str The string to split a token off of

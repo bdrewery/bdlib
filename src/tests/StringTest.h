@@ -42,6 +42,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (substringTest);
     CPPUNIT_TEST (splitTest);
     CPPUNIT_TEST (hashTest);
+    CPPUNIT_TEST (substTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -79,6 +80,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void substringTest(void);
         void splitTest(void);
         void hashTest(void);
+        void substTest(void);
     private:
         String *a, *b, *c, *d, *e, *f, *g, *h;
 	char cstring[50];
