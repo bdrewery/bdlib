@@ -133,6 +133,12 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         size_t find(const String&) const;
         using ReferenceCountedArray<String_Array_Type>::find;
 
+        /*
+         * @brief Give an OutputIterator for STL usage
+         * @post The string is detached.
+         */
+        inline char* mdata() const { AboutToModify(length()); return Buf(); }
+
 	/**
 	 * @brief Cstring accessor
 	 * @return A null-terminated character array (cstring).
