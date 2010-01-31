@@ -75,9 +75,9 @@ String Stream::gets (size_t maxSize, char delim) {
   return ret;
 }
 
-int Stream::loadFile(const char* file)
+int Stream::loadFile(const String& file)
 {
-  int fd = open(file, O_RDONLY);
+  int fd = open(file.c_str(), O_RDONLY);
   if (fd == -1)
     return 1;
   int ret = loadFile(fd);
@@ -124,9 +124,9 @@ int Stream::loadFile(const int fd)
   return 0;
 }
 
-int Stream::writeFile(const char* file, mode_t mode) const
+int Stream::writeFile(const String& file, mode_t mode) const
 {
-  int fd = open(file, O_CREAT|O_RDWR|O_TRUNC, mode);
+  int fd = open(file.c_str(), O_CREAT|O_RDWR|O_TRUNC, mode);
   if (fd == -1)
     return 1;
   int ret = writeFile(fd);
