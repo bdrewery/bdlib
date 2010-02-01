@@ -355,6 +355,11 @@ void StringTest :: replaceTest(void)
   *b = a->sub("aa", ",");
   CPPUNIT_ASSERT_STRING_EQUAL("aa1 2 a 3aa", *a);
   CPPUNIT_ASSERT_STRING_EQUAL(",1 2 a 3,", *b);
+
+  *a = "aa1 2 aaaa 3aa";
+  *b = a->sub("aa", ",");
+  CPPUNIT_ASSERT_STRING_EQUAL("aa1 2 aaaa 3aa", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(",1 2 ,, 3,", *b);
 }
 
 void StringTest :: chompTest(void)
