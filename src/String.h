@@ -70,11 +70,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           size_t loop = len;
           while(loop--)
           {
-            *(p++) = cleanse_ctr;
-            cleanse_ctr += (17 + (unsigned char)((int)p & 0xF));
+            *(p++) = (unsigned char)cleanse_ctr;
+            cleanse_ctr += (17 + ((size_t)p & 0xF));
           }
           if(memchr(ptr, cleanse_ctr, len))
-            cleanse_ctr += 63;
+            cleanse_ctr += (63 + (size_t)p);
         }
   public:
         static const size_t npos = size_t(-1);
