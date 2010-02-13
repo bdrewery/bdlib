@@ -481,9 +481,12 @@ class ReferenceCountedArray {
      * @param i Index to check.
      */
     inline bool hasIndex(int i) const {
+      if (i < 0 || i >= (int) (offset + length())) {
 #ifdef DEBUG
-      if (i < 0 || i >= (int) (offset + length())) ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
+        ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
 #endif
+        return 0;
+      }
       return (i < (int) length());
     };
 
