@@ -7,6 +7,10 @@
 #include "HashTable.h"
 #include <base64.h>
 #include <cstring>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
@@ -809,6 +813,26 @@ void StringTest :: base64Test(void)
   CPPUNIT_ASSERT_EQUAL((size_t)255, tmp.length());
   CPPUNIT_ASSERT_STRING_EQUAL(save, tmp);
   CPPUNIT_ASSERT_EQUAL(save.length(), tmp.length());
+
+
+  /* Do heavy stress testing using /dev/urandom */
+  int fd = open("/dev/urandom", O_RDONLY);
+  char ubuf[1024];
+  size_t size = 1;
+
+  for (int i = 0; i < 200; ++i) {
+    ++size;
+    read(fd, ubuf, size);
+
+    (*a) = String(ubuf, size);
+    (*b) = base64Encode(*a);
+    (*c) = base64Decode(*b);
+
+    // Ensure they still match
+    CPPUNIT_ASSERT_STRING_EQUAL(*b, base64Encode(*c));
+    CPPUNIT_ASSERT_STRING_EQUAL(*a, *c);
+  }
+  close(fd);
 }
 
 #ifdef DISABLED
