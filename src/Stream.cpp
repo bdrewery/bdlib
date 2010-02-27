@@ -52,7 +52,7 @@ int Stream::seek (int offset, int whence) {
 }
 
 String Stream::gets (size_t maxSize, char delim) {
-  size_t toRead = std::min(maxSize, capacity() - tell());
+  size_t toRead = std::min(maxSize, length() - pos);
 
   /* No need to split the string, return a substring */
   if (!delim) {
@@ -67,7 +67,7 @@ String Stream::gets (size_t maxSize, char delim) {
   while ((ret.length() < toRead) && (str[pos] != delim)) {
     ret += str[pos++];
   }
-  if (str[pos] == delim) {
+  if (str.hasIndex(pos) && str[pos] == delim) {
     ret += delim;
     ++pos;
   }
