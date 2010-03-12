@@ -157,6 +157,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
     return Array<String>(list, 1);
   }
 
+  const String space(' ');
   Array<String> array;
   // Use a temporary - is a fast reference and never modified, so no COW ever used.
   String str(*this);
@@ -164,7 +165,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
 
   while (array.size() < limit - 1) {
     // Trim out left whitespace
-    if (delim == ' ') while (str.length() && str[0] == ' ') ++str;
+    if (delim == space) while (str.length() && str[0] == ' ') ++str;
 
     // All done when there's nothing left
     if (!str) break;
@@ -178,7 +179,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
   // Add on extra
   if (limit != npos) {
     // Trim out left whitespace
-    if (delim == ' ') while (str.length() && str[0] == ' ') ++str;
+    if (delim == space) while (str.length() && str[0] == ' ') ++str;
     array << str;
   }
 
