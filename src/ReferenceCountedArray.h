@@ -43,7 +43,7 @@ class ArrayRef {
     ~ArrayRef() { FreeBuf(buf); };
     mutable size_t size; //Capacity of buffer
     mutable T* buf;
-    mutable uint8_t n; //References
+    mutable int n; //References
 
     ArrayRef() : size(0), buf(NULL), n(1) {};
     /**
@@ -187,12 +187,12 @@ class ReferenceCountedArray {
     /**
      * @brief Increment our reference counter.
      */
-    inline uint8_t incRef() const { return ++Ref->n; };
+    inline int incRef() const { return ++Ref->n; };
 
     /**
      * @brief Decrement our reference counter.
      */
-    inline uint8_t decRef() const { return --Ref->n; };
+    inline int decRef() const { return --Ref->n; };
 
   protected:
     /**
