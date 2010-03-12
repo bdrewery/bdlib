@@ -43,25 +43,25 @@ unsigned char String::cleanse_ctr = 0;
  * @brief Compare our String object with another String object, but only n characters
  * @param str The String object to compare to.
  * @param n The number of characters to compare.
+ * @param start The index to start looking from
  * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
 */
-int String::compare(const String &str, size_t n) const
+int String::compare(const String &str, size_t n, size_t start) const
 {
-  size_t my_len = length();
-  size_t slen = std::min(str.length(), n);
-  size_t len = std::min(my_len, slen);
-
+  const size_t my_len = length();
   /* Same string? */
   if (data() == str.data() && my_len == str.length())
     return 0;
 
-  for (size_t i = 0; i < len; ++i) {
-    if ((*this)[i] < str[i])
-      return -1;
-    else if (str[i] < (*this)[i])
-      return 1;
-  }
-  return my_len - slen;
+  const size_t slen = n ? std::min(str.length(), n) : str.length();
+  const size_t len = std::min(my_len - start, slen);
+  const int diff = memcmp(begin() + start, str.begin(), len);
+  if (diff)
+    return diff;
+  else if (n)
+    return std::min(my_len - start, n) - slen;
+  else
+    return (my_len - start) - slen;
 }
 
 /* Setters */
@@ -227,9 +227,12 @@ String& String::trim() {
 }
 
 size_t String::find (const String& str) const {
-  for (const char* c = begin(); c != end(); ++c)
-    if (strncmp(c, str.c_str(), std::min(str.length(), size_t(end() - c))) == 0)
-      return size_t(c - begin());
+  if (length() >= str.length()) {
+    const size_t last_pos = length() - str.length();
+    for (size_t pos = 0; pos <= last_pos; ++pos)
+      if (str[0] == (*this)[pos] && !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+        return pos;
+  }
   return npos;
 }
 

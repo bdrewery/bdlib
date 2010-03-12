@@ -241,8 +241,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @param string The String object to compare to
 	 * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
 	 */
-	inline int compare(const String& string) const { return compare(string, string.length()); };
-        int compare(const String&, size_t) const;
+        int compare(const String&, size_t = 0, size_t = 0) const;
 
         Array<String> split(const String&, size_t limit = npos) const;
 
