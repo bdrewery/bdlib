@@ -290,10 +290,9 @@ class ReferenceCountedArray {
     void COW(size_t n) const {
       const_pointer oldBuf = constBuf();
       size_t oldLength = length();
-      size_t oldCapacity = capacity();
 
       doDetach(); //Detach from the shared reference
-      Reserve( std::max(oldCapacity, n) ); //Will set capacity()/size
+      Reserve( std::max(oldLength, n) ); //Will set capacity()/size
       std::copy(oldBuf, oldBuf + oldLength, Buf());
       setLength(oldLength);
     }
@@ -303,7 +302,7 @@ class ReferenceCountedArray {
      * @brief Force COW if needed
      * @post The array is no longer shared, if it was.
      */
-    inline void getOwnCopy() const { AboutToModify(capacity()); };
+    inline void getOwnCopy() const { AboutToModify(length()); };
 
     /*
      * @brief Warn the reference counting that it may need to COW
