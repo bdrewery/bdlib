@@ -55,7 +55,7 @@ class ArrayRef {
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
      */
-    void Reserve(const size_t newSize, size_t& offset) const
+    void Reserve(const size_t newSize, size_t& offset, size_t sublen) const
     {
       /* Don't new if we already have enough room! */
       if (size < newSize) {
@@ -65,7 +65,7 @@ class ArrayRef {
 
         if (newbuf != buf) {
           /* Copy old buffer into new - only copy the substring */
-          std::copy(buf + offset, buf + offset + len, newbuf);
+          std::copy(buf + offset, buf + offset + sublen, newbuf);
           FreeBuf(buf);
           buf = newbuf;
           offset = 0;
@@ -74,7 +74,7 @@ class ArrayRef {
         // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
         // Shift everything to the beginning and reset the offset
         /* Only copy the substring */
-        memmove(buf, buf + offset, len);
+        memmove(buf, buf + offset, sublen);
         offset = 0;
       }
     }
@@ -386,7 +386,7 @@ class ReferenceCountedArray {
      * @sa ArrayRef::Reserve()
      * @post The String will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize, offset); };
+    virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize, offset, sublen); };
 
     /**
      * @brief Clear contents of String and set length to 0
