@@ -405,7 +405,7 @@ inline String& String::operator += (const String& string) {
 inline String& String::operator += (const int n) {
   if (!length())
     return *this;
-  if (int(length()) - n < 0) {
+  if ((int(length()) - n) < 0) {
     offset = length();
     setLength(0);
   } else {

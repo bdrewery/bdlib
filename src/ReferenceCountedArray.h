@@ -592,8 +592,7 @@ class ReferenceCountedArray {
       if (start < 0)
         start = 0;
 
-      size_t newOffset = offset + start;
-      offset = newOffset;
+      offset += start;
       //If the length of the subarray exceeds the end of the array, truncate to the end of the array
       if (start + len >= (signed) length())
         len = length() - start;
