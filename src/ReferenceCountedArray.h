@@ -41,12 +41,11 @@ template <class T>
 class ArrayRef {
   public:
     ~ArrayRef() { FreeBuf(buf); };
-    mutable size_t len; //Length of string
     mutable size_t size; //Capacity of buffer
     mutable T* buf;
     mutable uint8_t n; //References
 
-    ArrayRef() : len(0), size(0), buf(NULL), n(1) {};
+    ArrayRef() : size(0), buf(NULL), n(1) {};
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
      * @param newSize A size that we need to Allocate the buffer to.
@@ -200,17 +199,17 @@ class ReferenceCountedArray {
      * @brief Set the lengths to the specified length
      * @param newLen the new length to set to
      */
-    inline void setLength(size_t newLen) const { Ref->len = sublen = newLen; };
+    inline void setLength(size_t newLen) const { sublen = newLen; };
 
     /**
      * @sa setLength()
      */
-    inline void addLength(size_t diff) const { Ref->len += diff; sublen += diff; };
+    inline void addLength(size_t diff) const { sublen += diff; };
 
     /**
      * @sa setLength()
      */
-    inline void subLength(size_t diff) const { Ref->len -= diff; sublen -= diff; };
+    inline void subLength(size_t diff) const { sublen -= diff; };
 
     /**
      * @brief Mutable Ref->buf+offset reference for use internally
