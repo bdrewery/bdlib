@@ -663,21 +663,15 @@ void StringTest :: incDecEqualTest(void)
 
   *a = " \r\n";
   *b = a->substring(0, 1);
-  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(1));
-  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(1));
-  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(0));
-  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(0));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length());
+  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length());
   CPPUNIT_ASSERT_EQUAL(true, strcmp(" ", b->c_str()) == 0);
-  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(1));
-  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(1));
-  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(0));
-  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length(0));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length());
+  CPPUNIT_ASSERT_EQUAL((size_t)3, a->length());
   (*a) += int(1) + 1;
   (*a) += 1;
-  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(1));
-  CPPUNIT_ASSERT_EQUAL((size_t)0, a->length(1));
-  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length(0));
-  CPPUNIT_ASSERT_EQUAL((size_t)0, a->length(0));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->length());
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->length());
   CPPUNIT_ASSERT_EQUAL((size_t)0, strlen(a->c_str()));
 }
 

@@ -420,7 +420,7 @@ class ReferenceCountedArray {
      * @brief Returns length of the string.
      * @return Length of the string.
      */
-    inline size_t length(int debug = 0) const { if (debug) return Ref->len; return sublen; };
+    inline size_t length() const { return sublen; };
     /**
      * @sa length()
      */
@@ -577,8 +577,6 @@ class ReferenceCountedArray {
      * The returned slice is a reference to the original array until modified.
      */
     void slice(int start, int len = -1) {
-      getOwnCopy();
-
       if (len == -1) len = int(length()) - start;
       // Start is after the end, set us to an empty array
       if (start >= (signed) length()) {
