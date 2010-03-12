@@ -92,6 +92,24 @@ void StringTest :: compareTest (void)
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare(*c));
 }
 
+void StringTest :: refTest (void)
+{
+  *a = "Test 1 2 3";
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
+  *b = *a;
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  *c = *b;
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), c->rcount());
+
+  *c = "test";
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
+}
+
 void StringTest :: equalTest (void)
 {
   CPPUNIT_ASSERT_EQUAL (*b, *c);
@@ -881,11 +899,16 @@ void StringTest :: encryptBase64Test(void)
 void StringTest :: substringTest(void)
 {
   *a = "Why hello there!";
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
   String substring(a->substring(4, 5));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), substring.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL("Why hello there!", *a);
   CPPUNIT_ASSERT('h' == substring[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("hello", substring);
   substring += " bryan";
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), substring.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL("Why hello there!", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("hello bryan", substring);
 
