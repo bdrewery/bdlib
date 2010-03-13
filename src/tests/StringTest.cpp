@@ -90,6 +90,8 @@ void StringTest :: compareTest (void)
   CPPUNIT_ASSERT((*f).compare(cstring) < 0);
   CPPUNIT_ASSERT((*d).compare(*f) > 0);
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare(*c));
+  CPPUNIT_ASSERT(String("abc") < String("def"));
+  CPPUNIT_ASSERT(String("abc") < String("abcdef"));
 }
 
 void StringTest :: refTest (void)
