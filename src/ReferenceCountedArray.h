@@ -407,7 +407,7 @@ class ReferenceCountedArray {
       if (len < this->length()) {
         this->subLength(this->length() - len);
       } else {
-        this->AboutToModify(length() + len);
+        this->AboutToModify(len);
         for (size_t i = 0; i < (len - this->length()); ++i)
           *(Buf(this->length() + i)) = value;
         this->addLength(len - this->length());
