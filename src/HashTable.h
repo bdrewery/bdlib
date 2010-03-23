@@ -29,6 +29,9 @@
 #include "List.h"
 BDLIB_NS_BEGIN
 
+template <class T>
+class Array;
+
 template <class Key, class Value>
 /**
   * @class HashTable
@@ -147,6 +150,42 @@ class HashTable {
       * @param key The key to search for
       */
     inline const Value operator [](const Key& key) const { return getValue(key); }
+
+    /*
+     * @brief Return an array of all the keys
+     */
+    Array<Key> keys() const {
+      Array<Key> tmp(size());
+
+      typename List<iterator_type>::iterator iter;
+      for (size_t i = 0; i < capacity(); ++i) {
+        if (list[i].size()) {
+          for (iter = list[i].begin(); iter; (++iter)) {
+            iterator_type kv = *iter;
+            tmp << kv.key();
+          }
+        }
+      }
+      return tmp;
+    }
+
+    /*
+     * @brief Return an array of all the values
+     */
+    Array<Value> values() const {
+      Array<Value> tmp(size());
+
+      typename List<iterator_type>::iterator iter;
+      for (size_t i = 0; i < capacity(); ++i) {
+        if (list[i].size()) {
+          for (iter = list[i].begin(); iter; (++iter)) {
+            iterator_type kv = *iter;
+            tmp << kv.value();
+          }
+        }
+      }
+      return tmp;
+    }
     
     /**
       * @brief Associate array type accessor (lvalue)

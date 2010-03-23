@@ -7,6 +7,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include "String.h"
+#include "Array.h"
 #include "HashTable.h"
 using namespace BDLIB_NS;
 

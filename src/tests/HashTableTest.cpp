@@ -152,6 +152,22 @@ void HashTableTest :: containsTest (void)
   (*sa)["42"] = "42";
   CPPUNIT_ASSERT_EQUAL((size_t)5, sa->size());
   CPPUNIT_ASSERT_EQUAL(true, sa->contains("42"));
+
+
+  //Test .keys and .values
+  Array<String> keys = sa->keys();
+  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("1") != size_t(-1));
+  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("2") != size_t(-1));
+  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("8") != size_t(-1));
+  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("4") != size_t(-1));
+  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("42") != size_t(-1));
+  CPPUNIT_ASSERT_EQUAL(size_t(5), keys.size());
+
+  Array<String> values = sa->values();
+  CPPUNIT_ASSERT_EQUAL(bool(1), values.find("Blah") != size_t(-1));
+  CPPUNIT_ASSERT_EQUAL(bool(1), values.find("42") != size_t(-1));
+  CPPUNIT_ASSERT_STRING_EQUAL("LOL", values.join(' '));
+  CPPUNIT_ASSERT_EQUAL(size_t(5), values.size());
 }
 
 void HashTableTest :: clearTest (void)
