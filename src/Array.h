@@ -97,6 +97,7 @@ class Array : public ReferenceCountedArray<T> {
      * @post A buffer has been created.
      */
     explicit Array(const size_type newSize) : ReferenceCountedArray<value_type>(newSize) {};
+    Array(const size_type newSize, const value_type value) : ReferenceCountedArray<value_type>(newSize, value) {};
 
     virtual ~Array() {};
 

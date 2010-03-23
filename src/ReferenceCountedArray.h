@@ -320,7 +320,7 @@ class ReferenceCountedArray {
     ReferenceCountedArray() : Ref(new ArrayRef<value_type>()), offset(0), sublen(0) {};
     ReferenceCountedArray(const ReferenceCountedArray& rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen) { incRef(); };
     /**
-     * @brief Create an empty String container with at least the specified bytes in size.
+     * @brief Create an empty container with at least the specified bytes in size.
      * @param newSize Reserve at least this many bytes for this String.
      * @post This string's memory will also never be shrunk.
      * @post A buffer has been created.
@@ -332,6 +332,22 @@ class ReferenceCountedArray {
       if (newSize <= 0) return;
       Reserve(newSize);
     };
+    /**
+     * @brief Create a container filled with n copies of the given value.
+     * @param newSize Reserve at least this many bytes for this String.
+     * @param value The value to populate the array with
+     * @post This string's memory will also never be shrunk.
+     * @post A buffer has been created.
+     *
+     */
+    ReferenceCountedArray(const size_t newSize, const value_type value) : Ref(new ArrayRef<value_type>()), offset(0), sublen(0) {
+      if (newSize <= 0) return;
+      Reserve(newSize);
+
+      for (size_t i = 0; i < newSize; ++i)
+        *(Buf(i)) = value;
+      this->setLength(newSize);
+    }
 
     /**
      * @brief Array Destructor

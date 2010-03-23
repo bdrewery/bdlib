@@ -119,6 +119,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * a char buf[N];
          */
         explicit String(const size_t newSize) : ReferenceCountedArray<String_Array_Type>(newSize) {};
+        String(const size_t newSize, const char value) : ReferenceCountedArray<String_Array_Type>(newSize, value) {};
 
 
         virtual ~String() {
