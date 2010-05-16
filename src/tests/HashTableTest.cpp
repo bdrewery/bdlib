@@ -166,7 +166,7 @@ void HashTableTest :: containsTest (void)
   Array<String> values = sa->values();
   CPPUNIT_ASSERT_EQUAL(bool(1), values.find("Blah") != size_t(-1));
   CPPUNIT_ASSERT_EQUAL(bool(1), values.find("42") != size_t(-1));
-  CPPUNIT_ASSERT_STRING_EQUAL("LOL", values.join(' '));
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah Blah Blah Blah 42", values.join(' '));
   CPPUNIT_ASSERT_EQUAL(size_t(5), values.size());
 }
 
