@@ -1349,7 +1349,6 @@ void StringTest :: resizeTest(void)
 }
 
 void StringTest :: substTest(void) {
-#ifdef no
   *a = "$this $is $a $test";
   HashTable<String, String> hashes;
   hashes["$this"] = "THIS";
@@ -1362,12 +1361,11 @@ void StringTest :: substTest(void) {
 
   *a += " $this";
   *b = a->subst(hashes);
-  CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test *this", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test $this", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS IS A TEST THIS", *b);
 
   hashes[" "] = ",";
   *b = a->subst(hashes);
-  CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test *this", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test $this", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS,IS,A,TEST,THIS", *b);
-#endif
 }

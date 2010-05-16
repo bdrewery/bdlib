@@ -273,9 +273,12 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         String sub(const String& search, const String& replacement, int limit = -1) const;
 
-#ifdef no
+        /*
+         * @brief Return a new string with the values mapped from the given hash list
+         * @param hashes The mapping to use
+         * @return A new String is returned
+         */
         String subst(HashTable<String, String> hashes) const;
-#endif
 
 #ifdef __GNUC__
         /* GNU GCC DOC: 
