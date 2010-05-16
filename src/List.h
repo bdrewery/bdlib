@@ -47,6 +47,13 @@ class List {
       Node* prev;
       
       Node(const iterator_type& p) : ptr(p), next(NULL), prev(NULL) {};
+      /* To avoid -Weffc++ warnings */
+      Node(const Node& n) : ptr(n.ptr), next(n.next), prev(n.prev) {};
+      Node& operator=(const Node& n) {
+        ptr = n.ptr;
+        next = n.next;
+        prev = n.prev;
+      }
     };
 
     void deleteNode(Node* node) {
