@@ -75,6 +75,7 @@ EGG_CHECK_RANDOM_MAX
 
 # Create static binaries
 AC_SUBST(CXXDEBUG)dnl
+AC_SUBST(MAKEJOBS)dnl
 
 #checkpoint
 AC_CACHE_SAVE 
