@@ -139,14 +139,9 @@ int Stream::writeFile(const int fd) const
 #ifdef HAVE_MMAP
   /* Write to end of file to make its size match */
   /* Seek past wherever it is at now plus our length */
-  if (length()) {
-    if (lseek(fd, length() - 1, SEEK_CUR) == -1) return 1;
-    if (write(fd, "", 1) == -1) return 1;
-  } else {
-    if (lseek(fd, 0, SEEK_CUR) == -1) return 1;
-    if (write(fd, "", 0) == -1) return 1;
+  if (ftruncate(fd, length())) return 1;
+  if (!length())
     return 0;
-  }
 
   unsigned char* map = (unsigned char*) mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
 
