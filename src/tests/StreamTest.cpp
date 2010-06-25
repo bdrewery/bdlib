@@ -247,7 +247,7 @@ void StreamTest :: writeFileTest (void)
   const char *file = "/etc/passwd";
 
   a->loadFile(file);
-  a->writeFile(fd);
+  CPPUNIT_ASSERT_EQUAL(a->writeFile(fd), 0);
 
   /* Verify that the written file matches the source file */
 
