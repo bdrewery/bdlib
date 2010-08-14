@@ -131,7 +131,7 @@ class Slice {
     Slice(T& _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
     Slice(const Slice& slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
 
-    /*
+    /**
      * @brief return a new (const) slice
      */
 
@@ -232,7 +232,7 @@ class ReferenceCountedArray {
      */
     mutable ArrayRef<value_type> *Ref;
   protected:
-    /*
+    /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
      */
     inline const_pointer real_begin() const { return Ref->buf; };
@@ -297,13 +297,13 @@ class ReferenceCountedArray {
     }
 
   protected:
-    /*
+    /**
      * @brief Force COW if needed
      * @post The array is no longer shared, if it was.
      */
     inline void getOwnCopy() const { AboutToModify(length()); };
 
-    /*
+    /**
      * @brief Warn the reference counting that it may need to COW
      * @post The buffer is detached/COW, and possibly larger
      * @todo If the buffer is shared and needs to shrink, the sublen should just be decreased.
@@ -387,7 +387,7 @@ class ReferenceCountedArray {
       return *this;
     }
 
-    /*
+    /**
      * @brief How many references does this object have?
      */
     inline size_t rcount() const { return Ref->n; };
@@ -414,7 +414,7 @@ class ReferenceCountedArray {
      */
     inline size_t capacity() const { return Ref->size; };
 
-    /*
+    /**
      * @brief Resize the array to the given length.
      * @param len The length to resize to.
      * @param value The optional parameter to fill the space with if the array is expanded
@@ -463,7 +463,7 @@ class ReferenceCountedArray {
 
     typedef Hash<value_type> HashType;
 
-   /*
+   /**
      * @brief Return a hash of every element in the array
      * @note DJB's hash function
      */
@@ -477,7 +477,7 @@ class ReferenceCountedArray {
     }
 
 
-    /*
+    /**
      * @brief Find an item in the array
      * @return The position of the item if found, or npos if not found
      **/
@@ -510,7 +510,7 @@ class ReferenceCountedArray {
      */
     inline value_type read(int i) const { return *(constBuf(i)); };
 
-    /*
+    /**
      * @brief Write an item to the given index
      */
     inline void write(int i, value_type item) {

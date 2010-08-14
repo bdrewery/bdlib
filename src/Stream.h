@@ -74,7 +74,7 @@ class Stream {
         int seek(int, int);
         void clear() { str.clear(); pos = 0; }
 
-        /*
+        /**
          * @brief Insert a string into the stream.
          * @note The stream pointer is advanced as well
          */
@@ -83,7 +83,7 @@ class Stream {
           pos += string.length();
         }
 
-        /*
+        /**
          * @brief Reads 1 line from the stream
          * @note The stream pointer is advanced as well
          * @param maxSize Optional param which specifies max data to pull
@@ -91,7 +91,7 @@ class Stream {
          */
         virtual String getline (size_t maxSize = 99999999) { return gets(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
 
-        /*
+        /**
          * @brief Reads specified number of bytes from the stream
          * @param maxSize How many bytes to read
          * @param delim What to split the read on. For example: '\n' will return 1 line.
@@ -99,7 +99,7 @@ class Stream {
          */
         virtual String gets (size_t maxSize, char delim = 0);
 
-        /*
+        /**
          * @brief Load a file into the stream
          * @returns 1 on error, 0 on success.
          * @param fd File descriptor to read from
@@ -110,7 +110,7 @@ class Stream {
          */
         virtual int loadFile(const int);
 
-        /*
+        /**
          * @brief Load a file into the stream
          * @returns 1 on error, 0 on success.
          * @param fname File to read from
@@ -120,7 +120,7 @@ class Stream {
          */
         virtual int loadFile(const String&);
 
-        /*
+        /**
          * @brief Write stream out to a file
          * @returns 1 on error, 0 on success
          * @param fd File descriptor to write to
@@ -128,7 +128,7 @@ class Stream {
          */
         virtual int writeFile(const int) const;
 
-        /*
+        /**
          * @brief Write stream out to a file
          * @returns 1 on error, 0 on success
          * @param fname Filename to write to

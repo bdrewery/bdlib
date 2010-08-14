@@ -66,7 +66,7 @@ class Stack : public List<T> {
       return this->isEmpty() ? iterator_type() : this->head->ptr;
     }
 
-    /*
+    /**
      * @brief Push an element on to the top of stack
      * @param item The element to push back
      */

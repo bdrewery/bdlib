@@ -84,7 +84,7 @@ class Queue : public List<T> {
     }
 
 
-    /*
+    /**
      * @brief Enqueue an element into the queue
      * @param item The element to enqueue
      * @todo Make this take an iterator as a position to insert at

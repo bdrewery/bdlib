@@ -74,7 +74,7 @@ class HashTable {
       _size = 0;
     }
 
-    /*
+    /**
      * @brief A ruby stule block which will yield to the passed callback for each Key/Value pair.
      * @param param An optional parameter to pass to the block.
      */
@@ -151,7 +151,7 @@ class HashTable {
       */
     inline const Value operator [](const Key& key) const { return getValue(key); }
 
-    /*
+    /**
      * @brief Return an array of all the keys
      */
     Array<Key> keys() const {
@@ -169,7 +169,7 @@ class HashTable {
       return tmp;
     }
 
-    /*
+    /**
      * @brief Return an array of all the values
      */
     Array<Value> values() const {

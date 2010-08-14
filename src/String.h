@@ -128,14 +128,14 @@ class String : public ReferenceCountedArray<String_Array_Type> {
             cleanse();
         }
 
-        /*
+        /**
          * @brief Find a string in the string
          * @return The position of the string if found, or String::npos if not found
          **/
         size_t find(const String&) const;
         using ReferenceCountedArray<String_Array_Type>::find;
 
-        /*
+        /**
          * @brief Give an OutputIterator for STL usage
          * @post The string is detached.
          */
@@ -154,7 +154,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           return data();
         }
 
-        /*
+        /**
          * @brief Duplicate the string into a c-style NULL-terminated buffer which must be deleted
          */
         inline char* dup() const {
@@ -209,13 +209,13 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         String trim() const { return String(*this).trim(); }
 
-        /*
+        /**
          * @sa at
          */
         inline char charAt(int i) const { return at(i); };
 
         // Substrings
-        /*
+        /**
          * @sa ReferenceCountedArray::slice()
          */
         String substring(int start, int len = -1) const {
@@ -224,7 +224,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           return newString;
         };
 
-        /*
+        /**
          * @sa substring
          */
         inline String operator()(int start, int len = -1) const { return substring(start, len); };
@@ -264,7 +264,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         void replace(int, const char*, int = -1);
         using ReferenceCountedArray<String_Array_Type>::replace;
 
-        /*
+        /**
          * @brief Replace all occurances of the given search with the given replacement.
          * @param search The string to search for.
          * @param replacement The string to replace with
@@ -273,7 +273,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         String sub(const String& search, const String& replacement, int limit = -1) const;
 
-        /*
+        /**
          * @brief Return a new string with the values mapped from the given hash list
          * @param hashes The mapping to use
          * @return A new String is returned

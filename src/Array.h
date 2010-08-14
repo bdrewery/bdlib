@@ -101,7 +101,7 @@ class Array : public ReferenceCountedArray<T> {
 
     virtual ~Array() {};
 
-    /*
+    /**
      * @brief Add an item to the end of the array
      */
     inline void push(const value_type item) {
@@ -118,7 +118,7 @@ class Array : public ReferenceCountedArray<T> {
       return array;
     }
 
-    /*
+    /**
      * @brief Shift the array left, removing the first element.
      * @return The first element.
      */
@@ -131,7 +131,7 @@ class Array : public ReferenceCountedArray<T> {
       return temp;
     }
 
-    /*
+    /**
      * @brief Pop a value off the end of the array
      * @return The last element.
      */
@@ -151,7 +151,7 @@ class Array : public ReferenceCountedArray<T> {
       return array;
     }
 
-    /*
+    /**
      * @brief Join an array by a delimiter into a string
      */
     String join(const String& delim) const {
@@ -196,7 +196,7 @@ class Array : public ReferenceCountedArray<T> {
     inline friend bool operator != (const Array& lhs, const Array& rhs) {return ! (lhs == rhs);};
 
     // Subarrays
-    /*
+    /**
      * @sa ReferenceCountedArray::slice()
      */
     inline Array subarray(int start, int len = -1) const {
@@ -205,7 +205,7 @@ class Array : public ReferenceCountedArray<T> {
       return newArray;
     };
 
-    /*
+    /**
      * @sa substring
      */
     inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
