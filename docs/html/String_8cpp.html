@@ -75,10 +75,6 @@ window.onload = initDynSections;
 </div>
 <div class="contents">
 <h1>String.cpp File Reference</h1><code>#include &quot;<a class="el" href="String_8h.html">String.h</a>&quot;</code><br>
-<code>#include &quot;<a class="el" href="Array_8h.html">Array.h</a>&quot;</code><br>
-<code>#include &lt;stdarg.h&gt;</code><br>
-<code>#include &lt;cstring&gt;</code><br>
-<code>#include &quot;<a class="el" href="base64_8h.html">base64.h</a>&quot;</code><br>
 
 <p>
 <div class="dynheader">
@@ -86,24 +82,148 @@ Include dependency graph for String.cpp:</div>
 <div class="dynsection">
 <p><center><img src="String_8cpp__incl.png" border="0" usemap="#String.cpp_map" alt=""></center>
 <map name="String.cpp_map">
-<area shape="rect" id="node3" href="String_8h.html" title="String.h" alt="" coords="445,155,512,181"><area shape="rect" id="node32" href="Array_8h.html" title="Array.h" alt="" coords="348,80,415,107"><area shape="rect" id="node41" href="base64_8h.html" title="base64.h" alt="" coords="5,155,83,181"><area shape="rect" id="node5" href="bdlib_8h.html" title="bdlib.h" alt="" coords="140,379,201,405"><area shape="rect" id="node9" href="ReferenceCountedArray_8h.html" title="ReferenceCountedArray.h" alt="" coords="293,229,469,256"><area shape="rect" id="node7" href="bits_8h.html" title="bits.h" alt="" coords="144,453,197,480"><area shape="rect" id="node12" href="hash_8h.html" title="hash.h" alt="" coords="347,304,408,331"></map>
+<area shape="rect" id="node3" href="String_8h.html" title="String.h" alt="" coords="69,83,133,111"><area shape="rect" id="node5" href="bdlib_8h.html" title="bdlib.h" alt="" coords="174,393,233,421"><area shape="rect" id="node9" href="HashTable_8h.html" title="HashTable.h" alt="" coords="159,161,247,189"><area shape="rect" id="node7" href="bits_8h.html" title="bits.h" alt="" coords="178,470,229,498"><area shape="rect" id="node12" href="hash_8h.html" title="hash.h" alt="" coords="110,238,166,266"><area shape="rect" id="node17" href="Iterator_8h.html" title="Iterator.h" alt="" coords="291,315,361,343"><area shape="rect" id="node22" href="List_8h.html" title="List.h" alt="" coords="241,238,291,266"></map>
 </div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Namespaces</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebd.html">bd</a></td></tr>
-
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">std::istream &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebd.html#a7527517b219922283d4e9930db216ca">bd::getline</a> (std::istream &amp;is, String &amp;string)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::istream &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="String_8cpp.html#60c3f45de26c84c28f8d920487171937">getline</a> (std::istream &amp;is, <a class="el" href="classString.html">String</a> &amp;string)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">String&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebd.html#1545ecc548b689d903798f865601351d">bd::newsplit</a> (String &amp;str, char delim)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="String_8cpp.html#184858f355004bf84d950d85d783f69d">newsplit</a> (<a class="el" href="classString.html">String</a> &amp;str, char delim)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Splits off tokens.  <a href="#1545ecc548b689d903798f865601351d"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">std::istream &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebd.html#2d838c1059521b2de0d16b002b2be024">bd::operator&gt;&gt;</a> (std::istream &amp;is, String &amp;string)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Splits off tokens.  <a href="#184858f355004bf84d950d85d783f69d"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">ostream &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="String_8cpp.html#f27d3ede1b768d963cfc26ed31fa17a7">operator&lt;&lt;</a> (ostream &amp;os, const vector&lt; <a class="el" href="classString.html">String</a> &gt; list)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::istream &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="String_8cpp.html#a7d8b2f384b3f979aba57859a7e614c3">operator&gt;&gt;</a> (std::istream &amp;is, <a class="el" href="classString.html">String</a> &amp;string)</td></tr>
 
 </table>
+<hr><h2>Function Documentation</h2>
+<a class="anchor" name="60c3f45de26c84c28f8d920487171937"></a><!-- doxytag: member="String.cpp::getline" ref="60c3f45de26c84c28f8d920487171937" args="(std::istream &amp;is, String &amp;string)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::istream&amp; getline           </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&nbsp;</td>
+          <td class="paramname"> <em>is</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classString.html">String</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>string</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 19 11:36:01 2009 for BDLIB by&nbsp;
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="184858f355004bf84d950d85d783f69d"></a><!-- doxytag: member="String.cpp::newsplit" ref="184858f355004bf84d950d85d783f69d" args="(String &amp;str, char delim)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classString.html">String</a> newsplit           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classString.html">String</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>delim</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Splits off tokens. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>str</em>&nbsp;</td><td>The string to split a token off of </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>delim</em>&nbsp;</td><td>The delimiter to tokenize with This will modify the given string to remove the first token, which is returned. If no more tokens exist, the remaining string is returned and the string becomes "". Future calls will return a blank <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a>("") </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="f27d3ede1b768d963cfc26ed31fa17a7"></a><!-- doxytag: member="String.cpp::operator&lt;&lt;" ref="f27d3ede1b768d963cfc26ed31fa17a7" args="(ostream &amp;os, const vector&lt; String &gt; list)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ostream&amp; operator&lt;&lt;           </td>
+          <td>(</td>
+          <td class="paramtype">ostream &amp;&nbsp;</td>
+          <td class="paramname"> <em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; <a class="el" href="classString.html">String</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>list</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="a7d8b2f384b3f979aba57859a7e614c3"></a><!-- doxytag: member="String.cpp::operator&gt;&gt;" ref="a7d8b2f384b3f979aba57859a7e614c3" args="(std::istream &amp;is, String &amp;string)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::istream&amp; operator&gt;&gt;           </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&nbsp;</td>
+          <td class="paramname"> <em>is</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classString.html">String</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>string</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Aug 14 15:39:31 2010 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

@@ -90,6 +90,7 @@ window.onload = initDynSections;
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#6aa5dbecf5b3f0b01046b1fdfae7bfd5">operator T</a> () const </td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return a new (const) slice  <a href="#6aa5dbecf5b3f0b01046b1fdfae7bfd5"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classbd_1_1Slice.html">Slice</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#4c437537b4dd93956b99a34e69daa9cd">operator=</a> (const T &amp;array)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classbd_1_1Slice.html">Slice</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#96426151644383b917ea39a386358862">operator=</a> (const <a class="el" href="classbd_1_1Slice.html">Slice</a> &amp;slice)</td></tr>
@@ -105,7 +106,7 @@ window.onload = initDynSections;
 
 Safe subarray reading and writing. 
 <p>
-<dl compact><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char <a class="el" href="classbd_1_1ReferenceCountedArray.html#04c1fab15b0cfcc27463c17afd0d18e9" title="Safe element access operator.">String::operator[]</a> This class should be optimized away and fully inlined such that: <a class="el" href="classbd_1_1String.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd></dl>
+<dl compact><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: <a class="el" href="classString.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd></dl>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="a173f41b95d9eb7c6f3a575f6517db90"></a><!-- doxytag: member="bd::Slice::Slice" ref="a173f41b95d9eb7c6f3a575f6517db90" args="(T &amp;_rca, int _start, int _len)" -->
 <div class="memitem">
@@ -185,6 +186,8 @@ template&lt;class T &gt; </div>
 <div class="memdoc">
 
 <p>
+return a new (const) slice 
+<p>
 
 </div>
 </div><p>
@@ -207,7 +210,7 @@ template&lt;class T &gt; </div>
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>This needs to account for negative start/len </dd></dl>
+<dl compact><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>This needs to account for negative start/len </dd></dl>
 
 </div>
 </div><p>
@@ -236,7 +239,7 @@ template&lt;class T &gt; </div>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="ReferenceCountedArray_8h.html">ReferenceCountedArray.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 19 11:36:01 2009 for BDLIB by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Aug 14 15:39:32 2010 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
