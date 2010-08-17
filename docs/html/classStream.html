@@ -97,9 +97,6 @@ Collaboration diagram for Stream:</div>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual <a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#1febcdf542c038de56c76204b15c4337">getline</a> (size_t maxSize=99999999)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reads 1 line from the stream.  <a href="#1febcdf542c038de56c76204b15c4337"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual <a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#b4f25c6755b0da306a029dcb9a79f5d4">gets</a> (size_t maxSize, char delim=0)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reads specified number of bytes from the stream.  <a href="#b4f25c6755b0da306a029dcb9a79f5d4"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#d5e62dd453443ec8a478a07f923161d0">length</a> () const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#c2eb51988c67ddbf05298144ff4f2ca3">loadFile</a> (const <a class="el" href="classString.html">String</a> &amp;)</td></tr>
@@ -117,6 +114,9 @@ Collaboration diagram for Stream:</div>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#5af1d2ba2f0e945272785438391dc821">puts</a> (const <a class="el" href="classString.html">String</a> &amp;string)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Insert a string into the stream.  <a href="#5af1d2ba2f0e945272785438391dc821"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual <a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#b567554abf6222f6429d4c037666599f">read</a> (size_t maxSize, char delim=0)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reads specified number of bytes from the stream.  <a href="#b567554abf6222f6429d4c037666599f"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#23230253c92f15380eca93e681129137">Reserve</a> (const size_t) const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStream.html#ae52851d731d1d2a7b7c1d95c9b8c02a">seek</a> (int, int)</td></tr>
@@ -317,46 +317,7 @@ Reads 1 line from the stream.
     <tr><td valign="top"></td><td valign="top"><em>maxSize</em>&nbsp;</td><td>Optional param which specifies max data to pull </td></tr>
   </table>
 </dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classStream.html#b4f25c6755b0da306a029dcb9a79f5d4" title="Reads specified number of bytes from the stream.">gets</a> </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="b4f25c6755b0da306a029dcb9a79f5d4"></a><!-- doxytag: member="Stream::gets" ref="b4f25c6755b0da306a029dcb9a79f5d4" args="(size_t maxSize, char delim=0)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classString.html">String</a> Stream::gets           </td>
-          <td>(</td>
-          <td class="paramtype">size_t&nbsp;</td>
-          <td class="paramname"> <em>maxSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char&nbsp;</td>
-          <td class="paramname"> <em>delim</em> = <code>0</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Reads specified number of bytes from the stream. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>maxSize</em>&nbsp;</td><td>How many bytes to read </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>delim</em>&nbsp;</td><td>What to split the read on. For example: '<br>
-' will return 1 line. </td></tr>
-  </table>
-</dl>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The stream pointer is advanced as well </dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classStream.html#b567554abf6222f6429d4c037666599f" title="Reads specified number of bytes from the stream.">read</a> </dd></dl>
 
 </div>
 </div><p>
@@ -518,6 +479,45 @@ The fd is not closed. </dd></dl>
 <p>
 Insert a string into the stream. 
 <p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The stream pointer is advanced as well </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="b567554abf6222f6429d4c037666599f"></a><!-- doxytag: member="Stream::read" ref="b567554abf6222f6429d4c037666599f" args="(size_t maxSize, char delim=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classString.html">String</a> Stream::read           </td>
+          <td>(</td>
+          <td class="paramtype">size_t&nbsp;</td>
+          <td class="paramname"> <em>maxSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>delim</em> = <code>0</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Reads specified number of bytes from the stream. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>maxSize</em>&nbsp;</td><td>How many bytes to read </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>delim</em>&nbsp;</td><td>What to split the read on. For example: '<br>
+' will return 1 line. </td></tr>
+  </table>
+</dl>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>The stream pointer is advanced as well </dd></dl>
 
 </div>
@@ -760,7 +760,7 @@ Write stream out to a file.
 <hr>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="Stream_8h.html">Stream.h</a><li><a class="el" href="Stream_8cpp.html">Stream.cpp</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Aug 14 15:46:07 2010 for BDLIB by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Tue Aug 17 13:42:16 2010 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
