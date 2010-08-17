@@ -51,7 +51,7 @@ int Stream::seek (int offset, int whence) {
   return newpos;
 }
 
-String Stream::gets (size_t maxSize, char delim) {
+String Stream::read (size_t maxSize, char delim) {
   size_t toRead = std::min(maxSize, length() - pos);
 
   /* No need to split the string, return a substring */

@@ -124,7 +124,7 @@ void StreamTest :: truncateTest (void)
   CPPUNIT_ASSERT(*a == "This is a ");
 }
 
-void StreamTest :: getsTest (void)
+void StreamTest :: readTest (void)
 {
   String sbuf, gbuf;
 
@@ -147,7 +147,7 @@ void StreamTest :: getsTest (void)
   size_t pos = 0;
   while (a->tell() < a->length()) {
     sbuf.printf("This is line%2d\nThis is line%2d\n", x + 1, x + 2);
-    gbuf = a->gets(30);
+    gbuf = a->read(30);
     pos += gbuf.length();
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());
     CPPUNIT_ASSERT_EQUAL((size_t) 30, gbuf.length());
@@ -161,7 +161,7 @@ void StreamTest :: getsTest (void)
   a->puts("This is line15\n");
   a->seek(savelen, SEEK_SET);
   sbuf = "This is line15\n";
-  gbuf = a->gets(30);
+  gbuf = a->read(30);
   pos += gbuf.length();
   CPPUNIT_ASSERT_EQUAL(pos, a->tell());
   CPPUNIT_ASSERT_EQUAL((size_t) 15, gbuf.length());

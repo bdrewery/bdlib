@@ -87,9 +87,9 @@ class Stream {
          * @brief Reads 1 line from the stream
          * @note The stream pointer is advanced as well
          * @param maxSize Optional param which specifies max data to pull
-         * @sa gets
+         * @sa read
          */
-        virtual String getline (size_t maxSize = 99999999) { return gets(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
+        virtual String getline (size_t maxSize = 99999999) { return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
 
         /**
          * @brief Reads specified number of bytes from the stream
@@ -97,7 +97,7 @@ class Stream {
          * @param delim What to split the read on. For example: '\n' will return 1 line.
          * @note The stream pointer is advanced as well
          */
-        virtual String gets (size_t maxSize, char delim = 0);
+        virtual String read (size_t maxSize, char delim = 0);
 
         /**
          * @brief Load a file into the stream
