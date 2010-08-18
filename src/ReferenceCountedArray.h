@@ -183,6 +183,7 @@ class ReferenceCountedArray {
       Ref = new ArrayRef<value_type>();
       sublen = 0;
       offset = 0;
+      my_hash = 0;
     }
     /**
      * @brief Increment our reference counter.
@@ -199,17 +200,17 @@ class ReferenceCountedArray {
      * @brief Set the lengths to the specified length
      * @param newLen the new length to set to
      */
-    inline void setLength(size_t newLen) const { sublen = newLen; };
+    inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
 
     /**
      * @sa setLength()
      */
-    inline void addLength(size_t diff) const { sublen += diff; };
+    inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
 
     /**
      * @sa setLength()
      */
-    inline void subLength(size_t diff) const { sublen -= diff; };
+    inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
 
     /**
      * @brief Mutable Ref->buf+offset reference for use internally
@@ -246,6 +247,11 @@ class ReferenceCountedArray {
      */
     mutable size_t sublen;
 
+    /**
+     * Cache of current hash() result. 0 if stale
+     */
+    mutable size_t my_hash;
+
   private:
     /**
      * @brief Detach from the reference
@@ -258,6 +264,7 @@ class ReferenceCountedArray {
       } else {
         setLength(0);
         offset = 0;
+        my_hash = 0;
       }
     }
 
@@ -309,6 +316,7 @@ class ReferenceCountedArray {
      * @todo If the buffer is shared and needs to shrink, the sublen should just be decreased.
      */
     inline void AboutToModify(size_t n) const {
+      my_hash = 0;
       if (isShared())
         COW(n); // Clears the offset
       else {
@@ -317,8 +325,8 @@ class ReferenceCountedArray {
       }
     }
   public:
-    ReferenceCountedArray() : Ref(new ArrayRef<value_type>()), offset(0), sublen(0) {};
-    ReferenceCountedArray(const ReferenceCountedArray& rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen) { incRef(); };
+    ReferenceCountedArray() : Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {};
+    ReferenceCountedArray(const ReferenceCountedArray& rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
     /**
      * @brief Create an empty container with at least the specified bytes in size.
      * @param newSize Reserve at least this many bytes for this String.
@@ -328,7 +336,7 @@ class ReferenceCountedArray {
      * The idea behind this is that if a specific size was asked for, the buffer is like
      * a char buf[N];
      */
-    explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef<value_type>()), offset(0), sublen(0) {
+    explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
       Reserve(newSize);
     };
@@ -340,7 +348,7 @@ class ReferenceCountedArray {
      * @post A buffer has been created.
      *
      */
-    ReferenceCountedArray(const size_t newSize, const value_type value) : Ref(new ArrayRef<value_type>()), offset(0), sublen(0) {
+    ReferenceCountedArray(const size_t newSize, const value_type value) : Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
       Reserve(newSize);
 
@@ -369,6 +377,7 @@ class ReferenceCountedArray {
       rca.incRef();
       offset = rca.offset;
       sublen = rca.sublen;
+      my_hash = rca.my_hash;
       CheckDeallocRef();
       Ref = rca.Ref;
       return *this;
@@ -464,16 +473,17 @@ class ReferenceCountedArray {
     typedef Hash<value_type> HashType;
 
    /**
-     * @brief Return a hash of every element in the array
+     * @brief Return a hash of every element in the array. Cache result as well.
      * @note DJB's hash function
      */
     virtual size_t hash() const {
+      if (my_hash != 0) return my_hash;
       HashType hasher;
       size_t _hash = 5381;
 
       for(size_t i = 0; i < this->length(); ++i)
         _hash = ((_hash << 5) + _hash) + hasher(this->data()[i]);
-      return (_hash & 0x7FFFFFFF);
+      return (my_hash = (_hash & 0x7FFFFFFF));
     }
 
 
