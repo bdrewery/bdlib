@@ -41,8 +41,9 @@ void StreamTest :: reserveTest (void)
   CPPUNIT_ASSERT(h->capacity() >= 1024);
   CPPUNIT_ASSERT((b->capacity() % 1024) == 0);
 
-  char buf[2048];
-  memset(buf, 'c', 2048);
+  char buf[2050];
+  memset(buf, 'c', sizeof(buf) - 1);
+  buf[sizeof(buf) - 1] = 0;
   g->puts(buf);
 
   CPPUNIT_ASSERT((g->capacity() >= 2048));
