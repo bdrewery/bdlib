@@ -140,7 +140,7 @@ Collaboration diagram for bd::ReferenceCountedArray&lt; T &gt;:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Find an item in the array.  <a href="#0b7f75d13ac0eaca06f81e087c31edf0"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray.html#edebd4843b1ecd8b2a498291849d3f2d">hash</a> () const </td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return a hash of every element in the array.  <a href="#edebd4843b1ecd8b2a498291849d3f2d"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return a hash of every element in the array. Cache result as well.  <a href="#edebd4843b1ecd8b2a498291849d3f2d"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray.html#6e4d5add09ad9fab3148fb38db37a446">hasIndex</a> (int i) const </td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Checks if the buffer has the given index or not.  <a href="#6e4d5add09ad9fab3148fb38db37a446"></a><br></td></tr>
@@ -232,6 +232,8 @@ Collaboration diagram for bd::ReferenceCountedArray&lt; T &gt;:</div>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray.html#5452dc6e54a06c0c52d57d90759b477d">subLength</a> (size_t diff) const </td></tr>
 
 <tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray.html#4ae308e716d936100bd50d436c7296c9">my_hash</a></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray.html#3c487afccb811bb3852d7153ad7ca4ec">offset</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray.html#26352fb0804b9a300f98fb0a8ec51ccf">sublen</a></td></tr>
@@ -900,7 +902,7 @@ template&lt;class T &gt; </div>
 <div class="memdoc">
 
 <p>
-Return a hash of every element in the array. 
+Return a hash of every element in the array. Cache result as well. 
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>DJB's hash function </dd></dl>
 
@@ -1597,6 +1599,23 @@ Write an item to the given index.
 </div>
 </div><p>
 <hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="4ae308e716d936100bd50d436c7296c9"></a><!-- doxytag: member="bd::ReferenceCountedArray::my_hash" ref="4ae308e716d936100bd50d436c7296c9" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T &gt;::<a class="el" href="classbd_1_1ReferenceCountedArray.html#4ae308e716d936100bd50d436c7296c9">my_hash</a><code> [mutable, protected]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Cache of current <a class="el" href="classbd_1_1ReferenceCountedArray.html#edebd4843b1ecd8b2a498291849d3f2d" title="Return a hash of every element in the array. Cache result as well.">hash()</a> result. 0 if stale 
+</div>
+</div><p>
 <a class="anchor" name="3c487afccb811bb3852d7153ad7ca4ec"></a><!-- doxytag: member="bd::ReferenceCountedArray::offset" ref="3c487afccb811bb3852d7153ad7ca4ec" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1634,7 +1653,7 @@ This is for subarrays: so we know where the subarray ends.
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="ReferenceCountedArray_8h.html">ReferenceCountedArray.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Aug 14 15:39:32 2010 for BDLIB by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Aug 21 17:05:35 2010 for BDLIB by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
