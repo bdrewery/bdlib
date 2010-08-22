@@ -1,4 +1,4 @@
-/* BinaryTree.h
+/* Stream.h
  *
  * Copyright (C) Bryan Drewery
  *
