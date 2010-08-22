@@ -35,3 +35,22 @@ void ScriptInterpTest :: evalTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("8", tcl_script.eval("expr {4 + 4}"));
   CPPUNIT_ASSERT_STRING_EQUAL(tcl_script.eval("set errorInfo"), tcl_script.eval("unknown"));
 }
+
+void ScriptInterpTest :: operatorEqualsTest (void)
+{
+  ScriptInterpTCL tcl_script;
+  tcl_script.init();
+  tcl_script.eval("set x 5");
+
+  CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script.eval("set x"));
+  ScriptInterpTCL tcl_script2;
+  tcl_script2.init();
+  tcl_script2.eval("set x 1");
+  CPPUNIT_ASSERT_STRING_EQUAL("1", tcl_script2.eval("set x"));
+
+
+  tcl_script2 = tcl_script;
+
+  CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script.eval("set x"));
+  CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script2.eval("set x"));
+}

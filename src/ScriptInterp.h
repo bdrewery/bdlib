@@ -39,6 +39,7 @@ class ScriptInterp {
         virtual ~ScriptInterp() {};
 
         virtual int init() = 0;
+        virtual int destroy() = 0;
         virtual String eval(const String&) = 0;
 };
 

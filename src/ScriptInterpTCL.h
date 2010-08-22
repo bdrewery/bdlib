@@ -43,6 +43,14 @@ class ScriptInterpTCL : public ScriptInterp {
         ScriptInterpTCL(const ScriptInterpTCL& ginterp) : ScriptInterp(ginterp), interp(NULL)  {};
         virtual ~ScriptInterpTCL() {};
 
+        inline ScriptInterpTCL& operator=(const ScriptInterpTCL& si) {
+          if (&si == this) return (*this);
+          destroy();
+          ScriptInterp::operator= (si);
+          interp = si.interp;
+          return (*this);
+        }
+
         virtual int init() {
           // create interp
           interp = Tcl_CreateInterp();
@@ -52,6 +60,11 @@ class ScriptInterpTCL : public ScriptInterp {
             fprintf(stderr, "Tcl_Init error: %s\n", Tcl_GetStringResult(interp));
             return 1;
           }
+          return 0;
+        }
+
+        virtual int destroy() {
+          Tcl_DeleteInterp(interp);
           return 0;
         }
 
