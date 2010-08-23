@@ -43,7 +43,7 @@ class ScriptInterpTCL : public ScriptInterp {
   protected:
 
   public:
-        ScriptInterpTCL() : ScriptInterp(), interp(NULL) {};
+        ScriptInterpTCL() : ScriptInterp(), interp(NULL) {init();};
         virtual ~ScriptInterpTCL() {destroy();};
 
         virtual int init();
