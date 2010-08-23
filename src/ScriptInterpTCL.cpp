@@ -39,14 +39,17 @@ String ScriptInterpTCL::eval(const String& script) {
   return String();
 }
 
+void ScriptInterpTCL::setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {
+  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
+  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
+  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
+}
+
 const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
   return "variable is read-only";
 }
 
-const char* ScriptInterpTCL::TraceGetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  String* str = (String*) clientData;
-  Tcl_Obj *value = (str->length() < INT_MAX) ? Tcl_NewStringObj(str->data(), str->length()) : NULL;
-
+const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags) {
   if (value) {
     Tcl_SetVar2(interp,name1,name2,Tcl_GetStringFromObj(value,NULL), flags);
     Tcl_DecrRefCount(value);
@@ -54,13 +57,22 @@ const char* ScriptInterpTCL::TraceGetString (ClientData clientData, Tcl_Interp *
   return NULL;
 }
 
-const char* ScriptInterpTCL::TraceSetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = NULL;
-  Tcl_Obj *name1o = NULL;
-
-  name1o = Tcl_NewStringObj(name1,-1);
-  value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
+Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
+  Tcl_Obj *name1o = Tcl_NewStringObj(name1,-1);
+  Tcl_Obj *value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
   Tcl_DecrRefCount(name1o);
+  return value;
+}
+
+const char* ScriptInterpTCL::TraceGetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+  String* str = (String*) clientData;
+  Tcl_Obj *value = (str->length() < INT_MAX) ? Tcl_NewStringObj(str->data(), str->length()) : NULL;
+  return TraceGet(value, interp, name1, name2, flags);
+}
+
+const char* ScriptInterpTCL::TraceSetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
+
   if (!value) goto fail;
   {
     int len = 0;
@@ -69,42 +81,21 @@ const char* ScriptInterpTCL::TraceSetString (ClientData clientData, Tcl_Interp *
 //      SWIG_exception_fail(SWIG_ArgError(res), "in variable '""server_list""' of type '""char [256]""'");
       goto fail;
     }
-    String* str = (String*) clientData;
-    (*str) = String(cstr, len);
+
+    *(String*)clientData = String(cstr, len);
   }
   return NULL;
 fail:
   return name1;
 }
 
-void ScriptInterpTCL::linkVar(const String& name, String& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetString, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetString, (ClientData) &var);
-}
-
-void ScriptInterpTCL::linkVar(const String& name, const String& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetString, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetRO, (ClientData) NULL);
-}
-
 const char* ScriptInterpTCL::TraceGetInt (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = Tcl_NewIntObj(*(int*)clientData);
-  if (value) {
-    Tcl_SetVar2(interp,name1,name2,Tcl_GetStringFromObj(value,NULL), flags);
-    Tcl_DecrRefCount(value);
-  }
-  return NULL;
+  return TraceGet(Tcl_NewIntObj(*(int*)clientData), interp, name1, name2, flags);
 }
 
 const char* ScriptInterpTCL::TraceSetInt (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = 0;
-  Tcl_Obj *name1o = 0;
+  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
 
-  name1o = Tcl_NewStringObj(name1,-1);
-  value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
-  Tcl_DecrRefCount(name1o);
   if (!value) goto fail;
   {
     long v;
@@ -121,34 +112,13 @@ fail:
   return name1;
 }
 
-void ScriptInterpTCL::linkVar(const String& name, int& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetInt, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetInt, (ClientData) &var);
-}
-
-void ScriptInterpTCL::linkVar(const String& name, const int& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetInt, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetRO, (ClientData) NULL);
-}
-
 const char* ScriptInterpTCL::TraceGetLong (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = Tcl_NewLongObj(*(long*)clientData);
-  if (value) {
-    Tcl_SetVar2(interp,name1,name2,Tcl_GetStringFromObj(value,NULL), flags);
-    Tcl_DecrRefCount(value);
-  }
-  return NULL;
+  return TraceGet(Tcl_NewLongObj(*(long*)clientData), interp, name1, name2, flags);
 }
 
 const char* ScriptInterpTCL::TraceSetLong (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = 0;
-  Tcl_Obj *name1o = 0;
+  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
 
-  name1o = Tcl_NewStringObj(name1,-1);
-  value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
-  Tcl_DecrRefCount(name1o);
   if (!value) goto fail;
   {
     long v;
@@ -161,34 +131,13 @@ fail:
   return name1;
 }
 
-void ScriptInterpTCL::linkVar(const String& name, long& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetLong, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetLong, (ClientData) &var);
-}
-
-void ScriptInterpTCL::linkVar(const String& name, const long& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetLong, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetRO, (ClientData) NULL);
-}
-
 const char* ScriptInterpTCL::TraceGetDouble (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = Tcl_NewDoubleObj(*(double*)clientData);
-  if (value) {
-    Tcl_SetVar2(interp,name1,name2,Tcl_GetStringFromObj(value,NULL), flags);
-    Tcl_DecrRefCount(value);
-  }
-  return NULL;
+  return TraceGet(Tcl_NewDoubleObj(*(double*)clientData), interp, name1, name2, flags);
 }
 
 const char* ScriptInterpTCL::TraceSetDouble (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = 0;
-  Tcl_Obj *name1o = 0;
+  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
 
-  name1o = Tcl_NewStringObj(name1,-1);
-  value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
-  Tcl_DecrRefCount(name1o);
   if (!value) goto fail;
   {
     double v;
@@ -199,18 +148,6 @@ const char* ScriptInterpTCL::TraceSetDouble (ClientData clientData, Tcl_Interp *
   return NULL;
 fail:
   return name1;
-}
-
-void ScriptInterpTCL::linkVar(const String& name, double& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetDouble, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetDouble, (ClientData) &var);
-}
-
-void ScriptInterpTCL::linkVar(const String& name, const double& var) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetDouble, (ClientData) &var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetRO, (ClientData) NULL);
 }
 
 BDLIB_NS_END
