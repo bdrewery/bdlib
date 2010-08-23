@@ -15,7 +15,7 @@ class ScriptInterpTest : public CPPUNIT_NS :: TestFixture
 {
     CPPUNIT_TEST_SUITE (ScriptInterpTest);
     CPPUNIT_TEST (evalTest);
-    CPPUNIT_TEST (operatorEqualsTest);
+//    CPPUNIT_TEST (operatorEqualsTest);
     CPPUNIT_TEST (linkVarTest);
     CPPUNIT_TEST_SUITE_END ();
 
@@ -25,7 +25,7 @@ class ScriptInterpTest : public CPPUNIT_NS :: TestFixture
 
     protected:
         void evalTest(void);
-        void operatorEqualsTest(void);
+//        void operatorEqualsTest(void);
         void linkVarTest(void);
     private:
 };

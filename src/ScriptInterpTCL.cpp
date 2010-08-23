@@ -24,7 +24,10 @@ int ScriptInterpTCL::init() {
 }
 
 int ScriptInterpTCL::destroy() {
-  Tcl_DeleteInterp(interp);
+  if (interp && !Tcl_InterpDeleted(interp)) {
+    Tcl_DeleteInterp(interp);
+    interp = NULL;
+  }
   return 0;
 }
 

@@ -31,11 +31,14 @@
 BDLIB_NS_BEGIN
 
 class ScriptInterp {
+  private:
+        // Don't allow copying
+        ScriptInterp(const ScriptInterp&)  {};
+        ScriptInterp& operator=(const ScriptInterp&) {return *this;};
   protected:
 
   public:
         ScriptInterp() {};
-        ScriptInterp(const ScriptInterp& sinterp) {};
         virtual ~ScriptInterp() {};
 
         virtual int init() = 0;

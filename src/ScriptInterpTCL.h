@@ -35,21 +35,16 @@ BDLIB_NS_BEGIN
 
 class ScriptInterpTCL : public ScriptInterp {
   private:
-    Tcl_Interp *interp;
+        Tcl_Interp *interp;
+
+        // Don't allow copying
+        ScriptInterpTCL(const ScriptInterpTCL&) : ScriptInterp(), interp(NULL) {};
+        ScriptInterpTCL& operator=(const ScriptInterpTCL&) {return *this;};
   protected:
 
   public:
-        ScriptInterpTCL() : ScriptInterp(), interp(NULL)  {};
-        ScriptInterpTCL(const ScriptInterpTCL& ginterp) : ScriptInterp(ginterp), interp(NULL)  {};
-        virtual ~ScriptInterpTCL() {};
-
-        inline ScriptInterpTCL& operator=(const ScriptInterpTCL& si) {
-          if (&si == this) return (*this);
-          destroy();
-          ScriptInterp::operator= (si);
-          interp = si.interp;
-          return (*this);
-        }
+        ScriptInterpTCL() : ScriptInterp(), interp(NULL) {};
+        virtual ~ScriptInterpTCL() {destroy();};
 
         virtual int init();
         virtual int destroy();

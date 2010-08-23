@@ -36,6 +36,7 @@ void ScriptInterpTest :: evalTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL(tcl_script.eval("set errorInfo"), tcl_script.eval("unknown"));
 }
 
+/*
 void ScriptInterpTest :: operatorEqualsTest (void)
 {
   ScriptInterpTCL tcl_script;
@@ -54,7 +55,7 @@ void ScriptInterpTest :: operatorEqualsTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script.eval("set x"));
   CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script2.eval("set x"));
 }
-
+*/
 void ScriptInterpTest :: linkVarTest (void)
 {
   ScriptInterpTCL tcl_script;
