@@ -60,7 +60,9 @@ class ScriptInterpTCL : public ScriptInterp {
 
         LINK_VAR(String, TraceGetString, TraceSetString);
         LINK_VAR(int, TraceGetInt, TraceSetInt);
+        LINK_VAR(unsigned int, TraceGetInt, TraceSetInt);
         LINK_VAR(long, TraceGetLong, TraceSetLong);
+        LINK_VAR(unsigned long, TraceGetLong, TraceSetLong);
         LINK_VAR(double, TraceGetDouble, TraceSetDouble);
         LINK_VAR(bool, TraceGetBool, TraceSetBool);
 #undef LINK_VAR
