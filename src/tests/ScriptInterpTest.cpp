@@ -54,3 +54,29 @@ void ScriptInterpTest :: operatorEqualsTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script.eval("set x"));
   CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script2.eval("set x"));
 }
+
+void ScriptInterpTest :: linkVarTest (void)
+{
+  ScriptInterpTCL tcl_script;
+  tcl_script.init();
+
+  String x("54321");
+  tcl_script.linkVar("x", x);
+
+
+  // Test Getting var from C++
+  CPPUNIT_ASSERT_STRING_EQUAL(x, tcl_script.eval("set x"));
+  x = "test 1 2 3 4 5 ";
+  CPPUNIT_ASSERT_STRING_EQUAL(x, tcl_script.eval("set x"));
+
+  // Test Setting var from TCL
+  String newval("5 4 2 3 1  test");
+
+  tcl_script.eval(String("set x \"") + newval + "\"");
+  CPPUNIT_ASSERT_STRING_EQUAL(newval, tcl_script.eval("set x"));
+
+  // Test getting a substring
+  x = newval(0, 5);
+  CPPUNIT_ASSERT_STRING_EQUAL(x, tcl_script.eval("set x"));
+
+}

@@ -41,6 +41,7 @@ class ScriptInterp {
         virtual int init() = 0;
         virtual int destroy() = 0;
         virtual String eval(const String&) = 0;
+        virtual void linkVar(const String&, String&) = 0;
 };
 
 

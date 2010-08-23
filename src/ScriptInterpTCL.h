@@ -54,6 +54,9 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual int init();
         virtual int destroy();
         virtual String eval(const String& script);
+        virtual void linkVar(const String& name, String& var);
+        static const char* TraceGetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+        static const char* TraceSetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
 };
 
 
