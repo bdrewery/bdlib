@@ -62,6 +62,7 @@ class ScriptInterpTCL : public ScriptInterp {
         LINK_VAR(int, TraceGetInt, TraceSetInt);
         LINK_VAR(long, TraceGetLong, TraceSetLong);
         LINK_VAR(double, TraceGetDouble, TraceSetDouble);
+        LINK_VAR(bool, TraceGetBool, TraceSetBool);
 #undef LINK_VAR
 
   private:
@@ -75,6 +76,8 @@ class ScriptInterpTCL : public ScriptInterp {
         TRACE_PROTO(TraceSetLong);
         TRACE_PROTO(TraceGetDouble);
         TRACE_PROTO(TraceSetDouble);
+        TRACE_PROTO(TraceGetBool);
+        TRACE_PROTO(TraceSetBool);
 #undef TRACE_PROTO
         static const char* TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags);
         static Tcl_Obj* TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags);

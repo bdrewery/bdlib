@@ -150,4 +150,23 @@ fail:
   return name1;
 }
 
+const char* ScriptInterpTCL::TraceGetBool (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+  return TraceGet(Tcl_NewBooleanObj(*(bool*)clientData), interp, name1, name2, flags);
+}
+
+const char* ScriptInterpTCL::TraceSetBool (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
+
+  if (!value) goto fail;
+  {
+    int v;
+    if (Tcl_GetBooleanFromObj(0,value, &v) != TCL_OK)
+      return "Type Error";
+    *(bool*)clientData = (bool)(v);
+  }
+  return NULL;
+fail:
+  return name1;
+}
+
 BDLIB_NS_END

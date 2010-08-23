@@ -146,4 +146,24 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   tcl_script.eval("set dcy 12");
   CPPUNIT_ASSERT_STRING_EQUAL("52.2", tcl_script.eval("set dcy"));
   CPPUNIT_ASSERT_EQUAL((double)52.2, dcy);
+
+  bool by = 1;
+  tcl_script.linkVar("by", by);
+  CPPUNIT_ASSERT_EQUAL(by, (bool)atol(tcl_script.eval("set by").c_str()));
+  CPPUNIT_ASSERT_EQUAL((bool)1, by);
+
+  CPPUNIT_ASSERT_EQUAL((bool)1, (bool)atol(tcl_script.eval("set by 2").c_str()));
+
+
+  // Set from C
+  by = 0;
+  CPPUNIT_ASSERT_EQUAL(by, (bool)atol(tcl_script.eval("set by").c_str()));
+
+  // Test const
+  const bool bcy = 1;
+  tcl_script.linkVar("bcy", bcy);
+  CPPUNIT_ASSERT_EQUAL(bcy, (bool)atol(tcl_script.eval("set bcy").c_str()));
+  tcl_script.eval("set bcy 0");
+  CPPUNIT_ASSERT_EQUAL((bool)1, (bool)atol(tcl_script.eval("set bcy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((bool)1, bcy);
 }

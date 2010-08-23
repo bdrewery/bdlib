@@ -79,6 +79,14 @@ class ScriptInterp {
          */
         virtual void linkVar(const String& name, double& var) = 0;
         virtual void linkVar(const String& name, const double& var) = 0;
+
+        /**
+         * @brief Link a bool to a variable in the interp
+         * @param name Name of the variable to link
+         * @param var The variable to link to
+         */
+        virtual void linkVar(const String& name, bool& var) = 0;
+        virtual void linkVar(const String& name, const bool& var) = 0;
 };
 
 
