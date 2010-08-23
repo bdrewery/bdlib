@@ -41,13 +41,13 @@ class ScriptInterpTCL : public ScriptInterp {
         ScriptInterpTCL(const ScriptInterpTCL&) : ScriptInterp(), interp(NULL) {};
         ScriptInterpTCL& operator=(const ScriptInterpTCL&) {return *this;};
   protected:
+        virtual int init();
+        virtual int destroy();
 
   public:
         ScriptInterpTCL() : ScriptInterp(), interp(NULL) {init();};
         virtual ~ScriptInterpTCL() {destroy();};
 
-        virtual int init();
-        virtual int destroy();
         virtual String eval(const String& script);
         virtual void linkVar(const String& name, String& var);
         static const char* TraceGetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);

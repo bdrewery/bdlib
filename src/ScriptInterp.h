@@ -36,13 +36,13 @@ class ScriptInterp {
         ScriptInterp(const ScriptInterp&)  {};
         ScriptInterp& operator=(const ScriptInterp&) {return *this;};
   protected:
+        virtual int init() = 0;
+        virtual int destroy() = 0;
 
   public:
         ScriptInterp() {};
         virtual ~ScriptInterp() {};
 
-        virtual int init() = 0;
-        virtual int destroy() = 0;
         virtual String eval(const String&) = 0;
         virtual void linkVar(const String&, String&) = 0;
 };
