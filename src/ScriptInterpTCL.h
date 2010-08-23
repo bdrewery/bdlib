@@ -58,6 +58,24 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual void linkVar(const String& name, const String& var);
         static const char* TraceGetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
         static const char* TraceSetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+
+        // Int Variable linking
+        virtual void linkVar(const String& name, int& var);
+        virtual void linkVar(const String& name, const int& var);
+        static const char* TraceGetInt (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+        static const char* TraceSetInt (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+
+        // Long Variable linking
+        virtual void linkVar(const String& name, long& var);
+        virtual void linkVar(const String& name, const long& var);
+        static const char* TraceGetLong (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+        static const char* TraceSetLong (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+
+        // Double Variable linking
+        virtual void linkVar(const String& name, double& var);
+        virtual void linkVar(const String& name, const double& var);
+        static const char* TraceGetDouble (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+        static const char* TraceSetDouble (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
 };
 
 

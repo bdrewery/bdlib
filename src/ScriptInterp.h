@@ -55,6 +55,30 @@ class ScriptInterp {
          */
         virtual void linkVar(const String& name, String& var) = 0;
         virtual void linkVar(const String& name, const String& var) = 0;
+
+        /**
+         * @brief Link an int to a variable in the interp
+         * @param name Name of the variable to link
+         * @param var The variable to link to
+         */
+        virtual void linkVar(const String& name, int& var) = 0;
+        virtual void linkVar(const String& name, const int& var) = 0;
+
+        /**
+         * @brief Link a long to a variable in the interp
+         * @param name Name of the variable to link
+         * @param var The variable to link to
+         */
+        virtual void linkVar(const String& name, long& var) = 0;
+        virtual void linkVar(const String& name, const long& var) = 0;
+
+        /**
+         * @brief Link a double to a variable in the interp
+         * @param name Name of the variable to link
+         * @param var The variable to link to
+         */
+        virtual void linkVar(const String& name, double& var) = 0;
+        virtual void linkVar(const String& name, const double& var) = 0;
 };
 
 
