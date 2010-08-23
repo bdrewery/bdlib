@@ -75,4 +75,12 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   // Test getting a substring
   x = newval(0, 5);
   CPPUNIT_ASSERT_STRING_EQUAL(x, tcl_script.eval("set x"));
+
+  // Test readonly var
+  const String ro("I am read-only");
+  tcl_script.linkVar("ro", ro);
+  CPPUNIT_ASSERT_STRING_EQUAL(ro, tcl_script.eval("set ro"));
+  tcl_script.eval("set ro \"test\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", tcl_script.eval("set ro"));
+
 }

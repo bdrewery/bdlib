@@ -54,6 +54,7 @@ class ScriptInterp {
          * @param var The variable to link to
          */
         virtual void linkVar(const String& name, String& var) = 0;
+        virtual void linkVar(const String& name, const String& var) = 0;
 };
 
 

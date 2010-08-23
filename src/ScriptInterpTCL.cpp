@@ -39,6 +39,10 @@ String ScriptInterpTCL::eval(const String& script) {
   return String();
 }
 
+const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+  return "variable is read-only";
+}
+
 const char* ScriptInterpTCL::TraceGetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
   String* str = (String*) clientData;
   Tcl_Obj *value = (str->length() < INT_MAX) ? Tcl_NewStringObj(str->data(), str->length()) : NULL;
@@ -77,6 +81,12 @@ void ScriptInterpTCL::linkVar(const String& name, String& var) {
   Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
   Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetString, (ClientData) &var);
   Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetString, (ClientData) &var);
+}
+
+void ScriptInterpTCL::linkVar(const String& name, const String& var) {
+  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
+  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceGetString, (ClientData) &var);
+  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, (Tcl_VarTraceProc *) this->TraceSetRO, (ClientData) NULL);
 }
 
 BDLIB_NS_END
