@@ -43,8 +43,17 @@ class ScriptInterp {
         ScriptInterp() {};
         virtual ~ScriptInterp() {};
 
-        virtual String eval(const String&) = 0;
-        virtual void linkVar(const String&, String&) = 0;
+        /**
+         * @param script The script to evaluate
+         */
+        virtual String eval(const String& script) = 0;
+
+        /**
+         * @brief Link a String to a variable in the interp
+         * @param name Name of the variable to link
+         * @param var The variable to link to
+         */
+        virtual void linkVar(const String& name, String& var) = 0;
 };
 
 
