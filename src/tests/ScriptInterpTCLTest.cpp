@@ -1,11 +1,11 @@
-/* ScriptInterpTest.c
+/* ScriptInterpTCLTest.c
  *
  */
-#include "ScriptInterpTest.h"
+#include "ScriptInterpTCLTest.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION (ScriptInterpTest);
+CPPUNIT_TEST_SUITE_REGISTRATION (ScriptInterpTCLTest);
 
-void ScriptInterpTest :: setUp (void)
+void ScriptInterpTCLTest :: setUp (void)
 {
 /*
     // set up test environment (initializing objects)
@@ -20,14 +20,14 @@ void ScriptInterpTest :: setUp (void)
 */
 }
 
-void ScriptInterpTest :: tearDown (void)
+void ScriptInterpTCLTest :: tearDown (void)
 {
     // finally delete objects
 //    delete a; delete b; delete c; delete d;
 //    delete e; delete f; delete g; delete h;
 }
 
-void ScriptInterpTest :: evalTest (void)
+void ScriptInterpTCLTest :: evalTest (void)
 {
   ScriptInterpTCL tcl_script;
 
@@ -36,7 +36,7 @@ void ScriptInterpTest :: evalTest (void)
 }
 
 /*
-void ScriptInterpTest :: operatorEqualsTest (void)
+void ScriptInterpTCLTest :: operatorEqualsTest (void)
 {
   ScriptInterpTCL tcl_script;
   tcl_script.eval("set x 5");
@@ -53,7 +53,7 @@ void ScriptInterpTest :: operatorEqualsTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script2.eval("set x"));
 }
 */
-void ScriptInterpTest :: linkVarTest (void)
+void ScriptInterpTCLTest :: linkVarTest (void)
 {
   ScriptInterpTCL tcl_script;
 
@@ -75,5 +75,4 @@ void ScriptInterpTest :: linkVarTest (void)
   // Test getting a substring
   x = newval(0, 5);
   CPPUNIT_ASSERT_STRING_EQUAL(x, tcl_script.eval("set x"));
-
 }

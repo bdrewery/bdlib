@@ -1,8 +1,8 @@
-/* ScriptInterpTest.h
+/* ScriptInterpTCLTest.h
  *
  */
-#ifndef _SCRIPTINTERPTEST_H
-#define _SCRIPTINTERPTEST_H 1
+#ifndef _SCRIPTINTERPTCLTEST_H
+#define _SCRIPTINTERPTCLTEST_H 1
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -11,9 +11,9 @@
 #include "ScriptInterpTCL.h"
 using namespace BDLIB_NS;
 
-class ScriptInterpTest : public CPPUNIT_NS :: TestFixture
+class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 {
-    CPPUNIT_TEST_SUITE (ScriptInterpTest);
+    CPPUNIT_TEST_SUITE (ScriptInterpTCLTest);
     CPPUNIT_TEST (evalTest);
 //    CPPUNIT_TEST (operatorEqualsTest);
     CPPUNIT_TEST (linkVarTest);
@@ -29,4 +29,4 @@ class ScriptInterpTest : public CPPUNIT_NS :: TestFixture
         void linkVarTest(void);
     private:
 };
-#endif /* !_SCRIPTINTERPTEST_H */
+#endif /* !_SCRIPTINTERPTCLTEST_H */
