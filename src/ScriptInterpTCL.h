@@ -43,6 +43,7 @@ class ScriptInterpTCL : public ScriptInterp {
 
         void setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set);
         static int tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+        static void tcl_command_ondelete(ClientData clientData);
   protected:
         virtual int init();
         virtual int destroy();
