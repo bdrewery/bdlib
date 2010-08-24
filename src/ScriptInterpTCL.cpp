@@ -59,18 +59,12 @@ void ScriptInterpTCL::tcl_command_ondelete(ClientData clientData) {
 }
 
 void ScriptInterpTCL::createCommand(const String& name, script_callback_string_t callback, script_clientdata_t clientData) {
-  script_callback_clientdata_t* ccd = new script_callback_clientdata_t;
-  ccd->si = this;
-  ccd->clientData = clientData;
-  ccd->callback = (script_callback_t) callback;
+  script_callback_clientdata_t* ccd = new script_callback_clientdata_t(this, clientData, (script_callback_t) callback);
   Tcl_CreateObjCommand(interp, *name, tcl_callback_string, (ClientData*)ccd, tcl_command_ondelete);
 }
 
 void ScriptInterpTCL::createCommand(const String& name, script_callback_int_t callback, script_clientdata_t clientData) {
-  script_callback_clientdata_t* ccd = new script_callback_clientdata_t;
-  ccd->si = this;
-  ccd->clientData = clientData;
-  ccd->callback = (script_callback_t) callback;
+  script_callback_clientdata_t* ccd = new script_callback_clientdata_t(this, clientData, (script_callback_t) callback);
   Tcl_CreateObjCommand(interp, *name, tcl_callback_int, (ClientData*)ccd, tcl_command_ondelete);
 }
 

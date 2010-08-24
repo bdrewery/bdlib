@@ -45,11 +45,12 @@ class ScriptInterp {
         typedef void* script_clientdata_t;
         typedef String (*script_callback_string_t)(ScriptInterp* Interp, script_clientdata_t clientData);
         typedef int (*script_callback_int_t)(ScriptInterp* Interp, script_clientdata_t clientData);
-        typedef struct {
+        struct script_callback_clientdata_t {
           ScriptInterp* si;
           script_clientdata_t clientData;
           script_callback_t callback;
-        } script_callback_clientdata_t;
+          script_callback_clientdata_t (ScriptInterp* _si, script_clientdata_t _clientData, script_callback_t _callback) : si(_si), clientData(_clientData), callback(_callback) {};
+        };
 
         ScriptInterp() {};
         virtual ~ScriptInterp() {};
