@@ -169,6 +169,7 @@ void ScriptInterpTCLTest :: linkVarTest (void)
 }
 
 String my_x(ScriptInterp* interp, ScriptInterp::script_clientdata_t clientData) {String my_cd = (clientData ? *(String*) clientData : String()); return "Test command proc" + my_cd;}
+int my_xi(ScriptInterp* interp, ScriptInterp::script_clientdata_t clientData) {String my_cd = (clientData ? *(String*) clientData : String("0")); return 53 + atoi(*my_cd);}
 
 void ScriptInterpTCLTest :: createCommandTest (void)
 {
@@ -180,4 +181,15 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   String my_cd("my cd");
   tcl_script.createCommand("y", my_x, &my_cd);
   CPPUNIT_ASSERT_STRING_EQUAL(my_x(&tcl_script, &my_cd), tcl_script.eval("y"));
+
+  // Test int return
+
+  tcl_script.createCommand("xi", my_xi);
+  CPPUNIT_ASSERT_EQUAL(my_xi(&tcl_script, NULL), atoi(*tcl_script.eval("xi")));
+  CPPUNIT_ASSERT_EQUAL(53, atoi(*tcl_script.eval("xi")));
+
+  my_cd = "7";
+  tcl_script.createCommand("yi", my_xi, &my_cd);
+  CPPUNIT_ASSERT_EQUAL(my_xi(&tcl_script, &my_cd), atoi(*tcl_script.eval("yi")));
+  CPPUNIT_ASSERT_EQUAL(60, atoi(*tcl_script.eval("yi")));
 }

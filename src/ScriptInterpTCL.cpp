@@ -39,10 +39,17 @@ String ScriptInterpTCL::eval(const String& script) {
   return String();
 }
 
-int ScriptInterpTCL::tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
-  String result = ccd->callback(ccd->si, ccd->clientData);
+  String result = ((script_callback_string_t)ccd->callback)(ccd->si, ccd->clientData);
   Tcl_SetObjResult(interp, (result.length() < INT_MAX) ? Tcl_NewStringObj(result.data(), result.length()) : NULL);
+  return TCL_OK;
+}
+
+int ScriptInterpTCL::tcl_callback_int(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+  script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
+  int result = ((script_callback_int_t)ccd->callback)(ccd->si, ccd->clientData);
+  Tcl_SetObjResult(interp, Tcl_NewIntObj(result));
   return TCL_OK;
 }
 
@@ -51,12 +58,20 @@ void ScriptInterpTCL::tcl_command_ondelete(ClientData clientData) {
   delete ccd;
 }
 
-void ScriptInterpTCL::createCommand(const String& name, script_callback_t callback, script_clientdata_t clientData) {
+void ScriptInterpTCL::createCommand(const String& name, script_callback_string_t callback, script_clientdata_t clientData) {
   script_callback_clientdata_t* ccd = new script_callback_clientdata_t;
   ccd->si = this;
   ccd->clientData = clientData;
-  ccd->callback = callback;
-  Tcl_CreateObjCommand(interp, *name, tcl_callback, (ClientData*)ccd, tcl_command_ondelete);
+  ccd->callback = (script_callback_t) callback;
+  Tcl_CreateObjCommand(interp, *name, tcl_callback_string, (ClientData*)ccd, tcl_command_ondelete);
+}
+
+void ScriptInterpTCL::createCommand(const String& name, script_callback_int_t callback, script_clientdata_t clientData) {
+  script_callback_clientdata_t* ccd = new script_callback_clientdata_t;
+  ccd->si = this;
+  ccd->clientData = clientData;
+  ccd->callback = (script_callback_t) callback;
+  Tcl_CreateObjCommand(interp, *name, tcl_callback_int, (ClientData*)ccd, tcl_command_ondelete);
 }
 
 void ScriptInterpTCL::setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {
