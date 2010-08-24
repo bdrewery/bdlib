@@ -168,28 +168,44 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL((bool)1, bcy);
 }
 
-String my_x(ScriptInterp* interp, ScriptInterp::script_clientdata_t clientData) {String my_cd = (clientData ? *(String*) clientData : String()); return "Test command proc" + my_cd;}
-int my_xi(ScriptInterp* interp, ScriptInterp::script_clientdata_t clientData) {String my_cd = (clientData ? *(String*) clientData : String("0")); return 53 + atoi(*my_cd);}
+String my_x(ScriptInterp& interp, const ScriptArgs& args, ScriptInterp::script_clientdata_t clientData) {String my_cd = (clientData ? *(String*) clientData : String()); return "Test command proc" + my_cd;}
+int my_xi(ScriptInterp& interp, const ScriptArgs& args, ScriptInterp::script_clientdata_t clientData) {String my_cd = (clientData ? *(String*) clientData : String("0")); return 53 + atoi(*my_cd);}
+String param_test(ScriptInterp& interp, const ScriptArgs& args, ScriptInterp::script_clientdata_t clientData) {
+  String my_cd = (clientData ? *(String*) clientData : String());
+  String arg1 = args.getArgString(1);
+  if (args.length() > 2) {
+    int arg2 = args.getArgInt(2);
+    return String::printf("I got %zu args, arg1: %s arg2: %d", args.length() - 1, *arg1, arg2);
+  } else
+    return String::printf("I got %zu args, arg1: %s", args.length() - 1, *arg1);
+}
 
 void ScriptInterpTCLTest :: createCommandTest (void)
 {
   ScriptInterpTCL tcl_script;
 
   tcl_script.createCommand("x", my_x);
-  CPPUNIT_ASSERT_STRING_EQUAL(my_x(&tcl_script, NULL), tcl_script.eval("x"));
+  CPPUNIT_ASSERT_STRING_EQUAL(my_x(tcl_script, ScriptArgsTCL(), NULL), tcl_script.eval("x"));
 
   String my_cd("my cd");
   tcl_script.createCommand("y", my_x, &my_cd);
-  CPPUNIT_ASSERT_STRING_EQUAL(my_x(&tcl_script, &my_cd), tcl_script.eval("y"));
+  CPPUNIT_ASSERT_STRING_EQUAL(my_x(tcl_script, ScriptArgsTCL(), &my_cd), tcl_script.eval("y"));
 
   // Test int return
 
   tcl_script.createCommand("xi", my_xi);
-  CPPUNIT_ASSERT_EQUAL(my_xi(&tcl_script, NULL), atoi(*tcl_script.eval("xi")));
+  CPPUNIT_ASSERT_EQUAL(my_xi(tcl_script, ScriptArgsTCL(), NULL), atoi(*tcl_script.eval("xi")));
   CPPUNIT_ASSERT_EQUAL(53, atoi(*tcl_script.eval("xi")));
 
   my_cd = "7";
   tcl_script.createCommand("yi", my_xi, &my_cd);
-  CPPUNIT_ASSERT_EQUAL(my_xi(&tcl_script, &my_cd), atoi(*tcl_script.eval("yi")));
+  CPPUNIT_ASSERT_EQUAL(my_xi(tcl_script, ScriptArgsTCL(), &my_cd), atoi(*tcl_script.eval("yi")));
   CPPUNIT_ASSERT_EQUAL(60, atoi(*tcl_script.eval("yi")));
+
+  tcl_script.createCommand("param_test", param_test);
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TEST", tcl_script.eval("param_test \"TEST\""));
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: TEST arg2: 1", tcl_script.eval("param_test \"TEST\" 1"));
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TeSt", tcl_script.eval("param_test \"TeSt\""));
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: 5", tcl_script.eval("param_test 5"));
+
 }

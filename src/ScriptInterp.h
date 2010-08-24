@@ -30,6 +30,21 @@
 
 BDLIB_NS_BEGIN
 
+class ScriptArgs {
+  public:
+    const size_t argc;
+  protected:
+  public:
+    ScriptArgs() : argc(0) {};
+    ScriptArgs(int _argc) : argc(_argc) {};
+    virtual ~ScriptArgs() {};
+
+    virtual size_t length() const { return argc; };
+
+    virtual int getArgInt(int index) const = 0;
+    virtual String getArgString(int index) const = 0;
+};
+
 class ScriptInterp {
   private:
         // Don't allow copying
@@ -43,8 +58,8 @@ class ScriptInterp {
 
   public:
         typedef void* script_clientdata_t;
-        typedef String (*script_callback_string_t)(ScriptInterp* Interp, script_clientdata_t clientData);
-        typedef int (*script_callback_int_t)(ScriptInterp* Interp, script_clientdata_t clientData);
+        typedef String (*script_callback_string_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
+        typedef int (*script_callback_int_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
         struct script_callback_clientdata_t {
           ScriptInterp* si;
           script_clientdata_t clientData;

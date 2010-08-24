@@ -4,7 +4,6 @@
 #include "ScriptInterpTCL.h"
 #include <stdarg.h>
 #include <algorithm> // min() / max()
-#include <limits.h>
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif
@@ -41,14 +40,16 @@ String ScriptInterpTCL::eval(const String& script) {
 
 int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
-  String result = ((script_callback_string_t)ccd->callback)(ccd->si, ccd->clientData);
+  ScriptArgsTCL args(objc, objv);
+  String result = ((script_callback_string_t)ccd->callback)(*ccd->si, args, ccd->clientData);
   Tcl_SetObjResult(interp, (result.length() < INT_MAX) ? Tcl_NewStringObj(result.data(), result.length()) : NULL);
   return TCL_OK;
 }
 
 int ScriptInterpTCL::tcl_callback_int(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
-  int result = ((script_callback_int_t)ccd->callback)(ccd->si, ccd->clientData);
+  ScriptArgsTCL args(objc, objv);
+  int result = ((script_callback_int_t)ccd->callback)(*ccd->si, args, ccd->clientData);
   Tcl_SetObjResult(interp, Tcl_NewIntObj(result));
   return TCL_OK;
 }

@@ -27,11 +27,55 @@
 #include "String.h"
 #include "ScriptInterp.h"
 
+#include <limits.h>
 #include <sys/types.h>
 
 #include <tcl.h>
 
 BDLIB_NS_BEGIN
+
+class ScriptArgsTCL : public ScriptArgs {
+  private:
+    Tcl_Obj** my_objv;
+
+    // Don't allow copying
+    ScriptArgsTCL(const ScriptArgsTCL&) : ScriptArgs(), my_objv() {};
+    ScriptArgsTCL& operator=(const ScriptArgsTCL&) {return *this;};
+  public:
+    ScriptArgsTCL() : ScriptArgs(), my_objv() {};
+    ScriptArgsTCL(int objc, Tcl_Obj* CONST objv[]) : ScriptArgs(objc), my_objv() {
+      my_objv = new Tcl_Obj*[objc];
+      for (size_t i = 0; i < argc; ++i) {
+        my_objv[i] = objv[i];
+        Tcl_IncrRefCount(my_objv[i]);
+      }
+    }
+    virtual ~ScriptArgsTCL() {
+      for (size_t i = 0; i < argc; ++i)
+        Tcl_DecrRefCount(my_objv[i]);
+      delete[] my_objv;
+    }
+
+    virtual int getArgInt(int index) const {
+      long v = 0;
+      //FIXME: DRY with TraceSetInt
+      if (Tcl_GetLongFromObj(0, my_objv[index], &v) == TCL_OK) {
+        if ((v < INT_MIN || v > INT_MAX))
+          //FIXME error - overflow
+          return 0;
+      } else
+        // FIXME - error getting int - wrong type?
+        return 0;
+      return (int)v;
+    }
+    virtual String getArgString(int index) const {
+      //FIXME: DRY with TraceSetString
+      int len = 0;
+      char *cstr = Tcl_GetStringFromObj(my_objv[index], &len);
+      if (!cstr) return String();
+      return String(cstr, len);
+    }
+};
 
 class ScriptInterpTCL : public ScriptInterp {
   private:
