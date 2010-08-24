@@ -167,3 +167,17 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL((bool)1, (bool)atol(tcl_script.eval("set bcy").c_str()));
   CPPUNIT_ASSERT_EQUAL((bool)1, bcy);
 }
+
+String my_x(ScriptInterp* interp, ScriptInterp::script_clientdata_t clientData) {String my_cd = (clientData ? *(String*) clientData : String()); return "Test command proc" + my_cd;}
+
+void ScriptInterpTCLTest :: createCommandTest (void)
+{
+  ScriptInterpTCL tcl_script;
+
+  tcl_script.createCommand("x", my_x);
+  CPPUNIT_ASSERT_STRING_EQUAL(my_x(&tcl_script, NULL), tcl_script.eval("x"));
+
+  String my_cd("my cd");
+  tcl_script.createCommand("y", my_x, &my_cd);
+  CPPUNIT_ASSERT_STRING_EQUAL(my_x(&tcl_script, &my_cd), tcl_script.eval("y"));
+}

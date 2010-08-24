@@ -40,6 +40,14 @@ class ScriptInterp {
         virtual int destroy() = 0;
 
   public:
+        typedef void* script_clientdata_t;
+        typedef String (*script_callback_t)(ScriptInterp* Interp, script_clientdata_t clientData);
+        typedef struct {
+          ScriptInterp* si;
+          script_clientdata_t clientData;
+          script_callback_t callback;
+        } script_callback_clientdata_t;
+
         ScriptInterp() {};
         virtual ~ScriptInterp() {};
 
@@ -47,6 +55,12 @@ class ScriptInterp {
          * @param script The script to evaluate
          */
         virtual String eval(const String& script) = 0;
+
+        /**
+         * @param name Name of the command to create
+         * @param callback The script_callback_t function to call when the command is ran
+         */
+        virtual void createCommand(const String& name, script_callback_t callback, script_clientdata_t clientData = NULL) = 0;
 
         /**
          * @brief Link a String to a variable in the interp

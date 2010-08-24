@@ -39,6 +39,21 @@ String ScriptInterpTCL::eval(const String& script) {
   return String();
 }
 
+int ScriptInterpTCL::tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+  script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
+  String result = ccd->callback(ccd->si, ccd->clientData);
+  Tcl_SetObjResult(interp, (result.length() < INT_MAX) ? Tcl_NewStringObj(result.data(), result.length()) : NULL);
+  return TCL_OK;
+}
+
+void ScriptInterpTCL::createCommand(const String& name, script_callback_t callback, script_clientdata_t clientData) {
+  script_callback_clientdata_t* ccd = new script_callback_clientdata_t;
+  ccd->si = this;
+  ccd->clientData = clientData;
+  ccd->callback = callback;
+  Tcl_CreateObjCommand(interp, *name, tcl_callback, (ClientData*)ccd, NULL);
+}
+
 void ScriptInterpTCL::setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {
   Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
   Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
