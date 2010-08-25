@@ -31,8 +31,15 @@ int ScriptInterpTCL::destroy() {
 }
 
 String ScriptInterpTCL::eval(const String& script) {
-  if (Tcl_Eval(interp, script.c_str()) == TCL_OK) {
-    return Tcl_GetStringResult(interp);
+  if (Tcl_EvalEx(interp, script.c_str(), script.length(), TCL_EVAL_GLOBAL) == TCL_OK) {
+    //FIXME: Dry with TraceSetString
+    Tcl_Obj* value = Tcl_GetObjResult(interp);
+    int len = 0;
+    char *cstr = Tcl_GetStringFromObj(value, &len);
+    if (!cstr)
+      //FIXME: Error handling
+      return String();
+    return String(cstr, len);
   } else
     return eval("set errorInfo");
   return String();
