@@ -231,6 +231,35 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: TEST arg2: 1", tcl_script.eval("param_test \"TEST\" 1"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TeSt", tcl_script.eval("param_test \"TeSt\""));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: 5", tcl_script.eval("param_test 5"));
+}
+
+Array<ScriptCallback*> Events;
+
+void on_event(ScriptInterp& interp, const ScriptArgs& args, ScriptInterp::script_clientdata_t clientData) {
+  // s:event c:Proc
+  String eventName = args.getArgString(1);
+  ScriptCallback* callback = args.getArgCallback(2);
+  Events << callback;
+}
+
+void ScriptInterpTCLTest :: createCommandEventTest (void)
+{
+  ScriptInterpTCL tcl_script;
+
+  tcl_script.createCommand("param_test", param_test);
+
+  /* Try a TCL Callback from C++ (event binding from C)
+   * Execute on_event from TCL, which will record the bound event callback in Events
+   * Then call the Event and verify that it returns our expected result
+   */
+  // Create on_event which will add the passed proc to our event handling procedures (Just an Array for now)
+  tcl_script.createCommand("on_event", on_event);
+  // Bind an event
+  tcl_script.eval("on_event \"first test\" param_test");
+  // Now trigger the callback and verify that it calls the passed event
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 0 args, arg1: ", ((ScriptCallback*)Events[0])->trigger());
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: some argument", ((ScriptCallback*)Events[0])->trigger("some argument"));
+
 
 }
 

@@ -63,7 +63,7 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
 
 int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
-  ScriptArgsTCL args(objc, objv);
+  ScriptArgsTCL args(objc, objv, interp);
   String result = ((script_cmd_handler_string_t)ccd->callback)(*ccd->si, args, ccd->clientData);
   Tcl_SetObjResult(interp, (result.length() < INT_MAX) ? Tcl_NewStringObj(result.data(), result.length()) : NULL);
   return TCL_OK;
@@ -71,7 +71,7 @@ int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *inte
 
 int ScriptInterpTCL::tcl_callback_int(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
-  ScriptArgsTCL args(objc, objv);
+  ScriptArgsTCL args(objc, objv, interp);
   int result = ((script_cmd_handler_int_t)ccd->callback)(*ccd->si, args, ccd->clientData);
   Tcl_SetObjResult(interp, Tcl_NewIntObj(result));
   return TCL_OK;
@@ -79,7 +79,7 @@ int ScriptInterpTCL::tcl_callback_int(ClientData clientData, Tcl_Interp *interp,
 
 int ScriptInterpTCL::tcl_callback_void(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
-  ScriptArgsTCL args(objc, objv);
+  ScriptArgsTCL args(objc, objv, interp);
   ((script_cmd_handler_void_t)ccd->callback)(*ccd->si, args, ccd->clientData);
   return TCL_OK;
 }

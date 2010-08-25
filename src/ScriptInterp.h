@@ -30,6 +30,23 @@
 
 BDLIB_NS_BEGIN
 
+/**
+ * @class ScriptCallback
+ * @brief Handles script proc callbacks for cpp->script
+ */
+class ScriptCallback {
+  public:
+    ScriptCallback() {};
+    virtual ~ScriptCallback() {};
+
+    virtual String trigger(...) const = 0;
+    virtual size_t hash() const  = 0;
+};
+
+/**
+ * @class ScriptArgs
+ * @brief Handles fetching arguments from the script interpreter in cpp command handlers
+ */
 class ScriptArgs {
   public:
     const size_t argc;
@@ -43,8 +60,13 @@ class ScriptArgs {
 
     virtual int getArgInt(int index) const = 0;
     virtual String getArgString(int index) const = 0;
+    virtual ScriptCallback* getArgCallback(int index) const = 0;
 };
 
+/**
+ * @class ScriptInterp
+ * @brief Handles generalized script interpreter access
+ */
 class ScriptInterp {
   private:
         // Don't allow copying

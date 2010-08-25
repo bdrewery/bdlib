@@ -7,6 +7,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include "String.h"
+#include "Array.h"
 #include "Stream.h"
 #include "ScriptInterp.h"
 #include "ScriptInterpTCL.h"
@@ -20,6 +21,7 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 //    CPPUNIT_TEST (operatorEqualsTest);
     CPPUNIT_TEST (linkVarTest);
     CPPUNIT_TEST (createCommandTest);
+    CPPUNIT_TEST (createCommandEventTest);
     CPPUNIT_TEST (deleteCommandTest);
     CPPUNIT_TEST_SUITE_END ();
 
@@ -33,6 +35,7 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 //        void operatorEqualsTest(void);
         void linkVarTest(void);
         void createCommandTest(void);
+        void createCommandEventTest(void);
         void deleteCommandTest(void);
     private:
 };

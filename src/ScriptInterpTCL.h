@@ -34,16 +34,69 @@
 
 BDLIB_NS_BEGIN
 
+class ScriptCallbackTCL : public ScriptCallback {
+  private:
+    Tcl_Obj* obj;
+    Tcl_Interp* interp;
+
+    // Don't allow copying
+    ScriptCallbackTCL(const ScriptCallbackTCL&) : ScriptCallback(), obj(NULL), interp(NULL) {};
+    ScriptCallbackTCL& operator=(const ScriptCallbackTCL&) {return *this;};
+  public:
+    ScriptCallbackTCL() : ScriptCallback(), obj(NULL), interp(NULL) {};
+    ScriptCallbackTCL(Tcl_Obj* _obj, Tcl_Interp* _interp) : ScriptCallback(), obj(_obj), interp(_interp) {
+      Tcl_IncrRefCount(obj);
+    };
+    virtual ~ScriptCallbackTCL() {
+      Tcl_DecrRefCount(obj);
+    };
+
+    virtual String trigger(...) const {
+      Tcl_Obj* command = Tcl_DuplicateObj(obj);
+
+      String result;
+      if (Tcl_EvalObjEx(interp, command, TCL_EVAL_GLOBAL) == TCL_OK) {
+        //FIXME: Dry with TraceSetString
+        Tcl_Obj* value = Tcl_GetObjResult(interp);
+        int len = 0;
+        char *cstr = Tcl_GetStringFromObj(value, &len);
+        if (!cstr)
+          //FIXME: Error handling
+          result = String();
+        else
+          result = String(cstr, len);
+      } else
+        Tcl_BackgroundError(interp);
+
+      /* Clear any errors or stray messages. */
+      Tcl_ResetResult(interp);
+      return result;
+    }
+
+
+    virtual size_t hash() const { return (size_t)obj; };
+};
+
+template<typename T>
+  struct Hash;
+
+template<>
+  struct Hash<ScriptCallbackTCL>
+    {
+          inline size_t operator()(const ScriptCallbackTCL& val) const { return val.hash(); }
+    };
+
 class ScriptArgsTCL : public ScriptArgs {
   private:
     Tcl_Obj** my_objv;
+    Tcl_Interp* interp;
 
     // Don't allow copying
-    ScriptArgsTCL(const ScriptArgsTCL&) : ScriptArgs(), my_objv() {};
+    ScriptArgsTCL(const ScriptArgsTCL&) : ScriptArgs(), my_objv(), interp(NULL) {};
     ScriptArgsTCL& operator=(const ScriptArgsTCL&) {return *this;};
   public:
-    ScriptArgsTCL() : ScriptArgs(), my_objv() {};
-    ScriptArgsTCL(int objc, Tcl_Obj* CONST objv[]) : ScriptArgs(objc), my_objv() {
+    ScriptArgsTCL() : ScriptArgs(), my_objv(), interp(NULL) {};
+    ScriptArgsTCL(int objc, Tcl_Obj* CONST objv[], Tcl_Interp* _interp) : ScriptArgs(objc), my_objv(), interp(_interp) {
       my_objv = new Tcl_Obj*[objc];
       for (size_t i = 0; i < argc; ++i) {
         my_objv[i] = objv[i];
@@ -77,6 +130,12 @@ class ScriptArgsTCL : public ScriptArgs {
       char *cstr = Tcl_GetStringFromObj(my_objv[index], &len);
       if (!cstr) return String();
       return String(cstr, len);
+    }
+
+    virtual ScriptCallbackTCL* getArgCallback(int index) const {
+      if (size_t(index) >= length()) return NULL;
+      ScriptCallbackTCL* callback = new ScriptCallbackTCL(my_objv[index], interp);
+      return callback;
     }
 };
 
