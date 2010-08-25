@@ -77,6 +77,13 @@ int ScriptInterpTCL::tcl_callback_int(ClientData clientData, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+int ScriptInterpTCL::tcl_callback_void(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+  script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
+  ScriptArgsTCL args(objc, objv);
+  ((script_cmd_handler_void_t)ccd->callback)(*ccd->si, args, ccd->clientData);
+  return TCL_OK;
+}
+
 void ScriptInterpTCL::tcl_command_ondelete(ClientData clientData) {
   script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
   delete ccd;
@@ -90,6 +97,11 @@ void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_strin
 void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_int_t callback, script_clientdata_t clientData) {
   script_cmd_handler_clientdata_t* ccd = new script_cmd_handler_clientdata_t(this, clientData, (script_cmd_handler_t) callback);
   Tcl_CreateObjCommand(interp, *name, tcl_callback_int, (ClientData*)ccd, tcl_command_ondelete);
+}
+
+void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_void_t callback, script_clientdata_t clientData) {
+  script_cmd_handler_clientdata_t* ccd = new script_cmd_handler_clientdata_t(this, clientData, (script_cmd_handler_t) callback);
+  Tcl_CreateObjCommand(interp, *name, tcl_callback_void, (ClientData*)ccd, tcl_command_ondelete);
 }
 
 void ScriptInterpTCL::setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {

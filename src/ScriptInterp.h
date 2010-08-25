@@ -60,6 +60,7 @@ class ScriptInterp {
         typedef void* script_clientdata_t;
         typedef String (*script_cmd_handler_string_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
         typedef int (*script_cmd_handler_int_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
+        typedef void (*script_cmd_handler_void_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
         struct script_cmd_handler_clientdata_t {
           ScriptInterp* si;
           script_clientdata_t clientData;
@@ -93,6 +94,7 @@ class ScriptInterp {
          */
         virtual void createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData = NULL) = 0;
         virtual void createCommand(const String& name, script_cmd_handler_int_t callback, script_clientdata_t clientData = NULL) = 0;
+        virtual void createCommand(const String& name, script_cmd_handler_void_t callback, script_clientdata_t clientData = NULL) = 0;
 
         /**
          * @brief Remove a command from the interp

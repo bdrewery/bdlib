@@ -88,6 +88,7 @@ class ScriptInterpTCL : public ScriptInterp {
         void setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set);
         static int tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
         static int tcl_callback_int(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+        static int tcl_callback_void(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
         static void tcl_command_ondelete(ClientData clientData);
   protected:
         virtual int init();
@@ -102,6 +103,7 @@ class ScriptInterpTCL : public ScriptInterp {
 
         virtual void createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData = NULL);
         virtual void createCommand(const String& name, script_cmd_handler_int_t callback, script_clientdata_t clientData = NULL);
+        virtual void createCommand(const String& name, script_cmd_handler_void_t callback, script_clientdata_t clientData = NULL);
 
         virtual void deleteCommand(const String& name) {
           Tcl_DeleteCommand(interp, *name);
