@@ -62,33 +62,33 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
 }
 
 int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
-  script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
+  script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
   ScriptArgsTCL args(objc, objv);
-  String result = ((script_callback_string_t)ccd->callback)(*ccd->si, args, ccd->clientData);
+  String result = ((script_cmd_handler_string_t)ccd->callback)(*ccd->si, args, ccd->clientData);
   Tcl_SetObjResult(interp, (result.length() < INT_MAX) ? Tcl_NewStringObj(result.data(), result.length()) : NULL);
   return TCL_OK;
 }
 
 int ScriptInterpTCL::tcl_callback_int(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
-  script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
+  script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
   ScriptArgsTCL args(objc, objv);
-  int result = ((script_callback_int_t)ccd->callback)(*ccd->si, args, ccd->clientData);
+  int result = ((script_cmd_handler_int_t)ccd->callback)(*ccd->si, args, ccd->clientData);
   Tcl_SetObjResult(interp, Tcl_NewIntObj(result));
   return TCL_OK;
 }
 
 void ScriptInterpTCL::tcl_command_ondelete(ClientData clientData) {
-  script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
+  script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
   delete ccd;
 }
 
-void ScriptInterpTCL::createCommand(const String& name, script_callback_string_t callback, script_clientdata_t clientData) {
-  script_callback_clientdata_t* ccd = new script_callback_clientdata_t(this, clientData, (script_callback_t) callback);
+void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData) {
+  script_cmd_handler_clientdata_t* ccd = new script_cmd_handler_clientdata_t(this, clientData, (script_cmd_handler_t) callback);
   Tcl_CreateObjCommand(interp, *name, tcl_callback_string, (ClientData*)ccd, tcl_command_ondelete);
 }
 
-void ScriptInterpTCL::createCommand(const String& name, script_callback_int_t callback, script_clientdata_t clientData) {
-  script_callback_clientdata_t* ccd = new script_callback_clientdata_t(this, clientData, (script_callback_t) callback);
+void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_int_t callback, script_clientdata_t clientData) {
+  script_cmd_handler_clientdata_t* ccd = new script_cmd_handler_clientdata_t(this, clientData, (script_cmd_handler_t) callback);
   Tcl_CreateObjCommand(interp, *name, tcl_callback_int, (ClientData*)ccd, tcl_command_ondelete);
 }
 

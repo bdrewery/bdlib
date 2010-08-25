@@ -54,17 +54,17 @@ class ScriptInterp {
   protected:
         virtual int init() = 0;
         virtual int destroy() = 0;
-        typedef intptr_t (*script_callback_t) ();
+        typedef intptr_t (*script_cmd_handler_t) ();
 
   public:
         typedef void* script_clientdata_t;
-        typedef String (*script_callback_string_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
-        typedef int (*script_callback_int_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
-        struct script_callback_clientdata_t {
+        typedef String (*script_cmd_handler_string_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
+        typedef int (*script_cmd_handler_int_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
+        struct script_cmd_handler_clientdata_t {
           ScriptInterp* si;
           script_clientdata_t clientData;
-          script_callback_t callback;
-          script_callback_clientdata_t (ScriptInterp* _si, script_clientdata_t _clientData, script_callback_t _callback) : si(_si), clientData(_clientData), callback(_callback) {};
+          script_cmd_handler_t callback;
+          script_cmd_handler_clientdata_t (ScriptInterp* _si, script_clientdata_t _clientData, script_cmd_handler_t _callback) : si(_si), clientData(_clientData), callback(_callback) {};
         };
 
         ScriptInterp() {};
@@ -89,10 +89,10 @@ class ScriptInterp {
 
         /**
          * @param name Name of the command to create
-         * @param callback The script_callback_t function to call when the command is ran
+         * @param callback The script_cmd_handler_t function to call when the command is ran
          */
-        virtual void createCommand(const String& name, script_callback_string_t callback, script_clientdata_t clientData = NULL) = 0;
-        virtual void createCommand(const String& name, script_callback_int_t callback, script_clientdata_t clientData = NULL) = 0;
+        virtual void createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData = NULL) = 0;
+        virtual void createCommand(const String& name, script_cmd_handler_int_t callback, script_clientdata_t clientData = NULL) = 0;
 
         /**
          * @brief Remove a command from the interp
