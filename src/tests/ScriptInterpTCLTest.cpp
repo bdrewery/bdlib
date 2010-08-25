@@ -209,3 +209,14 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: 5", tcl_script.eval("param_test 5"));
 
 }
+
+void ScriptInterpTCLTest :: deleteCommandTest (void)
+{
+  ScriptInterpTCL tcl_script;
+  String bad_cmd = tcl_script.eval("x");
+
+  tcl_script.createCommand("x", my_x);
+  CPPUNIT_ASSERT_STRING_EQUAL(my_x(tcl_script, ScriptArgsTCL(), NULL), tcl_script.eval("x"));
+  tcl_script.deleteCommand("x");
+  CPPUNIT_ASSERT_STRING_EQUAL(bad_cmd, tcl_script.eval("x"));
+}

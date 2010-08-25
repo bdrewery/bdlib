@@ -102,6 +102,10 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual void createCommand(const String& name, script_callback_string_t callback, script_clientdata_t clientData = NULL);
         virtual void createCommand(const String& name, script_callback_int_t callback, script_clientdata_t clientData = NULL);
 
+        virtual void deleteCommand(const String& name) {
+          Tcl_DeleteCommand(interp, *name);
+        }
+
         /* Variable linking */
 
 #define LINK_VAR(_type, _GET, _SET) \

@@ -83,6 +83,12 @@ class ScriptInterp {
         virtual void createCommand(const String& name, script_callback_int_t callback, script_clientdata_t clientData = NULL) = 0;
 
         /**
+         * @brief Remove a command from the interp
+         * @param name The name of the command to remove
+         */
+        virtual void deleteCommand(const String& name) = 0;
+
+        /**
          * @brief Link a String to a variable in the interp
          * @param name Name of the variable to link
          * @param var The variable to link to

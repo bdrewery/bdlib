@@ -18,6 +18,7 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 //    CPPUNIT_TEST (operatorEqualsTest);
     CPPUNIT_TEST (linkVarTest);
     CPPUNIT_TEST (createCommandTest);
+    CPPUNIT_TEST (deleteCommandTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -29,6 +30,7 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 //        void operatorEqualsTest(void);
         void linkVarTest(void);
         void createCommandTest(void);
+        void deleteCommandTest(void);
     private:
 };
 #endif /* !_SCRIPTINTERPTCLTEST_H */
