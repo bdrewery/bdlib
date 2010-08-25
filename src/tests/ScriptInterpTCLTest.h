@@ -7,6 +7,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include "String.h"
+#include "Stream.h"
 #include "ScriptInterp.h"
 #include "ScriptInterpTCL.h"
 using namespace BDLIB_NS;
@@ -15,6 +16,7 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 {
     CPPUNIT_TEST_SUITE (ScriptInterpTCLTest);
     CPPUNIT_TEST (evalTest);
+    CPPUNIT_TEST (loadScriptTest);
 //    CPPUNIT_TEST (operatorEqualsTest);
     CPPUNIT_TEST (linkVarTest);
     CPPUNIT_TEST (createCommandTest);
@@ -27,6 +29,7 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 
     protected:
         void evalTest(void);
+        void loadScriptTest(void);
 //        void operatorEqualsTest(void);
         void linkVarTest(void);
         void createCommandTest(void);

@@ -98,6 +98,7 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual ~ScriptInterpTCL() {destroy();};
 
         virtual String eval(const String& script);
+        virtual LoadError loadScript(const String& fileName, String& resultStr);
 
         virtual void createCommand(const String& name, script_callback_string_t callback, script_clientdata_t clientData = NULL);
         virtual void createCommand(const String& name, script_callback_int_t callback, script_clientdata_t clientData = NULL);

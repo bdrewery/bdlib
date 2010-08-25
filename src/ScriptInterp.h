@@ -75,6 +75,18 @@ class ScriptInterp {
          */
         virtual String eval(const String& script) = 0;
 
+        enum LoadError {
+          SCRIPT_LOAD_OK,
+          SCRIPT_LOAD_ERROR,
+          SCRIPT_LOAD_WRONG_INTERP
+        };
+        /**
+         * @brief Load script file
+         * @param fileName The file to load
+         * @param resultStr String to hold error output from interp
+         */
+        virtual LoadError loadScript(const String& fileName, String& resultStr) = 0;
+
         /**
          * @param name Name of the command to create
          * @param callback The script_callback_t function to call when the command is ran

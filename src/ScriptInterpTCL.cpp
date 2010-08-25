@@ -45,6 +45,22 @@ String ScriptInterpTCL::eval(const String& script) {
   return String();
 }
 
+ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, String& resultStr) {
+  if (fileName.rfind(".tcl", fileName.length() - 4) == String::npos)
+    return SCRIPT_LOAD_WRONG_INTERP;
+  if (Tcl_EvalFile(interp, *fileName) != TCL_OK) {
+    //FIXME: Dry with TraceSetString
+    Tcl_Obj* value = Tcl_GetObjResult(interp);
+    int len = 0;
+    char *cstr = Tcl_GetStringFromObj(value, &len);
+    if (!cstr)
+      resultStr = String();
+    resultStr = String(cstr, len);
+    return SCRIPT_LOAD_ERROR;
+  }
+  return SCRIPT_LOAD_OK;
+}
+
 int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_callback_clientdata_t* ccd = (script_callback_clientdata_t*)clientData;
   ScriptArgsTCL args(objc, objv);

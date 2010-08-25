@@ -1,6 +1,7 @@
 /* ScriptInterpTCLTest.c
  *
  */
+#include <unistd.h>
 #include "ScriptInterpTCLTest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION (ScriptInterpTCLTest);
@@ -33,6 +34,29 @@ void ScriptInterpTCLTest :: evalTest (void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("8", tcl_script.eval("expr {4 + 4}"));
   CPPUNIT_ASSERT_STRING_EQUAL(tcl_script.eval("set errorInfo"), tcl_script.eval("unknown"));
+}
+
+void ScriptInterpTCLTest :: loadScriptTest (void)
+{
+  ScriptInterpTCL tcl_script;
+  String bad_cmd = tcl_script.eval("x");
+  String resultStr;
+
+  CPPUNIT_ASSERT_STRING_EQUAL(bad_cmd, tcl_script.eval("x"));
+  CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_WRONG_INTERP, tcl_script.loadScript("/dev/null", resultStr));
+
+  // Now create/load script with proc x and verify cmd exists
+
+  Stream test_tcl;
+  String fileName("test.tcl");
+  String expected_result = "x proc";
+  test_tcl << "proc x {} { return \"" + expected_result + "\"}";
+  CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_ERROR, tcl_script.loadScript(fileName, resultStr));
+  unlink(*fileName);
+  test_tcl.writeFile(fileName);
+  CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_OK, tcl_script.loadScript(fileName, resultStr));
+  CPPUNIT_ASSERT_STRING_EQUAL(expected_result, tcl_script.eval("x"));
+  unlink(*fileName);
 }
 
 /*
