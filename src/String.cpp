@@ -237,6 +237,16 @@ size_t String::find (const String& str) const {
   return npos;
 }
 
+size_t String::rfind (const String& str, const size_t lpos) const {
+  if (length() >= str.length()) {
+    const size_t last_pos = length() - str.length();
+    for (size_t pos = last_pos; pos + 1 > lpos; --pos)
+      if (str[0] == (*this)[pos] && !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+        return pos;
+  }
+  return npos;
+}
+
 String String::sub(const String& search, const String& replacement, int limit) const {
   String newStr(length()), search_str(*this);
   size_t pos = 0;

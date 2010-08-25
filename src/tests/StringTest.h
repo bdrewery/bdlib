@@ -30,6 +30,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (chompTest);
     CPPUNIT_TEST (trimTest);
     CPPUNIT_TEST (findTest);
+    CPPUNIT_TEST (rfindTest);
     CPPUNIT_TEST (newsplitTest);
     CPPUNIT_TEST (concatTest);
     CPPUNIT_TEST (incDecTest);
@@ -68,6 +69,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void replaceTest(void);
         void chompTest(void);
         void trimTest(void);
+        void rfindTest(void);
         void findTest(void);
         void newsplitTest(void);
         void resizeTest(void);

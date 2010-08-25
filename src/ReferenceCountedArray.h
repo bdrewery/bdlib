@@ -500,6 +500,17 @@ class ReferenceCountedArray {
       return size_t(-1);
     }
 
+    /**
+     * @brief Find an item in the array, starting from the end
+     * @return The position of the item if found, or npos if not found
+     **/
+    size_t rfind(const_reference item) const {
+      for (size_t i = length() - 1; i + 1 > 0; --i)
+        if (*(Buf(i)) == item)
+          return i;
+      return size_t(-1);
+    }
+
     // Safe index accessors
     /**
      * @brief Checks if the buffer has the given index or not.

@@ -480,6 +480,30 @@ void StringTest :: findTest(void)
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("notfound"));
 }
 
+void StringTest :: rfindTest(void)
+{
+
+  *a = "Filename.tcl";
+  CPPUNIT_ASSERT_EQUAL((size_t)7, a->rfind('e'));//Tests ReferenceCountedArray<char>::rfind
+  CPPUNIT_ASSERT_EQUAL((size_t)7, a->rfind("e"));//Tests String::rfind(String)
+  CPPUNIT_ASSERT_EQUAL((size_t)8, a->rfind('.'));
+  CPPUNIT_ASSERT_EQUAL((size_t)9, a->rfind('t'));
+  CPPUNIT_ASSERT_EQUAL((size_t)10, a->rfind('c'));
+  CPPUNIT_ASSERT_EQUAL((size_t)11, a->rfind('l'));
+  CPPUNIT_ASSERT_EQUAL((size_t)9, a->rfind("tcl"));
+  CPPUNIT_ASSERT_EQUAL((size_t)8, a->rfind(".tcl"));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->rfind("File"));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, a->rfind("Filename.tcl"));
+
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->rfind("z"));
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->rfind("Filename.tclBLA"));
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->rfind("Filename.tck"));
+
+  CPPUNIT_ASSERT_EQUAL((size_t)8, a->rfind(".tcl", a->length() - 4));
+  *a = "test.tcl.rb";
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->rfind(".tcl", a->length() - 4));
+}
+
 void StringTest :: newsplitTest(void)
 {
   String sentence = "WORD1 WORD2 WORD3 WORD4 WORD5";

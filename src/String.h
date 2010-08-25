@@ -136,6 +136,16 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         using ReferenceCountedArray<String_Array_Type>::find;
 
         /**
+         * @brief Find a string, starting from the end of the string
+         * @param str The string to look for
+         * @param lpos The last position to consider when searching
+         * @return The position of the string if found, or String::npos if not found
+         * @sa find
+         */
+        size_t rfind(const String& str, const size_t lpos = 0) const;
+        using ReferenceCountedArray<String_Array_Type>::rfind;
+
+        /**
          * @brief Give an OutputIterator for STL usage
          * @post The string is detached.
          */
