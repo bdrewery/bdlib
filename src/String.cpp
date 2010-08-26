@@ -69,38 +69,38 @@ int String::compare(const String &str, size_t n, size_t start) const
 /**
  * @brief Insert a cstring at the given index.
  * @param string The cstring to be inserted.
- * @param k The index to insert at.
+ * @param pos The index to insert at.
  * @param n Up to this many characters will be used from the string.
  * @post A buffer is allocated.
  * @post If the old buffer was too small, it is enlarged.
  * @post The string is inserted at the given index.
  */
-void String::insert(int k, const char *string, int n)
+void String::insert(size_t pos, const char *string, size_t n)
 {
   if (n == 0) return;
-  if (k && !hasIndex(k-1)) return;
+  if (pos && !hasIndex(pos-1)) return;
   
-  size_t slen = (n == -1) ? strlen(string) : (size_t) n;
+  size_t slen = (n == npos) ? strlen(string) : n;
 
   AboutToModify(length() + slen);
-  memmove(Buf() + k + slen, Buf() + k, length() - k);
-  std::copy(string, string + slen, Buf() + k);
+  memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+  std::copy(string, string + slen, Buf() + pos);
   addLength(slen);
 }
 
 /**
  * @brief Replaces the given index with the given cstring up to the given amount of characters.
- * @param k The index to replace at.
+ * @param pos The index to replace at.
  * @param string The cstring to replace with.
  * @param n How many characters to use from string.
  */
-void String::replace(int k, const char *string, int n)
+void String::replace(size_t pos, const char *string, size_t n)
 {
   if (n == 0) return;
-  if (k && !hasIndex(k-1)) return;
+  if (pos && !hasIndex(pos-1)) return;
 
-  size_t slen = (n == -1) ? strlen(string) : (size_t) n;
-  size_t newlen = k + slen;
+  size_t slen = (n == npos) ? strlen(string) : n;
+  size_t newlen = pos + slen;
   
   if (newlen >= length()) {
     AboutToModify(newlen);
@@ -108,7 +108,7 @@ void String::replace(int k, const char *string, int n)
     newlen = length();
     getOwnCopy();
   }
-  std::copy(string, string + slen, Buf() + k);
+  std::copy(string, string + slen, Buf() + pos);
   setLength(newlen);
 }
 
@@ -173,7 +173,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
     if ((pos = str.find(delim)) == npos)
       pos = str.length();
     array << str(0, pos);
-    str += int(pos + delim.length());
+    str += pos + delim.length();
   }
 
   // Add on extra
@@ -245,7 +245,7 @@ String String::sub(const String& search, const String& replacement, int limit) c
   while ((pos = search_str.find(search)) != npos) {
     newStr += search_str(0, pos);
     newStr += replacement;
-    search_str += int(pos) + int(search.length());
+    search_str += pos + search.length();
     if (limit != -1 && ++cnt == limit) break;
   }
   // Left over
@@ -289,7 +289,7 @@ String newsplit(String& str, char delim)
   }
 
 //  str = str(pos + 1, str.length() - pos + 1);
-  str += int(pos) + 1;
+  str += pos + 1;
   return first;
 }
 BDLIB_NS_END

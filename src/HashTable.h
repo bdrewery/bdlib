@@ -96,7 +96,7 @@ class HashTable {
       // Now yield on our temporary, so (this) isn't a factor.
       for (iter = items.begin(); iter; (++iter)) {
         iterator_type kv = *iter;
-        block((const Key)kv.key(), kv.value(), param);
+        block(kv.key(), kv.value(), param);
       }
     }
 

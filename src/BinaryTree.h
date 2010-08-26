@@ -70,10 +70,10 @@ class BinaryTree {
         else if (key > (*search)->kv.key())
           search = &(*search)->right;
         else {
-          return (Node*&) *search;
+          return const_cast<Node*&>(*search);
         }
       }
-      return (Node*&) *search;
+      return const_cast<Node*&>(*search);
     }
 
     /** 

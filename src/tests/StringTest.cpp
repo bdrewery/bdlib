@@ -297,7 +297,7 @@ void StringTest :: insertTest(void)
   a->insert(0, "THIS IS SOME");
   CPPUNIT_ASSERT_STRING_EQUAL("THIS IS SOMEme long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string,this is some long string", *a);
 
-  *a += int(a->length());
+  *a += a->length();
   a->insert(0, "SOME TEST");
   CPPUNIT_ASSERT_STRING_EQUAL("SOME TEST", *a);
 
@@ -566,7 +566,7 @@ void StringTest :: incDecEqualTest(void)
 {
   *a = "test word";
   *b = *a;
-  *a += 5;
+  *a += size_t(5);
   CPPUNIT_ASSERT_STRING_EQUAL("test word", *b);
   CPPUNIT_ASSERT_EQUAL((size_t) 9, b->length());
   CPPUNIT_ASSERT_STRING_EQUAL("word", *a);
@@ -583,7 +583,7 @@ void StringTest :: incDecEqualTest(void)
   *a -= 3;
   CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
   CPPUNIT_ASSERT_STRING_EQUAL("longt", *a);
-  *a += 4;
+  *a += size_t(4);
   CPPUNIT_ASSERT_STRING_EQUAL("t", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 1, a->length());
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
@@ -597,7 +597,7 @@ void StringTest :: incDecEqualTest(void)
   *b = "blah";
   *a = "longtest";
   *a -= 3;
-  *a += 4;
+  *a += size_t(4);
   CPPUNIT_ASSERT_STRING_EQUAL("t", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 1, a->length());
 
@@ -632,7 +632,7 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t) 14, a->length());
 
   *a = "someword";
-  *a += 4;
+  *a += size_t(4);
   CPPUNIT_ASSERT_STRING_EQUAL("word", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 4, a->length());
   *a += String("test1234") * 20;
@@ -640,7 +640,7 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t) 4 + (8 * 20), a->length());
 
   *b = *a;
-  *b += 4;
+  *b += size_t(4);
   CPPUNIT_ASSERT_STRING_EQUAL("test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234test1234", *b);
   CPPUNIT_ASSERT_EQUAL((size_t) (8 * 20), b->length());
 
@@ -650,7 +650,7 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t) ((8 * 20) + (4 * 500)), b->length());
 
   *a = "test";
-  *a += 10;
+  *a += size_t(10);
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->length());
   CPPUNIT_ASSERT_STRING_EQUAL("", *a);
 
@@ -677,7 +677,7 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
 
   *a = "";
-  *a += 4;
+  *a += size_t(4);
   *a -= 4;
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->length());
 
@@ -688,8 +688,8 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_EQUAL(true, strcmp(" ", b->c_str()) == 0);
   CPPUNIT_ASSERT_EQUAL((size_t)1, b->length());
   CPPUNIT_ASSERT_EQUAL((size_t)3, a->length());
-  (*a) += int(1) + 1;
-  (*a) += 1;
+  (*a) += size_t(2);
+  (*a) += size_t(1);
   CPPUNIT_ASSERT_EQUAL((size_t)1, b->length());
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->length());
   CPPUNIT_ASSERT_EQUAL((size_t)0, strlen(a->c_str()));
@@ -1062,7 +1062,7 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(9), c->length());
 
   *d = *a;
-  *d += 20;
+  *d += size_t(20);
 
   CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?", *d);
   CPPUNIT_ASSERT_STRING_EQUAL("arbitrary", *b);
@@ -1105,11 +1105,11 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(44), d->length());
 
   *c -= 1;
-  *c += 5;
+  *c += size_t(5);
   *c += "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
   *c -= 1;
   *c += "test";
-  *c += 1;
+  *c += size_t(1);
   CPPUNIT_ASSERT_STRING_EQUAL("ting and replacing work with substrings?test", *d);
   CPPUNIT_ASSERT_STRING_EQUAL("arbitrary wordsinserting", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("does arbitrary inserting and replacing work with substrings?", *a);

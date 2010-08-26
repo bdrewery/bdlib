@@ -44,7 +44,7 @@ int Stream::seek (int offset, int whence) {
   }
   if (newpos < 0)
     newpos = 0;
-  else if ((unsigned) newpos > capacity())
+  else if (static_cast<size_t>(newpos) > capacity())
     newpos = capacity();
   pos = newpos;
 
@@ -91,16 +91,16 @@ int Stream::loadFile(const int fd)
 #ifdef HAVE_MMAP
   size_t size = lseek(fd, 0, SEEK_END);
   Reserve(size);
-  unsigned char* map = (unsigned char*) mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
-  if ((void*)map == MAP_FAILED) {
+  void* map = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
+  if (map == MAP_FAILED) {
     close(fd);
     return 1;
   }
   loading = 1;
 
-  puts(String((const char*)map, size));
+  puts(String(static_cast<const char*>(map), size));
 
-  munmap(map, size);
+  munmap(static_cast<void*>(map), size);
 #else
   FILE *f = fdopen(fd, "rb");
   if (f == NULL)
@@ -143,9 +143,9 @@ int Stream::writeFile(const int fd) const
   if (!length())
     return 0;
 
-  unsigned char* map = (unsigned char*) mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+  void* map = mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
 
-  if ((void*)map == MAP_FAILED) return 1;
+  if (map == MAP_FAILED) return 1;
 
   std::memcpy(map, str.data(), length());
 

@@ -64,20 +64,20 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /* Cleanse our buffer using OPENSSL_cleanse() */
         void cleanse() {
           const size_t len = capacity();
-          const char* ptr = real_begin(); //real_begin() will ignore offset.
+          char* ptr = const_cast<char*>(real_begin()); //real_begin() will ignore offset.
 
-          unsigned char *p = (unsigned char *) ptr;
+          unsigned char *p = reinterpret_cast<unsigned char *>(ptr);
           size_t loop = len;
           while(loop--)
           {
-            *(p++) = (unsigned char)cleanse_ctr;
-            cleanse_ctr += (17 + ((size_t)p & 0xF));
+            *(p++) = static_cast<unsigned char>(cleanse_ctr);
+            cleanse_ctr += (17 + (reinterpret_cast<size_t>(p) & 0xF));
           }
           if(memchr(ptr, cleanse_ctr, len))
-            cleanse_ctr += (63 + (size_t)p);
+            cleanse_ctr += (63 + reinterpret_cast<size_t>(p));
         }
   public:
-        static const size_t npos = size_t(-1);
+        static const size_t npos = static_cast<size_t>(-1);
 
         /* Constructors */
         String() : ReferenceCountedArray<String_Array_Type>() {};
@@ -212,7 +212,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa at
          */
-        inline char charAt(int i) const { return at(i); };
+        inline char charAt(size_t pos) const { return at(pos); };
 
         // Substrings
         /**
@@ -254,14 +254,14 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @post The buffer is allocated.
          * This is the same as inserting the string at the end of the buffer.
          */
-        inline void append(const char* string, int n = -1) { insert(length(), string, n); };
+        inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
 
         using ReferenceCountedArray<String_Array_Type>::append;
 
-        void insert(int, const char*, int = -1);
+        void insert(size_t, const char*, size_t = npos);
         using ReferenceCountedArray<String_Array_Type>::insert;
 
-        void replace(int, const char*, int = -1);
+        void replace(size_t, const char*, size_t = npos);
         using ReferenceCountedArray<String_Array_Type>::replace;
 
         /**
@@ -294,8 +294,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         String& operator += (const char);
         String& operator += (const char*);
         String& operator += (const String&);
-        String& operator += (int);
-        String& operator -= (int);
+        String& operator += (const size_t);
+        String& operator -= (const size_t);
 
         const String& operator ++ (); //Prefix
         const String operator ++ (int); //Postfix
@@ -355,7 +355,7 @@ inline String operator + (const String& string1, const String& string2) {
 }
 
 inline const String& String::operator ++ () { //Prefix
-  return (*this) += 1;
+  return (*this) += size_t(1);
 }
 
 inline const String String::operator ++ (int) //Postfix
@@ -405,10 +405,10 @@ inline String& String::operator += (const String& string) {
   return *this;
 }
 
-inline String& String::operator += (const int n) {
+inline String& String::operator += (const size_t n) {
   if (!length())
     return *this;
-  if ((int(length()) - n) < 0) {
+  if (n > length()) {
     offset = length();
     setLength(0);
   } else {
@@ -418,10 +418,10 @@ inline String& String::operator += (const int n) {
   return *this;
 }
 
-inline String& String::operator -= (const int n) {
+inline String& String::operator -= (const size_t n) {
   if (!length())
     return *this;
-  if (int(length()) - n < 0) {
+  if (n > length()) {
     offset = length();
     setLength(0);
   } else

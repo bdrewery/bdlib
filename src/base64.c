@@ -115,7 +115,7 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* 
 
 String base64Encode(const String& string, const char* charset) {
   size_t len = string.length();
-  char *p = b64enc((unsigned char*) string.data(), &len, charset);
+  char *p = b64enc(reinterpret_cast<const unsigned char*>(string.data()), &len, charset);
   bd::String encoded(p, len);
   free(p);
   return encoded;
@@ -125,7 +125,7 @@ char *b64enc(const unsigned char *src, size_t *len, const char* charset)
 {
   /* Take the length and round up the next 4-byte boundary */
   size_t dlen = (((*len + (NUM_ASCII_BYTES - 1)) / NUM_ASCII_BYTES) * NUM_ENCODED_BYTES);
-  char *dest = (char *) malloc(dlen + 1);;
+  char *dest = static_cast<char*>(malloc(dlen + 1));
 
   b64enc_buf(src, len, dest, charset ? charset : b64_charset);
   dest[*len] = '\0';
@@ -159,7 +159,7 @@ void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* 
 char *b64dec(const unsigned char *data, size_t *len, const char* charset)
 {
   size_t dlen = ((*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0)) * NUM_ASCII_BYTES;
-  char *dest = (char *) malloc(dlen + 1);
+  char *dest = static_cast<char*>(malloc(dlen + 1));
 
   if (charset) {
     char charset_index[256];
@@ -175,7 +175,7 @@ char *b64dec(const unsigned char *data, size_t *len, const char* charset)
 
 String base64Decode(const String& string, const char* charset) {
   size_t len = string.length();
-  char *p = b64dec((unsigned char*) string.data(), &len, charset);
+  char *p = b64dec(reinterpret_cast<const unsigned char*>(string.data()), &len, charset);
   bd::String decoded(p, len);
   free(p);
   return decoded;

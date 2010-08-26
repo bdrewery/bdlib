@@ -228,7 +228,7 @@ class List {
         virtual operator bool() { return (current != NULL); };
         virtual operator iterator_type () { return operator*(); };
           
-        virtual iterator_type& operator *() { return (iterator_type&)current->ptr; }
+        virtual iterator_type& operator *() { return static_cast<iterator_type&>(current->ptr); }
 
         //Postfix
         virtual iterator operator ++(int) {

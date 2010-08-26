@@ -172,6 +172,8 @@ class ReferenceCountedArray {
     typedef value_type&        reference;
     typedef const value_type&  const_reference;
 
+    static const size_t npos = static_cast<size_t>(-1);
+
   private:
     /**
      * @brief Detach from the shared reference.
@@ -220,12 +222,12 @@ class ReferenceCountedArray {
     /**
      * @brief Mutable Ref->buf reference for use internally
      */
-    inline pointer Buf(int i = 0) const { return &Ref->buf[offset + i]; };
+    inline pointer Buf(size_t pos = 0) const { return &Ref->buf[offset + pos]; };
 
     /**
      * @brief Ref->buf reference for use internally
      */
-    inline const_pointer constBuf(int i = 0) const { return Buf(i); };
+    inline const_pointer constBuf(size_t pos = 0) const { return Buf(pos); };
   private:
     /**
      * @brief The array reference for reference counting
@@ -504,35 +506,35 @@ class ReferenceCountedArray {
      * @return Boolean true/false as to whether or not index exists.
      * @param i Index to check.
      */
-    inline bool hasIndex(int i) const {
-      if (i < 0 || i >= (int) (offset + length())) {
+    inline bool hasIndex(size_t pos) const {
+      if (pos >= (offset + length())) {
 #ifdef DEBUG
-        ::printf("ATTEMPT TO ACCESS INDEX %d/%zu\n", i, size_t(offset + length()));
+        ::printf("ATTEMPT TO ACCESS INDEX %zu/%zu\n", pos, offset + length());
 #endif
         return 0;
       }
-      return (i < (int) length());
+      return (pos < length());
     };
 
     /**
      * @sa at()
      * Unlinke at() this is unchecked.
      */
-    inline value_type read(int i) const { return *(constBuf(i)); };
+    inline value_type read(size_t pos) const { return *(constBuf(pos)); };
 
     /**
      * @brief Write an item to the given index
      */
-    inline void write(int i, value_type item) {
+    inline void write(size_t pos, value_type item) {
       getOwnCopy();
-      *(Buf(i)) = item;
+      *(Buf(pos)) = item;
     };
 
     /**
      * @brief Safe element access operator
      * @todo This is only called on a (const) String, but should for a String as well.
      */
-    inline value_type operator [](int i) const { return read(i); };
+    inline value_type operator [](size_t pos) const { return read(pos); };
 
     /**
      * @class Cref
@@ -548,12 +550,12 @@ class ReferenceCountedArray {
       private:
         friend class ReferenceCountedArray;
         ReferenceCountedArray& rca;
-        int k;
+        size_t k;
 
         /**
          * @brief Used by String::Cref operator[]
          */
-        Cref(ReferenceCountedArray& _rca, int i) : rca(_rca), k(i) {};
+        Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
         Cref(); //Not defined - never used
 
       public:
@@ -582,17 +584,17 @@ class ReferenceCountedArray {
      * @brief Returns 'Cref' class for safe (cow) writing into String.
      * @sa Cref
      */
-    inline Cref operator [](int i) { return Cref(*this, i); };
+    inline Cref operator [](size_t pos) { return Cref(*this, pos); };
 
     /**
      * @brief Returns the character at the given index.
      * @return The character at the given index.
-     * @param i Index to return.
+     * @param pos Index to return.
      * @pre The index must exist.
      * @sa operator[]()
      * @todo Perhaps this should throw an exception if out of range?
      */
-    inline value_type at(int i) const { return hasIndex(i) ? (*this)[i] : 0; };
+    inline value_type at(size_t pos) const { return hasIndex(pos) ? (*this)[pos] : 0; };
 
     /**
      * @brief Return a new array from a subarray
@@ -604,7 +606,7 @@ class ReferenceCountedArray {
     void slice(int start, int len = -1) {
       if (len == -1) len = int(length()) - start;
       // Start is after the end, set us to an empty array
-      if (start >= (signed) length()) {
+      if (start >= static_cast<signed>(length())) {
         offset = length();
         setLength(0);
         return;
@@ -619,7 +621,7 @@ class ReferenceCountedArray {
 
       offset += start;
       //If the length of the subarray exceeds the end of the array, truncate to the end of the array
-      if (start + len >= (signed) length())
+      if (start + len >= static_cast<signed>(length()))
         len = length() - start;
       // If the length is negative, stop from counting backwards from the end
       else if (len < 0)
@@ -642,92 +644,92 @@ class ReferenceCountedArray {
      * @post The buffer is allocated.
      * This is the same as inserting the rca at the end of the buffer.
      */
-    inline void append(const ReferenceCountedArray& rca, int n = -1) { insert(length(), rca, n); };
+    inline void append(const ReferenceCountedArray& rca, size_t n = npos) { insert(length(), rca, n); };
 
 
     /**
      * @brief Inserts a ReferenceCountedArray object into our buffer
-     * @param k The index to insert at.
+     * @param pos The index to insert at.
      * @param rca The rca to insert.
      * @param n The length to insert.
-     * @post The buffer contains n items from rca inserted at index k.
+     * @post The buffer contains n items from rca inserted at index pos.
      */
-    void insert(int k, const ReferenceCountedArray& rca, int n = -1) {
+    void insert(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
       if (n == 0) return;
-      if (k && !hasIndex(k-1)) return;
+      if (pos && !hasIndex(pos-1)) return;
 
-      int slen = rca.length();
+      size_t slen = rca.length();
 
       /* New rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
-      if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
+      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
         *this = rca;
         return;
       }
 
-      if (n == -1 || n > slen)
+      if (n == npos || n > slen)
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      memmove(Buf() + k + slen, Buf() + k, length() - k);
-      std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
+      memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+      std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
       addLength(slen);
     }
 
     /**
      * @brief Insert an item at the given index.
-     * @param k The index to insert at.
+     * @param pos The index to insert at.
      * @param item The item to be inserted.
      * @post A buffer is allocated.
      * @post If the old buffer was too small, it is enlarged.
      * @post The item is inserted at the given index.
      */
-    void insert(int k, const_reference item)
+    void insert(size_t pos, const_reference item)
     {
-      if (k && !hasIndex(k-1)) return;
+      if (pos && !hasIndex(pos-1)) return;
 
       AboutToModify(length() + 1);
-      memmove(Buf() + k + 1, Buf() + k, length() - k);
-      *(Buf(k)) = item;
+      memmove(Buf() + pos + 1, Buf() + pos, length() - pos);
+      *(Buf(pos)) = item;
       addLength(1);
     }
 
     /**
      * @brief Replace the given index with the given item.
-     * @param k The index to replace.
+     * @param pos The index to replace.
      * @param item The item to replace with.
      * @post The given index has been replaced.
      * @post COW is done if needed.
      */
-    void replace(int k, const_reference item) {
-      if (k && !hasIndex(k-1)) return;
+    void replace(size_t pos, const_reference item) {
+      if (pos && !hasIndex(pos-1)) return;
 
       getOwnCopy();
-      *(Buf(k)) = item;
+      *(Buf(pos)) = item;
     }
 
     /**
-     * @brief Replaces n elements in our buffer at index k with the given ReferenceCountedArray object
-     * @param k The index to replace at.
+     * @brief Replaces n elements in our buffer at index pos with the given ReferenceCountedArray object
+     * @param pos The index to replace at.
      * @param rca The ReferenceCountedArray object to replace with.
      * @param n The number of characters to use for the replace.
      */
-    void replace(int k, const ReferenceCountedArray &rca, int n = -1) {
+    void replace(size_t pos, const ReferenceCountedArray &rca, size_t n = npos) {
       if (n == 0) return;
-      if (k && !hasIndex(k-1)) return;
+      if (pos && !hasIndex(pos-1)) return;
 
-      int slen = rca.length();
+      size_t slen = rca.length();
 
       /* Replace rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
-      if (k == 0 && size_t(slen) > length() && (n == -1 || n == slen)) {
+      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
         *this = rca;
         return;
       }
 
-      if (n == -1 || n > slen)
+      if (n == npos || n > slen)
         n = slen;
       slen -= slen - n;
 
-      size_t newlen = k + slen;
+      size_t newlen = pos + slen;
 
       if (newlen >= length()) {
         AboutToModify(newlen);
@@ -735,7 +737,7 @@ class ReferenceCountedArray {
         newlen = length();
         getOwnCopy();
       }
-      std::copy(rca.begin(), rca.begin() + slen, Buf() + k);
+      std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
       setLength(newlen);
     }
 
