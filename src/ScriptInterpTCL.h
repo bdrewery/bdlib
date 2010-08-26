@@ -57,6 +57,7 @@ class ScriptArgsTCL : public ScriptArgs {
     }
 
     virtual int getArgInt(int index) const {
+      if (size_t(index) >= length()) return 0;
       long v = 0;
       //FIXME: DRY with TraceSetInt
       if (Tcl_GetLongFromObj(0, my_objv[index], &v) == TCL_OK) {
@@ -68,7 +69,9 @@ class ScriptArgsTCL : public ScriptArgs {
         return 0;
       return (int)v;
     }
+
     virtual String getArgString(int index) const {
+      if (size_t(index) >= length()) return String();
       //FIXME: DRY with TraceSetString
       int len = 0;
       char *cstr = Tcl_GetStringFromObj(my_objv[index], &len);
