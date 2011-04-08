@@ -10,6 +10,23 @@
 
 BDLIB_NS_BEGIN
 
+/* Define static tcl_traceGet() template functions */
+define_tcl_traceGet(int);
+define_tcl_traceGet(unsigned int);
+define_tcl_traceGet(long);
+define_tcl_traceGet(unsigned long);
+define_tcl_traceGet(double);
+define_tcl_traceGet(bool);
+define_tcl_traceGet(String);
+
+define_tcl_traceSet(int);
+//define_tcl_traceSet(unsigned int);
+define_tcl_traceSet(long);
+//define_tcl_traceSet(unsigned long);
+define_tcl_traceSet(double);
+define_tcl_traceSet(bool);
+define_tcl_traceSet(String);
+
 int ScriptInterpTCL::init() {
   // create interp
   interp = Tcl_CreateInterp();
@@ -129,109 +146,75 @@ Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2
   return value;
 }
 
-const char* ScriptInterpTCL::TraceGetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  String* str = (String*) clientData;
-  Tcl_Obj *value = (str->length() < INT_MAX) ? Tcl_NewStringObj(str->data(), str->length()) : NULL;
-  return TraceGet(value, interp, name1, name2, flags);
+Tcl_Obj* c_to_tcl_cast<int>::from(int value) {
+  return Tcl_NewIntObj(value);
 }
 
-const char* ScriptInterpTCL::TraceSetString (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
+Tcl_Obj* c_to_tcl_cast<unsigned int>::from(unsigned int value) {return c_to_tcl_cast<int>::from(value);}
 
-  if (!value) goto fail;
-  {
-    int len = 0;
-    char *cstr = Tcl_GetStringFromObj(value, &len);
-    if (!cstr) {
-//      SWIG_exception_fail(SWIG_ArgError(res), "in variable '""server_list""' of type '""char [256]""'");
-      goto fail;
-    }
+Tcl_Obj* c_to_tcl_cast<long>::from(long value) {
+  return Tcl_NewLongObj(value);
+}
 
-    *(String*)clientData = String(cstr, len);
-  }
+Tcl_Obj* c_to_tcl_cast<unsigned long>::from(unsigned long value) {return c_to_tcl_cast<long>::from(value);}
+
+Tcl_Obj* c_to_tcl_cast<double>::from(double value) {
+  return Tcl_NewDoubleObj(value);
+}
+
+Tcl_Obj* c_to_tcl_cast<String>::from(String value) {
+  return (value.length() < INT_MAX) ? Tcl_NewStringObj(value.data(), value.length()) : NULL;
+}
+
+Tcl_Obj* c_to_tcl_cast<bool>::from(bool value) {
+  return Tcl_NewBooleanObj(value);
+}
+
+/* tcl->c casting */
+const char* tcl_to_c_cast<String>::from(Tcl_Obj* obj, String* value) {
+  int len = 0;
+  char *cstr = Tcl_GetStringFromObj(obj, &len);
+  if (!cstr)
+    return "Type Error";
+
+  *value = String(cstr, len);
   return NULL;
-fail:
-  return name1;
 }
 
-const char* ScriptInterpTCL::TraceGetInt (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  return TraceGet(Tcl_NewIntObj(*(int*)clientData), interp, name1, name2, flags);
-}
 
-const char* ScriptInterpTCL::TraceSetInt (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
-
-  if (!value) goto fail;
-  {
-    long v;
-    if (Tcl_GetLongFromObj(0,value, &v) == TCL_OK) {
-      if ((v < INT_MIN || v > INT_MAX))
-        //SWIG_exception_fail(SWIG_ArgError(res), "in variable '""server_idx""' of type '""int""'");
-        return "OverflowError";
-    } else
-      return "Type Error";
-    *(int*)clientData = (int)(v);
-  }
+const char* tcl_to_c_cast<int>::from(Tcl_Obj* obj, int* value) {
+  long v;
+  if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
+    if ((v < INT_MIN || v > INT_MAX))
+      return "OverflowError";
+  } else
+    return "Type Error";
+  *value = v;
   return NULL;
-fail:
-  return name1;
 }
 
-const char* ScriptInterpTCL::TraceGetLong (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  return TraceGet(Tcl_NewLongObj(*(long*)clientData), interp, name1, name2, flags);
-}
-
-const char* ScriptInterpTCL::TraceSetLong (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
-
-  if (!value) goto fail;
-  {
-    long v;
-    if (Tcl_GetLongFromObj(0,value, &v) != TCL_OK)
-      return "Type Error";
-    *(long*)clientData = (long)(v);
-  }
+const char* tcl_to_c_cast<long>::from(Tcl_Obj* obj, long* value) {
+  long v;
+  if (Tcl_GetLongFromObj(0, obj, &v) != TCL_OK)
+    return "Type Error";
+  *value = v;
   return NULL;
-fail:
-  return name1;
 }
 
-const char* ScriptInterpTCL::TraceGetDouble (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  return TraceGet(Tcl_NewDoubleObj(*(double*)clientData), interp, name1, name2, flags);
-}
-
-const char* ScriptInterpTCL::TraceSetDouble (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
-
-  if (!value) goto fail;
-  {
-    double v;
-    if (Tcl_GetDoubleFromObj(0,value, &v) != TCL_OK)
-      return "Type Error";
-    *(double*)clientData = (double)(v);
-  }
+const char* tcl_to_c_cast<double>::from(Tcl_Obj* obj, double* value) {
+  double v;
+  if (Tcl_GetDoubleFromObj(0, obj, &v) != TCL_OK)
+    return "Type Error";
+  *value = v;
   return NULL;
-fail:
-  return name1;
 }
 
-const char* ScriptInterpTCL::TraceGetBool (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  return TraceGet(Tcl_NewBooleanObj(*(bool*)clientData), interp, name1, name2, flags);
-}
-
-const char* ScriptInterpTCL::TraceSetBool (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *value = TraceSet(interp, name1, name2, flags);
-
-  if (!value) goto fail;
-  {
-    int v;
-    if (Tcl_GetBooleanFromObj(0,value, &v) != TCL_OK)
-      return "Type Error";
-    *(bool*)clientData = (bool)(v);
-  }
+const char* tcl_to_c_cast<bool>::from(Tcl_Obj* obj, bool* value) {
+  int v;
+  if (Tcl_GetBooleanFromObj(0, obj, &v) != TCL_OK)
+    return "Type Error";
+  *value = v ? true : false;
   return NULL;
-fail:
-  return name1;
 }
 
 BDLIB_NS_END

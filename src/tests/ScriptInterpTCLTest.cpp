@@ -110,6 +110,9 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", tcl_script.eval("set ro"));
   CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", ro);
 
+  // Test templates
+  ScriptInterp::linkVar(tcl_script, "t_x", x);
+  CPPUNIT_ASSERT_STRING_EQUAL(x, tcl_script.eval("set t_x"));
 
   /* Ints */
 
@@ -130,6 +133,10 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   tcl_script.eval("set cy 12");
   CPPUNIT_ASSERT_EQUAL(52, atoi(tcl_script.eval("set cy").c_str()));
   CPPUNIT_ASSERT_EQUAL(52, cy);
+
+  // Test templates
+  ScriptInterp::linkVar(tcl_script, "t_y", y);
+  CPPUNIT_ASSERT_EQUAL(y, atoi(tcl_script.eval("set t_y").c_str()));
 
   /* Longs */
 

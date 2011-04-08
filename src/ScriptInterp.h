@@ -125,60 +125,23 @@ class ScriptInterp {
         virtual void deleteCommand(const String& name) = 0;
 
         /**
-         * @brief Link a String to a variable in the interp
-         * @param name Name of the variable to link
-         * @param var The variable to link to
+         * @brief Remove a variable from the interp
+         * @param name The name of the variable to remove
          */
-        virtual void linkVar(const String& name, String& var) = 0;
-        virtual void linkVar(const String& name, const String& var) = 0;
+        virtual void unlinkVar(const String& name) {};
 
         /**
-         * @brief Link an int to a variable in the interp
+         * @brief Link a C variable to a varible in the interp
          * @param name Name of the variable to link
          * @param var The variable to link to
          */
-        virtual void linkVar(const String& name, int& var) = 0;
-        virtual void linkVar(const String& name, const int& var) = 0;
+        template<class InterpType, typename T>
+          static void linkVar(InterpType& interp, const String& name, T& var) {interp.linkVar(name, var);}
 
-        /**
-         * @brief Link an unsigned int to a variable in the interp
-         * @param name Name of the variable to link
-         * @param var The variable to link to
-         */
-        virtual void linkVar(const String& name, unsigned int& var) = 0;
-        virtual void linkVar(const String& name, const unsigned int& var) = 0;
+        template<class InterpType, typename T>
+          static void linkVar(InterpType& interp, const String& name, const T& var) {interp.linkVar(name, var);}
 
-        /**
-         * @brief Link a long to a variable in the interp
-         * @param name Name of the variable to link
-         * @param var The variable to link to
-         */
-        virtual void linkVar(const String& name, long& var) = 0;
-        virtual void linkVar(const String& name, const long& var) = 0;
 
-        /**
-         * @brief Link an unsigned long to a variable in the interp
-         * @param name Name of the variable to link
-         * @param var The variable to link to
-         */
-        virtual void linkVar(const String& name, unsigned long& var) = 0;
-        virtual void linkVar(const String& name, const unsigned long& var) = 0;
-
-        /**
-         * @brief Link a double to a variable in the interp
-         * @param name Name of the variable to link
-         * @param var The variable to link to
-         */
-        virtual void linkVar(const String& name, double& var) = 0;
-        virtual void linkVar(const String& name, const double& var) = 0;
-
-        /**
-         * @brief Link a bool to a variable in the interp
-         * @param name Name of the variable to link
-         * @param var The variable to link to
-         */
-        virtual void linkVar(const String& name, bool& var) = 0;
-        virtual void linkVar(const String& name, const bool& var) = 0;
 };
 
 
