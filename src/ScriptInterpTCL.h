@@ -93,15 +93,7 @@ class ScriptCallbackTCL : public ScriptCallback {
 
       String result;
       if (Tcl_EvalObjEx(interp, command, TCL_EVAL_GLOBAL) == TCL_OK) {
-        //FIXME: Dry with TraceSetString
-        Tcl_Obj* value = Tcl_GetObjResult(interp);
-        int len = 0;
-        char *cstr = Tcl_GetStringFromObj(value, &len);
-        if (!cstr)
-          //FIXME: Error handling
-          result = String();
-        else
-          result = String(cstr, len);
+        tcl_to_c_cast<String>::from(Tcl_GetObjResult(interp), &result);
       } else
         Tcl_BackgroundError(interp);
 
@@ -148,25 +140,16 @@ class ScriptArgsTCL : public ScriptArgs {
 
     virtual int getArgInt(int index) const {
       if (size_t(index) >= length()) return 0;
-      long v = 0;
-      //FIXME: DRY with TraceSetInt
-      if (Tcl_GetLongFromObj(0, my_objv[index], &v) == TCL_OK) {
-        if ((v < INT_MIN || v > INT_MAX))
-          //FIXME error - overflow
-          return 0;
-      } else
-        // FIXME - error getting int - wrong type?
-        return 0;
-      return (int)v;
+      int value;
+      tcl_to_c_cast<int>::from(my_objv[index], &value);
+      return value;
     }
 
     virtual String getArgString(int index) const {
       if (size_t(index) >= length()) return String();
-      //FIXME: DRY with TraceSetString
-      int len = 0;
-      char *cstr = Tcl_GetStringFromObj(my_objv[index], &len);
-      if (!cstr) return String();
-      return String(cstr, len);
+      String value;
+      tcl_to_c_cast<String>::from(my_objv[index], &value);
+      return value;
     }
 
     virtual ScriptCallbackTCL* getArgCallback(int index) const {
