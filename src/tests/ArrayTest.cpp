@@ -103,6 +103,11 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("1", hm);
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
 
+  (*str_a) = Array<String>();
+  (*str_a) << "Test";
+  (*str_a) << "1 2 3";
+  (*str_a) << "Last 1";
+  CPPUNIT_ASSERT_STRING_EQUAL("\"Test\" \"1 2 3\" \"Last 1\"", str_a->join(" ", true));
 }
 
 void ArrayTest :: arrayConsTest(void)

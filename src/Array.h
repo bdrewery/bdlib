@@ -154,11 +154,17 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Join an array by a delimiter into a string
      */
-    String join(const String& delim) const {
+    String join(const String& delim, bool quoted = false) const {
       if (!this->length()) return String();
-      String str(*(this->Buf(0)));
-      for (size_t i = 1; i < this->length(); ++i) {
-        str += delim + *(this->Buf(i));
+      String str;
+      for (size_t i = 0; i < this->length(); ++i) {
+        if (i)
+          str += delim;
+        if (quoted) {
+          str += '"' + *(this->Buf(i)) + '"';
+        } else {
+          str += *(this->Buf(i));
+        }
       }
       return str;
     }
