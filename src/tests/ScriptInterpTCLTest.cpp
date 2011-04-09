@@ -265,7 +265,9 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
   tcl_script.eval("on_event \"first test\" param_test");
   // Now trigger the callback and verify that it calls the passed event
   CPPUNIT_ASSERT_STRING_EQUAL("I got 0 args, arg1: ", ((ScriptCallback*)Events[0])->trigger());
-  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: some argument", ((ScriptCallback*)Events[0])->trigger("some argument"));
+  Array<String> params;
+  params << "some argument";
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: some argument", ((ScriptCallback*)Events[0])->trigger(params));
 
 
 }

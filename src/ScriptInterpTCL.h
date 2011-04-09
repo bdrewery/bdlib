@@ -25,6 +25,7 @@
 
 #include "bdlib.h"
 #include "String.h"
+#include "Array.h"
 #include "ScriptInterp.h"
 
 #include <limits.h>
@@ -88,7 +89,7 @@ class ScriptCallbackTCL : public ScriptCallback {
       Tcl_DecrRefCount(obj);
     };
 
-    virtual String trigger(...) const {
+    virtual String trigger(Array<String> params) const {
       Tcl_Obj* command = Tcl_DuplicateObj(obj);
 
       String result;

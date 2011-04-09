@@ -25,6 +25,7 @@
 
 #include "bdlib.h"
 #include "String.h"
+#include "Array.h"
 
 #include <sys/types.h>
 
@@ -39,7 +40,7 @@ class ScriptCallback {
     ScriptCallback() {};
     virtual ~ScriptCallback() {};
 
-    virtual String trigger(...) const = 0;
+    virtual String trigger(Array<String> = Array<String>()) const = 0;
     virtual size_t hash() const  = 0;
 };
 
