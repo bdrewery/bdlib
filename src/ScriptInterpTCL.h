@@ -25,7 +25,6 @@
 
 #include "bdlib.h"
 #include "String.h"
-#include "Array.h"
 #include "ScriptInterp.h"
 
 #include <limits.h>
@@ -71,51 +70,6 @@ tcl_to_c_castable(double);
 tcl_to_c_castable(bool);
 tcl_to_c_castable(String);
 
-
-class ScriptCallbackTCL : public ScriptCallback {
-  private:
-    Tcl_Obj* obj;
-    Tcl_Interp* interp;
-
-    // Don't allow copying
-    ScriptCallbackTCL(const ScriptCallbackTCL&) : ScriptCallback(), obj(NULL), interp(NULL) {};
-    ScriptCallbackTCL& operator=(const ScriptCallbackTCL&) {return *this;};
-  public:
-    ScriptCallbackTCL() : ScriptCallback(), obj(NULL), interp(NULL) {};
-    ScriptCallbackTCL(Tcl_Obj* _obj, Tcl_Interp* _interp) : ScriptCallback(), obj(_obj), interp(_interp) {
-      Tcl_IncrRefCount(obj);
-    };
-    virtual ~ScriptCallbackTCL() {
-      Tcl_DecrRefCount(obj);
-    };
-
-    virtual String trigger(Array<String> params) const {
-      Tcl_Obj* command = Tcl_DuplicateObj(obj);
-
-      String result;
-      if (Tcl_EvalObjEx(interp, command, TCL_EVAL_GLOBAL) == TCL_OK) {
-        tcl_to_c_cast<String>::from(Tcl_GetObjResult(interp), &result);
-      } else
-        Tcl_BackgroundError(interp);
-
-      /* Clear any errors or stray messages. */
-      Tcl_ResetResult(interp);
-      return result;
-    }
-
-
-    virtual size_t hash() const { return (size_t)obj; };
-};
-
-template<typename T>
-  struct Hash;
-
-template<>
-  struct Hash<ScriptCallbackTCL>
-    {
-          inline size_t operator()(const ScriptCallbackTCL& val) const { return val.hash(); }
-    };
-
 class ScriptArgsTCL : public ScriptArgs {
   private:
     Tcl_Obj** my_objv;
@@ -151,12 +105,6 @@ class ScriptArgsTCL : public ScriptArgs {
       String value;
       tcl_to_c_cast<String>::from(my_objv[index], &value);
       return value;
-    }
-
-    virtual ScriptCallbackTCL* getArgCallback(int index) const {
-      if (size_t(index) >= length()) return NULL;
-      ScriptCallbackTCL* callback = new ScriptCallbackTCL(my_objv[index], interp);
-      return callback;
     }
 };
 

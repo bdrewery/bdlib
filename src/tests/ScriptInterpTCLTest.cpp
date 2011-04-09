@@ -240,13 +240,13 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: 5", tcl_script.eval("param_test 5"));
 }
 
-Array<ScriptCallback*> Events;
+HashTable<String, Array<String> > Events;
 
 void on_event(ScriptInterp& interp, const ScriptArgs& args, ScriptInterp::script_clientdata_t clientData) {
   // s:event c:Proc
   String eventName = args.getArgString(1);
-  ScriptCallback* callback = args.getArgCallback(2);
-  Events << callback;
+  String eventCommand = args.getArgString(2);
+  Events[eventName] << eventCommand;
 }
 
 void ScriptInterpTCLTest :: createCommandEventTest (void)
@@ -264,12 +264,11 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
   // Bind an event
   tcl_script.eval("on_event \"first test\" param_test");
   // Now trigger the callback and verify that it calls the passed event
-  CPPUNIT_ASSERT_STRING_EQUAL("I got 0 args, arg1: ", ((ScriptCallback*)Events[0])->trigger());
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 0 args, arg1: ", tcl_script.eval(Events["first test"][0]));
   Array<String> params;
+  params << Events["first test"][0];
   params << "some argument";
-  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: some argument", ((ScriptCallback*)Events[0])->trigger(params));
-
-
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: some argument", tcl_script.eval(params.join(" ", true)));
 }
 
 void ScriptInterpTCLTest :: deleteCommandTest (void)
