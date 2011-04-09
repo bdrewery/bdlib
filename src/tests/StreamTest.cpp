@@ -147,7 +147,7 @@ void StreamTest :: readTest (void)
   int x = 0;
   size_t pos = 0;
   while (a->tell() < a->length()) {
-    sbuf.printf("This is line%2d\nThis is line%2d\n", x + 1, x + 2);
+    sbuf = String::printf("This is line%2d\nThis is line%2d\n", x + 1, x + 2);
     gbuf = a->read(30);
     pos += gbuf.length();
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());
@@ -191,7 +191,7 @@ void StreamTest :: getlineTest (void)
   size_t pos = 0;
   while (a->tell() < a->length()) {
     ++x;
-    sbuf.printf("This is line%2d\n", x);
+    sbuf = String::printf("This is line%2d\n", x);
     gbuf = a->getline();
     pos += gbuf.length();
     CPPUNIT_ASSERT_EQUAL(pos, a->tell());

@@ -711,10 +711,10 @@ void StringTest :: printfTest(void)
   int n = 506;
   const char* s = "something";
 
-  a->printf("%s %d", s, n);
+  *a = String::printf("%s %d", s, n);
   CPPUNIT_ASSERT_STRING_EQUAL("something 506", *a);
 
-  CPPUNIT_ASSERT_STRING_EQUAL("506 something 506", a->printf("%d %s %d", n, s, n));
+  CPPUNIT_ASSERT_STRING_EQUAL("506 something 506", String::printf("%d %s %d", n, s, n));
 }
 
 /*

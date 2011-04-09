@@ -280,14 +280,15 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         String subst(HashTable<String, String> hashes) const;
 
-#ifdef __GNUC__
-        /* GNU GCC DOC: 
-           Since non-static C++ methods have an implicit this argument, the arguments of such methods 
-           should be counted from two, not one, when giving values for string-index and first-to-check.
+        /**
+         * @brief Return a new formatted string
+         * @return A new String
+         * @sa printf(3)
          */
-	virtual String printf(const char*, ...)  __attribute__((format(printf, 2, 3)));
+#ifdef __GNUC__
+        static String printf(const char*, ...)  __attribute__((format(printf, 1, 2)));
 #else
-	virtual String printf(const char*, ...);
+	static String printf(const char*, ...);
 #endif
         /* Operators */
 

@@ -210,7 +210,7 @@ String String::printf(const char* format, ...) {
   size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
-  return (*this = String(va_out, len));
+  return String(va_out, len);
 }
 
 String& String::chomp() {
