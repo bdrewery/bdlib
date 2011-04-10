@@ -157,6 +157,8 @@ class ScriptInterpTCL : public ScriptInterp {
         ScriptInterpTCL() : ScriptInterp(), interp(NULL) {init();};
         virtual ~ScriptInterpTCL() {destroy();};
 
+        virtual String type() const { return "ScriptInterpTCL"; };
+
         virtual String eval(const String& script);
         virtual LoadError loadScript(const String& fileName, String& resultStr);
 

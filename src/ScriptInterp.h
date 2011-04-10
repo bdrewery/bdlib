@@ -118,17 +118,11 @@ class ScriptInterp {
         virtual void unlinkVar(const String& name) {};
 
         /**
-         * @brief Link a C variable to a varible in the interp
-         * @param name Name of the variable to link
-         * @param var The variable to link to
+         * @brief Return the class name as a String
+         * This is only needed for calling specialized template methods from the derived class. See Unit Tests for examples.
+         * @sa http://stackoverflow.com/questions/2914081/c-member-function-template-in-derived-class-how-to-call-it-from-base-class
          */
-        template<class InterpType, typename T>
-          static void linkVar(InterpType& interp, const String& name, T& var) {interp.linkVar(name, var);}
-
-        template<class InterpType, typename T>
-          static void linkVar(InterpType& interp, const String& name, const T& var) {interp.linkVar(name, var);}
-
-
+        virtual String type() const = 0;
 };
 
 
