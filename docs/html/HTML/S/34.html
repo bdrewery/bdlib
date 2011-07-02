@@ -1,0 +1,170 @@
+<html>
+<head>
+<title>Stream.h</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/Stream.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2><a href='../J/25.html' title='Multiple included from 2 places.'>INCLUDED FROM</a></h2>
+<hr>
+<pre>
+<a name='L1'>   1 <i><font color='green'>/* Stream.h</font></i>
+<a name='L2'>   2 <i><font color='green'> *</font></i>
+<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
+<a name='L4'>   4 <i><font color='green'> *</font></i>
+<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
+<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
+<a name='L7'>   7 <i><font color='green'> *</font></i>
+<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.</font></i>
+<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
+<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
+<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
+<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L14'>  14 <i><font color='green'> *</font></i>
+<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
+<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
+<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
+<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
+<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
+<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
+<a name='L21'>  21 <i><font color='green'> *</font></i>
+<a name='L22'>  22 <i><font color='green'> */</font></i>
+<a name='L23'>  23 <font color='darkred'>#ifndef</font> <a href='../S/34.html#L24' title='Defined at 24 in Stream.h.'>_BD_STREAM_H</a>
+<a name='L24'>  24 <font color='darkred'>#define</font> <a href='../S/34.html#L23' title='Refered from 23 in Stream.h.'>_BD_STREAM_H</a> 1
+<a name='L25'>  25 
+<a name='L26'>  26 <font color='darkred'>#include</font> &lt;iostream&gt;
+<a name='L27'>  27 <font color='darkred'>#include</font> &lt;algorithm&gt;
+<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='41.html'>bdlib.h</a>"
+<a name='L29'>  29 <font color='darkred'>#include</font> "<a href='35.html'>String.h</a>"
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;sys/types.h&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> &lt;sys/stat.h&gt;
+<a name='L33'>  33 <font color='darkred'>#include</font> &lt;fcntl.h&gt;
+<a name='L34'>  34 
+<a name='L35'>  35 <a href='../S/41.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L36'>  36 
+<a name='L37'>  37 <font color='darkred'>#define</font> <a href='../R/27.html' title='Multiple refered from 2 places.'>STREAM_BLOCKSIZE</a>        1024
+<a name='L38'>  38 <i><font color='green'>/* The possibilities for the third argument to `fseek'.</font></i>
+<a name='L39'>  39 <i><font color='green'>   These values should not be changed.  */</font></i>
+<a name='L40'>  40 <font color='darkred'>#define</font> <a href='../R/24.html' title='Multiple refered from 18 places.'>SEEK_SET</a>        0       <i><font color='green'>/* Seek from beginning of file.  */</font></i>
+<a name='L41'>  41 <font color='darkred'>#define</font> <a href='../S/53.html#L36' title='Refered from 36 in Stream.cpp.'>SEEK_CUR</a>        1       <i><font color='green'>/* Seek from current position.  */</font></i>
+<a name='L42'>  42 <font color='darkred'>#define</font> <a href='../R/23.html' title='Multiple refered from 9 places.'>SEEK_END</a>        2       <i><font color='green'>/* Seek from end of file.  */</font></i>
+<a name='L43'>  43 
+<a name='L44'>  44 <a href='../Y/160.html' title='Multiple used in 68 places.'>class</a> <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a> <font color='red'>{</font>
+<a name='L45'>  45   <a href='../Y/381.html' title='Multiple used in 15 places.'>protected</a>:
+<a name='L46'>  46         <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>;
+<a name='L47'>  47         <b>unsigned</b> <b>int</b> <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>;
+<a name='L48'>  48         <a href='../Y/140.html' title='Multiple used in 67 places.'>bool</a> <a href='../Y/316.html' title='Multiple used in 8 places.'>loading</a>;
+<a name='L49'>  49 
+<a name='L50'>  50   <a href='../Y/394.html' title='Multiple used in 61 places.'>public</a>:
+<a name='L51'>  51         <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>() : <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>(), <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>(0), <a href='../Y/316.html' title='Multiple used in 8 places.'>loading</a>(0) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L52'>  52         <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>(<b>const</b> <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>&amp; <a href='../Y/465.html' title='Multiple used in 2 places.'>stream</a>) : <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>(<a href='../Y/465.html' title='Multiple used in 2 places.'>stream</a>.<a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>), <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>(<a href='../Y/465.html' title='Multiple used in 2 places.'>stream</a>.<a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>), <a href='../Y/316.html' title='Multiple used in 8 places.'>loading</a>(0) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L53'>  53         <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>) : <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>(<a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>), <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>(0), <a href='../Y/316.html' title='Multiple used in 8 places.'>loading</a>(0) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L54'>  54         <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>(<b>const</b> <b>int</b> <a href='../Y/348.html' title='Multiple used in 21 places.'>newSize</a>) : <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>(), <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>(0), <a href='../Y/316.html' title='Multiple used in 8 places.'>loading</a>(0) <font color='red'>{</font> <b>if</b> (<a href='../Y/348.html' title='Multiple used in 21 places.'>newSize</a> &gt; 0) <a href='../S/53.html#L23' title='Defined at 23 in Stream.cpp.'>Reserve</a>(<a href='../Y/348.html' title='Multiple used in 21 places.'>newSize</a>); <font color='red'>}</font>;
+<a name='L55'>  55         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> ~<a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L56'>  56 
+<a name='L57'>  57         <b>void</b> <a href='../S/53.html#L23' title='Defined at 23 in Stream.cpp.'>Reserve</a>(<b>const</b> <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a>) <b>const</b>;
+<a name='L58'>  58 
+<a name='L59'>  59         <i><font color='green'>/**</font></i>
+<a name='L60'>  60 <i><font color='green'>         * @brief Returns the position of the Stream.</font></i>
+<a name='L61'>  61 <i><font color='green'>         * @return Position of the Stream.</font></i>
+<a name='L62'>  62 <i><font color='green'>        */</font></i>
+<a name='L63'>  63         <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/480.html' title='Multiple used in 19 places.'>tell</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>; <font color='red'>}</font>;
+<a name='L64'>  64 
+<a name='L65'>  65         <i><font color='green'>/**</font></i>
+<a name='L66'>  66 <i><font color='green'>         * @brief Truncates the stream at the current position.</font></i>
+<a name='L67'>  67 <i><font color='green'>        */</font></i>
+<a name='L68'>  68         <b>void</b> <a href='../Y/498.html' title='Multiple used in 2 places.'>truncate</a>() <font color='red'>{</font> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a> = <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>(0, <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>); <font color='red'>}</font>;
+<a name='L69'>  69 
+<a name='L70'>  70         <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a> <a href='../Y/374.html' title='Multiple used in 4 places.'>peek</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>(<a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>); <font color='red'>}</font>;
+<a name='L71'>  71 
+<a name='L72'>  72 <i><font color='green'>//        operator void*() { return tell() &lt;= length(); };</font></i>
+<a name='L73'>  73 
+<a name='L74'>  74         <b>int</b> <a href='../S/53.html#L29' title='Defined at 29 in Stream.cpp.'>seek</a>(<b>int</b>, <b>int</b>);
+<a name='L75'>  75         <b>void</b> <a href='../Y/163.html' title='Multiple used in 30 places.'>clear</a>() <font color='red'>{</font> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>.<a href='../Y/163.html' title='Multiple used in 30 places.'>clear</a>(); <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a> = 0; <font color='red'>}</font>
+<a name='L76'>  76 
+<a name='L77'>  77         <i><font color='green'>/**</font></i>
+<a name='L78'>  78 <i><font color='green'>         * @brief Insert a string into the stream.</font></i>
+<a name='L79'>  79 <i><font color='green'>         * @note The stream pointer is advanced as well</font></i>
+<a name='L80'>  80 <i><font color='green'>         */</font></i>
+<a name='L81'>  81         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> <b>void</b> <a href='../Y/397.html' title='Multiple used in 41 places.'>puts</a> (<b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>) <font color='red'>{</font>
+<a name='L82'>  82           <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>.<a href='../S/54.html#L97' title='Defined at 97 in String.cpp.'>replace</a>(<a href='../Y/480.html' title='Multiple used in 19 places.'>tell</a>(), <a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>);
+<a name='L83'>  83           <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a> += <a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>.<a href='../Y/310.html' title='Multiple used in 286 places.'>length</a>();
+<a name='L84'>  84         <font color='red'>}</font>
+<a name='L85'>  85 
+<a name='L86'>  86         <i><font color='green'>/**</font></i>
+<a name='L87'>  87 <i><font color='green'>         * @brief Reads 1 line from the stream</font></i>
+<a name='L88'>  88 <i><font color='green'>         * @note The stream pointer is advanced as well</font></i>
+<a name='L89'>  89 <i><font color='green'>         * @param maxSize Optional param which specifies max data to pull</font></i>
+<a name='L90'>  90 <i><font color='green'>         * @sa read</font></i>
+<a name='L91'>  91 <i><font color='green'>         */</font></i>
+<a name='L92'>  92         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a> <a href='../S/54.html#L136' title='Defined at 136 in String.cpp.'>getline</a> (<a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/323.html' title='Multiple used in 4 places.'>maxSize</a> = 99999999) <font color='red'>{</font> <b>return</b> <a href='../S/53.html#L54' title='Defined at 54 in Stream.cpp.'>read</a>(<a href='../Y/323.html' title='Multiple used in 4 places.'>maxSize</a> == 99999999 ? (<a href='../Y/310.html' title='Multiple used in 286 places.'>length</a>() - <a href='../Y/378.html' title='Multiple used in 88 places.'>pos</a>) : <a href='../Y/323.html' title='Multiple used in 4 places.'>maxSize</a>, '\n'); <font color='red'>}</font>
+<a name='L93'>  93 
+<a name='L94'>  94         <i><font color='green'>/**</font></i>
+<a name='L95'>  95 <i><font color='green'>         * @brief Reads specified number of bytes from the stream</font></i>
+<a name='L96'>  96 <i><font color='green'>         * @param maxSize How many bytes to read</font></i>
+<a name='L97'>  97 <i><font color='green'>         * @param delim What to split the read on. For example: '\n' will return 1 line.</font></i>
+<a name='L98'>  98 <i><font color='green'>         * @note The stream pointer is advanced as well</font></i>
+<a name='L99'>  99 <i><font color='green'>         */</font></i>
+<a name='L100'> 100         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a> <a href='../S/53.html#L54' title='Defined at 54 in Stream.cpp.'>read</a> (<a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/323.html' title='Multiple used in 4 places.'>maxSize</a>, <b>char</b> <a href='../Y/189.html' title='Multiple used in 17 places.'>delim</a> = 0);
+<a name='L101'> 101 
+<a name='L102'> 102         <i><font color='green'>/**</font></i>
+<a name='L103'> 103 <i><font color='green'>         * @brief Load a file into the stream</font></i>
+<a name='L104'> 104 <i><font color='green'>         * @returns 1 on error, 0 on success.</font></i>
+<a name='L105'> 105 <i><font color='green'>         * @param fd File descriptor to read from</font></i>
+<a name='L106'> 106 <i><font color='green'>         * @note this.loading is set to 1 during this process.</font></i>
+<a name='L107'> 107 <i><font color='green'>         * @note Uses puts() for populating the stream.</font></i>
+<a name='L108'> 108 <i><font color='green'>         * @note The fd is not closed.</font></i>
+<a name='L109'> 109 <i><font color='green'>         * @sa puts</font></i>
+<a name='L110'> 110 <i><font color='green'>         */</font></i>
+<a name='L111'> 111         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> <b>int</b> <a href='../D/145.html' title='Multiple defined in 2 places.'>loadFile</a>(<b>const</b> <b>int</b>);
+<a name='L112'> 112 
+<a name='L113'> 113         <i><font color='green'>/**</font></i>
+<a name='L114'> 114 <i><font color='green'>         * @brief Load a file into the stream</font></i>
+<a name='L115'> 115 <i><font color='green'>         * @returns 1 on error, 0 on success.</font></i>
+<a name='L116'> 116 <i><font color='green'>         * @param fname File to read from</font></i>
+<a name='L117'> 117 <i><font color='green'>         * @note this.loading is set to 1 during this process.</font></i>
+<a name='L118'> 118 <i><font color='green'>         * @note Uses puts() for populating the stream.</font></i>
+<a name='L119'> 119 <i><font color='green'>         * @sa puts</font></i>
+<a name='L120'> 120 <i><font color='green'>         */</font></i>
+<a name='L121'> 121         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> <b>int</b> <a href='../D/145.html' title='Multiple defined in 2 places.'>loadFile</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp;);
+<a name='L122'> 122 
+<a name='L123'> 123         <i><font color='green'>/**</font></i>
+<a name='L124'> 124 <i><font color='green'>         * @brief Write stream out to a file</font></i>
+<a name='L125'> 125 <i><font color='green'>         * @returns 1 on error, 0 on success</font></i>
+<a name='L126'> 126 <i><font color='green'>         * @param fd File descriptor to write to</font></i>
+<a name='L127'> 127 <i><font color='green'>         * @note The fd is not closed.</font></i>
+<a name='L128'> 128 <i><font color='green'>         */</font></i>
+<a name='L129'> 129         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> <b>int</b> <a href='../D/205.html' title='Multiple defined in 2 places.'>writeFile</a>(<b>const</b> <b>int</b>) <b>const</b>;
+<a name='L130'> 130 
+<a name='L131'> 131         <i><font color='green'>/**</font></i>
+<a name='L132'> 132 <i><font color='green'>         * @brief Write stream out to a file</font></i>
+<a name='L133'> 133 <i><font color='green'>         * @returns 1 on error, 0 on success</font></i>
+<a name='L134'> 134 <i><font color='green'>         * @param fname Filename to write to</font></i>
+<a name='L135'> 135 <i><font color='green'>         * @param mode Optional param to specify mode for new file</font></i>
+<a name='L136'> 136 <i><font color='green'>         */</font></i>
+<a name='L137'> 137         <a href='../Y/525.html' title='Multiple used in 49 places.'>virtual</a> <b>int</b> <a href='../D/205.html' title='Multiple defined in 2 places.'>writeFile</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp;, <a href='../Y/335.html' title='Multiple used in 2 places.'>mode_t</a> <a href='../Y/334.html' title='Multiple used in 3 places.'>mode</a> = (S_IRUSR|S_IWUSR)) <b>const</b>;
+<a name='L138'> 138 
+<a name='L139'> 139 
+<a name='L140'> 140         <b>inline</b> <a href='../Y/369.html' title='Multiple used in 126 places.'>operator</a> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>; <font color='red'>}</font>;
+<a name='L141'> 141         <b>inline</b> <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/310.html' title='Multiple used in 286 places.'>length</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>.<a href='../Y/310.html' title='Multiple used in 286 places.'>length</a>(); <font color='red'>}</font>;
+<a name='L142'> 142         <b>inline</b> <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/147.html' title='Multiple used in 35 places.'>capacity</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>.<a href='../Y/147.html' title='Multiple used in 35 places.'>capacity</a>(); <font color='red'>}</font>;
+<a name='L143'> 143         <b>inline</b> <a href='../Y/140.html' title='Multiple used in 67 places.'>bool</a> <a href='../Y/369.html' title='Multiple used in 126 places.'>operator</a> ! () <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/458.html' title='Multiple used in 60 places.'>str</a>.<a href='../Y/284.html' title='Multiple used in 67 places.'>isEmpty</a>(); <font color='red'>}</font>;
+<a name='L144'> 144 
+<a name='L145'> 145         <a href='../Y/239.html' title='Multiple used in 31 places.'>friend</a> <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>&amp; <a href='../Y/369.html' title='Multiple used in 126 places.'>operator</a> &lt;&lt; (<a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>&amp;, <b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp;);
+<a name='L146'> 146 <font color='red'>}</font>;
+<a name='L147'> 147 
+<a name='L148'> 148 <b>inline</b> <a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>&amp; <a href='../Y/369.html' title='Multiple used in 126 places.'>operator</a> &lt;&lt; (<a href='../Y/90.html' title='Multiple used in 16 places.'>Stream</a>&amp; <a href='../Y/465.html' title='Multiple used in 2 places.'>stream</a>, <b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>) <font color='red'>{</font> <a href='../Y/465.html' title='Multiple used in 2 places.'>stream</a>.<a href='../Y/397.html' title='Multiple used in 41 places.'>puts</a>(<a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>); <b>return</b> <a href='../Y/465.html' title='Multiple used in 2 places.'>stream</a>; <font color='red'>}</font>
+<a name='L149'> 149 
+<a name='L150'> 150 <a href='../S/41.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L151'> 151 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_STREAM_H */</font></i>
+</pre>
+<hr>
+<a name='BOTTOM'>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+</body>
+</html>

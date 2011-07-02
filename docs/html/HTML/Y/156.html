@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>charset_index</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/45.html#L135'>charset_index</a>     135 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
+<a href='../S/45.html#L143'>charset_index</a>     143 base64.c           *buf++ = (charset_index[data[0]] &lt;&lt; 2) + ((charset_index[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/45.html#L146'>charset_index</a>     146 base64.c             *buf++ = ((charset_index[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((charset_index[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/45.html#L149'>charset_index</a>     149 base64.c               *buf++ = ((charset_index[data[2]] &amp; 0x03) &lt;&lt; 6) + charset_index[data[3]];
+<a href='../S/45.html#L165'>charset_index</a>     165 base64.c           char charset_index[256];
+<a href='../S/45.html#L166'>charset_index</a>     166 base64.c           memset(charset_index, -1, sizeof(charset_index));
+<a href='../S/45.html#L168'>charset_index</a>     168 base64.c             charset_index[int(charset[i])] = i;
+<a href='../S/45.html#L169'>charset_index</a>     169 base64.c           b64dec_buf(data, len, dest, charset_index);
+<a href='../S/38.html#L82'>charset_index</a>      82 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index);
+</pre>
+</body>
+</html>

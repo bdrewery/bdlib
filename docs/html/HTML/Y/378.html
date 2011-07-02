@@ -1,0 +1,99 @@
+<html>
+<head>
+<title>pos</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/43.html#L225'>pos</a>               225 ReferenceCountedArray.h     inline pointer Buf(size_t pos = 0) const { return &amp;Ref-&gt;buf[offset + pos]; };
+<a href='../S/43.html#L230'>pos</a>               230 ReferenceCountedArray.h     inline const_pointer constBuf(size_t pos = 0) const { return Buf(pos); };
+<a href='../S/43.html#L520'>pos</a>               520 ReferenceCountedArray.h     inline bool hasIndex(size_t pos) const {
+<a href='../S/43.html#L521'>pos</a>               521 ReferenceCountedArray.h       if (pos &gt;= (offset + length())) {
+<a href='../S/43.html#L523'>pos</a>               523 ReferenceCountedArray.h         ::printf("ATTEMPT TO ACCESS INDEX %zu/%zu\n", pos, offset + length());
+<a href='../S/43.html#L527'>pos</a>               527 ReferenceCountedArray.h       return (pos &lt; length());
+<a href='../S/43.html#L534'>pos</a>               534 ReferenceCountedArray.h     inline value_type read(size_t pos) const { return *(constBuf(pos)); };
+<a href='../S/43.html#L539'>pos</a>               539 ReferenceCountedArray.h     inline void write(size_t pos, value_type item) {
+<a href='../S/43.html#L541'>pos</a>               541 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/43.html#L548'>pos</a>               548 ReferenceCountedArray.h     inline value_type operator [](size_t pos) const { return read(pos); };
+<a href='../S/43.html#L569'>pos</a>               569 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, size_t pos) : rca(_rca), k(pos) {};
+<a href='../S/43.html#L598'>pos</a>               598 ReferenceCountedArray.h     inline Cref operator [](size_t pos) { return Cref(*this, pos); };
+<a href='../S/43.html#L608'>pos</a>               608 ReferenceCountedArray.h     inline value_type at(size_t pos) const { return hasIndex(pos) ? (*this)[pos] : 0; };
+<a href='../S/43.html#L668'>pos</a>               668 ReferenceCountedArray.h     void insert(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
+<a href='../S/43.html#L670'>pos</a>               670 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
+<a href='../S/43.html#L675'>pos</a>               675 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
+<a href='../S/43.html#L684'>pos</a>               684 ReferenceCountedArray.h       memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+<a href='../S/43.html#L685'>pos</a>               685 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/43.html#L697'>pos</a>               697 ReferenceCountedArray.h     void insert(size_t pos, const_reference item)
+<a href='../S/43.html#L699'>pos</a>               699 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
+<a href='../S/43.html#L702'>pos</a>               702 ReferenceCountedArray.h       memmove(Buf() + pos + 1, Buf() + pos, length() - pos);
+<a href='../S/43.html#L703'>pos</a>               703 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/43.html#L714'>pos</a>               714 ReferenceCountedArray.h     void replace(size_t pos, const_reference item) {
+<a href='../S/43.html#L715'>pos</a>               715 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
+<a href='../S/43.html#L718'>pos</a>               718 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/43.html#L727'>pos</a>               727 ReferenceCountedArray.h     void replace(size_t pos, const ReferenceCountedArray &amp;rca, size_t n = npos) {
+<a href='../S/43.html#L729'>pos</a>               729 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
+<a href='../S/43.html#L734'>pos</a>               734 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
+<a href='../S/43.html#L743'>pos</a>               743 ReferenceCountedArray.h       size_t newlen = pos + slen;
+<a href='../S/43.html#L751'>pos</a>               751 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/53.html#L49'>pos</a>                49 Stream.cpp       pos = newpos;
+<a href='../S/53.html#L55'>pos</a>                55 Stream.cpp       size_t toRead = std::min(maxSize, length() - pos);
+<a href='../S/53.html#L59'>pos</a>                59 Stream.cpp         String ret(str(pos, toRead));
+<a href='../S/53.html#L60'>pos</a>                60 Stream.cpp         pos += toRead;
+<a href='../S/53.html#L67'>pos</a>                67 Stream.cpp       while ((ret.length() &lt; toRead) &amp;&amp; (str[pos] != delim)) {
+<a href='../S/53.html#L68'>pos</a>                68 Stream.cpp         ret += str[pos++];
+<a href='../S/53.html#L70'>pos</a>                70 Stream.cpp       if (str.hasIndex(pos) &amp;&amp; str[pos] == delim) {
+<a href='../S/53.html#L72'>pos</a>                72 Stream.cpp         ++pos;
+<a href='../S/34.html#L47'>pos</a>                47 Stream.h               unsigned int pos;
+<a href='../S/34.html#L51'>pos</a>                51 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/34.html#L52'>pos</a>                52 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/34.html#L53'>pos</a>                53 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/34.html#L54'>pos</a>                54 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/34.html#L63'>pos</a>                63 Stream.h               size_t tell() const { return pos; };
+<a href='../S/34.html#L68'>pos</a>                68 Stream.h               void truncate() { str = str(0, pos); };
+<a href='../S/34.html#L70'>pos</a>                70 Stream.h               String peek() { return str(pos); };
+<a href='../S/34.html#L75'>pos</a>                75 Stream.h               void clear() { str.clear(); pos = 0; }
+<a href='../S/34.html#L83'>pos</a>                83 Stream.h                 pos += string.length();
+<a href='../S/34.html#L92'>pos</a>                92 Stream.h               virtual String getline (size_t maxSize = 99999999) { return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
+<a href='../S/54.html#L78'>pos</a>                78 String.cpp     void String::insert(size_t pos, const char *string, size_t n)
+<a href='../S/54.html#L81'>pos</a>                81 String.cpp       if (pos &amp;&amp; !hasIndex(pos-1)) return;
+<a href='../S/54.html#L86'>pos</a>                86 String.cpp       memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+<a href='../S/54.html#L87'>pos</a>                87 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/54.html#L97'>pos</a>                97 String.cpp     void String::replace(size_t pos, const char *string, size_t n)
+<a href='../S/54.html#L100'>pos</a>               100 String.cpp       if (pos &amp;&amp; !hasIndex(pos-1)) return;
+<a href='../S/54.html#L103'>pos</a>               103 String.cpp       size_t newlen = pos + slen;
+<a href='../S/54.html#L111'>pos</a>               111 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/54.html#L164'>pos</a>               164 String.cpp       size_t pos = 0;
+<a href='../S/54.html#L173'>pos</a>               173 String.cpp         if ((pos = str.find(delim)) == npos)
+<a href='../S/54.html#L174'>pos</a>               174 String.cpp           pos = str.length();
+<a href='../S/54.html#L175'>pos</a>               175 String.cpp         array &lt;&lt; str(0, pos);
+<a href='../S/54.html#L176'>pos</a>               176 String.cpp         str += pos + delim.length();
+<a href='../S/54.html#L233'>pos</a>               233 String.cpp         for (size_t pos = 0; pos &lt;= last_pos; ++pos)
+<a href='../S/54.html#L234'>pos</a>               234 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+<a href='../S/54.html#L235'>pos</a>               235 String.cpp             return pos;
+<a href='../S/54.html#L243'>pos</a>               243 String.cpp         for (size_t pos = last_pos; pos + 1 &gt; lpos; --pos)
+<a href='../S/54.html#L244'>pos</a>               244 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+<a href='../S/54.html#L245'>pos</a>               245 String.cpp             return pos;
+<a href='../S/54.html#L252'>pos</a>               252 String.cpp       size_t pos = 0;
+<a href='../S/54.html#L255'>pos</a>               255 String.cpp       while ((pos = search_str.find(search)) != npos) {
+<a href='../S/54.html#L256'>pos</a>               256 String.cpp         newStr += search_str(0, pos);
+<a href='../S/54.html#L258'>pos</a>               258 String.cpp         search_str += pos + search.length();
+<a href='../S/54.html#L289'>pos</a>               289 String.cpp       size_t pos = str.find(delim);
+<a href='../S/54.html#L290'>pos</a>               290 String.cpp       if (pos == String::npos)
+<a href='../S/54.html#L291'>pos</a>               291 String.cpp         pos = str.length();
+<a href='../S/54.html#L293'>pos</a>               293 String.cpp       String first(str(0, pos));
+<a href='../S/54.html#L297'>pos</a>               297 String.cpp         while ((str.begin() + pos + 1) &lt; str.end() &amp;&amp; str[pos + 1] == ' ')
+<a href='../S/54.html#L298'>pos</a>               298 String.cpp           ++pos;
+<a href='../S/54.html#L302'>pos</a>               302 String.cpp       str += pos + 1;
+<a href='../S/35.html#L225'>pos</a>               225 String.h               inline char charAt(size_t pos) const { return at(pos); };
+<a href='../S/13.html#L148'>pos</a>               148 tests/StreamTest.cpp   size_t pos = 0;
+<a href='../S/13.html#L152'>pos</a>               152 tests/StreamTest.cpp     pos += gbuf.length();
+<a href='../S/13.html#L153'>pos</a>               153 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
+<a href='../S/13.html#L166'>pos</a>               166 tests/StreamTest.cpp   pos += gbuf.length();
+<a href='../S/13.html#L167'>pos</a>               167 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
+<a href='../S/13.html#L191'>pos</a>               191 tests/StreamTest.cpp   size_t pos = 0;
+<a href='../S/13.html#L196'>pos</a>               196 tests/StreamTest.cpp     pos += gbuf.length();
+<a href='../S/13.html#L197'>pos</a>               197 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
+</pre>
+</body>
+</html>
