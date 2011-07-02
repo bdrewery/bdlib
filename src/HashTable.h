@@ -76,6 +76,7 @@ class HashTable {
 
     /**
      * @brief A ruby stule block which will yield to the passed callback for each Key/Value pair.
+     * @param block The block to execute for each element
      * @param param An optional parameter to pass to the block.
      */
     void each(hash_table_block block, void* param = NULL) {
@@ -191,7 +192,6 @@ class HashTable {
       * @brief Associate array type accessor (lvalue)
       * @param key The key to search for
       * @sa find_or_insert_key 
-      * @code table["key"] = "value";
       * If the key is not in the table, it is inserted, and the value set to the rvalue given.
       */
     inline Value& operator [](const Key& key) {

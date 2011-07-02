@@ -248,11 +248,13 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         inline Slice<String> operator()(int start, int len = -1) { return Slice<String>(*this, start, len); };
 
         /**
-	 * @brief Compare our String object with another String object
-	 * @param string The String object to compare to
-	 * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
-	 */
-        int compare(const String&, size_t = 0, size_t = 0) const;
+         * @brief Compare our String object with another String object, but only n characters
+         * @param str The String object to compare to.
+         * @param n The number of characters to compare.
+         * @param start The index to start looking from
+         * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
+         */
+        int compare(const String& str, size_t n = 0, size_t start = 0) const;
 
         Array<String> split(const String&, size_t limit = npos) const;
 

@@ -39,13 +39,6 @@ const size_t String::npos;
 unsigned char String::cleanse_ctr = 0;
 
 /* Accessors */
-/**
- * @brief Compare our String object with another String object, but only n characters
- * @param str The String object to compare to.
- * @param n The number of characters to compare.
- * @param start The index to start looking from
- * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
-*/
 int String::compare(const String &str, size_t n, size_t start) const
 {
   const size_t my_len = length();

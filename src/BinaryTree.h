@@ -192,7 +192,6 @@ class BinaryTree {
       * @brief Associate array type accessor (lvalue)
       * @param key The key to search for
       * @sa insert
-      * @code tree["key"] = "value";
       * If the key is not in the tree, it is inserted, and the value set to the rvalue given.
       */
     Value& operator [](const Key& key) {

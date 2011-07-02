@@ -35,7 +35,7 @@ class Base64 {
   * @brief Encode a plaintext string into base64 (returns a buffer)
   * @param src A c-style string to encode
   * @param len Reference to length of string (to be updated on return)
-  * @param optional charset The charset to use.
+  * @param charset The charset to use.
   * @return An encoded NULL-terminated c-style string (must be free()d later)
   */
 char *b64enc(const unsigned char *src, size_t *len, const char* charset = NULL);
@@ -53,6 +53,7 @@ String base64Encode(const String& string, const char* charset = NULL);
   * @param data The c-style string to encode
   * @param len Reference to length of string (to be updated on return)
   * @param dest Reference to the buffer to encode into
+  * @param charset The charset to use.
   */
 void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset);
 
@@ -60,7 +61,7 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* 
   * @brief Decode a base64 encoded string into plaintext (returns a buffer)
   * @param data A c-style string to decode
   * @param len Reference to length of string (to be updated on return)
-  * @param optional charset The charset to use.
+  * @param charset The charset to use.
   * @return A decoded NULL-terminated c-style string (must be free()d later)
   */
 char *b64dec(const unsigned char *data, size_t *len, const char* charset = NULL);
@@ -78,6 +79,7 @@ String base64Decode(const String& string, const char* charset = NULL);
   * @param data The c-style string to decode
   * @param len Reference to length of string (to be updated on return)
   * @param dest Reference to the buffer to decode into
+  * @param charset_index The character set to use
   */
 void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index);
 

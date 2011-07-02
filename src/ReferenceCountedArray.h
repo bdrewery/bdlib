@@ -35,7 +35,7 @@ BDLIB_NS_BEGIN
 template <class T>
 /**
  * @class ArrayRef
- * @brief Helps the String class with reference counting
+ * @brief Helps the String and Array classes with reference counting
  * @todo look into something like a string object made of string pointers, and << displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the << stream
  */
 class ArrayRef {
@@ -50,6 +50,7 @@ class ArrayRef {
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
      * @param newSize A size that we need to Allocate the buffer to.
      * @param offset The offset of the old buffer so we know where to start
+     * @param sublen The length of the subarray in use
      * @pre newSize is > 0 (assumed as size_t is unsigned)
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
@@ -63,7 +64,7 @@ class ArrayRef {
         T *newbuf = AllocBuf(size);
 
         if (newbuf != buf) {
-          /* Copy old buffer into new - only copy the substring */
+          /* Copy old buffer into new - only copy the subarray */
           std::copy(buf + offset, buf + offset + sublen, newbuf);
           FreeBuf(buf);
           buf = newbuf;
@@ -72,7 +73,7 @@ class ArrayRef {
       } else if ((size - offset) < newSize) {
         // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
         // Shift everything to the beginning and reset the offset
-        /* Only copy the substring */
+        /* Only copy the subarray */
         memmove(buf, buf + offset, sublen);
         offset = 0;
       }
@@ -99,7 +100,7 @@ class ArrayRef {
     }
 
     /**
-     * @brief Is this string shared?
+     * @brief Is this ReferenceCountedArray shared?
      */
     inline bool isShared() const { return n > 1; };
   private:
@@ -293,7 +294,7 @@ class ReferenceCountedArray {
      *
      * Ensure that our internal buffer is unshared.
      * If needed, performs a deep copy into a new buffer (COW).
-     * Also take a hint size n of the new string's size as to avoid needless copying/allocing.
+     * Also take a hint size n of the new ReferenceCountedArray's size as to avoid needless copying/allocing.
      */
     void COW(size_t n) const {
       const_pointer oldBuf = constBuf();
@@ -331,8 +332,8 @@ class ReferenceCountedArray {
     ReferenceCountedArray(const ReferenceCountedArray& rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
     /**
      * @brief Create an empty container with at least the specified bytes in size.
-     * @param newSize Reserve at least this many bytes for this String.
-     * @post This string's memory will also never be shrunk.
+     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
+     * @post This ReferenceCountedArray's memory will also never be shrunk.
      * @post A buffer has been created.
      *
      * The idea behind this is that if a specific size was asked for, the buffer is like
@@ -344,9 +345,9 @@ class ReferenceCountedArray {
     };
     /**
      * @brief Create a container filled with n copies of the given value.
-     * @param newSize Reserve at least this many bytes for this String.
+     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
      * @param value The value to populate the array with
-     * @post This string's memory will also never be shrunk.
+     * @post This ReferenceCountedArray's memory will also never be shrunk.
      * @post A buffer has been created.
      *
      */
@@ -367,10 +368,10 @@ class ReferenceCountedArray {
     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
 
     /**
-     * @brief Sets our Reference to the given String reference.
-     * @param rca The String object to reference.
+     * @brief Sets our Reference to the given ReferenceCountedArray reference.
+     * @param rca The ReferenceCountedArray object to reference.
      * @post The old buffer (if we had one) is free'd.
-     * @post Our Reference now points to the given String.
+     * @post Our Reference now points to the given ReferenceCountedArray.
      * @post Our old rca object has been deleted (disconnected).
      * @return The new rca object.
      * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
@@ -410,18 +411,18 @@ class ReferenceCountedArray {
 
     /**
      * @sa ArrayRef::Reserve()
-     * @post The String will also never shrink after this.
+     * @post The ReferenceCountedArray will also never shrink after this.
      */
     virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize, offset, sublen); };
 
     /**
-     * @brief Clear contents of String and set length to 0
+     * @brief Clear contents of ReferenceCountedArray and set length to 0
      */
     virtual inline void clear() { Detach(); };
 
     /**
-     * @brief Returns capacity of the String object.
-     * @return Capacity of the String object.
+     * @brief Returns capacity of the ReferenceCountedArray object.
+     * @return Capacity of the ReferenceCountedArray object.
      */
     inline size_t capacity() const { return Ref->size; };
 
@@ -443,8 +444,8 @@ class ReferenceCountedArray {
 
     /* Accessors */
     /**
-     * @brief Returns length of the string.
-     * @return Length of the string.
+     * @brief Returns length of the ReferenceCountedArray.
+     * @return Length of the ReferenceCountedArray.
      */
     inline size_t length() const { return sublen; };
     /**
@@ -453,7 +454,7 @@ class ReferenceCountedArray {
     inline size_t size() const { return length(); };
 
     /**
-     * @brief Check whether the string is 'empty'
+     * @brief Check whether the ReferenceCountedArray is 'empty'
      * @return True if empty, false if non-empty
      */
     inline bool isEmpty() const { return length() == 0; };
@@ -515,7 +516,7 @@ class ReferenceCountedArray {
     /**
      * @brief Checks if the buffer has the given index or not.
      * @return Boolean true/false as to whether or not index exists.
-     * @param i Index to check.
+     * @param pos Index to check.
      */
     inline bool hasIndex(size_t pos) const {
       if (pos >= (offset + length())) {
@@ -543,7 +544,7 @@ class ReferenceCountedArray {
 
     /**
      * @brief Safe element access operator
-     * @todo This is only called on a (const) String, but should for a String as well.
+     * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
      */
     inline value_type operator [](size_t pos) const { return read(pos); };
 

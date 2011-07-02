@@ -212,7 +212,7 @@ class Array : public ReferenceCountedArray<T> {
     };
 
     /**
-     * @sa substring
+     * @sa subarray
      */
     inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
 

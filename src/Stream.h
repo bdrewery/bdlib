@@ -118,7 +118,7 @@ class Stream {
          * @note Uses puts() for populating the stream.
          * @sa puts
          */
-        virtual int loadFile(const String&);
+        virtual int loadFile(const String& fname);
 
         /**
          * @brief Write stream out to a file
@@ -126,7 +126,7 @@ class Stream {
          * @param fd File descriptor to write to
          * @note The fd is not closed.
          */
-        virtual int writeFile(const int) const;
+        virtual int writeFile(const int fd) const;
 
         /**
          * @brief Write stream out to a file
@@ -134,7 +134,7 @@ class Stream {
          * @param fname Filename to write to
          * @param mode Optional param to specify mode for new file
          */
-        virtual int writeFile(const String&, mode_t mode = (S_IRUSR|S_IWUSR)) const;
+        virtual int writeFile(const String& fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
 
 
         inline operator String() const { return str; };
