@@ -6,51 +6,51 @@
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/35.html#L231'>substring</a>         231 String.h               String substring(int start, int len = -1) const {
-<a href='../S/35.html#L240'>substring</a>         240 String.h               inline String operator()(int start, int len = -1) const { return substring(start, len); };
-<a href='../S/27.html#L295'>substring</a>         295 tests/StringTest.cpp   *a = c-&gt;substring(10);
-<a href='../S/27.html#L709'>substring</a>         709 tests/StringTest.cpp   *b = a-&gt;substring(0, 1);
-<a href='../S/27.html#L929'>substring</a>         929 tests/StringTest.cpp   String substring(a-&gt;substring(4, 5));
-<a href='../S/27.html#L931'>substring</a>         931 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), substring.rcount());
-<a href='../S/27.html#L933'>substring</a>         933 tests/StringTest.cpp   CPPUNIT_ASSERT('h' == substring[0]);
-<a href='../S/27.html#L934'>substring</a>         934 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("hello", substring);
-<a href='../S/27.html#L935'>substring</a>         935 tests/StringTest.cpp   substring += " bryan";
-<a href='../S/27.html#L937'>substring</a>         937 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), substring.rcount());
-<a href='../S/27.html#L939'>substring</a>         939 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("hello bryan", substring);
-<a href='../S/27.html#L943'>substring</a>         943 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("hello bryan", substring);
-<a href='../S/27.html#L947'>substring</a>         947 tests/StringTest.cpp   substring = a-&gt;substring(6, 4);
-<a href='../S/27.html#L949'>substring</a>         949 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("goes", substring);
-<a href='../S/27.html#L952'>substring</a>         952 tests/StringTest.cpp   substring = a-&gt;substring(5, 5);
-<a href='../S/27.html#L953'>substring</a>         953 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
-<a href='../S/27.html#L956'>substring</a>         956 tests/StringTest.cpp   String substring2 = substring.substring(0, 5);
-<a href='../S/27.html#L957'>substring</a>         957 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
-<a href='../S/27.html#L961'>substring</a>         961 tests/StringTest.cpp   substring2 = substring.substring(0, 5);
-<a href='../S/27.html#L962'>substring</a>         962 tests/StringTest.cpp   String substring3 = substring2.substring(1, 4);
-<a href='../S/27.html#L963'>substring</a>         963 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
-<a href='../S/27.html#L968'>substring</a>         968 tests/StringTest.cpp   substring = a-&gt;substring(3,-2);
-<a href='../S/27.html#L970'>substring</a>         970 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("def", substring);
-<a href='../S/27.html#L972'>substring</a>         972 tests/StringTest.cpp   substring = a-&gt;substring(-3, 2);
-<a href='../S/27.html#L973'>substring</a>         973 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("fg", substring);
-<a href='../S/27.html#L975'>substring</a>         975 tests/StringTest.cpp   substring = a-&gt;substring(-1,1);
-<a href='../S/27.html#L976'>substring</a>         976 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("h", substring);
-<a href='../S/27.html#L978'>substring</a>         978 tests/StringTest.cpp   substring = a-&gt;substring(-1, 5);
-<a href='../S/27.html#L979'>substring</a>         979 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("h", substring);
-<a href='../S/27.html#L981'>substring</a>         981 tests/StringTest.cpp   substring = a-&gt;substring(0, 30);
-<a href='../S/27.html#L982'>substring</a>         982 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
-<a href='../S/27.html#L985'>substring</a>         985 tests/StringTest.cpp   substring = (*a)(-4,4);
-<a href='../S/27.html#L986'>substring</a>         986 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
-<a href='../S/27.html#L988'>substring</a>         988 tests/StringTest.cpp   substring2 = substring;
-<a href='../S/27.html#L989'>substring</a>         989 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
-<a href='../S/27.html#L994'>substring</a>         994 tests/StringTest.cpp   substring = (*a)(0,4);
-<a href='../S/27.html#L1000'>substring</a>        1000 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("this", substring);
-<a href='../S/27.html#L1003'>substring</a>        1003 tests/StringTest.cpp   substring = (*a)(0,4);
-<a href='../S/27.html#L1005'>substring</a>        1005 tests/StringTest.cpp   for (size_t i = 0; i &lt; substring.length(); ++i)
-<a href='../S/27.html#L1006'>substring</a>        1006 tests/StringTest.cpp     substring[i] = toupper(substring[i]);
-<a href='../S/27.html#L1009'>substring</a>        1009 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("THIS", substring);  
-<a href='../S/27.html#L1050'>substring</a>        1050 tests/StringTest.cpp   *b = a-&gt;substring(0, 4);
-<a href='../S/27.html#L1051'>substring</a>        1051 tests/StringTest.cpp   *e = b-&gt;substring(1, 2);
-<a href='../S/27.html#L1052'>substring</a>        1052 tests/StringTest.cpp   *c = a-&gt;substring(5, 5);
-<a href='../S/27.html#L1053'>substring</a>        1053 tests/StringTest.cpp   *d = a-&gt;substring(11, 5);
+<a href='../S/33.html#L231'>substring</a>         231 String.h               String substring(int start, int len = -1) const {
+<a href='../S/33.html#L240'>substring</a>         240 String.h               inline String operator()(int start, int len = -1) const { return substring(start, len); };
+<a href='../S/25.html#L295'>substring</a>         295 tests/StringTest.cpp   *a = c-&gt;substring(10);
+<a href='../S/25.html#L709'>substring</a>         709 tests/StringTest.cpp   *b = a-&gt;substring(0, 1);
+<a href='../S/25.html#L929'>substring</a>         929 tests/StringTest.cpp   String substring(a-&gt;substring(4, 5));
+<a href='../S/25.html#L931'>substring</a>         931 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), substring.rcount());
+<a href='../S/25.html#L933'>substring</a>         933 tests/StringTest.cpp   CPPUNIT_ASSERT('h' == substring[0]);
+<a href='../S/25.html#L934'>substring</a>         934 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("hello", substring);
+<a href='../S/25.html#L935'>substring</a>         935 tests/StringTest.cpp   substring += " bryan";
+<a href='../S/25.html#L937'>substring</a>         937 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), substring.rcount());
+<a href='../S/25.html#L939'>substring</a>         939 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("hello bryan", substring);
+<a href='../S/25.html#L943'>substring</a>         943 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("hello bryan", substring);
+<a href='../S/25.html#L947'>substring</a>         947 tests/StringTest.cpp   substring = a-&gt;substring(6, 4);
+<a href='../S/25.html#L949'>substring</a>         949 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("goes", substring);
+<a href='../S/25.html#L952'>substring</a>         952 tests/StringTest.cpp   substring = a-&gt;substring(5, 5);
+<a href='../S/25.html#L953'>substring</a>         953 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
+<a href='../S/25.html#L956'>substring</a>         956 tests/StringTest.cpp   String substring2 = substring.substring(0, 5);
+<a href='../S/25.html#L957'>substring</a>         957 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
+<a href='../S/25.html#L961'>substring</a>         961 tests/StringTest.cpp   substring2 = substring.substring(0, 5);
+<a href='../S/25.html#L962'>substring</a>         962 tests/StringTest.cpp   String substring3 = substring2.substring(1, 4);
+<a href='../S/25.html#L963'>substring</a>         963 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("56789", substring);
+<a href='../S/25.html#L968'>substring</a>         968 tests/StringTest.cpp   substring = a-&gt;substring(3,-2);
+<a href='../S/25.html#L970'>substring</a>         970 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("def", substring);
+<a href='../S/25.html#L972'>substring</a>         972 tests/StringTest.cpp   substring = a-&gt;substring(-3, 2);
+<a href='../S/25.html#L973'>substring</a>         973 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("fg", substring);
+<a href='../S/25.html#L975'>substring</a>         975 tests/StringTest.cpp   substring = a-&gt;substring(-1,1);
+<a href='../S/25.html#L976'>substring</a>         976 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("h", substring);
+<a href='../S/25.html#L978'>substring</a>         978 tests/StringTest.cpp   substring = a-&gt;substring(-1, 5);
+<a href='../S/25.html#L979'>substring</a>         979 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("h", substring);
+<a href='../S/25.html#L981'>substring</a>         981 tests/StringTest.cpp   substring = a-&gt;substring(0, 30);
+<a href='../S/25.html#L982'>substring</a>         982 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
+<a href='../S/25.html#L985'>substring</a>         985 tests/StringTest.cpp   substring = (*a)(-4,4);
+<a href='../S/25.html#L986'>substring</a>         986 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
+<a href='../S/25.html#L988'>substring</a>         988 tests/StringTest.cpp   substring2 = substring;
+<a href='../S/25.html#L989'>substring</a>         989 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
+<a href='../S/25.html#L994'>substring</a>         994 tests/StringTest.cpp   substring = (*a)(0,4);
+<a href='../S/25.html#L1000'>substring</a>        1000 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("this", substring);
+<a href='../S/25.html#L1003'>substring</a>        1003 tests/StringTest.cpp   substring = (*a)(0,4);
+<a href='../S/25.html#L1005'>substring</a>        1005 tests/StringTest.cpp   for (size_t i = 0; i &lt; substring.length(); ++i)
+<a href='../S/25.html#L1006'>substring</a>        1006 tests/StringTest.cpp     substring[i] = toupper(substring[i]);
+<a href='../S/25.html#L1009'>substring</a>        1009 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("THIS", substring);  
+<a href='../S/25.html#L1050'>substring</a>        1050 tests/StringTest.cpp   *b = a-&gt;substring(0, 4);
+<a href='../S/25.html#L1051'>substring</a>        1051 tests/StringTest.cpp   *e = b-&gt;substring(1, 2);
+<a href='../S/25.html#L1052'>substring</a>        1052 tests/StringTest.cpp   *c = a-&gt;substring(5, 5);
+<a href='../S/25.html#L1053'>substring</a>        1053 tests/StringTest.cpp   *d = a-&gt;substring(11, 5);
 </pre>
 </body>
 </html>

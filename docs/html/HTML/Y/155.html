@@ -6,29 +6,29 @@
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/45.html#L56'>charset</a>            56 base64.c       void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset)
-<a href='../S/45.html#L85'>charset</a>            85 base64.c           buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
-<a href='../S/45.html#L87'>charset</a>            87 base64.c           buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
-<a href='../S/45.html#L89'>charset</a>            89 base64.c           buf[2] = charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
-<a href='../S/45.html#L91'>charset</a>            91 base64.c           buf[3] = charset[data[2] &amp; 0x3f];
-<a href='../S/45.html#L100'>charset</a>           100 base64.c           buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
-<a href='../S/45.html#L102'>charset</a>           102 base64.c             buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
-<a href='../S/45.html#L106'>charset</a>           106 base64.c             buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
-<a href='../S/45.html#L107'>charset</a>           107 base64.c             buf[2] = charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
-<a href='../S/45.html#L116'>charset</a>           116 base64.c       String base64Encode(const String&amp; string, const char* charset) {
-<a href='../S/45.html#L118'>charset</a>           118 base64.c         char *p = b64enc(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
-<a href='../S/45.html#L124'>charset</a>           124 base64.c       char *b64enc(const unsigned char *src, size_t *len, const char* charset)
-<a href='../S/45.html#L130'>charset</a>           130 base64.c         b64enc_buf(src, len, dest, charset ? charset : b64_charset);
-<a href='../S/45.html#L159'>charset</a>           159 base64.c       char *b64dec(const unsigned char *data, size_t *len, const char* charset)
-<a href='../S/45.html#L164'>charset</a>           164 base64.c         if (charset) {
-<a href='../S/45.html#L168'>charset</a>           168 base64.c             charset_index[int(charset[i])] = i;
-<a href='../S/45.html#L176'>charset</a>           176 base64.c       String base64Decode(const String&amp; string, const char* charset) {
-<a href='../S/45.html#L178'>charset</a>           178 base64.c         char *p = b64dec(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
-<a href='../S/38.html#L41'>charset</a>            41 base64.h       char *b64enc(const unsigned char *src, size_t *len, const char* charset = NULL);
-<a href='../S/38.html#L49'>charset</a>            49 base64.h       String base64Encode(const String&amp; string, const char* charset = NULL);
-<a href='../S/38.html#L57'>charset</a>            57 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset);
-<a href='../S/38.html#L66'>charset</a>            66 base64.h       char *b64dec(const unsigned char *data, size_t *len, const char* charset = NULL);
-<a href='../S/38.html#L74'>charset</a>            74 base64.h       String base64Decode(const String&amp; string, const char* charset = NULL);
+<a href='../S/43.html#L56'>charset</a>            56 base64.c       void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset)
+<a href='../S/43.html#L85'>charset</a>            85 base64.c           buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/43.html#L87'>charset</a>            87 base64.c           buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/43.html#L89'>charset</a>            89 base64.c           buf[2] = charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
+<a href='../S/43.html#L91'>charset</a>            91 base64.c           buf[3] = charset[data[2] &amp; 0x3f];
+<a href='../S/43.html#L100'>charset</a>           100 base64.c           buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/43.html#L102'>charset</a>           102 base64.c             buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
+<a href='../S/43.html#L106'>charset</a>           106 base64.c             buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/43.html#L107'>charset</a>           107 base64.c             buf[2] = charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
+<a href='../S/43.html#L116'>charset</a>           116 base64.c       String base64Encode(const String&amp; string, const char* charset) {
+<a href='../S/43.html#L118'>charset</a>           118 base64.c         char *p = b64enc(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
+<a href='../S/43.html#L124'>charset</a>           124 base64.c       char *b64enc(const unsigned char *src, size_t *len, const char* charset)
+<a href='../S/43.html#L130'>charset</a>           130 base64.c         b64enc_buf(src, len, dest, charset ? charset : b64_charset);
+<a href='../S/43.html#L159'>charset</a>           159 base64.c       char *b64dec(const unsigned char *data, size_t *len, const char* charset)
+<a href='../S/43.html#L164'>charset</a>           164 base64.c         if (charset) {
+<a href='../S/43.html#L168'>charset</a>           168 base64.c             charset_index[int(charset[i])] = i;
+<a href='../S/43.html#L176'>charset</a>           176 base64.c       String base64Decode(const String&amp; string, const char* charset) {
+<a href='../S/43.html#L178'>charset</a>           178 base64.c         char *p = b64dec(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
+<a href='../S/36.html#L41'>charset</a>            41 base64.h       char *b64enc(const unsigned char *src, size_t *len, const char* charset = NULL);
+<a href='../S/36.html#L49'>charset</a>            49 base64.h       String base64Encode(const String&amp; string, const char* charset = NULL);
+<a href='../S/36.html#L58'>charset</a>            58 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset);
+<a href='../S/36.html#L67'>charset</a>            67 base64.h       char *b64dec(const unsigned char *data, size_t *len, const char* charset = NULL);
+<a href='../S/36.html#L75'>charset</a>            75 base64.h       String base64Decode(const String&amp; string, const char* charset = NULL);
 </pre>
 </body>
 </html>

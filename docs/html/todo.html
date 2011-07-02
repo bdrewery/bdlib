@@ -113,62 +113,70 @@ function toggleVisibility(linkObj) {
 <h1>Todo List </h1>  </div>
 </div>
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="_todo000002"></a> </p>
+<div class="textblock"><p><a class="anchor" id="_todo000003"></a> </p>
 <dl>
 <dt>Class <a class="el" href="classbd_1_1ArrayRef.html">bd::ArrayRef&lt; T &gt;</a>  </dt>
 <dd>look into something like a string object made of string pointers, and &lt;&lt; displays all of the pointed to objects. (this would save copying to construct immuatable concatenated strings, but would only work with the &lt;&lt; stream </dd>
 </dl>
-<p><a class="anchor" id="_todo000004"></a> </p>
+<p><a class="anchor" id="_todo000005"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classbd_1_1ArrayRef.html#abeca32ec4332007a79b78f025f99f105">bd::ArrayRef&lt; T &gt;::AllocBuf</a> (const size_t bytes) const  </dt>
 <dd>Implement mempool here. </dd>
 </dl>
-<p><a class="anchor" id="_todo000005"></a> </p>
+<p><a class="anchor" id="_todo000006"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classbd_1_1ArrayRef.html#a7279cf14394d7d14a81535ed9999b825">bd::ArrayRef&lt; T &gt;::FreeBuf</a> (T *p) const  </dt>
 <dd>Implement mempool here. </dd>
 </dl>
 <p><a class="anchor" id="_todo000001"></a> </p>
 <dl>
+<dt>Class <a class="el" href="classbd_1_1HashTable.html">bd::HashTable&lt; Key, Value &gt;</a>  </dt>
+<dd><p class="startdd">replace() </p>
+<p>iterators </p>
+<p class="enddd">resizing/growing</p>
+</dd>
+</dl>
+<p><a class="anchor" id="_todo000002"></a> </p>
+<dl>
 <dt>Member <a class="el" href="classbd_1_1Queue.html#abb948813cf429c7d9f3682d85c671528">bd::Queue&lt; T &gt;::enqueue</a> (const_reference item) </dt>
 <dd>Make this take an iterator as a position to insert at </dd>
 </dl>
-<p><a class="anchor" id="_todo000007"></a> </p>
+<p><a class="anchor" id="_todo000008"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classbd_1_1ReferenceCountedArray.html#a637ce6c18d57212b8dc2c791abb5b5fb">bd::ReferenceCountedArray&lt; T &gt;::AboutToModify</a> (size_t n) const  </dt>
 <dd>If the buffer is shared and needs to shrink, the sublen should just be decreased. </dd>
 </dl>
-<p><a class="anchor" id="_todo000010"></a> </p>
+<p><a class="anchor" id="_todo000011"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classbd_1_1ReferenceCountedArray.html#a4748fbf890c96bbec71482e02df1f968">bd::ReferenceCountedArray&lt; T &gt;::at</a> (size_t pos) const  </dt>
 <dd>Perhaps this should throw an exception if out of range? </dd>
 </dl>
-<p><a class="anchor" id="_todo000009"></a> </p>
+<p><a class="anchor" id="_todo000010"></a> </p>
 <dl>
 <dt>Class <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">bd::ReferenceCountedArray&lt; T &gt;::Cref</a>  </dt>
 <dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: String s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); </dd>
 </dl>
-<p><a class="anchor" id="_todo000008"></a> </p>
+<p><a class="anchor" id="_todo000009"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classbd_1_1ReferenceCountedArray.html#a199cf21941e339e7c704cb423c59354e">bd::ReferenceCountedArray&lt; T &gt;::operator[]</a> (size_t pos) const  </dt>
-<dd>This is only called on a (const) String, but should for a String as well. </dd>
+<dd>This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well. </dd>
 </dl>
-<p><a class="anchor" id="_todo000003"></a> </p>
+<p><a class="anchor" id="_todo000004"></a> </p>
 <dl>
 <dt>Class <a class="el" href="classbd_1_1Slice.html">bd::Slice&lt; T &gt;</a>  </dt>
 <dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: String s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd>
 </dl>
-<p><a class="anchor" id="_todo000006"></a> </p>
+<p><a class="anchor" id="_todo000007"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classbd_1_1Slice.html#a4c437537b4dd93956b99a34e69daa9cd">bd::Slice&lt; T &gt;::operator=</a> (const T &amp;array) </dt>
 <dd>This needs to account for negative start/len </dd>
 </dl>
-<p><a class="anchor" id="_todo000011"></a> </p>
+<p><a class="anchor" id="_todo000012"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classbd_1_1Stack.html#a5c3176e06387f4f766f973989776e6fb">bd::Stack&lt; T &gt;::peek</a> () const  </dt>
 <dd>Throw an exception? </dd>
 </dl>
-<p><a class="anchor" id="_todo000012"></a> </p>
+<p><a class="anchor" id="_todo000013"></a> </p>
 <dl>
 <dt>Class <a class="el" href="classbd_1_1String.html">bd::String</a>  </dt>
 <dd><p class="startdd">compute hash on insert, then use to compare instead of strcmp </p>
@@ -179,7 +187,7 @@ function toggleVisibility(linkObj) {
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Sat Jul 2 2011 10:18:22 for BDLIB by&#160;
+      <li class="footer">Generated on Sat Jul 2 2011 10:42:16 for BDLIB by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

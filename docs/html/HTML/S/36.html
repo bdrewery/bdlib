@@ -1,22 +1,24 @@
 <html>
 <head>
-<title>BinaryTree.cpp</title>
+<title>base64.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/BinaryTree.cpp</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/base64.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
+<h2><a href='../J/31.html' title='Multiple included from 3 places.'>INCLUDED FROM</a></h2>
+<hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* BinaryTree.cpp</font></i>
+<a name='L1'>   1 <i><font color='green'>/* Base64.h</font></i>
 <a name='L2'>   2 <i><font color='green'> *</font></i>
 <a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
 <a name='L4'>   4 <i><font color='green'> *</font></i>
 <a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
 <a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
 <a name='L7'>   7 <i><font color='green'> *</font></i>
-<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. </font></i>
+<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.</font></i>
 <a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
 <a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
 <a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
@@ -31,12 +33,71 @@
 <a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
 <a name='L21'>  21 <i><font color='green'> *</font></i>
 <a name='L22'>  22 <i><font color='green'> */</font></i>
-<a name='L23'>  23 
-<a name='L24'>  24 
-<a name='L25'>  25 <font color='darkred'>#include</font> "<a href='3.html'>BinaryTree.h</a>"
-<a name='L26'>  26 
-<a name='L27'>  27 <a href='../S/41.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L28'>  28 <a href='../S/41.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L23'>  23 <font color='darkred'>#ifndef</font> <a href='../S/36.html#L24' title='Defined at 24 in base64.h.'>_BD_BASE64_H</a>
+<a name='L24'>  24 <font color='darkred'>#define</font> <a href='../S/36.html#L23' title='Refered from 23 in base64.h.'>_BD_BASE64_H</a> 1
+<a name='L25'>  25 
+<a name='L26'>  26 <font color='darkred'>#include</font> "<a href='39.html'>bdlib.h</a>"
+<a name='L27'>  27 
+<a name='L28'>  28 <a href='../S/39.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L29'>  29 <a href='../Y/160.html' title='Multiple used in 68 places.'>class</a> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>;
+<a name='L30'>  30 
+<a name='L31'>  31 <a href='../Y/160.html' title='Multiple used in 68 places.'>class</a> Base64 <font color='red'>{</font>
+<a name='L32'>  32 <font color='red'>}</font>;
+<a name='L33'>  33 
+<a name='L34'>  34 <i><font color='green'>/**</font></i>
+<a name='L35'>  35 <i><font color='green'>  * @brief Encode a plaintext string into base64 (returns a buffer)</font></i>
+<a name='L36'>  36 <i><font color='green'>  * @param src A c-style string to encode</font></i>
+<a name='L37'>  37 <i><font color='green'>  * @param len Reference to length of string (to be updated on return)</font></i>
+<a name='L38'>  38 <i><font color='green'>  * @param charset The charset to use.</font></i>
+<a name='L39'>  39 <i><font color='green'>  * @return An encoded NULL-terminated c-style string (must be free()d later)</font></i>
+<a name='L40'>  40 <i><font color='green'>  */</font></i>
+<a name='L41'>  41 <b>char</b> *<a href='../S/43.html#L124' title='Defined at 124 in base64.c.'>b64enc</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/449.html' title='Multiple used in 10 places.'>src</a>, <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> *<a href='../Y/309.html' title='Multiple used in 83 places.'>len</a>, <b>const</b> <b>char</b>* <a href='../Y/155.html' title='Multiple used in 23 places.'>charset</a> = <a href='../Y/61.html' title='Multiple used in 60 places.'>NULL</a>);
+<a name='L42'>  42 
+<a name='L43'>  43 <i><font color='green'>/**</font></i>
+<a name='L44'>  44 <i><font color='green'> * @brief Base64 encode a string</font></i>
+<a name='L45'>  45 <i><font color='green'> * @param string The string to encode</font></i>
+<a name='L46'>  46 <i><font color='green'> * @param charset Optional charset to use. None will use standard base64</font></i>
+<a name='L47'>  47 <i><font color='green'> * @return A new, encoded string</font></i>
+<a name='L48'>  48 <i><font color='green'> */</font></i>
+<a name='L49'>  49 <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a> <a href='../S/43.html#L116' title='Defined at 116 in base64.c.'>base64Encode</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>, <b>const</b> <b>char</b>* <a href='../Y/155.html' title='Multiple used in 23 places.'>charset</a> = <a href='../Y/61.html' title='Multiple used in 60 places.'>NULL</a>);
+<a name='L50'>  50 
+<a name='L51'>  51 <i><font color='green'>/**</font></i>
+<a name='L52'>  52 <i><font color='green'>  * @brief Encode a plaintext string into base64 (using a given buffer)</font></i>
+<a name='L53'>  53 <i><font color='green'>  * @param data The c-style string to encode</font></i>
+<a name='L54'>  54 <i><font color='green'>  * @param len Reference to length of string (to be updated on return)</font></i>
+<a name='L55'>  55 <i><font color='green'>  * @param dest Reference to the buffer to encode into</font></i>
+<a name='L56'>  56 <i><font color='green'>  * @param charset The charset to use.</font></i>
+<a name='L57'>  57 <i><font color='green'>  */</font></i>
+<a name='L58'>  58 <b>void</b> <a href='../S/43.html#L56' title='Defined at 56 in base64.c.'>b64enc_buf</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/181.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> *<a href='../Y/309.html' title='Multiple used in 83 places.'>len</a>, <b>char</b> *<a href='../Y/191.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <b>char</b>* <a href='../Y/155.html' title='Multiple used in 23 places.'>charset</a>);
+<a name='L59'>  59 
+<a name='L60'>  60 <i><font color='green'>/**</font></i>
+<a name='L61'>  61 <i><font color='green'>  * @brief Decode a base64 encoded string into plaintext (returns a buffer)</font></i>
+<a name='L62'>  62 <i><font color='green'>  * @param data A c-style string to decode</font></i>
+<a name='L63'>  63 <i><font color='green'>  * @param len Reference to length of string (to be updated on return)</font></i>
+<a name='L64'>  64 <i><font color='green'>  * @param charset The charset to use.</font></i>
+<a name='L65'>  65 <i><font color='green'>  * @return A decoded NULL-terminated c-style string (must be free()d later)</font></i>
+<a name='L66'>  66 <i><font color='green'>  */</font></i>
+<a name='L67'>  67 <b>char</b> *<a href='../S/43.html#L159' title='Defined at 159 in base64.c.'>b64dec</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/181.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> *<a href='../Y/309.html' title='Multiple used in 83 places.'>len</a>, <b>const</b> <b>char</b>* <a href='../Y/155.html' title='Multiple used in 23 places.'>charset</a> = <a href='../Y/61.html' title='Multiple used in 60 places.'>NULL</a>);
+<a name='L68'>  68 
+<a name='L69'>  69 <i><font color='green'>/**</font></i>
+<a name='L70'>  70 <i><font color='green'> * @brief Base64 decode a string</font></i>
+<a name='L71'>  71 <i><font color='green'> * @param string The string to decode</font></i>
+<a name='L72'>  72 <i><font color='green'> * @param charset Optional charset to use. None will use standard base64</font></i>
+<a name='L73'>  73 <i><font color='green'> * @return A new, decoded string</font></i>
+<a name='L74'>  74 <i><font color='green'> */</font></i>
+<a name='L75'>  75 <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a> <a href='../S/43.html#L176' title='Defined at 176 in base64.c.'>base64Decode</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/466.html' title='Multiple used in 33 places.'>string</a>, <b>const</b> <b>char</b>* <a href='../Y/155.html' title='Multiple used in 23 places.'>charset</a> = <a href='../Y/61.html' title='Multiple used in 60 places.'>NULL</a>);
+<a name='L76'>  76 
+<a name='L77'>  77 <i><font color='green'>/**</font></i>
+<a name='L78'>  78 <i><font color='green'>  * @brief Decode a base64 encoded string into plaintext (using a given buffer)</font></i>
+<a name='L79'>  79 <i><font color='green'>  * @param data The c-style string to decode</font></i>
+<a name='L80'>  80 <i><font color='green'>  * @param len Reference to length of string (to be updated on return)</font></i>
+<a name='L81'>  81 <i><font color='green'>  * @param dest Reference to the buffer to decode into</font></i>
+<a name='L82'>  82 <i><font color='green'>  * @param charset_index The character set to use</font></i>
+<a name='L83'>  83 <i><font color='green'>  */</font></i>
+<a name='L84'>  84 <b>void</b> <a href='../S/43.html#L135' title='Defined at 135 in base64.c.'>b64dec_buf</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/181.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> *<a href='../Y/309.html' title='Multiple used in 83 places.'>len</a>, <b>char</b> *<a href='../Y/191.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <b>char</b>* <a href='../Y/156.html' title='Multiple used in 9 places.'>charset_index</a>);
+<a name='L85'>  85 
+<a name='L86'>  86 <a href='../S/39.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L87'>  87 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_BASE64_H */</font></i> 
 </pre>
 <hr>
 <a name='BOTTOM'>
