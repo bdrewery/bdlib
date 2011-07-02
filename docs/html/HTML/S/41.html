@@ -63,7 +63,7 @@
 <a name='L50'>  50 <i><font color='green'>     * @brief Ensure that the buffer capacity() is &gt;= newSize; else grow/copy into larger buffer.</font></i>
 <a name='L51'>  51 <i><font color='green'>     * @param newSize A size that we need to Allocate the buffer to.</font></i>
 <a name='L52'>  52 <i><font color='green'>     * @param offset The offset of the old buffer so we know where to start</font></i>
-<a name='L53'>  53 <i><font color='green'>     * @param sublen The length of the substring in use</font></i>
+<a name='L53'>  53 <i><font color='green'>     * @param sublen The length of the subarray in use</font></i>
 <a name='L54'>  54 <i><font color='green'>     * @pre newSize is &gt; 0 (assumed as size_t is unsigned)</font></i>
 <a name='L55'>  55 <i><font color='green'>     * @post The buffer is at least nsize bytes long.</font></i>
 <a name='L56'>  56 <i><font color='green'>     * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.</font></i>
@@ -77,7 +77,7 @@
 <a name='L64'>  64         <a href='../Y/94.html' title='Multiple used in 71 places.'>T</a> *<a href='../Y/351.html' title='Multiple used in 4 places.'>newbuf</a> = <a href='../Y/2.html' title='Multiple used in 2 places.'>AllocBuf</a>(<a href='../Y/436.html' title='Multiple used in 245 places.'>size</a>);
 <a name='L65'>  65 
 <a name='L66'>  66         <b>if</b> (<a href='../Y/351.html' title='Multiple used in 4 places.'>newbuf</a> != <a href='../Y/141.html' title='Multiple used in 125 places.'>buf</a>) <font color='red'>{</font>
-<a name='L67'>  67           <i><font color='green'>/* Copy old buffer into new - only copy the substring */</font></i>
+<a name='L67'>  67           <i><font color='green'>/* Copy old buffer into new - only copy the subarray */</font></i>
 <a name='L68'>  68           <a href='../D/181.html' title='Multiple defined in 2 places.'>std</a>::<a href='../Y/171.html' title='Multiple used in 7 places.'>copy</a>(<a href='../Y/141.html' title='Multiple used in 125 places.'>buf</a> + <a href='../Y/363.html' title='Multiple used in 33 places.'>offset</a>, <a href='../Y/141.html' title='Multiple used in 125 places.'>buf</a> + <a href='../Y/363.html' title='Multiple used in 33 places.'>offset</a> + <a href='../Y/472.html' title='Multiple used in 15 places.'>sublen</a>, <a href='../Y/351.html' title='Multiple used in 4 places.'>newbuf</a>);
 <a name='L69'>  69           <a href='../Y/35.html' title='Multiple used in 3 places.'>FreeBuf</a>(<a href='../Y/141.html' title='Multiple used in 125 places.'>buf</a>);
 <a name='L70'>  70           <a href='../Y/141.html' title='Multiple used in 125 places.'>buf</a> = <a href='../Y/351.html' title='Multiple used in 4 places.'>newbuf</a>;
@@ -86,7 +86,7 @@
 <a name='L73'>  73       <font color='red'>}</font> <b>else</b> <b>if</b> ((<a href='../Y/436.html' title='Multiple used in 245 places.'>size</a> - <a href='../Y/363.html' title='Multiple used in 33 places.'>offset</a>) &lt; <a href='../Y/348.html' title='Multiple used in 21 places.'>newSize</a>) <font color='red'>{</font>
 <a name='L74'>  74         <i><font color='green'>// There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left</font></i>
 <a name='L75'>  75         <i><font color='green'>// Shift everything to the beginning and reset the offset</font></i>
-<a name='L76'>  76         <i><font color='green'>/* Only copy the substring */</font></i>
+<a name='L76'>  76         <i><font color='green'>/* Only copy the subarray */</font></i>
 <a name='L77'>  77         <a href='../Y/329.html' title='Multiple used in 4 places.'>memmove</a>(<a href='../Y/141.html' title='Multiple used in 125 places.'>buf</a>, <a href='../Y/141.html' title='Multiple used in 125 places.'>buf</a> + <a href='../Y/363.html' title='Multiple used in 33 places.'>offset</a>, <a href='../Y/472.html' title='Multiple used in 15 places.'>sublen</a>);
 <a name='L78'>  78         <a href='../Y/363.html' title='Multiple used in 33 places.'>offset</a> = 0;
 <a name='L79'>  79       <font color='red'>}</font>
@@ -113,7 +113,7 @@
 <a name='L100'> 100     <font color='red'>}</font>
 <a name='L101'> 101 
 <a name='L102'> 102     <i><font color='green'>/**</font></i>
-<a name='L103'> 103 <i><font color='green'>     * @brief Is this string shared?</font></i>
+<a name='L103'> 103 <i><font color='green'>     * @brief Is this ReferenceCountedArray shared?</font></i>
 <a name='L104'> 104 <i><font color='green'>     */</font></i>
 <a name='L105'> 105     <b>inline</b> <a href='../Y/140.html' title='Multiple used in 67 places.'>bool</a> <a href='../Y/285.html' title='Multiple used in 4 places.'>isShared</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/342.html' title='Multiple used in 146 places.'>n</a> &gt; 1; <font color='red'>}</font>;
 <a name='L106'> 106   <a href='../Y/380.html' title='Multiple used in 30 places.'>private</a>:
@@ -307,7 +307,7 @@
 <a name='L294'> 294 <i><font color='green'>     *</font></i>
 <a name='L295'> 295 <i><font color='green'>     * Ensure that our internal buffer is unshared.</font></i>
 <a name='L296'> 296 <i><font color='green'>     * If needed, performs a deep copy into a new buffer (COW).</font></i>
-<a name='L297'> 297 <i><font color='green'>     * Also take a hint size n of the new string's size as to avoid needless copying/allocing.</font></i>
+<a name='L297'> 297 <i><font color='green'>     * Also take a hint size n of the new ReferenceCountedArray's size as to avoid needless copying/allocing.</font></i>
 <a name='L298'> 298 <i><font color='green'>     */</font></i>
 <a name='L299'> 299     <b>void</b> <a href='../Y/13.html' title='Multiple used in 2 places.'>COW</a>(<a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/342.html' title='Multiple used in 146 places.'>n</a>) <b>const</b> <font color='red'>{</font>
 <a name='L300'> 300       <a href='../D/110.html' title='Multiple defined in 3 places.'>const_pointer</a> <a href='../Y/365.html' title='Multiple used in 2 places.'>oldBuf</a> = <a href='../Y/167.html' title='Multiple used in 4 places.'>constBuf</a>();
@@ -346,7 +346,7 @@
 <a name='L333'> 333     <i><font color='green'>/**</font></i>
 <a name='L334'> 334 <i><font color='green'>     * @brief Create an empty container with at least the specified bytes in size.</font></i>
 <a name='L335'> 335 <i><font color='green'>     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.</font></i>
-<a name='L336'> 336 <i><font color='green'>     * @post This string's memory will also never be shrunk.</font></i>
+<a name='L336'> 336 <i><font color='green'>     * @post This ReferenceCountedArray's memory will also never be shrunk.</font></i>
 <a name='L337'> 337 <i><font color='green'>     * @post A buffer has been created.</font></i>
 <a name='L338'> 338 <i><font color='green'>     *</font></i>
 <a name='L339'> 339 <i><font color='green'>     * The idea behind this is that if a specific size was asked for, the buffer is like</font></i>
@@ -360,7 +360,7 @@
 <a name='L347'> 347 <i><font color='green'>     * @brief Create a container filled with n copies of the given value.</font></i>
 <a name='L348'> 348 <i><font color='green'>     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.</font></i>
 <a name='L349'> 349 <i><font color='green'>     * @param value The value to populate the array with</font></i>
-<a name='L350'> 350 <i><font color='green'>     * @post This string's memory will also never be shrunk.</font></i>
+<a name='L350'> 350 <i><font color='green'>     * @post This ReferenceCountedArray's memory will also never be shrunk.</font></i>
 <a name='L351'> 351 <i><font color='green'>     * @post A buffer has been created.</font></i>
 <a name='L352'> 352 <i><font color='green'>     *</font></i>
 <a name='L353'> 353 <i><font color='green'>     */</font></i>
@@ -457,8 +457,8 @@
 <a name='L444'> 444 
 <a name='L445'> 445     <i><font color='green'>/* Accessors */</font></i>
 <a name='L446'> 446     <i><font color='green'>/**</font></i>
-<a name='L447'> 447 <i><font color='green'>     * @brief Returns length of the string.</font></i>
-<a name='L448'> 448 <i><font color='green'>     * @return Length of the string.</font></i>
+<a name='L447'> 447 <i><font color='green'>     * @brief Returns length of the ReferenceCountedArray.</font></i>
+<a name='L448'> 448 <i><font color='green'>     * @return Length of the ReferenceCountedArray.</font></i>
 <a name='L449'> 449 <i><font color='green'>     */</font></i>
 <a name='L450'> 450     <b>inline</b> <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/310.html' title='Multiple used in 286 places.'>length</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/472.html' title='Multiple used in 15 places.'>sublen</a>; <font color='red'>}</font>;
 <a name='L451'> 451     <i><font color='green'>/**</font></i>
@@ -467,7 +467,7 @@
 <a name='L454'> 454     <b>inline</b> <a href='../Y/437.html' title='Multiple used in 607 places.'>size_t</a> <a href='../Y/436.html' title='Multiple used in 245 places.'>size</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/310.html' title='Multiple used in 286 places.'>length</a>(); <font color='red'>}</font>;
 <a name='L455'> 455 
 <a name='L456'> 456     <i><font color='green'>/**</font></i>
-<a name='L457'> 457 <i><font color='green'>     * @brief Check whether the string is 'empty'</font></i>
+<a name='L457'> 457 <i><font color='green'>     * @brief Check whether the ReferenceCountedArray is 'empty'</font></i>
 <a name='L458'> 458 <i><font color='green'>     * @return True if empty, false if non-empty</font></i>
 <a name='L459'> 459 <i><font color='green'>     */</font></i>
 <a name='L460'> 460     <b>inline</b> <a href='../Y/140.html' title='Multiple used in 67 places.'>bool</a> <a href='../Y/284.html' title='Multiple used in 67 places.'>isEmpty</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/310.html' title='Multiple used in 286 places.'>length</a>() == 0; <font color='red'>}</font>;
