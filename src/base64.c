@@ -57,6 +57,10 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* 
 {
   char *buf = dest;
 
+  if (!charset) {
+    charset = b64_charset;
+  }
+
   /* Encode 3 bytes at a time. */
 
   /*
@@ -127,7 +131,7 @@ char *b64enc(const unsigned char *src, size_t *len, const char* charset)
   size_t dlen = (((*len + (NUM_ASCII_BYTES - 1)) / NUM_ASCII_BYTES) * NUM_ENCODED_BYTES);
   char *dest = static_cast<char*>(malloc(dlen + 1));
 
-  b64enc_buf(src, len, dest, charset ? charset : b64_charset);
+  b64enc_buf(src, len, dest, charset);
   dest[*len] = '\0';
   return dest;
 }
@@ -136,6 +140,10 @@ void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* 
 {
   char *buf = dest;
   size_t blocks = (*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0);
+
+  if (!charset_index) {
+    charset_index = b64_indexes;
+  }
 
   /* Convert the encoded base64 character back into our base255 ASCII character */
   while (blocks > 0) {
@@ -168,7 +176,7 @@ char *b64dec(const unsigned char *data, size_t *len, const char* charset)
       charset_index[int(charset[i])] = i;
     b64dec_buf(data, len, dest, charset_index);
   }  else
-    b64dec_buf(data, len, dest, b64_indexes);
+    b64dec_buf(data, len, dest);
   dest[*len] = '\0';
   return dest;
 }

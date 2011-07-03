@@ -55,7 +55,7 @@ String base64Encode(const String& string, const char* charset = NULL);
   * @param dest Reference to the buffer to encode into
   * @param charset The charset to use.
   */
-void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset);
+void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset = NULL);
 
 /**
   * @brief Decode a base64 encoded string into plaintext (returns a buffer)
@@ -81,7 +81,7 @@ String base64Decode(const String& string, const char* charset = NULL);
   * @param dest Reference to the buffer to decode into
   * @param charset_index The character set to use
   */
-void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index);
+void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index = NULL);
 
 BDLIB_NS_END
 #endif /* _BD_BASE64_H */ 
