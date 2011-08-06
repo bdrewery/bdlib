@@ -50,6 +50,21 @@ class ScriptArgs {
     virtual String getArgString(int index) const = 0;
 };
 
+#define SCRIPT_ERROR 1
+#define SCRIPT_OK 0
+
+#define SCRIPT_BADARGS(nl, nh, example) do {                            \
+	if ((args.length() < (nl)) || (args.length() > (nh))) {         \
+                return_string = "wrong # args: should be \"" +          \
+                               args.getArgString(0) + (example) + "\""; \
+                return SCRIPT_ERROR;                                    \
+	}                                                               \
+} while (0)
+
+#define SCRIPT_FUNCTION_PROTO bd::ScriptInterp& interp, bd::String& return_string, const bd::ScriptArgs& args, bd::ScriptInterp::script_clientdata_t clientData
+#define SCRIPT_FUNCTION(name) int name (SCRIPT_FUNCTION_PROTO)
+
+
 /**
  * @class ScriptInterp
  * @brief Handles generalized script interpreter access
@@ -67,9 +82,7 @@ class ScriptInterp {
 
   public:
         typedef void* script_clientdata_t;
-        typedef String (*script_cmd_handler_string_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
-        typedef int (*script_cmd_handler_int_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
-        typedef void (*script_cmd_handler_void_t)(ScriptInterp& Interp, const ScriptArgs& args, script_clientdata_t clientData);
+        typedef int (*script_cmd_handler_string_t)(SCRIPT_FUNCTION_PROTO);
         struct script_cmd_handler_clientdata_t {
           ScriptInterp* si;
           script_clientdata_t clientData;
@@ -102,8 +115,6 @@ class ScriptInterp {
          * @param callback The script_cmd_handler_t function to call when the command is ran
          */
         virtual void createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData = NULL) = 0;
-        virtual void createCommand(const String& name, script_cmd_handler_int_t callback, script_clientdata_t clientData = NULL) = 0;
-        virtual void createCommand(const String& name, script_cmd_handler_void_t callback, script_clientdata_t clientData = NULL) = 0;
 
         /**
          * @brief Remove a command from the interp
