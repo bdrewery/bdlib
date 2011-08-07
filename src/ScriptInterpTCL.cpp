@@ -81,9 +81,19 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
 int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
   ScriptArgsTCL args(objc, objv, interp);
-  String return_string;
-  int error = ((script_cmd_handler_string_t)ccd->callback)(*ccd->si, return_string, args, ccd->clientData);
-  Tcl_SetObjResult(interp, (return_string.length() < INT_MAX) ? Tcl_NewStringObj(return_string.data(), return_string.length()) : NULL);
+  script_callback_return_t return_data;
+  script_error_t error = ((script_cmd_handler_t)ccd->callback)(*ccd->si, return_data, args, ccd->clientData);
+  switch (return_data.type) {
+    case SCRIPT_RETURN_TYPE_STRING:
+      Tcl_SetObjResult(interp, (return_data.value_string.length() < INT_MAX) ? Tcl_NewStringObj(return_data.value_string.data(), return_data.value_string.length()) : NULL);
+      break;
+    case SCRIPT_RETURN_TYPE_INT:
+      Tcl_SetObjResult(interp, Tcl_NewIntObj(return_data.value_union.integer));
+      break;
+    case SCRIPT_RETURN_TYPE_NONE:
+    default:
+      break;
+  }
   if (error == SCRIPT_OK) {
     return TCL_OK;
   }
@@ -95,7 +105,7 @@ void ScriptInterpTCL::tcl_command_ondelete(ClientData clientData) {
   delete ccd;
 }
 
-void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData) {
+void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_t callback, script_clientdata_t clientData) {
   script_cmd_handler_clientdata_t* ccd = new script_cmd_handler_clientdata_t(this, clientData, (script_cmd_handler_t) callback);
   Tcl_CreateObjCommand(interp, *name, tcl_callback_string, (ClientData*)ccd, tcl_command_ondelete);
 }

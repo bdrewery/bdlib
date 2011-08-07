@@ -160,7 +160,7 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual String eval(const String& script);
         virtual LoadError loadScript(const String& fileName, String& resultStr);
 
-        virtual void createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData = NULL);
+        virtual void createCommand(const String& name, script_cmd_handler_t callback, script_clientdata_t clientData = NULL);
 
         virtual void deleteCommand(const String& name) {
           Tcl_DeleteCommand(interp, *name);

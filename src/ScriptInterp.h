@@ -50,20 +50,42 @@ class ScriptArgs {
     virtual String getArgString(int index) const = 0;
 };
 
-#define SCRIPT_ERROR 1
-#define SCRIPT_OK 0
-
-#define SCRIPT_BADARGS(nl, nh, example) do {                            \
-	if ((args.length() < (nl)) || (args.length() > (nh))) {         \
-                return_string = "wrong # args: should be \"" +          \
-                               args.getArgString(0) + (example) + "\""; \
-                return SCRIPT_ERROR;                                    \
-	}                                                               \
+#define SCRIPT_BADARGS(nl, nh, example) do {                              \
+	if ((args.length() < (nl)) || (args.length() > (nh))) {           \
+                return_data.type = bd::SCRIPT_RETURN_TYPE_STRING;         \
+                return_data.value_string = "wrong # args: should be \"" + \
+                               args.getArgString(0) + (example) + "\"";   \
+                return bd::SCRIPT_ERROR;                                  \
+	}                                                                 \
 } while (0)
 
-#define SCRIPT_FUNCTION_PROTO bd::ScriptInterp& interp, bd::String& return_string, const bd::ScriptArgs& args, bd::ScriptInterp::script_clientdata_t clientData
-#define SCRIPT_FUNCTION(name) int name (SCRIPT_FUNCTION_PROTO)
+#define SCRIPT_FUNCTION_PROTO bd::ScriptInterp& interp, bd::script_callback_return_t& return_data, const bd::ScriptArgs& args, bd::ScriptInterp::script_clientdata_t clientData
+#define SCRIPT_FUNCTION(name) bd::script_error_t name (SCRIPT_FUNCTION_PROTO)
 
+typedef enum {
+  SCRIPT_OK = 0,
+  SCRIPT_ERROR
+} script_error_t;
+
+typedef enum {
+  SCRIPT_RETURN_TYPE_NONE = 0,
+  SCRIPT_RETURN_TYPE_STRING,
+  SCRIPT_RETURN_TYPE_INT
+} script_return_type_t;
+
+typedef struct script_callback_return {
+  script_return_type_t type;
+  // Values
+  // -- value_string not in the union as it would need to be a pointer.
+  String value_string;
+  union {
+    int integer;
+  } value_union;
+  script_callback_return() : type(SCRIPT_RETURN_TYPE_NONE), value_string(String()), value_union() {};
+} script_callback_return_t;
+
+#define SCRIPT_RETURN_STRING(value) do { return_data.type = bd::SCRIPT_RETURN_TYPE_STRING; return_data.value_string = value; } while (0)
+#define SCRIPT_RETURN_INT(value) do { return_data.type = bd::SCRIPT_RETURN_TYPE_INT; return_data.value_union.integer = value; } while (0)
 
 /**
  * @class ScriptInterp
@@ -78,11 +100,10 @@ class ScriptInterp {
   protected:
         virtual int init() = 0;
         virtual int destroy() = 0;
-        typedef intptr_t (*script_cmd_handler_t) ();
 
   public:
         typedef void* script_clientdata_t;
-        typedef int (*script_cmd_handler_string_t)(SCRIPT_FUNCTION_PROTO);
+        typedef script_error_t (*script_cmd_handler_t)(SCRIPT_FUNCTION_PROTO);
         struct script_cmd_handler_clientdata_t {
           ScriptInterp* si;
           script_clientdata_t clientData;
@@ -114,7 +135,7 @@ class ScriptInterp {
          * @param name Name of the command to create
          * @param callback The script_cmd_handler_t function to call when the command is ran
          */
-        virtual void createCommand(const String& name, script_cmd_handler_string_t callback, script_clientdata_t clientData = NULL) = 0;
+        virtual void createCommand(const String& name, script_cmd_handler_t callback, script_clientdata_t clientData = NULL) = 0;
 
         /**
          * @brief Remove a command from the interp
