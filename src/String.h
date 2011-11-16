@@ -145,12 +145,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         size_t rfind(const String& str, const size_t lpos = 0) const;
         using ReferenceCountedArray<String_Array_Type>::rfind;
 
-        /**
-         * @brief Give an OutputIterator for STL usage
-         * @post The string is detached.
-         */
-        inline char* mdata() const { AboutToModify(length()); return Buf(); }
-
 	/**
 	 * @brief Cstring accessor
 	 * @return A null-terminated character array (cstring).

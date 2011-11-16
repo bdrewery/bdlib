@@ -470,8 +470,15 @@ class ReferenceCountedArray {
      * @return Pointer to array of characters (not necesarily null-terminated).
      */
     inline const_pointer data() const { return constBuf(); }
+    /**
+     * @brief Give an OutputIterator for STL usage
+     * @post The string is detached.
+     */
+    inline pointer mdata() const { AboutToModify(length()); return Buf(); }
     inline const_pointer begin() const { return data(); };
     inline const_pointer end() const { return begin() + length(); };
+    inline pointer begin() { return mdata(); };
+    inline pointer end() { return begin() + length(); };
 
     typedef Hash<value_type> HashType;
 
