@@ -1,44 +1,49 @@
 <html>
 <head>
-<title>HashTable.cpp</title>
+<title>bits.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/HashTable.cpp</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/bits.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
+<h2><a href='41.html#L38' title='Included from 38 in bdlib.h.'>INCLUDED FROM</a></h2>
+<hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* HashTable.cpp</font></i>
-<a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
-<a name='L4'>   4 <i><font color='green'> *</font></i>
-<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
-<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
-<a name='L7'>   7 <i><font color='green'> *</font></i>
-<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. </font></i>
-<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
-<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
-<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
-<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
-<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
-<a name='L14'>  14 <i><font color='green'> *</font></i>
-<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
-<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
-<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
-<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
-<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
-<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
-<a name='L21'>  21 <i><font color='green'> *</font></i>
-<a name='L22'>  22 <i><font color='green'> */</font></i>
-<a name='L23'>  23 
-<a name='L24'>  24 
-<a name='L25'>  25 
-<a name='L26'>  26 <font color='darkred'>#include</font> "<a href='4.html'>HashTable.h</a>"
-<a name='L27'>  27 
-<a name='L28'>  28 <a href='../S/39.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L29'>  29 <a href='../S/39.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L30'>  30 
+<a name='L1'>   1 <font color='darkred'>#define</font> <a href='../S/1.html#L40' title='Refered from 40 in Socket.h.'>BIT0</a>    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000001
+<a name='L2'>   2 <font color='darkred'>#define</font> <a href='../S/1.html#L41' title='Refered from 41 in Socket.h.'>BIT1</a>    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000002
+<a name='L3'>   3 <font color='darkred'>#define</font> <a href='../S/1.html#L42' title='Refered from 42 in Socket.h.'>BIT2</a>    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000004
+<a name='L4'>   4 <font color='darkred'>#define</font> <a href='../S/1.html#L43' title='Refered from 43 in Socket.h.'>BIT3</a>    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000008
+<a name='L5'>   5 <font color='darkred'>#define</font> <a href='../S/1.html#L44' title='Refered from 44 in Socket.h.'>BIT4</a>    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000010
+<a name='L6'>   6 <font color='darkred'>#define</font> <a href='../S/1.html#L45' title='Refered from 45 in Socket.h.'>BIT5</a>    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000020
+<a name='L7'>   7 <font color='darkred'>#define</font> BIT6    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000040
+<a name='L8'>   8 <font color='darkred'>#define</font> BIT7    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000080
+<a name='L9'>   9 <font color='darkred'>#define</font> BIT8    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000100
+<a name='L10'>  10 <font color='darkred'>#define</font> BIT9    (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000200
+<a name='L11'>  11 <font color='darkred'>#define</font> BIT10   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000400
+<a name='L12'>  12 <font color='darkred'>#define</font> BIT11   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000000800
+<a name='L13'>  13 <font color='darkred'>#define</font> BIT12   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000001000
+<a name='L14'>  14 <font color='darkred'>#define</font> BIT13   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000002000
+<a name='L15'>  15 <font color='darkred'>#define</font> BIT14   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000004000
+<a name='L16'>  16 <font color='darkred'>#define</font> BIT15   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000008000
+<a name='L17'>  17 <font color='darkred'>#define</font> BIT16   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000010000
+<a name='L18'>  18 <font color='darkred'>#define</font> BIT17   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000020000
+<a name='L19'>  19 <font color='darkred'>#define</font> BIT18   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000040000
+<a name='L20'>  20 <font color='darkred'>#define</font> BIT19   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000080000
+<a name='L21'>  21 <font color='darkred'>#define</font> BIT20   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000100000
+<a name='L22'>  22 <font color='darkred'>#define</font> BIT21   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000200000
+<a name='L23'>  23 <font color='darkred'>#define</font> BIT22   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000400000
+<a name='L24'>  24 <font color='darkred'>#define</font> BIT23   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x000800000
+<a name='L25'>  25 <font color='darkred'>#define</font> BIT24   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x001000000
+<a name='L26'>  26 <font color='darkred'>#define</font> BIT25   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x002000000
+<a name='L27'>  27 <font color='darkred'>#define</font> BIT26   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x004000000
+<a name='L28'>  28 <font color='darkred'>#define</font> BIT27   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x008000000
+<a name='L29'>  29 <font color='darkred'>#define</font> BIT28   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x010000000
+<a name='L30'>  30 <font color='darkred'>#define</font> BIT29   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x020000000
+<a name='L31'>  31 <font color='darkred'>#define</font> BIT30   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x040000000
+<a name='L32'>  32 <font color='darkred'>#define</font> BIT31   (<a href='../Y/507.html' title='Multiple used in 32 places.'>uint32_t</a>) 0x080000000
+<a name='L33'>  33 
 </pre>
 <hr>
 <a name='BOTTOM'>

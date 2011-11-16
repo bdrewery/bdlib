@@ -6,15 +6,17 @@
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L135'>charset_index</a>     135 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
-<a href='../S/43.html#L143'>charset_index</a>     143 base64.c           *buf++ = (charset_index[data[0]] &lt;&lt; 2) + ((charset_index[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
-<a href='../S/43.html#L146'>charset_index</a>     146 base64.c             *buf++ = ((charset_index[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((charset_index[data[2]] &amp; 0x3c) &gt;&gt; 2);
-<a href='../S/43.html#L149'>charset_index</a>     149 base64.c               *buf++ = ((charset_index[data[2]] &amp; 0x03) &lt;&lt; 6) + charset_index[data[3]];
-<a href='../S/43.html#L165'>charset_index</a>     165 base64.c           char charset_index[256];
-<a href='../S/43.html#L166'>charset_index</a>     166 base64.c           memset(charset_index, -1, sizeof(charset_index));
-<a href='../S/43.html#L168'>charset_index</a>     168 base64.c             charset_index[int(charset[i])] = i;
-<a href='../S/43.html#L169'>charset_index</a>     169 base64.c           b64dec_buf(data, len, dest, charset_index);
-<a href='../S/36.html#L84'>charset_index</a>      84 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index);
+<a href='../S/45.html#L118'>charset_index</a>     118 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
+<a href='../S/45.html#L123'>charset_index</a>     123 base64.c         if (!charset_index) {
+<a href='../S/45.html#L124'>charset_index</a>     124 base64.c           charset_index = b64_indexes;
+<a href='../S/45.html#L130'>charset_index</a>     130 base64.c           *buf++ = (charset_index[data[0]] &lt;&lt; 2) + ((charset_index[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/45.html#L133'>charset_index</a>     133 base64.c             *buf++ = ((charset_index[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((charset_index[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/45.html#L136'>charset_index</a>     136 base64.c               *buf++ = ((charset_index[data[2]] &amp; 0x03) &lt;&lt; 6) + charset_index[data[3]];
+<a href='../S/45.html#L152'>charset_index</a>     152 base64.c           char charset_index[256];
+<a href='../S/45.html#L153'>charset_index</a>     153 base64.c           memset(charset_index, -1, sizeof(charset_index));
+<a href='../S/45.html#L155'>charset_index</a>     155 base64.c             charset_index[int(charset[i])] = i;
+<a href='../S/45.html#L156'>charset_index</a>     156 base64.c           b64dec_buf(data, len, dest, charset_index);
+<a href='../S/38.html#L106'>charset_index</a>     106 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index = NULL);
 </pre>
 </body>
 </html>
