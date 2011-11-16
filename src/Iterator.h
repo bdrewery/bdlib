@@ -38,7 +38,7 @@ class Iterator { //This should not exist.
 //      typedef _Hashtable_node<_Val> _Node;
       typedef forward_iterator_tag 								iterator_category;
       typedef _Val value_type;
-      typedef ptrdiff_t 									difference_type;
+      typedef std::ptrdiff_t 									difference_type;
       typedef size_t 										size_type;
       typedef _Val& 										reference;
       typedef _Val* 										pointer;
@@ -74,7 +74,7 @@ template<class Iter> struct iterator_traits {
 template<class T> struct iterator_traits<T*> {
   typedef random_access_iterator_tag iterator_category;
   typedef T value_type;
-  typedef ptrdiff_t difference_type;
+  typedef std::ptrdiff_t difference_type;
   typedef T* pointer;
   typedef T& reference;
 }

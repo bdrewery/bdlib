@@ -49,7 +49,7 @@ class Queue : public List<T> {
     typedef T value_type;
 
     typedef size_t             size_type;
-    typedef ptrdiff_t          difference_type;
+    typedef std::ptrdiff_t     difference_type;
     typedef value_type*        pointer;
     typedef const value_type*  const_pointer;
     typedef value_type&        reference;
@@ -119,7 +119,7 @@ class QueueIterator {
     typedef typename Queue_t::Node Node;
     typedef std::forward_iterator_tag iterator_category;
     typedef T value_type;
-    typedef ptrdiff_t difference_type;
+    typedef std::ptrdiff_t difference_type;
     typedef size_t size_type;
     typedef T& reference;
     typedef T* pointer;
@@ -165,7 +165,7 @@ class QueueConstIterator {
     typedef typename Queue_t::Node Node;
     typedef std::forward_iterator_tag iterator_category;
     typedef T value_type;
-    typedef ptrdiff_t difference_type;
+    typedef std::ptrdiff_t difference_type;
     typedef size_t size_type;
     typedef const T& reference;
     typedef const T* pointer;

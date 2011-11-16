@@ -167,7 +167,7 @@ class ReferenceCountedArray {
     typedef T value_type;
 
     typedef size_t             size_type;
-    typedef ptrdiff_t          difference_type;
+    typedef std::ptrdiff_t     difference_type;
     typedef value_type*        pointer;
     typedef const value_type*  const_pointer;
     typedef value_type&        reference;
