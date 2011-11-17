@@ -172,6 +172,11 @@ class ReferenceCountedArray {
     typedef const value_type*  const_pointer;
     typedef value_type&        reference;
     typedef const value_type&  const_reference;
+    typedef value_type*        iterator;
+    typedef const value_type*  const_iterator;
+    typedef std::reverse_iterator<const_iterator>     const_reverse_iterator;
+    typedef std::reverse_iterator<iterator>           reverse_iterator;
+
 
     static const size_t npos = static_cast<size_t>(-1);
 
@@ -472,13 +477,54 @@ class ReferenceCountedArray {
     inline const_pointer data() const { return constBuf(); }
     /**
      * @brief Give an OutputIterator for STL usage
-     * @post The string is detached.
+     * @post The Array is detached.
      */
     inline pointer mdata() const { AboutToModify(length()); return Buf(); }
-    inline const_pointer begin() const { return data(); };
-    inline const_pointer end() const { return begin() + length(); };
-    inline pointer begin() { return mdata(); };
-    inline pointer end() { return begin() + length(); };
+
+    /**
+     * @brief Returns a read/write iterator into the Array.
+     * @post The Array is detached
+     */
+    inline iterator begin() { return iterator(mdata()); };
+
+    /**
+     * @brief Returns a read-only iterator into the Array
+     */
+    inline const_iterator begin() const { return const_iterator(data()); };
+
+    /**
+     * @brief Returns a read/write iterator at the end the Array
+     * @post The Array is detached
+     */
+    inline iterator end() { return iterator(begin()) + length(); };
+
+    /**
+     * @brief Returns a read-only iterator at the end of the Array
+     */
+    inline const_iterator end() const { return const_iterator(begin()) + length(); };
+
+    /**
+     * @brief Returns a read/write reverse iterator at the end of the Array. Iteration is done in reverse order.
+     * @post The Array is detached
+     */
+    inline reverse_iterator rbegin() { return reverse_iterator(this->end()); };
+
+    /**
+     * @brief Returns a read-only reverse iterator at the end of the Array. Iteration is done in reverse order.
+     */
+    inline const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); };
+
+    /**
+     * @brief Returns a read/write reverse iterator at the beginning of the Array. Iteration is done in reverse order.
+     * @post The Array is detached
+     */
+    inline reverse_iterator rend() { return reverse_iterator(this->begin()); };
+
+    /**
+     * @brief Returns a read-only reverse iterator at the beginning of the Array. Iteration is done in reverse order.
+     */
+    inline const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); };
+
 
     typedef Hash<value_type> HashType;
 

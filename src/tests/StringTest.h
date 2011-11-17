@@ -24,6 +24,9 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (charAtTest);
     CPPUNIT_TEST (indexTest);
     CPPUNIT_TEST (iteratorTest);
+    CPPUNIT_TEST (stl_iteratorTest);
+    CPPUNIT_TEST (stl_reverse_iteratorTest);
+    CPPUNIT_TEST (stl_const_iteratorTest);
     CPPUNIT_TEST (appendTest);
     CPPUNIT_TEST (insertTest);
     CPPUNIT_TEST (replaceTest);
@@ -64,6 +67,9 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void charAtTest(void);
         void indexTest(void);
         void iteratorTest(void);
+        void stl_iteratorTest(void);
+        void stl_reverse_iteratorTest(void);
+        void stl_const_iteratorTest(void);
         void appendTest(void);
         void insertTest(void);
         void replaceTest(void);

@@ -237,6 +237,30 @@ void StringTest :: iteratorTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("tthis is just a tes", (*b));
 }
 
+void StringTest :: stl_iteratorTest(void)
+{
+  *a = "abcdefghijk";
+  *b = "cfghkijabde";
+
+  sort(b->begin(), b->end());
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, *b);
+}
+
+void StringTest :: stl_reverse_iteratorTest(void)
+{
+  *a = "kjihgfedcba";
+  *b = "cfghkijabde";
+
+  sort(b->rbegin(), b->rend());
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, *b);
+}
+
+void StringTest :: stl_const_iteratorTest(void)
+{
+  const String test("cfghkijabde");
+  CPPUNIT_ASSERT_STRING_EQUAL("k", String(max_element(test.begin(), test.end()), 1));
+}
+
 void StringTest :: appendTest(void)
 {
   a->append('a');
