@@ -1,19 +1,116 @@
 <html>
 <head>
-<title>loading</title>
+<title>list</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/53.html#L99'>loading</a>            99 Stream.cpp       loading = 1;
-<a href='../S/53.html#L109'>loading</a>           109 Stream.cpp       loading = 1;
-<a href='../S/53.html#L123'>loading</a>           123 Stream.cpp       loading = 0;
-<a href='../S/34.html#L48'>loading</a>            48 Stream.h               bool loading;
-<a href='../S/34.html#L51'>loading</a>            51 Stream.h               Stream() : str(), pos(0), loading(0) {};
-<a href='../S/34.html#L52'>loading</a>            52 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
-<a href='../S/34.html#L53'>loading</a>            53 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
-<a href='../S/34.html#L54'>loading</a>            54 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/5.html#L51'>list</a>               51 HashTable.h        List&lt;iterator_type&gt; *list;
+<a href='../S/5.html#L60'>list</a>               60 HashTable.h        HashTable() : list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
+<a href='../S/5.html#L61'>list</a>               61 HashTable.h        explicit HashTable(size_t capacity_in) : list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+<a href='../S/5.html#L62'>list</a>               62 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/5.html#L64'>list</a>               64 HashTable.h              list[i] = table.list[i];
+<a href='../S/5.html#L68'>list</a>               68 HashTable.h          delete[] list;
+<a href='../S/5.html#L73'>list</a>               73 HashTable.h            list[i].clear();
+<a href='../S/5.html#L90'>list</a>               90 HashTable.h            if (list[i].size()) {
+<a href='../S/5.html#L91'>list</a>               91 HashTable.h              for (iter = list[i].begin(); iter; (++iter)) {
+<a href='../S/5.html#L106'>list</a>              106 HashTable.h            delete[] list;
+<a href='../S/5.html#L107'>list</a>              107 HashTable.h            list = new List&lt;iterator_type&gt;[_capacity];
+<a href='../S/5.html#L109'>list</a>              109 HashTable.h              list[i] = table.list[i];
+<a href='../S/5.html#L124'>list</a>              124 HashTable.h          list[getIndex(key)] &lt;&lt; iterator_type(key, value);
+<a href='../S/5.html#L131'>list</a>              131 HashTable.h          return list[getIndex(key)].contains(iterator_type(key, Value()));
+<a href='../S/5.html#L136'>list</a>              136 HashTable.h          if (list[getIndex(key)].remove(iterator_type(key, Value()))) {
+<a href='../S/5.html#L146'>list</a>              146 HashTable.h          return list[getIndex(key)].find(iterator_type(key, Value())).value();
+<a href='../S/5.html#L163'>list</a>              163 HashTable.h            if (list[i].size()) {
+<a href='../S/5.html#L164'>list</a>              164 HashTable.h              for (iter = list[i].begin(); iter; (++iter)) {
+<a href='../S/5.html#L181'>list</a>              181 HashTable.h            if (list[i].size()) {
+<a href='../S/5.html#L182'>list</a>              182 HashTable.h              for (iter = list[i].begin(); iter; (++iter)) {
+<a href='../S/5.html#L207'>list</a>              207 HashTable.h          return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+<a href='../S/37.html#L82'>list</a>               82 List.h             List(const List&amp; list) : head(NULL), tail(NULL), my_size(0) {
+<a href='../S/37.html#L83'>list</a>               83 List.h               for (Node* search = list.head; search; search = search-&gt;next)
+<a href='../S/37.html#L87'>list</a>               87 List.h             List&amp; operator =(const List&amp; list) {
+<a href='../S/37.html#L88'>list</a>               88 List.h               if (&amp;list != this) {
+<a href='../S/37.html#L90'>list</a>               90 List.h                 for (Node* search = list.head; search; search = search-&gt;next)
+<a href='../S/37.html#L130'>list</a>              130 List.h             inline friend List&lt;iterator_type&gt;&amp; operator&lt;&lt; (List&lt;iterator_type&gt;&amp; list, const iterator_type&amp; item) {
+<a href='../S/37.html#L131'>list</a>              131 List.h               list.insert(item);
+<a href='../S/37.html#L132'>list</a>              132 List.h               return list;
+<a href='../S/37.html#L190'>list</a>              190 List.h                 List *list;
+<a href='../S/37.html#L195'>list</a>              195 List.h                                                                       list(&amp;_list),
+<a href='../S/37.html#L201'>list</a>              201 List.h                                                      list(iter.list),
+<a href='../S/37.html#L206'>list</a>              206 List.h                                  list(NULL),
+<a href='../S/37.html#L212'>list</a>              212 List.h                   list = iter.list;
+<a href='../S/37.html#L223'>list</a>              223 List.h                   list-&gt;deleteNode(current);
+<a href='../S/54.html#L149'>list</a>              149 String.cpp         String list[] = {*this};
+<a href='../S/54.html#L150'>list</a>              150 String.cpp         return Array&lt;String&gt;(list, 1);
+<a href='../S/54.html#L184'>list</a>              184 String.cpp     ostream&amp; operator &lt;&lt; (ostream&amp; os, const vector&lt;String&gt; list) {
+<a href='../S/54.html#L185'>list</a>              185 String.cpp       for (unsigned int i=0; i &lt; list.size(); ++i)
+<a href='../S/54.html#L186'>list</a>              186 String.cpp         os &lt;&lt; list[i];
+<a href='../S/27.html#L1232'>list</a>             1232 tests/StringTest.cpp   Array&lt;String&gt; list;
+<a href='../S/27.html#L1235'>list</a>             1235 tests/StringTest.cpp   list = a-&gt;split(' ');
+<a href='../S/27.html#L1236'>list</a>             1236 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+<a href='../S/27.html#L1237'>list</a>             1237 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/27.html#L1238'>list</a>             1238 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+<a href='../S/27.html#L1239'>list</a>             1239 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/27.html#L1240'>list</a>             1240 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+<a href='../S/27.html#L1241'>list</a>             1241 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/27.html#L1242'>list</a>             1242 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1243'>list</a>             1243 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/27.html#L1244'>list</a>             1244 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/27.html#L1248'>list</a>             1248 tests/StringTest.cpp   list = a-&gt;split(' ', 4);
+<a href='../S/27.html#L1249'>list</a>             1249 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+<a href='../S/27.html#L1250'>list</a>             1250 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/27.html#L1251'>list</a>             1251 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+<a href='../S/27.html#L1252'>list</a>             1252 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/27.html#L1253'>list</a>             1253 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+<a href='../S/27.html#L1254'>list</a>             1254 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/27.html#L1255'>list</a>             1255 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1256'>list</a>             1256 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/27.html#L1257'>list</a>             1257 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/27.html#L1261'>list</a>             1261 tests/StringTest.cpp   list = a-&gt;split(' ', 3);
+<a href='../S/27.html#L1262'>list</a>             1262 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+<a href='../S/27.html#L1263'>list</a>             1263 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3 4", list.pop());
+<a href='../S/27.html#L1264'>list</a>             1264 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+<a href='../S/27.html#L1265'>list</a>             1265 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/27.html#L1266'>list</a>             1266 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1267'>list</a>             1267 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/27.html#L1268'>list</a>             1268 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/27.html#L1273'>list</a>             1273 tests/StringTest.cpp   list = a-&gt;split(' ', 2);
+<a href='../S/27.html#L1274'>list</a>             1274 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+<a href='../S/27.html#L1275'>list</a>             1275 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", list.pop());
+<a href='../S/27.html#L1276'>list</a>             1276 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1277'>list</a>             1277 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/27.html#L1278'>list</a>             1278 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/27.html#L1282'>list</a>             1282 tests/StringTest.cpp   list = a-&gt;split(' ', 1);
+<a href='../S/27.html#L1283'>list</a>             1283 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1284'>list</a>             1284 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", list.pop());
+<a href='../S/27.html#L1285'>list</a>             1285 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/27.html#L1289'>list</a>             1289 tests/StringTest.cpp   list = a-&gt;split(' ');
+<a href='../S/27.html#L1290'>list</a>             1290 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+<a href='../S/27.html#L1291'>list</a>             1291 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/27.html#L1292'>list</a>             1292 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+<a href='../S/27.html#L1293'>list</a>             1293 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/27.html#L1294'>list</a>             1294 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+<a href='../S/27.html#L1295'>list</a>             1295 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/27.html#L1296'>list</a>             1296 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1297'>list</a>             1297 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/27.html#L1298'>list</a>             1298 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/27.html#L1302'>list</a>             1302 tests/StringTest.cpp   list = a-&gt;split(' ', 2);
+<a href='../S/27.html#L1303'>list</a>             1303 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+<a href='../S/27.html#L1304'>list</a>             1304 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2   3   4  ", list.pop());
+<a href='../S/27.html#L1305'>list</a>             1305 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1306'>list</a>             1306 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/27.html#L1307'>list</a>             1307 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/27.html#L1311'>list</a>             1311 tests/StringTest.cpp   list = a-&gt;split("--");
+<a href='../S/27.html#L1312'>list</a>             1312 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
+<a href='../S/27.html#L1313'>list</a>             1313 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
+<a href='../S/27.html#L1314'>list</a>             1314 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
+<a href='../S/27.html#L1315'>list</a>             1315 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
+<a href='../S/27.html#L1316'>list</a>             1316 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
+<a href='../S/27.html#L1317'>list</a>             1317 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
+<a href='../S/27.html#L1318'>list</a>             1318 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
+<a href='../S/27.html#L1319'>list</a>             1319 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
+<a href='../S/27.html#L1320'>list</a>             1320 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
 </pre>
 </body>
 </html>

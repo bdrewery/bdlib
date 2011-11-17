@@ -1,37 +1,24 @@
 <html>
 <head>
-<title>rca</title>
+<title>queue</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L125'>rca</a>               125 ReferenceCountedArray.h     T&amp; rca;
-<a href='../S/43.html#L132'>rca</a>               132 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-<a href='../S/43.html#L133'>rca</a>               133 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
-<a href='../S/43.html#L140'>rca</a>               140 ReferenceCountedArray.h       T newArray(rca);
-<a href='../S/43.html#L154'>rca</a>               154 ReferenceCountedArray.h       rca.replace(start, array, len);
-<a href='../S/43.html#L332'>rca</a>               332 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/43.html#L379'>rca</a>               379 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const ReferenceCountedArray &amp;rca) {
-<a href='../S/43.html#L380'>rca</a>               380 ReferenceCountedArray.h       rca.incRef();
-<a href='../S/43.html#L381'>rca</a>               381 ReferenceCountedArray.h       offset = rca.offset;
-<a href='../S/43.html#L382'>rca</a>               382 ReferenceCountedArray.h       sublen = rca.sublen;
-<a href='../S/43.html#L383'>rca</a>               383 ReferenceCountedArray.h       my_hash = rca.my_hash;
-<a href='../S/43.html#L385'>rca</a>               385 ReferenceCountedArray.h       Ref = rca.Ref;
-<a href='../S/43.html#L571'>rca</a>               571 ReferenceCountedArray.h         ReferenceCountedArray&amp; rca;
-<a href='../S/43.html#L577'>rca</a>               577 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, size_t pos) : rca(_rca), k(pos) {};
-<a href='../S/43.html#L581'>rca</a>               581 ReferenceCountedArray.h         Cref(const Cref&amp; cref) : rca(cref.rca), k(cref.k) {};
-<a href='../S/43.html#L591'>rca</a>               591 ReferenceCountedArray.h         inline operator value_type() const { return rca.read(k); };
-<a href='../S/43.html#L597'>rca</a>               597 ReferenceCountedArray.h           rca.write(k, c);
-<a href='../S/43.html#L666'>rca</a>               666 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, size_t n = npos) { insert(length(), rca, n); };
-<a href='../S/43.html#L676'>rca</a>               676 ReferenceCountedArray.h     void insert(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
-<a href='../S/43.html#L680'>rca</a>               680 ReferenceCountedArray.h       size_t slen = rca.length();
-<a href='../S/43.html#L684'>rca</a>               684 ReferenceCountedArray.h         *this = rca;
-<a href='../S/43.html#L693'>rca</a>               693 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
-<a href='../S/43.html#L735'>rca</a>               735 ReferenceCountedArray.h     void replace(size_t pos, const ReferenceCountedArray &amp;rca, size_t n = npos) {
-<a href='../S/43.html#L739'>rca</a>               739 ReferenceCountedArray.h       size_t slen = rca.length();
-<a href='../S/43.html#L743'>rca</a>               743 ReferenceCountedArray.h         *this = rca;
-<a href='../S/43.html#L759'>rca</a>               759 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/47.html#L74'>queue</a>              74 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&gt;&gt; (Queue&lt;value_type&gt;&amp; queue, reference item) {
+<a href='../S/47.html#L75'>queue</a>              75 Queue.h              item = queue.dequeue();
+<a href='../S/47.html#L76'>queue</a>              76 Queue.h              return queue;
+<a href='../S/47.html#L99'>queue</a>              99 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
+<a href='../S/47.html#L100'>queue</a>             100 Queue.h              queue.enqueue(item);
+<a href='../S/47.html#L101'>queue</a>             101 Queue.h              return queue;
+<a href='../S/47.html#L128'>queue</a>             128 Queue.h            Queue_t *queue;
+<a href='../S/47.html#L131'>queue</a>             131 Queue.h            QueueIterator(Queue_t* _queue, Node* start) : queue(_queue), current(start) {};
+<a href='../S/47.html#L133'>queue</a>             133 Queue.h            QueueIterator() : queue(NULL), current(NULL) {};
+<a href='../S/47.html#L174'>queue</a>             174 Queue.h            const Queue_t *queue;
+<a href='../S/47.html#L177'>queue</a>             177 Queue.h            QueueConstIterator(const Queue_t* _queue, const Node* start) : queue(_queue), current(start) {};
+<a href='../S/47.html#L179'>queue</a>             179 Queue.h            QueueConstIterator(const iterator&amp; iter) : queue(iter.queue), current(iter.current) {};
+<a href='../S/47.html#L180'>queue</a>             180 Queue.h            QueueConstIterator() : queue(NULL), current(NULL) {};
 </pre>
 </body>
 </html>

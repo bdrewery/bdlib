@@ -1,19 +1,29 @@
 <html>
 <head>
-<title>left</title>
+<title>kv</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L47'>left</a>               47 BinaryTree.h           Node *left;
-<a href='../S/3.html#L51'>left</a>               51 BinaryTree.h           Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
-<a href='../S/3.html#L52'>left</a>               52 BinaryTree.h           Node(const Node&amp; n) : left(n.left ? new Node(*(n.left)) : NULL),
-<a href='../S/3.html#L69'>left</a>               69 BinaryTree.h             search = &amp;(*search)-&gt;left;
-<a href='../S/3.html#L104'>left</a>              104 BinaryTree.h         if (node-&gt;left == NULL) {
-<a href='../S/3.html#L110'>left</a>              110 BinaryTree.h           Node* temp = node-&gt;left;
-<a href='../S/3.html#L116'>left</a>              116 BinaryTree.h           Node** temp = &amp;(node-&gt;left);
-<a href='../S/3.html#L271'>left</a>              271 BinaryTree.h             fillArray(i, node-&gt;left);
+<a href='../S/3.html#L49'>kv</a>                 49 BinaryTree.h           iterator_type kv;
+<a href='../S/3.html#L51'>kv</a>                 51 BinaryTree.h           Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
+<a href='../S/3.html#L54'>kv</a>                 54 BinaryTree.h                                 kv(n.kv) {};
+<a href='../S/3.html#L68'>kv</a>                 68 BinaryTree.h           if (key &lt; (*search)-&gt;kv.key())
+<a href='../S/3.html#L70'>kv</a>                 70 BinaryTree.h           else if (key &gt; (*search)-&gt;kv.key())
+<a href='../S/3.html#L88'>kv</a>                 88 BinaryTree.h         Node* &amp;insertAt = fetchNode(search, node-&gt;kv.key());
+<a href='../S/3.html#L120'>kv</a>                120 BinaryTree.h           node-&gt;kv = (*temp)-&gt;kv;
+<a href='../S/3.html#L176'>kv</a>                176 BinaryTree.h           rNode-&gt;kv = iterator_type(key, value);
+<a href='../S/3.html#L202'>kv</a>                202 BinaryTree.h         return node-&gt;kv.v;
+<a href='../S/3.html#L236'>kv</a>                236 BinaryTree.h           return node-&gt;kv.value();
+<a href='../S/3.html#L272'>kv</a>                272 BinaryTree.h             storage[i++] = iterator_type(node-&gt;kv);
+<a href='../S/5.html#L99'>kv</a>                 99 HashTable.h            iterator_type kv = *iter;
+<a href='../S/5.html#L100'>kv</a>                100 HashTable.h            block(kv.key(), kv.value(), param);
+<a href='../S/5.html#L165'>kv</a>                165 HashTable.h                iterator_type kv = *iter;
+<a href='../S/5.html#L166'>kv</a>                166 HashTable.h                tmp &lt;&lt; kv.key();
+<a href='../S/5.html#L183'>kv</a>                183 HashTable.h                iterator_type kv = *iter;
+<a href='../S/5.html#L184'>kv</a>                184 HashTable.h                tmp &lt;&lt; kv.value();
+<a href='../S/32.html#L91'>kv</a>                 91 Iterator.h         KeyValue(const KeyValue&amp; kv) : k(kv.k), v(kv.v) {};
 </pre>
 </body>
 </html>

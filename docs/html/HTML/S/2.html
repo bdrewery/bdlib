@@ -43,22 +43,22 @@ This source file includes following definitions.
 <a name='L26'>  26 
 <a name='L27'>  27 <a href='../S/41.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
 <a name='L28'>  28 <a href='../R/29.html' title='Multiple refered from 10 places.'>Socket</a>::~<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>() <font color='red'>{</font>
-<a name='L29'>  29   <b>if</b> (<a href='../Y/287.html' title='Multiple used in 2 places.'>isValid</a>()) <font color='red'>{</font>
-<a name='L30'>  30     ::shutdown(<a href='../Y/440.html' title='Multiple used in 9 places.'>sock</a>, SHUT_RDWR);
-<a name='L31'>  31     ::<a href='../Y/164.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/440.html' title='Multiple used in 9 places.'>sock</a>);
+<a name='L29'>  29   <b>if</b> (<a href='../Y/288.html' title='Multiple used in 2 places.'>isValid</a>()) <font color='red'>{</font>
+<a name='L30'>  30     ::shutdown(<a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a>, SHUT_RDWR);
+<a name='L31'>  31     ::<a href='../Y/164.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a>);
 <a name='L32'>  32   <font color='red'>}</font>
 <a name='L33'>  33 <font color='red'>}</font>
 <a name='L34'>  34 
 <a name='L35'>  35 <b>bool</b> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>::<a href='../S/1.html#L75' title='Refered from 75 in Socket.h.'>create</a>() <font color='red'>{</font>
-<a name='L36'>  36   <b>int</b> <a href='../Y/393.html' title='Multiple used in 4 places.'>ptype</a> = 0;
+<a name='L36'>  36   <b>int</b> <a href='../Y/396.html' title='Multiple used in 4 places.'>ptype</a> = 0;
 <a name='L37'>  37 
-<a name='L38'>  38   <b>if</b> (<a href='../Y/232.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L45' title='Defined at 45 in Socket.h.'>SOCKET_UDP</a>)
-<a name='L39'>  39     <a href='../Y/393.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_DGRAM;
-<a name='L40'>  40   <b>else</b> <b>if</b> (<a href='../Y/232.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L44' title='Defined at 44 in Socket.h.'>SOCKET_TCP</a>)
-<a name='L41'>  41     <a href='../Y/393.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_STREAM;
+<a name='L38'>  38   <b>if</b> (<a href='../Y/233.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L45' title='Defined at 45 in Socket.h.'>SOCKET_UDP</a>)
+<a name='L39'>  39     <a href='../Y/396.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_DGRAM;
+<a name='L40'>  40   <b>else</b> <b>if</b> (<a href='../Y/233.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L44' title='Defined at 44 in Socket.h.'>SOCKET_TCP</a>)
+<a name='L41'>  41     <a href='../Y/396.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_STREAM;
 <a name='L42'>  42 
-<a name='L43'>  43   <a href='../Y/440.html' title='Multiple used in 9 places.'>sock</a> = socket(<a href='../Y/375.html' title='Multiple used in 2 places.'>pfamily</a>, <a href='../Y/393.html' title='Multiple used in 4 places.'>ptype</a>, 0);
-<a name='L44'>  44   <b>if</b> (<a href='../Y/440.html' title='Multiple used in 9 places.'>sock</a> == -1)
+<a name='L43'>  43   <a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a> = socket(<a href='../Y/378.html' title='Multiple used in 2 places.'>pfamily</a>, <a href='../Y/396.html' title='Multiple used in 4 places.'>ptype</a>, 0);
+<a name='L44'>  44   <b>if</b> (<a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a> == -1)
 <a name='L45'>  45     <b>return</b> <b>false</b>;
 <a name='L46'>  46 <font color='red'>}</font>
 <a name='L47'>  47 <a href='../S/41.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>

@@ -1,13 +1,32 @@
 <html>
 <head>
-<title>newNode</title>
+<title>new</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L178'>newNode</a>           178 BinaryTree.h           Node *newNode = new Node(key, value);
-<a href='../S/3.html#L179'>newNode</a>           179 BinaryTree.h           insertNode(rNode, newNode);
+<a href='../S/3.html#L52'>new</a>                52 BinaryTree.h           Node(const Node&amp; n) : left(n.left ? new Node(*(n.left)) : NULL),
+<a href='../S/3.html#L53'>new</a>                53 BinaryTree.h                                 right(n.right ? new Node(*(n.right)) : NULL),
+<a href='../S/3.html#L148'>new</a>               148 BinaryTree.h       BinaryTree(const BinaryTree&amp; tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+<a href='../S/3.html#L154'>new</a>               154 BinaryTree.h           root = new Node(*(tree.root));
+<a href='../S/3.html#L178'>new</a>               178 BinaryTree.h           Node *newNode = new Node(key, value);
+<a href='../S/3.html#L200'>new</a>               200 BinaryTree.h           insertNode(node, new Node(key, Value()));
+<a href='../S/3.html#L280'>new</a>               280 BinaryTree.h                                                                             storage(new iterator_type[size]) {
+<a href='../S/3.html#L290'>new</a>               290 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
+<a href='../S/3.html#L306'>new</a>               306 BinaryTree.h                 storage = new iterator_type[iter.my_size];
+<a href='../S/5.html#L60'>new</a>                60 HashTable.h        HashTable() : list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
+<a href='../S/5.html#L61'>new</a>                61 HashTable.h        explicit HashTable(size_t capacity_in) : list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+<a href='../S/5.html#L62'>new</a>                62 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/5.html#L107'>new</a>               107 HashTable.h            list = new List&lt;iterator_type&gt;[_capacity];
+<a href='../S/37.html#L116'>new</a>               116 List.h               Node* node = new Node(ptr);
+<a href='../S/43.html#L89'>new</a>                89 ReferenceCountedArray.h       return new T[bytes];
+<a href='../S/43.html#L191'>new</a>               191 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type&gt;();
+<a href='../S/43.html#L336'>new</a>               336 ReferenceCountedArray.h     ReferenceCountedArray() : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0), my_hash(0) {};
+<a href='../S/43.html#L347'>new</a>               347 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0), my_hash(0) {
+<a href='../S/43.html#L359'>new</a>               359 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0), my_hash(0) {
+<a href='../S/8.html#L56'>new</a>                56 SortedList.h         Node* node = new Node(ptr), *prev = NULL, *current = this-&gt;head;
+<a href='../S/35.html#L165'>new</a>               165 String.h                 char *ret = new char[length() + 1];
 </pre>
 </body>
 </html>

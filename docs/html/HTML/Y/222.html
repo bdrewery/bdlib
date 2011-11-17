@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>fd</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/53.html#L80'>fd</a>                 80 Stream.cpp       int fd = open(file.c_str(), O_RDONLY);
+<a href='../S/53.html#L81'>fd</a>                 81 Stream.cpp       if (fd == -1)
+<a href='../S/53.html#L83'>fd</a>                 83 Stream.cpp       int ret = loadFile(fd);
+<a href='../S/53.html#L84'>fd</a>                 84 Stream.cpp       close(fd);
+<a href='../S/53.html#L88'>fd</a>                 88 Stream.cpp     int Stream::loadFile(const int fd)
+<a href='../S/53.html#L92'>fd</a>                 92 Stream.cpp       size_t size = lseek(fd, 0, SEEK_END);
+<a href='../S/53.html#L94'>fd</a>                 94 Stream.cpp       void* map = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
+<a href='../S/53.html#L96'>fd</a>                 96 Stream.cpp         close(fd);
+<a href='../S/53.html#L105'>fd</a>                105 Stream.cpp       FILE *f = fdopen(fd, "rb");
+<a href='../S/53.html#L129'>fd</a>                129 Stream.cpp       int fd = open(file.c_str(), O_CREAT|O_RDWR|O_TRUNC, mode);
+<a href='../S/53.html#L130'>fd</a>                130 Stream.cpp       if (fd == -1)
+<a href='../S/53.html#L132'>fd</a>                132 Stream.cpp       int ret = writeFile(fd);
+<a href='../S/53.html#L133'>fd</a>                133 Stream.cpp       close(fd);
+<a href='../S/53.html#L137'>fd</a>                137 Stream.cpp     int Stream::writeFile(const int fd) const
+<a href='../S/53.html#L142'>fd</a>                142 Stream.cpp       if (ftruncate(fd, length())) return 1;
+<a href='../S/53.html#L146'>fd</a>                146 Stream.cpp       void* map = mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+<a href='../S/53.html#L154'>fd</a>                154 Stream.cpp       FILE *f = fdopen(fd, "wb");
+<a href='../S/34.html#L129'>fd</a>                129 Stream.h               virtual int writeFile(const int fd) const;
+<a href='../S/13.html#L247'>fd</a>                247 tests/StreamTest.cpp   int fd = mkstemp(fname);
+<a href='../S/13.html#L251'>fd</a>                251 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;writeFile(fd), 0);
+<a href='../S/13.html#L282'>fd</a>                282 tests/StreamTest.cpp   fstat(fd, &amp;s);
+<a href='../S/13.html#L289'>fd</a>                289 tests/StreamTest.cpp   close(fd);
+<a href='../S/13.html#L329'>fd</a>                329 tests/StreamTest.cpp   int fd = open(writefile, O_RDONLY);
+<a href='../S/13.html#L330'>fd</a>                330 tests/StreamTest.cpp   fstat(fd, &amp;s);
+<a href='../S/13.html#L336'>fd</a>                336 tests/StreamTest.cpp   close(fd);
+<a href='../S/27.html#L881'>fd</a>                881 tests/StringTest.cpp   int fd = open("/dev/urandom", O_RDONLY);
+<a href='../S/27.html#L887'>fd</a>                887 tests/StringTest.cpp     read(fd, ubuf, size);
+<a href='../S/27.html#L897'>fd</a>                897 tests/StringTest.cpp   close(fd);
+</pre>
+</body>
+</html>

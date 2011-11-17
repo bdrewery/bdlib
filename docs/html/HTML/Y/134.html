@@ -15,12 +15,14 @@
 <a href='../S/37.html#L258'>begin</a>             258 List.h             inline iterator begin() { return iterator(*this); };
 <a href='../S/47.html#L104'>begin</a>             104 Queue.h            inline iterator begin() { return iterator(this, this-&gt;tail); };
 <a href='../S/47.html#L106'>begin</a>             106 Queue.h            inline const_iterator begin() const { return const_iterator(this, this-&gt;tail); };
-<a href='../S/43.html#L478'>begin</a>             478 ReferenceCountedArray.h     inline const_pointer begin() const { return data(); };
-<a href='../S/43.html#L479'>begin</a>             479 ReferenceCountedArray.h     inline const_pointer end() const { return begin() + length(); };
-<a href='../S/43.html#L480'>begin</a>             480 ReferenceCountedArray.h     inline pointer begin() { return mdata(); };
-<a href='../S/43.html#L481'>begin</a>             481 ReferenceCountedArray.h     inline pointer end() { return begin() + length(); };
-<a href='../S/43.html#L693'>begin</a>             693 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
-<a href='../S/43.html#L759'>begin</a>             759 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/43.html#L488'>begin</a>             488 ReferenceCountedArray.h     inline iterator begin() { return iterator(mdata()); };
+<a href='../S/43.html#L493'>begin</a>             493 ReferenceCountedArray.h     inline const_iterator begin() const { return const_iterator(data()); };
+<a href='../S/43.html#L499'>begin</a>             499 ReferenceCountedArray.h     inline iterator end() { return iterator(begin()) + length(); };
+<a href='../S/43.html#L504'>begin</a>             504 ReferenceCountedArray.h     inline const_iterator end() const { return const_iterator(begin()) + length(); };
+<a href='../S/43.html#L521'>begin</a>             521 ReferenceCountedArray.h     inline reverse_iterator rend() { return reverse_iterator(this-&gt;begin()); };
+<a href='../S/43.html#L526'>begin</a>             526 ReferenceCountedArray.h     inline const_reverse_iterator rend() const { return const_reverse_iterator(this-&gt;begin()); };
+<a href='../S/43.html#L739'>begin</a>             739 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/43.html#L805'>begin</a>             805 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
 <a href='../S/54.html#L51'>begin</a>              51 String.cpp       const int diff = memcmp(begin() + start, str.begin(), len);
 <a href='../S/54.html#L227'>begin</a>             227 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
 <a href='../S/54.html#L237'>begin</a>             237 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
@@ -78,6 +80,8 @@
 <a href='../S/23.html#L364'>begin</a>             364 tests/SortedListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
 <a href='../S/23.html#L376'>begin</a>             376 tests/SortedListTest.cpp   for (iter = (*a).begin(); iter; (++iter)) {
 <a href='../S/19.html#L102'>begin</a>             102 tests/StackTest.cpp   Stack&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/27.html#L245'>begin</a>             245 tests/StringTest.cpp   sort(b-&gt;begin(), b-&gt;end());
+<a href='../S/27.html#L261'>begin</a>             261 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("k", String(max_element(test.begin(), test.end()), 1));
 </pre>
 </body>
 </html>
