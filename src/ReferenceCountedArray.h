@@ -30,6 +30,7 @@
 #ifdef DEBUG
 #include <stdio.h>
 #endif
+#include <string.h>
 
 BDLIB_NS_BEGIN
 template <class T>

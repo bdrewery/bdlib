@@ -105,8 +105,8 @@ class Array : public ReferenceCountedArray<T> {
      * @brief Add an item to the end of the array
      */
     inline void push(const value_type item) {
-      AboutToModify(this->length() + 1);
-      *(Buf(this->length())) = item;
+      this->AboutToModify(this->length() + 1);
+      *(this->Buf(this->length())) = item;
       this->addLength(1);
     }
 
@@ -273,7 +273,7 @@ class Array : public ReferenceCountedArray<T> {
      * \sa append(const char)
      */
     inline Array& operator+= (const_reference item) {
-      append(item);
+      this->append(item);
       return *this;
     }
 
@@ -281,7 +281,7 @@ class Array : public ReferenceCountedArray<T> {
      * \sa append(const Array&)
      */
     inline Array& operator+= (const Array& array) {
-      append(array);
+      this->append(array);
       return *this;
     }
 
@@ -314,12 +314,10 @@ class Array : public ReferenceCountedArray<T> {
 template<typename T>
   struct Hash;
 
-template<>
-  template<typename T>
-    struct Hash< Array<T> >
-      {
-            inline size_t operator()(const Array<T>& val) const { return val.hash(); }
-      };
+template<typename T>
+  struct Hash< Array<T> > {
+    inline size_t operator()(const Array<T>& val) const { return val.hash(); }
+  };
 BDLIB_NS_END
 
 #endif /* _BD_ARRAY_H */
