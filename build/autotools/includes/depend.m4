@@ -13,7 +13,7 @@ if test $num -ge "3"; then
   GCC3="-W -std=c++98 -Wabi -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
   NOUNITSGCC3="-fno-rtti -fstrict-aliasing"
   DEBGCC3="-Wno-disabled-optimization"
-  DEBNOUNITSGCC3="-Weffc++ -Wwrite-strings -fno-nonansi-builtins -fno-elide-constructors -Woverloaded-virtual"
+  DEBNOUNITSGCC3="-Weffc++ -Wwrite-strings -fno-elide-constructors -Woverloaded-virtual"
 fi
 if test $num -ge "4"; then
   GCC4DEB="-fstack-protector-all -Winvalid-pch"
