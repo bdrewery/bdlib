@@ -555,7 +555,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       for (size_t i = 0; i < length(); ++i)
         if (*(Buf(i)) == item)
           return i;
-      return size_t(-1);
+      return npos;
     }
 
     /**
@@ -566,7 +566,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       for (size_t i = length() - 1; i + 1 > 0; --i)
         if (*(Buf(i)) == item)
           return i;
-      return size_t(-1);
+      return npos;
     }
 
     // Safe index accessors
