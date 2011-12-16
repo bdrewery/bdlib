@@ -77,7 +77,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
             cleanse_ctr += (63 + reinterpret_cast<size_t>(p));
         }
   public:
-        static const size_t npos = static_cast<size_t>(-1);
 
         /* Constructors */
         String() : ReferenceCountedArray<String_Array_Type>() {};

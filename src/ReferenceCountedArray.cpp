@@ -25,4 +25,5 @@
 #include "ReferenceCountedArray.h"
 
 BDLIB_NS_BEGIN
+const size_t ReferenceCountedArrayBase::npos;
 BDLIB_NS_END

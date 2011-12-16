@@ -157,13 +157,19 @@ class Slice {
     }
 };
 
+class ReferenceCountedArrayBase {
+  public:
+    static const size_t npos = static_cast<size_t>(-1);
+    virtual ~ReferenceCountedArrayBase() {};
+};
+
 
 template <class T>
 /**
  * @class ReferenceCountedArray
  * @brief
  */
-class ReferenceCountedArray {
+class ReferenceCountedArray : public ReferenceCountedArrayBase {
   public:
     typedef T value_type;
 
@@ -177,9 +183,6 @@ class ReferenceCountedArray {
     typedef const value_type*  const_iterator;
     typedef std::reverse_iterator<const_iterator>     const_reverse_iterator;
     typedef std::reverse_iterator<iterator>           reverse_iterator;
-
-
-    static const size_t npos = static_cast<size_t>(-1);
 
   private:
     /**
