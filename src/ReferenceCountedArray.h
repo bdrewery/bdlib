@@ -388,7 +388,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @return The new rca object.
      * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
-    const ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
+    ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
       rca.incRef();
       offset = rca.offset;
       sublen = rca.sublen;
@@ -405,7 +405,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post A sufficiently sized new buffer is made with the item within.
      * @return The new array object.
      */
-    const ReferenceCountedArray& operator=(const_reference item) {
+    ReferenceCountedArray& operator=(const_reference item) {
       Detach();
       append(item);
       return *this;
