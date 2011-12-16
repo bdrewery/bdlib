@@ -6,37 +6,37 @@
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L208'>start</a>             208 Array.h            inline Array subarray(int start, int len = -1) const {
-<a href='../S/44.html#L210'>start</a>             210 Array.h              newArray.slice(start, len);
-<a href='../S/44.html#L217'>start</a>             217 Array.h            inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
-<a href='../S/44.html#L225'>start</a>             225 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
+<a href='../S/44.html#L203'>start</a>             203 Array.h            inline Array subarray(int start, int len = -1) const {
+<a href='../S/44.html#L205'>start</a>             205 Array.h              newArray.slice(start, len);
+<a href='../S/44.html#L212'>start</a>             212 Array.h            inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
+<a href='../S/44.html#L220'>start</a>             220 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
 <a href='../S/47.html#L131'>start</a>             131 Queue.h            QueueIterator(Queue_t* _queue, Node* start) : queue(_queue), current(start) {};
 <a href='../S/47.html#L177'>start</a>             177 Queue.h            QueueConstIterator(const Queue_t* _queue, const Node* start) : queue(_queue), current(start) {};
-<a href='../S/43.html#L126'>start</a>             126 ReferenceCountedArray.h     int start;
-<a href='../S/43.html#L132'>start</a>             132 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-<a href='../S/43.html#L133'>start</a>             133 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
+<a href='../S/43.html#L127'>start</a>             127 ReferenceCountedArray.h     int start;
+<a href='../S/43.html#L133'>start</a>             133 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
+<a href='../S/43.html#L134'>start</a>             134 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
 <a href='../S/43.html#L141'>start</a>             141 ReferenceCountedArray.h       newArray.slice(start, len);
-<a href='../S/43.html#L154'>start</a>             154 ReferenceCountedArray.h       rca.replace(start, array, len);
-<a href='../S/43.html#L671'>start</a>             671 ReferenceCountedArray.h     void slice(int start, int len = -1) {
-<a href='../S/43.html#L672'>start</a>             672 ReferenceCountedArray.h       if (len == -1) len = int(length()) - start;
-<a href='../S/43.html#L674'>start</a>             674 ReferenceCountedArray.h       if (start &gt;= static_cast&lt;signed&gt;(length())) {
-<a href='../S/43.html#L681'>start</a>             681 ReferenceCountedArray.h       if (start &lt; 0)
-<a href='../S/43.html#L682'>start</a>             682 ReferenceCountedArray.h         start = length() + start;
-<a href='../S/43.html#L684'>start</a>             684 ReferenceCountedArray.h       if (start &lt; 0)
-<a href='../S/43.html#L685'>start</a>             685 ReferenceCountedArray.h         start = 0;
-<a href='../S/43.html#L687'>start</a>             687 ReferenceCountedArray.h       offset += start;
-<a href='../S/43.html#L689'>start</a>             689 ReferenceCountedArray.h       if (start + len &gt;= static_cast&lt;signed&gt;(length()))
-<a href='../S/43.html#L690'>start</a>             690 ReferenceCountedArray.h         len = length() - start;
-<a href='../S/43.html#L693'>start</a>             693 ReferenceCountedArray.h         len = length() - start + len;
-<a href='../S/54.html#L50'>start</a>              50 String.cpp       const size_t len = std::min(my_len - start, slen);
-<a href='../S/54.html#L51'>start</a>              51 String.cpp       const int diff = memcmp(begin() + start, str.begin(), len);
-<a href='../S/54.html#L55'>start</a>              55 String.cpp         return std::min(my_len - start, n) - slen;
-<a href='../S/54.html#L57'>start</a>              57 String.cpp         return (my_len - start) - slen;
-<a href='../S/35.html#L225'>start</a>             225 String.h               String substring(int start, int len = -1) const {
-<a href='../S/35.html#L227'>start</a>             227 String.h                 newString.slice(start, len);
-<a href='../S/35.html#L234'>start</a>             234 String.h               inline String operator()(int start, int len = -1) const { return substring(start, len); };
-<a href='../S/35.html#L242'>start</a>             242 String.h               inline Slice&lt;String&gt; operator()(int start, int len = -1) { return Slice&lt;String&gt;(*this, start, len); };
-<a href='../S/35.html#L251'>start</a>             251 String.h               int compare(const String&amp; str, size_t n = 0, size_t start = 0) const;
+<a href='../S/43.html#L158'>start</a>             158 ReferenceCountedArray.h       rca.replace(start, array, len);
+<a href='../S/43.html#L678'>start</a>             678 ReferenceCountedArray.h     void slice(int start, int len = -1) {
+<a href='../S/43.html#L679'>start</a>             679 ReferenceCountedArray.h       if (len == -1) len = int(length()) - start;
+<a href='../S/43.html#L681'>start</a>             681 ReferenceCountedArray.h       if (start &gt;= static_cast&lt;signed&gt;(length())) {
+<a href='../S/43.html#L688'>start</a>             688 ReferenceCountedArray.h       if (start &lt; 0)
+<a href='../S/43.html#L689'>start</a>             689 ReferenceCountedArray.h         start = length() + start;
+<a href='../S/43.html#L691'>start</a>             691 ReferenceCountedArray.h       if (start &lt; 0)
+<a href='../S/43.html#L692'>start</a>             692 ReferenceCountedArray.h         start = 0;
+<a href='../S/43.html#L694'>start</a>             694 ReferenceCountedArray.h       offset += start;
+<a href='../S/43.html#L696'>start</a>             696 ReferenceCountedArray.h       if (start + len &gt;= static_cast&lt;signed&gt;(length()))
+<a href='../S/43.html#L697'>start</a>             697 ReferenceCountedArray.h         len = length() - start;
+<a href='../S/43.html#L700'>start</a>             700 ReferenceCountedArray.h         len = length() - start + len;
+<a href='../S/54.html#L49'>start</a>              49 String.cpp       const size_t len = std::min(my_len - start, slen);
+<a href='../S/54.html#L50'>start</a>              50 String.cpp       const int diff = memcmp(begin() + start, str.begin(), len);
+<a href='../S/54.html#L54'>start</a>              54 String.cpp         return std::min(my_len - start, n) - slen;
+<a href='../S/54.html#L56'>start</a>              56 String.cpp         return (my_len - start) - slen;
+<a href='../S/35.html#L224'>start</a>             224 String.h               String substring(int start, int len = -1) const {
+<a href='../S/35.html#L226'>start</a>             226 String.h                 newString.slice(start, len);
+<a href='../S/35.html#L233'>start</a>             233 String.h               inline String operator()(int start, int len = -1) const { return substring(start, len); };
+<a href='../S/35.html#L241'>start</a>             241 String.h               inline Slice&lt;String&gt; operator()(int start, int len = -1) { return Slice&lt;String&gt;(*this, start, len); };
+<a href='../S/35.html#L250'>start</a>             250 String.h               int compare(const String&amp; str, size_t n = 0, size_t start = 0) const;
 <a href='../S/49.html#L69'>start</a>              69 Thread.h           int start(void* = NULL);
 </pre>
 </body>

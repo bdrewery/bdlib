@@ -13,11 +13,11 @@
 <a href='../S/3.html#L52'>Node</a>               52 BinaryTree.h           Node(const Node&amp; n) : left(n.left ? new Node(*(n.left)) : NULL),
 <a href='../S/3.html#L53'>Node</a>               53 BinaryTree.h                                 right(n.right ? new Node(*(n.right)) : NULL),
 <a href='../S/3.html#L58'>Node</a>               58 BinaryTree.h       Node *root;
-<a href='../S/3.html#L66'>Node</a>               66 BinaryTree.h       Node* &amp;fetchNode(Node* const* search, const Key &amp;key) const {
+<a href='../S/3.html#L66'>Node</a>               66 BinaryTree.h       Node*&amp; fetchNode(Node* const* search, const Key&amp; key) const {
 <a href='../S/3.html#L73'>Node</a>               73 BinaryTree.h             return const_cast&lt;Node*&amp;&gt;(*search);
 <a href='../S/3.html#L76'>Node</a>               76 BinaryTree.h         return const_cast&lt;Node*&amp;&gt;(*search);
 <a href='../S/3.html#L87'>Node</a>               87 BinaryTree.h       inline void insertNode(Node** search, Node* const node) {
-<a href='../S/3.html#L88'>Node</a>               88 BinaryTree.h         Node* &amp;insertAt = fetchNode(search, node-&gt;kv.key());
+<a href='../S/3.html#L88'>Node</a>               88 BinaryTree.h         Node*&amp; insertAt = fetchNode(search, node-&gt;kv.key());
 <a href='../S/3.html#L92'>Node</a>               92 BinaryTree.h       inline void insertNode(Node*&amp; insertAt, Node* const node) {
 <a href='../S/3.html#L101'>Node</a>              101 BinaryTree.h       void deleteNode(Node*&amp; node) {
 <a href='../S/3.html#L105'>Node</a>              105 BinaryTree.h           Node* temp = node-&gt;right;
@@ -29,7 +29,7 @@
 <a href='../S/3.html#L178'>Node</a>              178 BinaryTree.h           Node *newNode = new Node(key, value);
 <a href='../S/3.html#L198'>Node</a>              198 BinaryTree.h         Node*&amp; node = fetchNode(&amp;root, key);
 <a href='../S/3.html#L200'>Node</a>              200 BinaryTree.h           insertNode(node, new Node(key, Value()));
-<a href='../S/3.html#L211'>Node</a>              211 BinaryTree.h         Node* &amp;node = fetchNode(&amp;root, key);
+<a href='../S/3.html#L211'>Node</a>              211 BinaryTree.h         Node*&amp; node = fetchNode(&amp;root, key);
 <a href='../S/3.html#L234'>Node</a>              234 BinaryTree.h         Node* node = fetchNode(&amp;root, key);
 <a href='../S/3.html#L268'>Node</a>              268 BinaryTree.h           void fillArray(int&amp; i, const Node* node) {
 <a href='../S/3.html#L276'>Node</a>              276 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator&lt;iterator_type&gt;(), 

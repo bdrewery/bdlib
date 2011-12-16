@@ -7,7 +7,7 @@
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
 <a href='../S/3.html#L87'>node</a>               87 BinaryTree.h       inline void insertNode(Node** search, Node* const node) {
-<a href='../S/3.html#L88'>node</a>               88 BinaryTree.h         Node* &amp;insertAt = fetchNode(search, node-&gt;kv.key());
+<a href='../S/3.html#L88'>node</a>               88 BinaryTree.h         Node*&amp; insertAt = fetchNode(search, node-&gt;kv.key());
 <a href='../S/3.html#L92'>node</a>               92 BinaryTree.h       inline void insertNode(Node*&amp; insertAt, Node* const node) {
 <a href='../S/3.html#L93'>node</a>               93 BinaryTree.h         insertAt = node;
 <a href='../S/3.html#L101'>node</a>              101 BinaryTree.h       void deleteNode(Node*&amp; node) {
@@ -26,7 +26,7 @@
 <a href='../S/3.html#L199'>node</a>              199 BinaryTree.h         if (!node)
 <a href='../S/3.html#L200'>node</a>              200 BinaryTree.h           insertNode(node, new Node(key, Value()));
 <a href='../S/3.html#L202'>node</a>              202 BinaryTree.h         return node-&gt;kv.v;
-<a href='../S/3.html#L211'>node</a>              211 BinaryTree.h         Node* &amp;node = fetchNode(&amp;root, key);
+<a href='../S/3.html#L211'>node</a>              211 BinaryTree.h         Node*&amp; node = fetchNode(&amp;root, key);
 <a href='../S/3.html#L213'>node</a>              213 BinaryTree.h         if (node != NULL) {
 <a href='../S/3.html#L214'>node</a>              214 BinaryTree.h           deleteNode(node);
 <a href='../S/3.html#L234'>node</a>              234 BinaryTree.h         Node* node = fetchNode(&amp;root, key);

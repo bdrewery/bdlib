@@ -154,7 +154,7 @@ function toggleVisibility(linkObj) {
 <p><a class="anchor" id="_todo000010"></a> </p>
 <dl>
 <dt>Class <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">bd::ReferenceCountedArray&lt; T &gt;::Cref</a>  </dt>
-<dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: String s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); </dd>
+<dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const operator[] This class should be optimized away and fully inlined such that: ReferenceCountedArray s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); </dd>
 </dl>
 <p><a class="anchor" id="_todo000009"></a> </p>
 <dl>
@@ -164,7 +164,7 @@ function toggleVisibility(linkObj) {
 <p><a class="anchor" id="_todo000004"></a> </p>
 <dl>
 <dt>Class <a class="el" href="classbd_1_1Slice.html">bd::Slice&lt; T &gt;</a>  </dt>
-<dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[] This class should be optimized away and fully inlined such that: String s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd>
+<dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const ReferenceCountedArray::operator[] This class should be optimized away and fully inlined such that: ReferenceCountedArray s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd>
 </dl>
 <p><a class="anchor" id="_todo000007"></a> </p>
 <dl>
@@ -187,7 +187,7 @@ function toggleVisibility(linkObj) {
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Thu Nov 17 2011 11:48:41 for BDLIB by&#160;
+      <li class="footer">Generated on Thu Dec 15 2011 23:54:46 for BDLIB by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

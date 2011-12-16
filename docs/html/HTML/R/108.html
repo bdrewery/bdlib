@@ -17,12 +17,12 @@
 <a href='../S/3.html#L290'>iterator_type</a>     290 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
 <a href='../S/3.html#L295'>iterator_type</a>     295 BinaryTree.h           BinaryTreeIterator() : Iterator&lt;iterator_type&gt;(),
 <a href='../S/3.html#L306'>iterator_type</a>     306 BinaryTree.h                 storage = new iterator_type[iter.my_size];
-<a href='../S/3.html#L334'>iterator_type</a>     334 BinaryTree.h           virtual operator iterator_type () { return operator*(); };
-<a href='../S/3.html#L335'>iterator_type</a>     335 BinaryTree.h           virtual iterator_type&amp; operator *() { return storage[index]; }
+<a href='../S/3.html#L334'>iterator_type</a>     334 BinaryTree.h           virtual operator iterator_type() { return operator*(); };
+<a href='../S/3.html#L335'>iterator_type</a>     335 BinaryTree.h           virtual iterator_type&amp; operator*(){ return storage[index]; }
 <a href='../S/5.html#L51'>iterator_type</a>      51 HashTable.h        List&lt;iterator_type&gt; *list;
 <a href='../S/5.html#L60'>iterator_type</a>      60 HashTable.h        HashTable() : list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
 <a href='../S/5.html#L61'>iterator_type</a>      61 HashTable.h        explicit HashTable(size_t capacity_in) : list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L62'>iterator_type</a>      62 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/5.html#L62'>iterator_type</a>      62 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
 <a href='../S/5.html#L85'>iterator_type</a>      85 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
 <a href='../S/5.html#L88'>iterator_type</a>      88 HashTable.h          List&lt;iterator_type&gt; items;
 <a href='../S/5.html#L99'>iterator_type</a>      99 HashTable.h            iterator_type kv = *iter;

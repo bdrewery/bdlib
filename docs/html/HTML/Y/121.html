@@ -1,17 +1,19 @@
 <html>
 <head>
-<title>addLength</title>
+<title>actual</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L110'>addLength</a>         110 Array.h              this-&gt;addLength(1);
-<a href='../S/43.html#L216'>addLength</a>         216 ReferenceCountedArray.h     inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
-<a href='../S/43.html#L446'>addLength</a>         446 ReferenceCountedArray.h         this-&gt;addLength(len - this-&gt;length());
-<a href='../S/43.html#L740'>addLength</a>         740 ReferenceCountedArray.h       addLength(slen);
-<a href='../S/43.html#L758'>addLength</a>         758 ReferenceCountedArray.h       addLength(1);
-<a href='../S/54.html#L81'>addLength</a>          81 String.cpp       addLength(slen);
+<a href='../S/44.html#L34'>actual</a>             34 Array.h        #define CPPUNIT_ASSERT_ARRAY_EQUAL(expected, actual) expected.CPPUNIT_checkArrayEqual(actual, CPPUNIT_SOURCELINE())
+<a href='../S/44.html#L223'>actual</a>            223 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/44.html#L224'>actual</a>            224 Array.h              if ((*this) == actual) return;
+<a href='../S/44.html#L225'>actual</a>            225 Array.h              ::CPPUNIT_NS::Asserter::failNotEqual(this-&gt;join("|").c_str(), actual.join("|").c_str(), sourceLine);
+<a href='../S/35.html#L42'>actual</a>             42 String.h       #define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual) BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
+<a href='../S/35.html#L327'>actual</a>            327 String.h               static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/35.html#L328'>actual</a>            328 String.h                 if (expected == actual) return;
+<a href='../S/35.html#L329'>actual</a>            329 String.h                 ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
 </pre>
 </body>
 </html>

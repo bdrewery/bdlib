@@ -35,6 +35,7 @@ var NAVTREE =
       [ "bd::QueueIterator< T >", "classbd_1_1QueueIterator.html", null ],
       [ "bd::ReferenceCountedArray< T >", "classbd_1_1ReferenceCountedArray.html", null ],
       [ "bd::ReferenceCountedArray< T >::Cref", "classbd_1_1ReferenceCountedArray_1_1Cref.html", null ],
+      [ "bd::ReferenceCountedArrayBase", "classbd_1_1ReferenceCountedArrayBase.html", null ],
       [ "bd::ServerSocket", "classbd_1_1ServerSocket.html", null ],
       [ "bd::Slice< T >", "classbd_1_1Slice.html", null ],
       [ "bd::Socket", "classbd_1_1Socket.html", null ],
@@ -76,10 +77,15 @@ var NAVTREE =
       [ "bd::List< T >::Node", "structbd_1_1List_1_1Node.html", null ],
       [ "bd::QueueConstIterator< T >", "classbd_1_1QueueConstIterator.html", null ],
       [ "bd::QueueIterator< T >", "classbd_1_1QueueIterator.html", null ],
-      [ "bd::ReferenceCountedArray< T >", "classbd_1_1ReferenceCountedArray.html", [
-        [ "bd::Array< T >", "classbd_1_1Array.html", null ]
-      ] ],
       [ "bd::ReferenceCountedArray< T >::Cref", "classbd_1_1ReferenceCountedArray_1_1Cref.html", null ],
+      [ "bd::ReferenceCountedArrayBase", "classbd_1_1ReferenceCountedArrayBase.html", [
+        [ "bd::ReferenceCountedArray< T >", "classbd_1_1ReferenceCountedArray.html", [
+          [ "bd::Array< T >", "classbd_1_1Array.html", null ]
+        ] ],
+        [ "bd::ReferenceCountedArray< String_Array_Type >", "classbd_1_1ReferenceCountedArray.html", [
+          [ "bd::String", "classbd_1_1String.html", null ]
+        ] ]
+      ] ],
       [ "bd::Slice< T >", "classbd_1_1Slice.html", null ],
       [ "bd::Socket", "classbd_1_1Socket.html", [
         [ "bd::ClientSocket", "classbd_1_1ClientSocket.html", null ],
@@ -88,10 +94,7 @@ var NAVTREE =
       [ "bd::sockname_t", "structbd_1_1sockname__t.html", null ],
       [ "bd::Stream", "classbd_1_1Stream.html", null ],
       [ "bd::Thread", "classbd_1_1Thread.html", null ],
-      [ "bd::Iterator< iterator_type >", "classbd_1_1Iterator.html", null ],
-      [ "bd::ReferenceCountedArray< String_Array_Type >", "classbd_1_1ReferenceCountedArray.html", [
-        [ "bd::String", "classbd_1_1String.html", null ]
-      ] ]
+      [ "bd::Iterator< iterator_type >", "classbd_1_1Iterator.html", null ]
     ] ],
     [ "Class Members", "functions.html", null ],
     [ "Namespace List", "namespaces.html", [

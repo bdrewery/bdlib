@@ -6,14 +6,14 @@
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L107'>item</a>              107 Array.h            inline void push(const value_type item) {
-<a href='../S/44.html#L109'>item</a>              109 Array.h              *(Buf(this-&gt;length())) = item;
-<a href='../S/44.html#L116'>item</a>              116 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt; (Array&lt;value_type&gt;&amp; array, const_reference item) {
-<a href='../S/44.html#L117'>item</a>              117 Array.h              array.push(item);
-<a href='../S/44.html#L149'>item</a>              149 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt; (Array&lt;value_type&gt;&amp; array, reference item) {
-<a href='../S/44.html#L150'>item</a>              150 Array.h              item = array.pop();
-<a href='../S/44.html#L275'>item</a>              275 Array.h            inline Array&amp; operator+= (const_reference item) {
-<a href='../S/44.html#L276'>item</a>              276 Array.h              append(item);
+<a href='../S/44.html#L102'>item</a>              102 Array.h            inline void push(const value_type item) {
+<a href='../S/44.html#L104'>item</a>              104 Array.h              *(this-&gt;Buf(this-&gt;length())) = item;
+<a href='../S/44.html#L111'>item</a>              111 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/44.html#L112'>item</a>              112 Array.h              array.push(item);
+<a href='../S/44.html#L144'>item</a>              144 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/44.html#L145'>item</a>              145 Array.h              item = array.pop();
+<a href='../S/44.html#L280'>item</a>              280 Array.h            inline Array&amp; operator+=(const_reference item) {
+<a href='../S/44.html#L281'>item</a>              281 Array.h              this-&gt;append(item);
 <a href='../S/37.html#L130'>item</a>              130 List.h             inline friend List&lt;iterator_type&gt;&amp; operator&lt;&lt; (List&lt;iterator_type&gt;&amp; list, const iterator_type&amp; item) {
 <a href='../S/37.html#L131'>item</a>              131 List.h               list.insert(item);
 <a href='../S/47.html#L66'>item</a>               66 Queue.h              value_type item = this-&gt;tail-&gt;ptr;
@@ -24,19 +24,19 @@
 <a href='../S/47.html#L93'>item</a>               93 Queue.h              this-&gt;insert(item);
 <a href='../S/47.html#L99'>item</a>               99 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
 <a href='../S/47.html#L100'>item</a>              100 Queue.h              queue.enqueue(item);
-<a href='../S/43.html#L401'>item</a>              401 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const_reference item) {
-<a href='../S/43.html#L403'>item</a>              403 ReferenceCountedArray.h       append(item);
-<a href='../S/43.html#L550'>item</a>              550 ReferenceCountedArray.h     size_t find(const_reference item) const {
-<a href='../S/43.html#L552'>item</a>              552 ReferenceCountedArray.h         if (*(Buf(i)) == item)
-<a href='../S/43.html#L561'>item</a>              561 ReferenceCountedArray.h     size_t rfind(const_reference item) const {
-<a href='../S/43.html#L563'>item</a>              563 ReferenceCountedArray.h         if (*(Buf(i)) == item)
-<a href='../S/43.html#L593'>item</a>              593 ReferenceCountedArray.h     inline void write(size_t pos, value_type item) {
-<a href='../S/43.html#L595'>item</a>              595 ReferenceCountedArray.h       *(Buf(pos)) = item;
-<a href='../S/43.html#L704'>item</a>              704 ReferenceCountedArray.h     inline void append(const_reference item) { insert(length(), item); };
-<a href='../S/43.html#L751'>item</a>              751 ReferenceCountedArray.h     void insert(size_t pos, const_reference item)
-<a href='../S/43.html#L757'>item</a>              757 ReferenceCountedArray.h       *(Buf(pos)) = item;
-<a href='../S/43.html#L768'>item</a>              768 ReferenceCountedArray.h     void replace(size_t pos, const_reference item) {
-<a href='../S/43.html#L772'>item</a>              772 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/43.html#L408'>item</a>              408 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const_reference item) {
+<a href='../S/43.html#L410'>item</a>              410 ReferenceCountedArray.h       append(item);
+<a href='../S/43.html#L557'>item</a>              557 ReferenceCountedArray.h     size_t find(const_reference item) const {
+<a href='../S/43.html#L559'>item</a>              559 ReferenceCountedArray.h         if (*(Buf(i)) == item)
+<a href='../S/43.html#L568'>item</a>              568 ReferenceCountedArray.h     size_t rfind(const_reference item) const {
+<a href='../S/43.html#L570'>item</a>              570 ReferenceCountedArray.h         if (*(Buf(i)) == item)
+<a href='../S/43.html#L600'>item</a>              600 ReferenceCountedArray.h     inline void write(size_t pos, value_type item) {
+<a href='../S/43.html#L602'>item</a>              602 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/43.html#L711'>item</a>              711 ReferenceCountedArray.h     inline void append(const_reference item) { insert(length(), item); };
+<a href='../S/43.html#L758'>item</a>              758 ReferenceCountedArray.h     void insert(size_t pos, const_reference item)
+<a href='../S/43.html#L764'>item</a>              764 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/43.html#L775'>item</a>              775 ReferenceCountedArray.h     void replace(size_t pos, const_reference item) {
+<a href='../S/43.html#L779'>item</a>              779 ReferenceCountedArray.h       *(Buf(pos)) = item;
 <a href='../S/9.html#L48'>item</a>               48 Stack.h              iterator_type item = this-&gt;head-&gt;ptr;
 <a href='../S/9.html#L49'>item</a>               49 Stack.h              this-&gt;remove(item);
 <a href='../S/9.html#L50'>item</a>               50 Stack.h              return item;

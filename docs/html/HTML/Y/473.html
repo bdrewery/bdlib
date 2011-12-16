@@ -10,27 +10,27 @@
 <a href='../S/34.html#L81'>string</a>             81 Stream.h               virtual void puts (const String&amp; string) {
 <a href='../S/34.html#L82'>string</a>             82 Stream.h                 str.replace(tell(), string);
 <a href='../S/34.html#L83'>string</a>             83 Stream.h                 pos += string.length();
-<a href='../S/34.html#L148'>string</a>            148 Stream.h       inline Stream&amp; operator &lt;&lt; (Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
-<a href='../S/54.html#L71'>string</a>             71 String.cpp     void String::insert(size_t pos, const char *string, size_t n)
-<a href='../S/54.html#L76'>string</a>             76 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
-<a href='../S/54.html#L80'>string</a>             80 String.cpp       std::copy(string, string + slen, Buf() + pos);
-<a href='../S/54.html#L90'>string</a>             90 String.cpp     void String::replace(size_t pos, const char *string, size_t n)
-<a href='../S/54.html#L95'>string</a>             95 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
-<a href='../S/54.html#L104'>string</a>            104 String.cpp       std::copy(string, string + slen, Buf() + pos);
-<a href='../S/54.html#L108'>string</a>            108 String.cpp     std::istream&amp; operator &gt;&gt; (std::istream&amp; is, String &amp;string) {
-<a href='../S/54.html#L110'>string</a>            110 String.cpp       string = "";    // empty string, will build one char at-a-time
-<a href='../S/54.html#L117'>string</a>            117 String.cpp           string += ch;
-<a href='../S/54.html#L129'>string</a>            129 String.cpp     std::istream&amp; getline(std::istream&amp; is, String &amp;string) {   
-<a href='../S/54.html#L132'>string</a>            132 String.cpp       string = "";     // empty string, will build one char at-a-time
-<a href='../S/54.html#L135'>string</a>            135 String.cpp         string += ch;
-<a href='../S/35.html#L84'>string</a>             84 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type&gt;(string) {};
-<a href='../S/35.html#L263'>string</a>            263 String.h               inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
-<a href='../S/35.html#L402'>string</a>            402 String.h       inline String&amp; String::operator += (const char* string) {
-<a href='../S/35.html#L403'>string</a>            403 String.h         append(string);
-<a href='../S/35.html#L410'>string</a>            410 String.h       inline String&amp; String::operator += (const String&amp; string) {
-<a href='../S/35.html#L411'>string</a>            411 String.h         append(string);
-<a href='../S/35.html#L498'>string</a>            498 String.h       inline std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os, const String&amp; string) {
-<a href='../S/35.html#L499'>string</a>            499 String.h         for (const char* c = string.begin(); c != string.end(); ++c)
+<a href='../S/34.html#L148'>string</a>            148 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/54.html#L70'>string</a>             70 String.cpp     void String::insert(size_t pos, const char *string, size_t n)
+<a href='../S/54.html#L75'>string</a>             75 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
+<a href='../S/54.html#L79'>string</a>             79 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/54.html#L89'>string</a>             89 String.cpp     void String::replace(size_t pos, const char *string, size_t n)
+<a href='../S/54.html#L94'>string</a>             94 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
+<a href='../S/54.html#L103'>string</a>            103 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/54.html#L107'>string</a>            107 String.cpp     std::istream&amp; operator&gt;&gt;(std::istream&amp; is, String&amp; string) {
+<a href='../S/54.html#L109'>string</a>            109 String.cpp       string = "";    // empty string, will build one char at-a-time
+<a href='../S/54.html#L116'>string</a>            116 String.cpp           string += ch;
+<a href='../S/54.html#L128'>string</a>            128 String.cpp     std::istream&amp; getline(std::istream&amp; is, String&amp; string) {
+<a href='../S/54.html#L131'>string</a>            131 String.cpp       string = "";     // empty string, will build one char at-a-time
+<a href='../S/54.html#L134'>string</a>            134 String.cpp         string += ch;
+<a href='../S/35.html#L83'>string</a>             83 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type&gt;(string) {};
+<a href='../S/35.html#L262'>string</a>            262 String.h               inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
+<a href='../S/35.html#L405'>string</a>            405 String.h       inline String&amp; String::operator+=(const char* string) {
+<a href='../S/35.html#L406'>string</a>            406 String.h         append(string);
+<a href='../S/35.html#L413'>string</a>            413 String.h       inline String&amp; String::operator+=(const String&amp; string) {
+<a href='../S/35.html#L414'>string</a>            414 String.h         append(string);
+<a href='../S/35.html#L501'>string</a>            501 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
+<a href='../S/35.html#L502'>string</a>            502 String.h         for (const char* c = string.begin(); c != string.end(); ++c)
 <a href='../S/45.html#L99'>string</a>             99 base64.c       String base64Encode(const String&amp; string, const char* charset) {
 <a href='../S/45.html#L100'>string</a>            100 base64.c         size_t len = string.length();
 <a href='../S/45.html#L101'>string</a>            101 base64.c         char *p = b64enc(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);

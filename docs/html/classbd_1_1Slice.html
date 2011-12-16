@@ -136,7 +136,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#a6aa5dbecf5b3f0b01046b1fdfae7bfd5">operator T</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">return a new (const) slice  <a href="#a6aa5dbecf5b3f0b01046b1fdfae7bfd5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbd_1_1Slice.html">Slice</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#a4c437537b4dd93956b99a34e69daa9cd">operator=</a> (const T &amp;array)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign to a <a class="el" href="classbd_1_1Slice.html" title="Safe subarray reading and writing.">Slice</a>.  <a href="#a4c437537b4dd93956b99a34e69daa9cd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbd_1_1Slice.html">Slice</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#a96426151644383b917ea39a386358862">operator=</a> (const <a class="el" href="classbd_1_1Slice.html">Slice</a> &amp;slice)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign a <a class="el" href="classbd_1_1Slice.html" title="Safe subarray reading and writing.">Slice</a> to a <a class="el" href="classbd_1_1Slice.html" title="Safe subarray reading and writing.">Slice</a>.  <a href="#a96426151644383b917ea39a386358862"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#aa173f41b95d9eb7c6f3a575f6517db90">Slice</a> (T &amp;_rca, int _start, int _len)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1Slice.html#a16f4008c34a69d021b68faa02b77b4ed">Slice</a> (const <a class="el" href="classbd_1_1Slice.html">Slice</a> &amp;slice)</td></tr>
 </table>
@@ -145,7 +147,7 @@ Public Member Functions</h2></td></tr>
 class bd::Slice&lt; T &gt;</h3>
 
 <p>Safe subarray reading and writing. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const char <a class="el" href="classbd_1_1ReferenceCountedArray.html#a199cf21941e339e7c704cb423c59354e" title="Safe element access operator.">String::operator[]</a> This class should be optimized away and fully inlined such that: <a class="el" href="classbd_1_1String.html" title="Provides custom string class for easy and optimized string manipulation.">String</a> s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>This should not provide copy constructors for Cref, they shouldn't be needed because of const <a class="el" href="classbd_1_1ReferenceCountedArray.html#a199cf21941e339e7c704cb423c59354e" title="Safe element access operator.">ReferenceCountedArray::operator[]</a> This class should be optimized away and fully inlined such that: <a class="el" href="classbd_1_1ReferenceCountedArray.html" title="Common template base class for String and Array.">ReferenceCountedArray</a> s("look over there"); s(0, 4) = "blah"'; Should be rewritten as: s.replace(0, "blah", 4); </dd></dl>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa173f41b95d9eb7c6f3a575f6517db90"></a><!-- doxytag: member="bd::Slice::Slice" ref="aa173f41b95d9eb7c6f3a575f6517db90" args="(T &amp;_rca, int _start, int _len)" -->
 <div class="memitem">
@@ -238,6 +240,8 @@ template&lt;class T &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Assign to a <a class="el" href="classbd_1_1Slice.html" title="Safe subarray reading and writing.">Slice</a>. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>This needs to account for negative start/len </dd></dl>
 
 </div>
@@ -259,6 +263,8 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Assign a <a class="el" href="classbd_1_1Slice.html" title="Safe subarray reading and writing.">Slice</a> to a <a class="el" href="classbd_1_1Slice.html" title="Safe subarray reading and writing.">Slice</a>. </p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -270,7 +276,7 @@ template&lt;class T &gt; </div>
     <ul>
       <li class="navelem"><a class="el" href="namespacebd.html">bd</a>      </li>
       <li class="navelem"><a class="el" href="classbd_1_1Slice.html">Slice</a>      </li>
-      <li class="footer">Generated on Thu Nov 17 2011 11:48:41 for BDLIB by&#160;
+      <li class="footer">Generated on Thu Dec 15 2011 23:54:46 for BDLIB by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

@@ -6,17 +6,17 @@
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L102'>virtual</a>           102 Array.h            virtual ~Array() {};
+<a href='../S/44.html#L97'>virtual</a>            97 Array.h            virtual ~Array() {};
 <a href='../S/3.html#L165'>virtual</a>           165 BinaryTree.h       virtual ~BinaryTree() { clear(); };
 <a href='../S/3.html#L319'>virtual</a>           319 BinaryTree.h           virtual ~BinaryTreeIterator() { delete[] storage; }
 <a href='../S/3.html#L321'>virtual</a>           321 BinaryTree.h           virtual void remove() {
-<a href='../S/3.html#L332'>virtual</a>           332 BinaryTree.h           virtual operator bool() { return (index &gt; 0 &amp;&amp; index &lt; my_size); };
-<a href='../S/3.html#L334'>virtual</a>           334 BinaryTree.h           virtual operator iterator_type () { return operator*(); };
-<a href='../S/3.html#L335'>virtual</a>           335 BinaryTree.h           virtual iterator_type&amp; operator *() { return storage[index]; }
-<a href='../S/3.html#L338'>virtual</a>           338 BinaryTree.h           virtual iterator operator ++(int) {
-<a href='../S/3.html#L344'>virtual</a>           344 BinaryTree.h           virtual iterator&amp; operator ++() {
-<a href='../S/3.html#L350'>virtual</a>           350 BinaryTree.h           virtual iterator operator --(int) {
-<a href='../S/3.html#L356'>virtual</a>           356 BinaryTree.h           virtual iterator&amp; operator --() {
+<a href='../S/3.html#L332'>virtual</a>           332 BinaryTree.h           virtual operator bool(){ return (index &gt; 0 &amp;&amp; index &lt; my_size); };
+<a href='../S/3.html#L334'>virtual</a>           334 BinaryTree.h           virtual operator iterator_type() { return operator*(); };
+<a href='../S/3.html#L335'>virtual</a>           335 BinaryTree.h           virtual iterator_type&amp; operator*(){ return storage[index]; }
+<a href='../S/3.html#L340'>virtual</a>           340 BinaryTree.h           virtual iterator operator++(int) {
+<a href='../S/3.html#L349'>virtual</a>           349 BinaryTree.h           virtual iterator&amp; operator++() {
+<a href='../S/3.html#L357'>virtual</a>           357 BinaryTree.h           virtual iterator operator--(int) {
+<a href='../S/3.html#L366'>virtual</a>           366 BinaryTree.h           virtual iterator&amp; operator--() {
 <a href='../S/5.html#L67'>virtual</a>            67 HashTable.h        virtual ~HashTable() {
 <a href='../S/32.html#L48'>virtual</a>            48 Iterator.h         virtual bool hasNext() { return bool(*this); };
 <a href='../S/32.html#L49'>virtual</a>            49 Iterator.h         virtual ~Iterator() {};
@@ -34,10 +34,11 @@
 <a href='../S/37.html#L246'>virtual</a>           246 List.h                 virtual iterator operator --(int) {
 <a href='../S/37.html#L252'>virtual</a>           252 List.h                 virtual iterator&amp; operator --() {
 <a href='../S/47.html#L60'>virtual</a>            60 Queue.h            virtual ~Queue() {};
-<a href='../S/43.html#L373'>virtual</a>           373 ReferenceCountedArray.h     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
-<a href='../S/43.html#L421'>virtual</a>           421 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize) const { Ref-&gt;Reserve(newSize, offset, sublen); };
-<a href='../S/43.html#L426'>virtual</a>           426 ReferenceCountedArray.h     virtual inline void clear() { Detach(); };
-<a href='../S/43.html#L535'>virtual</a>           535 ReferenceCountedArray.h     virtual size_t hash() const {
+<a href='../S/43.html#L166'>virtual</a>           166 ReferenceCountedArray.h     virtual ~ReferenceCountedArrayBase() {};
+<a href='../S/43.html#L380'>virtual</a>           380 ReferenceCountedArray.h     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
+<a href='../S/43.html#L428'>virtual</a>           428 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize) const { Ref-&gt;Reserve(newSize, offset, sublen); };
+<a href='../S/43.html#L433'>virtual</a>           433 ReferenceCountedArray.h     virtual inline void clear() { Detach(); };
+<a href='../S/43.html#L542'>virtual</a>           542 ReferenceCountedArray.h     virtual size_t hash() const {
 <a href='../S/1.html#L73'>virtual</a>            73 Socket.h           virtual ~Socket();
 <a href='../S/1.html#L94'>virtual</a>            94 Socket.h           virtual ~ClientSocket();
 <a href='../S/1.html#L103'>virtual</a>           103 Socket.h           virtual ~ServerSocket();
@@ -52,7 +53,7 @@
 <a href='../S/34.html#L121'>virtual</a>           121 Stream.h               virtual int loadFile(const String&amp; fname);
 <a href='../S/34.html#L129'>virtual</a>           129 Stream.h               virtual int writeFile(const int fd) const;
 <a href='../S/34.html#L137'>virtual</a>           137 Stream.h               virtual int writeFile(const String&amp; fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
-<a href='../S/35.html#L125'>virtual</a>           125 String.h               virtual ~String() {
+<a href='../S/35.html#L124'>virtual</a>           124 String.h               virtual ~String() {
 <a href='../S/49.html#L68'>virtual</a>            68 Thread.h           virtual ~Thread() { stop(); };
 <a href='../S/49.html#L77'>virtual</a>            77 Thread.h           virtual void* run(void*)=0;
 </pre>

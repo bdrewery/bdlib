@@ -9,7 +9,7 @@
 <a href='../S/5.html#L51'>list</a>               51 HashTable.h        List&lt;iterator_type&gt; *list;
 <a href='../S/5.html#L60'>list</a>               60 HashTable.h        HashTable() : list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
 <a href='../S/5.html#L61'>list</a>               61 HashTable.h        explicit HashTable(size_t capacity_in) : list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L62'>list</a>               62 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt; &amp;table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/5.html#L62'>list</a>               62 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
 <a href='../S/5.html#L64'>list</a>               64 HashTable.h              list[i] = table.list[i];
 <a href='../S/5.html#L68'>list</a>               68 HashTable.h          delete[] list;
 <a href='../S/5.html#L73'>list</a>               73 HashTable.h            list[i].clear();
@@ -41,11 +41,8 @@
 <a href='../S/37.html#L206'>list</a>              206 List.h                                  list(NULL),
 <a href='../S/37.html#L212'>list</a>              212 List.h                   list = iter.list;
 <a href='../S/37.html#L223'>list</a>              223 List.h                   list-&gt;deleteNode(current);
-<a href='../S/54.html#L149'>list</a>              149 String.cpp         String list[] = {*this};
-<a href='../S/54.html#L150'>list</a>              150 String.cpp         return Array&lt;String&gt;(list, 1);
-<a href='../S/54.html#L184'>list</a>              184 String.cpp     ostream&amp; operator &lt;&lt; (ostream&amp; os, const vector&lt;String&gt; list) {
-<a href='../S/54.html#L185'>list</a>              185 String.cpp       for (unsigned int i=0; i &lt; list.size(); ++i)
-<a href='../S/54.html#L186'>list</a>              186 String.cpp         os &lt;&lt; list[i];
+<a href='../S/54.html#L148'>list</a>              148 String.cpp         String list[] = {*this};
+<a href='../S/54.html#L149'>list</a>              149 String.cpp         return Array&lt;String&gt;(list, 1);
 <a href='../S/27.html#L1232'>list</a>             1232 tests/StringTest.cpp   Array&lt;String&gt; list;
 <a href='../S/27.html#L1235'>list</a>             1235 tests/StringTest.cpp   list = a-&gt;split(' ');
 <a href='../S/27.html#L1236'>list</a>             1236 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());

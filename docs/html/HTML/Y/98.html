@@ -1,19 +1,22 @@
 <html>
 <head>
-<title>USE_PTHREAD</title>
+<title>Thread</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/48.html#L49'>USE_PTHREAD</a>        49 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L80'>USE_PTHREAD</a>        80 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L95'>USE_PTHREAD</a>        95 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L109'>USE_PTHREAD</a>       109 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L125'>USE_PTHREAD</a>       125 Thread.cpp     #if defined(USE_PTHREAD) || defined(NO_THREADS)
-<a href='../S/48.html#L133'>USE_PTHREAD</a>       133 Thread.cpp     #if defined(USE_PTHREAD) || defined(NO_THREADS)
-<a href='../S/49.html#L28'>USE_PTHREAD</a>        28 Thread.h       #if !defined(USE_PTHREAD) &amp;&amp; !defined(WIN32)
-<a href='../S/49.html#L32'>USE_PTHREAD</a>        32 Thread.h       #if defined(USE_PTHREAD)
+<a href='../S/48.html#L42'>Thread</a>             42 Thread.cpp       Thread* thread = (Thread*) object;
+<a href='../S/48.html#L46'>Thread</a>             46 Thread.cpp     int Thread::start(void* _param) {
+<a href='../S/48.html#L78'>Thread</a>             78 Thread.cpp     void Thread::detach(void) {
+<a href='../S/48.html#L91'>Thread</a>             91 Thread.cpp     void* Thread::wait(void) {
+<a href='../S/48.html#L107'>Thread</a>            107 Thread.cpp     void Thread::stop(void) {
+<a href='../S/48.html#L120'>Thread</a>            120 Thread.cpp     threadId_t Thread::getThreadId(void) {
+<a href='../S/48.html#L124'>Thread</a>            124 Thread.cpp     threadId_t Thread::getCurrentThreadId(void) {
+<a href='../S/48.html#L132'>Thread</a>            132 Thread.cpp     void Thread::sleep(int delay) {
+<a href='../S/49.html#L58'>Thread</a>             58 Thread.h       class Thread {
+<a href='../S/49.html#L67'>Thread</a>             67 Thread.h           Thread(void) : handle(0), id(0), status(0), param(NULL) {};
+<a href='../S/49.html#L68'>Thread</a>             68 Thread.h           virtual ~Thread() { stop(); };
 </pre>
 </body>
 </html>

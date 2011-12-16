@@ -1,39 +1,19 @@
 <html>
 <head>
-<title>cstring</title>
+<title>cstr</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/35.html#L91'>cstring</a>            91 String.h       	String(const char* cstring) : ReferenceCountedArray&lt;String_Array_Type&gt;() { if (cstring) append(cstring); };
-<a href='../S/35.html#L101'>cstring</a>           101 String.h               String(const char* cstring, size_t slen) : ReferenceCountedArray&lt;String_Array_Type&gt;() { append(cstring, slen); };
-<a href='../S/13.html#L15'>cstring</a>            15 tests/StreamTest.cpp     strcpy(cstring, "Some static cstring to play with");
-<a href='../S/13.html#L20'>cstring</a>            20 tests/StreamTest.cpp     d = new Stream(cstring);
-<a href='../S/13.html#L22'>cstring</a>            22 tests/StreamTest.cpp     F = new Stream(String(cstring, 11));
-<a href='../S/20.html#L44'>cstring</a>            44 tests/StreamTest.h 	char cstring[50];
-<a href='../S/27.html#L20'>cstring</a>            20 tests/StringTest.cpp     strcpy(cstring, "Some static cstring to play with");
-<a href='../S/27.html#L25'>cstring</a>            25 tests/StringTest.cpp     d = new String(cstring);
-<a href='../S/27.html#L27'>cstring</a>            27 tests/StringTest.cpp     f = new String(cstring, 11);
-<a href='../S/27.html#L44'>cstring</a>            44 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(strlen(cstring), d-&gt;length());
-<a href='../S/27.html#L78'>cstring</a>            78 tests/StringTest.cpp   CPPUNIT_ASSERT(d-&gt;capacity() &gt;= strlen(cstring));
-<a href='../S/27.html#L88'>cstring</a>            88 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
-<a href='../S/27.html#L89'>cstring</a>            89 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
-<a href='../S/27.html#L90'>cstring</a>            90 tests/StringTest.cpp   CPPUNIT_ASSERT((*f).compare(cstring) &lt; 0);
-<a href='../S/27.html#L120'>cstring</a>           120 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*d, String(cstring));
-<a href='../S/27.html#L121'>cstring</a>           121 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL (cstring, *d);
-<a href='../S/27.html#L122'>cstring</a>           122 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*e, String(cstring));
-<a href='../S/27.html#L123'>cstring</a>           123 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL (cstring, *e);
-<a href='../S/27.html#L138'>cstring</a>           138 tests/StringTest.cpp   *h = cstring;
-<a href='../S/27.html#L163'>cstring</a>           163 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, strcmp(d_test, cstring));
-<a href='../S/27.html#L189'>cstring</a>           189 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(cstring[5], d-&gt;charAt(5));
-<a href='../S/27.html#L197'>cstring</a>           197 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(cstring[5], (char) (*d)[5]);
-<a href='../S/27.html#L272'>cstring</a>           272 tests/StringTest.cpp   f-&gt;append(&amp;cstring[11], strlen(cstring) - 11);
-<a href='../S/27.html#L715'>cstring</a>           715 tests/StringTest.cpp   strcpy(check, cstring); // *d = cstring
-<a href='../S/27.html#L716'>cstring</a>           716 tests/StringTest.cpp   strcat(check, cstring); 
-<a href='../S/27.html#L717'>cstring</a>           717 tests/StringTest.cpp   strcat(check, cstring);
-<a href='../S/27.html#L825'>cstring</a>           825 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(cstring, *d);
-<a href='../S/15.html#L96'>cstring</a>            96 tests/StringTest.h 	char cstring[50];
+<a href='../S/27.html#L456'>cstr</a>              456 tests/StringTest.cpp   const String cstr("testing123\r\n");
+<a href='../S/27.html#L457'>cstr</a>              457 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.chomp());
+<a href='../S/27.html#L458'>cstr</a>              458 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(12), cstr.length());
+<a href='../S/27.html#L459'>cstr</a>              459 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.chomp().length());
+<a href='../S/27.html#L486'>cstr</a>              486 tests/StringTest.cpp   const String cstr("   \t\ftesting123\r\n");
+<a href='../S/27.html#L487'>cstr</a>              487 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.trim());
+<a href='../S/27.html#L488'>cstr</a>              488 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(17), cstr.length());
+<a href='../S/27.html#L489'>cstr</a>              489 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.trim().length());
 </pre>
 </body>
 </html>
