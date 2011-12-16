@@ -147,12 +147,15 @@ class BinaryTree {
     BinaryTree() : my_size(0), root(NULL) {};
     BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
 
-    BinaryTree& operator=(const BinaryTree& tree) {
-      if (&tree != this) {
-        clear();
-        my_size = tree.my_size;
-        root = new Node(*(tree.root));
-      }
+    friend void swap(BinaryTree& a, BinaryTree& b) {
+      using std::swap;
+
+      swap(a.my_size, b.my_size);
+      swap(a.root, b.root);
+    }
+
+    BinaryTree& operator=(BinaryTree tree) {
+      swap(*this, tree);
       return *this;
     }
 

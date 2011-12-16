@@ -54,6 +54,19 @@ class Stream {
         Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };
         virtual ~Stream() {};
 
+        friend void swap(Stream& a, Stream& b) {
+          using std::swap;
+
+          swap(a.str, b.str);
+          swap(a.pos, b.pos);
+          swap(a.loading, b.loading);
+        }
+
+        Stream& operator=(Stream stream) {
+          swap(*this, stream);
+          return *this;
+        }
+
         void Reserve(const size_t) const;
 
         /**

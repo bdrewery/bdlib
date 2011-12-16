@@ -49,10 +49,18 @@ class List {
       Node(const iterator_type& p) : ptr(p), next(NULL), prev(NULL) {};
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : ptr(n.ptr), next(n.next), prev(n.prev) {};
-      Node& operator=(const Node& n) {
-        ptr = n.ptr;
-        next = n.next;
-        prev = n.prev;
+
+      friend void swap(Node& a, Node& b) {
+        using std::swap;
+
+        swap(a.ptr, b.ptr);
+        swap(a.next, b.next);
+        swap(a.prev, b.prev);
+      }
+
+      Node& operator=(Node n) {
+        swap(*this, n);
+        return *this;
       }
     };
 
@@ -84,12 +92,16 @@ class List {
         insert(search->ptr);
     }
 
-    List& operator =(const List& list) {
-      if (&list != this) {
-        clear();
-        for (Node* search = list.head; search; search = search->next)
-          insert(search->ptr);
-      }
+    friend void swap(List& a, List& b) {
+      using std::swap;
+
+      swap(a.head, b.head);
+      swap(a.tail, b.tail);
+      swap(a.my_size, b.my_size);
+    }
+
+    List& operator=(List list) {
+      swap(*this, list);
       return *this;
     }
 

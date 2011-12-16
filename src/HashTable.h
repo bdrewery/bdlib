@@ -101,16 +101,17 @@ class HashTable {
       }
     }
 
-    HashTable& operator=(const HashTable<Key, Value>& table) {
-      if (&table != this) {
-        delete[] list;
-        list = new List<iterator_type>[_capacity];
-        for (size_t i = 0; i < _capacity; ++i) 
-          list[i] = table.list[i];
-        _size = table._size;
-        _capacity = table._capacity;
-        _hash = table._hash;
-      }
+    friend void swap(HashTable<Key, Value>& a, HashTable<Key, Value>& b) {
+      using std::swap;
+
+      swap(a.list, b.list);
+      swap(a._size, b._size);
+      swap(a._capacity, b._capacity);
+      swap(a._hash, b._hash);
+    }
+
+    HashTable& operator=(HashTable<Key, Value> table) {
+      swap(*this, table);
       return *this; 
     }
 

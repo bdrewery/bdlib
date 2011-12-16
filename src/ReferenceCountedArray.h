@@ -142,6 +142,14 @@ class Slice {
       return newArray;
     };
 
+    friend void swap(Slice& a, Slice& b) {
+      using std::swap;
+
+      swap(a.rca, b.rca);
+      swap(a.start, b.start);
+      swap(a.len, b.len);
+    }
+
     /**
      * @brief Assign a Slice to a Slice
      */
@@ -380,6 +388,18 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
 
     /**
+     * @brief Swap this with another
+     */
+    friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) {
+      using std::swap;
+
+      swap(a.offset, b.offset);
+      swap(a.sublen, b.sublen);
+      swap(a.my_hash, b.my_hash);
+      swap(a.Ref, b.Ref);
+    }
+
+    /**
      * @brief Sets our Reference to the given ReferenceCountedArray reference.
      * @param rca The ReferenceCountedArray object to reference.
      * @post The old buffer (if we had one) is free'd.
@@ -388,13 +408,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @return The new rca object.
      * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
-    ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
-      rca.incRef();
-      offset = rca.offset;
-      sublen = rca.sublen;
-      my_hash = rca.my_hash;
-      CheckDeallocRef();
-      Ref = rca.Ref;
+    ReferenceCountedArray& operator=(ReferenceCountedArray rca) {
+      swap(*this, rca);
       return *this;
     }
 

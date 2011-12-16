@@ -112,6 +112,18 @@ void StringTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
 }
 
+void StringTest :: swapTest (void)
+{
+  using std::swap;
+
+  *a = "this is a";
+  *b = "THIS IS B";
+
+  swap(*a, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL ("THIS IS B", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL ("this is a", *b);
+}
+
 void StringTest :: equalTest (void)
 {
   CPPUNIT_ASSERT_EQUAL (*b, *c);
