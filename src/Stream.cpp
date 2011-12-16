@@ -20,13 +20,13 @@
 
 BDLIB_NS_BEGIN
 
-void Stream::Reserve (const size_t newSize) const {
+void Stream::Reserve(const size_t newSize) const {
   if (newSize < capacity())
     return;
   str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
 }
 
-int Stream::seek (int offset, int whence) {
+int Stream::seek(int offset, int whence) {
   int newpos;
 
   switch (whence) {
@@ -51,7 +51,7 @@ int Stream::seek (int offset, int whence) {
   return newpos;
 }
 
-String Stream::read (size_t maxSize, char delim) {
+String Stream::read(size_t maxSize, char delim) {
   size_t toRead = std::min(maxSize, length() - pos);
 
   /* No need to split the string, return a substring */

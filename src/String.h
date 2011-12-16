@@ -170,7 +170,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa c_str()
          */
-        inline const char* operator * () const { return c_str(); };
+        inline const char* operator*() const { return c_str(); };
 
         /**
          * @sa c_str()
@@ -186,7 +186,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @return a new String
 	 * from Ruby
 	 */
-	String operator * (int) const;
+	String operator*(int) const;
 
         /**
          * @brief Trim off \\n,\\r,\\r\\n from end
@@ -297,37 +297,31 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 #endif
         /* Operators */
 
-        String& operator += (const char);
-        String& operator += (const char*);
-        String& operator += (const String&);
-        String& operator += (const size_t);
-        String& operator -= (const size_t);
+        String& operator+=(const char);
+        String& operator+=(const char*);
+        String& operator+=(const String&);
+        String& operator+=(const size_t);
+        String& operator-=(const size_t);
 
-        const String& operator ++ (); //Prefix
-        const String operator ++ (int); //Postfix
-        const String& operator -- (); //Prefix 
-        const String operator -- (int); //Postfix
-        //bool operator == (const String&) const;
-        //bool operator != (const String&) const;
-        //bool operator < (const String&) const;
-        //bool operator <= (const String&) const;
-        //bool operator > (const String&) const;
-        //bool operator >= (const String&) const;
+        const String& operator++();
+        const String operator++(int);
+        const String& operator--();
+        const String operator--(int);
         //operator bool ();
 
 
         //using ReferenceCountedArray<String_Array_Type>::operator=;
 
-        friend String operator + (const String&, const String&);
-        friend bool operator == (const String&, const String&);
-        friend bool operator != (const String&, const String&);
-        friend bool operator < (const String&, const String&);
-        friend bool operator <= (const String&, const String&);
-        friend bool operator > (const String&, const String&);
-        friend bool operator >= (const String&, const String&);
+        friend String operator+(const String&, const String&);
+        friend bool operator==(const String&, const String&);
+        friend bool operator!=(const String&, const String&);
+        friend bool operator<(const String&, const String&);
+        friend bool operator<=(const String&, const String&);
+        friend bool operator>(const String&, const String&);
+        friend bool operator>=(const String&, const String&);
 
-        friend std::ostream& operator << (std::ostream&, const String&);
-        friend std::ostream& operator >> (std::ostream&, const String&);
+        friend std::ostream& operator<<(std::ostream&, const String&);
+        friend std::ostream& operator>>(std::ostream&, const String&);
 
 #ifdef CPPUNIT_VERSION
         static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
@@ -354,29 +348,39 @@ template<>
  * @post A new string is allocated, reference copied and returned.
  * @return Returns a new string that can be reference copied by the lvalue.
  */
-inline String operator + (const String& string1, const String& string2) {
+inline String operator+(const String& string1, const String& string2) {
   String temp(string1);
   temp += string2;
   return temp;
 }
 
-inline const String& String::operator ++ () { //Prefix
+/**
+ * @brief Prefix increment
+ */
+inline const String& String::operator++() {
   return (*this) += size_t(1);
 }
 
-inline const String String::operator ++ (int) //Postfix
-{
+/**
+ * @brief Postfix increment
+ */
+inline const String String::operator++(int) {
   String tmp(*this);
   ++(*this);
   return tmp;
 }
 
-inline const String& String::operator -- () { //Prefix
+/**
+ * @brief Prefix decrement
+ */
+inline const String& String::operator--() {
   return (*this) -= 1;
 }
 
-inline const String String::operator -- (int) //Postfix
-{
+/**
+ * @brief Postfix decrement
+ */
+inline const String String::operator--(int) {
   String tmp(*this);
   --(*this);
   return tmp;
@@ -390,7 +394,7 @@ inline const String String::operator -- (int) //Postfix
 /**
  * \sa append(const char)
  */
-inline String& String::operator += (const char ch) {
+inline String& String::operator+=(const char ch) {
   append(ch);
   return *this;
 }
@@ -398,7 +402,7 @@ inline String& String::operator += (const char ch) {
 /**
  * \sa append(const char*)
  */
-inline String& String::operator += (const char* string) {
+inline String& String::operator+=(const char* string) {
   append(string);
   return *this;
 }
@@ -406,12 +410,12 @@ inline String& String::operator += (const char* string) {
 /**
  * \sa append(const String&)
  */
-inline String& String::operator += (const String& string) {
+inline String& String::operator+=(const String& string) {
   append(string);
   return *this;
 }
 
-inline String& String::operator += (const size_t n) {
+inline String& String::operator+=(const size_t n) {
   if (!length())
     return *this;
   if (n > length()) {
@@ -424,7 +428,7 @@ inline String& String::operator += (const size_t n) {
   return *this;
 }
 
-inline String& String::operator -= (const size_t n) {
+inline String& String::operator-=(const size_t n) {
   if (!length())
     return *this;
   if (n > length()) {
@@ -438,55 +442,55 @@ inline String& String::operator -= (const size_t n) {
 
 
 // comparison operators:
-inline bool operator == (const String& lhs, const String& rhs) {
+inline bool operator==(const String& lhs, const String& rhs) {
   return (lhs.compare(rhs) == 0);
 }
 
-inline bool operator != (const String& lhs, const String& rhs) {
+inline bool operator!=(const String& lhs, const String& rhs) {
   return ! (lhs == rhs);
 }
 
-inline bool operator <  (const String& lhs, const String& rhs) {
+inline bool operator<(const String& lhs, const String& rhs) {
   return (lhs.compare(rhs) < 0);
 }
 
-inline bool operator <= (const String& lhs, const String& rhs) {
+inline bool operator<=(const String& lhs, const String& rhs) {
   return ! (rhs < lhs);
 }
 
-inline bool operator >  (const String& lhs, const String& rhs) {
+inline bool operator>(const String& lhs, const String& rhs) {
   return (rhs < lhs);
 }
 
-inline bool operator >= (const String& lhs, const String& rhs) {
+inline bool operator>=(const String& lhs, const String& rhs) {
   return ! (lhs < rhs);
 }
 
 #ifdef no
-//inline bool String::operator == (const String& rhs) const {
+//inline bool String::operator==(const String& rhs) const {
 //  return (compare(rhs) == 0);
 //}
-inline bool operator == (const String& lhs, const String& rhs) {
+inline bool operator==(const String& lhs, const String& rhs) {
   return (lhs.compare(rhs) == 0);
 }
 
-inline bool String::operator != (const String& rhs) const {
+inline bool String::operator!=(const String& rhs) const {
   return !(*this == rhs);
 }
 
-inline bool String::operator <  (const String& rhs) const {
+inline bool String::operator<(const String& rhs) const {
   return (compare(rhs) < 0);
 }
 
-inline bool String::operator <= (const String& rhs) const {
+inline bool String::operator<=(const String& rhs) const {
   return !(rhs < *this);
 }
 
-inline bool String::operator >  (const String& rhs) const {
+inline bool String::operator>(const String& rhs) const {
   return (rhs < *this);
 }
 
-inline bool String::operator >= (const String& rhs) const {
+inline bool String::operator>=(const String& rhs) const {
   return !(*this < rhs);
 }
 #endif
@@ -494,7 +498,7 @@ inline bool String::operator >= (const String& rhs) const {
 //  return length() == 0;
 //}
 
-inline std::ostream& operator << (std::ostream& os, const String& string) {
+inline std::ostream& operator<<(std::ostream& os, const String& string) {
   for (const char* c = string.begin(); c != string.end(); ++c)
     os << *c;
   return os;
@@ -503,7 +507,7 @@ inline std::ostream& operator << (std::ostream& os, const String& string) {
 
 String newsplit(String& str, char delim = ' ');
 
-std::istream& operator >> (std::istream&, String&);
+std::istream& operator>>(std::istream&, String&);
 std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END

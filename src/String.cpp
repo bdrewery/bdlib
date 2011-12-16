@@ -38,7 +38,7 @@ BDLIB_NS_BEGIN
 unsigned char String::cleanse_ctr = 0;
 
 /* Accessors */
-int String::compare(const String &str, size_t n, size_t start) const
+int String::compare(const String& str, size_t n, size_t start) const
 {
   const size_t my_len = length();
   /* Same string? */
@@ -104,7 +104,7 @@ void String::replace(size_t pos, const char *string, size_t n)
   setLength(newlen);
 }
 
-std::istream& operator >> (std::istream& is, String &string) {
+std::istream& operator>>(std::istream& is, String& string) {
   char ch;
   string = "";    // empty string, will build one char at-a-time
   is >> ch;    // whitespace skipped, first non-white char in ch
@@ -125,7 +125,7 @@ std::istream& operator >> (std::istream& is, String &string) {
   return is;
 }
 
-std::istream& getline(std::istream& is, String &string) {   
+std::istream& getline(std::istream& is, String& string) {
  
   char ch;
   string = "";     // empty string, will build one char at-a-time
@@ -178,15 +178,6 @@ Array<String> String::split(const String& delim, size_t limit) const {
   return array;
 }
 
-#ifdef experimental
-//LIST TEST
-ostream& operator << (ostream& os, const vector<String> list) {
-  for (unsigned int i=0; i < list.size(); ++i)
-    os << list[i];
-  return os;
-}
-#endif /* experimental */
-
 String String::operator*(int times) const {
   String newString((this->length() * times));
   for (int i = 0; i < times; ++i)
@@ -219,7 +210,7 @@ String& String::trim() {
   return *this;
 }
 
-size_t String::find (const String& str) const {
+size_t String::find(const String& str) const {
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
     for (size_t pos = 0; pos <= last_pos; ++pos)
@@ -229,7 +220,7 @@ size_t String::find (const String& str) const {
   return npos;
 }
 
-size_t String::rfind (const String& str, const size_t lpos) const {
+size_t String::rfind(const String& str, const size_t lpos) const {
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
     for (size_t pos = last_pos; pos + 1 > lpos; --pos)

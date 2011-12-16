@@ -53,13 +53,13 @@ class HashTable {
     size_t _capacity;
     hasher _hash;
 
-    inline size_t getIndex(const Key &key) const {
+    inline size_t getIndex(const Key& key) const {
       return _hash(key) % _capacity;
     }
   public:
     HashTable() : list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
     explicit HashTable(size_t capacity_in) : list(new List<iterator_type>[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-    HashTable(const HashTable<Key, Value> &table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+    HashTable(const HashTable<Key, Value>& table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
       for (size_t i = 0; i < _capacity; ++i)
           list[i] = table.list[i];
     };
@@ -101,7 +101,7 @@ class HashTable {
       }
     }
 
-    HashTable &operator = (const HashTable<Key, Value> &table) { 
+    HashTable& operator=(const HashTable<Key, Value>& table) {
       if (&table != this) {
         delete[] list;
         list = new List<iterator_type>[_capacity];
@@ -119,19 +119,19 @@ class HashTable {
     inline bool isEmpty() const { return size() == 0; };
     //inline operator bool() const { return !isEmpty(); };
 
-    bool insert(const Key &key, const Value &value) { 
+    bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;
       list[getIndex(key)] << iterator_type(key, value);
       ++_size;
       return true;
     }
 
-    inline bool contains(const Key &key) const {
+    inline bool contains(const Key& key) const {
       if (isEmpty()) return false;
       return list[getIndex(key)].contains(iterator_type(key, Value()));
     };
 
-    bool remove(const Key &key) {
+    bool remove(const Key& key) {
       if (isEmpty()) return false;
       if (list[getIndex(key)].remove(iterator_type(key, Value()))) {
         --_size;
@@ -140,7 +140,7 @@ class HashTable {
       return false;
     };
 
-    inline Value getValue(const Key &key) const {
+    inline Value getValue(const Key& key) const {
       Value empty;
       if (isEmpty()) return empty;
       return list[getIndex(key)].find(iterator_type(key, Value())).value();
@@ -150,7 +150,7 @@ class HashTable {
       * @brief Associate array type accessor (rvalue)
       * @param key The key to search for
       */
-    inline const Value operator [](const Key& key) const { return getValue(key); }
+    inline const Value operator[](const Key& key) const { return getValue(key); }
 
     /**
      * @brief Return an array of all the keys
@@ -194,7 +194,7 @@ class HashTable {
       * @sa find_or_insert_key 
       * If the key is not in the table, it is inserted, and the value set to the rvalue given.
       */
-    inline Value& operator [](const Key& key) {
+    inline Value& operator[](const Key& key) {
       return find_or_insert_key(key);
     }
  

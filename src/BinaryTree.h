@@ -63,7 +63,7 @@ class BinaryTree {
       * @param key The key to search for
       * @return The node searched for, if found, otherwise NULL
       */
-    Node* &fetchNode(Node* const* search, const Key &key) const {
+    Node*& fetchNode(Node* const* search, const Key& key) const {
       while ((*search) != NULL) {
         if (key < (*search)->kv.key())
           search = &(*search)->left;
@@ -85,7 +85,7 @@ class BinaryTree {
       * It will of course fail, but this is the location to place the node.
       */
     inline void insertNode(Node** search, Node* const node) {
-      Node* &insertAt = fetchNode(search, node->kv.key());
+      Node*& insertAt = fetchNode(search, node->kv.key());
       insertNode(insertAt);
     }
 
@@ -127,7 +127,7 @@ class BinaryTree {
       * @param key The key to search for
       * @return true/false depending on found/not-found
       */
-    bool contains(const Key &key) const {
+    bool contains(const Key& key) const {
       if (isEmpty())
         return false;
       if (fetchNode(&root, key))
@@ -147,7 +147,7 @@ class BinaryTree {
     BinaryTree() : my_size(0), root(NULL) {};
     BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
 
-    BinaryTree& operator = (const BinaryTree& tree) {
+    BinaryTree& operator=(const BinaryTree& tree) {
       if (&tree != this) {
         clear();
         my_size = tree.my_size;
@@ -170,7 +170,7 @@ class BinaryTree {
       * @param value The value to be inserted (or replaced)
       * @post The tree's size is increased by 1 if the element was not already in the tree
       */
-    bool insert(const Key &key, const Value &value) {
+    bool insert(const Key& key, const Value& value) {
       Node*& rNode = fetchNode(&root, key);
       if (rNode)
         rNode->kv = iterator_type(key, value);
@@ -186,7 +186,7 @@ class BinaryTree {
       * @sa getValue
       * @param key The key to search for
       */
-    inline const Value operator [](const Key& key) const { return getValue(key); }
+    inline const Value operator[](const Key& key) const { return getValue(key); }
 
     /**
       * @brief Associate array type accessor (lvalue)
@@ -194,7 +194,7 @@ class BinaryTree {
       * @sa insert
       * If the key is not in the tree, it is inserted, and the value set to the rvalue given.
       */
-    Value& operator [](const Key& key) {
+    Value& operator[](const Key& key) {
       Node*& node = fetchNode(&root, key);
       if (!node)
         insertNode(node, new Node(key, Value()));
@@ -207,8 +207,8 @@ class BinaryTree {
       * @param key The key to be searched/removed
       * @return Whether or not the key was removed
       */
-    bool remove(const Key &key) {
-      Node* &node = fetchNode(&root, key);
+    bool remove(const Key& key) {
+      Node*& node = fetchNode(&root, key);
 
       if (node != NULL) {
         deleteNode(node);
@@ -227,7 +227,7 @@ class BinaryTree {
       * @param key The key to search for
       * @return The value of the key searched for, or NULL if not found
       */
-    Value getValue(const Key &key) const {
+    Value getValue(const Key& key) const {
       const Value empty;
       if (isEmpty()) return empty;
 
@@ -243,7 +243,7 @@ class BinaryTree {
       * @param key The value to search for
       * @return The key of the value searched for, or NULL if not found
       */
-    Value getKey(const Value &value) const {
+    Value getKey(const Value& value) const {
       const Key empty;
       if (isEmpty()) return empty;
 
@@ -299,7 +299,7 @@ class BinaryTree {
                                storage(NULL) {
         };
 
-        iterator& operator =(const iterator& iter) {
+        iterator& operator=(const iterator& iter) {
           if (&iter != this) {
             if (my_size != iter.my_size) {
               delete[] storage;
@@ -329,31 +329,41 @@ class BinaryTree {
 */
         }
 
-        virtual operator bool() { return (index > 0 && index < my_size); };
+        virtual operator bool(){ return (index > 0 && index < my_size); };
 
-        virtual operator iterator_type () { return operator*(); };
-        virtual iterator_type& operator *() { return storage[index]; }
+        virtual operator iterator_type() { return operator*(); };
+        virtual iterator_type& operator*(){ return storage[index]; }
 
-        //Postfix
-        virtual iterator operator ++(int) {
+        /**
+         * @brief Postfix increment
+         */
+        virtual iterator operator++(int) {
           iterator tmp(*this);
           ++index;
           return tmp;
         }
 
-        virtual iterator& operator ++() {
+        /**
+         * @brief Prefix increment
+         */
+        virtual iterator& operator++() {
           ++index;
           return *this;
         }
 
-        //Postfix
-        virtual iterator operator --(int) {
+        /**
+         * @brief Postfix decrement
+         */
+        virtual iterator operator--(int) {
           iterator tmp(*this);
           --index;
           return tmp;
         }
 
-        virtual iterator& operator --() {
+        /**
+         * @brief Prefix decrement
+         */
+        virtual iterator& operator--() {
           --index;
           return *this;
         }

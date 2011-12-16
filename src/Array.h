@@ -108,7 +108,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa push
      */
-    inline friend Array<value_type>& operator<< (Array<value_type>& array, const_reference item) {
+    inline friend Array<value_type>& operator<<(Array<value_type>& array, const_reference item) {
       array.push(item);
       return array;
     }
@@ -141,7 +141,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa pop
      */
-    inline friend Array<value_type>& operator>> (Array<value_type>& array, reference item) {
+    inline friend Array<value_type>& operator>>(Array<value_type>& array, reference item) {
       item = array.pop();
       return array;
     }
@@ -171,7 +171,7 @@ class Array : public ReferenceCountedArray<T> {
      * @param n The number of items to equals.
      * @return True if the number of elements are the same, and they all are equal.
      */
-    bool equals(const Array &array, size_t n) const
+    bool equals(const Array& array, size_t n) const
     {
       size_t my_len = this->length();
       bool same_length = (my_len == array.length());
@@ -193,8 +193,8 @@ class Array : public ReferenceCountedArray<T> {
       return true;
     }
 
-    inline friend bool operator == (const Array& lhs, const Array& rhs) { return lhs.equals(rhs); };
-    inline friend bool operator != (const Array& lhs, const Array& rhs) {return ! (lhs == rhs);};
+    inline friend bool operator==(const Array& lhs, const Array& rhs) { return lhs.equals(rhs); };
+    inline friend bool operator!=(const Array& lhs, const Array& rhs) { return !(lhs == rhs); };
 
     // Subarrays
     /**
@@ -235,30 +235,40 @@ class Array : public ReferenceCountedArray<T> {
      * @post A new array is allocated, reference copied and returned.
      * @return Returns a new array that can be reference copied by the lvalue.
      */
-    inline friend Array operator+ (const Array& array1, const Array& array2) {
+    inline friend Array operator+(const Array& array1, const Array& array2) {
       Array temp(array1);
       temp += array2;
       return temp;
     }
 
-    inline const Array& operator++ () { //Prefix
+    /**
+     * @brief Prefix increment
+     */
+    inline const Array& operator++() {
       return (*this) += 1;
     }
 
-    inline const Array operator++ (int) //Postfix
-    {
+    /**
+     * @brief Postfix increment
+     */
+    inline const Array operator++(int) {
       Array tmp((*this)(0, 1));
       ++(this->offset);
       this->subLength(1);
       return tmp;
     }
 
-    inline const Array& operator-- () { //Prefix
+    /**
+     * @brief Prefix decrement
+     */
+    inline const Array& operator--() {
       return (*this) -= 1;
     }
 
-    inline const Array operator-- (int) //Postfix
-    {
+    /**
+     * @brief Postfix decrement
+     */
+    inline const Array operator--(int) {
       Array tmp((*this)(this->length() - 1, 1));
       this->subLength(1);
       return tmp;
@@ -267,7 +277,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * \sa append(const char)
      */
-    inline Array& operator+= (const_reference item) {
+    inline Array& operator+=(const_reference item) {
       this->append(item);
       return *this;
     }
@@ -275,12 +285,12 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * \sa append(const Array&)
      */
-    inline Array& operator+= (const Array& array) {
+    inline Array& operator+=(const Array& array) {
       this->append(array);
       return *this;
     }
 
-    inline Array& operator+= (const int n) {
+    inline Array& operator+=(const int n) {
       if (!this->length())
         return *this;
       if (int(this->length()) - n < 0) {
@@ -293,7 +303,7 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
-    inline Array& operator-= (const int n) {
+    inline Array& operator-=(const int n) {
       if (!this->length())
         return *this;
       if (int(this->length()) - n < 0) {

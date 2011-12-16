@@ -114,9 +114,9 @@ template <class T>
 /**
  * @class Slice
  * @brief Safe subarray reading and writing.
- * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
+ * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const ReferenceCountedArray::operator[]
  * This class should be optimized away and fully inlined such that:
- * String s("look over there");
+ * ReferenceCountedArray s("look over there");
  * s(0, 4) = "blah"';
  * Should be rewritten as:
  * s.replace(0, "blah", 4);
@@ -136,22 +136,25 @@ class Slice {
     /**
      * @brief return a new (const) slice
      */
-
     inline operator T() const {
       T newArray(rca);
       newArray.slice(start, len);
       return newArray;
     };
 
-    inline Slice& operator= (const Slice& slice) {
+    /**
+     * @brief Assign a Slice to a Slice
+     */
+    inline Slice& operator=(const Slice& slice) {
       (*this) = T(slice);
       return (*this);
     }
 
     /**
+     * @brief Assign to a Slice
      * @todo This needs to account for negative start/len
      */
-    inline Slice& operator= (const T& array) {
+    inline Slice& operator=(const T& array) {
       rca.replace(start, array, len);
       return (*this);
     }
@@ -167,7 +170,7 @@ class ReferenceCountedArrayBase {
 template <class T>
 /**
  * @class ReferenceCountedArray
- * @brief
+ * @brief Common template base class for String and Array
  */
 class ReferenceCountedArray : public ReferenceCountedArrayBase {
   public:
@@ -267,7 +270,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
   private:
     /**
      * @brief Detach from the reference
-     * This is called when the old buffer is no longer needed for this Array.
+     * This is called when the old buffer is no longer needed.
      * ie, operator=() was called.
      */
     void Detach() {
@@ -385,7 +388,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @return The new rca object.
      * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
-    const ReferenceCountedArray& operator=(const ReferenceCountedArray &rca) {
+    const ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
       rca.incRef();
       offset = rca.offset;
       sublen = rca.sublen;
@@ -472,7 +475,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is for: if (!string)
      * Having if(string) conflicts with another operator
      */
-    inline bool operator ! () const { return isEmpty(); };
+    inline bool operator!() const { return isEmpty(); };
 
     /**
      * @brief Data accessor
@@ -603,14 +606,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Safe element access operator
      * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
      */
-    inline value_type operator [](size_t pos) const { return read(pos); };
+    inline value_type operator[](size_t pos) const { return read(pos); };
 
     /**
      * @class Cref
      * @brief Safe element reading and writing.
-     * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const char String::operator[]
+     * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const operator[]
      * This class should be optimized away and fully inlined such that:
-     * String s;
+     * ReferenceCountedArray s;
      * s[0] = 'a';
      * Should be rewritten as:
      * s.write(0, 'a');
@@ -622,7 +625,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         size_t k;
 
         /**
-         * @brief Used by String::Cref operator[]
+         * @brief Used by Cref operator[]
          */
         Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
         Cref(); //Not defined - never used
@@ -650,10 +653,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     };
 
     /**
-     * @brief Returns 'Cref' class for safe (cow) writing into String.
+     * @brief Returns 'Cref' class for safe (cow) writing.
      * @sa Cref
      */
-    inline Cref operator [](size_t pos) { return Cref(*this, pos); };
+    inline Cref operator[](size_t pos) { return Cref(*this, pos); };
 
     /**
      * @brief Returns the character at the given index.
@@ -782,7 +785,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param rca The ReferenceCountedArray object to replace with.
      * @param n The number of characters to use for the replace.
      */
-    void replace(size_t pos, const ReferenceCountedArray &rca, size_t n = npos) {
+    void replace(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
       if (n == 0) return;
       if (pos && !hasIndex(pos-1)) return;
 
