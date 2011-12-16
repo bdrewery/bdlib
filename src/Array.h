@@ -43,11 +43,6 @@ template <class T>
  */
 class Array : public ReferenceCountedArray<T> {
   public:
-//    friend class ArrayIterator<T>;
-//    friend class ArrayConstIterator<T>;
-
-//    typedef ArrayIterator<T> iterator;
-//    typedef ArrayConstIterator<T> const_iterator;
     typedef T value_type;
 
     typedef size_t             size_type;
