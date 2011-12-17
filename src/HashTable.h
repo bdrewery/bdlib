@@ -48,7 +48,7 @@ class HashTable {
     typedef Hash<Key> hasher;
     typedef void (*hash_table_block)(const Key, Value, void *param);
 
-    List<iterator_type> *list;
+    List<iterator_type> *_list;
     size_t _size;
     size_t _capacity;
     hasher _hash;
@@ -57,25 +57,25 @@ class HashTable {
       return _hash(key) % _capacity;
     }
   public:
-    HashTable() : list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-    explicit HashTable(size_t capacity_in) : list(new List<iterator_type>[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-    HashTable(const HashTable<Key, Value>& table) : list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+    HashTable() : _list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
+    explicit HashTable(size_t capacity_in) : _list(new List<iterator_type>[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+    HashTable(const HashTable<Key, Value>& table) : _list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
       for (size_t i = 0; i < _capacity; ++i)
-          list[i] = table.list[i];
+          _list[i] = table._list[i];
     };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    HashTable(HashTable<Key, Value>&& table) : list(NULL), _size(0), _capacity(default_list_size), _hash() {
+    HashTable(HashTable<Key, Value>&& table) : _list(NULL), _size(0), _capacity(default_list_size), _hash() {
       swap(*this, table);
     }
 #endif
 
     virtual ~HashTable() {
-      delete[] list;
+      delete[] _list;
     }
 
     void clear() {
       for (size_t i = 0; i < _capacity; ++i)
-        list[i].clear();
+        _list[i].clear();
       _size = 0;
     }
 
@@ -91,8 +91,8 @@ class HashTable {
       // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
       List<iterator_type> items;
       for (size_t i = 0; i < _capacity; ++i) {
-        if (list[i].size()) {
-          for (auto iter = list[i].begin(); iter; (++iter)) {
+        if (_list[i].size()) {
+          for (auto iter = _list[i].begin(); iter; (++iter)) {
             items << *iter;
           }
         }
@@ -108,7 +108,7 @@ class HashTable {
     friend void swap(HashTable<Key, Value>& a, HashTable<Key, Value>& b) {
       using std::swap;
 
-      swap(a.list, b.list);
+      swap(a._list, b._list);
       swap(a._size, b._size);
       swap(a._capacity, b._capacity);
       swap(a._hash, b._hash);
@@ -126,19 +126,19 @@ class HashTable {
 
     bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;
-      list[getIndex(key)] << iterator_type(key, value);
+      _list[getIndex(key)] << iterator_type(key, value);
       ++_size;
       return true;
     }
 
     inline bool contains(const Key& key) const {
       if (isEmpty()) return false;
-      return list[getIndex(key)].contains(iterator_type(key, Value()));
+      return _list[getIndex(key)].contains(iterator_type(key, Value()));
     };
 
     bool remove(const Key& key) {
       if (isEmpty()) return false;
-      if (list[getIndex(key)].remove(iterator_type(key, Value()))) {
+      if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
         --_size;
         return true;
       }
@@ -148,7 +148,7 @@ class HashTable {
     inline Value getValue(const Key& key) const {
       Value empty;
       if (isEmpty()) return empty;
-      return list[getIndex(key)].find(iterator_type(key, Value())).value();
+      return _list[getIndex(key)].find(iterator_type(key, Value())).value();
     };
 
     /**
@@ -164,8 +164,8 @@ class HashTable {
       Array<Key> tmp(size());
 
       for (size_t i = 0; i < capacity(); ++i) {
-        if (list[i].size()) {
-          for (auto iter = list[i].begin(); iter; (++iter)) {
+        if (_list[i].size()) {
+          for (auto iter = _list[i].begin(); iter; (++iter)) {
             iterator_type kv = *iter;
             tmp << kv.key();
           }
@@ -181,8 +181,8 @@ class HashTable {
       Array<Value> tmp(size());
 
       for (size_t i = 0; i < capacity(); ++i) {
-        if (list[i].size()) {
-          for (auto iter = list[i].begin(); iter; (++iter)) {
+        if (_list[i].size()) {
+          for (auto iter = _list[i].begin(); iter; (++iter)) {
             iterator_type kv = *iter;
             tmp << kv.value();
           }
@@ -207,7 +207,7 @@ class HashTable {
     inline Value& find_or_insert_key(const Key& key) {
       if (!contains(key))
         insert(key, Value());
-      return list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+      return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
     }
 };
 
