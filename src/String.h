@@ -123,8 +123,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         virtual ~String() {
           /* If deallocating the last reference, cleanse the string buffer with OPENSSL_cleanse() */
-          if (rcount() <= 1)
+          if (rcount() == 1) {
             cleanse();
+          }
         }
 
         /**
