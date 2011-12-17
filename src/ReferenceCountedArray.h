@@ -335,7 +335,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Warn the reference counting that it may need to COW
      * @post The buffer is detached/COW, and possibly larger
-     * @todo If the buffer is shared and needs to shrink, the sublen should just be decreased.
      */
     inline void AboutToModify(size_t n) const {
       my_hash = 0;
