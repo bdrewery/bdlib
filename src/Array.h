@@ -264,10 +264,9 @@ class Array : public ReferenceCountedArray<T> {
      * @post A new array is allocated, reference copied and returned.
      * @return Returns a new array that can be reference copied by the lvalue.
      */
-    inline friend Array operator+(const Array& array1, const Array& array2) {
-      Array temp(array1);
-      temp += array2;
-      return temp;
+    inline friend Array operator+(Array array1, const Array& array2) {
+      array1 += array2;
+      return array1;
     }
 
     /**

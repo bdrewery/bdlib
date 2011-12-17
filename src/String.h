@@ -316,7 +316,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         //using ReferenceCountedArray<String_Array_Type>::operator=;
 
-        friend String operator+(const String&, const String&);
+        friend String operator+(String, const String&);
         friend bool operator==(const String&, const String&);
         friend bool operator!=(const String&, const String&);
         friend bool operator<(const String&, const String&);
@@ -352,10 +352,9 @@ template<>
  * @post A new string is allocated, reference copied and returned.
  * @return Returns a new string that can be reference copied by the lvalue.
  */
-inline String operator+(const String& string1, const String& string2) {
-  String temp(string1);
-  temp += string2;
-  return temp;
+inline String operator+(String string1, const String& string2) {
+  string1 += string2;
+  return string1;
 }
 
 /**
