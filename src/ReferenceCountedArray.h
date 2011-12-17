@@ -318,7 +318,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void COW(size_t n) const {
       const_pointer oldBuf = constBuf();
-      size_t oldLength = length();
+      const size_t oldLength = length();
 
       doDetach(); //Detach from the shared reference
       Reserve( std::max(oldLength, n) ); //Will set capacity()/size
