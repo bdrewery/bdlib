@@ -299,7 +299,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it.
      */
     inline void CheckDeallocRef() {
-      if (decRef() < 1)
+      if (Ref && decRef() < 1)
         delete Ref;
     }
 
@@ -350,6 +350,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
   public:
     ReferenceCountedArray() : Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {};
     ReferenceCountedArray(const ReferenceCountedArray& rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    ReferenceCountedArray(ReferenceCountedArray&& rca) : Ref(NULL), offset(0), sublen(0), my_hash(0) {
+      swap(*this, rca);
+    };
+#endif
     /**
      * @brief Create an empty container with at least the specified bytes in size.
      * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
@@ -429,7 +434,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief How many references does this object have?
      */
-    inline size_t rcount() const { return Ref->n; };
+    inline size_t rcount() const { return Ref ? Ref->n : 0; };
     /**
      * @return True if this object is shared; false if not.
      */

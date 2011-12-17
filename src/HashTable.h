@@ -63,6 +63,11 @@ class HashTable {
       for (size_t i = 0; i < _capacity; ++i)
           list[i] = table.list[i];
     };
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    HashTable(HashTable<Key, Value>&& table) : list(NULL), _size(0), _capacity(default_list_size), _hash() {
+      swap(*this, table);
+    }
+#endif
 
     virtual ~HashTable() {
       delete[] list;

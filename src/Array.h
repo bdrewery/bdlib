@@ -55,6 +55,9 @@ class Array : public ReferenceCountedArray<T> {
     /* Constructors */
     Array() : ReferenceCountedArray<value_type>() {};
     Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(array) {};
+#endif
     /**
      * @brief Create a Array from a given carray.
      * @param carray The null-terminated array to create the object from.

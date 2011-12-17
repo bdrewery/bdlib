@@ -49,6 +49,11 @@ class List {
       Node(const iterator_type& p) : ptr(p), next(NULL), prev(NULL) {};
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : ptr(n.ptr), next(n.next), prev(n.prev) {};
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+      Node(iterator_type&& p) : ptr(NULL), next(NULL), prev(NULL) {
+        swap(*this, p);
+      };
+#endif
 
       friend void swap(Node& a, Node& b) {
         using std::swap;
@@ -91,6 +96,12 @@ class List {
       for (Node* search = list.head; search; search = search->next)
         insert(search->ptr);
     }
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    List(List&& list) : head(NULL), tail(NULL), my_size(0) {
+      swap(*this, list);
+    }
+#endif
 
     friend void swap(List& a, List& b) {
       using std::swap;

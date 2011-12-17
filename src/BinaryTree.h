@@ -146,6 +146,11 @@ class BinaryTree {
   public:
     BinaryTree() : my_size(0), root(NULL) {};
     BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    BinaryTree(BinaryTree&& tree) : my_size(0), root(NULL) {
+      swap(*this, tree);
+    };
+#endif
 
     friend void swap(BinaryTree& a, BinaryTree& b) {
       using std::swap;

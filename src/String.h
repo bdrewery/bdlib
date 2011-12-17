@@ -81,6 +81,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /* Constructors */
         String() : ReferenceCountedArray<String_Array_Type>() {};
 	String(const String& string) : ReferenceCountedArray<String_Array_Type>(string) {};
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+	String(String&& string) : ReferenceCountedArray<String_Array_Type>(std::move(string)) {};
+#endif
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
