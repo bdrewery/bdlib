@@ -87,20 +87,19 @@ class HashTable {
     void each(hash_table_block block, void* param = NULL) {
       if (!size()) return;
 
-      typename List<iterator_type>::iterator iter;
       // Make a list of KeyValues to yield from.
       // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
       List<iterator_type> items;
       for (size_t i = 0; i < _capacity; ++i) {
         if (list[i].size()) {
-          for (iter = list[i].begin(); iter; (++iter)) {
+          for (auto iter = list[i].begin(); iter; (++iter)) {
             items << *iter;
           }
         }
       }
 
       // Now yield on our temporary, so (this) isn't a factor.
-      for (iter = items.begin(); iter; (++iter)) {
+      for (auto iter = items.begin(); iter; (++iter)) {
         iterator_type kv = *iter;
         block(kv.key(), kv.value(), param);
       }
@@ -164,10 +163,9 @@ class HashTable {
     Array<Key> keys() const {
       Array<Key> tmp(size());
 
-      typename List<iterator_type>::iterator iter;
       for (size_t i = 0; i < capacity(); ++i) {
         if (list[i].size()) {
-          for (iter = list[i].begin(); iter; (++iter)) {
+          for (auto iter = list[i].begin(); iter; (++iter)) {
             iterator_type kv = *iter;
             tmp << kv.key();
           }
@@ -182,10 +180,9 @@ class HashTable {
     Array<Value> values() const {
       Array<Value> tmp(size());
 
-      typename List<iterator_type>::iterator iter;
       for (size_t i = 0; i < capacity(); ++i) {
         if (list[i].size()) {
-          for (iter = list[i].begin(); iter; (++iter)) {
+          for (auto iter = list[i].begin(); iter; (++iter)) {
             iterator_type kv = *iter;
             tmp << kv.value();
           }
