@@ -114,7 +114,6 @@ template <class T>
 /**
  * @class Slice
  * @brief Safe subarray reading and writing.
- * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const ReferenceCountedArray::operator[]
  * This class should be optimized away and fully inlined such that:
  * ReferenceCountedArray s("look over there");
  * s(0, 4) = "blah"';
@@ -643,7 +642,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @class Cref
      * @brief Safe element reading and writing.
-     * @todo This should not provide copy constructors for Cref, they shouldn't be needed because of const operator[]
      * This class should be optimized away and fully inlined such that:
      * ReferenceCountedArray s;
      * s[0] = 'a';
@@ -661,9 +659,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          */
         Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
         Cref(); //Not defined - never used
+        Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
 
       public:
-        Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
         inline Cref& operator=(const Cref& cref) {
           (*this) = value_type(cref);
           return (*this);
