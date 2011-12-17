@@ -389,3 +389,23 @@ void ArrayTest :: operatorsTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("3", str_b->join(' '));
   CPPUNIT_ASSERT_STRING_EQUAL("4", str_c->join(' '));
 }
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+void ArrayTest :: initializerTest(void) {
+  // Test initializer constructor
+  Array<int> my_array_initializer = {0, 1, 2, 3};
+  CPPUNIT_ASSERT_EQUAL(size_t(4), my_array_initializer.size());
+  CPPUNIT_ASSERT_EQUAL(0, static_cast<int>(my_array_initializer[0]));
+  CPPUNIT_ASSERT_EQUAL(1, static_cast<int>(my_array_initializer[1]));
+  CPPUNIT_ASSERT_EQUAL(2, static_cast<int>(my_array_initializer[2]));
+  CPPUNIT_ASSERT_EQUAL(3, static_cast<int>(my_array_initializer[3]));
+
+  // Test initializer assignment
+  *str_a = {"0", "1", "2", "3"};
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("0", (*str_a)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_a)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_a)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_a)[3]);
+}
+#endif

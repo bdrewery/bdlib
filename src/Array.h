@@ -74,6 +74,16 @@ class Array : public ReferenceCountedArray<T> {
       }
     };
 
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    /**
+     * @brief Create an array from an initializer list
+     * @param list An initializer_list
+     */
+    Array(std::initializer_list<value_type> list) : ReferenceCountedArray<value_type>() {
+      *this = list;
+    }
+#endif
+
     /**
      * @brief Create a Array from a given carray.
      * @param carray The null-terminated array to create the object from.
@@ -98,6 +108,22 @@ class Array : public ReferenceCountedArray<T> {
     Array(const size_type newSize, const value_type value) : ReferenceCountedArray<value_type>(newSize, value) {};
 
     virtual ~Array() {};
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    /**
+     * @brief Create an array from an initializer list
+     * @param list An initializer_list
+     */
+    Array& operator=(std::initializer_list<value_type> list) {
+      this->clear();
+      this->Reserve(list.size());
+      for (value_type item : list) {
+        push(std::move(item));
+      }
+      return *this;
+    }
+#endif
+    using ReferenceCountedArray<value_type>::operator=;
 
     /**
      * @brief Add an item to the end of the array

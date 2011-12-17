@@ -68,6 +68,11 @@ class HashTable {
       swap(*this, table);
     }
 #endif
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    HashTable(std::initializer_list<iterator_type> list) : _list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
+      *this = list;
+    }
+#endif
 
     virtual ~HashTable() {
       delete[] _list;
@@ -118,6 +123,19 @@ class HashTable {
       swap(*this, table);
       return *this; 
     }
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    /**
+     * @brief Create an array from an initializer list
+     * @param list An initializer_list
+     */
+    HashTable& operator=(std::initializer_list<iterator_type> list) {
+      for (iterator_type item : list) {
+        (*this)[item.key()] = item.value();
+      }
+      return *this;
+    }
+#endif
 
     inline size_t size() const { return _size; };
     inline size_t capacity() const { return _capacity; };
