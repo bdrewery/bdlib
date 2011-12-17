@@ -45,7 +45,7 @@ class Stack : public List<T> {
      * @brief Pop an element off the top of the stack
      */
     iterator_type pop() {
-      iterator_type item = this->head->ptr;
+      iterator_type item = this->head->item;
       this->remove(item);
       return item;
     };
@@ -63,7 +63,7 @@ class Stack : public List<T> {
      * @todo Throw an exception?
      */
     inline const iterator_type peek() const {
-      return this->isEmpty() ? iterator_type() : this->head->ptr;
+      return this->isEmpty() ? iterator_type() : this->head->item;
     }
 
     /**

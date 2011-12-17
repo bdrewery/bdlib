@@ -43,18 +43,18 @@ class SortedList : public List<T> {
 
     /**
      * @brief Insert an element into the list (ordered)
-     * @param ptr The element to insert
+     * @param item The element to insert
      * This operation is O(n/2)
      */
-    virtual void insert(const iterator_type& ptr) {
+    virtual void insert(const iterator_type& item) {
       /*
        * 1) list = NULL
        * 2) list = (X)
        * 3) list = (X)->(Y)
        * 4) list = (W)->(X)->(Y)
        */
-      Node* node = new Node(ptr), *prev = NULL, *current = this->head;
-      while (current != NULL && ptr < current->ptr) {
+      Node* node = new Node(item), *prev = NULL, *current = this->head;
+      while (current != NULL && item < current->item) {
         prev = current;
         current = current->next;
       }

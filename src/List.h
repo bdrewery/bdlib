@@ -42,15 +42,15 @@ class List {
 
   protected:
     struct Node {
-      iterator_type ptr;
+      iterator_type item;
       Node* next;
       Node* prev;
       
-      Node(const iterator_type& p) : ptr(p), next(NULL), prev(NULL) {};
+      Node(const iterator_type& p) : item(p), next(NULL), prev(NULL) {};
       /* To avoid -Weffc++ warnings */
-      Node(const Node& n) : ptr(n.ptr), next(n.next), prev(n.prev) {};
+      Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-      Node(iterator_type&& p) : ptr(NULL), next(NULL), prev(NULL) {
+      Node(iterator_type&& p) : item(NULL), next(NULL), prev(NULL) {
         swap(*this, p);
       };
 #endif
@@ -58,7 +58,7 @@ class List {
       friend void swap(Node& a, Node& b) {
         using std::swap;
 
-        swap(a.ptr, b.ptr);
+        swap(a.item, b.item);
         swap(a.next, b.next);
         swap(a.prev, b.prev);
       }
@@ -94,7 +94,7 @@ class List {
 
     List(const List& list) : head(NULL), tail(NULL), my_size(0) {
       for (Node* search = list.head; search; search = search->next)
-        insert(search->ptr);
+        insert(search->item);
     }
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
@@ -133,10 +133,10 @@ class List {
 
     /**
      * @brief Insert into the list at the head
-     * @param ptr The ptr to insert
+     * @param item The item to insert
      */
-    void insert(const iterator_type& ptr) {
-      Node* node = new Node(ptr);
+    void insert(const iterator_type& item) {
+      Node* node = new Node(item);
       if (!head) {
         head = tail = node;
       } else {
@@ -155,23 +155,23 @@ class List {
       return list;
     }
 
-    bool contains(const iterator_type& ptr) const {
+    bool contains(const iterator_type& item) const {
       if (head) {
         for (Node* node = head; node; node = node->next) {
-          if (node->ptr == ptr)
+          if (node->item == item)
             return 1;
         }
       }
       return 0;
     }
 
-   const iterator_type find(const iterator_type& ptr) const {
+   const iterator_type find(const iterator_type& item) const {
       const iterator_type empty;
       if (isEmpty()) return empty;
 
       for (Node* current = head; current; current = current->next) {
-        if (current->ptr == ptr)
-          return current->ptr;
+        if (current->item == item)
+          return current->item;
       }
       return empty;
     }
@@ -179,16 +179,16 @@ class List {
     /**
      * @brief Return a reference to the found element
      */
-    iterator_type& findRef(const iterator_type& ptr) {
+    iterator_type& findRef(const iterator_type& item) {
       Node* current = head;
       for (; current; current = current->next) {
-        if (current->ptr == ptr)
+        if (current->item == item)
           break;
       }
-      return current->ptr;
+      return current->item;
     }
 
-    bool remove(const iterator_type& ptr) {
+    bool remove(const iterator_type& item) {
       if (head) {
       /* cases (removing X):
        * 1) list = (X)
@@ -197,7 +197,7 @@ class List {
        * 4) list = (W)->(X)->(Y)
        */
         for (Node* node = head; node; node = node->next) {
-          if (node->ptr == ptr) {
+          if (node->item == item) {
             deleteNode(node);
             return true;
           }
@@ -251,7 +251,7 @@ class List {
         virtual operator bool() { return (current != NULL); };
         virtual operator iterator_type () { return operator*(); };
           
-        virtual iterator_type& operator *() { return static_cast<iterator_type&>(current->ptr); }
+        virtual iterator_type& operator *() { return static_cast<iterator_type&>(current->item); }
 
         //Postfix
         virtual iterator operator ++(int) {

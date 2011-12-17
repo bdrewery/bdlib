@@ -63,7 +63,7 @@ class Queue : public List<T> {
      * @brief Dequeue an element from the tail
      */
     value_type dequeue() {
-      value_type item = this->tail->ptr;
+      value_type item = this->tail->item;
       this->deleteNode(this->tail);
       return item;
     };
@@ -133,7 +133,7 @@ class QueueIterator {
     QueueIterator() : queue(NULL), current(NULL) {};
     ~QueueIterator() { }
 
-    reference operator *() const { return current->ptr; }
+    reference operator *() const { return current->item; }
     pointer operator ->() const { return &(operator*()); }
 
 
@@ -190,7 +190,7 @@ class QueueConstIterator {
     }
 */
 //        virtual operator bool() { return (current != NULL); };
-    reference operator *() const { return current->ptr; }
+    reference operator *() const { return current->item; }
     pointer operator ->() const { return &(operator*()); }
 
 
