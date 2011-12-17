@@ -84,6 +84,15 @@ class List {
       --my_size;
     }
 
+    Node* findNode(const iterator_type& item) const {
+      for (Node* current = head; current; current = current->next) {
+        if (current->item == item) {
+          return current;
+        }
+      }
+      return NULL;
+    }
+
     Node* head;
     Node* tail;
     size_t my_size;
@@ -156,52 +165,33 @@ class List {
     }
 
     bool contains(const iterator_type& item) const {
-      if (head) {
-        for (Node* node = head; node; node = node->next) {
-          if (node->item == item)
-            return 1;
-        }
-      }
-      return 0;
+      return findNode(item) ? true : false;
     }
 
    const iterator_type find(const iterator_type& item) const {
-      const iterator_type empty;
-      if (isEmpty()) return empty;
-
-      for (Node* current = head; current; current = current->next) {
-        if (current->item == item)
-          return current->item;
-      }
-      return empty;
+      Node* node = findNode(item);
+      return node ? node->item : iterator_type();
     }
 
     /**
      * @brief Return a reference to the found element
      */
     iterator_type& findRef(const iterator_type& item) {
-      Node* current = head;
-      for (; current; current = current->next) {
-        if (current->item == item)
-          break;
-      }
-      return current->item;
+      Node* node = findNode(item);
+      return node ? node->item : head->item;
     }
 
     bool remove(const iterator_type& item) {
-      if (head) {
       /* cases (removing X):
        * 1) list = (X)
        * 2) list = (X)->(Y)
        * 3) list = (W)->(X)
        * 4) list = (W)->(X)->(Y)
        */
-        for (Node* node = head; node; node = node->next) {
-          if (node->item == item) {
-            deleteNode(node);
-            return true;
-          }
-        }
+      Node* node = findNode(item);
+      if (node) {
+        deleteNode(node);
+        return true;
       }
       return false;
     }
