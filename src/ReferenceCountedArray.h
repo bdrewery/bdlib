@@ -413,10 +413,22 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @return The new rca object.
      * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
+    ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
+      rca.incRef();
+      offset = rca.offset;
+      sublen = rca.sublen;
+      my_hash = rca.my_hash;
+      CheckDeallocRef();
+      Ref = rca.Ref;
+      return *this;
+    }
+#ifdef reference
+    // Here for reference, the above is quicker
     ReferenceCountedArray& operator=(ReferenceCountedArray rca) {
       swap(*this, rca);
       return *this;
     }
+#endif
 
     /**
      * @brief Sets our buffer to the given item.
