@@ -89,19 +89,27 @@ struct KeyValue {
     KeyValue() : k(), v() {};
     KeyValue(const Key& _key, const Value& _value) : k(_key), v(_value) {};
     KeyValue(const KeyValue& kv) : k(kv.k), v(kv.v) {};
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    KeyValue(KeyValue&& kv) : k(), v() {
+      swap(*this, kv);
+    }
+#endif
+      friend void swap(KeyValue& a, KeyValue& b) {
+        using std::swap;
+
+        swap(a.k, b.k);
+        swap(a.v, b.v);
+      }
+      KeyValue& operator=(KeyValue kv) {
+        swap(*this, kv);
+        return *this;
+      }
 
     inline const Key& key() const { return k; };
     inline const Value& value() const { return v; };
 //    template <class K, class V> inline friend bool operator == (const KeyValue<K, V> &lhs, const KeyValue<K, V> &rhs) { return lhs.key() == rhs.key(); }
 //    template <>
       inline friend bool operator == (const KeyValue &lhs, const KeyValue &rhs) { return lhs.key() == rhs.key(); }
-/*
-  KeyValue& operator=(const KeyValue& kv) {
-    key = Key(kv.key);
-    value = Value(kv.value);
-    return *this;
-  }
-*/
 };
 
 BDLIB_NS_END
