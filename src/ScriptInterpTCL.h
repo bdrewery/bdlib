@@ -26,6 +26,7 @@
 #include "bdlib.h"
 #include "String.h"
 #include "ScriptInterp.h"
+#include "HashTable.h"
 
 #include <limits.h>
 #include <sys/types.h>
@@ -59,7 +60,7 @@ struct tcl_to_c_cast;
 template<>                                                        \
   struct tcl_to_c_cast<T>                                         \
   {                                                               \
-    static const char* from(Tcl_Obj* obj, T* value); \
+    static T from(Tcl_Obj* obj); \
   }
 
 tcl_to_c_castable(int);
@@ -71,44 +72,6 @@ tcl_to_c_castable(bool);
 tcl_to_c_castable(String);
 tcl_to_c_castable(const char*);
 
-class ScriptArgsTCL : public ScriptArgs {
-  private:
-    Tcl_Obj** my_objv;
-    Tcl_Interp* interp;
-
-    // Don't allow copying
-    ScriptArgsTCL(const ScriptArgsTCL&) : ScriptArgs(), my_objv(), interp(NULL) {};
-    ScriptArgsTCL& operator=(const ScriptArgsTCL&) {return *this;};
-  public:
-    ScriptArgsTCL() : ScriptArgs(), my_objv(), interp(NULL) {};
-    ScriptArgsTCL(int objc, Tcl_Obj* CONST objv[], Tcl_Interp* _interp) : ScriptArgs(objc), my_objv(), interp(_interp) {
-      my_objv = new Tcl_Obj*[objc];
-      for (size_t i = 0; i < argc; ++i) {
-        my_objv[i] = objv[i];
-        Tcl_IncrRefCount(my_objv[i]);
-      }
-    }
-    virtual ~ScriptArgsTCL() {
-      for (size_t i = 0; i < argc; ++i)
-        Tcl_DecrRefCount(my_objv[i]);
-      delete[] my_objv;
-    }
-
-    virtual int getArgInt(int index) const {
-      if (size_t(index) >= length()) return 0;
-      int value;
-      tcl_to_c_cast<int>::from(my_objv[index], &value);
-      return value;
-    }
-
-    virtual String getArgString(int index) const {
-      if (size_t(index) >= length()) return String();
-      String value;
-      tcl_to_c_cast<String>::from(my_objv[index], &value);
-      return value;
-    }
-};
-
 #define define_tcl_traceGet(T)                                                                                                     \
 template<>                                                                                                                         \
 const char* tcl_traceGet<T> (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
@@ -119,17 +82,20 @@ const char* tcl_traceGet<T> (ClientData clientData, Tcl_Interp* interp, char* na
 template<>                                                                                                                         \
 const char* tcl_traceSet<T> (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
   Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);                                                           \
-  T value;                                                                                                                         \
-  const char *error = NULL;                                                                                                        \
   if (!obj) goto fail;                                                                                                             \
                                                                                                                                    \
-  error = tcl_to_c_cast<T>::from( obj , &value);                                                                                   \
-  if (error) return "FIXME: ERROR DETECTED";                                                                                       \
-  *static_cast<T*>(clientData) = value;                                                                                            \
+  *static_cast<T*>(clientData) = tcl_to_c_cast<T>::from(obj);                                                                                            \
   return NULL;                                                                                                                     \
 fail:                                                                                                                              \
   return name1;                                                                                                                    \
 }
+
+class ScriptCallbackTCLBase : public ScriptCallbackBase {
+  public:
+    virtual ~ScriptCallbackTCLBase() {};
+};
+
+#include "ScriptInterpTCLCallbacks.h"
 
 template <typename T>
 const char* tcl_traceGet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
@@ -140,31 +106,103 @@ const char* tcl_traceSet (ClientData clientData, Tcl_Interp* interp, char* name1
 class ScriptInterpTCL : public ScriptInterp {
   private:
         Tcl_Interp *interp;
+        static HashTable<String, script_cmd_handler_clientdata*> CmdHandlerData;
 
         // Don't allow copying
         ScriptInterpTCL(const ScriptInterpTCL&) : ScriptInterp(), interp(NULL) {};
         ScriptInterpTCL& operator=(const ScriptInterpTCL&) {return *this;};
 
         void setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set);
-        static int tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
-        static void tcl_command_ondelete(ClientData clientData);
+        static int tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+
+        void _createCommand(const String& cmdName, ScriptCallbackBase* callback_proxy, script_clientdata_t clientData = NULL) {
+          script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, clientData, callback_proxy);
+          CmdHandlerData[cmdName] = ccd;
+          Tcl_CreateObjCommand(interp, *cmdName, tcl_callback, NULL, NULL);
+        }
+
   protected:
         virtual int init();
         virtual int destroy();
 
   public:
         ScriptInterpTCL() : ScriptInterp(), interp(NULL) {init();};
-        virtual ~ScriptInterpTCL() {destroy();};
+        virtual ~ScriptInterpTCL() {
+          // Delete all of my ccd
+          CmdHandlerData.each([](String cmdName, script_cmd_handler_clientdata* ccd, void* param) {
+              delete ccd->callback_proxy;
+              delete ccd;
+          });
+          CmdHandlerData.clear();
+          destroy();
+        };
 
         virtual String type() const { return "ScriptInterpTCL"; };
 
         virtual String eval(const String& script);
         virtual LoadError loadScript(const String& fileName, String& resultStr);
 
-        virtual void createCommand(const String& name, script_cmd_handler_t callback, script_clientdata_t clientData = NULL);
+        template<typename ReturnType>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL0<ReturnType>(callback), clientData);
+        }
 
-        virtual void deleteCommand(const String& name) {
-          Tcl_DeleteCommand(interp, *name);
+        template<typename ReturnType, typename T1>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL1<ReturnType, T1>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL2<ReturnType, T1, T2>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL3<ReturnType, T1, T2, T3>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL4<ReturnType, T1, T2, T3, T4>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL5<ReturnType, T1, T2, T3, T4, T5>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL6<ReturnType, T1, T2, T3, T4, T5, T6>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL7<ReturnType, T1, T2, T3, T4, T5, T6, T7>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL8<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL9<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9>(callback), clientData);
+        }
+
+        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10), script_clientdata_t clientData = NULL) {
+          _createCommand(cmdName, new ScriptCallbackTCL10<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(callback), clientData);
+        }
+
+        virtual void deleteCommand(const String& cmdName) {
+          script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
+          delete ccd->callback_proxy;
+          delete ccd;
+          CmdHandlerData.remove(cmdName);
+          Tcl_DeleteCommand(interp, *cmdName);
         }
 
         /* Variable linking */

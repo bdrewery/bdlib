@@ -31,25 +31,6 @@
 
 BDLIB_NS_BEGIN
 
-/**
- * @class ScriptArgs
- * @brief Handles fetching arguments from the script interpreter in cpp command handlers
- */
-class ScriptArgs {
-  public:
-    const size_t argc;
-  protected:
-  public:
-    ScriptArgs() : argc(0) {};
-    ScriptArgs(int _argc) : argc(_argc) {};
-    virtual ~ScriptArgs() {};
-
-    virtual size_t length() const { return argc; };
-
-    virtual int getArgInt(int index) const = 0;
-    virtual String getArgString(int index) const = 0;
-};
-
 #define SCRIPT_BADARGS(nl, nh, example) do {                              \
 	if ((args.length() < (nl)) || (args.length() > (nh))) {           \
                 return_data.type = bd::SCRIPT_RETURN_TYPE_STRING;         \
@@ -59,33 +40,11 @@ class ScriptArgs {
 	}                                                                 \
 } while (0)
 
-#define SCRIPT_FUNCTION_PROTO bd::ScriptInterp& interp, bd::script_callback_return_t& return_data, const bd::ScriptArgs& args, bd::ScriptInterp::script_clientdata_t clientData
-#define SCRIPT_FUNCTION(name) bd::script_error_t name (SCRIPT_FUNCTION_PROTO)
-
-typedef enum {
-  SCRIPT_OK = 0,
-  SCRIPT_ERROR
-} script_error_t;
-
-typedef enum {
-  SCRIPT_RETURN_TYPE_NONE = 0,
-  SCRIPT_RETURN_TYPE_STRING,
-  SCRIPT_RETURN_TYPE_INT
-} script_return_type_t;
-
-typedef struct script_callback_return {
-  script_return_type_t type;
-  // Values
-  // -- value_string not in the union as it would need to be a pointer.
-  String value_string;
-  union {
-    int integer;
-  } value_union;
-  script_callback_return() : type(SCRIPT_RETURN_TYPE_NONE), value_string(String()), value_union() {};
-} script_callback_return_t;
-
-#define SCRIPT_RETURN_STRING(value) do { return_data.type = bd::SCRIPT_RETURN_TYPE_STRING; return_data.value_string = value; } while (0)
-#define SCRIPT_RETURN_INT(value) do { return_data.type = bd::SCRIPT_RETURN_TYPE_INT; return_data.value_union.integer = value; } while (0)
+class ScriptCallbackBase {
+  public:
+    virtual ~ScriptCallbackBase() {};
+    virtual void call(int argc, void* const argv[], void *proxy_data = NULL) = 0;
+};
 
 /**
  * @class ScriptInterp
@@ -103,12 +62,12 @@ class ScriptInterp {
 
   public:
         typedef void* script_clientdata_t;
-        typedef script_error_t (*script_cmd_handler_t)(SCRIPT_FUNCTION_PROTO);
-        struct script_cmd_handler_clientdata_t {
+
+        struct script_cmd_handler_clientdata {
           ScriptInterp* si;
           script_clientdata_t clientData;
-          script_cmd_handler_t callback;
-          script_cmd_handler_clientdata_t (ScriptInterp* _si, script_clientdata_t _clientData, script_cmd_handler_t _callback) : si(_si), clientData(_clientData), callback(_callback) {};
+          ScriptCallbackBase* callback_proxy;
+          script_cmd_handler_clientdata (ScriptInterp* _si, script_clientdata_t _clientData, ScriptCallbackBase* _callback_proxy) : si(_si), clientData(_clientData), callback_proxy(_callback_proxy) {};
         };
 
         ScriptInterp() {};
@@ -130,12 +89,6 @@ class ScriptInterp {
          * @param resultStr String to hold error output from interp
          */
         virtual LoadError loadScript(const String& fileName, String& resultStr) = 0;
-
-        /**
-         * @param name Name of the command to create
-         * @param callback The script_cmd_handler_t function to call when the command is ran
-         */
-        virtual void createCommand(const String& name, script_cmd_handler_t callback, script_clientdata_t clientData = NULL) = 0;
 
         /**
          * @brief Remove a command from the interp

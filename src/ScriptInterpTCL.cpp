@@ -10,6 +10,8 @@
 
 BDLIB_NS_BEGIN
 
+HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
+
 /* Define static tcl_traceGet() template functions */
 define_tcl_traceGet(int);
 define_tcl_traceGet(unsigned int);
@@ -78,36 +80,12 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
   return SCRIPT_LOAD_OK;
 }
 
-int ScriptInterpTCL::tcl_callback_string(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
-  script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
-  ScriptArgsTCL args(objc, objv, interp);
-  script_callback_return_t return_data;
-  script_error_t error = ((script_cmd_handler_t)ccd->callback)(*ccd->si, return_data, args, ccd->clientData);
-  switch (return_data.type) {
-    case SCRIPT_RETURN_TYPE_STRING:
-      Tcl_SetObjResult(interp, (return_data.value_string.length() < INT_MAX) ? Tcl_NewStringObj(return_data.value_string.data(), return_data.value_string.length()) : NULL);
-      break;
-    case SCRIPT_RETURN_TYPE_INT:
-      Tcl_SetObjResult(interp, Tcl_NewIntObj(return_data.value_union.integer));
-      break;
-    case SCRIPT_RETURN_TYPE_NONE:
-    default:
-      break;
-  }
-  if (error == SCRIPT_OK) {
-    return TCL_OK;
-  }
-  return TCL_ERROR;
-}
+int ScriptInterpTCL::tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+  String cmdName(tcl_to_c_cast<String>::from(objv[0]));
+  script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
 
-void ScriptInterpTCL::tcl_command_ondelete(ClientData clientData) {
-  script_cmd_handler_clientdata_t* ccd = (script_cmd_handler_clientdata_t*)clientData;
-  delete ccd;
-}
-
-void ScriptInterpTCL::createCommand(const String& name, script_cmd_handler_t callback, script_clientdata_t clientData) {
-  script_cmd_handler_clientdata_t* ccd = new script_cmd_handler_clientdata_t(this, clientData, (script_cmd_handler_t) callback);
-  Tcl_CreateObjCommand(interp, *name, tcl_callback_string, (ClientData*)ccd, tcl_command_ondelete);
+  ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), interp);
+  return TCL_OK;
 }
 
 void ScriptInterpTCL::setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {
@@ -160,14 +138,16 @@ Tcl_Obj* c_to_tcl_cast<bool>::from(bool value) {
 }
 
 /* tcl->c casting */
-const char* tcl_to_c_cast<String>::from(Tcl_Obj* obj, String* value) {
+String tcl_to_c_cast<String>::from(Tcl_Obj* obj) {
   int len = 0;
   char *cstr = Tcl_GetStringFromObj(obj, &len);
-  if (!cstr)
-    return "Type Error";
+  if (!cstr) {
+    return String();
+    //return "Type Error";
+  }
 
-  *value = String(cstr, len);
-  return NULL;
+  return String(cstr, len);
+  //return NULL;
 }
 
 const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj) {
@@ -181,39 +161,45 @@ const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj) {
 }
 
 
-const char* tcl_to_c_cast<int>::from(Tcl_Obj* obj, int* value) {
+int tcl_to_c_cast<int>::from(Tcl_Obj* obj) {
   long v;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
-    if ((v < INT_MIN || v > INT_MAX))
-      return "OverflowError";
-  } else
-    return "Type Error";
-  *value = v;
-  return NULL;
+    if ((v < INT_MIN || v > INT_MAX)) {
+      //return "OverflowError";
+      return 0;
+    }
+  } else {
+    return 0;
+    //return "Type Error";
+  }
+  return v;
 }
 
-const char* tcl_to_c_cast<long>::from(Tcl_Obj* obj, long* value) {
+long tcl_to_c_cast<long>::from(Tcl_Obj* obj) {
   long v;
-  if (Tcl_GetLongFromObj(0, obj, &v) != TCL_OK)
-    return "Type Error";
-  *value = v;
-  return NULL;
+  if (Tcl_GetLongFromObj(0, obj, &v) != TCL_OK) {
+    return 0;
+    //return "Type Error";
+  }
+  return v;
 }
 
-const char* tcl_to_c_cast<double>::from(Tcl_Obj* obj, double* value) {
+double tcl_to_c_cast<double>::from(Tcl_Obj* obj) {
   double v;
-  if (Tcl_GetDoubleFromObj(0, obj, &v) != TCL_OK)
-    return "Type Error";
-  *value = v;
-  return NULL;
+  if (Tcl_GetDoubleFromObj(0, obj, &v) != TCL_OK) {
+    return 0;
+    //return "Type Error";
+  }
+  return v;
 }
 
-const char* tcl_to_c_cast<bool>::from(Tcl_Obj* obj, bool* value) {
+bool tcl_to_c_cast<bool>::from(Tcl_Obj* obj) {
   int v;
-  if (Tcl_GetBooleanFromObj(0, obj, &v) != TCL_OK)
-    return "Type Error";
-  *value = v ? true : false;
-  return NULL;
+  if (Tcl_GetBooleanFromObj(0, obj, &v) != TCL_OK) {
+    return false;
+    //return "Type Error";
+  }
+  return v ? true : false;
 }
 
 BDLIB_NS_END

@@ -209,73 +209,68 @@ void ScriptInterpTCLTest :: linkVarTest (void)
 
 }
 
-SCRIPT_FUNCTION(my_x) {
-  String my_cd = (clientData ? *(String*) clientData : String());
-  SCRIPT_RETURN_STRING("Test command proc" + my_cd);
-  return SCRIPT_OK;
+String my_x(String my_cd) {
+  return "Test command proc" + my_cd;
 }
 
-SCRIPT_FUNCTION(my_xi) {
-  String my_cd = (clientData ? *(String*) clientData : String("0"));
-  SCRIPT_RETURN_INT(53 + atoi(*my_cd));
-  return SCRIPT_OK;
+int my_xi(String my_cd) {
+  return 53 + atoi(*my_cd);
 }
 
-SCRIPT_FUNCTION(param_test) {
-  String my_cd = (clientData ? *(String*) clientData : String());
-  String arg1 = args.getArgString(1);
+bool my_xz(String my_cd, int my_i, bool my_bool, String my_string) {
+  return true;
+}
+
+String param_test(String arg1, int arg2) {
   String return_string;
-  if (args.length() > 2) {
-    int arg2 = args.getArgInt(2);
-    return_string = String::printf("I got %zu args, arg1: %s arg2: %d", args.length() - 1, *arg1, arg2);
+  if (arg2) {
+    return_string = String::printf("I got %zu args, arg1: %s arg2: %d", size_t(2), *arg1, arg2);
   } else
-    return_string = String::printf("I got %zu args, arg1: %s", args.length() - 1, *arg1);
-  SCRIPT_RETURN_STRING(return_string);
-  return SCRIPT_OK;
+    return_string = String::printf("I got %zu args, arg1: %s", arg1 == String() ? size_t(0) : size_t(1), *arg1);
+  return return_string;
 }
 
 void ScriptInterpTCLTest :: createCommandTest (void)
 {
   ScriptInterpTCL tcl_script;
-  script_callback_return_t return_data;
+  String result;
 
   tcl_script.createCommand("x", my_x);
-  my_x(tcl_script, return_data, ScriptArgsTCL(), NULL);
-  CPPUNIT_ASSERT_STRING_EQUAL(return_data.value_string, tcl_script.eval("x"));
+  result = my_x(String());
+  CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("x"));
 
-  String my_cd("my cd");
-  tcl_script.createCommand("y", my_x, &my_cd);
-  my_x(tcl_script, return_data, ScriptArgsTCL(), &my_cd);
-  CPPUNIT_ASSERT_STRING_EQUAL(return_data.value_string, tcl_script.eval("y"));
+  tcl_script.createCommand("x", my_x);
+  result = my_x("Test");
+  CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("x Test"));
 
   // Test int return
 
   tcl_script.createCommand("xi", my_xi);
-  my_xi(tcl_script, return_data, ScriptArgsTCL(), NULL);
-  CPPUNIT_ASSERT_EQUAL(return_data.value_union.integer, atoi(*tcl_script.eval("xi")));
+  CPPUNIT_ASSERT_EQUAL(my_xi(String()), atoi(*tcl_script.eval("xi")));
+  CPPUNIT_ASSERT_EQUAL(my_xi("1"), atoi(*tcl_script.eval("xi 1")));
   CPPUNIT_ASSERT_EQUAL(53, atoi(*tcl_script.eval("xi")));
-
-  my_cd = "7";
-  tcl_script.createCommand("yi", my_xi, &my_cd);
-  my_xi(tcl_script, return_data, ScriptArgsTCL(), &my_cd);
-  CPPUNIT_ASSERT_EQUAL(return_data.value_union.integer, atoi(*tcl_script.eval("yi")));
-  CPPUNIT_ASSERT_EQUAL(60, atoi(*tcl_script.eval("yi")));
 
   tcl_script.createCommand("param_test", param_test);
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TEST", tcl_script.eval("param_test \"TEST\""));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: TEST arg2: 1", tcl_script.eval("param_test \"TEST\" 1"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TeSt", tcl_script.eval("param_test \"TeSt\""));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: 5", tcl_script.eval("param_test 5"));
+
+  // Check extern functional
+  tcl_script.createCommand("atoi", atoi);
+  CPPUNIT_ASSERT_EQUAL(atoi("5"), atoi(*tcl_script.eval("atoi 5")));
+  CPPUNIT_ASSERT_EQUAL(5, atoi(*tcl_script.eval("atoi 5")));
+
+  // Mostly a compile test on the templates
+  tcl_script.createCommand("xz", my_xz);
 }
 
 HashTable<String, Array<String> > Events;
 
-SCRIPT_FUNCTION(on_event) {
+bool on_event(String eventName, String eventCommand) {
   // s:event c:Proc
-  String eventName = args.getArgString(1);
-  String eventCommand = args.getArgString(2);
   Events[eventName] << eventCommand;
-  return SCRIPT_OK;
+  return true;
 }
 
 void ScriptInterpTCLTest :: createCommandEventTest (void)
@@ -302,13 +297,11 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
 
 void ScriptInterpTCLTest :: deleteCommandTest (void)
 {
-  script_callback_return_t return_data;
   ScriptInterpTCL tcl_script;
   String bad_cmd = tcl_script.eval("x");
 
   tcl_script.createCommand("x", my_x);
-  my_x(tcl_script, return_data, ScriptArgsTCL(), NULL);
-  CPPUNIT_ASSERT_STRING_EQUAL(return_data.value_string, tcl_script.eval("x"));
+  CPPUNIT_ASSERT_STRING_EQUAL("true", tcl_script.eval("x"));
   tcl_script.deleteCommand("x");
   CPPUNIT_ASSERT_STRING_EQUAL(bad_cmd, tcl_script.eval("x"));
 }
