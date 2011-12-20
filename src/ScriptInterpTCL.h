@@ -108,9 +108,8 @@ class ScriptInterpTCL : public ScriptInterp {
         Tcl_Interp *interp;
         static HashTable<String, script_cmd_handler_clientdata*> CmdHandlerData;
 
-        // Don't allow copying
-        ScriptInterpTCL(const ScriptInterpTCL&) : ScriptInterp(), interp(NULL) {};
-        ScriptInterpTCL& operator=(const ScriptInterpTCL&) {return *this;};
+        ScriptInterpTCL(const ScriptInterpTCL&) = delete;
+        ScriptInterpTCL& operator=(const ScriptInterpTCL&) = delete;
 
         void setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set);
         static int tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);

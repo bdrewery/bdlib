@@ -52,9 +52,8 @@ class ScriptCallbackBase {
  */
 class ScriptInterp {
   private:
-        // Don't allow copying
-        ScriptInterp(const ScriptInterp&)  {};
-        ScriptInterp& operator=(const ScriptInterp&) {return *this;};
+        ScriptInterp(const ScriptInterp&) = delete;
+        ScriptInterp& operator=(const ScriptInterp&) = delete;
 
   protected:
         virtual int init() = 0;
