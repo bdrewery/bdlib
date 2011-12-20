@@ -275,10 +275,9 @@ void ScriptInterpTCLTest :: createCommandTest (void)
 
 HashTable<String, Array<String> > Events;
 
-bool on_event(String eventName, String eventCommand) {
+void on_event(String eventName, String eventCommand) {
   // s:event c:Proc
   Events[eventName] << eventCommand;
-  return true;
 }
 
 void ScriptInterpTCLTest :: createCommandEventTest (void)
