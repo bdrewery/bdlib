@@ -207,23 +207,23 @@ class ScriptInterpTCL : public ScriptInterp {
 
         /**
          * @brief Link a C variable to the interp
-         * @param name The name to create the variable as
+         * @param varName The name to create the variable as
          * @param var The variable to link to
          */
         template <typename T>
-          inline void linkVar(const String& name, T& var) {
-            setupTraces(name, (ClientData) &var, (Tcl_VarTraceProc*) tcl_traceGet<T>, (Tcl_VarTraceProc*) tcl_traceSet<T>);
+          inline void linkVar(const String& varName, T& var) {
+            setupTraces(varName, (ClientData) &var, (Tcl_VarTraceProc*) tcl_traceGet<T>, (Tcl_VarTraceProc*) tcl_traceSet<T>);
           };
 
         /**
          * @brief Link a const C variable to the interp
-         * @param name The name to create the variable as
+         * @param varName The name to create the variable as
          * @param var The variable to link to
          * @note The variable will be created as read-only
          */
         template <typename T>
-          inline void linkVar(const String& name, const T& var) {
-            setupTraces(name, (ClientData) &var, (Tcl_VarTraceProc*) tcl_traceGet<T>, (Tcl_VarTraceProc*) TraceSetRO);
+          inline void linkVar(const String& varName, const T& var) {
+            setupTraces(varName, (ClientData) &var, (Tcl_VarTraceProc*) tcl_traceGet<T>, (Tcl_VarTraceProc*) TraceSetRO);
           };
   private:
         static const char* TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);

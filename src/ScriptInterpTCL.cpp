@@ -88,10 +88,10 @@ int ScriptInterpTCL::tcl_callback(ClientData clientData, Tcl_Interp *interp, int
   return TCL_OK;
 }
 
-void ScriptInterpTCL::setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {
-  Tcl_SetVar(interp, *name, "", TCL_GLOBAL_ONLY);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
-  Tcl_TraceVar(interp, *name, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
+void ScriptInterpTCL::setupTraces(const String& varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {
+  Tcl_SetVar(interp, *varName, "", TCL_GLOBAL_ONLY);
+  Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
+  Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
 }
 
 const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {

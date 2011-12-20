@@ -99,26 +99,26 @@ class ScriptInterp {
         /**
          * @brief Link a C variable to the interp
          * @param si The ScriptInterp to link the variable to
-         * @param name The name to create the variable as
+         * @param varName The name to create the variable as
          * @param var The variable to link to
          * @note This is dispatching to the derived class due to being unable to do specialized template methods
          */
         template <typename Interp, typename T>
-          static void linkVar(Interp& si, const String& name, T& var) {
-            si.linkVar(name, var);
+          static void linkVar(Interp& si, const String& varName, T& var) {
+            si.linkVar(varName, var);
           };
 
         /**
          * @brief Link a C variable to the interp
          * @param si The ScriptInterp to link the variable to
-         * @param name The name to create the variable as
+         * @param varName The name to create the variable as
          * @param var The variable to link to
          * @note This is dispatching to the derived class due to being unable to do specialized template methods
          * @note The variable will be created as read-only
          */
         template <typename Interp, typename T>
-          static void linkVar(Interp& si, const String& name, const T& var) {
-            si.linkVar(name, var);
+          static void linkVar(Interp& si, const String& varName, const T& var) {
+            si.linkVar(varName, var);
           };
 
         /**
