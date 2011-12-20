@@ -113,19 +113,6 @@ class ScriptInterp {
           };
 
         /**
-         * @brief Link a C variable to the interp
-         * @param si The ScriptInterp to link the variable to
-         * @param varName The name to create the variable as
-         * @param var The variable to link to
-         * @note This is dispatching to the derived class due to being unable to do specialized template methods
-         * @note The variable will be created as read-only
-         */
-        template <typename Interp, typename T>
-          static void linkVar(Interp& si, const String& varName, const T& var) {
-            si.linkVar(varName, var);
-          };
-
-        /**
          * @brief Remove a variable from the interp
          * @param varName The name of the variable to remove
          */
