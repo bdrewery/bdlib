@@ -89,58 +89,8 @@ class ScriptInterp {
          */
         virtual LoadError loadScript(const String& fileName, String& resultStr) = 0;
 
-        template<typename InterpType, typename ReturnType>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3, typename T4>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
-        }
-
-        template<typename InterpType, typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10), script_clientdata_t clientData = NULL) {
+        template<typename InterpType, typename ReturnType, typename... Params>
+        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(Params...), script_clientdata_t clientData = NULL) {
           si.createCommand(cmdName, callback, clientData);
         }
 
