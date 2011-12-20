@@ -69,6 +69,7 @@ tcl_to_c_castable(unsigned long);
 tcl_to_c_castable(double);
 tcl_to_c_castable(bool);
 tcl_to_c_castable(String);
+tcl_to_c_castable(const char*);
 
 class ScriptArgsTCL : public ScriptArgs {
   private:

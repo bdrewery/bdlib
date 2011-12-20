@@ -170,6 +170,16 @@ const char* tcl_to_c_cast<String>::from(Tcl_Obj* obj, String* value) {
   return NULL;
 }
 
+const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj) {
+  int len = 0;
+  char *cstr = Tcl_GetStringFromObj(obj, &len);
+  if (!cstr) {
+    return "";
+    //return "Type Error";
+  }
+  return cstr;
+}
+
 
 const char* tcl_to_c_cast<int>::from(Tcl_Obj* obj, int* value) {
   long v;
