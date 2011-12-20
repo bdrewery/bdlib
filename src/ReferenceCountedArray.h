@@ -106,8 +106,8 @@ class ArrayRef {
     inline bool isShared() const { return n > 1; };
   private:
     // No copying allowed
-    ArrayRef(const ArrayRef&); ///<Block implicit copy constructor
-    ArrayRef& operator=(const ArrayRef&); ///<Block implicit copy constructor
+    ArrayRef(const ArrayRef&) = delete;
+    ArrayRef& operator=(const ArrayRef&) = delete;
 };
 
 template <class T>
@@ -126,7 +126,7 @@ class Slice {
     int start;
     int len;
 
-    Slice();
+    Slice() = delete;
 
   public:
     Slice(T& _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
@@ -658,7 +658,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @brief Used by Cref operator[]
          */
         Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
-        Cref(); //Not defined - never used
+        Cref() = delete;
         Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
 
       public:
