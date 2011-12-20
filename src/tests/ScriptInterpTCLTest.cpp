@@ -257,7 +257,8 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   CPPUNIT_ASSERT_EQUAL(my_xi("1"), atoi(*tcl_script.eval("xi 1")));
   CPPUNIT_ASSERT_EQUAL(53, atoi(*tcl_script.eval("xi")));
 
-  tcl_script.createCommand("param_test", param_test);
+  // Test dispatch through ScriptInterp
+  ScriptInterp::createCommand(tcl_script, "param_test", param_test);
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TEST", tcl_script.eval("param_test \"TEST\""));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: TEST arg2: 1", tcl_script.eval("param_test \"TEST\" 1"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TeSt", tcl_script.eval("param_test \"TeSt\""));
