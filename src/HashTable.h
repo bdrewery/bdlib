@@ -140,7 +140,7 @@ class HashTable {
     inline size_t size() const { return _size; };
     inline size_t capacity() const { return _capacity; };
     inline bool isEmpty() const { return size() == 0; };
-    //inline operator bool() const { return !isEmpty(); };
+    inline explicit operator bool() const { return !isEmpty(); };
 
     bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;

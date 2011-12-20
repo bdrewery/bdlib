@@ -506,6 +506,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * Having if(string) conflicts with another operator
      */
     inline bool operator!() const { return isEmpty(); };
+    inline explicit operator bool() const { return !isEmpty(); }
 
     /**
      * @brief Data accessor

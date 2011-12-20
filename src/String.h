@@ -311,7 +311,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         const String operator++(int);
         const String& operator--();
         const String operator--(int);
-        //operator bool ();
 
 
         //using ReferenceCountedArray<String_Array_Type>::operator=;
@@ -497,9 +496,6 @@ inline bool String::operator>=(const String& rhs) const {
   return !(*this < rhs);
 }
 #endif
-//inline String::operator bool () {
-//  return length() == 0;
-//}
 
 inline std::ostream& operator<<(std::ostream& os, const String& string) {
   for (const char* c = string.begin(); c != string.end(); ++c)

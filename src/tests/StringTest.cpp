@@ -47,6 +47,8 @@ void StringTest :: lengthTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t) 1, g->length());
   CPPUNIT_ASSERT_EQUAL((size_t) 0, h->length());
 
+  // Check boolean operator
+  CPPUNIT_ASSERT_EQUAL((bool) true, *g ? true : false);
 }
 
 void StringTest :: clearTest (void)

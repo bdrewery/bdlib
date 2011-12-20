@@ -189,7 +189,7 @@ class QueueConstIterator {
       current = nextValue;
     }
 */
-//        virtual operator bool() { return (current != NULL); };
+    virtual explicit operator bool() const { return (current != NULL); };
     reference operator *() const { return current->item; }
     pointer operator ->() const { return &(operator*()); }
 
