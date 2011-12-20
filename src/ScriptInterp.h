@@ -60,16 +60,12 @@ class ScriptInterp {
         virtual int destroy() = 0;
 
   public:
-        typedef void* script_clientdata_t;
-
         struct script_cmd_handler_clientdata {
           ScriptInterp* si;
-          script_clientdata_t clientData;
           ScriptCallbackBase* callback_proxy;
           size_t callbackParamCount;
-          script_cmd_handler_clientdata (ScriptInterp* _si, script_clientdata_t _clientData, ScriptCallbackBase* _callback_proxy, size_t _callbackParamCount) :
+          script_cmd_handler_clientdata (ScriptInterp* _si, ScriptCallbackBase* _callback_proxy, size_t _callbackParamCount) :
             si(_si),
-            clientData(_clientData),
             callback_proxy(_callback_proxy),
             callbackParamCount(_callbackParamCount) {};
         };
@@ -95,8 +91,8 @@ class ScriptInterp {
         virtual LoadError loadScript(const String& fileName, String& resultStr) = 0;
 
         template<typename InterpType, typename ReturnType, typename... Params>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(Params...), script_clientdata_t clientData = NULL) {
-          si.createCommand(cmdName, callback, clientData);
+        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(Params...)) {
+          si.createCommand(cmdName, callback);
         }
 
         /**
