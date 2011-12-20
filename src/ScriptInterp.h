@@ -97,17 +97,35 @@ class ScriptInterp {
         virtual void deleteCommand(const String& name) = 0;
 
         /**
+         * @brief Link a C variable to the interp
+         * @param si The ScriptInterp to link the variable to
+         * @param name The name to create the variable as
+         * @param var The variable to link to
+         * @note This is dispatching to the derived class due to being unable to do specialized template methods
+         */
+        template <typename Interp, typename T>
+          static void linkVar(Interp& si, const String& name, T& var) {
+            si.linkVar(name, var);
+          };
+
+        /**
+         * @brief Link a C variable to the interp
+         * @param si The ScriptInterp to link the variable to
+         * @param name The name to create the variable as
+         * @param var The variable to link to
+         * @note This is dispatching to the derived class due to being unable to do specialized template methods
+         * @note The variable will be created as read-only
+         */
+        template <typename Interp, typename T>
+          static void linkVar(Interp& si, const String& name, const T& var) {
+            si.linkVar(name, var);
+          };
+
+        /**
          * @brief Remove a variable from the interp
          * @param name The name of the variable to remove
          */
         virtual void unlinkVar(const String& name) {};
-
-        /**
-         * @brief Return the class name as a String
-         * This is only needed for calling specialized template methods from the derived class. See Unit Tests for examples.
-         * @sa http://stackoverflow.com/questions/2914081/c-member-function-template-in-derived-class-how-to-call-it-from-base-class
-         */
-        virtual String type() const = 0;
 };
 
 
