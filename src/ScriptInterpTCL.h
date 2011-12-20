@@ -225,6 +225,14 @@ class ScriptInterpTCL : public ScriptInterp {
           inline void linkVar(const String& varName, const T& var) {
             setupTraces(varName, (ClientData) &var, (Tcl_VarTraceProc*) tcl_traceGet<T>, (Tcl_VarTraceProc*) TraceSetRO);
           };
+
+        /**
+         * @brief Remove a variable from the interp
+         * @param varName The name of the variable to remove
+         */
+        virtual void unlinkVar(const String& varName) {
+          Tcl_UnsetVar(interp, *varName, TCL_GLOBAL_ONLY);
+        }
   private:
         static const char* TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
 

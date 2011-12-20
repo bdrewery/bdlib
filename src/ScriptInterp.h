@@ -123,9 +123,9 @@ class ScriptInterp {
 
         /**
          * @brief Remove a variable from the interp
-         * @param name The name of the variable to remove
+         * @param varName The name of the variable to remove
          */
-        virtual void unlinkVar(const String& name) {};
+        virtual void unlinkVar(const String& varName) = 0;
 };
 
 

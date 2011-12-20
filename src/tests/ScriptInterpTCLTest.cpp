@@ -202,6 +202,20 @@ void ScriptInterpTCLTest :: linkVarTest (void)
 
 }
 
+void ScriptInterpTCLTest::unlinkVarTest(void) {
+  ScriptInterpTCL tcl_script;
+  String varNotFound(tcl_script.eval("set x"));
+  int x = 5;
+
+  tcl_script.linkVar("x", x);
+  // Verify it exists
+  CPPUNIT_ASSERT_EQUAL(5, atoi(*tcl_script.eval("set x")));
+
+  tcl_script.unlinkVar("x");
+  // Verify it does't exist
+  CPPUNIT_ASSERT_STRING_EQUAL(varNotFound, tcl_script.eval("set x"));
+}
+
 String my_x(String my_cd) {
   return "Test command proc" + my_cd;
 }
