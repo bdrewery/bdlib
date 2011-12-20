@@ -53,8 +53,7 @@ class ScriptCallbackTCL1 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1()
+          tcl_to_c_cast<T1>::from(objv[1])
       );
     }
 };
@@ -72,9 +71,8 @@ class ScriptCallbackTCL2 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2])
       );
     }
 };
@@ -92,10 +90,9 @@ class ScriptCallbackTCL3 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3])
       );
     }
 };
@@ -113,11 +110,10 @@ class ScriptCallbackTCL4 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3(),
-          objc >= 5 ? tcl_to_c_cast<T4>::from(objv[4]) : T4()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3]),
+          tcl_to_c_cast<T4>::from(objv[4])
       );
     }
 };
@@ -135,12 +131,11 @@ class ScriptCallbackTCL5 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3(),
-          objc >= 5 ? tcl_to_c_cast<T4>::from(objv[4]) : T4(),
-          objc >= 6 ? tcl_to_c_cast<T5>::from(objv[5]) : T5()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3]),
+          tcl_to_c_cast<T4>::from(objv[4]),
+          tcl_to_c_cast<T5>::from(objv[5])
       );
     }
 };
@@ -158,13 +153,12 @@ class ScriptCallbackTCL6 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3(),
-          objc >= 5 ? tcl_to_c_cast<T4>::from(objv[4]) : T4(),
-          objc >= 6 ? tcl_to_c_cast<T5>::from(objv[5]) : T5(),
-          objc >= 7 ? tcl_to_c_cast<T6>::from(objv[6]) : T6()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3]),
+          tcl_to_c_cast<T4>::from(objv[4]),
+          tcl_to_c_cast<T5>::from(objv[5]),
+          tcl_to_c_cast<T6>::from(objv[6])
       );
     }
 };
@@ -182,14 +176,13 @@ class ScriptCallbackTCL7 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3(),
-          objc >= 5 ? tcl_to_c_cast<T4>::from(objv[4]) : T4(),
-          objc >= 6 ? tcl_to_c_cast<T5>::from(objv[5]) : T5(),
-          objc >= 7 ? tcl_to_c_cast<T6>::from(objv[6]) : T6(),
-          objc >= 8 ? tcl_to_c_cast<T7>::from(objv[7]) : T7()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3]),
+          tcl_to_c_cast<T4>::from(objv[4]),
+          tcl_to_c_cast<T5>::from(objv[5]),
+          tcl_to_c_cast<T6>::from(objv[6]),
+          tcl_to_c_cast<T7>::from(objv[7])
       );
     }
 };
@@ -207,15 +200,14 @@ class ScriptCallbackTCL8 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3(),
-          objc >= 5 ? tcl_to_c_cast<T4>::from(objv[4]) : T4(),
-          objc >= 6 ? tcl_to_c_cast<T5>::from(objv[5]) : T5(),
-          objc >= 7 ? tcl_to_c_cast<T6>::from(objv[6]) : T6(),
-          objc >= 8 ? tcl_to_c_cast<T7>::from(objv[7]) : T7(),
-          objc >= 9 ? tcl_to_c_cast<T8>::from(objv[8]) : T8()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3]),
+          tcl_to_c_cast<T4>::from(objv[4]),
+          tcl_to_c_cast<T5>::from(objv[5]),
+          tcl_to_c_cast<T6>::from(objv[6]),
+          tcl_to_c_cast<T7>::from(objv[7]),
+          tcl_to_c_cast<T8>::from(objv[8])
       );
     }
 };
@@ -233,16 +225,15 @@ class ScriptCallbackTCL9 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3(),
-          objc >= 5 ? tcl_to_c_cast<T4>::from(objv[4]) : T4(),
-          objc >= 6 ? tcl_to_c_cast<T5>::from(objv[5]) : T5(),
-          objc >= 7 ? tcl_to_c_cast<T6>::from(objv[6]) : T6(),
-          objc >= 8 ? tcl_to_c_cast<T7>::from(objv[7]) : T7(),
-          objc >= 9 ? tcl_to_c_cast<T8>::from(objv[8]) : T8(),
-          objc >= 10 ? tcl_to_c_cast<T9>::from(objv[9]) : T9()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3]),
+          tcl_to_c_cast<T4>::from(objv[4]),
+          tcl_to_c_cast<T5>::from(objv[5]),
+          tcl_to_c_cast<T6>::from(objv[6]),
+          tcl_to_c_cast<T7>::from(objv[7]),
+          tcl_to_c_cast<T8>::from(objv[8]),
+          tcl_to_c_cast<T9>::from(objv[9])
       );
     }
 };
@@ -260,17 +251,16 @@ class ScriptCallbackTCL10 : public ScriptCallbackTCLBase {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType>::dispatch(interp, _callback,
-          // Doing objc check to pass default params in if not enough were passed to the handler
-          objc >= 2 ? tcl_to_c_cast<T1>::from(objv[1]) : T1(),
-          objc >= 3 ? tcl_to_c_cast<T2>::from(objv[2]) : T2(),
-          objc >= 4 ? tcl_to_c_cast<T3>::from(objv[3]) : T3(),
-          objc >= 5 ? tcl_to_c_cast<T4>::from(objv[4]) : T4(),
-          objc >= 6 ? tcl_to_c_cast<T5>::from(objv[5]) : T5(),
-          objc >= 7 ? tcl_to_c_cast<T6>::from(objv[6]) : T6(),
-          objc >= 8 ? tcl_to_c_cast<T7>::from(objv[7]) : T7(),
-          objc >= 9 ? tcl_to_c_cast<T8>::from(objv[8]) : T8(),
-          objc >= 10 ? tcl_to_c_cast<T9>::from(objv[9]) : T9(),
-          objc >= 11 ? tcl_to_c_cast<T10>::from(objv[10]) : T10()
+          tcl_to_c_cast<T1>::from(objv[1]),
+          tcl_to_c_cast<T2>::from(objv[2]),
+          tcl_to_c_cast<T3>::from(objv[3]),
+          tcl_to_c_cast<T4>::from(objv[4]),
+          tcl_to_c_cast<T5>::from(objv[5]),
+          tcl_to_c_cast<T6>::from(objv[6]),
+          tcl_to_c_cast<T7>::from(objv[7]),
+          tcl_to_c_cast<T8>::from(objv[8]),
+          tcl_to_c_cast<T9>::from(objv[9]),
+          tcl_to_c_cast<T10>::from(objv[10])
       );
     }
 };

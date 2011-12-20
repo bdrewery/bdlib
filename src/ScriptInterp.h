@@ -66,7 +66,12 @@ class ScriptInterp {
           ScriptInterp* si;
           script_clientdata_t clientData;
           ScriptCallbackBase* callback_proxy;
-          script_cmd_handler_clientdata (ScriptInterp* _si, script_clientdata_t _clientData, ScriptCallbackBase* _callback_proxy) : si(_si), clientData(_clientData), callback_proxy(_callback_proxy) {};
+          size_t callbackParamCount;
+          script_cmd_handler_clientdata (ScriptInterp* _si, script_clientdata_t _clientData, ScriptCallbackBase* _callback_proxy, size_t _callbackParamCount) :
+            si(_si),
+            clientData(_clientData),
+            callback_proxy(_callback_proxy),
+            callbackParamCount(_callbackParamCount) {};
         };
 
         ScriptInterp() {};

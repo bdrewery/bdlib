@@ -114,8 +114,8 @@ class ScriptInterpTCL : public ScriptInterp {
         void setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set);
         static int tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
 
-        void _createCommand(const String& cmdName, ScriptCallbackBase* callback_proxy, script_clientdata_t clientData = NULL) {
-          script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, clientData, callback_proxy);
+        void _createCommand(const String& cmdName, ScriptCallbackBase* callback_proxy, size_t callbackParamCount, script_clientdata_t clientData = NULL) {
+          script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, clientData, callback_proxy, callbackParamCount);
           CmdHandlerData[cmdName] = ccd;
           Tcl_CreateObjCommand(interp, *cmdName, tcl_callback, NULL, NULL);
         }
@@ -141,57 +141,57 @@ class ScriptInterpTCL : public ScriptInterp {
 
         template<typename ReturnType>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL0<ReturnType>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL0<ReturnType>(callback), 0, clientData);
         }
 
         template<typename ReturnType, typename T1>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL1<ReturnType, T1>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL1<ReturnType, T1>(callback), 1, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL2<ReturnType, T1, T2>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL2<ReturnType, T1, T2>(callback), 2, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL3<ReturnType, T1, T2, T3>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL3<ReturnType, T1, T2, T3>(callback), 3, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3, typename T4>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL4<ReturnType, T1, T2, T3, T4>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL4<ReturnType, T1, T2, T3, T4>(callback), 4, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL5<ReturnType, T1, T2, T3, T4, T5>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL5<ReturnType, T1, T2, T3, T4, T5>(callback), 5, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL6<ReturnType, T1, T2, T3, T4, T5, T6>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL6<ReturnType, T1, T2, T3, T4, T5, T6>(callback), 6, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL7<ReturnType, T1, T2, T3, T4, T5, T6, T7>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL7<ReturnType, T1, T2, T3, T4, T5, T6, T7>(callback), 7, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL8<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL8<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8>(callback), 8, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL9<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL9<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9>(callback), 9, clientData);
         }
 
         template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10), script_clientdata_t clientData = NULL) {
-          _createCommand(cmdName, new ScriptCallbackTCL10<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(callback), clientData);
+          _createCommand(cmdName, new ScriptCallbackTCL10<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(callback), 10, clientData);
         }
 
         virtual void deleteCommand(const String& cmdName) {
