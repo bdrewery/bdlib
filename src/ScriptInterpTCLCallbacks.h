@@ -9,9 +9,9 @@
 template <typename ReturnType>
 struct ScriptCallbackDispatchTCL {
   template<typename Func, typename... Params>
-    static void dispatch(Tcl_Interp* interp, Func callback, Params... args) {
-      ReturnType result = callback(args...);
-      Tcl_SetObjResult(interp, c_to_tcl_cast<ReturnType>::from(result));
+    static void dispatch(Tcl_Interp* interp, Func callback, Params&&... args) {
+      ReturnType result = std::move(callback(std::forward<Params>(args)...));
+      Tcl_SetObjResult(interp, std::move(c_to_tcl_cast<ReturnType>::from(std::move(result))));
     }
 };
 
@@ -19,8 +19,8 @@ struct ScriptCallbackDispatchTCL {
 template <>
 struct ScriptCallbackDispatchTCL<void> {
   template<typename Func, typename... Params>
-    static void dispatch(Tcl_Interp* interp, Func callback, Params... args) {
-      callback(args...);
+    static void dispatch(Tcl_Interp* interp, Func callback, Params&&... args) {
+      callback(std::forward<Params>(args)...);
     }
 };
 
