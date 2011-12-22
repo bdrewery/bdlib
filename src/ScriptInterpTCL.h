@@ -139,59 +139,9 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual String eval(const String& script);
         virtual LoadError loadScript(const String& fileName, String& resultStr);
 
-        template<typename ReturnType>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)()) {
-          _createCommand(cmdName, new ScriptCallbackTCL0<ReturnType>(callback), 0);
-        }
-
-        template<typename ReturnType, typename T1>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1)) {
-          _createCommand(cmdName, new ScriptCallbackTCL1<ReturnType, T1>(callback), 1);
-        }
-
-        template<typename ReturnType, typename T1, typename T2>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2)) {
-          _createCommand(cmdName, new ScriptCallbackTCL2<ReturnType, T1, T2>(callback), 2);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3)) {
-          _createCommand(cmdName, new ScriptCallbackTCL3<ReturnType, T1, T2, T3>(callback), 3);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4)) {
-          _createCommand(cmdName, new ScriptCallbackTCL4<ReturnType, T1, T2, T3, T4>(callback), 4);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5)) {
-          _createCommand(cmdName, new ScriptCallbackTCL5<ReturnType, T1, T2, T3, T4, T5>(callback), 5);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6)) {
-          _createCommand(cmdName, new ScriptCallbackTCL6<ReturnType, T1, T2, T3, T4, T5, T6>(callback), 6);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7)) {
-          _createCommand(cmdName, new ScriptCallbackTCL7<ReturnType, T1, T2, T3, T4, T5, T6, T7>(callback), 7);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8)) {
-          _createCommand(cmdName, new ScriptCallbackTCL8<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8>(callback), 8);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9)) {
-          _createCommand(cmdName, new ScriptCallbackTCL9<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9>(callback), 9);
-        }
-
-        template<typename ReturnType, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)) {
-          _createCommand(cmdName, new ScriptCallbackTCL10<ReturnType, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(callback), 10);
+        template<typename ReturnType, typename... Params>
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(Params...)) {
+          _createCommand(cmdName, new ScriptCallbackTCL<ReturnType, Params...>(callback), sizeof...(Params));
         }
 
         virtual void deleteCommand(const String& cmdName) {
