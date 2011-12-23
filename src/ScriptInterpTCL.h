@@ -52,6 +52,7 @@ c_to_tcl_castable(unsigned long);
 c_to_tcl_castable(double);
 c_to_tcl_castable(bool);
 c_to_tcl_castable(String);
+c_to_tcl_castable(const char*);
 
 template <typename T>
 struct tcl_to_c_cast;
@@ -84,7 +85,7 @@ const char* tcl_traceSet<T> (ClientData clientData, Tcl_Interp* interp, char* na
   Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);                                                           \
   if (!obj) goto fail;                                                                                                             \
                                                                                                                                    \
-  *static_cast<T*>(clientData) = tcl_to_c_cast<T>::from(obj);                                                                                            \
+  *static_cast<T*>(clientData) = std::move(tcl_to_c_cast<T>::from(obj));                                                           \
   return NULL;                                                                                                                     \
 fail:                                                                                                                              \
   return name1;                                                                                                                    \

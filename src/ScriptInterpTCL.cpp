@@ -35,7 +35,8 @@ int ScriptInterpTCL::init() {
   //Tcl_FindExecutable(binname);
 
   if (Tcl_Init(interp) != TCL_OK) {
-    fprintf(stderr, "Tcl_Init error: %s\n", Tcl_GetStringResult(interp));
+    Tcl_Obj* result = Tcl_GetObjResult(interp);
+    fprintf(stderr, "Tcl_Init error: %s\n", tcl_to_c_cast<const char*>::from(result));
     return 1;
   }
   return 0;
@@ -51,14 +52,8 @@ int ScriptInterpTCL::destroy() {
 
 String ScriptInterpTCL::eval(const String& script) {
   if (Tcl_EvalEx(interp, script.c_str(), script.length(), TCL_EVAL_GLOBAL) == TCL_OK) {
-    //FIXME: Dry with TraceSetString
     Tcl_Obj* value = Tcl_GetObjResult(interp);
-    int len = 0;
-    char *cstr = Tcl_GetStringFromObj(value, &len);
-    if (!cstr)
-      //FIXME: Error handling
-      return String();
-    return String(cstr, len);
+    return tcl_to_c_cast<String>::from(value);
   } else
     return eval("set errorInfo");
   return String();
@@ -68,13 +63,8 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
   if (fileName.rfind(".tcl", fileName.length() - 4) == String::npos)
     return SCRIPT_LOAD_WRONG_INTERP;
   if (Tcl_EvalFile(interp, *fileName) != TCL_OK) {
-    //FIXME: Dry with TraceSetString
     Tcl_Obj* value = Tcl_GetObjResult(interp);
-    int len = 0;
-    char *cstr = Tcl_GetStringFromObj(value, &len);
-    if (!cstr)
-      resultStr = String();
-    resultStr = String(cstr, len);
+    resultStr = tcl_to_c_cast<String>::from(value);
     return SCRIPT_LOAD_ERROR;
   }
   return SCRIPT_LOAD_OK;
@@ -106,14 +96,14 @@ const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *inte
 
 const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags) {
   if (value) {
-    Tcl_SetVar2(interp,name1,name2,Tcl_GetStringFromObj(value,NULL), flags);
+    Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast<const char*>::from(value), flags);
     Tcl_DecrRefCount(value);
   }
   return NULL;
 }
 
 Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *name1o = Tcl_NewStringObj(name1,-1);
+  Tcl_Obj *name1o = c_to_tcl_cast<const char*>::from(name1);
   Tcl_Obj *value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
   Tcl_DecrRefCount(name1o);
   return value;
@@ -138,6 +128,8 @@ Tcl_Obj* c_to_tcl_cast<double>::from(double value) {
 Tcl_Obj* c_to_tcl_cast<String>::from(String value) {
   return (value.length() < INT_MAX) ? Tcl_NewStringObj(value.data(), value.length()) : NULL;
 }
+
+Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value) {return c_to_tcl_cast<String>::from(value);}
 
 Tcl_Obj* c_to_tcl_cast<bool>::from(bool value) {
   return Tcl_NewBooleanObj(value);
