@@ -33,7 +33,7 @@ class ScriptCallbackTCL : public ScriptCallbackTCLBase {
     function_t _callback;
 
     template<std::size_t... Indices>
-    inline void real_call(int objc, void* const argv[], void* proxy_data, indices<Indices...>) {
+    inline void real_call(size_t argc, void* const argv[], void* proxy_data, indices<Indices...>) {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       ScriptCallbackDispatchTCL<ReturnType, Params...>::dispatch(interp, _callback,
@@ -43,8 +43,8 @@ class ScriptCallbackTCL : public ScriptCallbackTCLBase {
 
   public:
     ScriptCallbackTCL(function_t callback) : _callback(callback) {};
-    inline virtual void call(int objc, void* const argv[], void* proxy_data) {
-      real_call(objc, argv, proxy_data, make_indices<sizeof...(Params)>());
+    inline virtual void call(size_t argc, void* const argv[], void* proxy_data) {
+      real_call(argc, argv, proxy_data, make_indices<sizeof...(Params)>());
     }
 };
 #endif

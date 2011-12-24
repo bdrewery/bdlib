@@ -43,7 +43,7 @@ BDLIB_NS_BEGIN
 class ScriptCallbackBase {
   public:
     virtual ~ScriptCallbackBase() {};
-    virtual void call(int argc, void* const argv[], void *proxy_data = NULL) = 0;
+    virtual void call(size_t argc, void* const argv[], void *proxy_data = NULL) = 0;
 };
 
 /**
