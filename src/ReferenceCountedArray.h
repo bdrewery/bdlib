@@ -346,10 +346,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       }
     }
   public:
-    ReferenceCountedArray() : Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {};
-    ReferenceCountedArray(const ReferenceCountedArray& rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+    ReferenceCountedArray() : ReferenceCountedArrayBase(), Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {};
+    ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    ReferenceCountedArray(ReferenceCountedArray&& rca) : Ref(NULL), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       swap(*this, rca);
     };
 #endif
@@ -362,7 +362,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * The idea behind this is that if a specific size was asked for, the buffer is like
      * a char buf[N];
      */
-    explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
+    explicit ReferenceCountedArray(const size_t newSize) : ReferenceCountedArrayBase(), Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
       Reserve(newSize);
     };
@@ -374,7 +374,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post A buffer has been created.
      *
      */
-    ReferenceCountedArray(const size_t newSize, const value_type value) : Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(const size_t newSize, const value_type value) : ReferenceCountedArrayBase(), Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
       Reserve(newSize);
 
