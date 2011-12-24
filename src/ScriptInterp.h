@@ -120,6 +120,9 @@ class ScriptInterp {
          * @param varName The name of the variable to remove
          */
         virtual void unlinkVar(const String& varName) = 0;
+
+        // Used for downcasting hack due to no virtual templates
+        virtual String type() const = 0;
 };
 
 
