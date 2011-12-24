@@ -74,8 +74,8 @@ int ScriptInterpTCL::tcl_callback(ClientData clientData, Tcl_Interp *interp, int
   String cmdName(tcl_to_c_cast<String>::from(objv[0]));
   script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
 
-  if ((size_t(objc) - 1) != ccd->callbackParamCount) {
-    String errorResult(String::printf("Wrong # args. Expected %zu, got %d", ccd->callbackParamCount, objc - 1));
+  if ((size_t(objc) - 1) < ccd->callbackParamMin || size_t(objc) - 1 > ccd->callbackParamMax) {
+    String errorResult(String::printf("Wrong # args. Expected %zu, got %d", ccd->callbackParamMin, objc - 1));
     Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(errorResult));
     return TCL_ERROR;
   }

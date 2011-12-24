@@ -230,7 +230,11 @@ bool my_xz(String my_cd, int my_i, bool my_bool, String my_string) {
 
 String param_test(String arg1, int arg2) {
   String return_string;
-  return_string = String::printf("I got %zu args, arg1: %s arg2: %d", size_t(2), *arg1, arg2);
+  if (arg2) {
+    return_string = String::printf("I got %zu args, arg1: %s arg2: %d", size_t(2), *arg1, arg2);
+  } else {
+    return_string = String::printf("I got %zu args, arg1: %s", size_t(1), *arg1);
+  }
   return return_string;
 }
 
@@ -255,12 +259,18 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   CPPUNIT_ASSERT_EQUAL(53, atoi(*tcl_script.eval("xi \"0\"")));
 
   // Test dispatch through ScriptInterp
-  ScriptInterp::createCommand(tcl_script, "param_test", param_test);
-  result = String::printf("Wrong # args. Expected 2, got 1\n    while executing\n\"param_test \"TEST\"\"");
-  CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("param_test \"TEST\""));
+  ScriptInterp::createCommand(tcl_script, "param_test", param_test, 1);
+  // Try too little
+  result = String::printf("Wrong # args. Expected 1, got 0\n    while executing\n\"param_test\"");
+  CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("param_test"));
+  // Try too many
+  result = String::printf("Wrong # args. Expected 1, got 3\n    while executing\n\"param_test \"TEST\" 1 2\"");
+  CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("param_test \"TEST\" 1 2"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: TEST arg2: 1", tcl_script.eval("param_test \"TEST\" 1"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: 5 arg2: 10", tcl_script.eval("param_test 5 10"));
 
+  // Test default params
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TEST", tcl_script.eval("param_test \"TEST\""));
   // Check extern functional
   tcl_script.createCommand("atoi", atoi);
   CPPUNIT_ASSERT_EQUAL(atoi("5"), atoi(*tcl_script.eval("atoi 5")));

@@ -36,8 +36,13 @@ class ScriptCallbackTCL : public ScriptCallbackTCLBase {
     inline void real_call(size_t argc, void* const argv[], void* proxy_data, indices<Indices...>) {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
+      // Doing argc check to pass default params in if not enough were passed to the handler
       ScriptCallbackDispatchTCL<ReturnType, Params...>::dispatch(interp, _callback,
-          std::move(tcl_to_c_cast<Params>::from(std::move(objv[Indices + 1])))...
+          (
+           ((argc - 1) >= Indices + 1) ?
+           (std::move(tcl_to_c_cast<Params>::from(std::move(objv[Indices + 1])))) :
+           (std::move(Params()))
+          )...
       );
     }
 
