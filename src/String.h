@@ -57,6 +57,7 @@ typedef char String_Array_Type;
  */
 class String : public ReferenceCountedArray<String_Array_Type> {
   private:
+        typedef std::allocator<String_Array_Type> Allocator;
         static unsigned char cleanse_ctr;
 
         /* Cleanse our buffer using OPENSSL_cleanse() */
@@ -77,10 +78,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
   public:
 
         /* Constructors */
-        String() : ReferenceCountedArray<String_Array_Type>() {};
-	String(const String& string) : ReferenceCountedArray<String_Array_Type>(string) {};
+        String(const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
+	String(const String& string) : ReferenceCountedArray<String_Array_Type, Allocator>(string) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-	String(String&& string) : ReferenceCountedArray<String_Array_Type>(std::move(string)) {};
+	String(String&& string) : ReferenceCountedArray<String_Array_Type, Allocator>(std::move(string)) {};
 #endif
 	/**
 	 * @brief Create a String from a given cstring.
@@ -88,7 +89,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the string.
 	 * @test String test("Some string");
  	*/
-	String(const char* cstring) : ReferenceCountedArray<String_Array_Type>() { if (cstring) append(cstring); };
+	String(const char* cstring, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { if (cstring) append(cstring); };
 
 	/**
 	 * @brief Create a String from a given cstring with the given strlen.
@@ -98,7 +99,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the string (up to len characters).
 	 * @test String test("Some string");
          */
-        String(const char* cstring, size_t slen) : ReferenceCountedArray<String_Array_Type>() { append(cstring, slen); };
+        String(const char* cstring, size_t slen, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { append(cstring, slen); };
 
 	/**
 	 * @brief Create a String from a given character.
@@ -107,7 +108,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the caracter.
 	 * @test String test('a');
 	 */
-        String(const char ch) : ReferenceCountedArray<String_Array_Type>() { append(ch); };
+        String(const char ch, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { append(ch); };
 
 	/**
 	 * @brief Create an empty String container with at least the specified bytes in size.
@@ -118,8 +119,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * The idea behind this is that if a specific size was asked for, the buffer is like
 	 * a char buf[N];
          */
-        explicit String(const size_t newSize) : ReferenceCountedArray<String_Array_Type>(newSize) {};
-        String(const size_t newSize, const char value) : ReferenceCountedArray<String_Array_Type>(newSize, value) {};
+        explicit String(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(newSize, allocator) {};
+        String(const size_t newSize, const char value, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(newSize, value, allocator) {};
 
 
         virtual ~String() {
@@ -134,7 +135,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @return The position of the string if found, or String::npos if not found
          **/
         size_t find(const String&) const;
-        using ReferenceCountedArray<String_Array_Type>::find;
+        using ReferenceCountedArray<String_Array_Type, Allocator>::find;
 
         /**
          * @brief Find a string, starting from the end of the string
@@ -144,7 +145,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @sa find
          */
         size_t rfind(const String& str, const size_t lpos = 0) const;
-        using ReferenceCountedArray<String_Array_Type>::rfind;
+        using ReferenceCountedArray<String_Array_Type, Allocator>::rfind;
 
 	/**
 	 * @brief Cstring accessor
@@ -263,13 +264,13 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
 
-        using ReferenceCountedArray<String_Array_Type>::append;
+        using ReferenceCountedArray<String_Array_Type, Allocator>::append;
 
         void insert(size_t, const char*, size_t = npos);
-        using ReferenceCountedArray<String_Array_Type>::insert;
+        using ReferenceCountedArray<String_Array_Type, Allocator>::insert;
 
         void replace(size_t, const char*, size_t = npos);
-        using ReferenceCountedArray<String_Array_Type>::replace;
+        using ReferenceCountedArray<String_Array_Type, Allocator>::replace;
 
         /**
          * @brief Replace all occurances of the given search with the given replacement.
@@ -311,7 +312,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         const String operator--(int);
 
 
-        //using ReferenceCountedArray<String_Array_Type>::operator=;
+        //using ReferenceCountedArray<String_Array_Type, Allocator>::operator=;
 
         friend String operator+(String, const String&);
         friend bool operator==(const String&, const String&);
