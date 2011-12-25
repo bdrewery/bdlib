@@ -35,7 +35,6 @@
 #endif /* CPPUNIT_VERSION */
 
 BDLIB_NS_BEGIN
-class String;
 template <class T>
 /**
  * @class Array

@@ -24,6 +24,7 @@
 #define _BD_SOCKET_H 1
 
 #include "bdlib.h"
+#include "String.h"
 
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>
@@ -34,8 +35,6 @@
 #endif
 
 BDLIB_NS_BEGIN
-
-class String;
 
 #define SOCKET_CLIENT   BIT0
 #define SOCKET_SERVER   BIT1

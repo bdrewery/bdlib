@@ -47,8 +47,6 @@ BDLIB_NS_BEGIN
 template <class T>
 class Array;
 
-class String;
-
 typedef char String_Array_Type;
 
 /**

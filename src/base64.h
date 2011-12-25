@@ -24,10 +24,9 @@
 #define _BD_BASE64_H 1
 
 #include "bdlib.h"
+#include "String.h"
 
 BDLIB_NS_BEGIN
-class String;
-
 class Base64 {
 };
 
