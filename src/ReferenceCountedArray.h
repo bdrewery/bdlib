@@ -25,6 +25,7 @@
 #include "bdlib.h"
 #include "hash.h"
 #include <iterator>
+#include <memory>
 #include <stdint.h>
 #include <sys/types.h>
 #ifdef DEBUG
@@ -33,7 +34,7 @@
 #include <string.h>
 
 BDLIB_NS_BEGIN
-template <class T>
+template <class T, class Allocator = std::allocator<T>>
 /**
  * @class ArrayRef
  * @brief Helps the String and Array classes with reference counting
@@ -41,12 +42,14 @@ template <class T>
  */
 class ArrayRef {
   public:
-    ~ArrayRef() { FreeBuf(buf); };
+    typedef typename Allocator::pointer iterator;
+    mutable Allocator alloc;
     mutable size_t size; //Capacity of buffer
-    mutable T* buf;
+    mutable iterator buf;
     mutable int n; //References
 
-    ArrayRef() : size(0), buf(NULL), n(1) {};
+    ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), n(1) {};
+    ~ArrayRef() { FreeBuf(buf); };
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
      * @param newSize A size that we need to Allocate the buffer to.
@@ -56,19 +59,22 @@ class ArrayRef {
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
      */
-    void Reserve(const size_t newSize, size_t& offset, size_t sublen) const
+    void Reserve(size_t newSize, size_t& offset, size_t sublen) const
     {
       /* Don't new if we already have enough room! */
       if (size < newSize) {
-        size = std::max(size_t(size * 1.5), newSize);
+        newSize = std::max(size_t(size * 1.5), newSize);
 
-        T *newbuf = AllocBuf(size);
+        iterator newbuf = alloc.allocate(newSize, buf);
 
         if (newbuf != buf) {
+          // Initialize new memory
+          std::uninitialized_fill(newbuf, newbuf + newSize, T());
           /* Copy old buffer into new - only copy the subarray */
           std::copy(buf + offset, buf + offset + sublen, newbuf);
           FreeBuf(buf);
           buf = newbuf;
+          size = newSize;
           offset = 0;
         }
       } else if ((size - offset) < newSize) {
@@ -81,23 +87,16 @@ class ArrayRef {
     }
 
     /**
-     * @brief Allocates a buffer and returns it's address.
-     * @param bytes The number of bytes to allocate.
-     * @post A new block of memory is allocated.
-     * @todo Implement mempool here.
-     */
-    inline T* AllocBuf(const size_t bytes) const {
-      return new T[bytes];
-    }
-
-    /**
      * @brief Free's up the allocated buffer.
      * @param p The buffer to be free'd
      * @post The buffer is deleted.
      * @todo Implement mempool here.
      */
-    inline void FreeBuf(T* p) const {
-      delete[] p;
+    inline void FreeBuf(iterator p) const {
+      for (iterator i = p; i != p + size; ++i) {
+        alloc.destroy(i);
+      }
+      alloc.deallocate(p, size);
     }
 
     /**
@@ -144,6 +143,7 @@ class Slice {
     friend void swap(Slice& a, Slice& b) {
       using std::swap;
 
+      swap(a.alloc, b.alloc);
       swap(a.rca, b.rca);
       swap(a.start, b.start);
       swap(a.len, b.len);
@@ -174,7 +174,7 @@ class ReferenceCountedArrayBase {
 };
 
 
-template <class T>
+template <class T, class Allocator = std::allocator<T>>
 /**
  * @class ReferenceCountedArray
  * @brief Common template base class for String and Array
@@ -183,14 +183,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
   public:
     typedef T value_type;
 
-    typedef size_t             size_type;
-    typedef std::ptrdiff_t     difference_type;
-    typedef value_type*        pointer;
-    typedef const value_type*  const_pointer;
-    typedef value_type&        reference;
-    typedef const value_type&  const_reference;
-    typedef value_type*        iterator;
-    typedef const value_type*  const_iterator;
+    typedef typename Allocator::size_type             size_type;
+    typedef typename Allocator::difference_type       difference_type;
+    typedef typename Allocator::pointer               pointer;
+    typedef typename Allocator::const_pointer         const_pointer;
+    typedef typename Allocator::reference             reference;
+    typedef typename Allocator::const_reference       const_reference;
+    typedef typename Allocator::pointer               iterator;
+    typedef typename Allocator::const_pointer         const_iterator;
     typedef std::reverse_iterator<const_iterator>     const_reverse_iterator;
     typedef std::reverse_iterator<iterator>           reverse_iterator;
 
@@ -202,7 +202,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void doDetach() const {
       decRef();
-      Ref = new ArrayRef<value_type>();
+      Ref = new ArrayRef<value_type, Allocator>(alloc);
       sublen = 0;
       offset = 0;
       my_hash = 0;
@@ -249,11 +249,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline const_pointer constBuf(size_t pos = 0) const { return Buf(pos); };
   private:
+    Allocator alloc;
     /**
      * @brief The array reference for reference counting
      * This is mutable so that Ref->n can be modified, which really is mutable
      */
-    mutable ArrayRef<value_type> *Ref;
+    mutable ArrayRef<value_type, Allocator> *Ref;
   protected:
     /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
@@ -346,10 +347,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       }
     }
   public:
-    ReferenceCountedArray() : ReferenceCountedArrayBase(), Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {};
-    ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+    ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(new ArrayRef<value_type, Allocator>(alloc)), offset(0), sublen(0), my_hash(0) {};
+    ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       swap(*this, rca);
     };
 #endif
@@ -362,7 +363,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * The idea behind this is that if a specific size was asked for, the buffer is like
      * a char buf[N];
      */
-    explicit ReferenceCountedArray(const size_t newSize) : ReferenceCountedArrayBase(), Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
+    explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(new ArrayRef<value_type, Allocator>(alloc)), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
       Reserve(newSize);
     };
@@ -374,7 +375,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post A buffer has been created.
      *
      */
-    ReferenceCountedArray(const size_t newSize, const value_type value) : ReferenceCountedArrayBase(), Ref(new ArrayRef<value_type>()), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(new ArrayRef<value_type, Allocator>(alloc)), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
       Reserve(newSize);
 
@@ -396,6 +397,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) {
       using std::swap;
 
+      swap(a.alloc, b.alloc);
       swap(a.offset, b.offset);
       swap(a.sublen, b.sublen);
       swap(a.my_hash, b.my_hash);
