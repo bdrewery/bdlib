@@ -2,7 +2,6 @@
  *
  */
 #include "Stream.h"
-#include <stdarg.h>
 #include <algorithm> // min() / max()
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

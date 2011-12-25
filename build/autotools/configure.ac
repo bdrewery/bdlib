@@ -61,63 +61,14 @@ AC_CHECK_PROG(UNAME, uname, uname)
 AC_CHECK_PROG(CCACHE, ccache, ccache)
 AC_CHECK_PROG(DISTCC, distcc, distcc)
 
-# Test the os and set the module linking settings
-EGG_CHECK_OS
-
-# Check for IPv6 support
-#EGG_IPV6_SUPPORTED
-EGG_IPV6_OPTIONS
-EGG_CHECK_SOCKLEN_T
-
-# Check for inconsistent random() functions
-EGG_CHECK_RANDOM_MAX
-
-# Create static binaries
 AC_SUBST(CXXDEBUG)dnl
 AC_SUBST(MAKEJOBS)dnl
 
 #checkpoint
 AC_CACHE_SAVE 
 
-# Checks for system libraries
-EGG_CHECK_LIBS
-
 # Checks for header files
-AC_HEADER_DIRENT
-#checkpoint
-AC_CACHE_SAVE 
-AC_CHECK_HEADERS([stdarg.h arpa/inet.h fcntl.h limits.h locale.h netinet/in.h])
-AC_CHECK_HEADERS([sys/file.h sys/ioctl.h sys/param.h sys/socket.h sys/ptrace.h paths.h])
-
-#checkpoint
-AC_CACHE_SAVE
-#AC_CHECK_HEADERS(openssl/ssl.h openssl/crypto.h)
-#AC_CHECK_HEADERS(zlib.h)
-#EGG_CHECK_ZLIB
-#EGG_CHECK_SSL
-
-
-AC_SUBST(ZLIB)dnl
-#AC_SUBST(SSL)dnl
-
-# Checks for typedefs, structures, and compiler characteristics
-AC_TYPE_PID_T
-AC_TYPE_SIZE_T
-AC_TYPE_UID_T
-AC_TYPE_LONG_LONG_INT
-AC_TYPE_INT8_T
-AC_TYPE_UINT8_T
-AC_TYPE_INT16_T
-AC_TYPE_UINT16_T
-AC_TYPE_INT32_T
-AC_TYPE_UINT32_T
-AC_TYPE_INT64_T
-AC_TYPE_UINT64_T
-AC_CHECK_SIZEOF(short, 0)
-AC_CHECK_SIZEOF(int, 0)
-AC_CHECK_SIZEOF(long, 0)
-AC_CHECK_SIZEOF(long long,0)
-
+AC_CHECK_HEADERS([stdarg.h fcntl.h netinet/in.h sys/socket.h])
 
 #AC_C_CONST
 AC_C_VOLATILE
@@ -127,33 +78,12 @@ AC_C_CHAR_UNSIGNED
 #AC_C_STRINGIZE
 #AC_C_PROTOTYPES
 
-#checkpoint
-AC_CACHE_SAVE 
-
-
-AC_STRUCT_TIMEZONE
-
-# Checks for library functions
-AC_FUNC_FORK
-AC_FUNC_CHOWN
-AC_FUNC_MKTIME
 AC_FUNC_MMAP
 
-
-AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
-EGG_FUNC_TIMESPEC
-
-#checkpoint
-AC_CACHE_SAVE
-AC_CHECK_FUNCS([fsync getrusage isascii])
-AC_CHECK_FUNCS([random srandom gettime])
-AC_CHECK_FUNCS([strcasecmp strncasecmp])
 AC_CHECK_FUNCS([select])
 
 #checkpoint
 AC_CACHE_SAVE
-
-EGG_CHECK_FUNC_UNAME
 
 #FIND_WRAPS
 DO_DEPS
@@ -162,47 +92,6 @@ AC_CONFIG_FILES([
 	Makefile 
 	src/Makefile 
 	build/Makefile
-	build/buildinfo.h
 	src/tests/Makefile
 ])
 AC_OUTPUT
-
-AH_TEMPLATE(HAVE_ST_MTIM, [Define to 1 if your struct stat has an st_mtim member])
-AH_TEMPLATE(HAVE_ST_MTIMESPEC, [Define to 1 if your struct stat has an st_mtimespec member])
-AH_TEMPLATE(HAVE_TIMESPEC, [Define to 1 if you have struct timespec in sys/time.h])
-AH_TEMPLATE(HAVE_TIMESPECSUB2, [Define to 1 if you have a timespecsub macro or function that takes two arguments (not three)])
-AH_BOTTOM([/*
- * Macros to pull sec and nsec parts of mtime from struct stat.
- */
-#ifdef HAVE_ST_MTIM
-# define mtim_getsec(_x)        ((_x).st_mtim.tv_sec)
-# define mtim_getnsec(_x)       ((_x).st_mtim.tv_nsec)
-#else
-# ifdef HAVE_ST_MTIMESPEC
-#  define mtim_getsec(_x)       ((_x).st_mtimespec.tv_sec)
-#  define mtim_getnsec(_x)      ((_x).st_mtimespec.tv_nsec)
-# else
-#  define mtim_getsec(_x)       ((_x).st_mtime)
-#  define mtim_getnsec(_x)      (0)
-# endif /* HAVE_ST_MTIMESPEC */
-#endif /* HAVE_ST_MTIM */
-
-/*
- * Enable IPv6 debugging?
- */
-#define DEBUG_IPV6 1
-#define HAVE_IPV6 1
-
-/* IPv6 sanity checks. */
-#ifdef USE_IPV6
-#  ifndef HAVE_IPV6
-#    undef USE_IPV6
-#  endif
-#  ifndef HAVE_GETHOSTBYNAME2
-#    ifndef HAVE_GETIPNODEBYNAME
-#      undef USE_IPV6
-#    endif
-#  endif
-#endif
-])
-
