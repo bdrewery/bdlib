@@ -117,6 +117,7 @@ int Stream::loadFile(const int fd)
   while ((len = fread(buf, 1, sizeof(buf) - 1, f))) {
     puts(String(buf, len));
   }
+  fclose(f);
 #endif
   seek(0, SEEK_SET);
   loading = 0;
@@ -154,8 +155,11 @@ int Stream::writeFile(const int fd) const
   if (f == NULL)
     return 1;
 
-  if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f)))
+  if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
+    fclose(f);
     return 1;
+  }
+  fclose(f);
 #endif
   return 0;
 }
