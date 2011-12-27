@@ -24,9 +24,7 @@
 #define _BD_STRING_H 1
 
 #include "bdlib.h"
-#include "HashTable.h"
 #include "ReferenceCountedArray.h"
-//#include "Array.h"
 
 #include <stdint.h>
 #include <iostream>
@@ -46,6 +44,9 @@
 BDLIB_NS_BEGIN
 template <class T>
 class Array;
+
+template <typename, typename>
+class HashTable;
 
 typedef char String_Array_Type;
 

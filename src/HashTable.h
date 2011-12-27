@@ -27,10 +27,9 @@
 #include "hash.h"
 #include "Iterator.h"
 #include "List.h"
+#include "Array.h"
 BDLIB_NS_BEGIN
 
-template <class T>
-class Array;
 
 template <class Key, class Value>
 /**

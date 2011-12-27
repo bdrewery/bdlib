@@ -24,6 +24,7 @@
 
 #include "String.h"
 #include "Array.h"
+#include "HashTable.h"
 #include <stdarg.h>
 #include <cstring>
 using std::strlen;
