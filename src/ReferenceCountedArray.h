@@ -347,7 +347,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       }
     }
   public:
-    ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(new ArrayRef<value_type, Allocator>(alloc)), offset(0), sublen(0), my_hash(0) {};
+    ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+      Ref = new ArrayRef<value_type, Allocator>(alloc);
+    };
     ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
     ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(), Ref(NULL), offset(0), sublen(0), my_hash(0) {
@@ -363,8 +365,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * The idea behind this is that if a specific size was asked for, the buffer is like
      * a char buf[N];
      */
-    explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(new ArrayRef<value_type, Allocator>(alloc)), offset(0), sublen(0), my_hash(0) {
+    explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
+      Ref = new ArrayRef<value_type, Allocator>(alloc);
       Reserve(newSize);
     };
     /**
@@ -375,8 +378,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post A buffer has been created.
      *
      */
-    ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(new ArrayRef<value_type, Allocator>(alloc)), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
+      Ref = new ArrayRef<value_type, Allocator>(alloc);
       Reserve(newSize);
 
       for (size_t i = 0; i < newSize; ++i)
