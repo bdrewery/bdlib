@@ -1,27 +1,22 @@
 <html>
 <head>
-<title>Ref</title>
+<title>QueueConstIterator</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L198'>Ref</a>               198 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type&gt;();
-<a href='../S/43.html#L206'>Ref</a>               206 ReferenceCountedArray.h     inline int incRef() const { return ++Ref-&gt;n; };
-<a href='../S/43.html#L211'>Ref</a>               211 ReferenceCountedArray.h     inline int decRef() const { return --Ref-&gt;n; };
-<a href='../S/43.html#L238'>Ref</a>               238 ReferenceCountedArray.h     inline pointer Buf(size_t pos = 0) const { return &amp;Ref-&gt;buf[offset + pos]; };
-<a href='../S/43.html#L249'>Ref</a>               249 ReferenceCountedArray.h     mutable ArrayRef&lt;value_type&gt; *Ref;
-<a href='../S/43.html#L254'>Ref</a>               254 ReferenceCountedArray.h     inline const_pointer real_begin() const { return Ref-&gt;buf; };
-<a href='../S/43.html#L295'>Ref</a>               295 ReferenceCountedArray.h         delete Ref;
-<a href='../S/43.html#L343'>Ref</a>               343 ReferenceCountedArray.h     ReferenceCountedArray() : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0), my_hash(0) {};
-<a href='../S/43.html#L344'>Ref</a>               344 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/43.html#L354'>Ref</a>               354 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0), my_hash(0) {
-<a href='../S/43.html#L366'>Ref</a>               366 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value) : Ref(new ArrayRef&lt;value_type&gt;()), offset(0), sublen(0), my_hash(0) {
-<a href='../S/43.html#L397'>Ref</a>               397 ReferenceCountedArray.h       Ref = rca.Ref;
-<a href='../S/43.html#L417'>Ref</a>               417 ReferenceCountedArray.h     inline size_t rcount() const { return Ref-&gt;n; };
-<a href='../S/43.html#L421'>Ref</a>               421 ReferenceCountedArray.h     inline bool isShared() const { return Ref-&gt;isShared(); };
-<a href='../S/43.html#L428'>Ref</a>               428 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize) const { Ref-&gt;Reserve(newSize, offset, sublen); };
-<a href='../S/43.html#L439'>Ref</a>               439 ReferenceCountedArray.h     inline size_t capacity() const { return Ref-&gt;size; };
+<a href='../S/48.html#L33'>QueueConstIterator</a>   33 Queue.h        template &lt;class T&gt; class QueueConstIterator;
+<a href='../S/48.html#L45'>QueueConstIterator</a>   45 Queue.h            friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/48.html#L48'>QueueConstIterator</a>   48 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
+<a href='../S/48.html#L113'>QueueConstIterator</a>  113 Queue.h          friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/48.html#L118'>QueueConstIterator</a>  118 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
+<a href='../S/48.html#L157'>QueueConstIterator</a>  157 Queue.h        class QueueConstIterator {
+<a href='../S/48.html#L164'>QueueConstIterator</a>  164 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
+<a href='../S/48.html#L177'>QueueConstIterator</a>  177 Queue.h            QueueConstIterator(const Queue_t* _queue, const Node* start) : queue(_queue), current(start) {};
+<a href='../S/48.html#L179'>QueueConstIterator</a>  179 Queue.h            QueueConstIterator(const iterator&amp; iter) : queue(iter.queue), current(iter.current) {};
+<a href='../S/48.html#L180'>QueueConstIterator</a>  180 Queue.h            QueueConstIterator() : queue(NULL), current(NULL) {};
+<a href='../S/48.html#L181'>QueueConstIterator</a>  181 Queue.h            ~QueueConstIterator() { }
 </pre>
 </body>
 </html>

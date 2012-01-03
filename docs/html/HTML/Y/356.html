@@ -1,22 +1,14 @@
 <html>
 <head>
-<title>newpos</title>
+<title>mode</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/53.html#L30'>newpos</a>             30 Stream.cpp       int newpos;
-<a href='../S/53.html#L34'>newpos</a>             34 Stream.cpp           newpos = offset;
-<a href='../S/53.html#L37'>newpos</a>             37 Stream.cpp           newpos = tell() + offset;
-<a href='../S/53.html#L40'>newpos</a>             40 Stream.cpp           newpos = capacity() - offset;
-<a href='../S/53.html#L43'>newpos</a>             43 Stream.cpp           newpos = tell();
-<a href='../S/53.html#L45'>newpos</a>             45 Stream.cpp       if (newpos &lt; 0)
-<a href='../S/53.html#L46'>newpos</a>             46 Stream.cpp         newpos = 0;
-<a href='../S/53.html#L47'>newpos</a>             47 Stream.cpp       else if (static_cast&lt;size_t&gt;(newpos) &gt; capacity())
-<a href='../S/53.html#L48'>newpos</a>             48 Stream.cpp         newpos = capacity();
-<a href='../S/53.html#L49'>newpos</a>             49 Stream.cpp       pos = newpos;
-<a href='../S/53.html#L51'>newpos</a>             51 Stream.cpp       return newpos;
+<a href='../S/54.html#L127'>mode</a>              127 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
+<a href='../S/54.html#L129'>mode</a>              129 Stream.cpp       int fd = open(file.c_str(), O_CREAT|O_RDWR|O_TRUNC, mode);
+<a href='../S/34.html#L155'>mode</a>              155 Stream.h               virtual int writeFile(const String&amp; fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
 </pre>
 </body>
 </html>

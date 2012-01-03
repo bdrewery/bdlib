@@ -1,56 +1,14 @@
 <html>
 <head>
-<title>iterator</title>
+<title>hasher</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L250'>iterator</a>          250 BinaryTree.h         for (iterator iter = begin(); iter; ++iter) {
-<a href='../S/3.html#L286'>iterator</a>          286 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/3.html#L302'>iterator</a>          302 BinaryTree.h           iterator&amp; operator=(const iterator&amp; iter) {
-<a href='../S/3.html#L340'>iterator</a>          340 BinaryTree.h           virtual iterator operator++(int) {
-<a href='../S/3.html#L341'>iterator</a>          341 BinaryTree.h             iterator tmp(*this);
-<a href='../S/3.html#L349'>iterator</a>          349 BinaryTree.h           virtual iterator&amp; operator++() {
-<a href='../S/3.html#L357'>iterator</a>          357 BinaryTree.h           virtual iterator operator--(int) {
-<a href='../S/3.html#L358'>iterator</a>          358 BinaryTree.h             iterator tmp(*this);
-<a href='../S/3.html#L366'>iterator</a>          366 BinaryTree.h           virtual iterator&amp; operator--() {
-<a href='../S/3.html#L372'>iterator</a>          372 BinaryTree.h       inline iterator begin() { return iterator(this, root, my_size); };
-<a href='../S/3.html#L373'>iterator</a>          373 BinaryTree.h       inline iterator end() { return iterator(this, root, my_size, 1); };
-<a href='../S/5.html#L85'>iterator</a>           85 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
-<a href='../S/5.html#L161'>iterator</a>          161 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
-<a href='../S/5.html#L179'>iterator</a>          179 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
-<a href='../S/37.html#L200'>iterator</a>          200 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/37.html#L211'>iterator</a>          211 List.h                 iterator&amp; operator =(const iterator&amp; iter) {
-<a href='../S/37.html#L234'>iterator</a>          234 List.h                 virtual iterator operator ++(int) {
-<a href='../S/37.html#L235'>iterator</a>          235 List.h                   iterator tmp(*this);
-<a href='../S/37.html#L240'>iterator</a>          240 List.h                 virtual iterator&amp; operator ++() {
-<a href='../S/37.html#L246'>iterator</a>          246 List.h                 virtual iterator operator --(int) {
-<a href='../S/37.html#L247'>iterator</a>          247 List.h                   iterator tmp(*this);
-<a href='../S/37.html#L252'>iterator</a>          252 List.h                 virtual iterator&amp; operator --() {
-<a href='../S/37.html#L258'>iterator</a>          258 List.h             inline iterator begin() { return iterator(*this); };
-<a href='../S/37.html#L259'>iterator</a>          259 List.h             inline iterator end() { return iterator(*this, 1); };
-<a href='../S/47.html#L104'>iterator</a>          104 Queue.h            inline iterator begin() { return iterator(this, this-&gt;tail); };
-<a href='../S/47.html#L105'>iterator</a>          105 Queue.h            inline iterator end() { return iterator(this, NULL); };
-<a href='../S/47.html#L140'>iterator</a>          140 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/47.html#L141'>iterator</a>          141 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/47.html#L144'>iterator</a>          144 Queue.h            iterator operator ++(int) {
-<a href='../S/47.html#L145'>iterator</a>          145 Queue.h              iterator tmp(*this);
-<a href='../S/47.html#L150'>iterator</a>          150 Queue.h            iterator&amp; operator ++() {
-<a href='../S/47.html#L179'>iterator</a>          179 Queue.h            QueueConstIterator(const iterator&amp; iter) : queue(iter.queue), current(iter.current) {};
-<a href='../S/47.html#L197'>iterator</a>          197 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/47.html#L198'>iterator</a>          198 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/47.html#L202'>iterator</a>          202 Queue.h              iterator tmp(*this);
-<a href='../S/43.html#L495'>iterator</a>          495 ReferenceCountedArray.h     inline iterator begin() { return iterator(mdata()); };
-<a href='../S/43.html#L506'>iterator</a>          506 ReferenceCountedArray.h     inline iterator end() { return iterator(begin()) + length(); };
-<a href='../S/29.html#L278'>iterator</a>          278 tests/BinaryTreeTest.cpp   BinaryTree&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/14.html#L342'>iterator</a>          342 tests/HashTableTest.cpp   HashTable&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/26.html#L249'>iterator</a>          249 tests/ListTest.cpp   List&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/26.html#L292'>iterator</a>          292 tests/ListTest.cpp   List&lt;String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/18.html#L102'>iterator</a>          102 tests/QueueTest.cpp   Queue&lt;String&gt;::iterator iter(a-&gt;begin());
-<a href='../S/23.html#L239'>iterator</a>          239 tests/SortedListTest.cpp   SortedList&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/23.html#L282'>iterator</a>          282 tests/SortedListTest.cpp   SortedList&lt;String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/19.html#L102'>iterator</a>          102 tests/StackTest.cpp   Stack&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/5.html#L53'>hasher</a>             53 HashTable.h        hasher _hash;
+<a href='../S/44.html#L581'>hasher</a>            581 ReferenceCountedArray.h       HashType hasher;
+<a href='../S/44.html#L585'>hasher</a>            585 ReferenceCountedArray.h         _hash = ((_hash &lt;&lt; 5) + _hash) + hasher(this-&gt;data()[i]);
 </pre>
 </body>
 </html>

@@ -1,13 +1,23 @@
 <html>
 <head>
-<title>_rca</title>
+<title>_capacity</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L133'>_rca</a>              133 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-<a href='../S/43.html#L630'>_rca</a>              630 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, size_t pos) : rca(_rca), k(pos) {};
+<a href='../S/5.html#L52'>_capacity</a>          52 HashTable.h        size_t _capacity;
+<a href='../S/5.html#L56'>_capacity</a>          56 HashTable.h          return _hash(key) % _capacity;
+<a href='../S/5.html#L59'>_capacity</a>          59 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
+<a href='../S/5.html#L60'>_capacity</a>          60 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+<a href='../S/5.html#L61'>_capacity</a>          61 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/5.html#L62'>_capacity</a>          62 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
+<a href='../S/5.html#L66'>_capacity</a>          66 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(NULL), _size(0), _capacity(default_list_size), _hash() {
+<a href='../S/5.html#L71'>_capacity</a>          71 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
+<a href='../S/5.html#L81'>_capacity</a>          81 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
+<a href='../S/5.html#L97'>_capacity</a>          97 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i) {
+<a href='../S/5.html#L117'>_capacity</a>         117 HashTable.h          swap(a._capacity, b._capacity);
+<a href='../S/5.html#L140'>_capacity</a>         140 HashTable.h        inline size_t capacity() const { return _capacity; };
 </pre>
 </body>
 </html>

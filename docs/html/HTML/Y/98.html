@@ -1,22 +1,336 @@
 <html>
 <head>
-<title>Thread</title>
+<title>String</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/48.html#L42'>Thread</a>             42 Thread.cpp       Thread* thread = (Thread*) object;
-<a href='../S/48.html#L46'>Thread</a>             46 Thread.cpp     int Thread::start(void* _param) {
-<a href='../S/48.html#L78'>Thread</a>             78 Thread.cpp     void Thread::detach(void) {
-<a href='../S/48.html#L91'>Thread</a>             91 Thread.cpp     void* Thread::wait(void) {
-<a href='../S/48.html#L107'>Thread</a>            107 Thread.cpp     void Thread::stop(void) {
-<a href='../S/48.html#L120'>Thread</a>            120 Thread.cpp     threadId_t Thread::getThreadId(void) {
-<a href='../S/48.html#L124'>Thread</a>            124 Thread.cpp     threadId_t Thread::getCurrentThreadId(void) {
-<a href='../S/48.html#L132'>Thread</a>            132 Thread.cpp     void Thread::sleep(int delay) {
-<a href='../S/49.html#L58'>Thread</a>             58 Thread.h       class Thread {
-<a href='../S/49.html#L67'>Thread</a>             67 Thread.h           Thread(void) : handle(0), id(0), status(0), param(NULL) {};
-<a href='../S/49.html#L68'>Thread</a>             68 Thread.h           virtual ~Thread() { stop(); };
+<a href='../S/45.html#L180'>String</a>            180 Array.h            String join(const String&amp; delim, bool quoted = false) const {
+<a href='../S/45.html#L181'>String</a>            181 Array.h              if (!this-&gt;length()) return String();
+<a href='../S/45.html#L182'>String</a>            182 Array.h              String str;
+<a href='../S/1.html#L75'>String</a>             75 Socket.h           bool connect(const String host, const in_port_t port);
+<a href='../S/1.html#L80'>String</a>             80 Socket.h           bool send(const String) const;
+<a href='../S/1.html#L81'>String</a>             81 Socket.h           bool recv(String&amp;) const;
+<a href='../S/1.html#L90'>String</a>             90 Socket.h           ClientSocket(const String&amp; dest, const in_port_t port);
+<a href='../S/1.html#L91'>String</a>             91 Socket.h           ClientSocket(const String&amp; dest, const in_port_t port, const String&amp; src, const in_port_t sport);
+<a href='../S/1.html#L100'>String</a>            100 Socket.h           ServerSocket(const String&amp; addr, const in_port_t port);
+<a href='../S/54.html#L53'>String</a>             53 Stream.cpp     String Stream::read(size_t maxSize, char delim) {
+<a href='../S/54.html#L58'>String</a>             58 Stream.cpp         String ret(str(pos, toRead));
+<a href='../S/54.html#L64'>String</a>             64 Stream.cpp       String ret(toRead);
+<a href='../S/54.html#L77'>String</a>             77 Stream.cpp     int Stream::loadFile(const String&amp; file)
+<a href='../S/54.html#L100'>String</a>            100 Stream.cpp       puts(String(static_cast&lt;const char*&gt;(map), size));
+<a href='../S/54.html#L118'>String</a>            118 Stream.cpp         puts(String(buf, len));
+<a href='../S/54.html#L127'>String</a>            127 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
+<a href='../S/34.html#L46'>String</a>             46 Stream.h               String str;
+<a href='../S/34.html#L58'>String</a>             58 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/34.html#L88'>String</a>             88 Stream.h               String peek() { return str(pos); };
+<a href='../S/34.html#L99'>String</a>             99 Stream.h               virtual void puts (const String&amp; string) {
+<a href='../S/34.html#L110'>String</a>            110 Stream.h               virtual String getline (size_t maxSize = 99999999) { return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
+<a href='../S/34.html#L118'>String</a>            118 Stream.h               virtual String read (size_t maxSize, char delim = 0);
+<a href='../S/34.html#L139'>String</a>            139 Stream.h               virtual int loadFile(const String&amp; fname);
+<a href='../S/34.html#L155'>String</a>            155 Stream.h               virtual int writeFile(const String&amp; fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
+<a href='../S/34.html#L158'>String</a>            158 Stream.h               inline operator String() const { return str; };
+<a href='../S/34.html#L163'>String</a>            163 Stream.h               friend Stream&amp; operator&lt;&lt;(Stream&amp;, const String&amp;);
+<a href='../S/34.html#L166'>String</a>            166 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/55.html#L39'>String</a>             39 String.cpp     unsigned char String::cleanse_ctr = 0;
+<a href='../S/55.html#L42'>String</a>             42 String.cpp     int String::compare(const String&amp; str, size_t n, size_t start) const
+<a href='../S/55.html#L71'>String</a>             71 String.cpp     void String::insert(size_t pos, const char *string, size_t n)
+<a href='../S/55.html#L90'>String</a>             90 String.cpp     void String::replace(size_t pos, const char *string, size_t n)
+<a href='../S/55.html#L108'>String</a>            108 String.cpp     std::istream&amp; operator&gt;&gt;(std::istream&amp; is, String&amp; string) {
+<a href='../S/55.html#L129'>String</a>            129 String.cpp     std::istream&amp; getline(std::istream&amp; is, String&amp; string) {
+<a href='../S/55.html#L146'>String</a>            146 String.cpp     Array&lt;String&gt; String::split(const String&amp; delim, size_t limit) const {
+<a href='../S/55.html#L147'>String</a>            147 String.cpp       if (!length()) return Array&lt;String&gt;();
+<a href='../S/55.html#L149'>String</a>            149 String.cpp         String list[] = {*this};
+<a href='../S/55.html#L150'>String</a>            150 String.cpp         return Array&lt;String&gt;(list, 1);
+<a href='../S/55.html#L153'>String</a>            153 String.cpp       const String space(' ');
+<a href='../S/55.html#L154'>String</a>            154 String.cpp       Array&lt;String&gt; array;
+<a href='../S/55.html#L156'>String</a>            156 String.cpp       String str(*this);
+<a href='../S/55.html#L182'>String</a>            182 String.cpp     String String::operator*(int times) const {
+<a href='../S/55.html#L183'>String</a>            183 String.cpp       String newString((this-&gt;length() * times));
+<a href='../S/55.html#L189'>String</a>            189 String.cpp     String String::printf(const char* format, ...) {
+<a href='../S/55.html#L197'>String</a>            197 String.cpp       return String(va_out, len);
+<a href='../S/55.html#L200'>String</a>            200 String.cpp     String&amp; String::chomp() {
+<a href='../S/55.html#L206'>String</a>            206 String.cpp     String&amp; String::trim() {
+<a href='../S/55.html#L214'>String</a>            214 String.cpp     size_t String::find(const String&amp; str) const {
+<a href='../S/55.html#L224'>String</a>            224 String.cpp     size_t String::rfind(const String&amp; str, const size_t lpos) const {
+<a href='../S/55.html#L234'>String</a>            234 String.cpp     String String::sub(const String&amp; search, const String&amp; replacement, int limit) const {
+<a href='../S/55.html#L235'>String</a>            235 String.cpp       String newStr(length()), search_str(*this);
+<a href='../S/55.html#L251'>String</a>            251 String.cpp     String String::subst(HashTable&lt;String, String&gt; hashes) const {
+<a href='../S/55.html#L252'>String</a>            252 String.cpp       String newStr(*this);
+<a href='../S/55.html#L253'>String</a>            253 String.cpp       Array&lt;String&gt; keys(hashes.keys());
+<a href='../S/55.html#L254'>String</a>            254 String.cpp       Array&lt;String&gt; values(hashes.values());
+<a href='../S/55.html#L256'>String</a>            256 String.cpp         const String key(keys[i]), value(values[i]);
+<a href='../S/55.html#L270'>String</a>            270 String.cpp     String newsplit(String&amp; str, char delim)
+<a href='../S/55.html#L274'>String</a>            274 String.cpp       if (pos == String::npos)
+<a href='../S/55.html#L277'>String</a>            277 String.cpp       String first(str(0, pos));
+<a href='../S/35.html#L40'>String</a>             40 String.h       #define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual) BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
+<a href='../S/35.html#L59'>String</a>             59 String.h       class String : public ReferenceCountedArray&lt;String_Array_Type&gt; {
+<a href='../S/35.html#L82'>String</a>             82 String.h               String(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) {};
+<a href='../S/35.html#L83'>String</a>             83 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(string) {};
+<a href='../S/35.html#L85'>String</a>             85 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/35.html#L93'>String</a>             93 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
+<a href='../S/35.html#L103'>String</a>            103 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
+<a href='../S/35.html#L112'>String</a>            112 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
+<a href='../S/35.html#L123'>String</a>            123 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
+<a href='../S/35.html#L124'>String</a>            124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/35.html#L127'>String</a>            127 String.h               virtual ~String() {
+<a href='../S/35.html#L138'>String</a>            138 String.h               size_t find(const String&amp;) const;
+<a href='../S/35.html#L148'>String</a>            148 String.h               size_t rfind(const String&amp; str, const size_t lpos = 0) const;
+<a href='../S/35.html#L193'>String</a>            193 String.h       	String operator*(int) const;
+<a href='../S/35.html#L199'>String</a>            199 String.h               String&amp; chomp();
+<a href='../S/35.html#L205'>String</a>            205 String.h               String chomp() const { return String(*this).chomp(); }
+<a href='../S/35.html#L211'>String</a>            211 String.h               String&amp; trim();
+<a href='../S/35.html#L217'>String</a>            217 String.h               String trim() const { return String(*this).trim(); }
+<a href='../S/35.html#L228'>String</a>            228 String.h               String substring(int start, int len = -1) const {
+<a href='../S/35.html#L229'>String</a>            229 String.h                 String newString(*this);
+<a href='../S/35.html#L237'>String</a>            237 String.h               inline String operator()(int start, int len = -1) const { return substring(start, len); };
+<a href='../S/35.html#L245'>String</a>            245 String.h               inline Slice&lt;String&gt; operator()(int start, int len = -1) { return Slice&lt;String&gt;(*this, start, len); };
+<a href='../S/35.html#L254'>String</a>            254 String.h               int compare(const String&amp; str, size_t n = 0, size_t start = 0) const;
+<a href='../S/35.html#L256'>String</a>            256 String.h               Array&lt;String&gt; split(const String&amp;, size_t limit = npos) const;
+<a href='../S/35.html#L283'>String</a>            283 String.h               String sub(const String&amp; search, const String&amp; replacement, int limit = -1) const;
+<a href='../S/35.html#L290'>String</a>            290 String.h               String subst(HashTable&lt;String, String&gt; hashes) const;
+<a href='../S/35.html#L298'>String</a>            298 String.h               static String printf(const char*, ...)  __attribute__((format(printf, 1, 2)));
+<a href='../S/35.html#L300'>String</a>            300 String.h       	static String printf(const char*, ...);
+<a href='../S/35.html#L304'>String</a>            304 String.h               String&amp; operator+=(const char);
+<a href='../S/35.html#L305'>String</a>            305 String.h               String&amp; operator+=(const char*);
+<a href='../S/35.html#L306'>String</a>            306 String.h               String&amp; operator+=(const String&amp;);
+<a href='../S/35.html#L307'>String</a>            307 String.h               String&amp; operator+=(const size_t);
+<a href='../S/35.html#L308'>String</a>            308 String.h               String&amp; operator-=(const size_t);
+<a href='../S/35.html#L310'>String</a>            310 String.h               const String&amp; operator++();
+<a href='../S/35.html#L311'>String</a>            311 String.h               const String operator++(int);
+<a href='../S/35.html#L312'>String</a>            312 String.h               const String&amp; operator--();
+<a href='../S/35.html#L313'>String</a>            313 String.h               const String operator--(int);
+<a href='../S/35.html#L318'>String</a>            318 String.h               friend String operator+(String, const String&amp;);
+<a href='../S/35.html#L319'>String</a>            319 String.h               friend bool operator==(const String&amp;, const String&amp;);
+<a href='../S/35.html#L320'>String</a>            320 String.h               friend bool operator!=(const String&amp;, const String&amp;);
+<a href='../S/35.html#L321'>String</a>            321 String.h               friend bool operator&lt;(const String&amp;, const String&amp;);
+<a href='../S/35.html#L322'>String</a>            322 String.h               friend bool operator&lt;=(const String&amp;, const String&amp;);
+<a href='../S/35.html#L323'>String</a>            323 String.h               friend bool operator&gt;(const String&amp;, const String&amp;);
+<a href='../S/35.html#L324'>String</a>            324 String.h               friend bool operator&gt;=(const String&amp;, const String&amp;);
+<a href='../S/35.html#L326'>String</a>            326 String.h               friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp;, const String&amp;);
+<a href='../S/35.html#L327'>String</a>            327 String.h               friend std::ostream&amp; operator&gt;&gt;(std::ostream&amp;, const String&amp;);
+<a href='../S/35.html#L330'>String</a>            330 String.h               static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/35.html#L342'>String</a>            342 String.h         struct Hash&lt;String&gt;
+<a href='../S/35.html#L344'>String</a>            344 String.h                 inline size_t operator()(const String&amp; val) const { return val.hash(); }
+<a href='../S/35.html#L354'>String</a>            354 String.h       inline String operator+(String string1, const String&amp; string2) {
+<a href='../S/35.html#L362'>String</a>            362 String.h       inline const String&amp; String::operator++() {
+<a href='../S/35.html#L369'>String</a>            369 String.h       inline const String String::operator++(int) {
+<a href='../S/35.html#L370'>String</a>            370 String.h         String tmp(*this);
+<a href='../S/35.html#L378'>String</a>            378 String.h       inline const String&amp; String::operator--() {
+<a href='../S/35.html#L385'>String</a>            385 String.h       inline const String String::operator--(int) {
+<a href='../S/35.html#L386'>String</a>            386 String.h         String tmp(*this);
+<a href='../S/35.html#L399'>String</a>            399 String.h       inline String&amp; String::operator+=(const char ch) {
+<a href='../S/35.html#L407'>String</a>            407 String.h       inline String&amp; String::operator+=(const char* string) {
+<a href='../S/35.html#L415'>String</a>            415 String.h       inline String&amp; String::operator+=(const String&amp; string) {
+<a href='../S/35.html#L420'>String</a>            420 String.h       inline String&amp; String::operator+=(const size_t n) {
+<a href='../S/35.html#L433'>String</a>            433 String.h       inline String&amp; String::operator-=(const size_t n) {
+<a href='../S/35.html#L447'>String</a>            447 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/35.html#L451'>String</a>            451 String.h       inline bool operator!=(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/35.html#L455'>String</a>            455 String.h       inline bool operator&lt;(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/35.html#L459'>String</a>            459 String.h       inline bool operator&lt;=(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/35.html#L463'>String</a>            463 String.h       inline bool operator&gt;(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/35.html#L467'>String</a>            467 String.h       inline bool operator&gt;=(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/35.html#L475'>String</a>            475 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/35.html#L479'>String</a>            479 String.h       inline bool String::operator!=(const String&amp; rhs) const {
+<a href='../S/35.html#L483'>String</a>            483 String.h       inline bool String::operator&lt;(const String&amp; rhs) const {
+<a href='../S/35.html#L487'>String</a>            487 String.h       inline bool String::operator&lt;=(const String&amp; rhs) const {
+<a href='../S/35.html#L491'>String</a>            491 String.h       inline bool String::operator&gt;(const String&amp; rhs) const {
+<a href='../S/35.html#L495'>String</a>            495 String.h       inline bool String::operator&gt;=(const String&amp; rhs) const {
+<a href='../S/35.html#L500'>String</a>            500 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
+<a href='../S/35.html#L507'>String</a>            507 String.h       String newsplit(String&amp; str, char delim = ' ');
+<a href='../S/35.html#L509'>String</a>            509 String.h       std::istream&amp; operator&gt;&gt;(std::istream&amp;, String&amp;);
+<a href='../S/35.html#L510'>String</a>            510 String.h       std::istream&amp; getline(std::istream&amp;, String&amp;);
+<a href='../S/46.html#L99'>String</a>             99 base64.c       String base64Encode(const String&amp; string, const char* charset) {
+<a href='../S/46.html#L102'>String</a>            102 base64.c         bd::String encoded(p, len);
+<a href='../S/46.html#L163'>String</a>            163 base64.c       String base64Decode(const String&amp; string, const char* charset) {
+<a href='../S/46.html#L166'>String</a>            166 base64.c         bd::String decoded(p, len);
+<a href='../S/38.html#L70'>String</a>             70 base64.h       String base64Encode(const String&amp; string, const char* charset = NULL);
+<a href='../S/38.html#L96'>String</a>             96 base64.h       String base64Decode(const String&amp; string, const char* charset = NULL);
+<a href='../S/30.html#L17'>String</a>             17 tests/ArrayTest.cpp     str_a = new Array&lt;String&gt;();
+<a href='../S/30.html#L18'>String</a>             18 tests/ArrayTest.cpp     str_b = new Array&lt;String&gt;(20);
+<a href='../S/30.html#L45'>String</a>             45 tests/ArrayTest.cpp   str_a-&gt;push(String("Test1"));
+<a href='../S/30.html#L46'>String</a>             46 tests/ArrayTest.cpp   (*str_a) &lt;&lt; String("Test2");
+<a href='../S/30.html#L54'>String</a>             54 tests/ArrayTest.cpp   String a = "Testa";
+<a href='../S/30.html#L55'>String</a>             55 tests/ArrayTest.cpp   String b = "Testb";
+<a href='../S/30.html#L56'>String</a>             56 tests/ArrayTest.cpp   String c = b;
+<a href='../S/30.html#L68'>String</a>             68 tests/ArrayTest.cpp   String res = str_a-&gt;pop();
+<a href='../S/30.html#L87'>String</a>             87 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(String(), str_a-&gt;pop());
+<a href='../S/30.html#L95'>String</a>             95 tests/ArrayTest.cpp   String hm;
+<a href='../S/30.html#L106'>String</a>            106 tests/ArrayTest.cpp   (*str_a) = Array&lt;String&gt;();
+<a href='../S/30.html#L115'>String</a>            115 tests/ArrayTest.cpp   String carray2[] = {"2Test1", "2Test2"};
+<a href='../S/30.html#L116'>String</a>            116 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;(carray2, 2);
+<a href='../S/30.html#L262'>String</a>            262 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;();
+<a href='../S/30.html#L277'>String</a>            277 tests/ArrayTest.cpp   Array&lt;String&gt; inplaceTest;
+<a href='../S/30.html#L285'>String</a>            285 tests/ArrayTest.cpp   Array&lt;String&gt; expectedResults(*str_a);
+<a href='../S/30.html#L296'>String</a>            296 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;();
+<a href='../S/30.html#L325'>String</a>            325 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht;
+<a href='../S/30.html#L328'>String</a>            328 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht2;
+<a href='../S/30.html#L337'>String</a>            337 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha1;
+<a href='../S/30.html#L338'>String</a>            338 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha2;
+<a href='../S/30.html#L354'>String</a>            354 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;();
+<a href='../S/24.html#L58'>String</a>             58 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
+<a href='../S/29.html#L21'>String</a>             21 tests/BinaryTreeTest.cpp   a = new BinaryTree&lt;int, String&gt;();
+<a href='../S/29.html#L46'>String</a>             46 tests/BinaryTreeTest.cpp   String ignored = (*a)[53];
+<a href='../S/29.html#L82'>String</a>             82 tests/BinaryTreeTest.cpp   b = new BinaryTree&lt;int, String&gt;(*a);
+<a href='../S/29.html#L137'>String</a>            137 tests/BinaryTreeTest.cpp   String result;
+<a href='../S/29.html#L201'>String</a>            201 tests/BinaryTreeTest.cpp   String result;
+<a href='../S/29.html#L278'>String</a>            278 tests/BinaryTreeTest.cpp   BinaryTree&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/29.html#L283'>String</a>            283 tests/BinaryTreeTest.cpp     String value = (iter++)-&gt;value();
+<a href='../S/29.html#L316'>String</a>            316 tests/BinaryTreeTest.cpp     (*a).insert(i, String(buf));
+<a href='../S/29.html#L325'>String</a>            325 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/29.html#L335'>String</a>            335 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/29.html#L346'>String</a>            346 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/29.html#L369'>String</a>            369 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/29.html#L379'>String</a>            379 tests/BinaryTreeTest.cpp     (*a).insert(i, String(buf));
+<a href='../S/29.html#L405'>String</a>            405 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/22.html#L40'>String</a>             40 tests/BinaryTreeTest.h         BinaryTree&lt;int, String&gt; *a, *b, *c, *d, *e, *f, *g, *h;
+<a href='../S/22.html#L42'>String</a>             42 tests/BinaryTreeTest.h 	String v1, v2, v3, v4;
+<a href='../S/14.html#L21'>String</a>             21 tests/HashTableTest.cpp   a = new HashTable&lt;int, String&gt;();
+<a href='../S/14.html#L22'>String</a>             22 tests/HashTableTest.cpp   b = new HashTable&lt;int, String&gt;();
+<a href='../S/14.html#L23'>String</a>             23 tests/HashTableTest.cpp   sa = new HashTable&lt;String, String&gt;();
+<a href='../S/14.html#L24'>String</a>             24 tests/HashTableTest.cpp   sb = new HashTable&lt;String, String&gt;();
+<a href='../S/14.html#L158'>String</a>            158 tests/HashTableTest.cpp   Array&lt;String&gt; keys = sa-&gt;keys();
+<a href='../S/14.html#L166'>String</a>            166 tests/HashTableTest.cpp   Array&lt;String&gt; values = sa-&gt;values();
+<a href='../S/14.html#L251'>String</a>            251 tests/HashTableTest.cpp   String result = (*a)[58];
+<a href='../S/14.html#L263'>String</a>            263 tests/HashTableTest.cpp   HashTable&lt;int, String&gt; test(*a);
+<a href='../S/14.html#L302'>String</a>            302 tests/HashTableTest.cpp   String result;
+<a href='../S/14.html#L342'>String</a>            342 tests/HashTableTest.cpp   HashTable&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/14.html#L346'>String</a>            346 tests/HashTableTest.cpp     String value = iter.next();
+<a href='../S/14.html#L379'>String</a>            379 tests/HashTableTest.cpp   HashTable&lt;String, int&gt; my_hash {
+<a href='../S/25.html#L45'>String</a>             45 tests/HashTableTest.h         HashTable&lt;int, String&gt; *a, *b, *c, *d, *e, *f, *g, *h;
+<a href='../S/25.html#L46'>String</a>             46 tests/HashTableTest.h         HashTable&lt;String, String&gt; *sa, *sb;
+<a href='../S/25.html#L48'>String</a>             48 tests/HashTableTest.h 	String v1, v2, v3, v4;
+<a href='../S/26.html#L21'>String</a>             21 tests/ListTest.cpp   a = new List&lt;String&gt;();
+<a href='../S/26.html#L22'>String</a>             22 tests/ListTest.cpp   b = new List&lt;String&gt;();
+<a href='../S/26.html#L23'>String</a>             23 tests/ListTest.cpp   c = new List&lt;String&gt;();
+<a href='../S/26.html#L24'>String</a>             24 tests/ListTest.cpp   d = new List&lt;String&gt;();
+<a href='../S/26.html#L25'>String</a>             25 tests/ListTest.cpp   e = new List&lt;String*&gt;();
+<a href='../S/26.html#L26'>String</a>             26 tests/ListTest.cpp   f = new List&lt;String*&gt;();
+<a href='../S/26.html#L27'>String</a>             27 tests/ListTest.cpp   g = new List&lt;String*&gt;();
+<a href='../S/26.html#L28'>String</a>             28 tests/ListTest.cpp   h = new List&lt;String*&gt;();
+<a href='../S/26.html#L87'>String</a>             87 tests/ListTest.cpp   b = new List&lt;String&gt;(*a);
+<a href='../S/26.html#L249'>String</a>            249 tests/ListTest.cpp   List&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/26.html#L253'>String</a>            253 tests/ListTest.cpp     String value = iter.next();
+<a href='../S/26.html#L292'>String</a>            292 tests/ListTest.cpp   List&lt;String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/26.html#L341'>String</a>            341 tests/ListTest.cpp     (*a).insert(String(buf));
+<a href='../S/26.html#L349'>String</a>            349 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/26.html#L358'>String</a>            358 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/26.html#L368'>String</a>            368 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/26.html#L389'>String</a>            389 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/26.html#L399'>String</a>            399 tests/ListTest.cpp     (*a).insert(String(buf));
+<a href='../S/26.html#L423'>String</a>            423 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/16.html#L38'>String</a>             38 tests/ListTest.h         List&lt;String&gt; *a, *b, *c, *d;
+<a href='../S/16.html#L39'>String</a>             39 tests/ListTest.h         List&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/18.html#L21'>String</a>             21 tests/QueueTest.cpp   a = new Queue&lt;String&gt;();
+<a href='../S/18.html#L22'>String</a>             22 tests/QueueTest.cpp   b = new Queue&lt;String&gt;();
+<a href='../S/18.html#L23'>String</a>             23 tests/QueueTest.cpp   c = new Queue&lt;String&gt;();
+<a href='../S/18.html#L24'>String</a>             24 tests/QueueTest.cpp   d = new Queue&lt;String&gt;();
+<a href='../S/18.html#L25'>String</a>             25 tests/QueueTest.cpp   e = new Queue&lt;String*&gt;();
+<a href='../S/18.html#L26'>String</a>             26 tests/QueueTest.cpp   f = new Queue&lt;String*&gt;();
+<a href='../S/18.html#L27'>String</a>             27 tests/QueueTest.cpp   g = new Queue&lt;String*&gt;();
+<a href='../S/18.html#L28'>String</a>             28 tests/QueueTest.cpp   h = new Queue&lt;String*&gt;();
+<a href='../S/18.html#L89'>String</a>             89 tests/QueueTest.cpp   String one, two, three;
+<a href='../S/18.html#L102'>String</a>            102 tests/QueueTest.cpp   Queue&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/28.html#L30'>String</a>             30 tests/QueueTest.h         Queue&lt;String&gt; *a, *b, *c, *d;
+<a href='../S/28.html#L31'>String</a>             31 tests/QueueTest.h         Queue&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/23.html#L21'>String</a>             21 tests/SortedListTest.cpp   a = new SortedList&lt;String&gt;();
+<a href='../S/23.html#L22'>String</a>             22 tests/SortedListTest.cpp   b = new SortedList&lt;String&gt;();
+<a href='../S/23.html#L23'>String</a>             23 tests/SortedListTest.cpp   c = new SortedList&lt;String&gt;();
+<a href='../S/23.html#L24'>String</a>             24 tests/SortedListTest.cpp   d = new SortedList&lt;String&gt;();
+<a href='../S/23.html#L25'>String</a>             25 tests/SortedListTest.cpp   e = new SortedList&lt;String*&gt;();
+<a href='../S/23.html#L26'>String</a>             26 tests/SortedListTest.cpp   f = new SortedList&lt;String*&gt;();
+<a href='../S/23.html#L27'>String</a>             27 tests/SortedListTest.cpp   g = new SortedList&lt;String*&gt;();
+<a href='../S/23.html#L28'>String</a>             28 tests/SortedListTest.cpp   h = new SortedList&lt;String*&gt;();
+<a href='../S/23.html#L87'>String</a>             87 tests/SortedListTest.cpp   b = new SortedList&lt;String&gt;(*a);
+<a href='../S/23.html#L239'>String</a>            239 tests/SortedListTest.cpp   SortedList&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/23.html#L243'>String</a>            243 tests/SortedListTest.cpp     String value = iter.next();
+<a href='../S/23.html#L282'>String</a>            282 tests/SortedListTest.cpp   SortedList&lt;String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/23.html#L331'>String</a>            331 tests/SortedListTest.cpp     (*a).insert(String(buf));
+<a href='../S/23.html#L339'>String</a>            339 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L348'>String</a>            348 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L358'>String</a>            358 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L379'>String</a>            379 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L389'>String</a>            389 tests/SortedListTest.cpp     (*a).insert(String(buf));
+<a href='../S/23.html#L413'>String</a>            413 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/11.html#L38'>String</a>             38 tests/SortedListTest.h         SortedList&lt;String&gt; *a, *b, *c, *d;
+<a href='../S/11.html#L39'>String</a>             39 tests/SortedListTest.h         SortedList&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/19.html#L21'>String</a>             21 tests/StackTest.cpp   a = new Stack&lt;String&gt;();
+<a href='../S/19.html#L22'>String</a>             22 tests/StackTest.cpp   b = new Stack&lt;String&gt;();
+<a href='../S/19.html#L23'>String</a>             23 tests/StackTest.cpp   c = new Stack&lt;String&gt;();
+<a href='../S/19.html#L24'>String</a>             24 tests/StackTest.cpp   d = new Stack&lt;String&gt;();
+<a href='../S/19.html#L25'>String</a>             25 tests/StackTest.cpp   e = new Stack&lt;String*&gt;();
+<a href='../S/19.html#L26'>String</a>             26 tests/StackTest.cpp   f = new Stack&lt;String*&gt;();
+<a href='../S/19.html#L27'>String</a>             27 tests/StackTest.cpp   g = new Stack&lt;String*&gt;();
+<a href='../S/19.html#L28'>String</a>             28 tests/StackTest.cpp   h = new Stack&lt;String*&gt;();
+<a href='../S/19.html#L89'>String</a>             89 tests/StackTest.cpp   String one, two, three;
+<a href='../S/19.html#L102'>String</a>            102 tests/StackTest.cpp   Stack&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/17.html#L30'>String</a>             30 tests/StackTest.h         Stack&lt;String&gt; *a, *b, *c, *d;
+<a href='../S/17.html#L31'>String</a>             31 tests/StackTest.h         Stack&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/13.html#L22'>String</a>             22 tests/StreamTest.cpp     F = new Stream(String(cstring, 11));
+<a href='../S/13.html#L130'>String</a>            130 tests/StreamTest.cpp   String sbuf, gbuf;
+<a href='../S/13.html#L150'>String</a>            150 tests/StreamTest.cpp     sbuf = String::printf("This is line%2d\nThis is line%2d\n", x + 1, x + 2);
+<a href='../S/13.html#L174'>String</a>            174 tests/StreamTest.cpp   String sbuf, gbuf;
+<a href='../S/13.html#L194'>String</a>            194 tests/StreamTest.cpp     sbuf = String::printf("This is line%2d\n", x);
+<a href='../S/13.html#L228'>String</a>            228 tests/StreamTest.cpp   String gbuf;
+<a href='../S/13.html#L233'>String</a>            233 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+<a href='../S/13.html#L273'>String</a>            273 tests/StreamTest.cpp   String gbuf;
+<a href='../S/13.html#L278'>String</a>            278 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+<a href='../S/13.html#L320'>String</a>            320 tests/StreamTest.cpp   String gbuf;
+<a href='../S/13.html#L325'>String</a>            325 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+<a href='../S/27.html#L95'>String</a>             95 tests/StringTest.cpp   CPPUNIT_ASSERT(String("abc") &lt; String("def"));
+<a href='../S/27.html#L96'>String</a>             96 tests/StringTest.cpp   CPPUNIT_ASSERT(String("abc") &lt; String("abcdef"));
+<a href='../S/27.html#L132'>String</a>            132 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*b, String("blah"));
+<a href='../S/27.html#L134'>String</a>            134 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*d, String(cstring));
+<a href='../S/27.html#L136'>String</a>            136 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*e, String(cstring));
+<a href='../S/27.html#L138'>String</a>            138 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*g, String('x'));
+<a href='../S/27.html#L140'>String</a>            140 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*g, String("x"));
+<a href='../S/27.html#L219'>String</a>            219 tests/StringTest.cpp   (*b)[3] = ((const String) *a)[0];
+<a href='../S/27.html#L274'>String</a>            274 tests/StringTest.cpp   const String test("cfghkijabde");
+<a href='../S/27.html#L275'>String</a>            275 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("k", String(max_element(test.begin(), test.end()), 1));
+<a href='../S/27.html#L298'>String</a>            298 tests/StringTest.cpp   String tmp(size_t(255));
+<a href='../S/27.html#L306'>String</a>            306 tests/StringTest.cpp   String tmp2 = String(s, 255);
+<a href='../S/27.html#L470'>String</a>            470 tests/StringTest.cpp   const String cstr("testing123\r\n");
+<a href='../S/27.html#L500'>String</a>            500 tests/StringTest.cpp   const String cstr("   \t\ftesting123\r\n");
+<a href='../S/27.html#L517'>String</a>            517 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;find("z"));
+<a href='../S/27.html#L518'>String</a>            518 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;find("notfound"));
+<a href='../S/27.html#L536'>String</a>            536 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;rfind("z"));
+<a href='../S/27.html#L537'>String</a>            537 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;rfind("Filename.tclBLA"));
+<a href='../S/27.html#L538'>String</a>            538 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;rfind("Filename.tck"));
+<a href='../S/27.html#L542'>String</a>            542 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;rfind(".tcl", a-&gt;length() - 4));
+<a href='../S/27.html#L547'>String</a>            547 tests/StringTest.cpp   String sentence = "WORD1 WORD2 WORD3 WORD4 WORD5";
+<a href='../S/27.html#L548'>String</a>            548 tests/StringTest.cpp   String w1 = newsplit(sentence);
+<a href='../S/27.html#L553'>String</a>            553 tests/StringTest.cpp   String w2 = newsplit(sentence);
+<a href='../S/27.html#L558'>String</a>            558 tests/StringTest.cpp   String w3 = newsplit(sentence);
+<a href='../S/27.html#L563'>String</a>            563 tests/StringTest.cpp   String w4 = newsplit(sentence);
+<a href='../S/27.html#L568'>String</a>            568 tests/StringTest.cpp   String w5 = newsplit(sentence);
+<a href='../S/27.html#L575'>String</a>            575 tests/StringTest.cpp   String w6 = newsplit(sentence);
+<a href='../S/27.html#L611'>String</a>            611 tests/StringTest.cpp   String old = (*a)++;
+<a href='../S/27.html#L680'>String</a>            680 tests/StringTest.cpp   a-&gt;insert(2, String("BLAH"));
+<a href='../S/27.html#L684'>String</a>            684 tests/StringTest.cpp   a-&gt;replace(2, String("blah"));
+<a href='../S/27.html#L700'>String</a>            700 tests/StringTest.cpp   *a += String("test1234") * 20;
+<a href='../S/27.html#L710'>String</a>            710 tests/StringTest.cpp   *b += String("test") * 500;
+<a href='../S/27.html#L766'>String</a>            766 tests/StringTest.cpp   const String mytest("Test! ");
+<a href='../S/27.html#L776'>String</a>            776 tests/StringTest.cpp   *a = String::printf("%s %d", s, n);
+<a href='../S/27.html#L779'>String</a>            779 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("506 something 506", String::printf("%d %s %d", n, s, n));
+<a href='../S/27.html#L841'>String</a>            841 tests/StringTest.cpp   String eff = String(*f);
+<a href='../S/27.html#L858'>String</a>            858 tests/StringTest.cpp     String tmpbuf(base64Encode(buf));
+<a href='../S/27.html#L860'>String</a>            860 tests/StringTest.cpp     String decoded(base64Decode(tmpbuf));
+<a href='../S/27.html#L866'>String</a>            866 tests/StringTest.cpp   String tmp;
+<a href='../S/27.html#L886'>String</a>            886 tests/StringTest.cpp   String save = String(tmp);
+<a href='../S/27.html#L903'>String</a>            903 tests/StringTest.cpp     (*a) = String(ubuf, size);
+<a href='../S/27.html#L927'>String</a>            927 tests/StringTest.cpp   String tmp = *b;
+<a href='../S/27.html#L967'>String</a>            967 tests/StringTest.cpp   String substring(a-&gt;substring(4, 5));
+<a href='../S/27.html#L994'>String</a>            994 tests/StringTest.cpp   String substring2 = substring.substring(0, 5);
+<a href='../S/27.html#L1000'>String</a>           1000 tests/StringTest.cpp   String substring3 = substring2.substring(1, 4);
+<a href='../S/27.html#L1049'>String</a>           1049 tests/StringTest.cpp   String replace;
+<a href='../S/27.html#L1079'>String</a>           1079 tests/StringTest.cpp   const String constString("THIS CANNOT BE MODIFIED");
+<a href='../S/27.html#L1213'>String</a>           1213 tests/StringTest.cpp   String big("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaa");
+<a href='../S/27.html#L1217'>String</a>           1217 tests/StringTest.cpp   String sub = big(120, 10);
+<a href='../S/27.html#L1246'>String</a>           1246 tests/StringTest.cpp   Array&lt;String&gt; list;
+<a href='../S/27.html#L1389'>String</a>           1389 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(bd::String("01234\0\0\0\0\0", 10), *a);
+<a href='../S/27.html#L1415'>String</a>           1415 tests/StringTest.cpp   HashTable&lt;String, String&gt; hashes;
+<a href='../S/15.html#L97'>String</a>             97 tests/StringTest.h         String *a, *b, *c, *d, *e, *f, *g, *h;
 </pre>
 </body>
 </html>

@@ -1,29 +1,36 @@
 <html>
 <head>
-<title>search</title>
+<title>rcount</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L66'>search</a>             66 BinaryTree.h       Node*&amp; fetchNode(Node* const* search, const Key&amp; key) const {
-<a href='../S/3.html#L67'>search</a>             67 BinaryTree.h         while ((*search) != NULL) {
-<a href='../S/3.html#L68'>search</a>             68 BinaryTree.h           if (key &lt; (*search)-&gt;kv.key())
-<a href='../S/3.html#L69'>search</a>             69 BinaryTree.h             search = &amp;(*search)-&gt;left;
-<a href='../S/3.html#L70'>search</a>             70 BinaryTree.h           else if (key &gt; (*search)-&gt;kv.key())
-<a href='../S/3.html#L71'>search</a>             71 BinaryTree.h             search = &amp;(*search)-&gt;right;
-<a href='../S/3.html#L73'>search</a>             73 BinaryTree.h             return const_cast&lt;Node*&amp;&gt;(*search);
-<a href='../S/3.html#L76'>search</a>             76 BinaryTree.h         return const_cast&lt;Node*&amp;&gt;(*search);
-<a href='../S/3.html#L87'>search</a>             87 BinaryTree.h       inline void insertNode(Node** search, Node* const node) {
-<a href='../S/3.html#L88'>search</a>             88 BinaryTree.h         Node*&amp; insertAt = fetchNode(search, node-&gt;kv.key());
-<a href='../S/37.html#L83'>search</a>             83 List.h               for (Node* search = list.head; search; search = search-&gt;next)
-<a href='../S/37.html#L84'>search</a>             84 List.h                 insert(search-&gt;ptr);
-<a href='../S/37.html#L90'>search</a>             90 List.h                 for (Node* search = list.head; search; search = search-&gt;next)
-<a href='../S/37.html#L91'>search</a>             91 List.h                   insert(search-&gt;ptr);
-<a href='../S/54.html#L233'>search</a>            233 String.cpp     String String::sub(const String&amp; search, const String&amp; replacement, int limit) const {
-<a href='../S/54.html#L238'>search</a>            238 String.cpp       while ((pos = search_str.find(search)) != npos) {
-<a href='../S/54.html#L241'>search</a>            241 String.cpp         search_str += pos + search.length();
-<a href='../S/35.html#L279'>search</a>            279 String.h               String sub(const String&amp; search, const String&amp; replacement, int limit = -1) const;
+<a href='../S/44.html#L453'>rcount</a>            453 ReferenceCountedArray.h     inline size_t rcount() const { return Ref ? Ref-&gt;n : 0; };
+<a href='../S/35.html#L129'>rcount</a>            129 String.h                 if (rcount() == 1) {
+<a href='../S/30.html#L149'>rcount</a>            149 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), int_a-&gt;rcount());
+<a href='../S/30.html#L152'>rcount</a>            152 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_a-&gt;rcount());
+<a href='../S/30.html#L154'>rcount</a>            154 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_b-&gt;rcount());
+<a href='../S/30.html#L158'>rcount</a>            158 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), int_a-&gt;rcount());
+<a href='../S/30.html#L160'>rcount</a>            160 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), int_b-&gt;rcount());
+<a href='../S/30.html#L162'>rcount</a>            162 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), int_c-&gt;rcount());
+<a href='../S/30.html#L166'>rcount</a>            166 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_a-&gt;rcount());
+<a href='../S/30.html#L168'>rcount</a>            168 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), int_b-&gt;rcount());
+<a href='../S/30.html#L170'>rcount</a>            170 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_c-&gt;rcount());
+<a href='../S/27.html#L102'>rcount</a>            102 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), a-&gt;rcount());
+<a href='../S/27.html#L104'>rcount</a>            104 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), a-&gt;rcount());
+<a href='../S/27.html#L105'>rcount</a>            105 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), b-&gt;rcount());
+<a href='../S/27.html#L107'>rcount</a>            107 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), a-&gt;rcount());
+<a href='../S/27.html#L108'>rcount</a>            108 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), b-&gt;rcount());
+<a href='../S/27.html#L109'>rcount</a>            109 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), c-&gt;rcount());
+<a href='../S/27.html#L112'>rcount</a>            112 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), a-&gt;rcount());
+<a href='../S/27.html#L113'>rcount</a>            113 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), b-&gt;rcount());
+<a href='../S/27.html#L114'>rcount</a>            114 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), c-&gt;rcount());
+<a href='../S/27.html#L966'>rcount</a>            966 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), a-&gt;rcount());
+<a href='../S/27.html#L968'>rcount</a>            968 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), a-&gt;rcount());
+<a href='../S/27.html#L969'>rcount</a>            969 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), substring.rcount());
+<a href='../S/27.html#L974'>rcount</a>            974 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), a-&gt;rcount());
+<a href='../S/27.html#L975'>rcount</a>            975 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), substring.rcount());
 </pre>
 </body>
 </html>

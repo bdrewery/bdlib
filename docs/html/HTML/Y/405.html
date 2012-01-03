@@ -1,37 +1,32 @@
 <html>
 <head>
-<title>rca</title>
+<title>prev</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L126'>rca</a>               126 ReferenceCountedArray.h     T&amp; rca;
-<a href='../S/43.html#L133'>rca</a>               133 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-<a href='../S/43.html#L134'>rca</a>               134 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
-<a href='../S/43.html#L140'>rca</a>               140 ReferenceCountedArray.h       T newArray(rca);
-<a href='../S/43.html#L158'>rca</a>               158 ReferenceCountedArray.h       rca.replace(start, array, len);
-<a href='../S/43.html#L344'>rca</a>               344 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/43.html#L391'>rca</a>               391 ReferenceCountedArray.h     const ReferenceCountedArray&amp; operator=(const ReferenceCountedArray&amp; rca) {
-<a href='../S/43.html#L392'>rca</a>               392 ReferenceCountedArray.h       rca.incRef();
-<a href='../S/43.html#L393'>rca</a>               393 ReferenceCountedArray.h       offset = rca.offset;
-<a href='../S/43.html#L394'>rca</a>               394 ReferenceCountedArray.h       sublen = rca.sublen;
-<a href='../S/43.html#L395'>rca</a>               395 ReferenceCountedArray.h       my_hash = rca.my_hash;
-<a href='../S/43.html#L397'>rca</a>               397 ReferenceCountedArray.h       Ref = rca.Ref;
-<a href='../S/43.html#L624'>rca</a>               624 ReferenceCountedArray.h         ReferenceCountedArray&amp; rca;
-<a href='../S/43.html#L630'>rca</a>               630 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, size_t pos) : rca(_rca), k(pos) {};
-<a href='../S/43.html#L634'>rca</a>               634 ReferenceCountedArray.h         Cref(const Cref&amp; cref) : rca(cref.rca), k(cref.k) {};
-<a href='../S/43.html#L644'>rca</a>               644 ReferenceCountedArray.h         inline operator value_type() const { return rca.read(k); };
-<a href='../S/43.html#L650'>rca</a>               650 ReferenceCountedArray.h           rca.write(k, c);
-<a href='../S/43.html#L719'>rca</a>               719 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, size_t n = npos) { insert(length(), rca, n); };
-<a href='../S/43.html#L729'>rca</a>               729 ReferenceCountedArray.h     void insert(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
-<a href='../S/43.html#L733'>rca</a>               733 ReferenceCountedArray.h       size_t slen = rca.length();
-<a href='../S/43.html#L737'>rca</a>               737 ReferenceCountedArray.h         *this = rca;
-<a href='../S/43.html#L746'>rca</a>               746 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
-<a href='../S/43.html#L788'>rca</a>               788 ReferenceCountedArray.h     void replace(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
-<a href='../S/43.html#L792'>rca</a>               792 ReferenceCountedArray.h       size_t slen = rca.length();
-<a href='../S/43.html#L796'>rca</a>               796 ReferenceCountedArray.h         *this = rca;
-<a href='../S/43.html#L812'>rca</a>               812 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/37.html#L47'>prev</a>               47 List.h               Node* prev;
+<a href='../S/37.html#L49'>prev</a>               49 List.h               Node(const iterator_type&amp; p) : item(p), next(NULL), prev(NULL) {};
+<a href='../S/37.html#L51'>prev</a>               51 List.h               Node(const Node&amp; n) : item(n.item), next(n.next), prev(n.prev) {};
+<a href='../S/37.html#L53'>prev</a>               53 List.h               Node(iterator_type&amp;&amp; p) : item(NULL), next(NULL), prev(NULL) {
+<a href='../S/37.html#L63'>prev</a>               63 List.h                 swap(a.prev, b.prev);
+<a href='../S/37.html#L74'>prev</a>               74 List.h               Node* prev = node-&gt;prev; //NULL if node = head
+<a href='../S/37.html#L78'>prev</a>               78 List.h               if (next) next-&gt;prev = prev;
+<a href='../S/37.html#L79'>prev</a>               79 List.h               if (prev) prev-&gt;next = next;
+<a href='../S/37.html#L82'>prev</a>               82 List.h               if (node == tail) tail = prev;
+<a href='../S/37.html#L152'>prev</a>              152 List.h                 head-&gt;prev = node;
+<a href='../S/37.html#L234'>prev</a>              234 List.h                   Node *nextValue = end == 0 ? current-&gt;next : current-&gt;prev;
+<a href='../S/37.html#L249'>prev</a>              249 List.h                   current = current-&gt;prev;
+<a href='../S/37.html#L254'>prev</a>              254 List.h                   current = current-&gt;prev;
+<a href='../S/8.html#L56'>prev</a>               56 SortedList.h         Node* node = new Node(item), *prev = NULL, *current = this-&gt;head;
+<a href='../S/8.html#L58'>prev</a>               58 SortedList.h           prev = current;
+<a href='../S/8.html#L65'>prev</a>               65 SortedList.h           this-&gt;tail = prev-&gt;next = node;
+<a href='../S/8.html#L66'>prev</a>               66 SortedList.h           node-&gt;prev = prev; //prev=tail
+<a href='../S/8.html#L69'>prev</a>               69 SortedList.h           current-&gt;prev = node;
+<a href='../S/8.html#L73'>prev</a>               73 SortedList.h           node-&gt;prev = prev;
+<a href='../S/8.html#L74'>prev</a>               74 SortedList.h           current-&gt;prev = node;
+<a href='../S/8.html#L75'>prev</a>               75 SortedList.h           prev-&gt;next = node;
 </pre>
 </body>
 </html>

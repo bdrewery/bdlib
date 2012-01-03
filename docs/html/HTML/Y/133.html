@@ -1,14 +1,28 @@
 <html>
 <head>
-<title>b_test</title>
+<title>alloc</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/27.html#L155'>b_test</a>            155 tests/StringTest.cpp   const char *b_test = b-&gt;c_str();
-<a href='../S/27.html#L161'>b_test</a>            161 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, strcmp(b_test, "blah"));
-<a href='../S/27.html#L162'>b_test</a>            162 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, strcmp(b_test, c_test));
+<a href='../S/44.html#L46'>alloc</a>              46 ReferenceCountedArray.h     mutable Allocator alloc;
+<a href='../S/44.html#L51'>alloc</a>              51 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), n(1) {};
+<a href='../S/44.html#L68'>alloc</a>              68 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/44.html#L97'>alloc</a>              97 ReferenceCountedArray.h         alloc.destroy(i);
+<a href='../S/44.html#L99'>alloc</a>              99 ReferenceCountedArray.h       alloc.deallocate(p, size);
+<a href='../S/44.html#L146'>alloc</a>             146 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
+<a href='../S/44.html#L205'>alloc</a>             205 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/44.html#L252'>alloc</a>             252 ReferenceCountedArray.h     Allocator alloc;
+<a href='../S/44.html#L350'>alloc</a>             350 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/44.html#L351'>alloc</a>             351 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/44.html#L353'>alloc</a>             353 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/44.html#L355'>alloc</a>             355 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/44.html#L368'>alloc</a>             368 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/44.html#L370'>alloc</a>             370 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/44.html#L381'>alloc</a>             381 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/44.html#L383'>alloc</a>             383 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/44.html#L404'>alloc</a>             404 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
 </pre>
 </body>
 </html>

@@ -1,28 +1,50 @@
 <html>
 <head>
-<title>hasIndex</title>
+<title>friend</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L581'>hasIndex</a>          581 ReferenceCountedArray.h     inline bool hasIndex(size_t pos) const {
-<a href='../S/43.html#L669'>hasIndex</a>          669 ReferenceCountedArray.h     inline value_type at(size_t pos) const { return hasIndex(pos) ? (*this)[pos] : 0; };
-<a href='../S/43.html#L731'>hasIndex</a>          731 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
-<a href='../S/43.html#L760'>hasIndex</a>          760 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
-<a href='../S/43.html#L776'>hasIndex</a>          776 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
-<a href='../S/43.html#L790'>hasIndex</a>          790 ReferenceCountedArray.h       if (pos &amp;&amp; !hasIndex(pos-1)) return;
-<a href='../S/53.html#L70'>hasIndex</a>           70 Stream.cpp       if (str.hasIndex(pos) &amp;&amp; str[pos] == delim) {
-<a href='../S/54.html#L73'>hasIndex</a>           73 String.cpp       if (pos &amp;&amp; !hasIndex(pos-1)) return;
-<a href='../S/54.html#L92'>hasIndex</a>           92 String.cpp       if (pos &amp;&amp; !hasIndex(pos-1)) return;
-<a href='../S/27.html#L177'>hasIndex</a>          177 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(0));
-<a href='../S/27.html#L178'>hasIndex</a>          178 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(true, b-&gt;hasIndex(3));
-<a href='../S/27.html#L179'>hasIndex</a>          179 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, b-&gt;hasIndex(4));
-<a href='../S/27.html#L180'>hasIndex</a>          180 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(true, f-&gt;hasIndex(10));
-<a href='../S/27.html#L181'>hasIndex</a>          181 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, f-&gt;hasIndex(11));
-<a href='../S/27.html#L303'>hasIndex</a>          303 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(0));
-<a href='../S/27.html#L306'>hasIndex</a>          306 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(1));
-<a href='../S/27.html#L333'>hasIndex</a>          333 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;hasIndex(0));
+<a href='../S/45.html#L139'>friend</a>            139 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/45.html#L172'>friend</a>            172 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/45.html#L224'>friend</a>            224 Array.h            inline friend bool operator==(const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
+<a href='../S/45.html#L225'>friend</a>            225 Array.h            inline friend bool operator!=(const Array&amp; lhs, const Array&amp; rhs) { return !(lhs == rhs); };
+<a href='../S/45.html#L266'>friend</a>            266 Array.h            inline friend Array operator+(Array array1, const Array&amp; array2) {
+<a href='../S/3.html#L155'>friend</a>            155 BinaryTree.h       friend void swap(BinaryTree&amp; a, BinaryTree&amp; b) {
+<a href='../S/3.html#L268'>friend</a>            268 BinaryTree.h         friend class BinaryTree;
+<a href='../S/5.html#L112'>friend</a>            112 HashTable.h        friend void swap(HashTable&lt;Key, Value&gt;&amp; a, HashTable&lt;Key, Value&gt;&amp; b) {
+<a href='../S/32.html#L97'>friend</a>             97 Iterator.h           friend void swap(KeyValue&amp; a, KeyValue&amp; b) {
+<a href='../S/32.html#L112'>friend</a>            112 Iterator.h           inline friend bool operator == (const KeyValue &amp;lhs, const KeyValue &amp;rhs) { return lhs.key() == rhs.key(); }
+<a href='../S/37.html#L58'>friend</a>             58 List.h               friend void swap(Node&amp; a, Node&amp; b) {
+<a href='../S/37.html#L115'>friend</a>            115 List.h             friend void swap(List&amp; a, List&amp; b) {
+<a href='../S/37.html#L162'>friend</a>            162 List.h             inline friend List&lt;iterator_type&gt;&amp; operator&lt;&lt; (List&lt;iterator_type&gt;&amp; list, const iterator_type&amp; item) {
+<a href='../S/37.html#L201'>friend</a>            201 List.h               friend class List;
+<a href='../S/48.html#L44'>friend</a>             44 Queue.h            friend class QueueIterator&lt;T&gt;;
+<a href='../S/48.html#L45'>friend</a>             45 Queue.h            friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/48.html#L74'>friend</a>             74 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&gt;&gt; (Queue&lt;value_type&gt;&amp; queue, reference item) {
+<a href='../S/48.html#L99'>friend</a>             99 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
+<a href='../S/48.html#L112'>friend</a>            112 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/48.html#L113'>friend</a>            113 Queue.h          friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/48.html#L158'>friend</a>            158 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/48.html#L159'>friend</a>            159 Queue.h          friend class QueueIterator&lt;T&gt;;
+<a href='../S/44.html#L143'>friend</a>            143 ReferenceCountedArray.h     friend void swap(Slice&amp; a, Slice&amp; b) {
+<a href='../S/44.html#L401'>friend</a>            401 ReferenceCountedArray.h     friend void swap(ReferenceCountedArray&amp; a, ReferenceCountedArray&amp; b) {
+<a href='../S/44.html#L659'>friend</a>            659 ReferenceCountedArray.h         friend class ReferenceCountedArray;
+<a href='../S/9.html#L56'>friend</a>             56 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&gt;&gt; (Stack&lt;iterator_type&gt;&amp; stack, iterator_type&amp; item) {
+<a href='../S/9.html#L80'>friend</a>             80 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&lt;&lt; (Stack&lt;iterator_type&gt;&amp; stack, const iterator_type&amp; item) {
+<a href='../S/34.html#L62'>friend</a>             62 Stream.h               friend void swap(Stream&amp; a, Stream&amp; b) {
+<a href='../S/34.html#L163'>friend</a>            163 Stream.h               friend Stream&amp; operator&lt;&lt;(Stream&amp;, const String&amp;);
+<a href='../S/35.html#L318'>friend</a>            318 String.h               friend String operator+(String, const String&amp;);
+<a href='../S/35.html#L319'>friend</a>            319 String.h               friend bool operator==(const String&amp;, const String&amp;);
+<a href='../S/35.html#L320'>friend</a>            320 String.h               friend bool operator!=(const String&amp;, const String&amp;);
+<a href='../S/35.html#L321'>friend</a>            321 String.h               friend bool operator&lt;(const String&amp;, const String&amp;);
+<a href='../S/35.html#L322'>friend</a>            322 String.h               friend bool operator&lt;=(const String&amp;, const String&amp;);
+<a href='../S/35.html#L323'>friend</a>            323 String.h               friend bool operator&gt;(const String&amp;, const String&amp;);
+<a href='../S/35.html#L324'>friend</a>            324 String.h               friend bool operator&gt;=(const String&amp;, const String&amp;);
+<a href='../S/35.html#L326'>friend</a>            326 String.h               friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp;, const String&amp;);
+<a href='../S/35.html#L327'>friend</a>            327 String.h               friend std::ostream&amp; operator&gt;&gt;(std::ostream&amp;, const String&amp;);
+<a href='../S/50.html#L65'>friend</a>             65 Thread.h         friend threadMainRet_t threadMain(void*);
 </pre>
 </body>
 </html>

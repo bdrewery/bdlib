@@ -1,30 +1,39 @@
 <html>
 <head>
-<title>dest</title>
+<title>cstring</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/1.html#L91'>dest</a>               91 Socket.h           ClientSocket(const String&amp; dest, const in_port_t port);
-<a href='../S/1.html#L92'>dest</a>               92 Socket.h           ClientSocket(const String&amp; dest, const in_port_t port, const String&amp; src, const in_port_t sport);
-<a href='../S/45.html#L35'>dest</a>               35 base64.c       void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset)
-<a href='../S/45.html#L37'>dest</a>               37 base64.c         char *buf = dest;
-<a href='../S/45.html#L96'>dest</a>               96 base64.c         *len = buf - dest;
-<a href='../S/45.html#L111'>dest</a>              111 base64.c         char *dest = static_cast&lt;char*&gt;(malloc(dlen + 1));
-<a href='../S/45.html#L113'>dest</a>              113 base64.c         b64enc_buf(src, len, dest, charset);
-<a href='../S/45.html#L114'>dest</a>              114 base64.c         dest[*len] = '\0';
-<a href='../S/45.html#L115'>dest</a>              115 base64.c         return dest;
-<a href='../S/45.html#L118'>dest</a>              118 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
-<a href='../S/45.html#L120'>dest</a>              120 base64.c         char *buf = dest;
-<a href='../S/45.html#L143'>dest</a>              143 base64.c         *len = (buf - dest);
-<a href='../S/45.html#L149'>dest</a>              149 base64.c         char *dest = static_cast&lt;char*&gt;(malloc(dlen + 1));
-<a href='../S/45.html#L156'>dest</a>              156 base64.c           b64dec_buf(data, len, dest, charset_index);
-<a href='../S/45.html#L158'>dest</a>              158 base64.c           b64dec_buf(data, len, dest);
-<a href='../S/45.html#L159'>dest</a>              159 base64.c         dest[*len] = '\0';
-<a href='../S/45.html#L160'>dest</a>              160 base64.c         return dest;
-<a href='../S/38.html#L80'>dest</a>               80 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset = NULL);
-<a href='../S/38.html#L106'>dest</a>              106 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index = NULL);
+<a href='../S/35.html#L93'>cstring</a>            93 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
+<a href='../S/35.html#L103'>cstring</a>           103 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
+<a href='../S/13.html#L15'>cstring</a>            15 tests/StreamTest.cpp     strcpy(cstring, "Some static cstring to play with");
+<a href='../S/13.html#L20'>cstring</a>            20 tests/StreamTest.cpp     d = new Stream(cstring);
+<a href='../S/13.html#L22'>cstring</a>            22 tests/StreamTest.cpp     F = new Stream(String(cstring, 11));
+<a href='../S/20.html#L44'>cstring</a>            44 tests/StreamTest.h 	char cstring[50];
+<a href='../S/27.html#L20'>cstring</a>            20 tests/StringTest.cpp     strcpy(cstring, "Some static cstring to play with");
+<a href='../S/27.html#L25'>cstring</a>            25 tests/StringTest.cpp     d = new String(cstring);
+<a href='../S/27.html#L27'>cstring</a>            27 tests/StringTest.cpp     f = new String(cstring, 11);
+<a href='../S/27.html#L44'>cstring</a>            44 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(strlen(cstring), d-&gt;length());
+<a href='../S/27.html#L80'>cstring</a>            80 tests/StringTest.cpp   CPPUNIT_ASSERT(d-&gt;capacity() &gt;= strlen(cstring));
+<a href='../S/27.html#L90'>cstring</a>            90 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
+<a href='../S/27.html#L91'>cstring</a>            91 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
+<a href='../S/27.html#L92'>cstring</a>            92 tests/StringTest.cpp   CPPUNIT_ASSERT((*f).compare(cstring) &lt; 0);
+<a href='../S/27.html#L134'>cstring</a>           134 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*d, String(cstring));
+<a href='../S/27.html#L135'>cstring</a>           135 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL (cstring, *d);
+<a href='../S/27.html#L136'>cstring</a>           136 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL (*e, String(cstring));
+<a href='../S/27.html#L137'>cstring</a>           137 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL (cstring, *e);
+<a href='../S/27.html#L152'>cstring</a>           152 tests/StringTest.cpp   *h = cstring;
+<a href='../S/27.html#L177'>cstring</a>           177 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, strcmp(d_test, cstring));
+<a href='../S/27.html#L203'>cstring</a>           203 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(cstring[5], d-&gt;charAt(5));
+<a href='../S/27.html#L211'>cstring</a>           211 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(cstring[5], (char) (*d)[5]);
+<a href='../S/27.html#L286'>cstring</a>           286 tests/StringTest.cpp   f-&gt;append(&amp;cstring[11], strlen(cstring) - 11);
+<a href='../S/27.html#L729'>cstring</a>           729 tests/StringTest.cpp   strcpy(check, cstring); // *d = cstring
+<a href='../S/27.html#L730'>cstring</a>           730 tests/StringTest.cpp   strcat(check, cstring); 
+<a href='../S/27.html#L731'>cstring</a>           731 tests/StringTest.cpp   strcat(check, cstring);
+<a href='../S/27.html#L839'>cstring</a>           839 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(cstring, *d);
+<a href='../S/15.html#L98'>cstring</a>            98 tests/StringTest.h 	char cstring[50];
 </pre>
 </body>
 </html>

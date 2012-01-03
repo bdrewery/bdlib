@@ -36,87 +36,86 @@
 <a name='L23'>  23 <font color='darkred'>#ifndef</font> <a href='../S/1.html#L24' title='Defined at 24 in Socket.h.'>_BD_SOCKET_H</a>
 <a name='L24'>  24 <font color='darkred'>#define</font> <a href='../S/1.html#L23' title='Refered from 23 in Socket.h.'>_BD_SOCKET_H</a> 1
 <a name='L25'>  25 
-<a name='L26'>  26 <font color='darkred'>#include</font> "<a href='41.html'>bdlib.h</a>"
-<a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#ifdef</font> HAVE_NETINET_IN_H
-<a name='L29'>  29 <font color='darkred'>#include</font> &lt;netinet/in.h&gt;
-<a name='L30'>  30 <font color='darkred'>#endif</font>
-<a name='L31'>  31 
-<a name='L32'>  32 <font color='darkred'>#ifdef</font> HAVE_SYS_SOCKET_H
-<a name='L33'>  33 <font color='darkred'>#include</font> &lt;sys/socket.h&gt;
-<a name='L34'>  34 <font color='darkred'>#endif</font>
-<a name='L35'>  35 
-<a name='L36'>  36 <a href='../S/41.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L37'>  37 
-<a name='L38'>  38 <a href='../Y/161.html' title='Multiple used in 69 places.'>class</a> <a href='../Y/93.html' title='Multiple used in 328 places.'>String</a>;
-<a name='L39'>  39 
-<a name='L40'>  40 <font color='darkred'>#define</font> SOCKET_CLIENT   <a href='../S/6.html#L1' title='Defined at 1 in bits.h.'>BIT0</a>
-<a name='L41'>  41 <font color='darkred'>#define</font> SOCKET_SERVER   <a href='../S/6.html#L2' title='Defined at 2 in bits.h.'>BIT1</a>
-<a name='L42'>  42 <font color='darkred'>#define</font> SOCKET_BIND     <a href='../S/6.html#L3' title='Defined at 3 in bits.h.'>BIT2</a>
-<a name='L43'>  43 <font color='darkred'>#define</font> SOCKET_ASYNC    <a href='../S/6.html#L4' title='Defined at 4 in bits.h.'>BIT3</a>
-<a name='L44'>  44 <font color='darkred'>#define</font> <a href='../S/2.html#L40' title='Refered from 40 in Socket.cpp.'>SOCKET_TCP</a>      <a href='../S/6.html#L5' title='Defined at 5 in bits.h.'>BIT4</a>
-<a name='L45'>  45 <font color='darkred'>#define</font> <a href='../S/2.html#L38' title='Refered from 38 in Socket.cpp.'>SOCKET_UDP</a>      <a href='../S/6.html#L6' title='Defined at 6 in bits.h.'>BIT5</a>
-<a name='L46'>  46 
-<a name='L47'>  47 <b>typedef</b> <b>struct</b> <font color='red'>{</font>
-<a name='L48'>  48         <b>int</b> <a href='../Y/311.html' title='Multiple used in 83 places.'>len</a>;
-<a name='L49'>  49         <b>int</b> family;
-<a name='L50'>  50         <b>union</b> <font color='red'>{</font>
-<a name='L51'>  51                 <b>struct</b> sockaddr <a href='../Y/123.html' title='Multiple used in 6 places.'>addr</a>;
-<a name='L52'>  52                 <b>struct</b> sockaddr_in ipv4;
-<a name='L53'>  53 <font color='darkred'>#ifdef</font> DO_IPV6
-<a name='L54'>  54                 <b>struct</b> sockaddr_in6 ipv6;
-<a name='L55'>  55 <font color='darkred'>#endif</font>
-<a name='L56'>  56         <font color='red'>}</font> u;
-<a name='L57'>  57 <font color='red'>}</font> <a href='../S/1.html#L67' title='Refered from 67 in Socket.h.'>sockname_t</a>;
+<a name='L26'>  26 <font color='darkred'>#include</font> "<a href='42.html'>bdlib.h</a>"
+<a name='L27'>  27 <font color='darkred'>#include</font> "<a href='35.html'>String.h</a>"
+<a name='L28'>  28 
+<a name='L29'>  29 <font color='darkred'>#ifdef</font> HAVE_NETINET_IN_H
+<a name='L30'>  30 <font color='darkred'>#include</font> &lt;netinet/in.h&gt;
+<a name='L31'>  31 <font color='darkred'>#endif</font>
+<a name='L32'>  32 
+<a name='L33'>  33 <font color='darkred'>#ifdef</font> HAVE_SYS_SOCKET_H
+<a name='L34'>  34 <font color='darkred'>#include</font> &lt;sys/socket.h&gt;
+<a name='L35'>  35 <font color='darkred'>#endif</font>
+<a name='L36'>  36 
+<a name='L37'>  37 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L38'>  38 
+<a name='L39'>  39 <font color='darkred'>#define</font> SOCKET_CLIENT   <a href='../S/6.html#L1' title='Defined at 1 in bits.h.'>BIT0</a>
+<a name='L40'>  40 <font color='darkred'>#define</font> SOCKET_SERVER   <a href='../S/6.html#L2' title='Defined at 2 in bits.h.'>BIT1</a>
+<a name='L41'>  41 <font color='darkred'>#define</font> SOCKET_BIND     <a href='../S/6.html#L3' title='Defined at 3 in bits.h.'>BIT2</a>
+<a name='L42'>  42 <font color='darkred'>#define</font> SOCKET_ASYNC    <a href='../S/6.html#L4' title='Defined at 4 in bits.h.'>BIT3</a>
+<a name='L43'>  43 <font color='darkred'>#define</font> <a href='../S/2.html#L40' title='Refered from 40 in Socket.cpp.'>SOCKET_TCP</a>      <a href='../S/6.html#L5' title='Defined at 5 in bits.h.'>BIT4</a>
+<a name='L44'>  44 <font color='darkred'>#define</font> <a href='../S/2.html#L38' title='Refered from 38 in Socket.cpp.'>SOCKET_UDP</a>      <a href='../S/6.html#L6' title='Defined at 6 in bits.h.'>BIT5</a>
+<a name='L45'>  45 
+<a name='L46'>  46 <b>typedef</b> <b>struct</b> <font color='red'>{</font>
+<a name='L47'>  47         <b>int</b> <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>;
+<a name='L48'>  48         <b>int</b> family;
+<a name='L49'>  49         <b>union</b> <font color='red'>{</font>
+<a name='L50'>  50                 <b>struct</b> sockaddr <a href='../Y/132.html' title='Multiple used in 6 places.'>addr</a>;
+<a name='L51'>  51                 <b>struct</b> sockaddr_in ipv4;
+<a name='L52'>  52 <font color='darkred'>#ifdef</font> DO_IPV6
+<a name='L53'>  53                 <b>struct</b> sockaddr_in6 ipv6;
+<a name='L54'>  54 <font color='darkred'>#endif</font>
+<a name='L55'>  55         <font color='red'>}</font> u;
+<a name='L56'>  56 <font color='red'>}</font> <a href='../S/1.html#L66' title='Refered from 66 in Socket.h.'>sockname_t</a>;
+<a name='L57'>  57 
 <a name='L58'>  58 
-<a name='L59'>  59 
-<a name='L60'>  60 <i><font color='green'>/**</font></i>
-<a name='L61'>  61 <i><font color='green'> * @class Socket</font></i>
-<a name='L62'>  62 <i><font color='green'> * @brief Socket class</font></i>
-<a name='L63'>  63 <i><font color='green'> */</font></i>
-<a name='L64'>  64 <a href='../Y/161.html' title='Multiple used in 69 places.'>class</a> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a> <font color='red'>{</font>
-<a name='L65'>  65   <a href='../Y/383.html' title='Multiple used in 30 places.'>private</a>:
-<a name='L66'>  66     <b>int</b> <a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a>;
-<a name='L67'>  67     <a href='../S/1.html#L57' title='Defined at 57 in Socket.h.'>sockname_t</a> <a href='../Y/123.html' title='Multiple used in 6 places.'>addr</a>;
-<a name='L68'>  68     <b>int</b> <a href='../Y/233.html' title='Multiple used in 6 places.'>flags</a>;
-<a name='L69'>  69   <a href='../Y/397.html' title='Multiple used in 63 places.'>public</a>:
-<a name='L70'>  70     <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>() : <a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a>(-1), <a href='../Y/123.html' title='Multiple used in 6 places.'>addr</a>(0), <a href='../Y/378.html' title='Multiple used in 2 places.'>pfamily</a>(0) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L71'>  71     <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>(<b>int</b> <a href='../Y/215.html' title='Multiple used in 77 places.'>f</a>) : <a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a>(-1), <a href='../Y/123.html' title='Multiple used in 6 places.'>addr</a>(0), <a href='../Y/233.html' title='Multiple used in 6 places.'>flags</a>(<a href='../Y/215.html' title='Multiple used in 77 places.'>f</a>) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L72'>  72     <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>(<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>&amp; <a href='../Y/422.html' title='Multiple used in 31 places.'>s</a>) : <a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a>(<a href='../Y/422.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a>), <a href='../Y/123.html' title='Multiple used in 6 places.'>addr</a>(<a href='../Y/422.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/123.html' title='Multiple used in 6 places.'>addr</a>), <a href='../Y/233.html' title='Multiple used in 6 places.'>flags</a>(<a href='../Y/422.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/233.html' title='Multiple used in 6 places.'>flags</a>) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L73'>  73     <a href='../Y/531.html' title='Multiple used in 50 places.'>virtual</a> ~<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>();
-<a name='L74'>  74     
-<a name='L75'>  75     <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> <a href='../S/2.html#L35' title='Defined at 35 in Socket.cpp.'>create</a>();
-<a name='L76'>  76     <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> connect(<b>const</b> <a href='../Y/93.html' title='Multiple used in 328 places.'>String</a> host, <b>const</b> <a href='../Y/271.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/380.html' title='Multiple used in 6 places.'>port</a>);
-<a name='L77'>  77     <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> bind(<b>const</b> <a href='../Y/271.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/380.html' title='Multiple used in 6 places.'>port</a>);
-<a name='L78'>  78     <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> listen() <b>const</b>;
-<a name='L79'>  79     <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> accept (<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>&amp;) <b>const</b>;
-<a name='L80'>  80 
-<a name='L81'>  81     <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> send(<b>const</b> <a href='../Y/93.html' title='Multiple used in 328 places.'>String</a>) <b>const</b>;
-<a name='L82'>  82     <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> recv(<a href='../Y/93.html' title='Multiple used in 328 places.'>String</a>&amp;) <b>const</b>;
-<a name='L83'>  83 
-<a name='L84'>  84     <b>int</b> setNonBlocking(<a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> = 1);
-<a name='L85'>  85     <b>inline</b> <a href='../Y/141.html' title='Multiple used in 67 places.'>bool</a> <a href='../Y/288.html' title='Multiple used in 2 places.'>isValid</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/446.html' title='Multiple used in 9 places.'>sock</a> != -1; <font color='red'>}</font>;
-<a name='L86'>  86 <font color='red'>}</font>;
-<a name='L87'>  87 
-<a name='L88'>  88 <a href='../Y/161.html' title='Multiple used in 69 places.'>class</a> <a href='../Y/24.html' title='Multiple used in 5 places.'>ClientSocket</a> : <a href='../Y/397.html' title='Multiple used in 63 places.'>public</a> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a> <font color='red'>{</font>
-<a name='L89'>  89   <a href='../Y/383.html' title='Multiple used in 30 places.'>private</a>:
-<a name='L90'>  90   <a href='../Y/397.html' title='Multiple used in 63 places.'>public</a>:
-<a name='L91'>  91     <a href='../Y/24.html' title='Multiple used in 5 places.'>ClientSocket</a>(<b>const</b> <a href='../Y/93.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/193.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <a href='../Y/271.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/380.html' title='Multiple used in 6 places.'>port</a>);
-<a name='L92'>  92     <a href='../Y/24.html' title='Multiple used in 5 places.'>ClientSocket</a>(<b>const</b> <a href='../Y/93.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/193.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <a href='../Y/271.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/380.html' title='Multiple used in 6 places.'>port</a>, <b>const</b> <a href='../Y/93.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/456.html' title='Multiple used in 10 places.'>src</a>, <b>const</b> <a href='../Y/271.html' title='Multiple used in 6 places.'>in_port_t</a> sport);
-<a name='L93'>  93     <a href='../Y/24.html' title='Multiple used in 5 places.'>ClientSocket</a>(<b>const</b> <a href='../Y/24.html' title='Multiple used in 5 places.'>ClientSocket</a>&amp; cs);
-<a name='L94'>  94     <a href='../Y/531.html' title='Multiple used in 50 places.'>virtual</a> ~<a href='../Y/24.html' title='Multiple used in 5 places.'>ClientSocket</a>();
-<a name='L95'>  95 <font color='red'>}</font>;
-<a name='L96'>  96 
-<a name='L97'>  97 <a href='../Y/161.html' title='Multiple used in 69 places.'>class</a> <a href='../Y/83.html' title='Multiple used in 4 places.'>ServerSocket</a> : <a href='../Y/397.html' title='Multiple used in 63 places.'>public</a> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a> <font color='red'>{</font>
-<a name='L98'>  98   <a href='../Y/383.html' title='Multiple used in 30 places.'>private</a>:
-<a name='L99'>  99   <a href='../Y/397.html' title='Multiple used in 63 places.'>public</a>:
-<a name='L100'> 100     <a href='../Y/83.html' title='Multiple used in 4 places.'>ServerSocket</a>(<b>const</b> <a href='../Y/271.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/380.html' title='Multiple used in 6 places.'>port</a>);
-<a name='L101'> 101     <a href='../Y/83.html' title='Multiple used in 4 places.'>ServerSocket</a>(<b>const</b> <a href='../Y/93.html' title='Multiple used in 328 places.'>String</a>&amp; <a href='../Y/123.html' title='Multiple used in 6 places.'>addr</a>, <b>const</b> <a href='../Y/271.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/380.html' title='Multiple used in 6 places.'>port</a>);
-<a name='L102'> 102 <i><font color='green'>//    ServerSocket(const ServerSocket&amp; ss);</font></i>
-<a name='L103'> 103     <a href='../Y/531.html' title='Multiple used in 50 places.'>virtual</a> ~<a href='../Y/83.html' title='Multiple used in 4 places.'>ServerSocket</a>();
-<a name='L104'> 104 <font color='red'>}</font>;
-<a name='L105'> 105 <a href='../S/41.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L106'> 106 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_SOCKET_H */</font></i> 
+<a name='L59'>  59 <i><font color='green'>/**</font></i>
+<a name='L60'>  60 <i><font color='green'> * @class Socket</font></i>
+<a name='L61'>  61 <i><font color='green'> * @brief Socket class</font></i>
+<a name='L62'>  62 <i><font color='green'> */</font></i>
+<a name='L63'>  63 <a href='../Y/172.html' title='Multiple used in 64 places.'>class</a> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a> <font color='red'>{</font>
+<a name='L64'>  64   <a href='../Y/406.html' title='Multiple used in 30 places.'>private</a>:
+<a name='L65'>  65     <b>int</b> <a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a>;
+<a name='L66'>  66     <a href='../S/1.html#L56' title='Defined at 56 in Socket.h.'>sockname_t</a> <a href='../Y/132.html' title='Multiple used in 6 places.'>addr</a>;
+<a name='L67'>  67     <b>int</b> <a href='../Y/251.html' title='Multiple used in 6 places.'>flags</a>;
+<a name='L68'>  68   <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a>:
+<a name='L69'>  69     <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>() : <a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a>(-1), <a href='../Y/132.html' title='Multiple used in 6 places.'>addr</a>(0), <a href='../Y/400.html' title='Multiple used in 2 places.'>pfamily</a>(0) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L70'>  70     <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>(<b>int</b> <a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>) : <a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a>(-1), <a href='../Y/132.html' title='Multiple used in 6 places.'>addr</a>(0), <a href='../Y/251.html' title='Multiple used in 6 places.'>flags</a>(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L71'>  71     <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>(<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>&amp; <a href='../Y/446.html' title='Multiple used in 31 places.'>s</a>) : <a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a>(<a href='../Y/446.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a>), <a href='../Y/132.html' title='Multiple used in 6 places.'>addr</a>(<a href='../Y/446.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/132.html' title='Multiple used in 6 places.'>addr</a>), <a href='../Y/251.html' title='Multiple used in 6 places.'>flags</a>(<a href='../Y/446.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/251.html' title='Multiple used in 6 places.'>flags</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L72'>  72     <a href='../Y/561.html' title='Multiple used in 51 places.'>virtual</a> ~<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>();
+<a name='L73'>  73     
+<a name='L74'>  74     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../S/2.html#L35' title='Defined at 35 in Socket.cpp.'>create</a>();
+<a name='L75'>  75     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> connect(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a> host, <b>const</b> <a href='../Y/289.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/403.html' title='Multiple used in 6 places.'>port</a>);
+<a name='L76'>  76     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> bind(<b>const</b> <a href='../Y/289.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/403.html' title='Multiple used in 6 places.'>port</a>);
+<a name='L77'>  77     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> listen() <b>const</b>;
+<a name='L78'>  78     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> accept (<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>&amp;) <b>const</b>;
+<a name='L79'>  79 
+<a name='L80'>  80     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> send(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>) <b>const</b>;
+<a name='L81'>  81     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> recv(<a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp;) <b>const</b>;
+<a name='L82'>  82 
+<a name='L83'>  83     <b>int</b> setNonBlocking(<a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> = 1);
+<a name='L84'>  84     <b>inline</b> <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../Y/307.html' title='Multiple used in 2 places.'>isValid</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a> != -1; <font color='red'>}</font>;
+<a name='L85'>  85 <font color='red'>}</font>;
+<a name='L86'>  86 
+<a name='L87'>  87 <a href='../Y/172.html' title='Multiple used in 64 places.'>class</a> <a href='../Y/25.html' title='Multiple used in 5 places.'>ClientSocket</a> : <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a> <font color='red'>{</font>
+<a name='L88'>  88   <a href='../Y/406.html' title='Multiple used in 30 places.'>private</a>:
+<a name='L89'>  89   <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a>:
+<a name='L90'>  90     <a href='../Y/25.html' title='Multiple used in 5 places.'>ClientSocket</a>(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp; <a href='../Y/208.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <a href='../Y/289.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/403.html' title='Multiple used in 6 places.'>port</a>);
+<a name='L91'>  91     <a href='../Y/25.html' title='Multiple used in 5 places.'>ClientSocket</a>(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp; <a href='../Y/208.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <a href='../Y/289.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/403.html' title='Multiple used in 6 places.'>port</a>, <b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp; <a href='../Y/481.html' title='Multiple used in 10 places.'>src</a>, <b>const</b> <a href='../Y/289.html' title='Multiple used in 6 places.'>in_port_t</a> sport);
+<a name='L92'>  92     <a href='../Y/25.html' title='Multiple used in 5 places.'>ClientSocket</a>(<b>const</b> <a href='../Y/25.html' title='Multiple used in 5 places.'>ClientSocket</a>&amp; cs);
+<a name='L93'>  93     <a href='../Y/561.html' title='Multiple used in 51 places.'>virtual</a> ~<a href='../Y/25.html' title='Multiple used in 5 places.'>ClientSocket</a>();
+<a name='L94'>  94 <font color='red'>}</font>;
+<a name='L95'>  95 
+<a name='L96'>  96 <a href='../Y/172.html' title='Multiple used in 64 places.'>class</a> <a href='../Y/88.html' title='Multiple used in 4 places.'>ServerSocket</a> : <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a> <font color='red'>{</font>
+<a name='L97'>  97   <a href='../Y/406.html' title='Multiple used in 30 places.'>private</a>:
+<a name='L98'>  98   <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a>:
+<a name='L99'>  99     <a href='../Y/88.html' title='Multiple used in 4 places.'>ServerSocket</a>(<b>const</b> <a href='../Y/289.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/403.html' title='Multiple used in 6 places.'>port</a>);
+<a name='L100'> 100     <a href='../Y/88.html' title='Multiple used in 4 places.'>ServerSocket</a>(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp; <a href='../Y/132.html' title='Multiple used in 6 places.'>addr</a>, <b>const</b> <a href='../Y/289.html' title='Multiple used in 6 places.'>in_port_t</a> <a href='../Y/403.html' title='Multiple used in 6 places.'>port</a>);
+<a name='L101'> 101 <i><font color='green'>//    ServerSocket(const ServerSocket&amp; ss);</font></i>
+<a name='L102'> 102     <a href='../Y/561.html' title='Multiple used in 51 places.'>virtual</a> ~<a href='../Y/88.html' title='Multiple used in 4 places.'>ServerSocket</a>();
+<a name='L103'> 103 <font color='red'>}</font>;
+<a name='L104'> 104 <a href='../S/42.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L105'> 105 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_SOCKET_H */</font></i> 
 </pre>
 <hr>
 <a name='BOTTOM'>

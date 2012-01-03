@@ -1,45 +1,109 @@
 <html>
 <head>
-<title>SortedList.cpp</title>
+<title>partial_params.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/SortedList.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/partial_params.h</h2>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L80'>[^]</a>[v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2>DEFINITIONS</h2>
+This source file includes following definitions.
+<ol>
+<li><a href='#L80' title='Defined at 80.'>make_partial_params</a>
+</ol>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* SortedList.cpp</font></i>
-<a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
-<a name='L4'>   4 <i><font color='green'> *</font></i>
-<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
-<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
-<a name='L7'>   7 <i><font color='green'> *</font></i>
-<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. </font></i>
-<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
-<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
-<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
-<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
-<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
-<a name='L14'>  14 <i><font color='green'> *</font></i>
-<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
-<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
-<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
-<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
-<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
-<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
-<a name='L21'>  21 <i><font color='green'> *</font></i>
-<a name='L22'>  22 <i><font color='green'> */</font></i>
-<a name='L23'>  23 
-<a name='L24'>  24 
-<a name='L25'>  25 <font color='darkred'>#include</font> "<a href='8.html'>SortedList.h</a>"
-<a name='L26'>  26 
-<a name='L27'>  27 <a href='../S/41.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L28'>  28 <a href='../S/41.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L1'>   1 <font color='darkred'>#ifndef</font> <a href='../S/40.html#L2' title='Defined at 2 in partial_params.h.'>PARTIAL_PARAMS_H</a>
+<a name='L2'>   2 <font color='darkred'>#define</font> <a href='../S/40.html#L1' title='Refered from 1 in partial_params.h.'>PARTIAL_PARAMS_H</a>
+<a name='L3'>   3 
+<a name='L4'>   4 <font color='darkred'>#include</font> &lt;tuple&gt;
+<a name='L5'>   5 <font color='darkred'>#include</font> &lt;type_traits&gt; <i><font color='green'>// for std::conditional</font></i>
+<a name='L6'>   6 
+<a name='L7'>   7 
+<a name='L8'>   8 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>... Pack&gt;
+<a name='L9'>   9 <b>struct</b> <a href='../R/125.html' title='Multiple refered from 5 places.'>pack</a>
+<a name='L10'>  10 <font color='red'>{</font> <font color='red'>}</font>;
+<a name='L11'>  11 
+<a name='L12'>  12 
+<a name='L13'>  13 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>, <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>&gt;
+<a name='L14'>  14 <b>struct</b> <a href='../Y/131.html' title='Multiple used in 3 places.'>add_to_pack</a>;
+<a name='L15'>  15 
+<a name='L16'>  16 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../S/40.html#L19' title='Defined at 19 in partial_params.h.'>A</a>, <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>... <a href='../Y/79.html' title='Multiple used in 3 places.'>R</a>&gt;
+<a name='L17'>  17 <b>struct</b> <a href='../Y/131.html' title='Multiple used in 3 places.'>add_to_pack</a>&lt;<a href='../S/40.html#L19' title='Defined at 19 in partial_params.h.'>A</a>, <a href='../S/40.html#L9' title='Defined at 9 in partial_params.h.'>pack</a>&lt;<a href='../Y/79.html' title='Multiple used in 3 places.'>R</a>...&gt;&gt;
+<a name='L18'>  18 <font color='red'>{</font>
+<a name='L19'>  19   <b>typedef</b> <a href='../S/40.html#L9' title='Defined at 9 in partial_params.h.'>pack</a>&lt;<a href='../R/1.html' title='Multiple refered from 5 places.'>A</a>, <a href='../Y/79.html' title='Multiple used in 3 places.'>R</a>...&gt; <a href='../S/40.html#L80' title='Refered from 80 in partial_params.h.'>type</a>;
+<a name='L20'>  20 <font color='red'>}</font>;
+<a name='L21'>  21 
+<a name='L22'>  22 
+<a name='L23'>  23 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>&gt;
+<a name='L24'>  24 <b>struct</b> <a href='../Y/186.html' title='Multiple used in 3 places.'>convert_to_tuple</a>;
+<a name='L25'>  25 
+<a name='L26'>  26 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>... <a href='../S/40.html#L19' title='Defined at 19 in partial_params.h.'>A</a>&gt;
+<a name='L27'>  27 <b>struct</b> <a href='../Y/186.html' title='Multiple used in 3 places.'>convert_to_tuple</a>&lt;<a href='../S/40.html#L9' title='Defined at 9 in partial_params.h.'>pack</a>&lt;<a href='../S/40.html#L19' title='Defined at 19 in partial_params.h.'>A</a>...&gt;&gt;
+<a name='L28'>  28 <font color='red'>{</font>
+<a name='L29'>  29   <b>typedef</b> <a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::tuple&lt;<a href='../Y/1.html' title='Multiple used in 3 places.'>A</a>...&gt; <a href='../S/40.html#L80' title='Refered from 80 in partial_params.h.'>type</a>;
+<a name='L30'>  30 <font color='red'>}</font>;
+<a name='L31'>  31 
+<a name='L32'>  32 
+<a name='L33'>  33 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a>, <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>...&gt;
+<a name='L34'>  34 <b>struct</b> <a href='../Y/512.html' title='Multiple used in 7 places.'>take</a>;
+<a name='L35'>  35 
+<a name='L36'>  36 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../D/45.html' title='Multiple defined in 2 places.'>N</a>&gt;
+<a name='L37'>  37 <b>struct</b> <a href='../Y/512.html' title='Multiple used in 7 places.'>take</a>&lt;<a href='../D/45.html' title='Multiple defined in 2 places.'>N</a>&gt;
+<a name='L38'>  38 <font color='red'>{</font>
+<a name='L39'>  39   <b>typedef</b> <a href='../S/40.html#L9' title='Defined at 9 in partial_params.h.'>pack</a>&lt;&gt; <a href='../S/40.html#L80' title='Refered from 80 in partial_params.h.'>type</a>;
+<a name='L40'>  40 <font color='red'>}</font>;
+<a name='L41'>  41 
+<a name='L42'>  42 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../D/45.html' title='Multiple defined in 2 places.'>N</a>, <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../S/40.html#L49' title='Defined at 49 in partial_params.h.'>Head</a>, <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>... <a href='../Y/102.html' title='Multiple used in 3 places.'>Tail</a>&gt;
+<a name='L43'>  43 <b>struct</b> <a href='../Y/512.html' title='Multiple used in 7 places.'>take</a>&lt;<a href='../D/45.html' title='Multiple defined in 2 places.'>N</a>, <a href='../S/40.html#L49' title='Defined at 49 in partial_params.h.'>Head</a>, <a href='../Y/102.html' title='Multiple used in 3 places.'>Tail</a>...&gt;
+<a name='L44'>  44 <font color='red'>{</font>
+<a name='L45'>  45   <b>typedef</b>
+<a name='L46'>  46     <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/488.html' title='Multiple used in 4 places.'>std</a>::conditional&lt;
+<a name='L47'>  47       (N &gt; 0),
+<a name='L48'>  48       <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/131.html' title='Multiple used in 3 places.'>add_to_pack</a>&lt;
+<a name='L49'>  49         <a href='../R/15.html' title='Multiple refered from 2 places.'>Head</a>,
+<a name='L50'>  50         <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/512.html' title='Multiple used in 7 places.'>take</a>&lt;
+<a name='L51'>  51           <a href='../R/19.html' title='Multiple refered from 5 places.'>N</a> - 1,
+<a name='L52'>  52           <a href='../Y/102.html' title='Multiple used in 3 places.'>Tail</a>...
+<a name='L53'>  53         &gt;::<a href='../Y/539.html' title='Multiple used in 5 places.'>type</a>
+<a name='L54'>  54       &gt;::<a href='../S/40.html#L80' title='Refered from 80 in partial_params.h.'>type</a>,
+<a name='L55'>  55       pack&lt;&gt;
+<a name='L56'>  56     &gt;::<a href='../S/40.html#L80' title='Refered from 80 in partial_params.h.'>type</a> <a href='../Y/539.html' title='Multiple used in 5 places.'>type</a>;
+<a name='L57'>  57 <font color='red'>}</font>;  
+<a name='L58'>  58 
+<a name='L59'>  59 
+<a name='L60'>  60 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../D/45.html' title='Multiple defined in 2 places.'>N</a>, <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>... <a href='../S/40.html#L19' title='Defined at 19 in partial_params.h.'>A</a>&gt;
+<a name='L61'>  61 <b>struct</b> drop_from_end
+<a name='L62'>  62 <font color='red'>{</font>
+<a name='L63'>  63   <i><font color='green'>// Add these asserts if needed.</font></i>
+<a name='L64'>  64   <i><font color='green'>//static_assert(N &gt;= 0,</font></i>
+<a name='L65'>  65   <i><font color='green'>//  "Cannot drop negative number of elements!");</font></i>
+<a name='L66'>  66 
+<a name='L67'>  67   <i><font color='green'>//static_assert(N &lt;= static_cast&lt;int&gt;(sizeof...(A)),</font></i>
+<a name='L68'>  68   <i><font color='green'>//  "Cannot drop more elements than size of pack!")</font></i>
+<a name='L69'>  69 
+<a name='L70'>  70   <b>typedef</b>
+<a name='L71'>  71     <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/186.html' title='Multiple used in 3 places.'>convert_to_tuple</a>&lt;
+<a name='L72'>  72       <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/512.html' title='Multiple used in 7 places.'>take</a>&lt;
+<a name='L73'>  73         <b>sizeof</b>...(<a href='../Y/1.html' title='Multiple used in 3 places.'>A</a>) - <a href='../R/19.html' title='Multiple refered from 5 places.'>N</a>,
+<a name='L74'>  74         <a href='../Y/1.html' title='Multiple used in 3 places.'>A</a>...
+<a name='L75'>  75       &gt;::<a href='../Y/539.html' title='Multiple used in 5 places.'>type</a>
+<a name='L76'>  76     &gt;::<a href='../S/40.html#L80' title='Refered from 80 in partial_params.h.'>type</a> <a href='../Y/539.html' title='Multiple used in 5 places.'>type</a>;
+<a name='L77'>  77 <font color='red'>}</font>;
+<a name='L78'>  78 
+<a name='L79'>  79 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../S/40.html#L82' title='Defined at 82 in partial_params.h.'>HowManyToTrim</a>, <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a>... <a href='../Y/73.html' title='Multiple used in 3 places.'>Params</a>&gt;
+<a name='L80'>  80 <b>inline</b> <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/512.html' title='Multiple used in 7 places.'>take</a>&lt;<a href='../S/40.html#L82' title='Defined at 82 in partial_params.h.'>HowManyToTrim</a>, <a href='../Y/73.html' title='Multiple used in 3 places.'>Params</a>...&gt;::<a href='../D/221.html' title='Multiple defined in 6 places.'>type</a> make_partial_params()
+<a name='L81'>  81 <font color='red'>{</font>
+<a name='L82'>  82   <b>typedef</b> <a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/512.html' title='Multiple used in 7 places.'>take</a>&lt;<b>sizeof</b>...(<a href='../Y/73.html' title='Multiple used in 3 places.'>Params</a>) - <a href='../R/16.html' title='Multiple refered from 2 places.'>HowManyToTrim</a>, <a href='../Y/73.html' title='Multiple used in 3 places.'>Params</a>...&gt;::<a href='../Y/539.html' title='Multiple used in 5 places.'>type</a> <a href='../S/40.html#L83' title='Refered from 83 in partial_params.h.'>PartialType</a>;
+<a name='L83'>  83   <b>return</b> <a href='../S/40.html#L9' title='Defined at 9 in partial_params.h.'>pack</a>&lt;<a href='../S/40.html#L82' title='Defined at 82 in partial_params.h.'>PartialType</a>&gt;();
+<a name='L84'>  84 <i><font color='green'>//  return typename take&lt;sizeof...(Params) - HowManyToTrim, Params...&gt;::type();</font></i>
+<a name='L85'>  85 <font color='red'>}</font>
+<a name='L86'>  86 <font color='darkred'>#endif</font>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;][^]<a href='#L80'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>BDLIB: bd::ReferenceCountedArray&lt; T &gt;::Cref Class Reference</title>
+<title>BDLIB: bd::ReferenceCountedArray&lt; T, Allocator &gt;::Cref Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -121,71 +121,49 @@ function toggleVisibility(linkObj) {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
-<div class="title">bd::ReferenceCountedArray&lt; T &gt;::Cref Class Reference</div>  </div>
+<div class="title">bd::ReferenceCountedArray&lt; T, Allocator &gt;::Cref Class Reference</div>  </div>
 </div>
 <div class="contents">
 <!-- doxytag: class="bd::ReferenceCountedArray::Cref" -->
-<p>Safe element reading and writing.  
+<p>Safe element reading and writing. This class should be optimized away and fully inlined such that: <a class="el" href="classbd_1_1ReferenceCountedArray.html" title="Common template base class for String and Array.">ReferenceCountedArray</a> s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a');.  
  <a href="classbd_1_1ReferenceCountedArray_1_1Cref.html#details">More...</a></p>
 
 <p><code>#include &lt;ReferenceCountedArray.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png"/> Collaboration diagram for bd::ReferenceCountedArray&lt; T &gt;::Cref:</div>
+  <img id="dynsection-0-trigger" src="closed.png"/> Collaboration diagram for bd::ReferenceCountedArray&lt; T, Allocator &gt;::Cref:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="classbd_1_1ReferenceCountedArray_1_1Cref__coll__graph.png" border="0" usemap="#bd_1_1ReferenceCountedArray_3_01T_01_4_1_1Cref_coll__map" alt="Collaboration graph"/></div>
-<map name="bd_1_1ReferenceCountedArray_3_01T_01_4_1_1Cref_coll__map" id="bd_1_1ReferenceCountedArray_3_01T_01_4_1_1Cref_coll__map">
-<area shape="rect" id="node2" href="classbd_1_1ReferenceCountedArray.html" title="Common template base class for String and Array." alt="" coords="69,302,283,333"/><area shape="rect" id="node4" href="classbd_1_1ReferenceCountedArrayBase.html" title="bd::ReferenceCountedArrayBase" alt="" coords="5,203,216,234"/><area shape="rect" id="node6" href="classbd_1_1ArrayRef.html" title="bd::ArrayRef\&lt; value_type \&gt;" alt="" coords="240,203,421,234"/><area shape="rect" id="node8" href="classbd_1_1ArrayRef.html" title="Helps the String and Array classes with reference counting." alt="" coords="268,105,393,135"/></map>
+<div class="center"><img src="classbd_1_1ReferenceCountedArray_1_1Cref__coll__graph.png" border="0" usemap="#bd_1_1ReferenceCountedArray_3_01T_00_01Allocator_01_4_1_1Cref_coll__map" alt="Collaboration graph"/></div>
+<map name="bd_1_1ReferenceCountedArray_3_01T_00_01Allocator_01_4_1_1Cref_coll__map" id="bd_1_1ReferenceCountedArray_3_01T_00_01Allocator_01_4_1_1Cref_coll__map">
+<area shape="rect" id="node2" href="classbd_1_1ReferenceCountedArray.html" title="Common template base class for String and Array." alt="" coords="117,302,389,333"/><area shape="rect" id="node4" href="classbd_1_1ReferenceCountedArrayBase.html" title="bd::ReferenceCountedArrayBase" alt="" coords="5,203,216,234"/><area shape="rect" id="node6" href="classbd_1_1ArrayRef.html" title="bd::ArrayRef\&lt; value_type, Allocator \&gt;" alt="" coords="291,203,531,234"/><area shape="rect" id="node10" href="classbd_1_1ArrayRef.html" title="Helps the String and Array classes with reference counting." alt="" coords="367,105,553,135"/></map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classbd_1_1ReferenceCountedArray_1_1Cref-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#a3db2a1adcd18a20a5692a37245b80a0d">Cref</a> (const <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;cref)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#a4619af4ff782cd2139e7f62979a923db">operator value_type</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#ae938185d64c6874a7ba3be4db4640945">operator=</a> (<a class="el" href="classbd_1_1ReferenceCountedArray.html#a535ce99214502f6b6d1a6d6dad7a3726">value_type</a> c)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#a354ea2360840515b2c0a657082fba310">operator=</a> (const <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;cref)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#adeb803f58a98fc26837af0b13b12f974">operator value_type</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#a411c064823adbb5235b8f80bfe78f194">operator=</a> (<a class="el" href="classbd_1_1ReferenceCountedArray.html#ad00035fd629d151f35b58c1059fc777a">value_type</a> c)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#a4599de27ddff8069c396d2984b20379e">operator=</a> (const <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;cref)</td></tr>
 <tr><td colspan="2"><h2><a name="friends"></a>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html#aec97f823a87244ce891f2be9f1b6ccbf">ReferenceCountedArray</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class T&gt;<br/>
-class bd::ReferenceCountedArray&lt; T &gt;::Cref</h3>
+<div class="textblock"><h3>template&lt;class T, class Allocator = std::allocator&lt;T&gt;&gt;<br/>
+class bd::ReferenceCountedArray&lt; T, Allocator &gt;::Cref</h3>
 
-<p>Safe element reading and writing. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>This should not provide copy constructors for <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html" title="Safe element reading and writing.">Cref</a>, they shouldn't be needed because of const operator[] This class should be optimized away and fully inlined such that: <a class="el" href="classbd_1_1ReferenceCountedArray.html" title="Common template base class for String and Array.">ReferenceCountedArray</a> s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a'); </dd></dl>
-</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a3db2a1adcd18a20a5692a37245b80a0d"></a><!-- doxytag: member="bd::ReferenceCountedArray::Cref::Cref" ref="a3db2a1adcd18a20a5692a37245b80a0d" args="(const Cref &amp;cref)" -->
+<p>Safe element reading and writing. This class should be optimized away and fully inlined such that: <a class="el" href="classbd_1_1ReferenceCountedArray.html" title="Common template base class for String and Array.">ReferenceCountedArray</a> s; s[0] = 'a'; Should be rewritten as: s.write(0, 'a');. </p>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="adeb803f58a98fc26837af0b13b12f974"></a><!-- doxytag: member="bd::ReferenceCountedArray::Cref::operator value_type" ref="adeb803f58a98fc26837af0b13b12f974" args="() const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T, class Allocator = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T &gt;::Cref::Cref </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;&#160;</td>
-          <td class="paramname"><em>cref</em></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a4619af4ff782cd2139e7f62979a923db"></a><!-- doxytag: member="bd::ReferenceCountedArray::Cref::operator value_type" ref="a4619af4ff782cd2139e7f62979a923db" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T &gt;::Cref::operator <a class="el" href="classbd_1_1ReferenceCountedArray.html#a535ce99214502f6b6d1a6d6dad7a3726">value_type</a> </td>
+          <td class="memname"><a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T, Allocator &gt;::Cref::operator <a class="el" href="classbd_1_1ReferenceCountedArray.html#ad00035fd629d151f35b58c1059fc777a">value_type</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [inline]</code></td>
@@ -193,20 +171,20 @@ template&lt;class T&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classbd_1_1ReferenceCountedArray.html#a199cf21941e339e7c704cb423c59354e" title="Safe element access operator.">ReferenceCountedArray::operator[]</a> </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classbd_1_1ReferenceCountedArray.html#aefc09e1e4f37afd42f2e1302eccea67d" title="Safe element access operator.">ReferenceCountedArray::operator[]</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ae938185d64c6874a7ba3be4db4640945"></a><!-- doxytag: member="bd::ReferenceCountedArray::Cref::operator=" ref="ae938185d64c6874a7ba3be4db4640945" args="(value_type c)" -->
+<a class="anchor" id="a411c064823adbb5235b8f80bfe78f194"></a><!-- doxytag: member="bd::ReferenceCountedArray::Cref::operator=" ref="a411c064823adbb5235b8f80bfe78f194" args="(value_type c)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T, class Allocator = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a>&amp; <a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T &gt;::Cref::operator= </td>
+          <td class="memname"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a>&amp; <a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T, Allocator &gt;::Cref::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classbd_1_1ReferenceCountedArray.html#a535ce99214502f6b6d1a6d6dad7a3726">value_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classbd_1_1ReferenceCountedArray.html#ad00035fd629d151f35b58c1059fc777a">value_type</a>&#160;</td>
           <td class="paramname"><em>c</em></td><td>)</td>
           <td><code> [inline]</code></td>
         </tr>
@@ -217,14 +195,14 @@ template&lt;class T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a354ea2360840515b2c0a657082fba310"></a><!-- doxytag: member="bd::ReferenceCountedArray::Cref::operator=" ref="a354ea2360840515b2c0a657082fba310" args="(const Cref &amp;cref)" -->
+<a class="anchor" id="a4599de27ddff8069c396d2984b20379e"></a><!-- doxytag: member="bd::ReferenceCountedArray::Cref::operator=" ref="a4599de27ddff8069c396d2984b20379e" args="(const Cref &amp;cref)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T, class Allocator = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a>&amp; <a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T &gt;::Cref::operator= </td>
+          <td class="memname"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a>&amp; <a class="el" href="classbd_1_1ReferenceCountedArray.html">bd::ReferenceCountedArray</a>&lt; T, Allocator &gt;::Cref::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a> &amp;&#160;</td>
           <td class="paramname"><em>cref</em></td><td>)</td>
@@ -241,7 +219,7 @@ template&lt;class T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T, class Allocator = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">friend class <a class="el" href="classbd_1_1ReferenceCountedArray.html">ReferenceCountedArray</a><code> [friend]</code></td>
@@ -262,7 +240,7 @@ template&lt;class T&gt; </div>
       <li class="navelem"><a class="el" href="namespacebd.html">bd</a>      </li>
       <li class="navelem"><a class="el" href="classbd_1_1ReferenceCountedArray.html">ReferenceCountedArray</a>      </li>
       <li class="navelem"><a class="el" href="classbd_1_1ReferenceCountedArray_1_1Cref.html">Cref</a>      </li>
-      <li class="footer">Generated on Thu Dec 15 2011 23:54:46 for BDLIB by&#160;
+      <li class="footer">Generated on Tue Jan 3 2012 10:55:11 for BDLIB by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

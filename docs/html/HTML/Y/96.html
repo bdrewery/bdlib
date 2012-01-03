@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Stream</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/54.html#L22'>Stream</a>             22 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
+<a href='../S/54.html#L28'>Stream</a>             28 Stream.cpp     int Stream::seek(int offset, int whence) {
+<a href='../S/54.html#L53'>Stream</a>             53 Stream.cpp     String Stream::read(size_t maxSize, char delim) {
+<a href='../S/54.html#L77'>Stream</a>             77 Stream.cpp     int Stream::loadFile(const String&amp; file)
+<a href='../S/54.html#L87'>Stream</a>             87 Stream.cpp     int Stream::loadFile(const int fd)
+<a href='../S/54.html#L127'>Stream</a>            127 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
+<a href='../S/54.html#L137'>Stream</a>            137 Stream.cpp     int Stream::writeFile(const int fd) const
+<a href='../S/34.html#L44'>Stream</a>             44 Stream.h       class Stream {
+<a href='../S/34.html#L51'>Stream</a>             51 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/34.html#L52'>Stream</a>             52 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/34.html#L54'>Stream</a>             54 Stream.h               Stream(Stream&amp;&amp; stream) : str(), pos(0), loading(0) {
+<a href='../S/34.html#L58'>Stream</a>             58 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/34.html#L59'>Stream</a>             59 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/34.html#L60'>Stream</a>             60 Stream.h               virtual ~Stream() {};
+<a href='../S/34.html#L62'>Stream</a>             62 Stream.h               friend void swap(Stream&amp; a, Stream&amp; b) {
+<a href='../S/34.html#L70'>Stream</a>             70 Stream.h               Stream&amp; operator=(Stream stream) {
+<a href='../S/34.html#L163'>Stream</a>            163 Stream.h               friend Stream&amp; operator&lt;&lt;(Stream&amp;, const String&amp;);
+<a href='../S/34.html#L166'>Stream</a>            166 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/20.html#L43'>Stream</a>             43 tests/StreamTest.h         Stream *a, *b, *c, *d, *e, *F, *g, *h;
+</pre>
+</body>
+</html>

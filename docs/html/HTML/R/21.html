@@ -1,27 +1,16 @@
 <html>
 <head>
-<title>Reserve</title>
+<title>NUM_ASCII_BYTES</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L83'>Reserve</a>            83 Array.h              this-&gt;Reserve(len);
-<a href='../S/43.html#L59'>Reserve</a>            59 ReferenceCountedArray.h     void Reserve(const size_t newSize, size_t&amp; offset, size_t sublen) const
-<a href='../S/43.html#L316'>Reserve</a>           316 ReferenceCountedArray.h       Reserve( std::max(oldLength, n) ); //Will set capacity()/size
-<a href='../S/43.html#L338'>Reserve</a>           338 ReferenceCountedArray.h         Reserve(n);
-<a href='../S/43.html#L356'>Reserve</a>           356 ReferenceCountedArray.h       Reserve(newSize);
-<a href='../S/43.html#L368'>Reserve</a>           368 ReferenceCountedArray.h       Reserve(newSize);
-<a href='../S/43.html#L428'>Reserve</a>           428 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize) const { Ref-&gt;Reserve(newSize, offset, sublen); };
-<a href='../S/53.html#L26'>Reserve</a>            26 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
-<a href='../S/53.html#L93'>Reserve</a>            93 Stream.cpp       Reserve(size);
-<a href='../S/53.html#L113'>Reserve</a>           113 Stream.cpp       Reserve(size);
-<a href='../S/34.html#L54'>Reserve</a>            54 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
-<a href='../S/34.html#L57'>Reserve</a>            57 Stream.h               void Reserve(const size_t) const;
-<a href='../S/13.html#L36'>Reserve</a>            36 tests/StreamTest.cpp   a-&gt;Reserve(2000);
-<a href='../S/13.html#L39'>Reserve</a>            39 tests/StreamTest.cpp   b-&gt;Reserve(10);
-<a href='../S/27.html#L644'>Reserve</a>           644 tests/StringTest.cpp   a-&gt;Reserve(30); // Avoid COW during these offset tests
-<a href='../S/27.html#L869'>Reserve</a>           869 tests/StringTest.cpp   tmp.Reserve(255);
+<a href='../S/46.html#L66'>NUM_ASCII_BYTES</a>    66 base64.c         while (*len &gt;= NUM_ASCII_BYTES) {
+<a href='../S/46.html#L76'>NUM_ASCII_BYTES</a>    76 base64.c           data += NUM_ASCII_BYTES;
+<a href='../S/46.html#L78'>NUM_ASCII_BYTES</a>    78 base64.c           *len -= NUM_ASCII_BYTES;
+<a href='../S/46.html#L110'>NUM_ASCII_BYTES</a>   110 base64.c         size_t dlen = (((*len + (NUM_ASCII_BYTES - 1)) / NUM_ASCII_BYTES) * NUM_ENCODED_BYTES);
+<a href='../S/46.html#L148'>NUM_ASCII_BYTES</a>   148 base64.c         size_t dlen = ((*len / NUM_ENCODED_BYTES) + ((*len % NUM_ENCODED_BYTES) ? 1 : 0)) * NUM_ASCII_BYTES;
 </pre>
 </body>
 </html>

@@ -1,43 +1,37 @@
 <html>
 <head>
-<title>BDLIB_NS_BEGIN</title>
+<title>Allocator</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/42.html#L27'>BDLIB_NS_BEGIN</a>     27 Array.cpp      BDLIB_NS_BEGIN
-<a href='../S/44.html#L37'>BDLIB_NS_BEGIN</a>     37 Array.h        BDLIB_NS_BEGIN
-<a href='../S/36.html#L27'>BDLIB_NS_BEGIN</a>     27 BinaryTree.cpp BDLIB_NS_BEGIN
-<a href='../S/3.html#L29'>BDLIB_NS_BEGIN</a>     29 BinaryTree.h   BDLIB_NS_BEGIN
-<a href='../S/52.html#L28'>BDLIB_NS_BEGIN</a>     28 Crypto.cpp     BDLIB_NS_BEGIN
-<a href='../S/51.html#L27'>BDLIB_NS_BEGIN</a>     27 Crypto.h       BDLIB_NS_BEGIN
-<a href='../S/10.html#L27'>BDLIB_NS_BEGIN</a>     27 Cstrings.c     BDLIB_NS_BEGIN
-<a href='../S/46.html#L32'>BDLIB_NS_BEGIN</a>     32 Cstrings.h     BDLIB_NS_BEGIN
-<a href='../S/7.html#L28'>BDLIB_NS_BEGIN</a>     28 HashTable.cpp  BDLIB_NS_BEGIN
-<a href='../S/5.html#L30'>BDLIB_NS_BEGIN</a>     30 HashTable.h    BDLIB_NS_BEGIN
-<a href='../S/32.html#L29'>BDLIB_NS_BEGIN</a>     29 Iterator.h     BDLIB_NS_BEGIN
-<a href='../S/56.html#L28'>BDLIB_NS_BEGIN</a>     28 List.cpp       BDLIB_NS_BEGIN
-<a href='../S/37.html#L28'>BDLIB_NS_BEGIN</a>     28 List.h         BDLIB_NS_BEGIN
-<a href='../S/50.html#L27'>BDLIB_NS_BEGIN</a>     27 Queue.cpp      BDLIB_NS_BEGIN
-<a href='../S/47.html#L30'>BDLIB_NS_BEGIN</a>     30 Queue.h        BDLIB_NS_BEGIN
-<a href='../S/33.html#L27'>BDLIB_NS_BEGIN</a>     27 ReferenceCountedArray.cpp BDLIB_NS_BEGIN
-<a href='../S/43.html#L35'>BDLIB_NS_BEGIN</a>     35 ReferenceCountedArray.h BDLIB_NS_BEGIN
-<a href='../S/2.html#L27'>BDLIB_NS_BEGIN</a>     27 Socket.cpp     BDLIB_NS_BEGIN
-<a href='../S/1.html#L36'>BDLIB_NS_BEGIN</a>     36 Socket.h       BDLIB_NS_BEGIN
-<a href='../S/40.html#L27'>BDLIB_NS_BEGIN</a>     27 SortedList.cpp BDLIB_NS_BEGIN
-<a href='../S/8.html#L29'>BDLIB_NS_BEGIN</a>     29 SortedList.h   BDLIB_NS_BEGIN
-<a href='../S/55.html#L27'>BDLIB_NS_BEGIN</a>     27 Stack.cpp      BDLIB_NS_BEGIN
-<a href='../S/9.html#L29'>BDLIB_NS_BEGIN</a>     29 Stack.h        BDLIB_NS_BEGIN
-<a href='../S/53.html#L21'>BDLIB_NS_BEGIN</a>     21 Stream.cpp     BDLIB_NS_BEGIN
-<a href='../S/34.html#L35'>BDLIB_NS_BEGIN</a>     35 Stream.h       BDLIB_NS_BEGIN
-<a href='../S/54.html#L36'>BDLIB_NS_BEGIN</a>     36 String.cpp     BDLIB_NS_BEGIN
-<a href='../S/35.html#L46'>BDLIB_NS_BEGIN</a>     46 String.h       BDLIB_NS_BEGIN
-<a href='../S/48.html#L40'>BDLIB_NS_BEGIN</a>     40 Thread.cpp     BDLIB_NS_BEGIN
-<a href='../S/49.html#L47'>BDLIB_NS_BEGIN</a>     47 Thread.h       BDLIB_NS_BEGIN
-<a href='../S/45.html#L29'>BDLIB_NS_BEGIN</a>     29 base64.c       BDLIB_NS_BEGIN
-<a href='../S/38.html#L28'>BDLIB_NS_BEGIN</a>     28 base64.h       BDLIB_NS_BEGIN
-<a href='../S/31.html#L37'>BDLIB_NS_BEGIN</a>     37 hash.h         BDLIB_NS_BEGIN
+<a href='../S/44.html#L37'>Allocator</a>          37 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt;&gt;
+<a href='../S/44.html#L46'>Allocator</a>          46 ReferenceCountedArray.h     mutable Allocator alloc;
+<a href='../S/44.html#L51'>Allocator</a>          51 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), n(1) {};
+<a href='../S/44.html#L177'>Allocator</a>         177 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt;&gt;
+<a href='../S/44.html#L205'>Allocator</a>         205 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/44.html#L252'>Allocator</a>         252 ReferenceCountedArray.h     Allocator alloc;
+<a href='../S/44.html#L257'>Allocator</a>         257 ReferenceCountedArray.h     mutable ArrayRef&lt;value_type, Allocator&gt; *Ref;
+<a href='../S/44.html#L350'>Allocator</a>         350 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/44.html#L351'>Allocator</a>         351 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/44.html#L368'>Allocator</a>         368 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/44.html#L370'>Allocator</a>         370 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/44.html#L381'>Allocator</a>         381 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/44.html#L383'>Allocator</a>         383 ReferenceCountedArray.h       Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/35.html#L82'>Allocator</a>          82 String.h               String(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) {};
+<a href='../S/35.html#L83'>Allocator</a>          83 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(string) {};
+<a href='../S/35.html#L85'>Allocator</a>          85 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/35.html#L93'>Allocator</a>          93 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
+<a href='../S/35.html#L103'>Allocator</a>         103 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
+<a href='../S/35.html#L112'>Allocator</a>         112 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
+<a href='../S/35.html#L123'>Allocator</a>         123 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
+<a href='../S/35.html#L124'>Allocator</a>         124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/35.html#L139'>Allocator</a>         139 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::find;
+<a href='../S/35.html#L149'>Allocator</a>         149 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::rfind;
+<a href='../S/35.html#L268'>Allocator</a>         268 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::append;
+<a href='../S/35.html#L271'>Allocator</a>         271 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::insert;
+<a href='../S/35.html#L274'>Allocator</a>         274 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::replace;
 </pre>
 </body>
 </html>

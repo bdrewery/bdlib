@@ -1,18 +1,22 @@
 <html>
 <head>
-<title>BinaryTreeIterator</title>
+<title>BinaryTree</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L38'>BinaryTreeIterator</a>   38 BinaryTree.h     class BinaryTreeIterator;
-<a href='../S/3.html#L41'>BinaryTreeIterator</a>   41 BinaryTree.h       typedef BinaryTreeIterator iterator;
-<a href='../S/3.html#L259'>BinaryTreeIterator</a>  259 BinaryTree.h       class BinaryTreeIterator : public Iterator&lt;iterator_type&gt; {
-<a href='../S/3.html#L276'>BinaryTreeIterator</a>  276 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/3.html#L286'>BinaryTreeIterator</a>  286 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/3.html#L295'>BinaryTreeIterator</a>  295 BinaryTree.h           BinaryTreeIterator() : Iterator&lt;iterator_type&gt;(),
-<a href='../S/3.html#L319'>BinaryTreeIterator</a>  319 BinaryTree.h           virtual ~BinaryTreeIterator() { delete[] storage; }
+<a href='../S/3.html#L37'>BinaryTree</a>         37 BinaryTree.h   class BinaryTree {
+<a href='../S/3.html#L147'>BinaryTree</a>        147 BinaryTree.h       BinaryTree() : my_size(0), root(NULL) {};
+<a href='../S/3.html#L148'>BinaryTree</a>        148 BinaryTree.h       BinaryTree(const BinaryTree&amp; tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+<a href='../S/3.html#L150'>BinaryTree</a>        150 BinaryTree.h       BinaryTree(BinaryTree&amp;&amp; tree) : my_size(0), root(NULL) {
+<a href='../S/3.html#L155'>BinaryTree</a>        155 BinaryTree.h       friend void swap(BinaryTree&amp; a, BinaryTree&amp; b) {
+<a href='../S/3.html#L162'>BinaryTree</a>        162 BinaryTree.h       BinaryTree&amp; operator=(BinaryTree tree) {
+<a href='../S/3.html#L173'>BinaryTree</a>        173 BinaryTree.h       virtual ~BinaryTree() { clear(); };
+<a href='../S/3.html#L268'>BinaryTree</a>        268 BinaryTree.h         friend class BinaryTree;
+<a href='../S/3.html#L269'>BinaryTree</a>        269 BinaryTree.h         typedef BinaryTree&lt;Key, Value&gt; Tree;
+<a href='../S/29.html#L278'>BinaryTree</a>        278 tests/BinaryTreeTest.cpp   BinaryTree&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/22.html#L40'>BinaryTree</a>         40 tests/BinaryTreeTest.h         BinaryTree&lt;int, String&gt; *a, *b, *c, *d, *e, *f, *g, *h;
 </pre>
 </body>
 </html>

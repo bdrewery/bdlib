@@ -1,14 +1,21 @@
 <html>
 <head>
-<title>mode</title>
+<title>loading</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/53.html#L127'>mode</a>              127 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
-<a href='../S/53.html#L129'>mode</a>              129 Stream.cpp       int fd = open(file.c_str(), O_CREAT|O_RDWR|O_TRUNC, mode);
-<a href='../S/34.html#L137'>mode</a>              137 Stream.h               virtual int writeFile(const String&amp; fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
+<a href='../S/54.html#L98'>loading</a>            98 Stream.cpp       loading = 1;
+<a href='../S/54.html#L108'>loading</a>           108 Stream.cpp       loading = 1;
+<a href='../S/54.html#L123'>loading</a>           123 Stream.cpp       loading = 0;
+<a href='../S/34.html#L48'>loading</a>            48 Stream.h               bool loading;
+<a href='../S/34.html#L51'>loading</a>            51 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/34.html#L52'>loading</a>            52 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/34.html#L54'>loading</a>            54 Stream.h               Stream(Stream&amp;&amp; stream) : str(), pos(0), loading(0) {
+<a href='../S/34.html#L58'>loading</a>            58 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/34.html#L59'>loading</a>            59 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/34.html#L67'>loading</a>            67 Stream.h                 swap(a.loading, b.loading);
 </pre>
 </body>
 </html>

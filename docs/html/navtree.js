@@ -6,8 +6,9 @@ var NAVTREE =
       [ "Todo List", "todo.html", null ]
     ] ],
     [ "Class List", "annotated.html", [
+      [ "add_to_pack< A, pack< R...> >", "structadd__to__pack_3_01A_00_01pack_3_01R_8_8_8_4_01_4.html", null ],
       [ "bd::Array< T >", "classbd_1_1Array.html", null ],
-      [ "bd::ArrayRef< T >", "classbd_1_1ArrayRef.html", null ],
+      [ "bd::ArrayRef< T, Allocator >", "classbd_1_1ArrayRef.html", null ],
       [ "bd::Base64", "classbd_1_1Base64.html", null ],
       [ "bd::BinaryTree< Key, Value >", "classbd_1_1BinaryTree.html", null ],
       [ "bd::ClientSocket", "classbd_1_1ClientSocket.html", null ],
@@ -33,8 +34,8 @@ var NAVTREE =
       [ "bd::Queue< T >", "classbd_1_1Queue.html", null ],
       [ "bd::QueueConstIterator< T >", "classbd_1_1QueueConstIterator.html", null ],
       [ "bd::QueueIterator< T >", "classbd_1_1QueueIterator.html", null ],
-      [ "bd::ReferenceCountedArray< T >", "classbd_1_1ReferenceCountedArray.html", null ],
-      [ "bd::ReferenceCountedArray< T >::Cref", "classbd_1_1ReferenceCountedArray_1_1Cref.html", null ],
+      [ "bd::ReferenceCountedArray< T, Allocator >", "classbd_1_1ReferenceCountedArray.html", null ],
+      [ "bd::ReferenceCountedArray< T, Allocator >::Cref", "classbd_1_1ReferenceCountedArray_1_1Cref.html", null ],
       [ "bd::ReferenceCountedArrayBase", "classbd_1_1ReferenceCountedArrayBase.html", null ],
       [ "bd::ServerSocket", "classbd_1_1ServerSocket.html", null ],
       [ "bd::Slice< T >", "classbd_1_1Slice.html", null ],
@@ -44,12 +45,19 @@ var NAVTREE =
       [ "bd::Stack< T >", "classbd_1_1Stack.html", null ],
       [ "bd::Stream", "classbd_1_1Stream.html", null ],
       [ "bd::String", "classbd_1_1String.html", null ],
-      [ "bd::Thread", "classbd_1_1Thread.html", null ]
+      [ "bd::Thread", "classbd_1_1Thread.html", null ],
+      [ "convert_to_tuple< pack< A...> >", "structconvert__to__tuple_3_01pack_3_01A_8_8_8_4_01_4.html", null ],
+      [ "drop_from_end< N, A >", "structdrop__from__end.html", null ],
+      [ "pack< Pack >", "structpack.html", null ],
+      [ "take< N >", "structtake_3_01N_01_4.html", null ],
+      [ "take< N, Head, Tail...>", "structtake_3_01N_00_01Head_00_01Tail_8_8_8_4.html", null ]
     ] ],
     [ "Class Index", "classes.html", null ],
     [ "Class Hierarchy", "hierarchy.html", [
-      [ "bd::ArrayRef< value_type >", "classbd_1_1ArrayRef.html", null ],
-      [ "bd::ArrayRef< T >", "classbd_1_1ArrayRef.html", null ],
+      [ "add_to_pack< A, pack< R...> >", "structadd__to__pack_3_01A_00_01pack_3_01R_8_8_8_4_01_4.html", null ],
+      [ "bd::ArrayRef< value_type, std::allocator< String_Array_Type > >", "classbd_1_1ArrayRef.html", null ],
+      [ "bd::ArrayRef< value_type, std::allocator< T > >", "classbd_1_1ArrayRef.html", null ],
+      [ "bd::ArrayRef< T, Allocator >", "classbd_1_1ArrayRef.html", null ],
       [ "bd::Base64", "classbd_1_1Base64.html", null ],
       [ "bd::BinaryTree< Key, Value >", "classbd_1_1BinaryTree.html", null ],
       [ "bd::Crypto", "classbd_1_1Crypto.html", null ],
@@ -77,13 +85,14 @@ var NAVTREE =
       [ "bd::List< T >::Node", "structbd_1_1List_1_1Node.html", null ],
       [ "bd::QueueConstIterator< T >", "classbd_1_1QueueConstIterator.html", null ],
       [ "bd::QueueIterator< T >", "classbd_1_1QueueIterator.html", null ],
-      [ "bd::ReferenceCountedArray< T >::Cref", "classbd_1_1ReferenceCountedArray_1_1Cref.html", null ],
+      [ "bd::ReferenceCountedArray< T, Allocator >::Cref", "classbd_1_1ReferenceCountedArray_1_1Cref.html", null ],
       [ "bd::ReferenceCountedArrayBase", "classbd_1_1ReferenceCountedArrayBase.html", [
-        [ "bd::ReferenceCountedArray< T >", "classbd_1_1ReferenceCountedArray.html", [
-          [ "bd::Array< T >", "classbd_1_1Array.html", null ]
-        ] ],
+        [ "bd::ReferenceCountedArray< T, Allocator >", "classbd_1_1ReferenceCountedArray.html", null ],
         [ "bd::ReferenceCountedArray< String_Array_Type >", "classbd_1_1ReferenceCountedArray.html", [
           [ "bd::String", "classbd_1_1String.html", null ]
+        ] ],
+        [ "bd::ReferenceCountedArray< T >", "classbd_1_1ReferenceCountedArray.html", [
+          [ "bd::Array< T >", "classbd_1_1Array.html", null ]
         ] ]
       ] ],
       [ "bd::Slice< T >", "classbd_1_1Slice.html", null ],
@@ -94,7 +103,12 @@ var NAVTREE =
       [ "bd::sockname_t", "structbd_1_1sockname__t.html", null ],
       [ "bd::Stream", "classbd_1_1Stream.html", null ],
       [ "bd::Thread", "classbd_1_1Thread.html", null ],
-      [ "bd::Iterator< iterator_type >", "classbd_1_1Iterator.html", null ]
+      [ "convert_to_tuple< pack< A...> >", "structconvert__to__tuple_3_01pack_3_01A_8_8_8_4_01_4.html", null ],
+      [ "drop_from_end< N, A >", "structdrop__from__end.html", null ],
+      [ "bd::Iterator< iterator_type >", "classbd_1_1Iterator.html", null ],
+      [ "pack< Pack >", "structpack.html", null ],
+      [ "take< N >", "structtake_3_01N_01_4.html", null ],
+      [ "take< N, Head, Tail...>", "structtake_3_01N_00_01Head_00_01Tail_8_8_8_4.html", null ]
     ] ],
     [ "Class Members", "functions.html", null ],
     [ "Namespace List", "namespaces.html", [
@@ -120,6 +134,7 @@ var NAVTREE =
       [ "Iterator.h", "Iterator_8h.html", null ],
       [ "List.cpp", "List_8cpp.html", null ],
       [ "List.h", "List_8h.html", null ],
+      [ "partial_params.h", "partial__params_8h.html", null ],
       [ "Queue.cpp", "Queue_8cpp.html", null ],
       [ "Queue.h", "Queue_8h.html", null ],
       [ "ReferenceCountedArray.cpp", "ReferenceCountedArray_8cpp.html", null ],
