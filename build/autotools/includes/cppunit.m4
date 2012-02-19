@@ -4,9 +4,9 @@ dnl
 AC_DEFUN([AM_PATH_CPPUNIT],
 [
 
-AC_ARG_WITH(cppunit-prefix,[  --with-cppunit-prefix=PFX   Prefix where CppUnit is installed (optional)],
+AC_ARG_WITH(cppunit-prefix, [AS_HELP_STRING([--with-cppunit-prefix=PFX], [Prefix where CppUnit is installed (optional)])],
             cppunit_config_prefix="$withval", cppunit_config_prefix="")
-AC_ARG_WITH(cppunit-exec-prefix,[  --with-cppunit-exec-prefix=PFX  Exec prefix where CppUnit is installed (optional)],
+AC_ARG_WITH(cppunit-exec-prefix, [AS_HELP_STRING([--with-cppunit-exec-prefix=PFX],[Exec prefix where CppUnit is installed (optional)])],
             cppunit_config_exec_prefix="$withval", cppunit_config_exec_prefix="")
 
   if test x$cppunit_config_exec_prefix != x ; then
