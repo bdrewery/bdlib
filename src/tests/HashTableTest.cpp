@@ -373,8 +373,9 @@ void HashTableTest :: iterateTest (void)
   CPPUNIT_ASSERT_EQUAL(false, iter.hasNext());
 }
 #endif
-#include <unordered_map>
+
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
+#include <unordered_map>
 void HashTableTest :: initializerTest(void) {
   HashTable<String, int> my_hash {
     {"One", 1}, {"Two", 2}

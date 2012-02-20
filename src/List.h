@@ -138,7 +138,9 @@ class List {
 
     inline size_t size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); };
+#endif
 
     /**
      * @brief Insert into the list at the head
@@ -238,7 +240,11 @@ class List {
           current = nextValue;
         }
 
-        virtual explicit operator bool() const { return (current != NULL); };
+        virtual
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+          explicit
+#endif
+        operator bool() const { return (current != NULL); };
         virtual operator iterator_type () { return operator*(); };
           
         virtual iterator_type& operator *() { return static_cast<iterator_type&>(current->item); }

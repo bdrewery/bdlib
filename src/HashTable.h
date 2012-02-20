@@ -93,17 +93,18 @@ class HashTable {
 
       // Make a list of KeyValues to yield from.
       // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
+      typename List<iterator_type>::iterator iter;
       List<iterator_type> items;
       for (size_t i = 0; i < _capacity; ++i) {
         if (_list[i].size()) {
-          for (auto iter = _list[i].begin(); iter; (++iter)) {
+          for (iter = _list[i].begin(); iter; (++iter)) {
             items << *iter;
           }
         }
       }
 
       // Now yield on our temporary, so (this) isn't a factor.
-      for (auto iter = items.begin(); iter; (++iter)) {
+      for (iter = items.begin(); iter; (++iter)) {
         iterator_type kv = *iter;
         block(kv.key(), kv.value(), param);
       }
@@ -139,7 +140,9 @@ class HashTable {
     inline size_t size() const { return _size; };
     inline size_t capacity() const { return _capacity; };
     inline bool isEmpty() const { return size() == 0; };
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); };
+#endif
 
     bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;
@@ -180,9 +183,10 @@ class HashTable {
     Array<Key> keys() const {
       Array<Key> tmp(size());
 
+      typename List<iterator_type>::iterator iter;
       for (size_t i = 0; i < capacity(); ++i) {
         if (_list[i].size()) {
-          for (auto iter = _list[i].begin(); iter; (++iter)) {
+          for (iter = _list[i].begin(); iter; (++iter)) {
             iterator_type kv = *iter;
             tmp << kv.key();
           }
@@ -197,9 +201,10 @@ class HashTable {
     Array<Value> values() const {
       Array<Value> tmp(size());
 
+      typename List<iterator_type>::iterator iter;
       for (size_t i = 0; i < capacity(); ++i) {
         if (_list[i].size()) {
-          for (auto iter = _list[i].begin(); iter; (++iter)) {
+          for (iter = _list[i].begin(); iter; (++iter)) {
             iterator_type kv = *iter;
             tmp << kv.value();
           }

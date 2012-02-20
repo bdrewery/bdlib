@@ -34,7 +34,7 @@
 #include <string.h>
 
 BDLIB_NS_BEGIN
-template <class T, class Allocator = std::allocator<T>>
+template <class T, class Allocator = std::allocator<T> >
 /**
  * @class ArrayRef
  * @brief Helps the String and Array classes with reference counting
@@ -105,8 +105,13 @@ class ArrayRef {
     inline bool isShared() const { return n > 1; };
   private:
     // No copying allowed
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
     ArrayRef(const ArrayRef&) = delete;
     ArrayRef& operator=(const ArrayRef&) = delete;
+#else
+    ArrayRef(const ArrayRef&);
+    ArrayRef& operator=(const ArrayRef&);
+#endif
 };
 
 template <class T>
@@ -125,7 +130,11 @@ class Slice {
     int start;
     int len;
 
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
     Slice() = delete;
+#else
+    Slice();
+#endif
 
   public:
     Slice(T& _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
@@ -174,7 +183,7 @@ class ReferenceCountedArrayBase {
 };
 
 
-template <class T, class Allocator = std::allocator<T>>
+template <class T, class Allocator = std::allocator<T> >
 /**
  * @class ReferenceCountedArray
  * @brief Common template base class for String and Array
@@ -512,7 +521,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * Having if(string) conflicts with another operator
      */
     inline bool operator!() const { return isEmpty(); };
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); }
+#endif
 
     /**
      * @brief Data accessor
@@ -664,7 +675,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @brief Used by Cref operator[]
          */
         Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
         Cref() = delete;
+#else
+        Cref();
+#endif
         Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
 
       public:

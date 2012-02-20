@@ -141,7 +141,9 @@ class BinaryTree {
       */
     inline size_t size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); };
+#endif
 
   public:
     BinaryTree() : my_size(0), root(NULL) {};
@@ -337,7 +339,11 @@ class BinaryTree {
 */
         }
 
-        virtual explicit operator bool() const { return (index > 0 && index < my_size); };
+        virtual
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+          explicit
+#endif
+        operator bool() const { return (index > 0 && index < my_size); };
 
         virtual operator iterator_type() { return operator*(); };
         virtual iterator_type& operator*(){ return storage[index]; }

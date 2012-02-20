@@ -48,7 +48,11 @@ class Iterator { //This should not exist.
     virtual bool hasNext() { return bool(*this); };
     virtual ~Iterator() {};
 
-    virtual explicit operator bool() const = 0;
+    virtual
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+      explicit
+#endif
+    operator bool() const = 0;
     virtual T& operator*() = 0;
     virtual T* operator->() { return &(operator*()); };
 
