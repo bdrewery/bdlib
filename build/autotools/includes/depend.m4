@@ -7,16 +7,20 @@ dnl
 AC_DEFUN([CHECK_DEPMODE],
 [
 CCDEPMODE=gcc
-num=`$CXX -dumpversion | sed "s/^\\\(.\\\).*/\\\1/"`
-if test $num -ge "3"; then
+version_major=`$CXX -dumpversion | cut -d . -f 1`
+version_minor=`$CXX -dumpversion | cut -d . -f 2`
+if test $version_major -ge "3"; then
   CCDEPMODE=gcc3
-  GCC3="-W -std=c++0x -Wabi -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
+  GCC3="-W -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
   NOUNITSGCC3="-fno-rtti -fstrict-aliasing"
-  DEBGCC3="-Wno-disabled-optimization"
+  DEBGCC3="-Wno-disabled-optimization -Wabi"
   DEBNOUNITSGCC3="-Weffc++ -Woverloaded-virtual"
 fi
-if test $num -ge "4"; then
+if test $version_major -ge "4"; then
   GCC4DEB="-fstack-protector-all -Winvalid-pch"
+  if test $version_minor -ge 6; then
+    GCC3="$GCC3 -std=c++0x"
+  fi
 fi
 AC_SUBST(CCDEPMODE)dnl
 AC_SUBST(GCC3)dnl
