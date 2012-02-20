@@ -680,9 +680,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 #else
         Cref();
 #endif
-        Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
 
       public:
+        Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
         inline Cref& operator=(const Cref& cref) {
           (*this) = value_type(cref);
           return (*this);
