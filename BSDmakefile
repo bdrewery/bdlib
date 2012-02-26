@@ -14,9 +14,9 @@ clean: check_gmake
 	@gmake clean
 distclean: check_gmake
 	@gmake distclean
-test:
+test: check_gmake
 	@gmake test
-test.quick:
+test.quick: check_gmake
 	@gmake test.quick
-test.verbose:
+test.verbose: check_gmake
 	@gmake test.verbose
