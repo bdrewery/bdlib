@@ -41,10 +41,10 @@ MAKE_UNITS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPM
 MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
 'CFLGS=$(CFLGS) $(DEBCXXFLAGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
-.PHONY: default clean distclean bdlib debug general check check.quiet checkclean.bdlib checkclean.debug buildcheck
+.PHONY: all clean distclean bdlib debug general test test.quick test.verbose checkclean.bdlib checkclean.debug buildcheck
 .NOTPARALELL: checkclean.bdlib checkclean.debug
 
-default: bdlib
+all: bdlib
 
 clean:
 	-+@cd src && $(MAKE) clean
@@ -88,14 +88,14 @@ buildcheck: checkclean.debug
 	+@cd build && ${MAKE_DEBUG} check
 
 
-check: checkclean.debug general buildcheck
-	@echo "[*] Running unit tests..."
-	@$(VALGRIND) build/UnitRunner@EXEEXT@
-
-check.quiet: checkclean.debug general buildcheck
+test: checkclean.debug general buildcheck
 	@echo "[*] Running unit tests..."
 	@$(VALGRIND) build/UnitRunner@EXEEXT@ quiet
 
-checkquick: checkclean.debug general buildcheck
+test.verbose: checkclean.debug general buildcheck
+	@echo "[*] Running unit tests..."
+	@$(VALGRIND) build/UnitRunner@EXEEXT@
+
+test.quick: checkclean.debug general buildcheck
 	@echo "[*] Running unit tests..."
 	build/UnitRunner@EXEEXT@ quiet
