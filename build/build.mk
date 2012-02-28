@@ -3,6 +3,7 @@ BDLIB_UNITS = $(top_srcdir)/src/libbdlib_units.a
 
 depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 
+.SUFFIXES:
 .SUFFIXES: .c .cpp .h .o
 
 .cpp.o:
