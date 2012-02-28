@@ -49,7 +49,11 @@ class ArrayRef {
     mutable int n; //References
 
     ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), n(1) {};
-    ~ArrayRef() { FreeBuf(buf); };
+    ~ArrayRef() {
+      if (buf) {
+        FreeBuf(buf);
+      }
+    };
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
      * @param newSize A size that we need to Allocate the buffer to.
@@ -70,9 +74,11 @@ class ArrayRef {
         if (newbuf != buf) {
           // Initialize new memory
           std::uninitialized_fill(newbuf, newbuf + newSize, T());
-          /* Copy old buffer into new - only copy the subarray */
-          std::copy(buf + offset, buf + offset + sublen, newbuf);
-          FreeBuf(buf);
+          if (buf) {
+            /* Copy old buffer into new - only copy the subarray */
+            std::copy(buf + offset, buf + offset + sublen, newbuf);
+            FreeBuf(buf);
+          }
           buf = newbuf;
           size = newSize;
           offset = 0;
