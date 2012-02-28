@@ -11,6 +11,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <unistd.h>
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
