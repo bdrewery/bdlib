@@ -274,9 +274,11 @@ void BinaryTreeTest :: iterateTest (void)
   a->insert(2, "Blah2");
   a->insert(8, "Blah8");
   a->insert(4, "Blah4");
+  CPPUNIT_ASSERT_EQUAL(size_t(4), a->size());
 
   BinaryTree<int, String>::iterator iter = a->begin();
 
+  CPPUNIT_ASSERT_EQUAL(true, (bool) iter);
   while (iter) {
 //    int key = (int) iter.next();
 //    printf("%d\n", key);
@@ -285,28 +287,34 @@ void BinaryTreeTest :: iterateTest (void)
   }
 
   iter = a->begin();
+  CPPUNIT_ASSERT_EQUAL(true, (bool) iter);
   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), a->size());
 
   a->remove(4);
   iter = a->begin();
   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a->size());
 
   a->remove(2);
   iter = a->begin();
   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", (iter++)->value());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->size());
 
   a->remove(8);
   iter = a->begin();
   CPPUNIT_ASSERT_STRING_EQUAL("Bleck", (iter++)->value());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->size());
 
   a->remove(1);
   iter = a->begin();
+  CPPUNIT_ASSERT_EQUAL(size_t(0), a->size());
   CPPUNIT_ASSERT_EQUAL(false, (bool) iter);
 
   /* Now reinsert some data N:testN .. */
@@ -318,6 +326,7 @@ void BinaryTreeTest :: iterateTest (void)
 
   int n = 0;
   /* And ensure it comes out in key order in tact */
+  CPPUNIT_ASSERT_EQUAL(true, (bool) (*a).begin());
   for (iter = (*a).begin(); iter; (++iter)) {
     char buf[10] = "";
     sprintf(buf, "test%d", n);

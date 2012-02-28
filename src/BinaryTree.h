@@ -273,6 +273,7 @@ class BinaryTree {
         Tree* tree;
         size_t index;
         size_t my_size;
+        bool reverse;
         iterator_type* storage;
 
         void fillArray(int& i, const Node* node) {
@@ -283,10 +284,11 @@ class BinaryTree {
           fillArray(i, node->right);
         }
 
-        BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator<iterator_type>(), 
+        BinaryTreeIterator(Tree* t, Node* node, size_t size, bool _reverse = 0) : Iterator<iterator_type>(),
                                                                           tree(t),
-                                                                          index(end ? size - 1: 0), 
+                                                                          index(_reverse ? size - 1 : 0),
                                                                           my_size(size), 
+                                                                          reverse(_reverse),
                                                                           storage(new iterator_type[size]) {
           int i = 0;
           fillArray(i, node);
@@ -297,6 +299,7 @@ class BinaryTree {
                                                    tree(iter.tree),
                                                    index(iter.index), 
                                                    my_size(iter.my_size), 
+                                                   reverse(iter.reverse),
                                                    storage(new iterator_type[iter.my_size]) {
           for (size_t i = 0; i < my_size; ++i)
             storage[i] = iter.storage[i];
@@ -306,6 +309,7 @@ class BinaryTree {
                                tree(NULL),
                                index(0),
                                my_size(0),
+                               reverse(0),
                                storage(NULL) {
         };
 
@@ -343,7 +347,9 @@ class BinaryTree {
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
           explicit
 #endif
-        operator bool() const { return (index > 0 && index < my_size); };
+        operator bool() const {
+          return ((reverse && index > 0) || (!reverse && index < (my_size)));
+        };
 
         virtual operator iterator_type() { return operator*(); };
         virtual iterator_type& operator*(){ return storage[index]; }
