@@ -217,7 +217,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void doDetach() const {
       decRef();
-      Ref = new ArrayRef<value_type, Allocator>(alloc);
+      Ref = NULL;
       sublen = 0;
       offset = 0;
       my_hash = 0;
@@ -225,12 +225,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Increment our reference counter.
      */
-    inline int incRef() const { return ++Ref->n; };
+    inline int incRef() const { return Ref ? ++Ref->n : 0; };
 
     /**
      * @brief Decrement our reference counter.
      */
-    inline int decRef() const { return --Ref->n; };
+    inline int decRef() const { return Ref ? --Ref->n : 0; };
 
   protected:
     /**
@@ -257,7 +257,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Mutable Ref->buf reference for use internally
      */
-    inline pointer Buf(size_t pos = 0) const { return &Ref->buf[offset + pos]; };
+    inline pointer Buf(size_t pos = 0) const { return Ref ? &Ref->buf[offset + pos] : NULL; };
 
     /**
      * @brief Ref->buf reference for use internally
@@ -274,7 +274,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
      */
-    inline const_pointer real_begin() const { return Ref->buf; };
+    inline const_pointer real_begin() const { return Ref ? Ref->buf : NULL; };
 
     /**
      * This is for subarrays: so we know where the subarray starts.
@@ -314,8 +314,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it.
      */
     inline void CheckDeallocRef() {
-      if (Ref && decRef() < 1)
+      if (Ref && decRef() < 1) {
         delete Ref;
+        Ref = NULL;
+      }
     }
 
     //    void COW(size_t) const;
@@ -363,7 +365,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
   public:
     ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-      Ref = new ArrayRef<value_type, Allocator>(alloc);
     };
     ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
