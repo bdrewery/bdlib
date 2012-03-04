@@ -86,6 +86,10 @@ void StringTest :: capacityTest (void)
   CPPUNIT_ASSERT(f->capacity() >= 11);
   CPPUNIT_ASSERT(g->capacity() >= 1);
   CPPUNIT_ASSERT(h->capacity() >= 35);
+
+  *a = String();
+  // This is just a crash test
+  CPPUNIT_ASSERT(ssize_t(a->capacity()) >= 0);
 }
 
 void StringTest :: compareTest (void)
@@ -426,6 +430,11 @@ void StringTest :: replaceTest(void)
   *b = a->sub("aa", ",");
   CPPUNIT_ASSERT_STRING_EQUAL("aa1 2 aaaa 3aa", *a);
   CPPUNIT_ASSERT_STRING_EQUAL(",1 2 ,, 3,", *b);
+
+  *a = String();
+  *b = *a->sub("\"", "\\\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, *b);
 }
 
 void StringTest :: chompTest(void)

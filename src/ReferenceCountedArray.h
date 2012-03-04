@@ -382,7 +382,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
-      Ref = new ArrayRef<value_type, Allocator>(alloc);
       Reserve(newSize);
     };
     /**
@@ -395,7 +394,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize <= 0) return;
-      Ref = new ArrayRef<value_type, Allocator>(alloc);
       Reserve(newSize);
 
       for (size_t i = 0; i < newSize; ++i)
@@ -469,14 +467,19 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @return True if this object is shared; false if not.
      */
-    inline bool isShared() const { return Ref->isShared(); };
+    inline bool isShared() const { return Ref && Ref->isShared(); };
 
 
     /**
      * @sa ArrayRef::Reserve()
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize) const { Ref->Reserve(newSize, offset, sublen); };
+    virtual void Reserve(const size_t newSize) const {
+      if (!Ref) {
+        Ref = new ArrayRef<value_type, Allocator>(alloc);
+      }
+      Ref->Reserve(newSize, offset, sublen);
+    }
 
     /**
      * @brief Clear contents of ReferenceCountedArray and set length to 0
@@ -487,7 +490,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns capacity of the ReferenceCountedArray object.
      * @return Capacity of the ReferenceCountedArray object.
      */
-    inline size_t capacity() const { return Ref->size; };
+    inline size_t capacity() const { return Ref ? Ref->size : 0; };
 
     /**
      * @brief Resize the array to the given length.
