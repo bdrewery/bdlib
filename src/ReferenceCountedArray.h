@@ -382,8 +382,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * a char buf[N];
      */
     explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-      if (newSize <= 0) return;
-      Reserve(newSize);
+      if (newSize) {
+        Reserve(newSize);
+      }
     };
     /**
      * @brief Create a container filled with n copies of the given value.
@@ -394,12 +395,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      *
      */
     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-      if (newSize <= 0) return;
-      Reserve(newSize);
+      if (newSize) {
+        Reserve(newSize);
 
-      for (size_t i = 0; i < newSize; ++i)
-        *(Buf(i)) = value;
-      this->setLength(newSize);
+        for (size_t i = 0; i < newSize; ++i) {
+          *(Buf(i)) = value;
+        }
+        this->setLength(newSize);
+      }
     }
 
     /**
