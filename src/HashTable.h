@@ -63,7 +63,7 @@ class HashTable {
           _list[i] = table._list[i];
     };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    HashTable(HashTable<Key, Value>&& table) : _list(table._list), _size(table._Size), _capacity(table._capacity), _hash(table._hash) {
+    HashTable(HashTable<Key, Value>&& table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
       _list = NULL;
       _size = 0;
       _capacity = default_list_size;

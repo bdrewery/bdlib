@@ -368,7 +368,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     };
     ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) {
+    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
       rca.alloc = Allocator();
       rca.Ref = NULL;
       rca.offset = 0;
@@ -457,11 +457,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     ReferenceCountedArray& operator=(ReferenceCountedArray&& rca) {
       CheckDeallocRef();
-      alloc = rca.alloc;
-      offset = rca.offset;
-      sublen = rca.sublen;
-      my_hash = rca.my_hash;
-      Ref = rca.Ref;
+      alloc = std::move(rca.alloc);
+      offset = std::move(rca.offset);
+      sublen = std::move(rca.sublen);
+      my_hash = std::move(rca.my_hash);
+      Ref = std::move(rca.Ref);
 
       rca.alloc = Allocator();
       rca.offset = 0;

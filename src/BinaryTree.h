@@ -149,7 +149,7 @@ class BinaryTree {
     BinaryTree() : my_size(0), root(NULL) {};
     BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    BinaryTree(BinaryTree&& tree) : my_size(tree.my_size), root(tree.root) {
+    BinaryTree(BinaryTree&& tree) : my_size(std::move(tree.my_size)), root(std::move(tree.root)) {
       root = NULL;
       my_size = 0;
     };

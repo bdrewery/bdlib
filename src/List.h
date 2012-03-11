@@ -50,7 +50,7 @@ class List {
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-      Node(iterator_type&& p) : item(p.item), next(p.next), prev(p.prev) {
+      Node(iterator_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
         item = NULL;
         next = NULL;
         prev = NULL;
