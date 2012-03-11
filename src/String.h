@@ -131,6 +131,17 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           }
         }
 
+        String& operator=(const String& string) {
+          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(string);
+          return *this;
+        }
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+        String& operator=(String&& string) {
+          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(std::move(string));
+          return *this;
+        }
+#endif
+
         /**
          * @brief Find a string in the string
          * @return The position of the string if found, or String::npos if not found

@@ -122,7 +122,17 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 #endif
-    using ReferenceCountedArray<value_type>::operator=;
+
+    Array& operator=(const Array<value_type>& array) {
+      ReferenceCountedArray<value_type>::operator=(array);
+      return *this;
+    }
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    Array& operator=(Array<value_type>&& array) {
+      ReferenceCountedArray<value_type>::operator=(std::move(array));
+      return *this;
+    }
+#endif
 
     /**
      * @brief Add an item to the end of the array
