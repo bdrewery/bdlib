@@ -55,7 +55,7 @@ class Array : public ReferenceCountedArray<T> {
     Array() : ReferenceCountedArray<value_type>() {};
     Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(array) {};
+    Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(std::move(array)) {};
 #endif
     /**
      * @brief Create a Array from a given carray.
