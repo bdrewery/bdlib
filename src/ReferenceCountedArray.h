@@ -448,10 +448,27 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       Ref = rca.Ref;
       return *this;
     }
-#ifdef reference
-    // Here for reference, the above is quicker
-    ReferenceCountedArray& operator=(ReferenceCountedArray rca) {
-      swap(*this, rca);
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+    /**
+     * @brief Moves the given ReferenceCountedArray to this
+     * @param rca The ReferenceCountedArray object to take ownership of.
+     * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
+     */
+    ReferenceCountedArray& operator=(ReferenceCountedArray&& rca) {
+      CheckDeallocRef();
+      alloc = rca.alloc;
+      offset = rca.offset;
+      sublen = rca.sublen;
+      my_hash = rca.my_hash;
+      Ref = rca.Ref;
+
+      rca.alloc = Allocator();
+      rca.offset = 0;
+      rca.sublen = 0;
+      rca.my_hash = 0;
+      rca.Ref = NULL;
+
       return *this;
     }
 #endif
