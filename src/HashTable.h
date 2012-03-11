@@ -63,8 +63,11 @@ class HashTable {
           _list[i] = table._list[i];
     };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    HashTable(HashTable<Key, Value>&& table) : _list(NULL), _size(0), _capacity(default_list_size), _hash() {
-      swap(*this, table);
+    HashTable(HashTable<Key, Value>&& table) : _list(table._list), _size(table._Size), _capacity(table._capacity), _hash(table._hash) {
+      _list = NULL;
+      _size = 0;
+      _capacity = default_list_size;
+      _hash = _hash();
     }
 #endif
 #ifdef __GXX_EXPERIMENTAL_CXX0X__

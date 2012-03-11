@@ -368,8 +368,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     };
     ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-      swap(*this, rca);
+    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) {
+      rca.alloc = Allocator();
+      rca.Ref = NULL;
+      rca.offset = 0;
+      rca.sublen = 0;
+      rca.my_hash = 0;
     };
 #endif
     /**

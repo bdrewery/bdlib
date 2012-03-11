@@ -50,8 +50,10 @@ class List {
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-      Node(iterator_type&& p) : item(NULL), next(NULL), prev(NULL) {
-        swap(*this, p);
+      Node(iterator_type&& p) : item(p.item), next(p.next), prev(p.prev) {
+        item = NULL;
+        next = NULL;
+        prev = NULL;
       };
 #endif
 

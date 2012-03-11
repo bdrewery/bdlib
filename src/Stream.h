@@ -51,8 +51,10 @@ class Stream {
         Stream() : str(), pos(0), loading(0) {};
         Stream(const Stream& stream) : str(stream.str), pos(stream.pos), loading(0) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        Stream(Stream&& stream) : str(), pos(0), loading(0) {
-          swap(*this, stream);
+        Stream(Stream&& stream) : str(stream.str), pos(stream.pos), loading(stream.loading) {
+          str = String();
+          pos = 0;
+          loading = 0;
         }
 #endif
         Stream(const String& string) : str(string), pos(0), loading(0) {};
