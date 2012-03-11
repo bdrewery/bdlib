@@ -440,6 +440,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
       rca.incRef();
+      alloc = rca.alloc;
       offset = rca.offset;
       sublen = rca.sublen;
       my_hash = rca.my_hash;
