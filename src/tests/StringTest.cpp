@@ -120,6 +120,22 @@ void StringTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+  // Test move semantics
+  String my_string(std::move(*a));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), my_string.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
+
+  *d = std::move(my_string);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), d->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), my_string.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
+#endif
 }
 
 void StringTest :: swapTest (void)
