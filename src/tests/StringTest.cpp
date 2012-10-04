@@ -547,6 +547,19 @@ void StringTest :: findTest(void)
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("notfound"));
 }
 
+void StringTest :: ifindTest(void)
+{
+  *a = "This is some long string";
+  CPPUNIT_ASSERT_EQUAL((size_t)18, a->ifind("stRIng"));
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->find("stRIng"));
+}
+
+void StringTest :: rifindTest(void)
+{
+  *a = "This is some long string";
+  CPPUNIT_ASSERT_EQUAL((size_t)18, a->rifind("stRIng"));
+  CPPUNIT_ASSERT_EQUAL(String::npos, a->rfind("stRIng"));
+}
 void StringTest :: rfindTest(void)
 {
 

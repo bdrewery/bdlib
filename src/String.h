@@ -144,9 +144,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         /**
          * @brief Find a string in the string
+         * @param str The substring to look for
          * @return The position of the string if found, or String::npos if not found
          **/
-        size_t find(const String&) const;
+        size_t find(const String& str) const;
         using ReferenceCountedArray<String_Array_Type, Allocator>::find;
 
         /**
@@ -158,6 +159,22 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         size_t rfind(const String& str, const size_t lpos = 0) const;
         using ReferenceCountedArray<String_Array_Type, Allocator>::rfind;
+
+        /**
+         * @brief Find a string, starting from the end of the string, ignoring case
+         * @param str The string to look for
+         * @param lpos The last position to consider when searching
+         * @return The position of the string if found, or String::npos if not found
+         * @sa ifind
+         */
+        size_t rifind(const String& str, const size_t lpos = 0) const;
+
+        /**
+         * @brief Find a string in the string, ignoring case
+         * @param str The substring to look for
+         * @return The position of the string if found, or String::npos if not found
+         **/
+        size_t ifind(const String& str) const;
 
 	/**
 	 * @brief Cstring accessor

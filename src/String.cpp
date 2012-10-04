@@ -221,6 +221,20 @@ size_t String::find(const String& str) const {
   return npos;
 }
 
+size_t String::ifind(const String& str) const {
+  String str_upper(str), this_upper(*this);
+  std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
+  std::transform(this->begin(), this->end(), this_upper.begin(), ::toupper);
+  return this_upper.find(str_upper);
+}
+
+size_t String::rifind(const String& str, const size_t lpos) const {
+  String str_upper(str), this_upper(*this);
+  std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
+  std::transform(this->begin(), this->end(), this_upper.begin(), ::toupper);
+  return this_upper.rfind(str_upper);
+}
+
 size_t String::rfind(const String& str, const size_t lpos) const {
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
