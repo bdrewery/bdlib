@@ -37,20 +37,20 @@ class List {
 
   public:
     typedef ListIterator iterator;
-    typedef T iterator_type;
+    typedef T value_type;
 
 
   protected:
     struct Node {
-      iterator_type item;
+      value_type item;
       Node* next;
       Node* prev;
       
-      Node(const iterator_type& p) : item(p), next(NULL), prev(NULL) {};
+      Node(const value_type& p) : item(p), next(NULL), prev(NULL) {};
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-      Node(iterator_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+      Node(value_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
         item = NULL;
         next = NULL;
         prev = NULL;
@@ -86,7 +86,7 @@ class List {
       --my_size;
     }
 
-    Node* findNode(const iterator_type& item) const {
+    Node* findNode(const value_type& item) const {
       for (Node* current = head; current; current = current->next) {
         if (current->item == item) {
           return current;
@@ -148,7 +148,7 @@ class List {
      * @brief Insert into the list at the head
      * @param item The item to insert
      */
-    void insert(const iterator_type& item) {
+    void insert(const value_type& item) {
       Node* node = new Node(item);
       if (!head) {
         head = tail = node;
@@ -163,29 +163,29 @@ class List {
     /**
      * @sa insert
      */
-    inline friend List<iterator_type>& operator<< (List<iterator_type>& list, const iterator_type& item) {
+    inline friend List<value_type>& operator<< (List<value_type>& list, const value_type& item) {
       list.insert(item);
       return list;
     }
 
-    bool contains(const iterator_type& item) const {
+    bool contains(const value_type& item) const {
       return findNode(item) ? true : false;
     }
 
-   const iterator_type find(const iterator_type& item) const {
+   const value_type find(const value_type& item) const {
       Node* node = findNode(item);
-      return node ? node->item : iterator_type();
+      return node ? node->item : value_type();
     }
 
     /**
      * @brief Return a reference to the found element
      */
-    iterator_type& findRef(const iterator_type& item) {
+    value_type& findRef(const value_type& item) {
       Node* node = findNode(item);
       return node ? node->item : head->item;
     }
 
-    bool remove(const iterator_type& item) {
+    bool remove(const value_type& item) {
       /* cases (removing X):
        * 1) list = (X)
        * 2) list = (X)->(Y)
@@ -201,25 +201,25 @@ class List {
     }
 
     private:
-    class ListIterator : public Iterator<iterator_type> {
+    class ListIterator : public Iterator<value_type> {
       friend class List;
       private:
         List *list;
         Node *current;
         bool end;
 
-        ListIterator(List &_list, bool _end = 0) : Iterator<iterator_type>(),
+        ListIterator(List &_list, bool _end = 0) : Iterator<value_type>(),
                                                               list(&_list),
                                                               current(_end ? _list.head : _list.tail), /* tail is beginning */
                                                               end(_end) {
         };
       public:
-        ListIterator(const iterator& iter) : Iterator<iterator_type>(),
+        ListIterator(const iterator& iter) : Iterator<value_type>(),
                                              list(iter.list),
                                              current(iter.current),
                                              end(iter.end) {
         };
-        ListIterator() : Iterator<iterator_type>(),
+        ListIterator() : Iterator<value_type>(),
                          list(NULL),
                          current(NULL),
                          end(0) {
@@ -247,9 +247,9 @@ class List {
           explicit
 #endif
         operator bool() const { return (current != NULL); };
-        virtual operator iterator_type () { return operator*(); };
+        virtual operator value_type () { return operator*(); };
           
-        virtual iterator_type& operator *() { return static_cast<iterator_type&>(current->item); }
+        virtual value_type& operator *() { return static_cast<value_type&>(current->item); }
 
         //Postfix
         virtual iterator operator ++(int) {
