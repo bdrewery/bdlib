@@ -206,6 +206,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     typedef typename Allocator::const_reference       const_reference;
     typedef typename Allocator::pointer               iterator;
     typedef typename Allocator::const_pointer         const_iterator;
+    typedef std::random_access_iterator_tag           iterator_category;
     typedef std::reverse_iterator<const_iterator>     const_reverse_iterator;
     typedef std::reverse_iterator<iterator>           reverse_iterator;
 
