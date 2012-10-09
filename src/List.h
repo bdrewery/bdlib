@@ -39,6 +39,12 @@ class List {
     typedef ListIterator iterator;
     typedef T value_type;
 
+    typedef size_t             size_type;
+    typedef std::ptrdiff_t     difference_type;
+    typedef value_type*        pointer;
+    typedef const value_type*  const_pointer;
+    typedef value_type&        reference;
+    typedef const value_type&  const_reference;
 
   protected:
     struct Node {
@@ -46,11 +52,11 @@ class List {
       Node* next;
       Node* prev;
       
-      Node(const value_type& p) : item(p), next(NULL), prev(NULL) {};
+      Node(const_reference p) : item(p), next(NULL), prev(NULL) {};
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-      Node(value_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+      Node(const value_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
         item = NULL;
         next = NULL;
         prev = NULL;
@@ -86,7 +92,7 @@ class List {
       --my_size;
     }
 
-    Node* findNode(const value_type& item) const {
+    Node* findNode(const_reference item) const {
       for (Node* current = head; current; current = current->next) {
         if (current->item == item) {
           return current;
@@ -97,7 +103,7 @@ class List {
 
     Node* head;
     Node* tail;
-    size_t my_size;
+    size_type my_size;
 
   public:
     List() : head(NULL), tail(NULL), my_size(0) {};
@@ -138,7 +144,7 @@ class List {
       my_size = 0;
     };
 
-    inline size_t size() const { return my_size; };
+    inline size_type size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); };
@@ -148,7 +154,7 @@ class List {
      * @brief Insert into the list at the head
      * @param item The item to insert
      */
-    void insert(const value_type& item) {
+    void insert(const_reference item) {
       Node* node = new Node(item);
       if (!head) {
         head = tail = node;
@@ -163,16 +169,16 @@ class List {
     /**
      * @sa insert
      */
-    inline friend List<value_type>& operator<< (List<value_type>& list, const value_type& item) {
+    inline friend List<value_type>& operator<< (List<value_type>& list, const_reference item) {
       list.insert(item);
       return list;
     }
 
-    bool contains(const value_type& item) const {
+    bool contains(const_reference item) const {
       return findNode(item) ? true : false;
     }
 
-   const value_type find(const value_type& item) const {
+   const value_type find(const_reference item) const {
       Node* node = findNode(item);
       return node ? node->item : value_type();
     }
@@ -180,12 +186,12 @@ class List {
     /**
      * @brief Return a reference to the found element
      */
-    value_type& findRef(const value_type& item) {
+    reference findRef(const_reference item) {
       Node* node = findNode(item);
       return node ? node->item : head->item;
     }
 
-    bool remove(const value_type& item) {
+    bool remove(const_reference item) {
       /* cases (removing X):
        * 1) list = (X)
        * 2) list = (X)->(Y)
