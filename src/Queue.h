@@ -113,22 +113,21 @@ class QueueIterator {
   friend class QueueConstIterator<T>;
 
   public:
-    typedef Queue<T> Queue_t;
-    typedef QueueIterator<T> iterator;
-    typedef QueueConstIterator<T> const_iterator;
-    typedef typename Queue_t::Node Node;
-    typedef std::forward_iterator_tag iterator_category;
-    typedef T value_type;
-    typedef std::ptrdiff_t difference_type;
-    typedef size_t size_type;
-    typedef T& reference;
-    typedef T* pointer;
+    typedef QueueIterator<T> 		iterator;
+    typedef QueueConstIterator<T> 	const_iterator;
+    typedef typename Queue<T>::Node 	Node;
+    typedef std::forward_iterator_tag 	iterator_category;
+    typedef T 				value_type;
+    typedef std::ptrdiff_t 		difference_type;
+    typedef size_t 			size_type;
+    typedef value_type& 		reference;
+    typedef value_type* 		pointer;
 
   private:
-    Queue_t *queue;
+    Queue<T> *queue;
     Node *current;
 
-    QueueIterator(Queue_t* _queue, Node* start) : queue(_queue), current(start) {};
+    QueueIterator(Queue<T>* _queue, Node* start) : queue(_queue), current(start) {};
   public:
     QueueIterator() : queue(NULL), current(NULL) {};
     ~QueueIterator() { }
@@ -159,22 +158,21 @@ class QueueConstIterator {
   friend class QueueIterator<T>;
 
   public:
-    typedef Queue<T> Queue_t;
-    typedef QueueIterator<T> iterator;
-    typedef QueueConstIterator<T> const_iterator;
-    typedef typename Queue_t::Node Node;
-    typedef std::forward_iterator_tag iterator_category;
-    typedef T value_type;
-    typedef std::ptrdiff_t difference_type;
-    typedef size_t size_type;
-    typedef const T& reference;
-    typedef const T* pointer;
+    typedef QueueIterator<T>		iterator;
+    typedef QueueConstIterator<T> 	const_iterator;
+    typedef typename Queue<T>::Node 	Node;
+    typedef std::forward_iterator_tag 	iterator_category;
+    typedef T 				value_type;
+    typedef std::ptrdiff_t 		difference_type;
+    typedef size_t 			size_type;
+    typedef const value_type&		reference;
+    typedef const value_type*		pointer;
 
   private:
-    const Queue_t *queue;
+    const Queue<T> *queue;
     const Node *current;
 
-    QueueConstIterator(const Queue_t* _queue, const Node* start) : queue(_queue), current(start) {};
+    QueueConstIterator(const Queue<T>* _queue, const Node* start) : queue(_queue), current(start) {};
   public:
     QueueConstIterator(const iterator& iter) : queue(iter.queue), current(iter.current) {};
     QueueConstIterator() : queue(NULL), current(NULL) {};
