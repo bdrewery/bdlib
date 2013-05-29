@@ -87,7 +87,7 @@ class ArrayRef {
         // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
         // Shift everything to the beginning and reset the offset
         /* Only copy the subarray */
-        memmove(buf, buf + offset, sublen);
+        memmove(static_cast<void*>(buf), static_cast<void*>(buf + offset), sublen);
         offset = 0;
       }
     }
@@ -829,7 +829,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+      memmove(static_cast<void*>(Buf() + pos + slen), static_cast<void*>(Buf() + pos), length() - pos);
       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
       addLength(slen);
     }
@@ -847,7 +847,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       if (pos && !hasIndex(pos-1)) return;
 
       AboutToModify(length() + 1);
-      memmove(Buf() + pos + 1, Buf() + pos, length() - pos);
+      memmove(static_cast<void*>(Buf() + pos + 1), static_cast<void*>(Buf() + pos), length() - pos);
       *(Buf(pos)) = item;
       addLength(1);
     }
