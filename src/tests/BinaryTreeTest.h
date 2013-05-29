@@ -38,7 +38,5 @@ class BinaryTreeTest : public CPPUNIT_NS :: TestFixture
         void iterateTest(void);
     private:
         BinaryTree<int, String> *a, *b, *c, *d, *e, *f, *g, *h;
-	int k1, k2, k3, k4;
-	String v1, v2, v3, v4;
 };
 #endif /* !_BINARYTREETEST_H */
