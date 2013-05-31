@@ -64,7 +64,7 @@ int Thread::start(void* _param) {
 /* endif USE_PTHREAD */
 #elif defined(WIN32)  
     /* Attempt to create the thread */
-    if (this->handle = (HANDLE)_beginthreadex(nullptr, 0, threadMain, this, 0, &(this->id)) {
+    if (this->handle = (HANDLE)_beginthreadex(nullptr, 0, threadMain, this, 0, &(this->id))) {
       if (isDetached())
         CloseHandle(this->handle);
       setStarted();
