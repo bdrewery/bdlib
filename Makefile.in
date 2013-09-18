@@ -42,7 +42,7 @@ MAKE_UNITS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPM
 MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
 'CFLGS=$(CFLGS) $(DEBCXXFLAGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
-.PHONY: all clean distclean bdlib debug general test test.quick test.verbose checkclean.bdlib checkclean.debug buildcheck
+.PHONY: all clean distclean bdlib debug general test.debug test test.verbose checkclean.bdlib checkclean.debug buildcheck
 .NOTPARALELL: checkclean.bdlib checkclean.debug
 
 all: bdlib
@@ -89,7 +89,7 @@ buildcheck: checkclean.debug
 	+@cd build && ${MAKE_DEBUG} check
 
 
-test: checkclean.debug general buildcheck
+test.debug: checkclean.debug general buildcheck
 	@echo "[*] Running unit tests..."
 	@$(VALGRIND) $(UNITRUNNER) quiet
 
@@ -97,6 +97,6 @@ test.verbose: checkclean.debug general buildcheck
 	@echo "[*] Running unit tests..."
 	@$(VALGRIND) $(UNITRUNNER)
 
-test.quick: checkclean.debug general buildcheck
+test: checkclean.debug general buildcheck
 	@echo "[*] Running unit tests..."
 	@$(UNITRUNNER) quiet
