@@ -408,7 +408,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize) {
-        Reserve(newSize);
+        Reserve(newSize, 1);
 
         for (size_t i = 0; i < newSize; ++i) {
           *(Buf(i)) = value;
