@@ -194,8 +194,18 @@ class Array : public ReferenceCountedArray<T> {
      */
     String join(const String& delim, bool quoted = false) const {
       if (!this->length()) return String();
-      String str;
-      for (size_t i = 0; i < this->length(); ++i) {
+      size_t str_size = 0, i;
+
+      // Preallocate a fully sized String to avoid frequent resizing
+      str_size += (this->length() * delim.length()) - 1;
+      if (quoted)
+	str_size += this->length() * 2;
+      for (i = 0; i < this->length(); ++i)
+	str_size += this->Buf(i)->length();
+
+      String str(str_size);
+
+      for (i = 0; i < this->length(); ++i) {
         if (i)
           str += delim;
         if (quoted) {
