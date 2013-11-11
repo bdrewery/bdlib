@@ -63,17 +63,18 @@ class ArrayRef {
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
      * @param newSize A size that we need to Allocate the buffer to.
+     * @param size_factor How much to multiply the size by to help avoid later resizing
      * @param offset The offset of the old buffer so we know where to start
      * @param sublen The length of the subarray in use
      * @pre newSize is > 0 (assumed as size_t is unsigned)
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
      */
-    void Reserve(size_t newSize, size_t& offset, size_t sublen) const
+    void Reserve(size_t newSize, double size_factor, size_t& offset, size_t sublen) const
     {
       /* Don't new if we already have enough room! */
       if (size < newSize) {
-        newSize = std::max(size_t(size * 1.5), newSize);
+        newSize = std::max(size_t(size * size_factor), newSize);
 
         iterator newbuf = alloc.allocate(newSize, buf);
 
@@ -394,7 +395,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize) {
-        Reserve(newSize);
+        Reserve(newSize, 1);
       }
     };
     /**
@@ -505,13 +506,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
     /**
      * @sa ArrayRef::Reserve()
+     * @param newSize A size that we need to Allocate the buffer to.
+     * @param size_factor How much to multiple the size by to help avoid later resizing
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize) const {
+    virtual void Reserve(const size_t newSize, double size_factor = 1.5) const {
       if (!Ref) {
         Ref = new ArrayRef<value_type, Allocator>(alloc);
       }
-      Ref->Reserve(newSize, offset, sublen);
+      Ref->Reserve(newSize, size_factor, offset, sublen);
     }
 
     /**
