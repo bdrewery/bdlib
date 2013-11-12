@@ -18,11 +18,6 @@ if test $version_major -ge "3"; then
 fi
 if test $version_major -ge "4"; then
   GCC4DEB="-Winvalid-pch"
-  if test $version_minor -ge 6; then
-    GCC3="$GCC3 -std=c++0x"
-  else
-    GCC3="$GCC3 -std=c++98"
-  fi
 fi
 AC_SUBST(CCDEPMODE)dnl
 AC_SUBST(GCC3)dnl

@@ -32,6 +32,7 @@ AC_LANG(C++)
 AC_PROG_CXX([g++49 g++-4.9 g++48 g++-4.8 g++47 g++-4.7 g++46 g++-4.6 g++45 g++-4.5 g++44 g++-4.4 g++41 g++-4.1 g++40 g++-4.0 g++4 g++-3.3 g++33 g++-3 g++3 g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC])
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
 AC_REQUIRE_CPP
+AX_CXX_COMPILE_STDCXX_11([noext], [optional])
 
 # Check for compiler features
 EGG_CHECK_CCWALL
