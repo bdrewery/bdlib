@@ -63,18 +63,18 @@ class ArrayRef {
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
      * @param newSize A size that we need to Allocate the buffer to.
-     * @param size_factor How much to multiply the size by to help avoid later resizing
+     * @param scaling_factor How much to multiply the size by to help avoid later resizing
      * @param offset The offset of the old buffer so we know where to start
      * @param sublen The length of the subarray in use
      * @pre newSize is > 0 (assumed as size_t is unsigned)
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
      */
-    void Reserve(size_t newSize, double size_factor, size_t& offset, size_t sublen) const
+    void Reserve(size_t newSize, double scaling_factor, size_t& offset, size_t sublen) const
     {
       /* Don't new if we already have enough room! */
       if (size < newSize) {
-        newSize = std::max(size_t(size * size_factor), newSize);
+        newSize = std::max(size_t(size * scaling_factor), newSize);
 
         iterator newbuf = alloc.allocate(newSize, buf);
 
@@ -195,6 +195,8 @@ class ReferenceCountedArrayBase {
     virtual ~ReferenceCountedArrayBase() {};
 };
 
+
+static const double _rca_cow_scaling_factor = 1.5;
 
 template <class T, class Allocator = std::allocator<T> >
 /**
@@ -346,7 +348,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       const size_t oldLength = length();
 
       doDetach(); //Detach from the shared reference
-      Reserve( std::max(oldLength, n) ); //Will set capacity()/size
+      Reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
       std::copy(oldBuf, oldBuf + oldLength, Buf());
       setLength(oldLength);
     }
@@ -367,7 +369,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       if (isShared())
         COW(n); // Clears the offset
       else {
-        Reserve(n);
+        Reserve(n, _rca_cow_scaling_factor);
         /* Shift the offset away */
       }
     }
@@ -395,7 +397,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize) {
-        Reserve(newSize, 1);
+        Reserve(newSize);
       }
     };
     /**
@@ -408,7 +410,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
       if (newSize) {
-        Reserve(newSize, 1);
+        Reserve(newSize);
 
         for (size_t i = 0; i < newSize; ++i) {
           *(Buf(i)) = value;
@@ -507,14 +509,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @sa ArrayRef::Reserve()
      * @param newSize A size that we need to Allocate the buffer to.
-     * @param size_factor How much to multiple the size by to help avoid later resizing
+     * @param scaling_factor How much to multiple the size by to help avoid later resizing
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize, double size_factor = 1.5) const {
+    virtual void Reserve(const size_t newSize, double scaling_factor = 1) const {
       if (!Ref) {
         Ref = new ArrayRef<value_type, Allocator>(alloc);
       }
-      Ref->Reserve(newSize, size_factor, offset, sublen);
+      Ref->Reserve(newSize, scaling_factor, offset, sublen);
     }
 
     /**

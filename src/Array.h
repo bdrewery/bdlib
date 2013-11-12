@@ -97,7 +97,7 @@ class Array : public ReferenceCountedArray<T> {
      * @test Array test("Some array");
      */
     Array(const_pointer carray, size_t len) : ReferenceCountedArray<value_type>() {
-      this->Reserve(len, 1);
+      this->Reserve(len);
       for (size_t i = 0; i < len; ++i)
         push(carray[i]);
     };
@@ -120,7 +120,7 @@ class Array : public ReferenceCountedArray<T> {
      */
     Array& operator=(std::initializer_list<value_type> list) {
       this->clear();
-      this->Reserve(list.size(), 1);
+      this->Reserve(list.size());
       for (value_type item : list) {
         push(std::move(item));
       }
