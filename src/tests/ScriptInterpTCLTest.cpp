@@ -311,6 +311,18 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: some argument arg2: 45", tcl_script.eval(params.join(" ", true)));
 }
 
+String interp_cmd_test(ScriptInterp* interp, String params) {
+  return params;
+}
+
+void ScriptInterpTCLTest :: createCommandInterpTest (void)
+{
+  ScriptInterpTCL tcl_script;
+
+  tcl_script.createCommand("interp_cmd_test", interp_cmd_test);
+  CPPUNIT_ASSERT_STRING_EQUAL("test", tcl_script.eval("interp_cmd_test test"));
+}
+
 void ScriptInterpTCLTest :: deleteCommandTest (void)
 {
   ScriptInterpTCL tcl_script;
