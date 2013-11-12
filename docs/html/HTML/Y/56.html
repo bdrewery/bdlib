@@ -1,41 +1,18 @@
 <html>
 <head>
-<title>List</title>
+<title>ListIterator</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/5.html#L50'>List</a>               50 HashTable.h        List&lt;iterator_type&gt; *_list;
-<a href='../S/5.html#L59'>List</a>               59 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/5.html#L60'>List</a>               60 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L61'>List</a>               61 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L71'>List</a>               71 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L96'>List</a>               96 HashTable.h          List&lt;iterator_type&gt; items;
-<a href='../S/37.html#L35'>List</a>               35 List.h         class List {
-<a href='../S/37.html#L101'>List</a>              101 List.h             List() : head(NULL), tail(NULL), my_size(0) {};
-<a href='../S/37.html#L102'>List</a>              102 List.h             virtual ~List() { clear(); };
-<a href='../S/37.html#L104'>List</a>              104 List.h             List(const List&amp; list) : head(NULL), tail(NULL), my_size(0) {
-<a href='../S/37.html#L110'>List</a>              110 List.h             List(List&amp;&amp; list) : head(NULL), tail(NULL), my_size(0) {
-<a href='../S/37.html#L115'>List</a>              115 List.h             friend void swap(List&amp; a, List&amp; b) {
-<a href='../S/37.html#L123'>List</a>              123 List.h             List&amp; operator=(List list) {
-<a href='../S/37.html#L162'>List</a>              162 List.h             inline friend List&lt;iterator_type&gt;&amp; operator&lt;&lt; (List&lt;iterator_type&gt;&amp; list, const iterator_type&amp; item) {
-<a href='../S/37.html#L201'>List</a>              201 List.h               friend class List;
-<a href='../S/37.html#L203'>List</a>              203 List.h                 List *list;
-<a href='../S/37.html#L207'>List</a>              207 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/48.html#L40'>List</a>               40 Queue.h        class Queue : public List&lt;T&gt; {
-<a href='../S/48.html#L41'>List</a>               41 Queue.h          typedef typename List&lt;T&gt;::Node Node;
-<a href='../S/48.html#L59'>List</a>               59 Queue.h            Queue() : List&lt;value_type&gt;() {};
-<a href='../S/8.html#L36'>List</a>               36 SortedList.h   class SortedList : public List&lt;T&gt; {
-<a href='../S/8.html#L38'>List</a>               38 SortedList.h     typedef typename List&lt;iterator_type&gt;::Node Node;
-<a href='../S/8.html#L41'>List</a>               41 SortedList.h       SortedList() : List&lt;iterator_type&gt;() {};
-<a href='../S/9.html#L36'>List</a>               36 Stack.h        class Stack : public List&lt;T&gt; {
-<a href='../S/9.html#L38'>List</a>               38 Stack.h          typedef typename List&lt;iterator_type&gt;::Node Node;
-<a href='../S/9.html#L41'>List</a>               41 Stack.h            Stack() : List&lt;iterator_type&gt;() {};
-<a href='../S/26.html#L249'>List</a>              249 tests/ListTest.cpp   List&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/26.html#L292'>List</a>              292 tests/ListTest.cpp   List&lt;String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/16.html#L38'>List</a>               38 tests/ListTest.h         List&lt;String&gt; *a, *b, *c, *d;
-<a href='../S/16.html#L39'>List</a>               39 tests/ListTest.h         List&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/37.html#L40'>ListIterator</a>       40 List.h           class ListIterator;
+<a href='../S/37.html#L43'>ListIterator</a>       43 List.h             typedef ListIterator iterator;
+<a href='../S/37.html#L214'>ListIterator</a>      214 List.h             class ListIterator : public Iterator&lt;value_type&gt; {
+<a href='../S/37.html#L221'>ListIterator</a>      221 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;value_type&gt;(),
+<a href='../S/37.html#L227'>ListIterator</a>      227 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;value_type&gt;(),
+<a href='../S/37.html#L232'>ListIterator</a>      232 List.h                 ListIterator() : Iterator&lt;value_type&gt;(),
+<a href='../S/37.html#L245'>ListIterator</a>      245 List.h                 virtual ~ListIterator() { }
 </pre>
 </body>
 </html>

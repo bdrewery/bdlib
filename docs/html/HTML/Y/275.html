@@ -1,26 +1,36 @@
 <html>
 <head>
-<title>handle</title>
+<title>head</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/49.html#L59'>handle</a>             59 Thread.cpp         if (pthread_create(&amp;(this-&gt;handle), &amp;attr, threadMain, this) == 0)
-<a href='../S/49.html#L65'>handle</a>             65 Thread.cpp         if (this-&gt;handle = (HANDLE)_beginthreadex(NULL, 0, threadMain, this, 0, &amp;(this-&gt;id)) {
-<a href='../S/49.html#L67'>handle</a>             67 Thread.cpp             CloseHandle(this-&gt;handle);
-<a href='../S/49.html#L81'>handle</a>             81 Thread.cpp         pthread_detach(this-&gt;handle);
-<a href='../S/49.html#L83'>handle</a>             83 Thread.cpp         CloseHandle(this-&gt;handle);
-<a href='../S/49.html#L96'>handle</a>             96 Thread.cpp         pthread_join(this-&gt;handle, &amp;_status);
-<a href='../S/49.html#L98'>handle</a>             98 Thread.cpp         WaitForSingleObject(this-&gt;handle, INFINITE);
-<a href='../S/49.html#L99'>handle</a>             99 Thread.cpp         GetExitCodeThread(this-&gt;handle, (DWORD*) &amp;_status);
-<a href='../S/49.html#L100'>handle</a>            100 Thread.cpp         CloseHandle(this-&gt;handle);
-<a href='../S/49.html#L110'>handle</a>            110 Thread.cpp         pthread_cancel(this-&gt;handle);
-<a href='../S/49.html#L111'>handle</a>            111 Thread.cpp         pthread_detach(this-&gt;handle);
-<a href='../S/49.html#L113'>handle</a>            113 Thread.cpp         TerminateThread(this-&gt;handle, 0);
-<a href='../S/49.html#L114'>handle</a>            114 Thread.cpp         CloseHandle(this-&gt;handle);
-<a href='../S/50.html#L60'>handle</a>             60 Thread.h           threadHandle_t handle;
-<a href='../S/50.html#L67'>handle</a>             67 Thread.h           Thread(void) : handle(0), id(0), status(0), param(NULL) {};
+<a href='../S/37.html#L93'>head</a>               93 List.h               if (node == head) head = next;
+<a href='../S/37.html#L100'>head</a>              100 List.h               for (Node* current = head; current; current = current-&gt;next) {
+<a href='../S/37.html#L108'>head</a>              108 List.h             Node* head;
+<a href='../S/37.html#L113'>head</a>              113 List.h             List() : head(NULL), tail(NULL), my_size(0) {};
+<a href='../S/37.html#L116'>head</a>              116 List.h             List(const List&amp; list) : head(NULL), tail(NULL), my_size(0) {
+<a href='../S/37.html#L117'>head</a>              117 List.h               for (Node* search = list.head; search; search = search-&gt;next)
+<a href='../S/37.html#L122'>head</a>              122 List.h             List(List&amp;&amp; list) : head(NULL), tail(NULL), my_size(0) {
+<a href='../S/37.html#L130'>head</a>              130 List.h               swap(a.head, b.head);
+<a href='../S/37.html#L141'>head</a>              141 List.h               Node* node = head, *node_n = NULL;
+<a href='../S/37.html#L147'>head</a>              147 List.h               head = tail = NULL;
+<a href='../S/37.html#L163'>head</a>              163 List.h               if (!head) {
+<a href='../S/37.html#L164'>head</a>              164 List.h                 head = tail = node;
+<a href='../S/37.html#L166'>head</a>              166 List.h                 head-&gt;prev = node;
+<a href='../S/37.html#L167'>head</a>              167 List.h                 node-&gt;next = head;
+<a href='../S/37.html#L168'>head</a>              168 List.h                 head = node;
+<a href='../S/37.html#L195'>head</a>              195 List.h               return node ? node-&gt;item : head-&gt;item;
+<a href='../S/37.html#L223'>head</a>              223 List.h                                                                       current(_end ? _list.head : _list.tail), /* tail is beginning */
+<a href='../S/8.html#L61'>head</a>               61 SortedList.h         Node* node = new Node(item), *prev = NULL, *current = this-&gt;head;
+<a href='../S/8.html#L67'>head</a>               67 SortedList.h         if (current == NULL &amp;&amp; this-&gt;head == NULL) {
+<a href='../S/8.html#L68'>head</a>               68 SortedList.h           this-&gt;head = this-&gt;tail = node;
+<a href='../S/8.html#L72'>head</a>               72 SortedList.h         } else if (current == this-&gt;head) {
+<a href='../S/8.html#L73'>head</a>               73 SortedList.h           node-&gt;next = this-&gt;head;
+<a href='../S/8.html#L75'>head</a>               75 SortedList.h           this-&gt;head = node;
+<a href='../S/9.html#L53'>head</a>               53 Stack.h              iterator_type item = this-&gt;head-&gt;item;
+<a href='../S/9.html#L71'>head</a>               71 Stack.h              return this-&gt;isEmpty() ? iterator_type() : this-&gt;head-&gt;item;
 </pre>
 </body>
 </html>

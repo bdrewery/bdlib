@@ -5,62 +5,84 @@
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/58.html'>tests</a>/HashTableTest.h</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/57.html'>tests</a>/HashTableTest.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='14.html#L4' title='Included from 4 in tests/HashTableTest.cpp.'>INCLUDED FROM</a></h2>
+<h2><a href='14.html#L28' title='Included from 28 in tests/HashTableTest.cpp.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* HashTableTest.h</font></i>
-<a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> */</font></i>
-<a name='L4'>   4 <font color='darkred'>#ifndef</font> <a href='../S/25.html#L5' title='Defined at 5 in tests/HashTableTest.h.'>_HASHTABLETEST_H</a>
-<a name='L5'>   5 <font color='darkred'>#define</font> <a href='../S/25.html#L4' title='Refered from 4 in tests/HashTableTest.h.'>_HASHTABLETEST_H</a> 1
-<a name='L6'>   6 
-<a name='L7'>   7 <font color='darkred'>#include</font> &lt;cppunit/TestFixture.h&gt;
-<a name='L8'>   8 <font color='darkred'>#include</font> &lt;cppunit/extensions/HelperMacros.h&gt;
-<a name='L9'>   9 <font color='darkred'>#include</font> "<a href='35.html'>String.h</a>"
-<a name='L10'>  10 <font color='darkred'>#include</font> "<a href='45.html'>Array.h</a>"
-<a name='L11'>  11 <font color='darkred'>#include</font> "<a href='5.html'>HashTable.h</a>"
-<a name='L12'>  12 <a href='../Y/546.html' title='Multiple used in 23 places.'>using</a> <a href='../Y/367.html' title='Multiple used in 10 places.'>namespace</a> <a href='../S/42.html#L41' title='Defined at 41 in bdlib.h.'>BDLIB_NS</a>;
-<a name='L13'>  13 
-<a name='L14'>  14 <a href='../Y/172.html' title='Multiple used in 64 places.'>class</a> <a href='../Y/52.html' title='Multiple used in 13 places.'>HashTableTest</a> : <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a> <a href='../Y/17.html' title='Multiple used in 13 places.'>CPPUNIT_NS</a> :: <a href='../Y/104.html' title='Multiple used in 9 places.'>TestFixture</a>
-<a name='L15'>  15 <font color='red'>{</font>
-<a name='L16'>  16     <a href='../Y/20.html' title='Multiple used in 9 places.'>CPPUNIT_TEST_SUITE</a> (<a href='../Y/52.html' title='Multiple used in 13 places.'>HashTableTest</a>);
-<a name='L17'>  17     <a href='../Y/19.html' title='Multiple used in 91 places.'>CPPUNIT_TEST</a> (<a href='../D/148.html' title='Multiple defined in 5 places.'>insertTest</a>);
-<a name='L18'>  18     <a href='../Y/19.html' title='Multiple used in 91 places.'>CPPUNIT_TEST</a> (<a href='../D/121.html' title='Multiple defined in 4 places.'>containsTest</a>);
-<a name='L19'>  19     <a href='../Y/19.html' title='Multiple used in 91 places.'>CPPUNIT_TEST</a> (<a href='../D/112.html' title='Multiple defined in 6 places.'>clearTest</a>);
-<a name='L20'>  20 <i><font color='green'>//    CPPUNIT_TEST (getKeyTest);</font></i>
-<a name='L21'>  21     <a href='../Y/19.html' title='Multiple used in 91 places.'>CPPUNIT_TEST</a> (<a href='../D/137.html' title='Multiple defined in 2 places.'>getValueTest</a>);
-<a name='L22'>  22     <a href='../Y/19.html' title='Multiple used in 91 places.'>CPPUNIT_TEST</a> (<a href='../D/176.html' title='Multiple defined in 4 places.'>removeTest</a>);
-<a name='L23'>  23 <i><font color='green'>//    CPPUNIT_TEST (iterateTest);</font></i>
-<a name='L24'>  24 <font color='darkred'>#ifdef</font> <a href='../Y/111.html' title='Multiple used in 19 places.'>__GXX_EXPERIMENTAL_CXX0X__</a>
-<a name='L25'>  25     <a href='../Y/19.html' title='Multiple used in 91 places.'>CPPUNIT_TEST</a> (<a href='../D/146.html' title='Multiple defined in 2 places.'>initializerTest</a>);
-<a name='L26'>  26 <font color='darkred'>#endif</font>
-<a name='L27'>  27     <a href='../Y/21.html' title='Multiple used in 9 places.'>CPPUNIT_TEST_SUITE_END</a> ();
-<a name='L28'>  28 
-<a name='L29'>  29     <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a>:
-<a name='L30'>  30         <b>void</b> <a href='../D/187.html' title='Multiple defined in 9 places.'>setUp</a> (<b>void</b>);
-<a name='L31'>  31         <b>void</b> <a href='../D/211.html' title='Multiple defined in 9 places.'>tearDown</a> (<b>void</b>);
-<a name='L32'>  32 
-<a name='L33'>  33     <a href='../Y/407.html' title='Multiple used in 15 places.'>protected</a>:
-<a name='L34'>  34         <b>void</b> <a href='../D/148.html' title='Multiple defined in 5 places.'>insertTest</a>(<b>void</b>);
-<a name='L35'>  35         <b>void</b> <a href='../D/121.html' title='Multiple defined in 4 places.'>containsTest</a>(<b>void</b>);
-<a name='L36'>  36         <b>void</b> <a href='../D/112.html' title='Multiple defined in 6 places.'>clearTest</a>(<b>void</b>);
-<a name='L37'>  37 <i><font color='green'>//        void getKeyTest(void);</font></i>
-<a name='L38'>  38         <b>void</b> <a href='../D/137.html' title='Multiple defined in 2 places.'>getValueTest</a>(<b>void</b>);
-<a name='L39'>  39         <b>void</b> <a href='../D/176.html' title='Multiple defined in 4 places.'>removeTest</a>(<b>void</b>);
-<a name='L40'>  40 <i><font color='green'>//        void iterateTest(void);</font></i>
-<a name='L41'>  41 <font color='darkred'>#ifdef</font> <a href='../Y/111.html' title='Multiple used in 19 places.'>__GXX_EXPERIMENTAL_CXX0X__</a>
-<a name='L42'>  42         <b>void</b> <a href='../D/146.html' title='Multiple defined in 2 places.'>initializerTest</a>(<b>void</b>);
-<a name='L43'>  43 <font color='darkred'>#endif</font>
-<a name='L44'>  44     <a href='../Y/406.html' title='Multiple used in 30 places.'>private</a>:
-<a name='L45'>  45         <a href='../Y/51.html' title='Multiple used in 23 places.'>HashTable</a>&lt;<b>int</b>, <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&gt; *<a href='../Y/127.html' title='Multiple used in 1318 places.'>a</a>, *<a href='../Y/142.html' title='Multiple used in 463 places.'>b</a>, *<a href='../Y/156.html' title='Multiple used in 117 places.'>c</a>, *<a href='../Y/195.html' title='Multiple used in 76 places.'>d</a>, *<a href='../Y/217.html' title='Multiple used in 40 places.'>e</a>, *<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>, *<a href='../Y/265.html' title='Multiple used in 35 places.'>g</a>, *<a href='../Y/272.html' title='Multiple used in 28 places.'>h</a>;
-<a name='L46'>  46         <a href='../Y/51.html' title='Multiple used in 23 places.'>HashTable</a>&lt;<a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>, <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&gt; *<a href='../Y/447.html' title='Multiple used in 53 places.'>sa</a>, *<a href='../Y/451.html' title='Multiple used in 18 places.'>sb</a>;
-<a name='L47'>  47         <b>int</b> <a href='../Y/319.html' title='Multiple used in 2 places.'>k1</a>, <a href='../Y/320.html' title='Multiple used in 2 places.'>k2</a>, <a href='../Y/321.html' title='Multiple used in 2 places.'>k3</a>, <a href='../Y/322.html' title='Multiple used in 2 places.'>k4</a>;
-<a name='L48'>  48         <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a> <a href='../Y/548.html' title='Multiple used in 2 places.'>v1</a>, <a href='../Y/549.html' title='Multiple used in 2 places.'>v2</a>, <a href='../Y/550.html' title='Multiple used in 2 places.'>v3</a>, <a href='../Y/551.html' title='Multiple used in 2 places.'>v4</a>;
-<a name='L49'>  49 <font color='red'>}</font>;
-<a name='L50'>  50 <font color='darkred'>#endif</font> <i><font color='green'>/* !_HASHTABLETEST_H */</font></i>
+<a name='L1'>   1 <i><font color='green'>/*</font></i>
+<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2013, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
+<a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
+<a name='L4'>   4 <i><font color='green'> * </font></i>
+<a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
+<a name='L6'>   6 <i><font color='green'> * modification, are permitted provided that the following conditions are met:</font></i>
+<a name='L7'>   7 <i><font color='green'> * 1. Redistributions of source code must retain the above copyright</font></i>
+<a name='L8'>   8 <i><font color='green'> *    notice, this list of conditions and the following disclaimer.</font></i>
+<a name='L9'>   9 <i><font color='green'> * 2. Redistributions in binary form must reproduce the above copyright</font></i>
+<a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
+<a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
+<a name='L12'>  12 <i><font color='green'> * </font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
+<a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
+<a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
+<a name='L20'>  20 <i><font color='green'> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</font></i>
+<a name='L21'>  21 <i><font color='green'> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</font></i>
+<a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L23'>  23 <i><font color='green'> */</font></i>
+<a name='L24'>  24 
+<a name='L25'>  25 <i><font color='green'>/* HashTableTest.h</font></i>
+<a name='L26'>  26 <i><font color='green'> *</font></i>
+<a name='L27'>  27 <i><font color='green'> */</font></i>
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/25.html#L29' title='Defined at 29 in tests/HashTableTest.h.'>_HASHTABLETEST_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/25.html#L28' title='Refered from 28 in tests/HashTableTest.h.'>_HASHTABLETEST_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;cppunit/TestFixture.h&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cppunit/extensions/HelperMacros.h&gt;
+<a name='L33'>  33 <font color='darkred'>#include</font> "<a href='35.html'>String.h</a>"
+<a name='L34'>  34 <font color='darkred'>#include</font> "<a href='44.html'>Array.h</a>"
+<a name='L35'>  35 <font color='darkred'>#include</font> "<a href='5.html'>HashTable.h</a>"
+<a name='L36'>  36 <a href='../Y/541.html' title='Multiple used in 22 places.'>using</a> <a href='../Y/358.html' title='Multiple used in 10 places.'>namespace</a> <a href='../S/41.html#L46' title='Defined at 46 in bdlib.h.'>BDLIB_NS</a>;
+<a name='L37'>  37 
+<a name='L38'>  38 <a href='../Y/167.html' title='Multiple used in 64 places.'>class</a> <a href='../Y/51.html' title='Multiple used in 13 places.'>HashTableTest</a> : <a href='../Y/410.html' title='Multiple used in 63 places.'>public</a> <a href='../Y/16.html' title='Multiple used in 13 places.'>CPPUNIT_NS</a> :: <a href='../Y/97.html' title='Multiple used in 9 places.'>TestFixture</a>
+<a name='L39'>  39 <font color='red'>{</font>
+<a name='L40'>  40     <a href='../Y/19.html' title='Multiple used in 9 places.'>CPPUNIT_TEST_SUITE</a> (<a href='../Y/51.html' title='Multiple used in 13 places.'>HashTableTest</a>);
+<a name='L41'>  41     <a href='../Y/18.html' title='Multiple used in 93 places.'>CPPUNIT_TEST</a> (<a href='../D/141.html' title='Multiple defined in 5 places.'>insertTest</a>);
+<a name='L42'>  42     <a href='../Y/18.html' title='Multiple used in 93 places.'>CPPUNIT_TEST</a> (<a href='../D/113.html' title='Multiple defined in 4 places.'>containsTest</a>);
+<a name='L43'>  43     <a href='../Y/18.html' title='Multiple used in 93 places.'>CPPUNIT_TEST</a> (<a href='../D/105.html' title='Multiple defined in 6 places.'>clearTest</a>);
+<a name='L44'>  44 <i><font color='green'>//    CPPUNIT_TEST (getKeyTest);</font></i>
+<a name='L45'>  45     <a href='../Y/18.html' title='Multiple used in 93 places.'>CPPUNIT_TEST</a> (<a href='../D/128.html' title='Multiple defined in 2 places.'>getValueTest</a>);
+<a name='L46'>  46     <a href='../Y/18.html' title='Multiple used in 93 places.'>CPPUNIT_TEST</a> (<a href='../D/167.html' title='Multiple defined in 4 places.'>removeTest</a>);
+<a name='L47'>  47 <i><font color='green'>//    CPPUNIT_TEST (iterateTest);</font></i>
+<a name='L48'>  48 <font color='darkred'>#ifdef</font> <a href='../Y/105.html' title='Multiple used in 35 places.'>__GXX_EXPERIMENTAL_CXX0X__</a>
+<a name='L49'>  49     <a href='../Y/18.html' title='Multiple used in 93 places.'>CPPUNIT_TEST</a> (<a href='../D/139.html' title='Multiple defined in 2 places.'>initializerTest</a>);
+<a name='L50'>  50 <font color='darkred'>#endif</font>
+<a name='L51'>  51     <a href='../Y/20.html' title='Multiple used in 9 places.'>CPPUNIT_TEST_SUITE_END</a> ();
+<a name='L52'>  52 
+<a name='L53'>  53     <a href='../Y/410.html' title='Multiple used in 63 places.'>public</a>:
+<a name='L54'>  54         <b>void</b> <a href='../D/180.html' title='Multiple defined in 9 places.'>setUp</a> (<b>void</b>);
+<a name='L55'>  55         <b>void</b> <a href='../D/204.html' title='Multiple defined in 9 places.'>tearDown</a> (<b>void</b>);
+<a name='L56'>  56 
+<a name='L57'>  57     <a href='../Y/397.html' title='Multiple used in 15 places.'>protected</a>:
+<a name='L58'>  58         <b>void</b> <a href='../D/141.html' title='Multiple defined in 5 places.'>insertTest</a>(<b>void</b>);
+<a name='L59'>  59         <b>void</b> <a href='../D/113.html' title='Multiple defined in 4 places.'>containsTest</a>(<b>void</b>);
+<a name='L60'>  60         <b>void</b> <a href='../D/105.html' title='Multiple defined in 6 places.'>clearTest</a>(<b>void</b>);
+<a name='L61'>  61 <i><font color='green'>//        void getKeyTest(void);</font></i>
+<a name='L62'>  62         <b>void</b> <a href='../D/128.html' title='Multiple defined in 2 places.'>getValueTest</a>(<b>void</b>);
+<a name='L63'>  63         <b>void</b> <a href='../D/167.html' title='Multiple defined in 4 places.'>removeTest</a>(<b>void</b>);
+<a name='L64'>  64 <i><font color='green'>//        void iterateTest(void);</font></i>
+<a name='L65'>  65 <font color='darkred'>#ifdef</font> <a href='../Y/105.html' title='Multiple used in 35 places.'>__GXX_EXPERIMENTAL_CXX0X__</a>
+<a name='L66'>  66         <b>void</b> <a href='../D/139.html' title='Multiple defined in 2 places.'>initializerTest</a>(<b>void</b>);
+<a name='L67'>  67 <font color='darkred'>#endif</font>
+<a name='L68'>  68     <a href='../Y/396.html' title='Multiple used in 30 places.'>private</a>:
+<a name='L69'>  69         <a href='../Y/50.html' title='Multiple used in 23 places.'>HashTable</a>&lt;<b>int</b>, <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt; *<a href='../Y/123.html' title='Multiple used in 1340 places.'>a</a>, *<a href='../Y/137.html' title='Multiple used in 467 places.'>b</a>;
+<a name='L70'>  70         <a href='../Y/50.html' title='Multiple used in 23 places.'>HashTable</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>, <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt; *<a href='../Y/439.html' title='Multiple used in 53 places.'>sa</a>, *<a href='../Y/443.html' title='Multiple used in 18 places.'>sb</a>;
+<a name='L71'>  71 <font color='red'>}</font>;
+<a name='L72'>  72 <font color='darkred'>#endif</font> <i><font color='green'>/* !_HASHTABLETEST_H */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>

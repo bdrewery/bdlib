@@ -1,67 +1,23 @@
 <html>
 <head>
-<title>iterator_type</title>
+<title>newsplit</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L49'>iterator_type</a>      49 BinaryTree.h           iterator_type kv;
-<a href='../S/3.html#L184'>iterator_type</a>     184 BinaryTree.h           rNode-&gt;kv = iterator_type(key, value);
-<a href='../S/3.html#L267'>iterator_type</a>     267 BinaryTree.h       class BinaryTreeIterator : public Iterator&lt;iterator_type&gt; {
-<a href='../S/3.html#L274'>iterator_type</a>     274 BinaryTree.h           iterator_type* storage;
-<a href='../S/3.html#L280'>iterator_type</a>     280 BinaryTree.h             storage[i++] = iterator_type(node-&gt;kv);
-<a href='../S/3.html#L284'>iterator_type</a>     284 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/3.html#L288'>iterator_type</a>     288 BinaryTree.h                                                                             storage(new iterator_type[size]) {
-<a href='../S/3.html#L294'>iterator_type</a>     294 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/3.html#L298'>iterator_type</a>     298 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
-<a href='../S/3.html#L303'>iterator_type</a>     303 BinaryTree.h           BinaryTreeIterator() : Iterator&lt;iterator_type&gt;(),
-<a href='../S/3.html#L314'>iterator_type</a>     314 BinaryTree.h                 storage = new iterator_type[iter.my_size];
-<a href='../S/3.html#L342'>iterator_type</a>     342 BinaryTree.h           virtual operator iterator_type() { return operator*(); };
-<a href='../S/3.html#L343'>iterator_type</a>     343 BinaryTree.h           virtual iterator_type&amp; operator*(){ return storage[index]; }
-<a href='../S/5.html#L50'>iterator_type</a>      50 HashTable.h        List&lt;iterator_type&gt; *_list;
-<a href='../S/5.html#L59'>iterator_type</a>      59 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/5.html#L60'>iterator_type</a>      60 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L61'>iterator_type</a>      61 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L71'>iterator_type</a>      71 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L96'>iterator_type</a>      96 HashTable.h          List&lt;iterator_type&gt; items;
-<a href='../S/5.html#L107'>iterator_type</a>     107 HashTable.h            iterator_type kv = *iter;
-<a href='../S/5.html#L131'>iterator_type</a>     131 HashTable.h        HashTable&amp; operator=(std::initializer_list&lt;iterator_type&gt; list) {
-<a href='../S/5.html#L132'>iterator_type</a>     132 HashTable.h          for (iterator_type item : list) {
-<a href='../S/5.html#L146'>iterator_type</a>     146 HashTable.h          _list[getIndex(key)] &lt;&lt; iterator_type(key, value);
-<a href='../S/5.html#L153'>iterator_type</a>     153 HashTable.h          return _list[getIndex(key)].contains(iterator_type(key, Value()));
-<a href='../S/5.html#L158'>iterator_type</a>     158 HashTable.h          if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
-<a href='../S/5.html#L168'>iterator_type</a>     168 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
-<a href='../S/5.html#L186'>iterator_type</a>     186 HashTable.h                iterator_type kv = *iter;
-<a href='../S/5.html#L203'>iterator_type</a>     203 HashTable.h                iterator_type kv = *iter;
-<a href='../S/5.html#L227'>iterator_type</a>     227 HashTable.h          return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
-<a href='../S/37.html#L45'>iterator_type</a>      45 List.h               iterator_type item;
-<a href='../S/37.html#L49'>iterator_type</a>      49 List.h               Node(const iterator_type&amp; p) : item(p), next(NULL), prev(NULL) {};
-<a href='../S/37.html#L53'>iterator_type</a>      53 List.h               Node(iterator_type&amp;&amp; p) : item(NULL), next(NULL), prev(NULL) {
-<a href='../S/37.html#L87'>iterator_type</a>      87 List.h             Node* findNode(const iterator_type&amp; item) const {
-<a href='../S/37.html#L147'>iterator_type</a>     147 List.h             void insert(const iterator_type&amp; item) {
-<a href='../S/37.html#L162'>iterator_type</a>     162 List.h             inline friend List&lt;iterator_type&gt;&amp; operator&lt;&lt; (List&lt;iterator_type&gt;&amp; list, const iterator_type&amp; item) {
-<a href='../S/37.html#L167'>iterator_type</a>     167 List.h             bool contains(const iterator_type&amp; item) const {
-<a href='../S/37.html#L171'>iterator_type</a>     171 List.h            const iterator_type find(const iterator_type&amp; item) const {
-<a href='../S/37.html#L173'>iterator_type</a>     173 List.h               return node ? node-&gt;item : iterator_type();
-<a href='../S/37.html#L179'>iterator_type</a>     179 List.h             iterator_type&amp; findRef(const iterator_type&amp; item) {
-<a href='../S/37.html#L184'>iterator_type</a>     184 List.h             bool remove(const iterator_type&amp; item) {
-<a href='../S/37.html#L200'>iterator_type</a>     200 List.h             class ListIterator : public Iterator&lt;iterator_type&gt; {
-<a href='../S/37.html#L207'>iterator_type</a>     207 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/37.html#L213'>iterator_type</a>     213 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/37.html#L218'>iterator_type</a>     218 List.h                 ListIterator() : Iterator&lt;iterator_type&gt;(),
-<a href='../S/37.html#L242'>iterator_type</a>     242 List.h                 virtual operator iterator_type () { return operator*(); };
-<a href='../S/37.html#L244'>iterator_type</a>     244 List.h                 virtual iterator_type&amp; operator *() { return static_cast&lt;iterator_type&amp;&gt;(current-&gt;item); }
-<a href='../S/8.html#L41'>iterator_type</a>      41 SortedList.h       SortedList() : List&lt;iterator_type&gt;() {};
-<a href='../S/8.html#L49'>iterator_type</a>      49 SortedList.h       virtual void insert(const iterator_type&amp; item) {
-<a href='../S/9.html#L41'>iterator_type</a>      41 Stack.h            Stack() : List&lt;iterator_type&gt;() {};
-<a href='../S/9.html#L47'>iterator_type</a>      47 Stack.h            iterator_type pop() {
-<a href='../S/9.html#L48'>iterator_type</a>      48 Stack.h              iterator_type item = this-&gt;head-&gt;item;
-<a href='../S/9.html#L56'>iterator_type</a>      56 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&gt;&gt; (Stack&lt;iterator_type&gt;&amp; stack, iterator_type&amp; item) {
-<a href='../S/9.html#L65'>iterator_type</a>      65 Stack.h            inline const iterator_type peek() const {
-<a href='../S/9.html#L66'>iterator_type</a>      66 Stack.h              return this-&gt;isEmpty() ? iterator_type() : this-&gt;head-&gt;item;
-<a href='../S/9.html#L73'>iterator_type</a>      73 Stack.h            inline void push(const iterator_type &amp;item) {
-<a href='../S/9.html#L80'>iterator_type</a>      80 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&lt;&lt; (Stack&lt;iterator_type&gt;&amp; stack, const iterator_type&amp; item) {
+<a href='../S/35.html#L540'>newsplit</a>          540 String.h       String newsplit(String&amp; str, char delim = ' ');
+<a href='../S/27.html#L614'>newsplit</a>          614 tests/StringTest.cpp   String w1 = newsplit(sentence);
+<a href='../S/27.html#L619'>newsplit</a>          619 tests/StringTest.cpp   String w2 = newsplit(sentence);
+<a href='../S/27.html#L624'>newsplit</a>          624 tests/StringTest.cpp   String w3 = newsplit(sentence);
+<a href='../S/27.html#L629'>newsplit</a>          629 tests/StringTest.cpp   String w4 = newsplit(sentence);
+<a href='../S/27.html#L634'>newsplit</a>          634 tests/StringTest.cpp   String w5 = newsplit(sentence);
+<a href='../S/27.html#L641'>newsplit</a>          641 tests/StringTest.cpp   String w6 = newsplit(sentence);
+<a href='../S/27.html#L649'>newsplit</a>          649 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("This", newsplit(*a));
+<a href='../S/27.html#L651'>newsplit</a>          651 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("is", newsplit(*a));
+<a href='../S/27.html#L653'>newsplit</a>          653 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("a", newsplit(*a));
+<a href='../S/27.html#L655'>newsplit</a>          655 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", newsplit(*a));
+<a href='../S/27.html#L657'>newsplit</a>          657 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", newsplit(*a));
 </pre>
 </body>
 </html>

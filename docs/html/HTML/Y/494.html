@@ -1,14 +1,49 @@
 <html>
 <head>
-<title>strcat</title>
+<title>string</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/27.html#L730'>strcat</a>            730 tests/StringTest.cpp   strcat(check, cstring); 
-<a href='../S/27.html#L731'>strcat</a>            731 tests/StringTest.cpp   strcat(check, cstring);
-<a href='../S/27.html#L855'>strcat</a>            855 tests/StringTest.cpp       strcat(buf, letter);
+<a href='../S/34.html#L65'>string</a>             65 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/34.html#L106'>string</a>            106 Stream.h               virtual void puts (const String&amp; string) {
+<a href='../S/34.html#L107'>string</a>            107 Stream.h                 str.replace(tell(), string);
+<a href='../S/34.html#L108'>string</a>            108 Stream.h                 pos += string.length();
+<a href='../S/34.html#L173'>string</a>            173 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/54.html#L74'>string</a>             74 String.cpp     void String::insert(size_t pos, const char *string, size_t n)
+<a href='../S/54.html#L79'>string</a>             79 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
+<a href='../S/54.html#L83'>string</a>             83 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/54.html#L93'>string</a>             93 String.cpp     void String::replace(size_t pos, const char *string, size_t n)
+<a href='../S/54.html#L98'>string</a>             98 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
+<a href='../S/54.html#L107'>string</a>            107 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/54.html#L111'>string</a>            111 String.cpp     std::istream&amp; operator&gt;&gt;(std::istream&amp; is, String&amp; string) {
+<a href='../S/54.html#L113'>string</a>            113 String.cpp       string = "";    // empty string, will build one char at-a-time
+<a href='../S/54.html#L120'>string</a>            120 String.cpp           string += ch;
+<a href='../S/54.html#L132'>string</a>            132 String.cpp     std::istream&amp; getline(std::istream&amp; is, String&amp; string) {
+<a href='../S/54.html#L135'>string</a>            135 String.cpp       string = "";     // empty string, will build one char at-a-time
+<a href='../S/54.html#L138'>string</a>            138 String.cpp         string += ch;
+<a href='../S/35.html#L88'>string</a>             88 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(string) {};
+<a href='../S/35.html#L90'>string</a>             90 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/35.html#L139'>string</a>            139 String.h               String&amp; operator=(const String&amp; string) {
+<a href='../S/35.html#L140'>string</a>            140 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(string);
+<a href='../S/35.html#L144'>string</a>            144 String.h               String&amp; operator=(String&amp;&amp; string) {
+<a href='../S/35.html#L145'>string</a>            145 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
+<a href='../S/35.html#L299'>string</a>            299 String.h               inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
+<a href='../S/35.html#L440'>string</a>            440 String.h       inline String&amp; String::operator+=(const char* string) {
+<a href='../S/35.html#L441'>string</a>            441 String.h         append(string);
+<a href='../S/35.html#L448'>string</a>            448 String.h       inline String&amp; String::operator+=(const String&amp; string) {
+<a href='../S/35.html#L449'>string</a>            449 String.h         append(string);
+<a href='../S/35.html#L533'>string</a>            533 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
+<a href='../S/35.html#L534'>string</a>            534 String.h         for (const char* c = string.begin(); c != string.end(); ++c)
+<a href='../S/45.html#L102'>string</a>            102 base64.c       String base64Encode(const String&amp; string, const char* charset) {
+<a href='../S/45.html#L103'>string</a>            103 base64.c         size_t len = string.length();
+<a href='../S/45.html#L104'>string</a>            104 base64.c         char *p = b64enc(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
+<a href='../S/45.html#L166'>string</a>            166 base64.c       String base64Decode(const String&amp; string, const char* charset) {
+<a href='../S/45.html#L167'>string</a>            167 base64.c         size_t len = string.length();
+<a href='../S/45.html#L168'>string</a>            168 base64.c         char *p = b64dec(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
+<a href='../S/38.html#L75'>string</a>             75 base64.h       String base64Encode(const String&amp; string, const char* charset = NULL);
+<a href='../S/38.html#L101'>string</a>            101 base64.h       String base64Decode(const String&amp; string, const char* charset = NULL);
 </pre>
 </body>
 </html>

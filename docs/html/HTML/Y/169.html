@@ -1,16 +1,17 @@
 <html>
 <head>
-<title>check</title>
+<title>cleanse_ctr</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/27.html#L728'>check</a>             728 tests/StringTest.cpp   char check[100];
-<a href='../S/27.html#L729'>check</a>             729 tests/StringTest.cpp   strcpy(check, cstring); // *d = cstring
-<a href='../S/27.html#L730'>check</a>             730 tests/StringTest.cpp   strcat(check, cstring); 
-<a href='../S/27.html#L731'>check</a>             731 tests/StringTest.cpp   strcat(check, cstring);
-<a href='../S/27.html#L732'>check</a>             732 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(check, *d);
+<a href='../S/54.html#L42'>cleanse_ctr</a>        42 String.cpp     unsigned char String::cleanse_ctr = 0;
+<a href='../S/35.html#L67'>cleanse_ctr</a>        67 String.h               static unsigned char cleanse_ctr;
+<a href='../S/35.html#L78'>cleanse_ctr</a>        78 String.h                   *(p++) = static_cast&lt;unsigned char&gt;(cleanse_ctr);
+<a href='../S/35.html#L79'>cleanse_ctr</a>        79 String.h                   cleanse_ctr += (17 + (reinterpret_cast&lt;size_t&gt;(p) &amp; 0xF));
+<a href='../S/35.html#L81'>cleanse_ctr</a>        81 String.h                 if(memchr(ptr, cleanse_ctr, len))
+<a href='../S/35.html#L82'>cleanse_ctr</a>        82 String.h                   cleanse_ctr += (63 + reinterpret_cast&lt;size_t&gt;(p));
 </pre>
 </body>
 </html>

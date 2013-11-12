@@ -1,46 +1,17 @@
 <html>
 <head>
-<title>capacity</title>
+<title>charAt</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/5.html#L140'>capacity</a>          140 HashTable.h        inline size_t capacity() const { return _capacity; };
-<a href='../S/5.html#L183'>capacity</a>          183 HashTable.h          for (size_t i = 0; i &lt; capacity(); ++i) {
-<a href='../S/5.html#L200'>capacity</a>          200 HashTable.h          for (size_t i = 0; i &lt; capacity(); ++i) {
-<a href='../S/44.html#L475'>capacity</a>          475 ReferenceCountedArray.h     inline size_t capacity() const { return Ref-&gt;size; };
-<a href='../S/54.html#L23'>capacity</a>           23 Stream.cpp       if (newSize &lt; capacity())
-<a href='../S/54.html#L39'>capacity</a>           39 Stream.cpp           newpos = capacity() - offset;
-<a href='../S/54.html#L46'>capacity</a>           46 Stream.cpp       else if (static_cast&lt;size_t&gt;(newpos) &gt; capacity())
-<a href='../S/54.html#L47'>capacity</a>           47 Stream.cpp         newpos = capacity();
-<a href='../S/34.html#L160'>capacity</a>          160 Stream.h               inline size_t capacity() const { return str.capacity(); };
-<a href='../S/35.html#L66'>capacity</a>           66 String.h                 const size_t len = capacity();
-<a href='../S/30.html#L37'>capacity</a>           37 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_b-&gt;capacity() &gt;= 20);
-<a href='../S/30.html#L48'>capacity</a>           48 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;capacity() &gt;= 2);
-<a href='../S/30.html#L52'>capacity</a>           52 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;capacity() &gt;= 2);
-<a href='../S/13.html#L37'>capacity</a>           37 tests/StreamTest.cpp   CPPUNIT_ASSERT((a-&gt;capacity() % 2048) == 0);
-<a href='../S/13.html#L40'>capacity</a>           40 tests/StreamTest.cpp   CPPUNIT_ASSERT(b-&gt;capacity() &gt;= 1024);
-<a href='../S/13.html#L41'>capacity</a>           41 tests/StreamTest.cpp   CPPUNIT_ASSERT(h-&gt;capacity() &gt;= 1024);
-<a href='../S/13.html#L42'>capacity</a>           42 tests/StreamTest.cpp   CPPUNIT_ASSERT((b-&gt;capacity() % 1024) == 0);
-<a href='../S/13.html#L49'>capacity</a>           49 tests/StreamTest.cpp   CPPUNIT_ASSERT((g-&gt;capacity() &gt;= 2048));
-<a href='../S/13.html#L53'>capacity</a>           53 tests/StreamTest.cpp   CPPUNIT_ASSERT((b-&gt;capacity() &gt;= 2048));
-<a href='../S/13.html#L69'>capacity</a>           69 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), b-&gt;tell());
-<a href='../S/13.html#L78'>capacity</a>           78 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity() - 1, b-&gt;tell());
-<a href='../S/13.html#L93'>capacity</a>           93 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), a-&gt;capacity());
-<a href='../S/13.html#L108'>capacity</a>          108 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), a-&gt;capacity());
-<a href='../S/27.html#L78'>capacity</a>           78 tests/StringTest.cpp   CPPUNIT_ASSERT(b-&gt;capacity() &gt;= 4);
-<a href='../S/27.html#L79'>capacity</a>           79 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), c-&gt;capacity());
-<a href='../S/27.html#L80'>capacity</a>           80 tests/StringTest.cpp   CPPUNIT_ASSERT(d-&gt;capacity() &gt;= strlen(cstring));
-<a href='../S/27.html#L81'>capacity</a>           81 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(d-&gt;capacity(), e-&gt;capacity());
-<a href='../S/27.html#L82'>capacity</a>           82 tests/StringTest.cpp   CPPUNIT_ASSERT(f-&gt;capacity() &gt;= 11);
-<a href='../S/27.html#L83'>capacity</a>           83 tests/StringTest.cpp   CPPUNIT_ASSERT(g-&gt;capacity() &gt;= 1);
-<a href='../S/27.html#L84'>capacity</a>           84 tests/StringTest.cpp   CPPUNIT_ASSERT(h-&gt;capacity() &gt;= 35);
-<a href='../S/27.html#L1202'>capacity</a>         1202 tests/StringTest.cpp   CPPUNIT_ASSERT(e-&gt;capacity() &gt; d-&gt;capacity());
-<a href='../S/27.html#L1214'>capacity</a>         1214 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(130), big.capacity());
-<a href='../S/27.html#L1220'>capacity</a>         1220 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
-<a href='../S/27.html#L1225'>capacity</a>         1225 tests/StringTest.cpp   CPPUNIT_ASSERT(sub.capacity() &gt;= 11);
-<a href='../S/27.html#L1227'>capacity</a>         1227 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
+<a href='../S/35.html#L255'>charAt</a>            255 String.h               inline char charAt(size_t pos) const { return at(pos); };
+<a href='../S/27.html#L248'>charAt</a>            248 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('b', b-&gt;charAt(0));
+<a href='../S/27.html#L249'>charAt</a>            249 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('h', b-&gt;charAt(3));
+<a href='../S/27.html#L250'>charAt</a>            250 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((char) 0, b-&gt;charAt(4));
+<a href='../S/27.html#L251'>charAt</a>            251 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(cstring[5], d-&gt;charAt(5));
+<a href='../S/27.html#L252'>charAt</a>            252 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('x', g-&gt;charAt(0));
 </pre>
 </body>
 </html>

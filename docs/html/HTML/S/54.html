@@ -1,196 +1,343 @@
 <html>
 <head>
-<title>Stream.cpp</title>
+<title>String.cpp</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/Stream.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L22'>[^]</a><a href='#L137'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/String.cpp</h2>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L45'>[^]</a><a href='#L287'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
 <h2>DEFINITIONS</h2>
 This source file includes following definitions.
 <ol>
-<li><a href='#L22' title='Defined at 22.'>Reserve</a>
-<li><a href='#L28' title='Defined at 28.'>seek</a>
-<li><a href='#L53' title='Defined at 53.'>read</a>
-<li><a href='#L77' title='Defined at 77.'>loadFile</a>
-<li><a href='#L87' title='Defined at 87.'>loadFile</a>
-<li><a href='#L127' title='Defined at 127.'>writeFile</a>
-<li><a href='#L137' title='Defined at 137.'>writeFile</a>
+<li><a href='#L45' title='Defined at 45.'>compare</a>
+<li><a href='#L74' title='Defined at 74.'>insert</a>
+<li><a href='#L93' title='Defined at 93.'>replace</a>
+<li><a href='#L132' title='Defined at 132.'>getline</a>
+<li><a href='#L149' title='Defined at 149.'>split</a>
+<li><a href='#L192' title='Defined at 192.'>printf</a>
+<li><a href='#L203' title='Defined at 203.'>chomp</a>
+<li><a href='#L209' title='Defined at 209.'>trim</a>
+<li><a href='#L217' title='Defined at 217.'>find</a>
+<li><a href='#L227' title='Defined at 227.'>ifind</a>
+<li><a href='#L234' title='Defined at 234.'>rifind</a>
+<li><a href='#L241' title='Defined at 241.'>rfind</a>
+<li><a href='#L251' title='Defined at 251.'>sub</a>
+<li><a href='#L268' title='Defined at 268.'>subst</a>
+<li><a href='#L287' title='Defined at 287.'>newsplit</a>
 </ol>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* Stream.c</font></i>
-<a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> */</font></i>
-<a name='L4'>   4 <font color='darkred'>#include</font> "<a href='34.html'>Stream.h</a>"
-<a name='L5'>   5 <font color='darkred'>#include</font> &lt;algorithm&gt; <i><font color='green'>// min() / max()</font></i>
-<a name='L6'>   6 <font color='darkred'>#ifdef</font> <a href='../Y/40.html' title='Multiple used in 2 places.'>HAVE_CONFIG_H</a>
-<a name='L7'>   7 <font color='darkred'>#  include</font> "config.h"
-<a name='L8'>   8 <font color='darkred'>#endif</font>
-<a name='L9'>   9 
-<a name='L10'>  10 <font color='darkred'>#ifdef</font> <a href='../Y/41.html' title='Multiple used in 3 places.'>HAVE_MMAP</a>
-<a name='L11'>  11 <font color='darkred'>#  include</font> &lt;sys/mman.h&gt;
-<a name='L12'>  12 <font color='darkred'>#  include</font> &lt;unistd.h&gt;
-<a name='L13'>  13 <font color='darkred'>#  include</font> &lt;sys/types.h&gt;
-<a name='L14'>  14 <font color='darkred'>#  include</font> &lt;sys/stat.h&gt;
-<a name='L15'>  15 <font color='darkred'>#  include</font> &lt;fcntl.h&gt;
-<a name='L16'>  16 <font color='darkred'>#  include</font> &lt;cstring&gt;
-<a name='L17'>  17 <font color='darkred'>#endif</font>
-<a name='L18'>  18 
-<a name='L19'>  19 
-<a name='L20'>  20 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L21'>  21 
-<a name='L22'>  22 <b>void</b> <a href='../Y/96.html' title='Multiple used in 19 places.'>Stream</a>::<a href='../R/28.html' title='Multiple refered from 17 places.'>Reserve</a>(<b>const</b> <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/372.html' title='Multiple used in 24 places.'>newSize</a>) <b>const</b> <font color='red'>{</font>
-<a name='L23'>  23   <b>if</b> (<a href='../Y/372.html' title='Multiple used in 24 places.'>newSize</a> &lt; <a href='../Y/159.html' title='Multiple used in 35 places.'>capacity</a>())
-<a name='L24'>  24     <b>return</b>;
-<a name='L25'>  25   <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>.<a href='../S/54.html#L22' title='Defined at 22 in Stream.cpp.'>Reserve</a>(<a href='../S/34.html#L37' title='Defined at 37 in Stream.h.'>STREAM_BLOCKSIZE</a> * ((<a href='../Y/372.html' title='Multiple used in 24 places.'>newSize</a> + <a href='../S/34.html#L37' title='Defined at 37 in Stream.h.'>STREAM_BLOCKSIZE</a> -1) / <a href='../S/34.html#L37' title='Defined at 37 in Stream.h.'>STREAM_BLOCKSIZE</a>));
-<a name='L26'>  26 <font color='red'>}</font>
+<a name='L1'>   1 <i><font color='green'>/*</font></i>
+<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2013, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
+<a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
+<a name='L4'>   4 <i><font color='green'> * </font></i>
+<a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
+<a name='L6'>   6 <i><font color='green'> * modification, are permitted provided that the following conditions are met:</font></i>
+<a name='L7'>   7 <i><font color='green'> * 1. Redistributions of source code must retain the above copyright</font></i>
+<a name='L8'>   8 <i><font color='green'> *    notice, this list of conditions and the following disclaimer.</font></i>
+<a name='L9'>   9 <i><font color='green'> * 2. Redistributions in binary form must reproduce the above copyright</font></i>
+<a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
+<a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
+<a name='L12'>  12 <i><font color='green'> * </font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
+<a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
+<a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
+<a name='L20'>  20 <i><font color='green'> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</font></i>
+<a name='L21'>  21 <i><font color='green'> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</font></i>
+<a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L23'>  23 <i><font color='green'> */</font></i>
+<a name='L24'>  24 
+<a name='L25'>  25 <i><font color='green'>/* String.cpp</font></i>
+<a name='L26'>  26 <i><font color='green'> */</font></i>
 <a name='L27'>  27 
-<a name='L28'>  28 <b>int</b> <a href='../Y/96.html' title='Multiple used in 19 places.'>Stream</a>::<a href='../R/146.html' title='Multiple refered from 14 places.'>seek</a>(<b>int</b> <a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a>, <b>int</b> <a href='../Y/569.html' title='Multiple used in 2 places.'>whence</a>) <font color='red'>{</font>
-<a name='L29'>  29   <b>int</b> <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a>;
-<a name='L30'>  30 
-<a name='L31'>  31   <b>switch</b> (<a href='../Y/569.html' title='Multiple used in 2 places.'>whence</a>) <font color='red'>{</font>
-<a name='L32'>  32     <b>case</b> <a href='../S/34.html#L40' title='Defined at 40 in Stream.h.'>SEEK_SET</a>:
-<a name='L33'>  33       <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a> = <a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a>;
-<a name='L34'>  34       <b>break</b>;
-<a name='L35'>  35     <b>case</b> <a href='../S/34.html#L41' title='Defined at 41 in Stream.h.'>SEEK_CUR</a>:
-<a name='L36'>  36       <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a> = <a href='../Y/514.html' title='Multiple used in 19 places.'>tell</a>() + <a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a>;
-<a name='L37'>  37       <b>break</b>;
-<a name='L38'>  38     <b>case</b> <a href='../S/34.html#L42' title='Defined at 42 in Stream.h.'>SEEK_END</a>:
-<a name='L39'>  39       <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a> = <a href='../Y/159.html' title='Multiple used in 35 places.'>capacity</a>() - <a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a>;
-<a name='L40'>  40       <b>break</b>;
-<a name='L41'>  41     <b>default</b>:
-<a name='L42'>  42       <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a> = <a href='../Y/514.html' title='Multiple used in 19 places.'>tell</a>();
-<a name='L43'>  43   <font color='red'>}</font>
-<a name='L44'>  44   <b>if</b> (<a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a> &lt; 0)
-<a name='L45'>  45     <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a> = 0;
-<a name='L46'>  46   <b>else</b> <b>if</b> (<b>static_cast</b>&lt;<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a>&gt;(<a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a>) &gt; <a href='../Y/159.html' title='Multiple used in 35 places.'>capacity</a>())
-<a name='L47'>  47     <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a> = <a href='../Y/159.html' title='Multiple used in 35 places.'>capacity</a>();
-<a name='L48'>  48   <a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a> = <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a>;
-<a name='L49'>  49 
-<a name='L50'>  50   <b>return</b> <a href='../Y/377.html' title='Multiple used in 11 places.'>newpos</a>;
-<a name='L51'>  51 <font color='red'>}</font>
-<a name='L52'>  52 
-<a name='L53'>  53 <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a> <a href='../Y/96.html' title='Multiple used in 19 places.'>Stream</a>::<a href='../R/133.html' title='Multiple refered from 8 places.'>read</a>(<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/344.html' title='Multiple used in 4 places.'>maxSize</a>, <b>char</b> <a href='../Y/206.html' title='Multiple used in 17 places.'>delim</a>) <font color='red'>{</font>
-<a name='L54'>  54   <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/527.html' title='Multiple used in 5 places.'>toRead</a> = <a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/353.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/344.html' title='Multiple used in 4 places.'>maxSize</a>, <a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>() - <a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a>);
-<a name='L55'>  55 
-<a name='L56'>  56   <i><font color='green'>/* No need to split the string, return a substring */</font></i>
-<a name='L57'>  57   <b>if</b> (!<a href='../Y/206.html' title='Multiple used in 17 places.'>delim</a>) <font color='red'>{</font>
-<a name='L58'>  58     <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a>(<a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>(<a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a>, <a href='../Y/527.html' title='Multiple used in 5 places.'>toRead</a>));
-<a name='L59'>  59     <a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a> += <a href='../Y/527.html' title='Multiple used in 5 places.'>toRead</a>;
-<a name='L60'>  60     <b>return</b> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a>;
-<a name='L61'>  61   <font color='red'>}</font>
+<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='35.html'>String.h</a>"
+<a name='L29'>  29 <font color='darkred'>#include</font> "<a href='44.html'>Array.h</a>"
+<a name='L30'>  30 <font color='darkred'>#include</font> "<a href='5.html'>HashTable.h</a>"
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;stdarg.h&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cstring&gt;
+<a name='L33'>  33 <b>using</b> <a href='../R/153.html' title='Multiple refered from 74 places.'>std</a>::strlen;
+<a name='L34'>  34 <b>using</b> <a href='../R/153.html' title='Multiple refered from 74 places.'>std</a>::memmove;
+<a name='L35'>  35 <font color='darkred'>#include</font> "<a href='38.html'>base64.h</a>"
+<a name='L36'>  36 <i><font color='green'>//#include &lt;memory&gt;</font></i>
+<a name='L37'>  37 <i><font color='green'>//#include &lt;iostream&gt;</font></i>
+<a name='L38'>  38 <i><font color='green'>//using namespace std;</font></i>
+<a name='L39'>  39 
+<a name='L40'>  40 <a href='../S/41.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L41'>  41 
+<a name='L42'>  42 <b>unsigned</b> <b>char</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../Y/169.html' title='Multiple used in 6 places.'>cleanse_ctr</a> = 0;
+<a name='L43'>  43 
+<a name='L44'>  44 <i><font color='green'>/* Accessors */</font></i>
+<a name='L45'>  45 <b>int</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/76.html' title='Multiple refered from 11 places.'>compare</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> start) <b>const</b>
+<a name='L46'>  46 <font color='red'>{</font>
+<a name='L47'>  47   <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/353.html' title='Multiple used in 8 places.'>my_len</a> = <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L48'>  48   <i><font color='green'>/* Same string? */</font></i>
+<a name='L49'>  49   <b>if</b> (<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>() == <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>() &amp;&amp; <a href='../Y/353.html' title='Multiple used in 8 places.'>my_len</a> == <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>())
+<a name='L50'>  50     <b>return</b> 0;
+<a name='L51'>  51 
+<a name='L52'>  52   <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a> = <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a> ? <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/343.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>(), <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>) : <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L53'>  53   <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> = <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/343.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/353.html' title='Multiple used in 8 places.'>my_len</a> - <a href='../S/48.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>, <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>);
+<a name='L54'>  54   <b>const</b> <b>int</b> <a href='../Y/204.html' title='Multiple used in 5 places.'>diff</a> = <a href='../Y/339.html' title='Multiple used in 3 places.'>memcmp</a>(<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>() + <a href='../S/48.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>, <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>);
+<a name='L55'>  55   <b>if</b> (<a href='../Y/204.html' title='Multiple used in 5 places.'>diff</a>)
+<a name='L56'>  56     <b>return</b> <a href='../Y/204.html' title='Multiple used in 5 places.'>diff</a>;
+<a name='L57'>  57   <b>else</b> <b>if</b> (<a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>)
+<a name='L58'>  58     <b>return</b> <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/343.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/353.html' title='Multiple used in 8 places.'>my_len</a> - <a href='../S/48.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>, <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>) - <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>;
+<a name='L59'>  59   <b>else</b>
+<a name='L60'>  60     <b>return</b> (<a href='../Y/353.html' title='Multiple used in 8 places.'>my_len</a> - <a href='../S/48.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>) - <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>;
+<a name='L61'>  61 <font color='red'>}</font>
 <a name='L62'>  62 
-<a name='L63'>  63   <i><font color='green'>/* Must reconstruct a new string */</font></i>
-<a name='L64'>  64   <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a>(<a href='../Y/527.html' title='Multiple used in 5 places.'>toRead</a>);
-<a name='L65'>  65 
-<a name='L66'>  66   <b>while</b> ((<a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a>.<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>() &lt; <a href='../Y/527.html' title='Multiple used in 5 places.'>toRead</a>) &amp;&amp; (<a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>[<a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a>] != <a href='../Y/206.html' title='Multiple used in 17 places.'>delim</a>)) <font color='red'>{</font>
-<a name='L67'>  67     <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a> += <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>[<a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a>++];
-<a name='L68'>  68   <font color='red'>}</font>
-<a name='L69'>  69   <b>if</b> (<a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>.<a href='../Y/276.html' title='Multiple used in 17 places.'>hasIndex</a>(<a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a>) &amp;&amp; <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>[<a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a>] == <a href='../Y/206.html' title='Multiple used in 17 places.'>delim</a>) <font color='red'>{</font>
-<a name='L70'>  70     <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a> += <a href='../Y/206.html' title='Multiple used in 17 places.'>delim</a>;
-<a name='L71'>  71     ++<a href='../Y/404.html' title='Multiple used in 90 places.'>pos</a>;
-<a name='L72'>  72   <font color='red'>}</font>
-<a name='L73'>  73 
-<a name='L74'>  74   <b>return</b> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a>;
-<a name='L75'>  75 <font color='red'>}</font>
-<a name='L76'>  76 
-<a name='L77'>  77 <b>int</b> <a href='../Y/96.html' title='Multiple used in 19 places.'>Stream</a>::<a href='../R/119.html' title='Multiple refered from 6 places.'>loadFile</a>(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp; <a href='../Y/245.html' title='Multiple used in 16 places.'>file</a>)
-<a name='L78'>  78 <font color='red'>{</font>
-<a name='L79'>  79   <b>int</b> <a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a> = <a href='../Y/392.html' title='Multiple used in 4 places.'>open</a>(<a href='../Y/245.html' title='Multiple used in 16 places.'>file</a>.<a href='../Y/157.html' title='Multiple used in 21 places.'>c_str</a>(), <a href='../Y/66.html' title='Multiple used in 3 places.'>O_RDONLY</a>);
-<a name='L80'>  80   <b>if</b> (<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a> == -1)
-<a name='L81'>  81     <b>return</b> 1;
-<a name='L82'>  82   <b>int</b> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a> = <a href='../D/156.html' title='Multiple defined in 2 places.'>loadFile</a>(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>);
-<a name='L83'>  83   <a href='../Y/176.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>);
-<a name='L84'>  84   <b>return</b> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a>;
+<a name='L63'>  63 <i><font color='green'>/* Setters */</font></i>
+<a name='L64'>  64 
+<a name='L65'>  65 <i><font color='green'>/**</font></i>
+<a name='L66'>  66 <i><font color='green'> * @brief Insert a cstring at the given index.</font></i>
+<a name='L67'>  67 <i><font color='green'> * @param string The cstring to be inserted.</font></i>
+<a name='L68'>  68 <i><font color='green'> * @param pos The index to insert at.</font></i>
+<a name='L69'>  69 <i><font color='green'> * @param n Up to this many characters will be used from the string.</font></i>
+<a name='L70'>  70 <i><font color='green'> * @post A buffer is allocated.</font></i>
+<a name='L71'>  71 <i><font color='green'> * @post If the old buffer was too small, it is enlarged.</font></i>
+<a name='L72'>  72 <i><font color='green'> * @post The string is inserted at the given index.</font></i>
+<a name='L73'>  73 <i><font color='green'> */</font></i>
+<a name='L74'>  74 <b>void</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/106.html' title='Multiple refered from 220 places.'>insert</a>(<a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>, <b>const</b> <b>char</b> *<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>)
+<a name='L75'>  75 <font color='red'>{</font>
+<a name='L76'>  76   <b>if</b> (<a href='../Y/357.html' title='Multiple used in 144 places.'>n</a> == 0) <b>return</b>;
+<a name='L77'>  77   <b>if</b> (<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> &amp;&amp; !<a href='../Y/270.html' title='Multiple used in 17 places.'>hasIndex</a>(<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>-1)) <b>return</b>;
+<a name='L78'>  78   
+<a name='L79'>  79   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a> = (<a href='../Y/357.html' title='Multiple used in 144 places.'>n</a> == <a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>) ? <a href='../Y/497.html' title='Multiple used in 12 places.'>strlen</a>(<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>) : <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>;
+<a name='L80'>  80 
+<a name='L81'>  81   <a href='../Y/1.html' title='Multiple used in 11 places.'>AboutToModify</a>(<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() + <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>);
+<a name='L82'>  82   <a href='../Y/341.html' title='Multiple used in 4 places.'>memmove</a>(<a href='../Y/11.html' title='Multiple used in 25 places.'>Buf</a>() + <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>, <a href='../Y/11.html' title='Multiple used in 25 places.'>Buf</a>() + <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>, <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>);
+<a name='L83'>  83   <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/181.html' title='Multiple used in 7 places.'>copy</a>(<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>, <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a> + <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>, <a href='../Y/11.html' title='Multiple used in 25 places.'>Buf</a>() + <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>);
+<a name='L84'>  84   <a href='../Y/126.html' title='Multiple used in 6 places.'>addLength</a>(<a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>);
 <a name='L85'>  85 <font color='red'>}</font>
 <a name='L86'>  86 
-<a name='L87'>  87 <b>int</b> <a href='../Y/96.html' title='Multiple used in 19 places.'>Stream</a>::<a href='../R/119.html' title='Multiple refered from 6 places.'>loadFile</a>(<b>const</b> <b>int</b> <a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>)
-<a name='L88'>  88 <font color='red'>{</font>
-<a name='L89'>  89   <a href='../Y/175.html' title='Multiple used in 29 places.'>clear</a>();
-<a name='L90'>  90 <font color='darkred'>#ifdef</font> <a href='../Y/41.html' title='Multiple used in 3 places.'>HAVE_MMAP</a>
-<a name='L91'>  91   <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/466.html' title='Multiple used in 250 places.'>size</a> = lseek(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>, 0, <a href='../S/34.html#L42' title='Defined at 42 in Stream.h.'>SEEK_END</a>);
-<a name='L92'>  92   <a href='../S/54.html#L22' title='Defined at 22 in Stream.cpp.'>Reserve</a>(<a href='../Y/466.html' title='Multiple used in 250 places.'>size</a>);
-<a name='L93'>  93   <b>void</b>* <a href='../Y/342.html' title='Multiple used in 8 places.'>map</a> = <a href='../Y/355.html' title='Multiple used in 2 places.'>mmap</a>(0, <a href='../Y/466.html' title='Multiple used in 250 places.'>size</a>, <a href='../Y/69.html' title='Multiple used in 2 places.'>PROT_READ</a>, <a href='../Y/60.html' title='Multiple used in 2 places.'>MAP_SHARED</a>, <a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>, 0);
-<a name='L94'>  94   <b>if</b> (<a href='../Y/342.html' title='Multiple used in 8 places.'>map</a> == <a href='../Y/59.html' title='Multiple used in 2 places.'>MAP_FAILED</a>) <font color='red'>{</font>
-<a name='L95'>  95     <a href='../Y/176.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>);
-<a name='L96'>  96     <b>return</b> 1;
-<a name='L97'>  97   <font color='red'>}</font>
-<a name='L98'>  98   <a href='../Y/337.html' title='Multiple used in 10 places.'>loading</a> = 1;
-<a name='L99'>  99 
-<a name='L100'> 100   <a href='../Y/423.html' title='Multiple used in 41 places.'>puts</a>(<a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>(<b>static_cast</b>&lt;<b>const</b> <b>char</b>*&gt;(<a href='../Y/342.html' title='Multiple used in 8 places.'>map</a>), <a href='../Y/466.html' title='Multiple used in 250 places.'>size</a>));
-<a name='L101'> 101 
-<a name='L102'> 102   <a href='../Y/359.html' title='Multiple used in 2 places.'>munmap</a>(<b>static_cast</b>&lt;<b>void</b>*&gt;(<a href='../Y/342.html' title='Multiple used in 8 places.'>map</a>), <a href='../Y/466.html' title='Multiple used in 250 places.'>size</a>);
-<a name='L103'> 103 <font color='darkred'>#else</font>
-<a name='L104'> 104   <a href='../Y/35.html' title='Multiple used in 5 places.'>FILE</a> *<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a> = <a href='../Y/241.html' title='Multiple used in 2 places.'>fdopen</a>(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>, "rb");
-<a name='L105'> 105   <b>if</b> (<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a> == <a href='../Y/63.html' title='Multiple used in 72 places.'>NULL</a>)
-<a name='L106'> 106     <b>return</b> 1;
-<a name='L107'> 107 
-<a name='L108'> 108   <a href='../Y/337.html' title='Multiple used in 10 places.'>loading</a> = 1;
-<a name='L109'> 109   <a href='../Y/260.html' title='Multiple used in 11 places.'>fseek</a>(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>, 0, <a href='../S/34.html#L42' title='Defined at 42 in Stream.h.'>SEEK_END</a>);
-<a name='L110'> 110   <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/466.html' title='Multiple used in 250 places.'>size</a> = <a href='../Y/262.html' title='Multiple used in 4 places.'>ftell</a>(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>);
-<a name='L111'> 111   <a href='../Y/260.html' title='Multiple used in 11 places.'>fseek</a>(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>, 0, <a href='../S/34.html#L40' title='Defined at 40 in Stream.h.'>SEEK_SET</a>);
-<a name='L112'> 112   <a href='../S/54.html#L22' title='Defined at 22 in Stream.cpp.'>Reserve</a>(<a href='../Y/466.html' title='Multiple used in 250 places.'>size</a>);
-<a name='L113'> 113 
-<a name='L114'> 114   <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a> = 0;
-<a name='L115'> 115   <b>char</b> <a href='../Y/154.html' title='Multiple used in 126 places.'>buf</a>[<a href='../S/34.html#L37' title='Defined at 37 in Stream.h.'>STREAM_BLOCKSIZE</a> + 1];
-<a name='L116'> 116 
-<a name='L117'> 117   <b>while</b> ((<a href='../Y/330.html' title='Multiple used in 84 places.'>len</a> = <a href='../Y/256.html' title='Multiple used in 4 places.'>fread</a>(<a href='../Y/154.html' title='Multiple used in 126 places.'>buf</a>, 1, <b>sizeof</b>(<a href='../Y/154.html' title='Multiple used in 126 places.'>buf</a>) - 1, <a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>))) <font color='red'>{</font>
-<a name='L118'> 118     <a href='../Y/423.html' title='Multiple used in 41 places.'>puts</a>(<a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>(<a href='../Y/154.html' title='Multiple used in 126 places.'>buf</a>, <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>));
-<a name='L119'> 119   <font color='red'>}</font>
-<a name='L120'> 120   <a href='../Y/238.html' title='Multiple used in 6 places.'>fclose</a>(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>);
-<a name='L121'> 121 <font color='darkred'>#endif</font>
-<a name='L122'> 122   <a href='../S/54.html#L28' title='Defined at 28 in Stream.cpp.'>seek</a>(0, <a href='../S/34.html#L40' title='Defined at 40 in Stream.h.'>SEEK_SET</a>);
-<a name='L123'> 123   <a href='../Y/337.html' title='Multiple used in 10 places.'>loading</a> = 0;
-<a name='L124'> 124   <b>return</b> 0;
-<a name='L125'> 125 <font color='red'>}</font>
-<a name='L126'> 126 
-<a name='L127'> 127 <b>int</b> <a href='../Y/96.html' title='Multiple used in 19 places.'>Stream</a>::<a href='../R/186.html' title='Multiple refered from 5 places.'>writeFile</a>(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp; <a href='../Y/245.html' title='Multiple used in 16 places.'>file</a>, <a href='../Y/357.html' title='Multiple used in 2 places.'>mode_t</a> <a href='../Y/356.html' title='Multiple used in 3 places.'>mode</a>) <b>const</b>
-<a name='L128'> 128 <font color='red'>{</font>
-<a name='L129'> 129   <b>int</b> <a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a> = <a href='../Y/392.html' title='Multiple used in 4 places.'>open</a>(<a href='../Y/245.html' title='Multiple used in 16 places.'>file</a>.<a href='../Y/157.html' title='Multiple used in 21 places.'>c_str</a>(), O_CREAT|O_RDWR|O_TRUNC, <a href='../Y/356.html' title='Multiple used in 3 places.'>mode</a>);
-<a name='L130'> 130   <b>if</b> (<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a> == -1)
-<a name='L131'> 131     <b>return</b> 1;
-<a name='L132'> 132   <b>int</b> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a> = <a href='../D/224.html' title='Multiple defined in 2 places.'>writeFile</a>(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>);
-<a name='L133'> 133   <a href='../Y/176.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>);
-<a name='L134'> 134   <b>return</b> <a href='../Y/440.html' title='Multiple used in 15 places.'>ret</a>;
-<a name='L135'> 135 <font color='red'>}</font>
-<a name='L136'> 136 
-<a name='L137'> 137 <b>int</b> <a href='../Y/96.html' title='Multiple used in 19 places.'>Stream</a>::<a href='../R/186.html' title='Multiple refered from 5 places.'>writeFile</a>(<b>const</b> <b>int</b> <a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>) <b>const</b>
-<a name='L138'> 138 <font color='red'>{</font>
-<a name='L139'> 139 <font color='darkred'>#ifdef</font> <a href='../Y/41.html' title='Multiple used in 3 places.'>HAVE_MMAP</a>
-<a name='L140'> 140   <i><font color='green'>/* Write to end of file to make its size match */</font></i>
-<a name='L141'> 141   <i><font color='green'>/* Seek past wherever it is at now plus our length */</font></i>
-<a name='L142'> 142   <b>if</b> (ftruncate(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>, <a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>())) <b>return</b> 1;
-<a name='L143'> 143   <b>if</b> (!<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>())
-<a name='L144'> 144     <b>return</b> 0;
-<a name='L145'> 145 
-<a name='L146'> 146   <b>void</b>* <a href='../Y/342.html' title='Multiple used in 8 places.'>map</a> = <a href='../Y/355.html' title='Multiple used in 2 places.'>mmap</a>(0, <a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>(), <a href='../Y/69.html' title='Multiple used in 2 places.'>PROT_READ</a>|PROT_WRITE, <a href='../Y/60.html' title='Multiple used in 2 places.'>MAP_SHARED</a>, <a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>, 0);
-<a name='L147'> 147 
-<a name='L148'> 148   <b>if</b> (<a href='../Y/342.html' title='Multiple used in 8 places.'>map</a> == <a href='../Y/59.html' title='Multiple used in 2 places.'>MAP_FAILED</a>) <b>return</b> 1;
-<a name='L149'> 149 
-<a name='L150'> 150   <a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/350.html' title='Multiple used in 4 places.'>memcpy</a>(<a href='../Y/342.html' title='Multiple used in 8 places.'>map</a>, <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>.<a href='../Y/197.html' title='Multiple used in 33 places.'>data</a>(), <a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>());
-<a name='L151'> 151 
-<a name='L152'> 152   <b>if</b> (<a href='../Y/359.html' title='Multiple used in 2 places.'>munmap</a>(<a href='../Y/342.html' title='Multiple used in 8 places.'>map</a>, <a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>()) == -1) <b>return</b> 1;
-<a name='L153'> 153 <font color='darkred'>#else</font>
-<a name='L154'> 154   <a href='../Y/35.html' title='Multiple used in 5 places.'>FILE</a> *<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a> = <a href='../Y/241.html' title='Multiple used in 2 places.'>fdopen</a>(<a href='../Y/239.html' title='Multiple used in 28 places.'>fd</a>, "wb");
-<a name='L155'> 155   <b>if</b> (<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a> == <a href='../Y/63.html' title='Multiple used in 72 places.'>NULL</a>)
-<a name='L156'> 156     <b>return</b> 1;
-<a name='L157'> 157 
-<a name='L158'> 158   <b>if</b> ((fwrite(<a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>.<a href='../Y/197.html' title='Multiple used in 33 places.'>data</a>(), 1, <a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>(), <a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>) != <a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>()) || (fflush(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>))) <font color='red'>{</font>
-<a name='L159'> 159     <a href='../Y/238.html' title='Multiple used in 6 places.'>fclose</a>(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>);
-<a name='L160'> 160     <b>return</b> 1;
-<a name='L161'> 161   <font color='red'>}</font>
-<a name='L162'> 162   <a href='../Y/238.html' title='Multiple used in 6 places.'>fclose</a>(<a href='../Y/232.html' title='Multiple used in 80 places.'>f</a>);
-<a name='L163'> 163 <font color='darkred'>#endif</font>
-<a name='L164'> 164   <b>return</b> 0;
-<a name='L165'> 165 <font color='red'>}</font>
-<a name='L166'> 166 
-<a name='L167'> 167 <a href='../S/42.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L87'>  87 <i><font color='green'>/**</font></i>
+<a name='L88'>  88 <i><font color='green'> * @brief Replaces the given index with the given cstring up to the given amount of characters.</font></i>
+<a name='L89'>  89 <i><font color='green'> * @param pos The index to replace at.</font></i>
+<a name='L90'>  90 <i><font color='green'> * @param string The cstring to replace with.</font></i>
+<a name='L91'>  91 <i><font color='green'> * @param n How many characters to use from string.</font></i>
+<a name='L92'>  92 <i><font color='green'> */</font></i>
+<a name='L93'>  93 <b>void</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/133.html' title='Multiple refered from 19 places.'>replace</a>(<a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>, <b>const</b> <b>char</b> *<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>)
+<a name='L94'>  94 <font color='red'>{</font>
+<a name='L95'>  95   <b>if</b> (<a href='../Y/357.html' title='Multiple used in 144 places.'>n</a> == 0) <b>return</b>;
+<a name='L96'>  96   <b>if</b> (<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> &amp;&amp; !<a href='../Y/270.html' title='Multiple used in 17 places.'>hasIndex</a>(<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>-1)) <b>return</b>;
+<a name='L97'>  97 
+<a name='L98'>  98   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a> = (<a href='../Y/357.html' title='Multiple used in 144 places.'>n</a> == <a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>) ? <a href='../Y/497.html' title='Multiple used in 12 places.'>strlen</a>(<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>) : <a href='../Y/357.html' title='Multiple used in 144 places.'>n</a>;
+<a name='L99'>  99   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/367.html' title='Multiple used in 10 places.'>newlen</a> = <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>;
+<a name='L100'> 100   
+<a name='L101'> 101   <b>if</b> (<a href='../Y/367.html' title='Multiple used in 10 places.'>newlen</a> &gt;= <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>()) <font color='red'>{</font>
+<a name='L102'> 102     <a href='../Y/1.html' title='Multiple used in 11 places.'>AboutToModify</a>(<a href='../Y/367.html' title='Multiple used in 10 places.'>newlen</a>);
+<a name='L103'> 103   <font color='red'>}</font> <b>else</b> <font color='red'>{</font>
+<a name='L104'> 104     <a href='../Y/367.html' title='Multiple used in 10 places.'>newlen</a> = <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L105'> 105     <a href='../Y/264.html' title='Multiple used in 5 places.'>getOwnCopy</a>();
+<a name='L106'> 106   <font color='red'>}</font>
+<a name='L107'> 107   <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/181.html' title='Multiple used in 7 places.'>copy</a>(<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>, <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a> + <a href='../Y/462.html' title='Multiple used in 33 places.'>slen</a>, <a href='../Y/11.html' title='Multiple used in 25 places.'>Buf</a>() + <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>);
+<a name='L108'> 108   <a href='../Y/452.html' title='Multiple used in 12 places.'>setLength</a>(<a href='../Y/367.html' title='Multiple used in 10 places.'>newlen</a>);
+<a name='L109'> 109 <font color='red'>}</font>
+<a name='L110'> 110 
+<a name='L111'> 111 <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/303.html' title='Multiple used in 4 places.'>istream</a>&amp; <b>operator</b>&gt;&gt;(<a href='../Y/482.html' title='Multiple used in 3 places.'>std</a>::<a href='../Y/303.html' title='Multiple used in 4 places.'>istream</a>&amp; <a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>, <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>) <font color='red'>{</font>
+<a name='L112'> 112   <b>char</b> <a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>;
+<a name='L113'> 113   <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a> = "";    <i><font color='green'>// empty string, will build one char at-a-time</font></i>
+<a name='L114'> 114   <a href='../Y/296.html' title='Multiple used in 10 places.'>is</a> &gt;&gt; <a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>;    <i><font color='green'>// whitespace skipped, first non-white char in ch</font></i>
+<a name='L115'> 115 
+<a name='L116'> 116   <b>if</b> (!<a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>.<a href='../Y/228.html' title='Multiple used in 2 places.'>fail</a>())
+<a name='L117'> 117   <font color='red'>{</font>
+<a name='L118'> 118     <b>do</b>
+<a name='L119'> 119     <font color='red'>{</font>
+<a name='L120'> 120       <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a> += <a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>;
+<a name='L121'> 121       <a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>.<a href='../Y/261.html' title='Multiple used in 2 places.'>get</a>(<a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>);
+<a name='L122'> 122     <font color='red'>}</font> <b>while</b> (!<a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>.<a href='../Y/228.html' title='Multiple used in 2 places.'>fail</a>() &amp;&amp; !<a href='../Y/302.html' title='Multiple used in 4 places.'>isspace</a>(<a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>));
+<a name='L123'> 123 
+<a name='L124'> 124     <b>if</b> (<a href='../Y/302.html' title='Multiple used in 4 places.'>isspace</a>(<a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>))    <i><font color='green'>// put whitespace back on the stream</font></i>
+<a name='L125'> 125     <font color='red'>{</font>
+<a name='L126'> 126       <a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>.putback(<a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>);
+<a name='L127'> 127     <font color='red'>}</font>
+<a name='L128'> 128   <font color='red'>}</font>
+<a name='L129'> 129   <b>return</b> <a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>;
+<a name='L130'> 130 <font color='red'>}</font>
+<a name='L131'> 131 
+<a name='L132'> 132 <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/303.html' title='Multiple used in 4 places.'>istream</a>&amp; <a href='../R/95.html' title='Multiple refered from 6 places.'>getline</a>(<a href='../Y/482.html' title='Multiple used in 3 places.'>std</a>::<a href='../Y/303.html' title='Multiple used in 4 places.'>istream</a>&amp; <a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>, <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>) <font color='red'>{</font>
+<a name='L133'> 133  
+<a name='L134'> 134   <b>char</b> <a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>;
+<a name='L135'> 135   <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a> = "";     <i><font color='green'>// empty string, will build one char at-a-time</font></i>
+<a name='L136'> 136  
+<a name='L137'> 137   <b>while</b> (<a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>.<a href='../Y/261.html' title='Multiple used in 2 places.'>get</a>(<a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>) &amp;&amp; <a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a> != '\n')
+<a name='L138'> 138     <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a> += <a href='../Y/158.html' title='Multiple used in 13 places.'>ch</a>;
+<a name='L139'> 139   
+<a name='L140'> 140   <b>return</b> <a href='../Y/296.html' title='Multiple used in 10 places.'>is</a>;
+<a name='L141'> 141 <font color='red'>}</font>
+<a name='L142'> 142 
+<a name='L143'> 143 <i><font color='green'>/*</font></i>
+<a name='L144'> 144 <i><font color='green'> * @brief Split a string by a delimiter</font></i>
+<a name='L145'> 145 <i><font color='green'> * @param delim The delimiter to use</font></i>
+<a name='L146'> 146 <i><font color='green'> * @param limit Optional param which specified the max number of elements to return</font></i>
+<a name='L147'> 147 <i><font color='green'> * @note Excess whitespace is trimmed similar to Ruby's split.</font></i>
+<a name='L148'> 148 <i><font color='green'> */</font></i>
+<a name='L149'> 149 <a href='../Y/3.html' title='Multiple used in 64 places.'>Array</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt; <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/150.html' title='Multiple refered from 9 places.'>split</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/324.html' title='Multiple used in 8 places.'>limit</a>) <b>const</b> <font color='red'>{</font>
+<a name='L150'> 150   <b>if</b> (!<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>()) <b>return</b> <a href='../Y/3.html' title='Multiple used in 64 places.'>Array</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt;();
+<a name='L151'> 151   <b>if</b> (<a href='../Y/324.html' title='Multiple used in 8 places.'>limit</a> == 1) <font color='red'>{</font>
+<a name='L152'> 152     <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/325.html' title='Multiple used in 91 places.'>list</a>[] = <font color='red'>{</font>*<b>this</b><font color='red'>}</font>;
+<a name='L153'> 153     <b>return</b> <a href='../Y/3.html' title='Multiple used in 64 places.'>Array</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt;(<a href='../Y/325.html' title='Multiple used in 91 places.'>list</a>, 1);
+<a name='L154'> 154   <font color='red'>}</font>
+<a name='L155'> 155 
+<a name='L156'> 156   <b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/471.html' title='Multiple used in 3 places.'>space</a>(' ');
+<a name='L157'> 157   <a href='../Y/3.html' title='Multiple used in 64 places.'>Array</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt; <a href='../Y/132.html' title='Multiple used in 27 places.'>array</a>;
+<a name='L158'> 158   <i><font color='green'>// Use a temporary - is a fast reference and never modified, so no COW ever used.</font></i>
+<a name='L159'> 159   <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>(*<b>this</b>);
+<a name='L160'> 160   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = 0;
+<a name='L161'> 161 
+<a name='L162'> 162   <b>while</b> (<a href='../Y/132.html' title='Multiple used in 27 places.'>array</a>.<a href='../Y/459.html' title='Multiple used in 256 places.'>size</a>() &lt; <a href='../Y/324.html' title='Multiple used in 8 places.'>limit</a> - 1) <font color='red'>{</font>
+<a name='L163'> 163     <i><font color='green'>// Trim out left whitespace</font></i>
+<a name='L164'> 164     <b>if</b> (<a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a> == <a href='../Y/471.html' title='Multiple used in 3 places.'>space</a>) <b>while</b> (<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &amp;&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>[0] == ' ') ++<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>;
+<a name='L165'> 165 
+<a name='L166'> 166     <i><font color='green'>// All done when there's nothing left</font></i>
+<a name='L167'> 167     <b>if</b> (!<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>) <b>break</b>;
+<a name='L168'> 168 
+<a name='L169'> 169     <b>if</b> ((<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../S/54.html#L217' title='Defined at 217 in String.cpp.'>find</a>(<a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a>)) == <a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>)
+<a name='L170'> 170       <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L171'> 171     <a href='../Y/132.html' title='Multiple used in 27 places.'>array</a> &lt;&lt; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>(0, <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>);
+<a name='L172'> 172     <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a> += <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + <a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L173'> 173   <font color='red'>}</font>
+<a name='L174'> 174 
+<a name='L175'> 175   <i><font color='green'>// Add on extra</font></i>
+<a name='L176'> 176   <b>if</b> (<a href='../Y/324.html' title='Multiple used in 8 places.'>limit</a> != <a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>) <font color='red'>{</font>
+<a name='L177'> 177     <i><font color='green'>// Trim out left whitespace</font></i>
+<a name='L178'> 178     <b>if</b> (<a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a> == <a href='../Y/471.html' title='Multiple used in 3 places.'>space</a>) <b>while</b> (<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &amp;&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>[0] == ' ') ++<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>;
+<a name='L179'> 179     <a href='../Y/132.html' title='Multiple used in 27 places.'>array</a> &lt;&lt; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>;
+<a name='L180'> 180   <font color='red'>}</font>
+<a name='L181'> 181 
+<a name='L182'> 182   <b>return</b> <a href='../Y/132.html' title='Multiple used in 27 places.'>array</a>;
+<a name='L183'> 183 <font color='red'>}</font>
+<a name='L184'> 184 
+<a name='L185'> 185 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<b>operator</b>*(<b>int</b> <a href='../Y/518.html' title='Multiple used in 3 places.'>times</a>) <b>const</b> <font color='red'>{</font>
+<a name='L186'> 186   <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/365.html' title='Multiple used in 6 places.'>newString</a>((<b>this</b>-&gt;<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() * <a href='../Y/518.html' title='Multiple used in 3 places.'>times</a>));
+<a name='L187'> 187   <b>for</b> (<b>int</b> <a href='../Y/280.html' title='Multiple used in 92 places.'>i</a> = 0; <a href='../Y/280.html' title='Multiple used in 92 places.'>i</a> &lt; <a href='../Y/518.html' title='Multiple used in 3 places.'>times</a>; ++<a href='../Y/280.html' title='Multiple used in 92 places.'>i</a>)
+<a name='L188'> 188     <a href='../Y/365.html' title='Multiple used in 6 places.'>newString</a> += *<b>this</b>;
+<a name='L189'> 189   <b>return</b> <a href='../Y/365.html' title='Multiple used in 6 places.'>newString</a>;
+<a name='L190'> 190 <font color='red'>}</font>
+<a name='L191'> 191 
+<a name='L192'> 192 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/122.html' title='Multiple refered from 7 places.'>printf</a>(<b>const</b> <b>char</b>* <a href='../Y/248.html' title='Multiple used in 4 places.'>format</a>, ...) <font color='red'>{</font>
+<a name='L193'> 193   <b>char</b> <a href='../Y/546.html' title='Multiple used in 3 places.'>va_out</a>[4096] = "";
+<a name='L194'> 194   va_list <a href='../Y/543.html' title='Multiple used in 4 places.'>va</a>;
+<a name='L195'> 195 
+<a name='L196'> 196   va_start(<a href='../Y/543.html' title='Multiple used in 4 places.'>va</a>, <a href='../Y/248.html' title='Multiple used in 4 places.'>format</a>);
+<a name='L197'> 197   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> = vsnprintf(<a href='../Y/546.html' title='Multiple used in 3 places.'>va_out</a>, <b>sizeof</b>(<a href='../Y/546.html' title='Multiple used in 3 places.'>va_out</a>), <a href='../Y/248.html' title='Multiple used in 4 places.'>format</a>, <a href='../Y/543.html' title='Multiple used in 4 places.'>va</a>);
+<a name='L198'> 198   va_end(<a href='../Y/543.html' title='Multiple used in 4 places.'>va</a>);
+<a name='L199'> 199 
+<a name='L200'> 200   <b>return</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>(<a href='../Y/546.html' title='Multiple used in 3 places.'>va_out</a>, <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>);
+<a name='L201'> 201 <font color='red'>}</font>
+<a name='L202'> 202 
+<a name='L203'> 203 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/73.html' title='Multiple refered from 14 places.'>chomp</a>() <font color='red'>{</font>
+<a name='L204'> 204   <b>if</b> (<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &amp;&amp; (*<b>this</b>)[<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - 1] == '\n') --(*<b>this</b>);
+<a name='L205'> 205   <b>if</b> (<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &amp;&amp; (*<b>this</b>)[<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - 1] == '\r') --(*<b>this</b>);
+<a name='L206'> 206   <b>return</b> *<b>this</b>;
+<a name='L207'> 207 <font color='red'>}</font>
+<a name='L208'> 208 
+<a name='L209'> 209 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/176.html' title='Multiple refered from 10 places.'>trim</a>() <font color='red'>{</font>
+<a name='L210'> 210   <i><font color='green'>// ltrim</font></i>
+<a name='L211'> 211   <b>while</b> (<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &amp;&amp; <a href='../Y/302.html' title='Multiple used in 4 places.'>isspace</a>((*<b>this</b>)[0])) <font color='red'>{</font> ++<a href='../Y/378.html' title='Multiple used in 38 places.'>offset</a>; <a href='../Y/498.html' title='Multiple used in 12 places.'>subLength</a>(1); <font color='red'>}</font>
+<a name='L212'> 212   <i><font color='green'>// rtrim</font></i>
+<a name='L213'> 213   <b>while</b> (<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &amp;&amp; <a href='../Y/302.html' title='Multiple used in 4 places.'>isspace</a>((*<b>this</b>)[<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - 1])) <a href='../Y/498.html' title='Multiple used in 12 places.'>subLength</a>(1);
+<a name='L214'> 214   <b>return</b> *<b>this</b>;
+<a name='L215'> 215 <font color='red'>}</font>
+<a name='L216'> 216 
+<a name='L217'> 217 <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/90.html' title='Multiple refered from 54 places.'>find</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>) <b>const</b> <font color='red'>{</font>
+<a name='L218'> 218   <b>if</b> (<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &gt;= <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>()) <font color='red'>{</font>
+<a name='L219'> 219     <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/318.html' title='Multiple used in 4 places.'>last_pos</a> = <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L220'> 220     <b>for</b> (<a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = 0; <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> &lt;= <a href='../Y/318.html' title='Multiple used in 4 places.'>last_pos</a>; ++<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>)
+<a name='L221'> 221       <b>if</b> (<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>[0] == (*<b>this</b>)[<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>] &amp;&amp; !<a href='../Y/339.html' title='Multiple used in 3 places.'>memcmp</a>(<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>() + <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>, <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/343.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>(), <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>)))
+<a name='L222'> 222         <b>return</b> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>;
+<a name='L223'> 223   <font color='red'>}</font>
+<a name='L224'> 224   <b>return</b> <a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>;
+<a name='L225'> 225 <font color='red'>}</font>
+<a name='L226'> 226 
+<a name='L227'> 227 <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/100.html' title='Multiple refered from 2 places.'>ifind</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>) <b>const</b> <font color='red'>{</font>
+<a name='L228'> 228   <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/489.html' title='Multiple used in 6 places.'>str_upper</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>), <a href='../Y/514.html' title='Multiple used in 6 places.'>this_upper</a>(*<b>this</b>);
+<a name='L229'> 229   <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/526.html' title='Multiple used in 4 places.'>transform</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/218.html' title='Multiple used in 34 places.'>end</a>(), <a href='../Y/489.html' title='Multiple used in 6 places.'>str_upper</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), ::<a href='../Y/525.html' title='Multiple used in 7 places.'>toupper</a>);
+<a name='L230'> 230   <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/526.html' title='Multiple used in 4 places.'>transform</a>(<b>this</b>-&gt;<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), <b>this</b>-&gt;<a href='../Y/218.html' title='Multiple used in 34 places.'>end</a>(), <a href='../Y/514.html' title='Multiple used in 6 places.'>this_upper</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), ::<a href='../Y/525.html' title='Multiple used in 7 places.'>toupper</a>);
+<a name='L231'> 231   <b>return</b> <a href='../Y/514.html' title='Multiple used in 6 places.'>this_upper</a>.<a href='../S/54.html#L217' title='Defined at 217 in String.cpp.'>find</a>(<a href='../Y/489.html' title='Multiple used in 6 places.'>str_upper</a>);
+<a name='L232'> 232 <font color='red'>}</font>
+<a name='L233'> 233 
+<a name='L234'> 234 <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/140.html' title='Multiple refered from 2 places.'>rifind</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>, <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/329.html' title='Multiple used in 5 places.'>lpos</a>) <b>const</b> <font color='red'>{</font>
+<a name='L235'> 235   <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/489.html' title='Multiple used in 6 places.'>str_upper</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>), <a href='../Y/514.html' title='Multiple used in 6 places.'>this_upper</a>(*<b>this</b>);
+<a name='L236'> 236   <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/526.html' title='Multiple used in 4 places.'>transform</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/218.html' title='Multiple used in 34 places.'>end</a>(), <a href='../Y/489.html' title='Multiple used in 6 places.'>str_upper</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), ::<a href='../Y/525.html' title='Multiple used in 7 places.'>toupper</a>);
+<a name='L237'> 237   <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/526.html' title='Multiple used in 4 places.'>transform</a>(<b>this</b>-&gt;<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), <b>this</b>-&gt;<a href='../Y/218.html' title='Multiple used in 34 places.'>end</a>(), <a href='../Y/514.html' title='Multiple used in 6 places.'>this_upper</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), ::<a href='../Y/525.html' title='Multiple used in 7 places.'>toupper</a>);
+<a name='L238'> 238   <b>return</b> <a href='../Y/514.html' title='Multiple used in 6 places.'>this_upper</a>.<a href='../S/54.html#L241' title='Defined at 241 in String.cpp.'>rfind</a>(<a href='../Y/489.html' title='Multiple used in 6 places.'>str_upper</a>);
+<a name='L239'> 239 <font color='red'>}</font>
+<a name='L240'> 240 
+<a name='L241'> 241 <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/138.html' title='Multiple refered from 20 places.'>rfind</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>, <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/329.html' title='Multiple used in 5 places.'>lpos</a>) <b>const</b> <font color='red'>{</font>
+<a name='L242'> 242   <b>if</b> (<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() &gt;= <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>()) <font color='red'>{</font>
+<a name='L243'> 243     <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/318.html' title='Multiple used in 4 places.'>last_pos</a> = <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L244'> 244     <b>for</b> (<a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = <a href='../Y/318.html' title='Multiple used in 4 places.'>last_pos</a>; <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + 1 &gt; <a href='../Y/329.html' title='Multiple used in 5 places.'>lpos</a>; --<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>)
+<a name='L245'> 245       <b>if</b> (<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>[0] == (*<b>this</b>)[<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>] &amp;&amp; !<a href='../Y/339.html' title='Multiple used in 3 places.'>memcmp</a>(<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>() + <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>, <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>(), <a href='../D/188.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/343.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>(), <a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>() - <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>)))
+<a name='L246'> 246         <b>return</b> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>;
+<a name='L247'> 247   <font color='red'>}</font>
+<a name='L248'> 248   <b>return</b> <a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>;
+<a name='L249'> 249 <font color='red'>}</font>
+<a name='L250'> 250 
+<a name='L251'> 251 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/163.html' title='Multiple refered from 25 places.'>sub</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/446.html' title='Multiple used in 16 places.'>search</a>, <b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/427.html' title='Multiple used in 3 places.'>replacement</a>, <b>int</b> <a href='../Y/324.html' title='Multiple used in 8 places.'>limit</a>) <b>const</b> <font color='red'>{</font>
+<a name='L252'> 252   <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a>(<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>()), <a href='../Y/447.html' title='Multiple used in 6 places.'>search_str</a>(*<b>this</b>);
+<a name='L253'> 253   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = 0;
+<a name='L254'> 254   <b>int</b> <a href='../Y/172.html' title='Multiple used in 2 places.'>cnt</a> = 0;
+<a name='L255'> 255   <i><font color='green'>// Search in our const string so that stuff like \-&gt;\\ doesnt become \\\, \\\\ etc.</font></i>
+<a name='L256'> 256   <b>while</b> ((<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = <a href='../Y/447.html' title='Multiple used in 6 places.'>search_str</a>.<a href='../S/54.html#L217' title='Defined at 217 in String.cpp.'>find</a>(<a href='../Y/446.html' title='Multiple used in 16 places.'>search</a>)) != <a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>) <font color='red'>{</font>
+<a name='L257'> 257     <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a> += <a href='../Y/447.html' title='Multiple used in 6 places.'>search_str</a>(0, <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>);
+<a name='L258'> 258     <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a> += <a href='../Y/427.html' title='Multiple used in 3 places.'>replacement</a>;
+<a name='L259'> 259     <a href='../Y/447.html' title='Multiple used in 6 places.'>search_str</a> += <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + <a href='../Y/446.html' title='Multiple used in 16 places.'>search</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L260'> 260     <b>if</b> (<a href='../Y/324.html' title='Multiple used in 8 places.'>limit</a> != -1 &amp;&amp; ++<a href='../Y/172.html' title='Multiple used in 2 places.'>cnt</a> == <a href='../Y/324.html' title='Multiple used in 8 places.'>limit</a>) <b>break</b>;
+<a name='L261'> 261   <font color='red'>}</font>
+<a name='L262'> 262   <i><font color='green'>// Left over</font></i>
+<a name='L263'> 263   <b>if</b> (<a href='../Y/447.html' title='Multiple used in 6 places.'>search_str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>())
+<a name='L264'> 264     <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a> += <a href='../Y/447.html' title='Multiple used in 6 places.'>search_str</a>;
+<a name='L265'> 265   <b>return</b> <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a>;
+<a name='L266'> 266 <font color='red'>}</font>
+<a name='L267'> 267 
+<a name='L268'> 268 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../R/165.html' title='Multiple refered from 4 places.'>subst</a>(<a href='../Y/50.html' title='Multiple used in 23 places.'>HashTable</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>, <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt; <a href='../Y/274.html' title='Multiple used in 13 places.'>hashes</a>) <b>const</b> <font color='red'>{</font>
+<a name='L269'> 269   <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a>(*<b>this</b>);
+<a name='L270'> 270   <a href='../Y/3.html' title='Multiple used in 64 places.'>Array</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt; <a href='../Y/316.html' title='Multiple used in 11 places.'>keys</a>(<a href='../Y/274.html' title='Multiple used in 13 places.'>hashes</a>.<a href='../Y/316.html' title='Multiple used in 11 places.'>keys</a>());
+<a name='L271'> 271   <a href='../Y/3.html' title='Multiple used in 64 places.'>Array</a>&lt;<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&gt; <a href='../Y/551.html' title='Multiple used in 8 places.'>values</a>(<a href='../Y/274.html' title='Multiple used in 13 places.'>hashes</a>.<a href='../Y/551.html' title='Multiple used in 8 places.'>values</a>());
+<a name='L272'> 272   <b>for</b> (<a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/280.html' title='Multiple used in 92 places.'>i</a> = 0; <a href='../Y/280.html' title='Multiple used in 92 places.'>i</a> &lt; <a href='../Y/316.html' title='Multiple used in 11 places.'>keys</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>(); ++<a href='../Y/280.html' title='Multiple used in 92 places.'>i</a>) <font color='red'>{</font>
+<a name='L273'> 273     <b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/314.html' title='Multiple used in 53 places.'>key</a>(<a href='../Y/316.html' title='Multiple used in 11 places.'>keys</a>[<a href='../Y/280.html' title='Multiple used in 92 places.'>i</a>]), <a href='../Y/549.html' title='Multiple used in 40 places.'>value</a>(<a href='../Y/551.html' title='Multiple used in 8 places.'>values</a>[<a href='../Y/280.html' title='Multiple used in 92 places.'>i</a>]);
+<a name='L274'> 274     <i><font color='green'>//::printf("%s -&gt; %s\n", key.c_str(), value.c_str());</font></i>
+<a name='L275'> 275     <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a> = <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a>.<a href='../S/54.html#L251' title='Defined at 251 in String.cpp.'>sub</a>(<a href='../Y/314.html' title='Multiple used in 53 places.'>key</a>, <a href='../Y/549.html' title='Multiple used in 40 places.'>value</a>);
+<a name='L276'> 276   <font color='red'>}</font>
+<a name='L277'> 277   <b>return</b> <a href='../Y/364.html' title='Multiple used in 8 places.'>newStr</a>;
+<a name='L278'> 278 <font color='red'>}</font>
+<a name='L279'> 279 
+<a name='L280'> 280 <i><font color='green'>/**</font></i>
+<a name='L281'> 281 <i><font color='green'> * @brief Splits off tokens</font></i>
+<a name='L282'> 282 <i><font color='green'> * @param str The string to split a token off of</font></i>
+<a name='L283'> 283 <i><font color='green'> * @param delim The delimiter to tokenize with</font></i>
+<a name='L284'> 284 <i><font color='green'> * This will modify the given string to remove the first token, which is returned.</font></i>
+<a name='L285'> 285 <i><font color='green'> * If no more tokens exist, the remaining string is returned and the string becomes "". Future calls will return a blank String("")</font></i>
+<a name='L286'> 286 <i><font color='green'> */</font></i>
+<a name='L287'> 287 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../R/116.html' title='Multiple refered from 12 places.'>newsplit</a>(<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>, <b>char</b> <a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a>)
+<a name='L288'> 288 <font color='red'>{</font>
+<a name='L289'> 289   <b>if</b> (!<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>()) <b>return</b> "";
+<a name='L290'> 290   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../S/54.html#L217' title='Defined at 217 in String.cpp.'>find</a>(<a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a>);
+<a name='L291'> 291   <b>if</b> (<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> == <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>::<a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>)
+<a name='L292'> 292     <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> = <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L293'> 293 
+<a name='L294'> 294   <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/244.html' title='Multiple used in 2 places.'>first</a>(<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>(0, <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>));
+<a name='L295'> 295 
+<a name='L296'> 296   <i><font color='green'>/* Trim out runs of whitespaces */</font></i>
+<a name='L297'> 297   <b>if</b> (<a href='../Y/200.html' title='Multiple used in 18 places.'>delim</a> == ' ') <font color='red'>{</font>
+<a name='L298'> 298     <b>while</b> ((<a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/142.html' title='Multiple used in 81 places.'>begin</a>() + <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + 1) &lt; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>.<a href='../Y/218.html' title='Multiple used in 34 places.'>end</a>() &amp;&amp; <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a>[<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + 1] == ' ')
+<a name='L299'> 299       ++<a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a>;
+<a name='L300'> 300   <font color='red'>}</font>
+<a name='L301'> 301 
+<a name='L302'> 302 <i><font color='green'>//  str = str(pos + 1, str.length() - pos + 1);</font></i>
+<a name='L303'> 303   <a href='../Y/484.html' title='Multiple used in 73 places.'>str</a> += <a href='../Y/394.html' title='Multiple used in 91 places.'>pos</a> + 1;
+<a name='L304'> 304   <b>return</b> <a href='../Y/244.html' title='Multiple used in 2 places.'>first</a>;
+<a name='L305'> 305 <font color='red'>}</font>
+<a name='L306'> 306 <a href='../S/41.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L22'>[^]</a><a href='#L137'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L45'>[^]</a><a href='#L287'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

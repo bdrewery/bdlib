@@ -1,14 +1,33 @@
 <html>
 <head>
-<title>ostream</title>
+<title>prev</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/35.html#L326'>ostream</a>           326 String.h               friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp;, const String&amp;);
-<a href='../S/35.html#L327'>ostream</a>           327 String.h               friend std::ostream&amp; operator&gt;&gt;(std::ostream&amp;, const String&amp;);
-<a href='../S/35.html#L500'>ostream</a>           500 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
+<a href='../S/37.html#L57'>prev</a>               57 List.h               Node* prev;
+<a href='../S/37.html#L59'>prev</a>               59 List.h               Node(const_reference p) : item(p), next(NULL), prev(NULL) {};
+<a href='../S/37.html#L61'>prev</a>               61 List.h               Node(const Node&amp; n) : item(n.item), next(n.next), prev(n.prev) {};
+<a href='../S/37.html#L63'>prev</a>               63 List.h               Node(const value_type&amp;&amp; p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+<a href='../S/37.html#L66'>prev</a>               66 List.h                 prev = NULL;
+<a href='../S/37.html#L75'>prev</a>               75 List.h                 swap(a.prev, b.prev);
+<a href='../S/37.html#L86'>prev</a>               86 List.h               Node* prev = node-&gt;prev; //NULL if node = head
+<a href='../S/37.html#L90'>prev</a>               90 List.h               if (next) next-&gt;prev = prev;
+<a href='../S/37.html#L91'>prev</a>               91 List.h               if (prev) prev-&gt;next = next;
+<a href='../S/37.html#L94'>prev</a>               94 List.h               if (node == tail) tail = prev;
+<a href='../S/37.html#L166'>prev</a>              166 List.h                 head-&gt;prev = node;
+<a href='../S/37.html#L248'>prev</a>              248 List.h                   Node *nextValue = end == 0 ? current-&gt;next : current-&gt;prev;
+<a href='../S/37.html#L267'>prev</a>              267 List.h                   current = current-&gt;prev;
+<a href='../S/37.html#L272'>prev</a>              272 List.h                   current = current-&gt;prev;
+<a href='../S/8.html#L61'>prev</a>               61 SortedList.h         Node* node = new Node(item), *prev = NULL, *current = this-&gt;head;
+<a href='../S/8.html#L63'>prev</a>               63 SortedList.h           prev = current;
+<a href='../S/8.html#L70'>prev</a>               70 SortedList.h           this-&gt;tail = prev-&gt;next = node;
+<a href='../S/8.html#L71'>prev</a>               71 SortedList.h           node-&gt;prev = prev; //prev=tail
+<a href='../S/8.html#L74'>prev</a>               74 SortedList.h           current-&gt;prev = node;
+<a href='../S/8.html#L78'>prev</a>               78 SortedList.h           node-&gt;prev = prev;
+<a href='../S/8.html#L79'>prev</a>               79 SortedList.h           current-&gt;prev = node;
+<a href='../S/8.html#L80'>prev</a>               80 SortedList.h           prev-&gt;next = node;
 </pre>
 </body>
 </html>

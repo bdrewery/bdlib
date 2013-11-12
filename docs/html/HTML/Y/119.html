@@ -1,35 +1,23 @@
 <html>
 <head>
-<title>_list</title>
+<title>_size</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/5.html#L50'>_list</a>              50 HashTable.h        List&lt;iterator_type&gt; *_list;
-<a href='../S/5.html#L59'>_list</a>              59 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/5.html#L60'>_list</a>              60 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L61'>_list</a>              61 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L63'>_list</a>              63 HashTable.h              _list[i] = table._list[i];
-<a href='../S/5.html#L66'>_list</a>              66 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(NULL), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L71'>_list</a>              71 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L77'>_list</a>              77 HashTable.h          delete[] _list;
-<a href='../S/5.html#L82'>_list</a>              82 HashTable.h            _list[i].clear();
-<a href='../S/5.html#L98'>_list</a>              98 HashTable.h            if (_list[i].size()) {
-<a href='../S/5.html#L99'>_list</a>              99 HashTable.h              for (auto iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/5.html#L115'>_list</a>             115 HashTable.h          swap(a._list, b._list);
-<a href='../S/5.html#L146'>_list</a>             146 HashTable.h          _list[getIndex(key)] &lt;&lt; iterator_type(key, value);
-<a href='../S/5.html#L153'>_list</a>             153 HashTable.h          return _list[getIndex(key)].contains(iterator_type(key, Value()));
-<a href='../S/5.html#L158'>_list</a>             158 HashTable.h          if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
-<a href='../S/5.html#L168'>_list</a>             168 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
-<a href='../S/5.html#L184'>_list</a>             184 HashTable.h            if (_list[i].size()) {
-<a href='../S/5.html#L185'>_list</a>             185 HashTable.h              for (auto iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/5.html#L201'>_list</a>             201 HashTable.h            if (_list[i].size()) {
-<a href='../S/5.html#L202'>_list</a>             202 HashTable.h              for (auto iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/5.html#L227'>_list</a>             227 HashTable.h          return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
-<a href='../S/37.html#L207'>_list</a>             207 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/37.html#L208'>_list</a>             208 List.h                                                                       list(&amp;_list),
-<a href='../S/37.html#L209'>_list</a>             209 List.h                                                                       current(_end ? _list.head : _list.tail), /* tail is beginning */
+<a href='../S/5.html#L55'>_size</a>              55 HashTable.h        size_t _size;
+<a href='../S/5.html#L63'>_size</a>              63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
+<a href='../S/5.html#L64'>_size</a>              64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+<a href='../S/5.html#L65'>_size</a>              65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/5.html#L70'>_size</a>              70 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
+<a href='../S/5.html#L72'>_size</a>              72 HashTable.h          _size = 0;
+<a href='../S/5.html#L78'>_size</a>              78 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
+<a href='../S/5.html#L90'>_size</a>              90 HashTable.h          _size = 0;
+<a href='../S/5.html#L124'>_size</a>             124 HashTable.h          swap(a._size, b._size);
+<a href='../S/5.html#L147'>_size</a>             147 HashTable.h        inline size_t size() const { return _size; };
+<a href='../S/5.html#L157'>_size</a>             157 HashTable.h          ++_size;
+<a href='../S/5.html#L169'>_size</a>             169 HashTable.h            --_size;
 </pre>
 </body>
 </html>

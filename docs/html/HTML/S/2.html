@@ -6,66 +6,69 @@
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <a name='TOP'><h2><a href='../mains.html'>root</a>/Socket.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L35'>[^]</a>[v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L38'>[^]</a>[v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
 <h2>DEFINITIONS</h2>
 This source file includes following definitions.
 <ol>
-<li><a href='#L35' title='Defined at 35.'>create</a>
+<li><a href='#L38' title='Defined at 38.'>create</a>
 </ol>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* Socket.cpp</font></i>
-<a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
-<a name='L4'>   4 <i><font color='green'> *</font></i>
-<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
-<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
-<a name='L7'>   7 <i><font color='green'> *</font></i>
-<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY. </font></i>
-<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
-<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
-<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
-<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
-<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
-<a name='L14'>  14 <i><font color='green'> *</font></i>
-<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
-<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
-<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
-<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
-<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
-<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
-<a name='L21'>  21 <i><font color='green'> *</font></i>
-<a name='L22'>  22 <i><font color='green'> */</font></i>
-<a name='L23'>  23 
+<a name='L1'>   1 <i><font color='green'>/*</font></i>
+<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2013, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
+<a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
+<a name='L4'>   4 <i><font color='green'> * </font></i>
+<a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
+<a name='L6'>   6 <i><font color='green'> * modification, are permitted provided that the following conditions are met:</font></i>
+<a name='L7'>   7 <i><font color='green'> * 1. Redistributions of source code must retain the above copyright</font></i>
+<a name='L8'>   8 <i><font color='green'> *    notice, this list of conditions and the following disclaimer.</font></i>
+<a name='L9'>   9 <i><font color='green'> * 2. Redistributions in binary form must reproduce the above copyright</font></i>
+<a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
+<a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
+<a name='L12'>  12 <i><font color='green'> * </font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
+<a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
+<a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
+<a name='L20'>  20 <i><font color='green'> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</font></i>
+<a name='L21'>  21 <i><font color='green'> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</font></i>
+<a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <font color='darkred'>#include</font> "<a href='1.html'>Socket.h</a>"
-<a name='L26'>  26 
-<a name='L27'>  27 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L28'>  28 <a href='../R/36.html' title='Multiple refered from 10 places.'>Socket</a>::~<a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>() <font color='red'>{</font>
-<a name='L29'>  29   <b>if</b> (<a href='../Y/307.html' title='Multiple used in 2 places.'>isValid</a>()) <font color='red'>{</font>
-<a name='L30'>  30     ::shutdown(<a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a>, SHUT_RDWR);
-<a name='L31'>  31     ::<a href='../Y/176.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a>);
-<a name='L32'>  32   <font color='red'>}</font>
-<a name='L33'>  33 <font color='red'>}</font>
-<a name='L34'>  34 
-<a name='L35'>  35 <b>bool</b> <a href='../S/2.html#L28' title='Defined at 28 in Socket.cpp.'>Socket</a>::<a href='../S/1.html#L74' title='Refered from 74 in Socket.h.'>create</a>() <font color='red'>{</font>
-<a name='L36'>  36   <b>int</b> <a href='../Y/419.html' title='Multiple used in 4 places.'>ptype</a> = 0;
+<a name='L25'>  25 <i><font color='green'>/* Socket.cpp</font></i>
+<a name='L26'>  26 <i><font color='green'> */</font></i>
+<a name='L27'>  27 
+<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='1.html'>Socket.h</a>"
+<a name='L29'>  29 
+<a name='L30'>  30 <a href='../S/41.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L31'>  31 <a href='../R/29.html' title='Multiple refered from 10 places.'>Socket</a>::~<a href='../S/2.html#L31' title='Defined at 31 in Socket.cpp.'>Socket</a>() <font color='red'>{</font>
+<a name='L32'>  32   <b>if</b> (<a href='../Y/301.html' title='Multiple used in 2 places.'>isValid</a>()) <font color='red'>{</font>
+<a name='L33'>  33     ::shutdown(<a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a>, SHUT_RDWR);
+<a name='L34'>  34     ::<a href='../Y/171.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a>);
+<a name='L35'>  35   <font color='red'>}</font>
+<a name='L36'>  36 <font color='red'>}</font>
 <a name='L37'>  37 
-<a name='L38'>  38   <b>if</b> (<a href='../Y/251.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L44' title='Defined at 44 in Socket.h.'>SOCKET_UDP</a>)
-<a name='L39'>  39     <a href='../Y/419.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_DGRAM;
-<a name='L40'>  40   <b>else</b> <b>if</b> (<a href='../Y/251.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L43' title='Defined at 43 in Socket.h.'>SOCKET_TCP</a>)
-<a name='L41'>  41     <a href='../Y/419.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_STREAM;
-<a name='L42'>  42 
-<a name='L43'>  43   <a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a> = socket(<a href='../Y/400.html' title='Multiple used in 2 places.'>pfamily</a>, <a href='../Y/419.html' title='Multiple used in 4 places.'>ptype</a>, 0);
-<a name='L44'>  44   <b>if</b> (<a href='../Y/471.html' title='Multiple used in 9 places.'>sock</a> == -1)
-<a name='L45'>  45     <b>return</b> <b>false</b>;
-<a name='L46'>  46 <font color='red'>}</font>
-<a name='L47'>  47 <a href='../S/42.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L48'>  48 
+<a name='L38'>  38 <b>bool</b> <a href='../S/2.html#L31' title='Defined at 31 in Socket.cpp.'>Socket</a>::<a href='../S/1.html#L78' title='Refered from 78 in Socket.h.'>create</a>() <font color='red'>{</font>
+<a name='L39'>  39   <b>int</b> <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a> = 0;
+<a name='L40'>  40 
+<a name='L41'>  41   <b>if</b> (<a href='../Y/245.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L48' title='Defined at 48 in Socket.h.'>SOCKET_UDP</a>)
+<a name='L42'>  42     <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_DGRAM;
+<a name='L43'>  43   <b>else</b> <b>if</b> (<a href='../Y/245.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L47' title='Defined at 47 in Socket.h.'>SOCKET_TCP</a>)
+<a name='L44'>  44     <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_STREAM;
+<a name='L45'>  45 
+<a name='L46'>  46   <a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a> = socket(<a href='../Y/390.html' title='Multiple used in 2 places.'>pfamily</a>, <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a>, 0);
+<a name='L47'>  47   <b>if</b> (<a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a> == -1)
+<a name='L48'>  48     <b>return</b> <b>false</b>;
+<a name='L49'>  49 <font color='red'>}</font>
+<a name='L50'>  50 <a href='../S/41.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L51'>  51 
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;][^]<a href='#L35'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;][^]<a href='#L38'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

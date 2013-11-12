@@ -1,34 +1,24 @@
 <html>
 <head>
-<title>HashTable</title>
+<title>HashTableTest</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/5.html#L43'>HashTable</a>          43 HashTable.h    class HashTable {
-<a href='../S/5.html#L59'>HashTable</a>          59 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/5.html#L60'>HashTable</a>          60 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L61'>HashTable</a>          61 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L66'>HashTable</a>          66 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(NULL), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L71'>HashTable</a>          71 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L76'>HashTable</a>          76 HashTable.h        virtual ~HashTable() {
-<a href='../S/5.html#L112'>HashTable</a>         112 HashTable.h        friend void swap(HashTable&lt;Key, Value&gt;&amp; a, HashTable&lt;Key, Value&gt;&amp; b) {
-<a href='../S/5.html#L121'>HashTable</a>         121 HashTable.h        HashTable&amp; operator=(HashTable&lt;Key, Value&gt; table) {
-<a href='../S/5.html#L131'>HashTable</a>         131 HashTable.h        HashTable&amp; operator=(std::initializer_list&lt;iterator_type&gt; list) {
-<a href='../S/55.html#L251'>HashTable</a>         251 String.cpp     String String::subst(HashTable&lt;String, String&gt; hashes) const {
-<a href='../S/35.html#L49'>HashTable</a>          49 String.h       class HashTable;
-<a href='../S/35.html#L290'>HashTable</a>         290 String.h               String subst(HashTable&lt;String, String&gt; hashes) const;
-<a href='../S/30.html#L325'>HashTable</a>         325 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht;
-<a href='../S/30.html#L328'>HashTable</a>         328 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht2;
-<a href='../S/30.html#L337'>HashTable</a>         337 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha1;
-<a href='../S/30.html#L338'>HashTable</a>         338 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha2;
-<a href='../S/14.html#L263'>HashTable</a>         263 tests/HashTableTest.cpp   HashTable&lt;int, String&gt; test(*a);
-<a href='../S/14.html#L342'>HashTable</a>         342 tests/HashTableTest.cpp   HashTable&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/14.html#L379'>HashTable</a>         379 tests/HashTableTest.cpp   HashTable&lt;String, int&gt; my_hash {
-<a href='../S/25.html#L45'>HashTable</a>          45 tests/HashTableTest.h         HashTable&lt;int, String&gt; *a, *b, *c, *d, *e, *f, *g, *h;
-<a href='../S/25.html#L46'>HashTable</a>          46 tests/HashTableTest.h         HashTable&lt;String, String&gt; *sa, *sb;
-<a href='../S/27.html#L1415'>HashTable</a>        1415 tests/StringTest.cpp   HashTable&lt;String, String&gt; hashes;
+<a href='../S/14.html#L30'>HashTableTest</a>      30 tests/HashTableTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (HashTableTest);
+<a href='../S/14.html#L32'>HashTableTest</a>      32 tests/HashTableTest.cpp void HashTableTest :: setUp (void)
+<a href='../S/14.html#L51'>HashTableTest</a>      51 tests/HashTableTest.cpp void HashTableTest :: tearDown (void)
+<a href='../S/14.html#L64'>HashTableTest</a>      64 tests/HashTableTest.cpp void HashTableTest :: insertTest (void)
+<a href='../S/14.html#L115'>HashTableTest</a>     115 tests/HashTableTest.cpp void HashTableTest :: containsTest (void)
+<a href='../S/14.html#L197'>HashTableTest</a>     197 tests/HashTableTest.cpp void HashTableTest :: clearTest (void)
+<a href='../S/14.html#L245'>HashTableTest</a>     245 tests/HashTableTest.cpp void HashTableTest :: getValueTest (void)
+<a href='../S/14.html#L301'>HashTableTest</a>     301 tests/HashTableTest.cpp void HashTableTest :: getKeyTest (void)
+<a href='../S/14.html#L316'>HashTableTest</a>     316 tests/HashTableTest.cpp void HashTableTest :: removeTest (void)
+<a href='../S/14.html#L358'>HashTableTest</a>     358 tests/HashTableTest.cpp void HashTableTest :: iterateTest (void)
+<a href='../S/14.html#L403'>HashTableTest</a>     403 tests/HashTableTest.cpp void HashTableTest :: initializerTest(void) {
+<a href='../S/25.html#L38'>HashTableTest</a>      38 tests/HashTableTest.h class HashTableTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/25.html#L40'>HashTableTest</a>      40 tests/HashTableTest.h     CPPUNIT_TEST_SUITE (HashTableTest);
 </pre>
 </body>
 </html>

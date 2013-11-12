@@ -1,20 +1,30 @@
 <html>
 <head>
-<title>Slice</title>
+<title>Stream</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/45.html#L248'>Slice</a>             248 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
-<a href='../S/44.html#L122'>Slice</a>             122 ReferenceCountedArray.h class Slice {
-<a href='../S/44.html#L128'>Slice</a>             128 ReferenceCountedArray.h     Slice() = delete;
-<a href='../S/44.html#L131'>Slice</a>             131 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-<a href='../S/44.html#L132'>Slice</a>             132 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
-<a href='../S/44.html#L143'>Slice</a>             143 ReferenceCountedArray.h     friend void swap(Slice&amp; a, Slice&amp; b) {
-<a href='../S/44.html#L155'>Slice</a>             155 ReferenceCountedArray.h     inline Slice&amp; operator=(const Slice&amp; slice) {
-<a href='../S/44.html#L164'>Slice</a>             164 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
-<a href='../S/35.html#L245'>Slice</a>             245 String.h               inline Slice&lt;String&gt; operator()(int start, int len = -1) { return Slice&lt;String&gt;(*this, start, len); };
+<a href='../S/53.html#L46'>Stream</a>             46 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
+<a href='../S/53.html#L52'>Stream</a>             52 Stream.cpp     int Stream::seek(int offset, int whence) {
+<a href='../S/53.html#L77'>Stream</a>             77 Stream.cpp     String Stream::read(size_t maxSize, char delim) {
+<a href='../S/53.html#L101'>Stream</a>            101 Stream.cpp     int Stream::loadFile(const String&amp; file)
+<a href='../S/53.html#L111'>Stream</a>            111 Stream.cpp     int Stream::loadFile(const int fd)
+<a href='../S/53.html#L151'>Stream</a>            151 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
+<a href='../S/53.html#L161'>Stream</a>            161 Stream.cpp     int Stream::writeFile(const int fd) const
+<a href='../S/34.html#L49'>Stream</a>             49 Stream.h       class Stream {
+<a href='../S/34.html#L56'>Stream</a>             56 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/34.html#L57'>Stream</a>             57 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/34.html#L59'>Stream</a>             59 Stream.h               Stream(Stream&amp;&amp; stream) : str(stream.str), pos(stream.pos), loading(stream.loading) {
+<a href='../S/34.html#L65'>Stream</a>             65 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/34.html#L66'>Stream</a>             66 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/34.html#L67'>Stream</a>             67 Stream.h               virtual ~Stream() {};
+<a href='../S/34.html#L69'>Stream</a>             69 Stream.h               friend void swap(Stream&amp; a, Stream&amp; b) {
+<a href='../S/34.html#L77'>Stream</a>             77 Stream.h               Stream&amp; operator=(Stream stream) {
+<a href='../S/34.html#L170'>Stream</a>            170 Stream.h               friend Stream&amp; operator&lt;&lt;(Stream&amp;, const String&amp;);
+<a href='../S/34.html#L173'>Stream</a>            173 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/20.html#L67'>Stream</a>             67 tests/StreamTest.h         Stream *a, *b, *c, *d, *e, *F, *g, *h;
 </pre>
 </body>
 </html>

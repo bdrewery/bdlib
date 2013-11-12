@@ -1,28 +1,33 @@
 <html>
 <head>
-<title>join</title>
+<title>kv</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/45.html#L180'>join</a>              180 Array.h            String join(const String&amp; delim, bool quoted = false) const {
-<a href='../S/45.html#L253'>join</a>              253 Array.h              ::CPPUNIT_NS::Asserter::failNotEqual(this-&gt;join("|").c_str(), actual.join("|").c_str(), sourceLine);
-<a href='../S/30.html#L93'>join</a>               93 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", str_a-&gt;join(' '));
-<a href='../S/30.html#L97'>join</a>               97 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", str_a-&gt;join(' '));
-<a href='../S/30.html#L102'>join</a>              102 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3", str_a-&gt;join(' '));
-<a href='../S/30.html#L110'>join</a>              110 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("\"Test\" \"1 2 3\" \"Last 1\"", str_a-&gt;join(" ", true));
-<a href='../S/30.html#L205'>join</a>              205 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1 Test2 Test3", str_a-&gt;join(' '));
-<a href='../S/30.html#L357'>join</a>              357 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", str_c-&gt;join(' '));
-<a href='../S/30.html#L361'>join</a>              361 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", str_c-&gt;join(' '));
-<a href='../S/30.html#L368'>join</a>              368 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4 5 6", str_c-&gt;join(' '));
-<a href='../S/30.html#L373'>join</a>              373 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("6", str_b-&gt;join(' '));
-<a href='../S/30.html#L374'>join</a>              374 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4 5", str_c-&gt;join(' '));
-<a href='../S/30.html#L380'>join</a>              380 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", str_c-&gt;join(' '));
-<a href='../S/30.html#L384'>join</a>              384 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3 4", str_c-&gt;join(' '));
-<a href='../S/30.html#L389'>join</a>              389 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", str_b-&gt;join(' '));
-<a href='../S/30.html#L390'>join</a>              390 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", str_c-&gt;join(' '));
-<a href='../S/14.html#L169'>join</a>              169 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah Blah Blah Blah 42", values.join(' '));
+<a href='../S/3.html#L53'>kv</a>                 53 BinaryTree.h           iterator_type kv;
+<a href='../S/3.html#L55'>kv</a>                 55 BinaryTree.h           Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
+<a href='../S/3.html#L58'>kv</a>                 58 BinaryTree.h                                 kv(n.kv) {};
+<a href='../S/3.html#L72'>kv</a>                 72 BinaryTree.h           if (key &lt; (*search)-&gt;kv.key())
+<a href='../S/3.html#L74'>kv</a>                 74 BinaryTree.h           else if (key &gt; (*search)-&gt;kv.key())
+<a href='../S/3.html#L92'>kv</a>                 92 BinaryTree.h         Node*&amp; insertAt = fetchNode(search, node-&gt;kv.key());
+<a href='../S/3.html#L124'>kv</a>                124 BinaryTree.h           node-&gt;kv = (*temp)-&gt;kv;
+<a href='../S/3.html#L191'>kv</a>                191 BinaryTree.h           rNode-&gt;kv = iterator_type(key, value);
+<a href='../S/3.html#L217'>kv</a>                217 BinaryTree.h         return node-&gt;kv.v;
+<a href='../S/3.html#L251'>kv</a>                251 BinaryTree.h           return node-&gt;kv.value();
+<a href='../S/3.html#L288'>kv</a>                288 BinaryTree.h             storage[i++] = iterator_type(node-&gt;kv);
+<a href='../S/5.html#L115'>kv</a>                115 HashTable.h            iterator_type kv = *iter;
+<a href='../S/5.html#L116'>kv</a>                116 HashTable.h            block(kv.key(), kv.value(), param);
+<a href='../S/5.html#L197'>kv</a>                197 HashTable.h                iterator_type kv = *iter;
+<a href='../S/5.html#L198'>kv</a>                198 HashTable.h                tmp &lt;&lt; kv.key();
+<a href='../S/5.html#L215'>kv</a>                215 HashTable.h                iterator_type kv = *iter;
+<a href='../S/5.html#L216'>kv</a>                216 HashTable.h                tmp &lt;&lt; kv.value();
+<a href='../S/32.html#L100'>kv</a>                100 Iterator.h         KeyValue(const KeyValue&amp; kv) : k(kv.k), v(kv.v) {};
+<a href='../S/32.html#L102'>kv</a>                102 Iterator.h         KeyValue(KeyValue&amp;&amp; kv) : k(), v() {
+<a href='../S/32.html#L103'>kv</a>                103 Iterator.h           swap(*this, kv);
+<a href='../S/32.html#L112'>kv</a>                112 Iterator.h           KeyValue&amp; operator=(KeyValue kv) {
+<a href='../S/32.html#L113'>kv</a>                113 Iterator.h             swap(*this, kv);
 </pre>
 </body>
 </html>

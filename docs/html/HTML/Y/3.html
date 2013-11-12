@@ -1,20 +1,75 @@
 <html>
 <head>
-<title>Allocator</title>
+<title>Array</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L45'>Allocator</a>          45 ReferenceCountedArray.h     typedef typename Allocator::pointer iterator;
-<a href='../S/44.html#L186'>Allocator</a>         186 ReferenceCountedArray.h     typedef typename Allocator::size_type             size_type;
-<a href='../S/44.html#L187'>Allocator</a>         187 ReferenceCountedArray.h     typedef typename Allocator::difference_type       difference_type;
-<a href='../S/44.html#L188'>Allocator</a>         188 ReferenceCountedArray.h     typedef typename Allocator::pointer               pointer;
-<a href='../S/44.html#L189'>Allocator</a>         189 ReferenceCountedArray.h     typedef typename Allocator::const_pointer         const_pointer;
-<a href='../S/44.html#L190'>Allocator</a>         190 ReferenceCountedArray.h     typedef typename Allocator::reference             reference;
-<a href='../S/44.html#L191'>Allocator</a>         191 ReferenceCountedArray.h     typedef typename Allocator::const_reference       const_reference;
-<a href='../S/44.html#L192'>Allocator</a>         192 ReferenceCountedArray.h     typedef typename Allocator::pointer               iterator;
-<a href='../S/44.html#L193'>Allocator</a>         193 ReferenceCountedArray.h     typedef typename Allocator::const_pointer         const_iterator;
+<a href='../S/44.html#L48'>Array</a>              48 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
+<a href='../S/44.html#L60'>Array</a>              60 Array.h            Array() : ReferenceCountedArray&lt;value_type&gt;() {};
+<a href='../S/44.html#L61'>Array</a>              61 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
+<a href='../S/44.html#L63'>Array</a>              63 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/44.html#L72'>Array</a>              72 Array.h            Array(const_pointer carray) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/44.html#L86'>Array</a>              86 Array.h            Array(std::initializer_list&lt;value_type&gt; list) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/44.html#L99'>Array</a>              99 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/44.html#L111'>Array</a>             111 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/44.html#L112'>Array</a>             112 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
+<a href='../S/44.html#L114'>Array</a>             114 Array.h            virtual ~Array() {};
+<a href='../S/44.html#L121'>Array</a>             121 Array.h            Array&amp; operator=(std::initializer_list&lt;value_type&gt; list) {
+<a href='../S/44.html#L131'>Array</a>             131 Array.h            Array&amp; operator=(const Array&lt;value_type&gt;&amp; array) {
+<a href='../S/44.html#L136'>Array</a>             136 Array.h            Array&amp; operator=(Array&lt;value_type&gt;&amp;&amp; array) {
+<a href='../S/44.html#L154'>Array</a>             154 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/44.html#L187'>Array</a>             187 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/44.html#L220'>Array</a>             220 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
+<a href='../S/44.html#L227'>Array</a>             227 Array.h            bool equals(const Array&amp; array, size_t n) const
+<a href='../S/44.html#L249'>Array</a>             249 Array.h            inline friend bool operator==(const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
+<a href='../S/44.html#L250'>Array</a>             250 Array.h            inline friend bool operator!=(const Array&amp; lhs, const Array&amp; rhs) { return !(lhs == rhs); };
+<a href='../S/44.html#L256'>Array</a>             256 Array.h            inline Array subarray(int start, int len = -1) const {
+<a href='../S/44.html#L257'>Array</a>             257 Array.h              Array newArray(*this);
+<a href='../S/44.html#L265'>Array</a>             265 Array.h            inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
+<a href='../S/44.html#L273'>Array</a>             273 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
+<a href='../S/44.html#L276'>Array</a>             276 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/44.html#L291'>Array</a>             291 Array.h            inline friend Array operator+(Array array1, const Array&amp; array2) {
+<a href='../S/44.html#L299'>Array</a>             299 Array.h            inline const Array&amp; operator++() {
+<a href='../S/44.html#L306'>Array</a>             306 Array.h            inline const Array operator++(int) {
+<a href='../S/44.html#L307'>Array</a>             307 Array.h              Array tmp((*this)(0, 1));
+<a href='../S/44.html#L316'>Array</a>             316 Array.h            inline const Array&amp; operator--() {
+<a href='../S/44.html#L323'>Array</a>             323 Array.h            inline const Array operator--(int) {
+<a href='../S/44.html#L324'>Array</a>             324 Array.h              Array tmp((*this)(this-&gt;length() - 1, 1));
+<a href='../S/44.html#L332'>Array</a>             332 Array.h            inline Array&amp; operator+=(const_reference item) {
+<a href='../S/44.html#L340'>Array</a>             340 Array.h            inline Array&amp; operator+=(const Array&amp; array) {
+<a href='../S/44.html#L345'>Array</a>             345 Array.h            inline Array&amp; operator+=(const int n) {
+<a href='../S/44.html#L358'>Array</a>             358 Array.h            inline Array&amp; operator-=(const int n) {
+<a href='../S/44.html#L375'>Array</a>             375 Array.h          struct Hash&lt; Array&lt;T&gt; &gt; {
+<a href='../S/44.html#L376'>Array</a>             376 Array.h            inline size_t operator()(const Array&lt;T&gt;&amp; val) const { return val.hash(); }
+<a href='../S/5.html#L190'>Array</a>             190 HashTable.h        Array&lt;Key&gt; keys() const {
+<a href='../S/5.html#L191'>Array</a>             191 HashTable.h          Array&lt;Key&gt; tmp(size());
+<a href='../S/5.html#L208'>Array</a>             208 HashTable.h        Array&lt;Value&gt; values() const {
+<a href='../S/5.html#L209'>Array</a>             209 HashTable.h          Array&lt;Value&gt; tmp(size());
+<a href='../S/54.html#L149'>Array</a>             149 String.cpp     Array&lt;String&gt; String::split(const String&amp; delim, size_t limit) const {
+<a href='../S/54.html#L150'>Array</a>             150 String.cpp       if (!length()) return Array&lt;String&gt;();
+<a href='../S/54.html#L153'>Array</a>             153 String.cpp         return Array&lt;String&gt;(list, 1);
+<a href='../S/54.html#L157'>Array</a>             157 String.cpp       Array&lt;String&gt; array;
+<a href='../S/54.html#L270'>Array</a>             270 String.cpp       Array&lt;String&gt; keys(hashes.keys());
+<a href='../S/54.html#L271'>Array</a>             271 String.cpp       Array&lt;String&gt; values(hashes.values());
+<a href='../S/35.html#L51'>Array</a>              51 String.h       class Array;
+<a href='../S/35.html#L289'>Array</a>             289 String.h               Array&lt;String&gt; split(const String&amp;, size_t limit = npos) const;
+<a href='../S/30.html#L130'>Array</a>             130 tests/ArrayTest.cpp   (*str_a) = Array&lt;String&gt;();
+<a href='../S/30.html#L148'>Array</a>             148 tests/ArrayTest.cpp   Array&lt;int&gt;* int_d = new Array&lt;int&gt;(carray);
+<a href='../S/30.html#L301'>Array</a>             301 tests/ArrayTest.cpp   Array&lt;String&gt; inplaceTest;
+<a href='../S/30.html#L309'>Array</a>             309 tests/ArrayTest.cpp   Array&lt;String&gt; expectedResults(*str_a);
+<a href='../S/30.html#L349'>Array</a>             349 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht;
+<a href='../S/30.html#L352'>Array</a>             352 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht2;
+<a href='../S/30.html#L361'>Array</a>             361 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha1;
+<a href='../S/30.html#L362'>Array</a>             362 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha2;
+<a href='../S/30.html#L420'>Array</a>             420 tests/ArrayTest.cpp   Array&lt;int&gt; my_array_initializer = {0, 1, 2, 3};
+<a href='../S/24.html#L82'>Array</a>              82 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
+<a href='../S/24.html#L83'>Array</a>              83 tests/ArrayTest.h         Array&lt;char&gt; *char_a, *char_b;
+<a href='../S/24.html#L84'>Array</a>              84 tests/ArrayTest.h         Array&lt;int&gt; *int_a, *int_b, *int_c;
+<a href='../S/14.html#L182'>Array</a>             182 tests/HashTableTest.cpp   Array&lt;String&gt; keys = sa-&gt;keys();
+<a href='../S/14.html#L190'>Array</a>             190 tests/HashTableTest.cpp   Array&lt;String&gt; values = sa-&gt;values();
+<a href='../S/27.html#L1312'>Array</a>            1312 tests/StringTest.cpp   Array&lt;String&gt; list;
 </pre>
 </body>
 </html>

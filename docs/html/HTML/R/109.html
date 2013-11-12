@@ -1,15 +1,60 @@
 <html>
 <head>
-<title>indexTest</title>
+<title>iterator</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/24.html#L17'>indexTest</a>          17 tests/ArrayTest.h     CPPUNIT_TEST (indexTest);
-<a href='../S/24.html#L41'>indexTest</a>          41 tests/ArrayTest.h         void indexTest(void);
-<a href='../S/15.html#L26'>indexTest</a>          26 tests/StringTest.h     CPPUNIT_TEST (indexTest);
-<a href='../S/15.html#L70'>indexTest</a>          70 tests/StringTest.h         void indexTest(void);
+<a href='../S/3.html#L265'>iterator</a>          265 BinaryTree.h         for (iterator iter = begin(); iter; ++iter) {
+<a href='../S/3.html#L303'>iterator</a>          303 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
+<a href='../S/3.html#L321'>iterator</a>          321 BinaryTree.h           iterator&amp; operator=(const iterator&amp; iter) {
+<a href='../S/3.html#L365'>iterator</a>          365 BinaryTree.h           virtual iterator operator++(int) {
+<a href='../S/3.html#L366'>iterator</a>          366 BinaryTree.h             iterator tmp(*this);
+<a href='../S/3.html#L374'>iterator</a>          374 BinaryTree.h           virtual iterator&amp; operator++() {
+<a href='../S/3.html#L382'>iterator</a>          382 BinaryTree.h           virtual iterator operator--(int) {
+<a href='../S/3.html#L383'>iterator</a>          383 BinaryTree.h             iterator tmp(*this);
+<a href='../S/3.html#L391'>iterator</a>          391 BinaryTree.h           virtual iterator&amp; operator--() {
+<a href='../S/3.html#L397'>iterator</a>          397 BinaryTree.h       inline iterator begin() { return iterator(this, root, my_size); };
+<a href='../S/3.html#L398'>iterator</a>          398 BinaryTree.h       inline iterator end() { return iterator(this, root, my_size, 1); };
+<a href='../S/5.html#L103'>iterator</a>          103 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
+<a href='../S/5.html#L193'>iterator</a>          193 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
+<a href='../S/5.html#L211'>iterator</a>          211 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
+<a href='../S/37.html#L227'>iterator</a>          227 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;value_type&gt;(),
+<a href='../S/37.html#L238'>iterator</a>          238 List.h                 iterator&amp; operator =(const iterator&amp; iter) {
+<a href='../S/37.html#L265'>iterator</a>          265 List.h                 virtual iterator operator ++(int) {
+<a href='../S/37.html#L266'>iterator</a>          266 List.h                   iterator tmp(*this);
+<a href='../S/37.html#L271'>iterator</a>          271 List.h                 virtual iterator&amp; operator ++() {
+<a href='../S/37.html#L277'>iterator</a>          277 List.h                 virtual iterator operator --(int) {
+<a href='../S/37.html#L278'>iterator</a>          278 List.h                   iterator tmp(*this);
+<a href='../S/37.html#L283'>iterator</a>          283 List.h                 virtual iterator&amp; operator --() {
+<a href='../S/37.html#L289'>iterator</a>          289 List.h             inline iterator begin() { return iterator(*this); };
+<a href='../S/37.html#L290'>iterator</a>          290 List.h             inline iterator end() { return iterator(*this, 1); };
+<a href='../S/47.html#L109'>iterator</a>          109 Queue.h            inline iterator begin() { return iterator(this, this-&gt;tail); };
+<a href='../S/47.html#L110'>iterator</a>          110 Queue.h            inline iterator end() { return iterator(this, NULL); };
+<a href='../S/47.html#L144'>iterator</a>          144 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
+<a href='../S/47.html#L145'>iterator</a>          145 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
+<a href='../S/47.html#L148'>iterator</a>          148 Queue.h            iterator operator ++(int) {
+<a href='../S/47.html#L149'>iterator</a>          149 Queue.h              iterator tmp(*this);
+<a href='../S/47.html#L154'>iterator</a>          154 Queue.h            iterator&amp; operator ++() {
+<a href='../S/47.html#L182'>iterator</a>          182 Queue.h            QueueConstIterator(const iterator&amp; iter) : queue(iter.queue), current(iter.current) {};
+<a href='../S/47.html#L202'>iterator</a>          202 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
+<a href='../S/47.html#L203'>iterator</a>          203 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
+<a href='../S/47.html#L207'>iterator</a>          207 Queue.h              iterator tmp(*this);
+<a href='../S/43.html#L54'>iterator</a>           54 ReferenceCountedArray.h     mutable iterator buf;
+<a href='../S/43.html#L79'>iterator</a>           79 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/43.html#L108'>iterator</a>          108 ReferenceCountedArray.h     inline void FreeBuf(iterator p) const {
+<a href='../S/43.html#L109'>iterator</a>          109 ReferenceCountedArray.h       for (iterator i = p; i != p + size; ++i) {
+<a href='../S/43.html#L590'>iterator</a>          590 ReferenceCountedArray.h     inline iterator begin() { return iterator(mdata()); };
+<a href='../S/43.html#L601'>iterator</a>          601 ReferenceCountedArray.h     inline iterator end() { return iterator(begin()) + length(); };
+<a href='../S/29.html#L303'>iterator</a>          303 tests/BinaryTreeTest.cpp   BinaryTree&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/14.html#L366'>iterator</a>          366 tests/HashTableTest.cpp   HashTable&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/26.html#L273'>iterator</a>          273 tests/ListTest.cpp   List&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/26.html#L316'>iterator</a>          316 tests/ListTest.cpp   List&lt;String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/18.html#L126'>iterator</a>          126 tests/QueueTest.cpp   Queue&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/23.html#L263'>iterator</a>          263 tests/SortedListTest.cpp   SortedList&lt;int, String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/23.html#L306'>iterator</a>          306 tests/SortedListTest.cpp   SortedList&lt;String&gt;::iterator iter = a-&gt;begin();
+<a href='../S/19.html#L126'>iterator</a>          126 tests/StackTest.cpp   Stack&lt;String&gt;::iterator iter(a-&gt;begin());
 </pre>
 </body>
 </html>

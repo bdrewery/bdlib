@@ -1,83 +1,13 @@
 <html>
 <head>
-<title>bool</title>
+<title>c_test</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/45.html#L180'>bool</a>              180 Array.h            String join(const String&amp; delim, bool quoted = false) const {
-<a href='../S/45.html#L195'>bool</a>              195 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
-<a href='../S/45.html#L202'>bool</a>              202 Array.h            bool equals(const Array&amp; array, size_t n) const
-<a href='../S/45.html#L205'>bool</a>              205 Array.h              bool same_length = (my_len == array.length());
-<a href='../S/45.html#L224'>bool</a>              224 Array.h            inline friend bool operator==(const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
-<a href='../S/45.html#L225'>bool</a>              225 Array.h            inline friend bool operator!=(const Array&amp; lhs, const Array&amp; rhs) { return !(lhs == rhs); };
-<a href='../S/3.html#L130'>bool</a>              130 BinaryTree.h       bool contains(const Key&amp; key) const {
-<a href='../S/3.html#L143'>bool</a>              143 BinaryTree.h       inline bool isEmpty() const { return size() == 0; };
-<a href='../S/3.html#L144'>bool</a>              144 BinaryTree.h       inline explicit operator bool() const { return !isEmpty(); };
-<a href='../S/3.html#L181'>bool</a>              181 BinaryTree.h       bool insert(const Key&amp; key, const Value&amp; value) {
-<a href='../S/3.html#L218'>bool</a>              218 BinaryTree.h       bool remove(const Key&amp; key) {
-<a href='../S/3.html#L284'>bool</a>              284 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool end = 0) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/3.html#L340'>bool</a>              340 BinaryTree.h           virtual explicit operator bool() const { return (index &gt; 0 &amp;&amp; index &lt; my_size); };
-<a href='../S/5.html#L141'>bool</a>              141 HashTable.h        inline bool isEmpty() const { return size() == 0; };
-<a href='../S/5.html#L142'>bool</a>              142 HashTable.h        inline explicit operator bool() const { return !isEmpty(); };
-<a href='../S/5.html#L144'>bool</a>              144 HashTable.h        bool insert(const Key&amp; key, const Value&amp; value) {
-<a href='../S/5.html#L151'>bool</a>              151 HashTable.h        inline bool contains(const Key&amp; key) const {
-<a href='../S/5.html#L156'>bool</a>              156 HashTable.h        bool remove(const Key&amp; key) {
-<a href='../S/32.html#L48'>bool</a>               48 Iterator.h         virtual bool hasNext() { return bool(*this); };
-<a href='../S/32.html#L51'>bool</a>               51 Iterator.h         virtual explicit operator bool() const = 0;
-<a href='../S/32.html#L112'>bool</a>              112 Iterator.h           inline friend bool operator == (const KeyValue &amp;lhs, const KeyValue &amp;rhs) { return lhs.key() == rhs.key(); }
-<a href='../S/37.html#L140'>bool</a>              140 List.h             inline bool isEmpty() const { return size() == 0; };
-<a href='../S/37.html#L141'>bool</a>              141 List.h             inline explicit operator bool() const { return !isEmpty(); };
-<a href='../S/37.html#L167'>bool</a>              167 List.h             bool contains(const iterator_type&amp; item) const {
-<a href='../S/37.html#L184'>bool</a>              184 List.h             bool remove(const iterator_type&amp; item) {
-<a href='../S/37.html#L205'>bool</a>              205 List.h                 bool end;
-<a href='../S/37.html#L207'>bool</a>              207 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/37.html#L241'>bool</a>              241 List.h                 virtual explicit operator bool() const { return (current != NULL); };
-<a href='../S/48.html#L140'>bool</a>              140 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/48.html#L141'>bool</a>              141 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/48.html#L192'>bool</a>              192 Queue.h            virtual explicit operator bool() const { return (current != NULL); };
-<a href='../S/48.html#L197'>bool</a>              197 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/48.html#L198'>bool</a>              198 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/44.html#L105'>bool</a>              105 ReferenceCountedArray.h     inline bool isShared() const { return n &gt; 1; };
-<a href='../S/44.html#L457'>bool</a>              457 ReferenceCountedArray.h     inline bool isShared() const { return Ref-&gt;isShared(); };
-<a href='../S/44.html#L508'>bool</a>              508 ReferenceCountedArray.h     inline bool isEmpty() const { return length() == 0; };
-<a href='../S/44.html#L514'>bool</a>              514 ReferenceCountedArray.h     inline bool operator!() const { return isEmpty(); };
-<a href='../S/44.html#L515'>bool</a>              515 ReferenceCountedArray.h     inline explicit operator bool() const { return !isEmpty(); }
-<a href='../S/44.html#L618'>bool</a>              618 ReferenceCountedArray.h     inline bool hasIndex(size_t pos) const {
-<a href='../S/1.html#L74'>bool</a>               74 Socket.h           bool create();
-<a href='../S/1.html#L75'>bool</a>               75 Socket.h           bool connect(const String host, const in_port_t port);
-<a href='../S/1.html#L76'>bool</a>               76 Socket.h           bool bind(const in_port_t port);
-<a href='../S/1.html#L77'>bool</a>               77 Socket.h           bool listen() const;
-<a href='../S/1.html#L78'>bool</a>               78 Socket.h           bool accept (Socket&amp;) const;
-<a href='../S/1.html#L80'>bool</a>               80 Socket.h           bool send(const String) const;
-<a href='../S/1.html#L81'>bool</a>               81 Socket.h           bool recv(String&amp;) const;
-<a href='../S/1.html#L83'>bool</a>               83 Socket.h           int setNonBlocking(bool = 1);
-<a href='../S/1.html#L84'>bool</a>               84 Socket.h           inline bool isValid() const { return sock != -1; };
-<a href='../S/34.html#L48'>bool</a>               48 Stream.h               bool loading;
-<a href='../S/34.html#L161'>bool</a>              161 Stream.h               inline bool operator!() const { return str.isEmpty(); };
-<a href='../S/35.html#L319'>bool</a>              319 String.h               friend bool operator==(const String&amp;, const String&amp;);
-<a href='../S/35.html#L320'>bool</a>              320 String.h               friend bool operator!=(const String&amp;, const String&amp;);
-<a href='../S/35.html#L321'>bool</a>              321 String.h               friend bool operator&lt;(const String&amp;, const String&amp;);
-<a href='../S/35.html#L322'>bool</a>              322 String.h               friend bool operator&lt;=(const String&amp;, const String&amp;);
-<a href='../S/35.html#L323'>bool</a>              323 String.h               friend bool operator&gt;(const String&amp;, const String&amp;);
-<a href='../S/35.html#L324'>bool</a>              324 String.h               friend bool operator&gt;=(const String&amp;, const String&amp;);
-<a href='../S/35.html#L447'>bool</a>              447 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L451'>bool</a>              451 String.h       inline bool operator!=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L455'>bool</a>              455 String.h       inline bool operator&lt;(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L459'>bool</a>              459 String.h       inline bool operator&lt;=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L463'>bool</a>              463 String.h       inline bool operator&gt;(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L467'>bool</a>              467 String.h       inline bool operator&gt;=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L475'>bool</a>              475 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L479'>bool</a>              479 String.h       inline bool String::operator!=(const String&amp; rhs) const {
-<a href='../S/35.html#L483'>bool</a>              483 String.h       inline bool String::operator&lt;(const String&amp; rhs) const {
-<a href='../S/35.html#L487'>bool</a>              487 String.h       inline bool String::operator&lt;=(const String&amp; rhs) const {
-<a href='../S/35.html#L491'>bool</a>              491 String.h       inline bool String::operator&gt;(const String&amp; rhs) const {
-<a href='../S/35.html#L495'>bool</a>              495 String.h       inline bool String::operator&gt;=(const String&amp; rhs) const {
-<a href='../S/50.html#L79'>bool</a>               79 Thread.h           inline bool isStarted() { return status &amp; THREAD_STARTED; };
-<a href='../S/50.html#L81'>bool</a>               81 Thread.h           inline bool isDetached() { return status &amp; THREAD_DETACHED; };
-<a href='../S/50.html#L88'>bool</a>               88 Thread.h           inline bool shouldDetach() { return status == THREAD_STARTED; };
-<a href='../S/31.html#L49'>bool</a>               49 hash.h         tr1_hashtable_define_trivial_hash(bool);
+<a href='../S/27.html#L218'>c_test</a>            218 tests/StringTest.cpp   const char *c_test = c-&gt;c_str();
+<a href='../S/27.html#L224'>c_test</a>            224 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, strcmp(b_test, c_test));
 </pre>
 </body>
 </html>

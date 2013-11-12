@@ -1,13 +1,64 @@
 <html>
 <head>
-<title>iterator_type</title>
+<title>key</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/8.html#L38'>iterator_type</a>      38 SortedList.h     typedef typename List&lt;iterator_type&gt;::Node Node;
-<a href='../S/9.html#L38'>iterator_type</a>      38 Stack.h          typedef typename List&lt;iterator_type&gt;::Node Node;
+<a href='../S/3.html#L70'>key</a>                70 BinaryTree.h       Node*&amp; fetchNode(Node* const* search, const Key&amp; key) const {
+<a href='../S/3.html#L72'>key</a>                72 BinaryTree.h           if (key &lt; (*search)-&gt;kv.key())
+<a href='../S/3.html#L74'>key</a>                74 BinaryTree.h           else if (key &gt; (*search)-&gt;kv.key())
+<a href='../S/3.html#L92'>key</a>                92 BinaryTree.h         Node*&amp; insertAt = fetchNode(search, node-&gt;kv.key());
+<a href='../S/3.html#L134'>key</a>               134 BinaryTree.h       bool contains(const Key&amp; key) const {
+<a href='../S/3.html#L137'>key</a>               137 BinaryTree.h         if (fetchNode(&amp;root, key))
+<a href='../S/3.html#L188'>key</a>               188 BinaryTree.h       bool insert(const Key&amp; key, const Value&amp; value) {
+<a href='../S/3.html#L189'>key</a>               189 BinaryTree.h         Node*&amp; rNode = fetchNode(&amp;root, key);
+<a href='../S/3.html#L191'>key</a>               191 BinaryTree.h           rNode-&gt;kv = iterator_type(key, value);
+<a href='../S/3.html#L193'>key</a>               193 BinaryTree.h           Node *newNode = new Node(key, value);
+<a href='../S/3.html#L204'>key</a>               204 BinaryTree.h       inline const Value operator[](const Key&amp; key) const { return getValue(key); }
+<a href='../S/3.html#L212'>key</a>               212 BinaryTree.h       Value&amp; operator[](const Key&amp; key) {
+<a href='../S/3.html#L213'>key</a>               213 BinaryTree.h         Node*&amp; node = fetchNode(&amp;root, key);
+<a href='../S/3.html#L215'>key</a>               215 BinaryTree.h           insertNode(node, new Node(key, Value()));
+<a href='../S/3.html#L225'>key</a>               225 BinaryTree.h       bool remove(const Key&amp; key) {
+<a href='../S/3.html#L226'>key</a>               226 BinaryTree.h         Node*&amp; node = fetchNode(&amp;root, key);
+<a href='../S/3.html#L245'>key</a>               245 BinaryTree.h       Value getValue(const Key&amp; key) const {
+<a href='../S/3.html#L249'>key</a>               249 BinaryTree.h         Node* node = fetchNode(&amp;root, key);
+<a href='../S/3.html#L267'>key</a>               267 BinaryTree.h             return iter-&gt;key();
+<a href='../S/3.html#L341'>key</a>               341 BinaryTree.h             tree-&gt;remove(storage[index].key());
+<a href='../S/51.html#L44'>key</a>                44 Crypto.h           Crypto(const unsigned char* key, const unsigned char* iv = NULL);
+<a href='../S/5.html#L59'>key</a>                59 HashTable.h        inline size_t getIndex(const Key&amp; key) const {
+<a href='../S/5.html#L60'>key</a>                60 HashTable.h          return _hash(key) % _capacity;
+<a href='../S/5.html#L116'>key</a>               116 HashTable.h            block(kv.key(), kv.value(), param);
+<a href='../S/5.html#L141'>key</a>               141 HashTable.h            (*this)[item.key()] = item.value();
+<a href='../S/5.html#L154'>key</a>               154 HashTable.h        bool insert(const Key&amp; key, const Value&amp; value) {
+<a href='../S/5.html#L155'>key</a>               155 HashTable.h          if (contains(key)) return false;
+<a href='../S/5.html#L156'>key</a>               156 HashTable.h          _list[getIndex(key)] &lt;&lt; iterator_type(key, value);
+<a href='../S/5.html#L161'>key</a>               161 HashTable.h        inline bool contains(const Key&amp; key) const {
+<a href='../S/5.html#L163'>key</a>               163 HashTable.h          return _list[getIndex(key)].contains(iterator_type(key, Value()));
+<a href='../S/5.html#L166'>key</a>               166 HashTable.h        bool remove(const Key&amp; key) {
+<a href='../S/5.html#L168'>key</a>               168 HashTable.h          if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
+<a href='../S/5.html#L175'>key</a>               175 HashTable.h        inline Value getValue(const Key&amp; key) const {
+<a href='../S/5.html#L178'>key</a>               178 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
+<a href='../S/5.html#L185'>key</a>               185 HashTable.h        inline const Value operator[](const Key&amp; key) const { return getValue(key); }
+<a href='../S/5.html#L198'>key</a>               198 HashTable.h                tmp &lt;&lt; kv.key();
+<a href='../S/5.html#L229'>key</a>               229 HashTable.h        inline Value&amp; operator[](const Key&amp; key) {
+<a href='../S/5.html#L230'>key</a>               230 HashTable.h          return find_or_insert_key(key);
+<a href='../S/5.html#L236'>key</a>               236 HashTable.h        inline Value&amp; find_or_insert_key(const Key&amp; key) {
+<a href='../S/5.html#L237'>key</a>               237 HashTable.h          if (!contains(key))
+<a href='../S/5.html#L238'>key</a>               238 HashTable.h            insert(key, Value());
+<a href='../S/5.html#L239'>key</a>               239 HashTable.h          return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+<a href='../S/32.html#L117'>key</a>               117 Iterator.h         inline const Key&amp; key() const { return k; };
+<a href='../S/32.html#L121'>key</a>               121 Iterator.h           inline friend bool operator == (const KeyValue &amp;lhs, const KeyValue &amp;rhs) { return lhs.key() == rhs.key(); }
+<a href='../S/54.html#L273'>key</a>               273 String.cpp         const String key(keys[i]), value(values[i]);
+<a href='../S/54.html#L275'>key</a>               275 String.cpp         newStr = newStr.sub(key, value);
+<a href='../S/29.html#L357'>key</a>               357 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/29.html#L367'>key</a>               367 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/29.html#L378'>key</a>               378 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/29.html#L387'>key</a>               387 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/29.html#L401'>key</a>               401 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/29.html#L421'>key</a>               421 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/29.html#L437'>key</a>               437 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
 </pre>
 </body>
 </html>

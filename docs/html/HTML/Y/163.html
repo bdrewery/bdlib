@@ -1,24 +1,22 @@
 <html>
 <head>
-<title>ch</title>
+<title>charset_index</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/55.html#L109'>ch</a>                109 String.cpp       char ch;
-<a href='../S/55.html#L111'>ch</a>                111 String.cpp       is &gt;&gt; ch;    // whitespace skipped, first non-white char in ch
-<a href='../S/55.html#L117'>ch</a>                117 String.cpp           string += ch;
-<a href='../S/55.html#L118'>ch</a>                118 String.cpp           is.get(ch);
-<a href='../S/55.html#L119'>ch</a>                119 String.cpp         } while (!is.fail() &amp;&amp; !isspace(ch));
-<a href='../S/55.html#L121'>ch</a>                121 String.cpp         if (isspace(ch))    // put whitespace back on the stream
-<a href='../S/55.html#L123'>ch</a>                123 String.cpp           is.putback(ch);
-<a href='../S/55.html#L131'>ch</a>                131 String.cpp       char ch;
-<a href='../S/55.html#L134'>ch</a>                134 String.cpp       while (is.get(ch) &amp;&amp; ch != '\n')
-<a href='../S/55.html#L135'>ch</a>                135 String.cpp         string += ch;
-<a href='../S/35.html#L112'>ch</a>                112 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
-<a href='../S/35.html#L399'>ch</a>                399 String.h       inline String&amp; String::operator+=(const char ch) {
-<a href='../S/35.html#L400'>ch</a>                400 String.h         append(ch);
+<a href='../S/45.html#L121'>charset_index</a>     121 base64.c       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
+<a href='../S/45.html#L126'>charset_index</a>     126 base64.c         if (!charset_index) {
+<a href='../S/45.html#L127'>charset_index</a>     127 base64.c           charset_index = b64_indexes;
+<a href='../S/45.html#L133'>charset_index</a>     133 base64.c           *buf++ = (charset_index[data[0]] &lt;&lt; 2) + ((charset_index[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/45.html#L136'>charset_index</a>     136 base64.c             *buf++ = ((charset_index[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((charset_index[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/45.html#L139'>charset_index</a>     139 base64.c               *buf++ = ((charset_index[data[2]] &amp; 0x03) &lt;&lt; 6) + charset_index[data[3]];
+<a href='../S/45.html#L155'>charset_index</a>     155 base64.c           char charset_index[256];
+<a href='../S/45.html#L156'>charset_index</a>     156 base64.c           memset(charset_index, -1, sizeof(charset_index));
+<a href='../S/45.html#L158'>charset_index</a>     158 base64.c             charset_index[int(charset[i])] = i;
+<a href='../S/45.html#L159'>charset_index</a>     159 base64.c           b64dec_buf(data, len, dest, charset_index);
+<a href='../S/38.html#L110'>charset_index</a>     110 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index = NULL);
 </pre>
 </body>
 </html>

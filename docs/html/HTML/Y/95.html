@@ -1,19 +1,77 @@
 <html>
 <head>
-<title>StackTest</title>
+<title>T</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/19.html#L6'>StackTest</a>           6 tests/StackTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (StackTest);
-<a href='../S/19.html#L8'>StackTest</a>           8 tests/StackTest.cpp void StackTest :: setUp (void)
-<a href='../S/19.html#L31'>StackTest</a>          31 tests/StackTest.cpp void StackTest :: tearDown (void)
-<a href='../S/19.html#L38'>StackTest</a>          38 tests/StackTest.cpp void StackTest :: pushTest (void)
-<a href='../S/19.html#L56'>StackTest</a>          56 tests/StackTest.cpp void StackTest :: popTest (void)
-<a href='../S/19.html#L99'>StackTest</a>          99 tests/StackTest.cpp void StackTest :: iterateTest (void)
-<a href='../S/17.html#L13'>StackTest</a>          13 tests/StackTest.h class StackTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/17.html#L15'>StackTest</a>          15 tests/StackTest.h     CPPUNIT_TEST_SUITE (StackTest);
+<a href='../S/44.html#L43'>T</a>                  43 Array.h        template &lt;class T&gt;
+<a href='../S/44.html#L48'>T</a>                  48 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
+<a href='../S/44.html#L50'>T</a>                  50 Array.h            typedef T value_type;
+<a href='../S/44.html#L371'>T</a>                 371 Array.h        template&lt;typename T&gt;
+<a href='../S/44.html#L374'>T</a>                 374 Array.h        template&lt;typename T&gt;
+<a href='../S/44.html#L375'>T</a>                 375 Array.h          struct Hash&lt; Array&lt;T&gt; &gt; {
+<a href='../S/44.html#L376'>T</a>                 376 Array.h            inline size_t operator()(const Array&lt;T&gt;&amp; val) const { return val.hash(); }
+<a href='../S/32.html#L35'>T</a>                  35 Iterator.h     template &lt;typename T&gt;
+<a href='../S/32.html#L61'>T</a>                  61 Iterator.h         virtual T&amp; operator*() = 0;
+<a href='../S/32.html#L62'>T</a>                  62 Iterator.h         virtual T* operator-&gt;() { return &amp;(operator*()); };
+<a href='../S/37.html#L34'>T</a>                  34 List.h         template &lt;class T&gt;
+<a href='../S/37.html#L44'>T</a>                  44 List.h             typedef T value_type;
+<a href='../S/47.html#L37'>T</a>                  37 Queue.h        template &lt;class T&gt; class QueueIterator;
+<a href='../S/47.html#L38'>T</a>                  38 Queue.h        template &lt;class T&gt; class QueueConstIterator;
+<a href='../S/47.html#L40'>T</a>                  40 Queue.h        template &lt;class T&gt;
+<a href='../S/47.html#L45'>T</a>                  45 Queue.h        class Queue : public List&lt;T&gt; {
+<a href='../S/47.html#L46'>T</a>                  46 Queue.h          typedef typename List&lt;T&gt;::Node Node;
+<a href='../S/47.html#L49'>T</a>                  49 Queue.h            friend class QueueIterator&lt;T&gt;;
+<a href='../S/47.html#L50'>T</a>                  50 Queue.h            friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/47.html#L52'>T</a>                  52 Queue.h            typedef QueueIterator&lt;T&gt; iterator;
+<a href='../S/47.html#L53'>T</a>                  53 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
+<a href='../S/47.html#L54'>T</a>                  54 Queue.h            typedef T value_type;
+<a href='../S/47.html#L115'>T</a>                 115 Queue.h        template &lt;class T&gt;
+<a href='../S/47.html#L117'>T</a>                 117 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/47.html#L118'>T</a>                 118 Queue.h          friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/47.html#L121'>T</a>                 121 Queue.h            typedef QueueIterator&lt;T&gt; 		iterator;
+<a href='../S/47.html#L122'>T</a>                 122 Queue.h            typedef QueueConstIterator&lt;T&gt; 	const_iterator;
+<a href='../S/47.html#L123'>T</a>                 123 Queue.h            typedef typename Queue&lt;T&gt;::Node 	Node;
+<a href='../S/47.html#L125'>T</a>                 125 Queue.h            typedef T 				value_type;
+<a href='../S/47.html#L132'>T</a>                 132 Queue.h            Queue&lt;T&gt; *queue;
+<a href='../S/47.html#L135'>T</a>                 135 Queue.h            QueueIterator(Queue&lt;T&gt;* _queue, Node* start) : queue(_queue), current(start) {};
+<a href='../S/47.html#L160'>T</a>                 160 Queue.h        template &lt;class T&gt;
+<a href='../S/47.html#L162'>T</a>                 162 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/47.html#L163'>T</a>                 163 Queue.h          friend class QueueIterator&lt;T&gt;;
+<a href='../S/47.html#L166'>T</a>                 166 Queue.h            typedef QueueIterator&lt;T&gt;		iterator;
+<a href='../S/47.html#L167'>T</a>                 167 Queue.h            typedef QueueConstIterator&lt;T&gt; 	const_iterator;
+<a href='../S/47.html#L168'>T</a>                 168 Queue.h            typedef typename Queue&lt;T&gt;::Node 	Node;
+<a href='../S/47.html#L170'>T</a>                 170 Queue.h            typedef T 				value_type;
+<a href='../S/47.html#L177'>T</a>                 177 Queue.h            const Queue&lt;T&gt; *queue;
+<a href='../S/47.html#L180'>T</a>                 180 Queue.h            QueueConstIterator(const Queue&lt;T&gt;* _queue, const Node* start) : queue(_queue), current(start) {};
+<a href='../S/43.html#L43'>T</a>                  43 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/43.html#L83'>T</a>                  83 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/43.html#L130'>T</a>                 130 ReferenceCountedArray.h template &lt;class T&gt;
+<a href='../S/43.html#L142'>T</a>                 142 ReferenceCountedArray.h     T&amp; rca;
+<a href='../S/43.html#L153'>T</a>                 153 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
+<a href='../S/43.html#L159'>T</a>                 159 ReferenceCountedArray.h     inline operator T() const {
+<a href='../S/43.html#L160'>T</a>                 160 ReferenceCountedArray.h       T newArray(rca);
+<a href='../S/43.html#L178'>T</a>                 178 ReferenceCountedArray.h       (*this) = T(slice);
+<a href='../S/43.html#L186'>T</a>                 186 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
+<a href='../S/43.html#L201'>T</a>                 201 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/43.html#L208'>T</a>                 208 ReferenceCountedArray.h     typedef T value_type;
+<a href='../S/8.html#L36'>T</a>                  36 SortedList.h   template &lt;class T&gt;
+<a href='../S/8.html#L41'>T</a>                  41 SortedList.h   class SortedList : public List&lt;T&gt; {
+<a href='../S/8.html#L42'>T</a>                  42 SortedList.h     typedef T iterator_type;
+<a href='../S/9.html#L36'>T</a>                  36 Stack.h        template &lt;class T&gt;
+<a href='../S/9.html#L41'>T</a>                  41 Stack.h        class Stack : public List&lt;T&gt; {
+<a href='../S/9.html#L42'>T</a>                  42 Stack.h          typedef T iterator_type;
+<a href='../S/35.html#L50'>T</a>                  50 String.h       template &lt;class T&gt;
+<a href='../S/35.html#L371'>T</a>                 371 String.h       template&lt;typename T&gt;
+<a href='../S/31.html#L63'>T</a>                  63 hash.h         template&lt;typename T&gt;
+<a href='../S/31.html#L66'>T</a>                  66 hash.h         #define tr1_hashtable_define_trivial_hash(T)                                      \
+<a href='../S/31.html#L68'>T</a>                  68 hash.h           struct Hash&lt;T&gt;                                                                  \
+<a href='../S/31.html#L70'>T</a>                  70 hash.h             inline size_t operator()(T val) const { return static_cast&lt;size_t&gt;(val); }    \
+<a href='../S/31.html#L96'>T</a>                  96 hash.h         template&lt;typename T&gt;
+<a href='../S/31.html#L97'>T</a>                  97 hash.h           struct Hash&lt;T*&gt;
+<a href='../S/31.html#L99'>T</a>                  99 hash.h             inline size_t operator()(T* p) const { return reinterpret_cast&lt;size_t&gt;(p); }
 </pre>
 </body>
 </html>

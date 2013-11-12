@@ -1,17 +1,15 @@
 <html>
 <head>
-<title>cleanse_ctr</title>
+<title>constBuf</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/55.html#L39'>cleanse_ctr</a>        39 String.cpp     unsigned char String::cleanse_ctr = 0;
-<a href='../S/35.html#L62'>cleanse_ctr</a>        62 String.h               static unsigned char cleanse_ctr;
-<a href='../S/35.html#L73'>cleanse_ctr</a>        73 String.h                   *(p++) = static_cast&lt;unsigned char&gt;(cleanse_ctr);
-<a href='../S/35.html#L74'>cleanse_ctr</a>        74 String.h                   cleanse_ctr += (17 + (reinterpret_cast&lt;size_t&gt;(p) &amp; 0xF));
-<a href='../S/35.html#L76'>cleanse_ctr</a>        76 String.h                 if(memchr(ptr, cleanse_ctr, len))
-<a href='../S/35.html#L77'>cleanse_ctr</a>        77 String.h                   cleanse_ctr += (63 + reinterpret_cast&lt;size_t&gt;(p));
+<a href='../S/43.html#L275'>constBuf</a>          275 ReferenceCountedArray.h     inline const_pointer constBuf(size_t pos = 0) const { return Buf(pos); };
+<a href='../S/43.html#L347'>constBuf</a>          347 ReferenceCountedArray.h       const_pointer oldBuf = constBuf();
+<a href='../S/43.html#L579'>constBuf</a>          579 ReferenceCountedArray.h     inline const_pointer data() const { return constBuf(); }
+<a href='../S/43.html#L690'>constBuf</a>          690 ReferenceCountedArray.h     inline value_type read(size_t pos) const { return *(constBuf(pos)); };
 </pre>
 </body>
 </html>

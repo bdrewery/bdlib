@@ -1,39 +1,27 @@
 <html>
 <head>
-<title>fd</title>
+<title>file</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/54.html#L79'>fd</a>                 79 Stream.cpp       int fd = open(file.c_str(), O_RDONLY);
-<a href='../S/54.html#L80'>fd</a>                 80 Stream.cpp       if (fd == -1)
-<a href='../S/54.html#L82'>fd</a>                 82 Stream.cpp       int ret = loadFile(fd);
-<a href='../S/54.html#L83'>fd</a>                 83 Stream.cpp       close(fd);
-<a href='../S/54.html#L87'>fd</a>                 87 Stream.cpp     int Stream::loadFile(const int fd)
-<a href='../S/54.html#L91'>fd</a>                 91 Stream.cpp       size_t size = lseek(fd, 0, SEEK_END);
-<a href='../S/54.html#L93'>fd</a>                 93 Stream.cpp       void* map = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
-<a href='../S/54.html#L95'>fd</a>                 95 Stream.cpp         close(fd);
-<a href='../S/54.html#L104'>fd</a>                104 Stream.cpp       FILE *f = fdopen(fd, "rb");
-<a href='../S/54.html#L129'>fd</a>                129 Stream.cpp       int fd = open(file.c_str(), O_CREAT|O_RDWR|O_TRUNC, mode);
-<a href='../S/54.html#L130'>fd</a>                130 Stream.cpp       if (fd == -1)
-<a href='../S/54.html#L132'>fd</a>                132 Stream.cpp       int ret = writeFile(fd);
-<a href='../S/54.html#L133'>fd</a>                133 Stream.cpp       close(fd);
-<a href='../S/54.html#L137'>fd</a>                137 Stream.cpp     int Stream::writeFile(const int fd) const
-<a href='../S/54.html#L142'>fd</a>                142 Stream.cpp       if (ftruncate(fd, length())) return 1;
-<a href='../S/54.html#L146'>fd</a>                146 Stream.cpp       void* map = mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
-<a href='../S/54.html#L154'>fd</a>                154 Stream.cpp       FILE *f = fdopen(fd, "wb");
-<a href='../S/34.html#L147'>fd</a>                147 Stream.h               virtual int writeFile(const int fd) const;
-<a href='../S/13.html#L247'>fd</a>                247 tests/StreamTest.cpp   int fd = mkstemp(fname);
-<a href='../S/13.html#L251'>fd</a>                251 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;writeFile(fd), 0);
-<a href='../S/13.html#L282'>fd</a>                282 tests/StreamTest.cpp   fstat(fd, &amp;s);
-<a href='../S/13.html#L289'>fd</a>                289 tests/StreamTest.cpp   close(fd);
-<a href='../S/13.html#L329'>fd</a>                329 tests/StreamTest.cpp   int fd = open(writefile, O_RDONLY);
-<a href='../S/13.html#L330'>fd</a>                330 tests/StreamTest.cpp   fstat(fd, &amp;s);
-<a href='../S/13.html#L336'>fd</a>                336 tests/StreamTest.cpp   close(fd);
-<a href='../S/27.html#L895'>fd</a>                895 tests/StringTest.cpp   int fd = open("/dev/urandom", O_RDONLY);
-<a href='../S/27.html#L901'>fd</a>                901 tests/StringTest.cpp     read(fd, ubuf, size);
-<a href='../S/27.html#L911'>fd</a>                911 tests/StringTest.cpp   close(fd);
+<a href='../S/53.html#L101'>file</a>              101 Stream.cpp     int Stream::loadFile(const String&amp; file)
+<a href='../S/53.html#L103'>file</a>              103 Stream.cpp       int fd = open(file.c_str(), O_RDONLY);
+<a href='../S/53.html#L151'>file</a>              151 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
+<a href='../S/53.html#L153'>file</a>              153 Stream.cpp       int fd = open(file.c_str(), O_CREAT|O_RDWR|O_TRUNC, mode);
+<a href='../S/13.html#L230'>file</a>              230 tests/StreamTest.cpp   const char *file = "/etc/passwd";
+<a href='../S/13.html#L233'>file</a>              233 tests/StreamTest.cpp   f = fopen(file, "rb");
+<a href='../S/13.html#L245'>file</a>              245 tests/StreamTest.cpp   a-&gt;loadFile(file);
+<a href='../S/13.html#L262'>file</a>              262 tests/StreamTest.cpp   stat(file, &amp;s);
+<a href='../S/13.html#L272'>file</a>              272 tests/StreamTest.cpp   const char *file = "/etc/passwd";
+<a href='../S/13.html#L274'>file</a>              274 tests/StreamTest.cpp   a-&gt;loadFile(file);
+<a href='../S/13.html#L280'>file</a>              280 tests/StreamTest.cpp   f = fopen(file, "rb");
+<a href='../S/13.html#L308'>file</a>              308 tests/StreamTest.cpp   stat(file, &amp;s);
+<a href='../S/13.html#L319'>file</a>              319 tests/StreamTest.cpp   const char *file = "/etc/passwd";
+<a href='../S/13.html#L321'>file</a>              321 tests/StreamTest.cpp   a-&gt;loadFile(file);
+<a href='../S/13.html#L327'>file</a>              327 tests/StreamTest.cpp   f = fopen(file, "rb");
+<a href='../S/13.html#L356'>file</a>              356 tests/StreamTest.cpp   stat(file, &amp;s);
 </pre>
 </body>
 </html>

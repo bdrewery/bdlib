@@ -1,374 +1,202 @@
 <html>
 <head>
-<title>Array.h</title>
+<title>base64.c</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/Array.h</h2>
-<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/base64.c</h2>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L38'>[^]</a><a href='#L166'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='../J/2.html' title='Multiple included from 6 places.'>INCLUDED FROM</a></h2>
+<h2>DEFINITIONS</h2>
+This source file includes following definitions.
+<ol>
+<li><a href='#L38' title='Defined at 38.'>b64enc_buf</a>
+<li><a href='#L102' title='Defined at 102.'>base64Encode</a>
+<li><a href='#L110' title='Defined at 110.'>b64enc</a>
+<li><a href='#L121' title='Defined at 121.'>b64dec_buf</a>
+<li><a href='#L149' title='Defined at 149.'>b64dec</a>
+<li><a href='#L166' title='Defined at 166.'>base64Decode</a>
+</ol>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* Array.h</font></i>
-<a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
-<a name='L4'>   4 <i><font color='green'> *</font></i>
-<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
-<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
-<a name='L7'>   7 <i><font color='green'> *</font></i>
-<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.</font></i>
-<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
-<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
-<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
-<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
-<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
-<a name='L14'>  14 <i><font color='green'> *</font></i>
-<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
-<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
-<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
-<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
-<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
-<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
-<a name='L21'>  21 <i><font color='green'> *</font></i>
-<a name='L22'>  22 <i><font color='green'> */</font></i>
-<a name='L23'>  23 <font color='darkred'>#ifndef</font> <a href='../S/45.html#L24' title='Defined at 24 in Array.h.'>_BD_ARRAY_H</a>
-<a name='L24'>  24 <font color='darkred'>#define</font> <a href='../S/45.html#L23' title='Refered from 23 in Array.h.'>_BD_ARRAY_H</a> 1
-<a name='L25'>  25 
-<a name='L26'>  26 <font color='darkred'>#include</font> "<a href='42.html'>bdlib.h</a>"
-<a name='L27'>  27 <font color='darkred'>#include</font> "<a href='44.html'>ReferenceCountedArray.h</a>"
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='35.html'>String.h</a>"
-<a name='L29'>  29 <font color='darkred'>#include</font> &lt;stdio.h&gt;
-<a name='L30'>  30 
-<a name='L31'>  31 <font color='darkred'>#ifdef</font> <a href='../Y/22.html' title='Multiple used in 4 places.'>CPPUNIT_VERSION</a>
-<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cppunit/SourceLine.h&gt;
-<a name='L33'>  33 <font color='darkred'>#include</font> &lt;cppunit/TestAssert.h&gt;
-<a name='L34'>  34 <font color='darkred'>#define</font> <a href='../R/12.html' title='Multiple refered from 3 places.'>CPPUNIT_ASSERT_ARRAY_EQUAL</a>(<a href='../Y/229.html' title='Multiple used in 5 places.'>expected</a>, <a href='../Y/129.html' title='Multiple used in 8 places.'>actual</a>) <a href='../Y/229.html' title='Multiple used in 5 places.'>expected</a>.<a href='../Y/23.html' title='Multiple used in 2 places.'>CPPUNIT_checkArrayEqual</a>(<a href='../Y/129.html' title='Multiple used in 8 places.'>actual</a>, <a href='../Y/18.html' title='Multiple used in 2 places.'>CPPUNIT_SOURCELINE</a>())
-<a name='L35'>  35 <font color='darkred'>#endif</font> <i><font color='green'>/* CPPUNIT_VERSION */</font></i>
-<a name='L36'>  36 
-<a name='L37'>  37 <a href='../S/42.html#L42' title='Defined at 42 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L38'>  38 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a> &lt;<a href='../Y/172.html' title='Multiple used in 64 places.'>class</a> <a href='../Y/101.html' title='Multiple used in 66 places.'>T</a>&gt;
-<a name='L39'>  39 <i><font color='green'>/**</font></i>
-<a name='L40'>  40 <i><font color='green'> * @class Array</font></i>
-<a name='L41'>  41 <i><font color='green'> * @brief Dynamic Array</font></i>
-<a name='L42'>  42 <i><font color='green'> */</font></i>
-<a name='L43'>  43 <a href='../Y/172.html' title='Multiple used in 64 places.'>class</a> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> : <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a> <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../Y/101.html' title='Multiple used in 66 places.'>T</a>&gt; <font color='red'>{</font>
-<a name='L44'>  44   <a href='../Y/420.html' title='Multiple used in 63 places.'>public</a>:
-<a name='L45'>  45     <b>typedef</b> <a href='../Y/101.html' title='Multiple used in 66 places.'>T</a> <a href='../R/184.html' title='Multiple refered from 47 places.'>value_type</a>;
-<a name='L46'>  46 
-<a name='L47'>  47     <b>typedef</b> <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a>             <a href='../R/151.html' title='Multiple refered from 2 places.'>size_type</a>;
-<a name='L48'>  48     <b>typedef</b> <a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/418.html' title='Multiple used in 4 places.'>ptrdiff_t</a>     difference_type;
-<a name='L49'>  49     <b>typedef</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>*        <a href='../R/126.html' title='Multiple refered from 4 places.'>pointer</a>;
-<a name='L50'>  50     <b>typedef</b> <b>const</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>*  <a href='../R/87.html' title='Multiple refered from 6 places.'>const_pointer</a>;
-<a name='L51'>  51     <b>typedef</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&amp;        <a href='../R/137.html' title='Multiple refered from 5 places.'>reference</a>;
-<a name='L52'>  52     <b>typedef</b> <b>const</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&amp;  <a href='../R/88.html' title='Multiple refered from 10 places.'>const_reference</a>;
-<a name='L53'>  53 
-<a name='L54'>  54     <i><font color='green'>/* Constructors */</font></i>
-<a name='L55'>  55     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>() : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;() <font color='red'>{</font><font color='red'>}</font>;
-<a name='L56'>  56     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>(<b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;&amp; <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>) : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;(<a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L57'>  57 <font color='darkred'>#ifdef</font> <a href='../Y/111.html' title='Multiple used in 19 places.'>__GXX_EXPERIMENTAL_CXX0X__</a>
-<a name='L58'>  58     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>(<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;&amp;&amp; <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>) : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;(<a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L59'>  59 <font color='darkred'>#endif</font>
-<a name='L60'>  60     <i><font color='green'>/**</font></i>
-<a name='L61'>  61 <i><font color='green'>     * @brief Create a Array from a given carray.</font></i>
-<a name='L62'>  62 <i><font color='green'>     * @param carray The null-terminated array to create the object from.</font></i>
-<a name='L63'>  63 <i><font color='green'>     * @post A ArrayBuf has been initialized.</font></i>
-<a name='L64'>  64 <i><font color='green'>     * @post The buffer has been filled with the array.</font></i>
-<a name='L65'>  65 <i><font color='green'>     * @test Array test("Some array");</font></i>
-<a name='L66'>  66 <i><font color='green'>     */</font></i>
-<a name='L67'>  67     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>(<a href='../D/118.html' title='Multiple defined in 3 places.'>const_pointer</a> <a href='../Y/161.html' title='Multiple used in 7 places.'>carray</a>) : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;() <font color='red'>{</font>
-<a name='L68'>  68       <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/286.html' title='Multiple used in 89 places.'>i</a> = 0;
-<a name='L69'>  69       <b>while</b> (1) <font color='red'>{</font>
-<a name='L70'>  70         <b>if</b> (!<a href='../Y/161.html' title='Multiple used in 7 places.'>carray</a>[<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>]) <b>break</b>;
-<a name='L71'>  71         <a href='../Y/421.html' title='Multiple used in 60 places.'>push</a>(<a href='../Y/161.html' title='Multiple used in 7 places.'>carray</a>[<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>]);
-<a name='L72'>  72         ++<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>;
-<a name='L73'>  73       <font color='red'>}</font>
-<a name='L74'>  74     <font color='red'>}</font>;
-<a name='L75'>  75 
-<a name='L76'>  76 <font color='darkred'>#ifdef</font> <a href='../Y/111.html' title='Multiple used in 19 places.'>__GXX_EXPERIMENTAL_CXX0X__</a>
-<a name='L77'>  77     <i><font color='green'>/**</font></i>
-<a name='L78'>  78 <i><font color='green'>     * @brief Create an array from an initializer list</font></i>
-<a name='L79'>  79 <i><font color='green'>     * @param list An initializer_list</font></i>
-<a name='L80'>  80 <i><font color='green'>     */</font></i>
-<a name='L81'>  81     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>(<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/292.html' title='Multiple used in 4 places.'>initializer_list</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt; <a href='../Y/335.html' title='Multiple used in 91 places.'>list</a>) : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;() <font color='red'>{</font>
-<a name='L82'>  82       *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a> = <a href='../Y/335.html' title='Multiple used in 91 places.'>list</a>;
-<a name='L83'>  83     <font color='red'>}</font>
-<a name='L84'>  84 <font color='darkred'>#endif</font>
-<a name='L85'>  85 
-<a name='L86'>  86     <i><font color='green'>/**</font></i>
-<a name='L87'>  87 <i><font color='green'>     * @brief Create a Array from a given carray.</font></i>
-<a name='L88'>  88 <i><font color='green'>     * @param carray The null-terminated array to create the object from.</font></i>
-<a name='L89'>  89 <i><font color='green'>     * @param len How big is the carray?</font></i>
-<a name='L90'>  90 <i><font color='green'>     * @post A ArrayBuf has been initialized.</font></i>
-<a name='L91'>  91 <i><font color='green'>     * @post The buffer has been filled with the array.</font></i>
-<a name='L92'>  92 <i><font color='green'>     * @test Array test("Some array");</font></i>
-<a name='L93'>  93 <i><font color='green'>     */</font></i>
-<a name='L94'>  94     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>(<a href='../D/118.html' title='Multiple defined in 3 places.'>const_pointer</a> <a href='../Y/161.html' title='Multiple used in 7 places.'>carray</a>, <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>) : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;() <font color='red'>{</font>
-<a name='L95'>  95       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../S/54.html#L22' title='Defined at 22 in Stream.cpp.'>Reserve</a>(<a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>);
-<a name='L96'>  96       <b>for</b> (<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/286.html' title='Multiple used in 89 places.'>i</a> = 0; <a href='../Y/286.html' title='Multiple used in 89 places.'>i</a> &lt; <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>; ++<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>)
-<a name='L97'>  97         <a href='../Y/421.html' title='Multiple used in 60 places.'>push</a>(<a href='../Y/161.html' title='Multiple used in 7 places.'>carray</a>[<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>]);
-<a name='L98'>  98     <font color='red'>}</font>;
-<a name='L99'>  99 
-<a name='L100'> 100     <i><font color='green'>/**</font></i>
-<a name='L101'> 101 <i><font color='green'>     * @brief Create an empty Array container with at least the specified elements in size.</font></i>
-<a name='L102'> 102 <i><font color='green'>     * @param newSize Reserve at least this many buckets for this Array.</font></i>
-<a name='L103'> 103 <i><font color='green'>     * @post This array's memory will also never be shrunk.</font></i>
-<a name='L104'> 104 <i><font color='green'>     * @post A buffer has been created.</font></i>
-<a name='L105'> 105 <i><font color='green'>     */</font></i>
-<a name='L106'> 106     <a href='../Y/231.html' title='Multiple used in 12 places.'>explicit</a> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>(<b>const</b> <a href='../D/189.html' title='Multiple defined in 5 places.'>size_type</a> <a href='../Y/372.html' title='Multiple used in 24 places.'>newSize</a>) : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;(<a href='../Y/372.html' title='Multiple used in 24 places.'>newSize</a>) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L107'> 107     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>(<b>const</b> <a href='../D/189.html' title='Multiple defined in 5 places.'>size_type</a> <a href='../Y/372.html' title='Multiple used in 24 places.'>newSize</a>, <b>const</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a> <a href='../Y/558.html' title='Multiple used in 40 places.'>value</a>) : <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;(<a href='../Y/372.html' title='Multiple used in 24 places.'>newSize</a>, <a href='../Y/558.html' title='Multiple used in 40 places.'>value</a>) <font color='red'>{</font><font color='red'>}</font>;
-<a name='L108'> 108 
-<a name='L109'> 109     <a href='../Y/561.html' title='Multiple used in 51 places.'>virtual</a> ~<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>() <font color='red'>{</font><font color='red'>}</font>;
-<a name='L110'> 110 
-<a name='L111'> 111 <font color='darkred'>#ifdef</font> <a href='../Y/111.html' title='Multiple used in 19 places.'>__GXX_EXPERIMENTAL_CXX0X__</a>
-<a name='L112'> 112     <i><font color='green'>/**</font></i>
-<a name='L113'> 113 <i><font color='green'>     * @brief Create an array from an initializer list</font></i>
-<a name='L114'> 114 <i><font color='green'>     * @param list An initializer_list</font></i>
-<a name='L115'> 115 <i><font color='green'>     */</font></i>
-<a name='L116'> 116     <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>=(<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/292.html' title='Multiple used in 4 places.'>initializer_list</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt; <a href='../Y/335.html' title='Multiple used in 91 places.'>list</a>) <font color='red'>{</font>
-<a name='L117'> 117       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/175.html' title='Multiple used in 29 places.'>clear</a>();
-<a name='L118'> 118       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../S/54.html#L22' title='Defined at 22 in Stream.cpp.'>Reserve</a>(<a href='../Y/335.html' title='Multiple used in 91 places.'>list</a>.<a href='../Y/466.html' title='Multiple used in 250 places.'>size</a>());
-<a name='L119'> 119       <b>for</b> (<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a> <a href='../Y/310.html' title='Multiple used in 71 places.'>item</a> : <a href='../Y/335.html' title='Multiple used in 91 places.'>list</a>) <font color='red'>{</font>
-<a name='L120'> 120         <a href='../Y/421.html' title='Multiple used in 60 places.'>push</a>(<a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/358.html' title='Multiple used in 2 places.'>move</a>(<a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>));
-<a name='L121'> 121       <font color='red'>}</font>
-<a name='L122'> 122       <b>return</b> *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>;
-<a name='L123'> 123     <font color='red'>}</font>
-<a name='L124'> 124 <font color='darkred'>#endif</font>
-<a name='L125'> 125     <a href='../Y/546.html' title='Multiple used in 23 places.'>using</a> <a href='../Y/81.html' title='Multiple used in 41 places.'>ReferenceCountedArray</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;::<a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>=;
-<a name='L126'> 126 
-<a name='L127'> 127     <i><font color='green'>/**</font></i>
-<a name='L128'> 128 <i><font color='green'>     * @brief Add an item to the end of the array</font></i>
-<a name='L129'> 129 <i><font color='green'>     */</font></i>
-<a name='L130'> 130     <b>inline</b> <b>void</b> <a href='../Y/421.html' title='Multiple used in 60 places.'>push</a>(<b>const</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a> <a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>) <font color='red'>{</font>
-<a name='L131'> 131       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/2.html' title='Multiple used in 11 places.'>AboutToModify</a>(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>() + 1);
-<a name='L132'> 132       *(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/12.html' title='Multiple used in 24 places.'>Buf</a>(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>())) = <a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>;
-<a name='L133'> 133       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/130.html' title='Multiple used in 6 places.'>addLength</a>(1);
-<a name='L134'> 134     <font color='red'>}</font>
-<a name='L135'> 135 
-<a name='L136'> 136     <i><font color='green'>/**</font></i>
-<a name='L137'> 137 <i><font color='green'>     * @sa push</font></i>
-<a name='L138'> 138 <i><font color='green'>     */</font></i>
-<a name='L139'> 139     <b>inline</b> <a href='../Y/258.html' title='Multiple used in 39 places.'>friend</a> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>&lt;&lt;(<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;&amp; <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>, <a href='../D/119.html' title='Multiple defined in 3 places.'>const_reference</a> <a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>) <font color='red'>{</font>
-<a name='L140'> 140       <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>.<a href='../Y/421.html' title='Multiple used in 60 places.'>push</a>(<a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>);
-<a name='L141'> 141       <b>return</b> <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>;
-<a name='L142'> 142     <font color='red'>}</font>
-<a name='L143'> 143 
-<a name='L144'> 144     <i><font color='green'>/**</font></i>
-<a name='L145'> 145 <i><font color='green'>     * @brief Shift the array left, removing the first element.</font></i>
-<a name='L146'> 146 <i><font color='green'>     * @return The first element.</font></i>
-<a name='L147'> 147 <i><font color='green'>     */</font></i>
-<a name='L148'> 148     <b>inline</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a> <a href='../Y/462.html' title='Multiple used in 2 places.'>shift</a>() <font color='red'>{</font>
-<a name='L149'> 149       <b>if</b> (<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/304.html' title='Multiple used in 70 places.'>isEmpty</a>()) <b>return</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>();
-<a name='L150'> 150 
-<a name='L151'> 151       <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a> <a href='../Y/515.html' title='Multiple used in 13 places.'>temp</a>(*(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/12.html' title='Multiple used in 24 places.'>Buf</a>(0)));
-<a name='L152'> 152       ++(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a>);
-<a name='L153'> 153       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/502.html' title='Multiple used in 12 places.'>subLength</a>(1);
-<a name='L154'> 154       <b>return</b> <a href='../Y/515.html' title='Multiple used in 13 places.'>temp</a>;
-<a name='L155'> 155     <font color='red'>}</font>
-<a name='L156'> 156 
-<a name='L157'> 157     <i><font color='green'>/**</font></i>
-<a name='L158'> 158 <i><font color='green'>     * @brief Pop a value off the end of the array</font></i>
-<a name='L159'> 159 <i><font color='green'>     * @return The last element.</font></i>
-<a name='L160'> 160 <i><font color='green'>     */</font></i>
-<a name='L161'> 161     <b>inline</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a> <a href='../Y/402.html' title='Multiple used in 54 places.'>pop</a>() <font color='red'>{</font>
-<a name='L162'> 162       <b>if</b> (<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/304.html' title='Multiple used in 70 places.'>isEmpty</a>()) <b>return</b> <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>();
-<a name='L163'> 163 
-<a name='L164'> 164       <a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a> <a href='../Y/515.html' title='Multiple used in 13 places.'>temp</a>(*(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/12.html' title='Multiple used in 24 places.'>Buf</a>(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>() - 1)));
-<a name='L165'> 165       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/502.html' title='Multiple used in 12 places.'>subLength</a>(1);
-<a name='L166'> 166       <b>return</b> <a href='../Y/515.html' title='Multiple used in 13 places.'>temp</a>;
-<a name='L167'> 167     <font color='red'>}</font>
-<a name='L168'> 168 
-<a name='L169'> 169     <i><font color='green'>/**</font></i>
-<a name='L170'> 170 <i><font color='green'>     * @sa pop</font></i>
-<a name='L171'> 171 <i><font color='green'>     */</font></i>
-<a name='L172'> 172     <b>inline</b> <a href='../Y/258.html' title='Multiple used in 39 places.'>friend</a> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>&gt;&gt;(<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../D/222.html' title='Multiple defined in 5 places.'>value_type</a>&gt;&amp; <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>, <a href='../D/175.html' title='Multiple defined in 5 places.'>reference</a> <a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>) <font color='red'>{</font>
-<a name='L173'> 173       <a href='../Y/310.html' title='Multiple used in 71 places.'>item</a> = <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>.<a href='../Y/402.html' title='Multiple used in 54 places.'>pop</a>();
-<a name='L174'> 174       <b>return</b> <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>;
-<a name='L175'> 175     <font color='red'>}</font>
-<a name='L176'> 176 
-<a name='L177'> 177     <i><font color='green'>/**</font></i>
-<a name='L178'> 178 <i><font color='green'>     * @brief Join an array by a delimiter into a string</font></i>
-<a name='L179'> 179 <i><font color='green'>     */</font></i>
-<a name='L180'> 180     <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a> <a href='../Y/317.html' title='Multiple used in 17 places.'>join</a>(<b>const</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>&amp; <a href='../Y/206.html' title='Multiple used in 17 places.'>delim</a>, <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../Y/425.html' title='Multiple used in 2 places.'>quoted</a> = <a href='../Y/236.html' title='Multiple used in 12 places.'>false</a>) <b>const</b> <font color='red'>{</font>
-<a name='L181'> 181       <b>if</b> (!<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>()) <b>return</b> <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a>();
-<a name='L182'> 182       <a href='../Y/98.html' title='Multiple used in 325 places.'>String</a> <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>;
-<a name='L183'> 183       <b>for</b> (<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/286.html' title='Multiple used in 89 places.'>i</a> = 0; <a href='../Y/286.html' title='Multiple used in 89 places.'>i</a> &lt; <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>(); ++<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>) <font color='red'>{</font>
-<a name='L184'> 184         <b>if</b> (<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>)
-<a name='L185'> 185           <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a> += <a href='../Y/206.html' title='Multiple used in 17 places.'>delim</a>;
-<a name='L186'> 186         <b>if</b> (<a href='../Y/425.html' title='Multiple used in 2 places.'>quoted</a>) <font color='red'>{</font>
-<a name='L187'> 187           <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a> += '"' + *(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/12.html' title='Multiple used in 24 places.'>Buf</a>(<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>)) + '"';
-<a name='L188'> 188         <font color='red'>}</font> <b>else</b> <font color='red'>{</font>
-<a name='L189'> 189           <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a> += *(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/12.html' title='Multiple used in 24 places.'>Buf</a>(<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>));
-<a name='L190'> 190         <font color='red'>}</font>
-<a name='L191'> 191       <font color='red'>}</font>
-<a name='L192'> 192       <b>return</b> <a href='../Y/490.html' title='Multiple used in 63 places.'>str</a>;
-<a name='L193'> 193     <font color='red'>}</font>
-<a name='L194'> 194 
-<a name='L195'> 195     <b>inline</b> <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../Y/227.html' title='Multiple used in 3 places.'>equals</a>(<b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/227.html' title='Multiple used in 3 places.'>equals</a>(<a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>, <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>.<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>()); <font color='red'>}</font>;
-<a name='L196'> 196     <i><font color='green'>/**</font></i>
-<a name='L197'> 197 <i><font color='green'>     * @brief Compare our Array object with another Array object, but only n elements</font></i>
-<a name='L198'> 198 <i><font color='green'>     * @param array The Array object to equals to.</font></i>
-<a name='L199'> 199 <i><font color='green'>     * @param n The number of items to equals.</font></i>
-<a name='L200'> 200 <i><font color='green'>     * @return True if the number of elements are the same, and they all are equal.</font></i>
-<a name='L201'> 201 <i><font color='green'>     */</font></i>
-<a name='L202'> 202     <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../Y/227.html' title='Multiple used in 3 places.'>equals</a>(<b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>, <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/366.html' title='Multiple used in 144 places.'>n</a>) <b>const</b>
-<a name='L203'> 203     <font color='red'>{</font>
-<a name='L204'> 204       <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/363.html' title='Multiple used in 8 places.'>my_len</a> = <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>();
-<a name='L205'> 205       <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../Y/448.html' title='Multiple used in 3 places.'>same_length</a> = (<a href='../Y/363.html' title='Multiple used in 8 places.'>my_len</a> == <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>.<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>());
-<a name='L206'> 206 
-<a name='L207'> 207       <i><font color='green'>/* Same array? */</font></i>
-<a name='L208'> 208       <b>if</b> (<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/197.html' title='Multiple used in 33 places.'>data</a>() == <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>.<a href='../Y/197.html' title='Multiple used in 33 places.'>data</a>() &amp;&amp; <a href='../Y/448.html' title='Multiple used in 3 places.'>same_length</a>)
-<a name='L209'> 209         <b>return</b> <a href='../Y/531.html' title='Multiple used in 9 places.'>true</a>;
-<a name='L210'> 210 
-<a name='L211'> 211       <b>if</b> (!<a href='../Y/448.html' title='Multiple used in 3 places.'>same_length</a>)
-<a name='L212'> 212         <b>return</b> <a href='../Y/236.html' title='Multiple used in 12 places.'>false</a>;
-<a name='L213'> 213 
-<a name='L214'> 214       <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/469.html' title='Multiple used in 33 places.'>slen</a> = <a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/353.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>.<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>(), <a href='../Y/366.html' title='Multiple used in 144 places.'>n</a>);
-<a name='L215'> 215       <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a> = <a href='../D/195.html' title='Multiple defined in 3 places.'>std</a>::<a href='../Y/353.html' title='Multiple used in 8 places.'>min</a>(<a href='../Y/363.html' title='Multiple used in 8 places.'>my_len</a>, <a href='../Y/469.html' title='Multiple used in 33 places.'>slen</a>);
-<a name='L216'> 216 
-<a name='L217'> 217       <b>for</b> (<a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/286.html' title='Multiple used in 89 places.'>i</a> = 0; <a href='../Y/286.html' title='Multiple used in 89 places.'>i</a> &lt; <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>; ++<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>) <font color='red'>{</font>
-<a name='L218'> 218         <b>if</b> ((*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>)[<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>] != <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>[<a href='../Y/286.html' title='Multiple used in 89 places.'>i</a>])
-<a name='L219'> 219           <b>return</b> <a href='../Y/236.html' title='Multiple used in 12 places.'>false</a>;
-<a name='L220'> 220       <font color='red'>}</font>
-<a name='L221'> 221       <b>return</b> <a href='../Y/531.html' title='Multiple used in 9 places.'>true</a>;
-<a name='L222'> 222     <font color='red'>}</font>
-<a name='L223'> 223 
-<a name='L224'> 224     <b>inline</b> <a href='../Y/258.html' title='Multiple used in 39 places.'>friend</a> <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>==(<b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/333.html' title='Multiple used in 17 places.'>lhs</a>, <b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/442.html' title='Multiple used in 27 places.'>rhs</a>) <font color='red'>{</font> <b>return</b> <a href='../Y/333.html' title='Multiple used in 17 places.'>lhs</a>.<a href='../Y/227.html' title='Multiple used in 3 places.'>equals</a>(<a href='../Y/442.html' title='Multiple used in 27 places.'>rhs</a>); <font color='red'>}</font>;
-<a name='L225'> 225     <b>inline</b> <a href='../Y/258.html' title='Multiple used in 39 places.'>friend</a> <a href='../Y/153.html' title='Multiple used in 72 places.'>bool</a> <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>!=(<b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/333.html' title='Multiple used in 17 places.'>lhs</a>, <b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/442.html' title='Multiple used in 27 places.'>rhs</a>) <font color='red'>{</font> <b>return</b> !(<a href='../Y/333.html' title='Multiple used in 17 places.'>lhs</a> == <a href='../Y/442.html' title='Multiple used in 27 places.'>rhs</a>); <font color='red'>}</font>;
-<a name='L226'> 226 
-<a name='L227'> 227     <i><font color='green'>// Subarrays</font></i>
-<a name='L228'> 228     <i><font color='green'>/**</font></i>
-<a name='L229'> 229 <i><font color='green'>     * @sa ReferenceCountedArray::slice()</font></i>
-<a name='L230'> 230 <i><font color='green'>     */</font></i>
-<a name='L231'> 231     <b>inline</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/503.html' title='Multiple used in 2 places.'>subarray</a>(<b>int</b> <a href='../S/49.html#L46' title='Defined at 46 in Thread.cpp.'>start</a>, <b>int</b> <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a> = -1) <b>const</b> <font color='red'>{</font>
-<a name='L232'> 232       <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/369.html' title='Multiple used in 6 places.'>newArray</a>(*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>);
-<a name='L233'> 233       <a href='../Y/369.html' title='Multiple used in 6 places.'>newArray</a>.<a href='../Y/470.html' title='Multiple used in 7 places.'>slice</a>(<a href='../S/49.html#L46' title='Defined at 46 in Thread.cpp.'>start</a>, <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>);
-<a name='L234'> 234       <b>return</b> <a href='../Y/369.html' title='Multiple used in 6 places.'>newArray</a>;
-<a name='L235'> 235     <font color='red'>}</font>;
-<a name='L236'> 236 
-<a name='L237'> 237     <i><font color='green'>/**</font></i>
-<a name='L238'> 238 <i><font color='green'>     * @sa subarray</font></i>
-<a name='L239'> 239 <i><font color='green'>     */</font></i>
-<a name='L240'> 240     <b>inline</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>()(<b>int</b> <a href='../S/49.html#L46' title='Defined at 46 in Thread.cpp.'>start</a>, <b>int</b> <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a> = -1) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/503.html' title='Multiple used in 2 places.'>subarray</a>(<a href='../S/49.html#L46' title='Defined at 46 in Thread.cpp.'>start</a>, <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>); <font color='red'>}</font>;
-<a name='L241'> 241 
-<a name='L242'> 242     <i><font color='green'>/**</font></i>
-<a name='L243'> 243 <i><font color='green'>     * @brief Returns a 'Slice' class for safe (cow) writing into the array</font></i>
-<a name='L244'> 244 <i><font color='green'>     * @sa Slice</font></i>
-<a name='L245'> 245 <i><font color='green'>     * @param start Starting position</font></i>
-<a name='L246'> 246 <i><font color='green'>     * @param len How many items to use</font></i>
-<a name='L247'> 247 <i><font color='green'>     */</font></i>
-<a name='L248'> 248     <b>inline</b> <a href='../Y/90.html' title='Multiple used in 9 places.'>Slice</a>&lt;<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&gt; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>()(<b>int</b> <a href='../S/49.html#L46' title='Defined at 46 in Thread.cpp.'>start</a>, <b>int</b> <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a> = -1) <font color='red'>{</font> <b>return</b> <a href='../Y/90.html' title='Multiple used in 9 places.'>Slice</a>&lt;<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&gt;(*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>, <a href='../S/49.html#L46' title='Defined at 46 in Thread.cpp.'>start</a>, <a href='../Y/330.html' title='Multiple used in 84 places.'>len</a>); <font color='red'>}</font>;
-<a name='L249'> 249 
-<a name='L250'> 250 <font color='darkred'>#ifdef</font> <a href='../Y/22.html' title='Multiple used in 4 places.'>CPPUNIT_VERSION</a>
-<a name='L251'> 251     <b>void</b> <a href='../Y/23.html' title='Multiple used in 2 places.'>CPPUNIT_checkArrayEqual</a>(<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/129.html' title='Multiple used in 8 places.'>actual</a>, <a href='../Y/17.html' title='Multiple used in 13 places.'>CPPUNIT_NS</a>::<a href='../Y/93.html' title='Multiple used in 2 places.'>SourceLine</a> <a href='../Y/477.html' title='Multiple used in 4 places.'>sourceLine</a>) <font color='red'>{</font>
-<a name='L252'> 252       <b>if</b> ((*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>) == <a href='../Y/129.html' title='Multiple used in 8 places.'>actual</a>) <b>return</b>;
-<a name='L253'> 253       ::<a href='../Y/17.html' title='Multiple used in 13 places.'>CPPUNIT_NS</a>::<a href='../Y/7.html' title='Multiple used in 2 places.'>Asserter</a>::<a href='../Y/235.html' title='Multiple used in 2 places.'>failNotEqual</a>(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/317.html' title='Multiple used in 17 places.'>join</a>("|").<a href='../Y/157.html' title='Multiple used in 21 places.'>c_str</a>(), <a href='../Y/129.html' title='Multiple used in 8 places.'>actual</a>.<a href='../Y/317.html' title='Multiple used in 17 places.'>join</a>("|").<a href='../Y/157.html' title='Multiple used in 21 places.'>c_str</a>(), <a href='../Y/477.html' title='Multiple used in 4 places.'>sourceLine</a>);
-<a name='L254'> 254     <font color='red'>}</font>
-<a name='L255'> 255 <font color='darkred'>#endif</font> <i><font color='green'>/* CPPUNIT_VERSION */</font></i>
-<a name='L256'> 256 
-<a name='L257'> 257     <i><font color='green'>/* Operators */</font></i>
-<a name='L258'> 258     <i><font color='green'>/**</font></i>
-<a name='L259'> 259 <i><font color='green'>     * @relates Array</font></i>
-<a name='L260'> 260 <i><font color='green'>     * @brief Concatenates two array objects together.</font></i>
-<a name='L261'> 261 <i><font color='green'>     * @param array1 The LHS array.</font></i>
-<a name='L262'> 262 <i><font color='green'>     * @param array2 The RHS array.</font></i>
-<a name='L263'> 263 <i><font color='green'>     * @post A new array is allocated, reference copied and returned.</font></i>
-<a name='L264'> 264 <i><font color='green'>     * @return Returns a new array that can be reference copied by the lvalue.</font></i>
-<a name='L265'> 265 <i><font color='green'>     */</font></i>
-<a name='L266'> 266     <b>inline</b> <a href='../Y/258.html' title='Multiple used in 39 places.'>friend</a> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>+(<a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/138.html' title='Multiple used in 3 places.'>array1</a>, <b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/139.html' title='Multiple used in 2 places.'>array2</a>) <font color='red'>{</font>
-<a name='L267'> 267       <a href='../Y/138.html' title='Multiple used in 3 places.'>array1</a> += <a href='../Y/139.html' title='Multiple used in 2 places.'>array2</a>;
-<a name='L268'> 268       <b>return</b> <a href='../Y/138.html' title='Multiple used in 3 places.'>array1</a>;
-<a name='L269'> 269     <font color='red'>}</font>
-<a name='L270'> 270 
-<a name='L271'> 271     <i><font color='green'>/**</font></i>
-<a name='L272'> 272 <i><font color='green'>     * @brief Prefix increment</font></i>
-<a name='L273'> 273 <i><font color='green'>     */</font></i>
-<a name='L274'> 274     <b>inline</b> <b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>++() <font color='red'>{</font>
-<a name='L275'> 275       <b>return</b> (*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>) += 1;
-<a name='L276'> 276     <font color='red'>}</font>
-<a name='L277'> 277 
-<a name='L278'> 278     <i><font color='green'>/**</font></i>
-<a name='L279'> 279 <i><font color='green'>     * @brief Postfix increment</font></i>
-<a name='L280'> 280 <i><font color='green'>     */</font></i>
-<a name='L281'> 281     <b>inline</b> <b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>++(<b>int</b>) <font color='red'>{</font>
-<a name='L282'> 282       <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/524.html' title='Multiple used in 60 places.'>tmp</a>((*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>)(0, 1));
-<a name='L283'> 283       ++(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a>);
-<a name='L284'> 284       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/502.html' title='Multiple used in 12 places.'>subLength</a>(1);
-<a name='L285'> 285       <b>return</b> <a href='../Y/524.html' title='Multiple used in 60 places.'>tmp</a>;
-<a name='L286'> 286     <font color='red'>}</font>
-<a name='L287'> 287 
-<a name='L288'> 288     <i><font color='green'>/**</font></i>
-<a name='L289'> 289 <i><font color='green'>     * @brief Prefix decrement</font></i>
-<a name='L290'> 290 <i><font color='green'>     */</font></i>
-<a name='L291'> 291     <b>inline</b> <b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>--() <font color='red'>{</font>
-<a name='L292'> 292       <b>return</b> (*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>) -= 1;
-<a name='L293'> 293     <font color='red'>}</font>
-<a name='L294'> 294 
-<a name='L295'> 295     <i><font color='green'>/**</font></i>
-<a name='L296'> 296 <i><font color='green'>     * @brief Postfix decrement</font></i>
-<a name='L297'> 297 <i><font color='green'>     */</font></i>
-<a name='L298'> 298     <b>inline</b> <b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>--(<b>int</b>) <font color='red'>{</font>
-<a name='L299'> 299       <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a> <a href='../Y/524.html' title='Multiple used in 60 places.'>tmp</a>((*<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>)(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>() - 1, 1));
-<a name='L300'> 300       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/502.html' title='Multiple used in 12 places.'>subLength</a>(1);
-<a name='L301'> 301       <b>return</b> <a href='../Y/524.html' title='Multiple used in 60 places.'>tmp</a>;
-<a name='L302'> 302     <font color='red'>}</font>
-<a name='L303'> 303 
-<a name='L304'> 304     <i><font color='green'>/**</font></i>
-<a name='L305'> 305 <i><font color='green'>     * \sa append(const char)</font></i>
-<a name='L306'> 306 <i><font color='green'>     */</font></i>
-<a name='L307'> 307     <b>inline</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>+=(<a href='../D/119.html' title='Multiple defined in 3 places.'>const_reference</a> <a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>) <font color='red'>{</font>
-<a name='L308'> 308       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/136.html' title='Multiple used in 24 places.'>append</a>(<a href='../Y/310.html' title='Multiple used in 71 places.'>item</a>);
-<a name='L309'> 309       <b>return</b> *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>;
-<a name='L310'> 310     <font color='red'>}</font>
-<a name='L311'> 311 
-<a name='L312'> 312     <i><font color='green'>/**</font></i>
-<a name='L313'> 313 <i><font color='green'>     * \sa append(const Array&amp;)</font></i>
-<a name='L314'> 314 <i><font color='green'>     */</font></i>
-<a name='L315'> 315     <b>inline</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>+=(<b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>) <font color='red'>{</font>
-<a name='L316'> 316       <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/136.html' title='Multiple used in 24 places.'>append</a>(<a href='../Y/137.html' title='Multiple used in 23 places.'>array</a>);
-<a name='L317'> 317       <b>return</b> *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>;
-<a name='L318'> 318     <font color='red'>}</font>
-<a name='L319'> 319 
-<a name='L320'> 320     <b>inline</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>+=(<b>const</b> <b>int</b> <a href='../Y/366.html' title='Multiple used in 144 places.'>n</a>) <font color='red'>{</font>
-<a name='L321'> 321       <b>if</b> (!<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>())
-<a name='L322'> 322         <b>return</b> *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>;
-<a name='L323'> 323       <b>if</b> (<b>int</b>(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>()) - <a href='../Y/366.html' title='Multiple used in 144 places.'>n</a> &lt; 0) <font color='red'>{</font>
-<a name='L324'> 324         <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a> = <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>();
-<a name='L325'> 325         <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/459.html' title='Multiple used in 12 places.'>setLength</a>(0);
-<a name='L326'> 326       <font color='red'>}</font> <b>else</b> <font color='red'>{</font>
-<a name='L327'> 327         <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a> += <a href='../Y/366.html' title='Multiple used in 144 places.'>n</a>;
-<a name='L328'> 328         <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/502.html' title='Multiple used in 12 places.'>subLength</a>(<a href='../Y/366.html' title='Multiple used in 144 places.'>n</a>);
-<a name='L329'> 329       <font color='red'>}</font>
-<a name='L330'> 330       <b>return</b> *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>;
-<a name='L331'> 331     <font color='red'>}</font>
-<a name='L332'> 332 
-<a name='L333'> 333     <b>inline</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&amp; <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>-=(<b>const</b> <b>int</b> <a href='../Y/366.html' title='Multiple used in 144 places.'>n</a>) <font color='red'>{</font>
-<a name='L334'> 334       <b>if</b> (!<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>())
-<a name='L335'> 335         <b>return</b> *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>;
-<a name='L336'> 336       <b>if</b> (<b>int</b>(<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>()) - <a href='../Y/366.html' title='Multiple used in 144 places.'>n</a> &lt; 0) <font color='red'>{</font>
-<a name='L337'> 337         <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/387.html' title='Multiple used in 35 places.'>offset</a> = <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/331.html' title='Multiple used in 287 places.'>length</a>();
-<a name='L338'> 338         <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/459.html' title='Multiple used in 12 places.'>setLength</a>(0);
-<a name='L339'> 339       <font color='red'>}</font> <b>else</b>
-<a name='L340'> 340         <a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>-&gt;<a href='../Y/502.html' title='Multiple used in 12 places.'>subLength</a>(<a href='../Y/366.html' title='Multiple used in 144 places.'>n</a>);
-<a name='L341'> 341       <b>return</b> *<a href='../Y/518.html' title='Multiple used in 162 places.'>this</a>;
-<a name='L342'> 342     <font color='red'>}</font>
-<a name='L343'> 343 
-<a name='L344'> 344 <font color='red'>}</font>;
-<a name='L345'> 345 
-<a name='L346'> 346 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a>&lt;<a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/101.html' title='Multiple used in 66 places.'>T</a>&gt;
-<a name='L347'> 347   <b>struct</b> <a href='../Y/50.html' title='Multiple used in 9 places.'>Hash</a>;
-<a name='L348'> 348 
-<a name='L349'> 349 <a href='../Y/516.html' title='Multiple used in 35 places.'>template</a>&lt;<a href='../Y/540.html' title='Multiple used in 37 places.'>typename</a> <a href='../Y/101.html' title='Multiple used in 66 places.'>T</a>&gt;
-<a name='L350'> 350   <b>struct</b> <a href='../Y/50.html' title='Multiple used in 9 places.'>Hash</a>&lt; <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../Y/101.html' title='Multiple used in 66 places.'>T</a>&gt; &gt; <font color='red'>{</font>
-<a name='L351'> 351     <b>inline</b> <a href='../Y/467.html' title='Multiple used in 609 places.'>size_t</a> <a href='../Y/393.html' title='Multiple used in 137 places.'>operator</a>()(<b>const</b> <a href='../Y/4.html' title='Multiple used in 62 places.'>Array</a>&lt;<a href='../Y/101.html' title='Multiple used in 66 places.'>T</a>&gt;&amp; <a href='../Y/557.html' title='Multiple used in 3 places.'>val</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/557.html' title='Multiple used in 3 places.'>val</a>.<a href='../Y/278.html' title='Multiple used in 19 places.'>hash</a>(); <font color='red'>}</font>
-<a name='L352'> 352   <font color='red'>}</font>;
-<a name='L353'> 353 <a href='../S/42.html#L43' title='Defined at 43 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L354'> 354 
-<a name='L355'> 355 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_ARRAY_H */</font></i>
+<a name='L1'>   1 <i><font color='green'>/*</font></i>
+<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2013, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
+<a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
+<a name='L4'>   4 <i><font color='green'> * </font></i>
+<a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
+<a name='L6'>   6 <i><font color='green'> * modification, are permitted provided that the following conditions are met:</font></i>
+<a name='L7'>   7 <i><font color='green'> * 1. Redistributions of source code must retain the above copyright</font></i>
+<a name='L8'>   8 <i><font color='green'> *    notice, this list of conditions and the following disclaimer.</font></i>
+<a name='L9'>   9 <i><font color='green'> * 2. Redistributions in binary form must reproduce the above copyright</font></i>
+<a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
+<a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
+<a name='L12'>  12 <i><font color='green'> * </font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
+<a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
+<a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
+<a name='L20'>  20 <i><font color='green'> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</font></i>
+<a name='L21'>  21 <i><font color='green'> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</font></i>
+<a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L23'>  23 <i><font color='green'> */</font></i>
+<a name='L24'>  24 
+<a name='L25'>  25 <i><font color='green'>/* base64.c</font></i>
+<a name='L26'>  26 <i><font color='green'> */</font></i>
+<a name='L27'>  27 
+<a name='L28'>  28 <font color='darkred'>#include</font> &lt;cstdlib&gt;
+<a name='L29'>  29 <font color='darkred'>#include</font> "<a href='38.html'>base64.h</a>"
+<a name='L30'>  30 <font color='darkred'>#include</font> "<a href='35.html'>String.h</a>"
+<a name='L31'>  31 
+<a name='L32'>  32 <a href='../S/41.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L33'>  33 
+<a name='L34'>  34 <font color='darkred'>#define</font> <a href='../R/17.html' title='Multiple refered from 5 places.'>NUM_ASCII_BYTES</a> (3)
+<a name='L35'>  35 <font color='darkred'>#define</font> <a href='../R/18.html' title='Multiple refered from 6 places.'>NUM_ENCODED_BYTES</a> (4)
+<a name='L36'>  36 <font color='darkred'>#define</font> <a href='../R/20.html' title='Multiple refered from 4 places.'>PADDING_CHAR</a> '='
+<a name='L37'>  37 
+<a name='L38'>  38 <b>void</b> <a href='../R/65.html' title='Multiple refered from 2 places.'>b64enc_buf</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> *<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <b>char</b> *<a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <b>char</b>* <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>)
+<a name='L39'>  39 <font color='red'>{</font>
+<a name='L40'>  40   <b>char</b> *<a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a> = <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>;
+<a name='L41'>  41 
+<a name='L42'>  42   <b>if</b> (!<a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>) <font color='red'>{</font>
+<a name='L43'>  43     <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a> = <a href='../Y/138.html' title='Multiple used in 2 places.'>b64_charset</a>;
+<a name='L44'>  44   <font color='red'>}</font>
+<a name='L45'>  45 
+<a name='L46'>  46   <i><font color='green'>/* Encode 3 bytes at a time. */</font></i>
+<a name='L47'>  47 
+<a name='L48'>  48   <i><font color='green'>/*</font></i>
+<a name='L49'>  49 <i><font color='green'>   *</font></i>
+<a name='L50'>  50 <i><font color='green'>   * |       0       |       1       |       2       |</font></i>
+<a name='L51'>  51 <i><font color='green'>   *</font></i>
+<a name='L52'>  52 <i><font color='green'>   * |               |               |               |</font></i>
+<a name='L53'>  53 <i><font color='green'>   * |       |       |       |       |       |       |</font></i>
+<a name='L54'>  54 <i><font color='green'>   * |   |   |   |   |   |   |   |   |   |   |   |   |</font></i>
+<a name='L55'>  55 <i><font color='green'>   * | | | | | | | | | | | | | | | | | | | | | | | | |</font></i>
+<a name='L56'>  56 <i><font color='green'>   *  7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0</font></i>
+<a name='L57'>  57 <i><font color='green'>   * -------------------------------------------------</font></i>
+<a name='L58'>  58 <i><font color='green'>   *  5 4 3 2 1 0 5 4 3 2 1 0 5 4 3 2 1 0 5 4 3 2 1 0 </font></i>
+<a name='L59'>  59 <i><font color='green'>   * | | | | | | | | | | | | | | | | | | | | | | | | |</font></i>
+<a name='L60'>  60 <i><font color='green'>   * |   | | |   |   | | |   |   | | |   |   | | |   |</font></i>
+<a name='L61'>  61 <i><font color='green'>   * |     |     |     |     |     |     |     |     |</font></i>
+<a name='L62'>  62 <i><font color='green'>   * |           |           |           |           |</font></i>
+<a name='L63'>  63 <i><font color='green'>   *</font></i>
+<a name='L64'>  64 <i><font color='green'>   * |     0     |     1     |     2     |     3     |</font></i>
+<a name='L65'>  65 <i><font color='green'>   *</font></i>
+<a name='L66'>  66 <i><font color='green'>   */</font></i>
+<a name='L67'>  67 
+<a name='L68'>  68 
+<a name='L69'>  69   <b>while</b> (*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> &gt;= <a href='../S/45.html#L34' title='Defined at 34 in base64.c.'>NUM_ASCII_BYTES</a>) <font color='red'>{</font>
+<a name='L70'>  70     <i><font color='green'>/* buf[0] is the 6 left-most bits of data[0] */</font></i>
+<a name='L71'>  71     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[0] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[(<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[0] &amp; 0xfc) &gt;&gt; 2];
+<a name='L72'>  72     <i><font color='green'>/* buf[1] is the right-most 2 bits of data[0] and the left-most 4 bits of data[1] */</font></i>
+<a name='L73'>  73     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[1] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[((<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[0] &amp; 0x03) &lt;&lt; 4) | ((<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[1] &amp; 0xf0) &gt;&gt; 4)];
+<a name='L74'>  74     <i><font color='green'>/* buf[2] is the right-most 4 bits of data[1] and the 2 left-most bits of data[2] */</font></i>
+<a name='L75'>  75     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[2] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[((<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[1] &amp; 0x0f) &lt;&lt; 2) | ((<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[2] &amp; 0xc0) &gt;&gt; 6)];
+<a name='L76'>  76     <i><font color='green'>/* buf[3] is the right-most 6 bits of data[2] */</font></i>
+<a name='L77'>  77     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[3] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[2] &amp; 0x3f];
+<a name='L78'>  78 
+<a name='L79'>  79     <a href='../Y/191.html' title='Multiple used in 33 places.'>data</a> += <a href='../S/45.html#L34' title='Defined at 34 in base64.c.'>NUM_ASCII_BYTES</a>;
+<a name='L80'>  80     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a> += <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>;
+<a name='L81'>  81     *<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> -= <a href='../S/45.html#L34' title='Defined at 34 in base64.c.'>NUM_ASCII_BYTES</a>;
+<a name='L82'>  82   <font color='red'>}</font>
+<a name='L83'>  83 
+<a name='L84'>  84   <i><font color='green'>/* There is either 1 or 2 bytes left to encode (and possibly some padding to add) */</font></i>
+<a name='L85'>  85   <b>if</b> (*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> &gt; 0) <font color='red'>{</font>
+<a name='L86'>  86     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[0] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[(<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[0] &amp; 0xfc) &gt;&gt; 2];
+<a name='L87'>  87     <b>if</b> (*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> == 1) <font color='red'>{</font>
+<a name='L88'>  88       <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[1] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[((<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[0] &amp; 0x03) &lt;&lt; 4)];
+<a name='L89'>  89       <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[2] = <a href='../S/45.html#L36' title='Defined at 36 in base64.c.'>PADDING_CHAR</a>;
+<a name='L90'>  90     <font color='red'>}</font> <b>else</b> <b>if</b> (*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> &gt; 1) <font color='red'>{</font> <i><font color='green'>/* == 2 .. left as &gt;1 to help optimize with last if */</font></i>
+<a name='L91'>  91       <i><font color='green'>/* Tack on to buf[1] the left-most 4 bits of data[1] */</font></i>
+<a name='L92'>  92       <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[1] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[((<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[0] &amp; 0x03) &lt;&lt; 4) | ((<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[1] &amp; 0xf0) &gt;&gt; 4)];
+<a name='L93'>  93       <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[2] = <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[(<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[1] &amp; 0x0f) &lt;&lt; 2];
+<a name='L94'>  94     <font color='red'>}</font>
+<a name='L95'>  95     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>[3] = <a href='../S/45.html#L36' title='Defined at 36 in base64.c.'>PADDING_CHAR</a>;
+<a name='L96'>  96     <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a> += <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>;
+<a name='L97'>  97   <font color='red'>}</font>
+<a name='L98'>  98 
+<a name='L99'>  99   *<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> = <a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a> - <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>;
+<a name='L100'> 100 <font color='red'>}</font>
+<a name='L101'> 101 
+<a name='L102'> 102 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../R/67.html' title='Multiple refered from 15 places.'>base64Encode</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>, <b>const</b> <b>char</b>* <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>) <font color='red'>{</font>
+<a name='L103'> 103   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> = <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L104'> 104   <b>char</b> *<a href='../Y/387.html' title='Multiple used in 16 places.'>p</a> = <a href='../S/45.html#L110' title='Defined at 110 in base64.c.'>b64enc</a>(<a href='../Y/424.html' title='Multiple used in 6 places.'>reinterpret_cast</a>&lt;<b>const</b> <b>unsigned</b> <b>char</b>*&gt;(<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>.<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>()), &amp;<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>);
+<a name='L105'> 105   <a href='../Y/141.html' title='Multiple used in 4 places.'>bd</a>::<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/216.html' title='Multiple used in 2 places.'>encoded</a>(<a href='../Y/387.html' title='Multiple used in 16 places.'>p</a>, <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>);
+<a name='L106'> 106   <a href='../Y/251.html' title='Multiple used in 8 places.'>free</a>(<a href='../Y/387.html' title='Multiple used in 16 places.'>p</a>);
+<a name='L107'> 107   <b>return</b> <a href='../Y/216.html' title='Multiple used in 2 places.'>encoded</a>;
+<a name='L108'> 108 <font color='red'>}</font>
+<a name='L109'> 109 
+<a name='L110'> 110 <b>char</b> *<a href='../R/64.html' title='Multiple refered from 2 places.'>b64enc</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/474.html' title='Multiple used in 10 places.'>src</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> *<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <b>const</b> <b>char</b>* <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>)
+<a name='L111'> 111 <font color='red'>{</font>
+<a name='L112'> 112   <i><font color='green'>/* Take the length and round up the next 4-byte boundary */</font></i>
+<a name='L113'> 113   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/207.html' title='Multiple used in 9 places.'>dlen</a> = (((*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> + (<a href='../S/45.html#L34' title='Defined at 34 in base64.c.'>NUM_ASCII_BYTES</a> - 1)) / <a href='../S/45.html#L34' title='Defined at 34 in base64.c.'>NUM_ASCII_BYTES</a>) * <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>);
+<a name='L114'> 114   <b>char</b> *<a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a> = <a href='../Y/480.html' title='Multiple used in 16 places.'>static_cast</a>&lt;<b>char</b>*&gt;(<a href='../Y/331.html' title='Multiple used in 7 places.'>malloc</a>(<a href='../Y/207.html' title='Multiple used in 9 places.'>dlen</a> + 1));
+<a name='L115'> 115 
+<a name='L116'> 116   <a href='../S/45.html#L38' title='Defined at 38 in base64.c.'>b64enc_buf</a>(<a href='../Y/474.html' title='Multiple used in 10 places.'>src</a>, <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>, <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>);
+<a name='L117'> 117   <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>[*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>] = '\0';
+<a name='L118'> 118   <b>return</b> <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>;
+<a name='L119'> 119 <font color='red'>}</font>
+<a name='L120'> 120 
+<a name='L121'> 121 <b>void</b> <a href='../R/63.html' title='Multiple refered from 3 places.'>b64dec_buf</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> *<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <b>char</b> *<a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>, <b>const</b> <b>char</b>* <a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>)
+<a name='L122'> 122 <font color='red'>{</font>
+<a name='L123'> 123   <b>char</b> *<a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a> = <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>;
+<a name='L124'> 124   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/147.html' title='Multiple used in 3 places.'>blocks</a> = (*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> / <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>) + ((*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> % <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>) ? 1 : 0);
+<a name='L125'> 125 
+<a name='L126'> 126   <b>if</b> (!<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>) <font color='red'>{</font>
+<a name='L127'> 127     <a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a> = <a href='../Y/139.html' title='Multiple used in 2 places.'>b64_indexes</a>;
+<a name='L128'> 128   <font color='red'>}</font>
+<a name='L129'> 129 
+<a name='L130'> 130   <i><font color='green'>/* Convert the encoded base64 character back into our base255 ASCII character */</font></i>
+<a name='L131'> 131   <b>while</b> (<a href='../Y/147.html' title='Multiple used in 3 places.'>blocks</a> &gt; 0) <font color='red'>{</font>
+<a name='L132'> 132     <i><font color='green'>/* buf[0] is the 6 bits from data[0] + left-most 2 bits of data[1] */</font></i>
+<a name='L133'> 133     *<a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>++ = (<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[0]] &lt;&lt; 2) + ((<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[1]] &amp; 0x30) &gt;&gt; 4);  <i><font color='green'>/* 0x30 not required but to be clear. */</font></i>
+<a name='L134'> 134     <b>if</b> (<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[2] != <a href='../S/45.html#L36' title='Defined at 36 in base64.c.'>PADDING_CHAR</a>) <font color='red'>{</font>
+<a name='L135'> 135       <i><font color='green'>/* buf[1] is the right-most 4 bits of data[1] + left-most 4 bits of data[2] */</font></i>
+<a name='L136'> 136       *<a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>++ = ((<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[1]] &amp; 0x0f) &lt;&lt; 4) + ((<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[2]] &amp; 0x3c) &gt;&gt; 2);
+<a name='L137'> 137       <b>if</b> (<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[3] != <a href='../S/45.html#L36' title='Defined at 36 in base64.c.'>PADDING_CHAR</a>) <font color='red'>{</font>
+<a name='L138'> 138         <i><font color='green'>/* buf[2] is the right-most 2 bits of data[2] + data[3] */</font></i>
+<a name='L139'> 139         *<a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a>++ = ((<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[2]] &amp; 0x03) &lt;&lt; 6) + <a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>[3]];
+<a name='L140'> 140       <font color='red'>}</font>
+<a name='L141'> 141     <font color='red'>}</font>
+<a name='L142'> 142     <a href='../Y/191.html' title='Multiple used in 33 places.'>data</a> += <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>;
+<a name='L143'> 143     --<a href='../Y/147.html' title='Multiple used in 3 places.'>blocks</a>;
+<a name='L144'> 144   <font color='red'>}</font>
+<a name='L145'> 145 
+<a name='L146'> 146   *<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> = (<a href='../Y/149.html' title='Multiple used in 128 places.'>buf</a> - <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>);
+<a name='L147'> 147 <font color='red'>}</font>
+<a name='L148'> 148 
+<a name='L149'> 149 <b>char</b> *<a href='../R/62.html' title='Multiple refered from 2 places.'>b64dec</a>(<b>const</b> <b>unsigned</b> <b>char</b> *<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> *<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <b>const</b> <b>char</b>* <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>)
+<a name='L150'> 150 <font color='red'>{</font>
+<a name='L151'> 151   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/207.html' title='Multiple used in 9 places.'>dlen</a> = ((*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> / <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>) + ((*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> % <a href='../S/45.html#L35' title='Defined at 35 in base64.c.'>NUM_ENCODED_BYTES</a>) ? 1 : 0)) * <a href='../S/45.html#L34' title='Defined at 34 in base64.c.'>NUM_ASCII_BYTES</a>;
+<a name='L152'> 152   <b>char</b> *<a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a> = <a href='../Y/480.html' title='Multiple used in 16 places.'>static_cast</a>&lt;<b>char</b>*&gt;(<a href='../Y/331.html' title='Multiple used in 7 places.'>malloc</a>(<a href='../Y/207.html' title='Multiple used in 9 places.'>dlen</a> + 1));
+<a name='L153'> 153 
+<a name='L154'> 154   <b>if</b> (<a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>) <font color='red'>{</font>
+<a name='L155'> 155     <b>char</b> <a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[256];
+<a name='L156'> 156     <a href='../Y/342.html' title='Multiple used in 2 places.'>memset</a>(<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>, -1, <b>sizeof</b>(<a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>));
+<a name='L157'> 157     <b>for</b> (<a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/280.html' title='Multiple used in 92 places.'>i</a> = 0; <a href='../Y/280.html' title='Multiple used in 92 places.'>i</a> &lt; 64; ++<a href='../Y/280.html' title='Multiple used in 92 places.'>i</a>)
+<a name='L158'> 158       <a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>[<b>int</b>(<a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>[<a href='../Y/280.html' title='Multiple used in 92 places.'>i</a>])] = <a href='../Y/280.html' title='Multiple used in 92 places.'>i</a>;
+<a name='L159'> 159     <a href='../S/45.html#L121' title='Defined at 121 in base64.c.'>b64dec_buf</a>(<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>, <a href='../Y/163.html' title='Multiple used in 11 places.'>charset_index</a>);
+<a name='L160'> 160   <font color='red'>}</font>  <b>else</b>
+<a name='L161'> 161     <a href='../S/45.html#L121' title='Defined at 121 in base64.c.'>b64dec_buf</a>(<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>, <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>);
+<a name='L162'> 162   <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>[*<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>] = '\0';
+<a name='L163'> 163   <b>return</b> <a href='../Y/202.html' title='Multiple used in 19 places.'>dest</a>;
+<a name='L164'> 164 <font color='red'>}</font>
+<a name='L165'> 165 
+<a name='L166'> 166 <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../R/66.html' title='Multiple refered from 15 places.'>base64Decode</a>(<b>const</b> <a href='../Y/92.html' title='Multiple used in 337 places.'>String</a>&amp; <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>, <b>const</b> <b>char</b>* <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>) <font color='red'>{</font>
+<a name='L167'> 167   <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a> = <a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>.<a href='../Y/321.html' title='Multiple used in 291 places.'>length</a>();
+<a name='L168'> 168   <b>char</b> *<a href='../Y/387.html' title='Multiple used in 16 places.'>p</a> = <a href='../S/45.html#L149' title='Defined at 149 in base64.c.'>b64dec</a>(<a href='../Y/424.html' title='Multiple used in 6 places.'>reinterpret_cast</a>&lt;<b>const</b> <b>unsigned</b> <b>char</b>*&gt;(<a href='../Y/494.html' title='Multiple used in 38 places.'>string</a>.<a href='../Y/191.html' title='Multiple used in 33 places.'>data</a>()), &amp;<a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>, <a href='../Y/162.html' title='Multiple used in 25 places.'>charset</a>);
+<a name='L169'> 169   <a href='../Y/141.html' title='Multiple used in 4 places.'>bd</a>::<a href='../Y/92.html' title='Multiple used in 337 places.'>String</a> <a href='../Y/194.html' title='Multiple used in 5 places.'>decoded</a>(<a href='../Y/387.html' title='Multiple used in 16 places.'>p</a>, <a href='../Y/320.html' title='Multiple used in 84 places.'>len</a>);
+<a name='L170'> 170   <a href='../Y/251.html' title='Multiple used in 8 places.'>free</a>(<a href='../Y/387.html' title='Multiple used in 16 places.'>p</a>);
+<a name='L171'> 171   <b>return</b> <a href='../Y/194.html' title='Multiple used in 5 places.'>decoded</a>;
+<a name='L172'> 172 <font color='red'>}</font>
+<a name='L173'> 173 
+<a name='L174'> 174 <a href='../S/41.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L38'>[^]</a><a href='#L166'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

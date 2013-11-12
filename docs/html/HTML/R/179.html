@@ -1,21 +1,77 @@
 <html>
 <head>
-<title>tr1_hashtable_define_trivial_hash</title>
+<title>value_type</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/31.html#L49'>tr1_hashtable_define_trivial_hash</a>   49 hash.h         tr1_hashtable_define_trivial_hash(bool);
-<a href='../S/31.html#L50'>tr1_hashtable_define_trivial_hash</a>   50 hash.h         tr1_hashtable_define_trivial_hash(char);
-<a href='../S/31.html#L51'>tr1_hashtable_define_trivial_hash</a>   51 hash.h         tr1_hashtable_define_trivial_hash(signed char);
-<a href='../S/31.html#L52'>tr1_hashtable_define_trivial_hash</a>   52 hash.h         tr1_hashtable_define_trivial_hash(unsigned char);
-<a href='../S/31.html#L54'>tr1_hashtable_define_trivial_hash</a>   54 hash.h         tr1_hashtable_define_trivial_hash(short);
-<a href='../S/31.html#L55'>tr1_hashtable_define_trivial_hash</a>   55 hash.h         tr1_hashtable_define_trivial_hash(int);
-<a href='../S/31.html#L56'>tr1_hashtable_define_trivial_hash</a>   56 hash.h         tr1_hashtable_define_trivial_hash(long);
-<a href='../S/31.html#L57'>tr1_hashtable_define_trivial_hash</a>   57 hash.h         tr1_hashtable_define_trivial_hash(unsigned short);
-<a href='../S/31.html#L58'>tr1_hashtable_define_trivial_hash</a>   58 hash.h         tr1_hashtable_define_trivial_hash(unsigned int);
-<a href='../S/31.html#L59'>tr1_hashtable_define_trivial_hash</a>   59 hash.h         tr1_hashtable_define_trivial_hash(unsigned long);
+<a href='../S/44.html#L54'>value_type</a>         54 Array.h            typedef value_type*        pointer;
+<a href='../S/44.html#L55'>value_type</a>         55 Array.h            typedef const value_type*  const_pointer;
+<a href='../S/44.html#L56'>value_type</a>         56 Array.h            typedef value_type&amp;        reference;
+<a href='../S/44.html#L57'>value_type</a>         57 Array.h            typedef const value_type&amp;  const_reference;
+<a href='../S/44.html#L60'>value_type</a>         60 Array.h            Array() : ReferenceCountedArray&lt;value_type&gt;() {};
+<a href='../S/44.html#L61'>value_type</a>         61 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
+<a href='../S/44.html#L63'>value_type</a>         63 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/44.html#L72'>value_type</a>         72 Array.h            Array(const_pointer carray) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/44.html#L86'>value_type</a>         86 Array.h            Array(std::initializer_list&lt;value_type&gt; list) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/44.html#L99'>value_type</a>         99 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/44.html#L111'>value_type</a>        111 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/44.html#L112'>value_type</a>        112 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
+<a href='../S/44.html#L121'>value_type</a>        121 Array.h            Array&amp; operator=(std::initializer_list&lt;value_type&gt; list) {
+<a href='../S/44.html#L124'>value_type</a>        124 Array.h              for (value_type item : list) {
+<a href='../S/44.html#L131'>value_type</a>        131 Array.h            Array&amp; operator=(const Array&lt;value_type&gt;&amp; array) {
+<a href='../S/44.html#L132'>value_type</a>        132 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(array);
+<a href='../S/44.html#L136'>value_type</a>        136 Array.h            Array&amp; operator=(Array&lt;value_type&gt;&amp;&amp; array) {
+<a href='../S/44.html#L137'>value_type</a>        137 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
+<a href='../S/44.html#L145'>value_type</a>        145 Array.h            inline void push(const value_type item) {
+<a href='../S/44.html#L154'>value_type</a>        154 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/44.html#L163'>value_type</a>        163 Array.h            inline value_type shift() {
+<a href='../S/44.html#L164'>value_type</a>        164 Array.h              if (this-&gt;isEmpty()) return value_type();
+<a href='../S/44.html#L166'>value_type</a>        166 Array.h              value_type temp(*(this-&gt;Buf(0)));
+<a href='../S/44.html#L176'>value_type</a>        176 Array.h            inline value_type pop() {
+<a href='../S/44.html#L177'>value_type</a>        177 Array.h              if (this-&gt;isEmpty()) return value_type();
+<a href='../S/44.html#L179'>value_type</a>        179 Array.h              value_type temp(*(this-&gt;Buf(this-&gt;length() - 1)));
+<a href='../S/44.html#L187'>value_type</a>        187 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/37.html#L48'>value_type</a>         48 List.h             typedef value_type*        pointer;
+<a href='../S/37.html#L49'>value_type</a>         49 List.h             typedef const value_type*  const_pointer;
+<a href='../S/37.html#L50'>value_type</a>         50 List.h             typedef value_type&amp;        reference;
+<a href='../S/37.html#L51'>value_type</a>         51 List.h             typedef const value_type&amp;  const_reference;
+<a href='../S/37.html#L55'>value_type</a>         55 List.h               value_type item;
+<a href='../S/37.html#L63'>value_type</a>         63 List.h               Node(const value_type&amp;&amp; p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+<a href='../S/37.html#L176'>value_type</a>        176 List.h             inline friend List&lt;value_type&gt;&amp; operator&lt;&lt; (List&lt;value_type&gt;&amp; list, const_reference item) {
+<a href='../S/37.html#L185'>value_type</a>        185 List.h            const value_type find(const_reference item) const {
+<a href='../S/37.html#L187'>value_type</a>        187 List.h               return node ? node-&gt;item : value_type();
+<a href='../S/37.html#L214'>value_type</a>        214 List.h             class ListIterator : public Iterator&lt;value_type&gt; {
+<a href='../S/37.html#L221'>value_type</a>        221 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;value_type&gt;(),
+<a href='../S/37.html#L227'>value_type</a>        227 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;value_type&gt;(),
+<a href='../S/37.html#L232'>value_type</a>        232 List.h                 ListIterator() : Iterator&lt;value_type&gt;(),
+<a href='../S/37.html#L260'>value_type</a>        260 List.h                 virtual operator value_type () { return operator*(); };
+<a href='../S/37.html#L262'>value_type</a>        262 List.h                 virtual value_type&amp; operator *() { return static_cast&lt;value_type&amp;&gt;(current-&gt;item); }
+<a href='../S/47.html#L58'>value_type</a>         58 Queue.h            typedef value_type*        pointer;
+<a href='../S/47.html#L59'>value_type</a>         59 Queue.h            typedef const value_type*  const_pointer;
+<a href='../S/47.html#L60'>value_type</a>         60 Queue.h            typedef value_type&amp;        reference;
+<a href='../S/47.html#L61'>value_type</a>         61 Queue.h            typedef const value_type&amp;  const_reference;
+<a href='../S/47.html#L64'>value_type</a>         64 Queue.h            Queue() : List&lt;value_type&gt;() {};
+<a href='../S/47.html#L70'>value_type</a>         70 Queue.h            value_type dequeue() {
+<a href='../S/47.html#L71'>value_type</a>         71 Queue.h              value_type item = this-&gt;tail-&gt;item;
+<a href='../S/47.html#L79'>value_type</a>         79 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&gt;&gt; (Queue&lt;value_type&gt;&amp; queue, reference item) {
+<a href='../S/47.html#L104'>value_type</a>        104 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
+<a href='../S/47.html#L128'>value_type</a>        128 Queue.h            typedef value_type&amp; 		reference;
+<a href='../S/47.html#L129'>value_type</a>        129 Queue.h            typedef value_type* 		pointer;
+<a href='../S/47.html#L173'>value_type</a>        173 Queue.h            typedef const value_type&amp;		reference;
+<a href='../S/47.html#L174'>value_type</a>        174 Queue.h            typedef const value_type*		pointer;
+<a href='../S/43.html#L282'>value_type</a>        282 ReferenceCountedArray.h     mutable ArrayRef&lt;value_type, Allocator&gt; *Ref;
+<a href='../S/43.html#L411'>value_type</a>        411 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+<a href='../S/43.html#L517'>value_type</a>        517 ReferenceCountedArray.h         Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/43.html#L538'>value_type</a>        538 ReferenceCountedArray.h     void resize(size_t len, value_type value = value_type()) {
+<a href='../S/43.html#L690'>value_type</a>        690 ReferenceCountedArray.h     inline value_type read(size_t pos) const { return *(constBuf(pos)); };
+<a href='../S/43.html#L695'>value_type</a>        695 ReferenceCountedArray.h     inline void write(size_t pos, value_type item) {
+<a href='../S/43.html#L704'>value_type</a>        704 ReferenceCountedArray.h     inline value_type operator[](size_t pos) const { return read(pos); };
+<a href='../S/43.html#L734'>value_type</a>        734 ReferenceCountedArray.h           (*this) = value_type(cref);
+<a href='../S/43.html#L742'>value_type</a>        742 ReferenceCountedArray.h         inline operator value_type() const { return rca.read(k); };
+<a href='../S/43.html#L747'>value_type</a>        747 ReferenceCountedArray.h         inline Cref&amp; operator=(value_type c) {
+<a href='../S/43.html#L767'>value_type</a>        767 ReferenceCountedArray.h     inline value_type at(size_t pos) const { return hasIndex(pos) ? (*this)[pos] : 0; };
 </pre>
 </body>
 </html>

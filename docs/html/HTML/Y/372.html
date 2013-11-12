@@ -1,35 +1,13 @@
 <html>
 <head>
-<title>newSize</title>
+<title>nmemb</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/45.html#L106'>newSize</a>           106 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
-<a href='../S/45.html#L107'>newSize</a>           107 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
-<a href='../S/44.html#L62'>newSize</a>            62 ReferenceCountedArray.h     void Reserve(size_t newSize, size_t&amp; offset, size_t sublen) const
-<a href='../S/44.html#L65'>newSize</a>            65 ReferenceCountedArray.h       if (size &lt; newSize) {
-<a href='../S/44.html#L66'>newSize</a>            66 ReferenceCountedArray.h         newSize = std::max(size_t(size * 1.5), newSize);
-<a href='../S/44.html#L68'>newSize</a>            68 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
-<a href='../S/44.html#L72'>newSize</a>            72 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
-<a href='../S/44.html#L77'>newSize</a>            77 ReferenceCountedArray.h           size = newSize;
-<a href='../S/44.html#L80'>newSize</a>            80 ReferenceCountedArray.h       } else if ((size - offset) &lt; newSize) {
-<a href='../S/44.html#L368'>newSize</a>           368 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/44.html#L369'>newSize</a>           369 ReferenceCountedArray.h       if (newSize &lt;= 0) return;
-<a href='../S/44.html#L371'>newSize</a>           371 ReferenceCountedArray.h       Reserve(newSize);
-<a href='../S/44.html#L381'>newSize</a>           381 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/44.html#L382'>newSize</a>           382 ReferenceCountedArray.h       if (newSize &lt;= 0) return;
-<a href='../S/44.html#L384'>newSize</a>           384 ReferenceCountedArray.h       Reserve(newSize);
-<a href='../S/44.html#L386'>newSize</a>           386 ReferenceCountedArray.h       for (size_t i = 0; i &lt; newSize; ++i)
-<a href='../S/44.html#L388'>newSize</a>           388 ReferenceCountedArray.h       this-&gt;setLength(newSize);
-<a href='../S/44.html#L464'>newSize</a>           464 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize) const { Ref-&gt;Reserve(newSize, offset, sublen); };
-<a href='../S/54.html#L22'>newSize</a>            22 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
-<a href='../S/54.html#L23'>newSize</a>            23 Stream.cpp       if (newSize &lt; capacity())
-<a href='../S/54.html#L25'>newSize</a>            25 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
-<a href='../S/34.html#L59'>newSize</a>            59 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
-<a href='../S/35.html#L123'>newSize</a>           123 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
-<a href='../S/35.html#L124'>newSize</a>           124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/10.html#L131'>nmemb</a>             131 Cstrings.c     void *calloc(size_t nmemb, size_t size)
+<a href='../S/10.html#L133'>nmemb</a>             133 Cstrings.c       void *ptr = ::calloc(nmemb, size);
 </pre>
 </body>
 </html>

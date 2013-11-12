@@ -1,24 +1,13 @@
 <html>
 <head>
-<title>allocator</title>
+<title>at</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L37'>allocator</a>          37 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt;&gt;
-<a href='../S/44.html#L51'>allocator</a>          51 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), n(1) {};
-<a href='../S/44.html#L177'>allocator</a>         177 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt;&gt;
-<a href='../S/44.html#L350'>allocator</a>         350 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/44.html#L368'>allocator</a>         368 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/44.html#L381'>allocator</a>         381 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/35.html#L61'>allocator</a>          61 String.h               typedef std::allocator&lt;String_Array_Type&gt; Allocator;
-<a href='../S/35.html#L82'>allocator</a>          82 String.h               String(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) {};
-<a href='../S/35.html#L93'>allocator</a>          93 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
-<a href='../S/35.html#L103'>allocator</a>         103 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
-<a href='../S/35.html#L112'>allocator</a>         112 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
-<a href='../S/35.html#L123'>allocator</a>         123 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
-<a href='../S/35.html#L124'>allocator</a>         124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/43.html#L767'>at</a>                767 ReferenceCountedArray.h     inline value_type at(size_t pos) const { return hasIndex(pos) ? (*this)[pos] : 0; };
+<a href='../S/35.html#L255'>at</a>                255 String.h               inline char charAt(size_t pos) const { return at(pos); };
 </pre>
 </body>
 </html>

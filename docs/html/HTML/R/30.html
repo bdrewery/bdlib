@@ -1,20 +1,27 @@
 <html>
 <head>
-<title>SEEK_END</title>
+<title>String_Array_Type</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/54.html#L38'>SEEK_END</a>           38 Stream.cpp         case SEEK_END:
-<a href='../S/54.html#L91'>SEEK_END</a>           91 Stream.cpp       size_t size = lseek(fd, 0, SEEK_END);
-<a href='../S/54.html#L109'>SEEK_END</a>          109 Stream.cpp       fseek(f, 0, SEEK_END);
-<a href='../S/13.html#L65'>SEEK_END</a>           65 tests/StreamTest.cpp   a-&gt;seek(0, SEEK_END);
-<a href='../S/13.html#L68'>SEEK_END</a>           68 tests/StreamTest.cpp   b-&gt;seek(0, SEEK_END);
-<a href='../S/13.html#L77'>SEEK_END</a>           77 tests/StreamTest.cpp   b-&gt;seek(1, SEEK_END);
-<a href='../S/13.html#L213'>SEEK_END</a>          213 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
-<a href='../S/13.html#L260'>SEEK_END</a>          260 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
-<a href='../S/13.html#L307'>SEEK_END</a>          307 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/35.html#L64'>String_Array_Type</a>   64 String.h       class String : public ReferenceCountedArray&lt;String_Array_Type&gt; {
+<a href='../S/35.html#L87'>String_Array_Type</a>   87 String.h               String(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) {};
+<a href='../S/35.html#L88'>String_Array_Type</a>   88 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(string) {};
+<a href='../S/35.html#L90'>String_Array_Type</a>   90 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/35.html#L98'>String_Array_Type</a>   98 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
+<a href='../S/35.html#L108'>String_Array_Type</a>  108 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
+<a href='../S/35.html#L117'>String_Array_Type</a>  117 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
+<a href='../S/35.html#L128'>String_Array_Type</a>  128 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
+<a href='../S/35.html#L129'>String_Array_Type</a>  129 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/35.html#L140'>String_Array_Type</a>  140 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(string);
+<a href='../S/35.html#L145'>String_Array_Type</a>  145 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
+<a href='../S/35.html#L156'>String_Array_Type</a>  156 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::find;
+<a href='../S/35.html#L166'>String_Array_Type</a>  166 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::rfind;
+<a href='../S/35.html#L301'>String_Array_Type</a>  301 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::append;
+<a href='../S/35.html#L304'>String_Array_Type</a>  304 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::insert;
+<a href='../S/35.html#L307'>String_Array_Type</a>  307 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::replace;
 </pre>
 </body>
 </html>
