@@ -70,7 +70,7 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
   return SCRIPT_LOAD_OK;
 }
 
-int ScriptInterpTCL::tcl_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   String cmdName(tcl_to_c_cast<String>::from(objv[0]));
   script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
 
@@ -80,7 +80,7 @@ int ScriptInterpTCL::tcl_callback(ClientData clientData, Tcl_Interp *interp, int
     return TCL_ERROR;
   }
 
-  ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), interp);
+  ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
   return TCL_OK;
 }
 

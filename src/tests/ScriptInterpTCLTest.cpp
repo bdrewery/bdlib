@@ -319,7 +319,7 @@ void ScriptInterpTCLTest :: createCommandInterpTest (void)
 {
   ScriptInterpTCL tcl_script;
 
-  tcl_script.createCommand("interp_cmd_test", interp_cmd_test);
+  tcl_script.createCommandInterp("interp_cmd_test", interp_cmd_test);
   CPPUNIT_ASSERT_STRING_EQUAL("test", tcl_script.eval("interp_cmd_test test"));
 }
 

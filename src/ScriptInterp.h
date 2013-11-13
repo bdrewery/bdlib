@@ -40,10 +40,12 @@ BDLIB_NS_BEGIN
 	}                                                                 \
 } while (0)
 
+class ScriptInterp;
+
 class ScriptCallbackBase {
   public:
     virtual ~ScriptCallbackBase() {};
-    virtual void call(size_t argc, void* const argv[], void *proxy_data = NULL) = 0;
+    virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
 };
 
 /**
@@ -95,6 +97,11 @@ class ScriptInterp {
         template<typename InterpType, typename ReturnType, typename... Params>
         static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(Params...), size_t min_params = size_t(-1)) {
           si.createCommand(cmdName, callback, min_params);
+        }
+
+        template<typename InterpType, typename ReturnType, typename... Params>
+        static void createCommandInterp(InterpType& si, const String& cmdName, ReturnType(*callback)(ScriptInterp*, Params...), size_t min_params = size_t(-1)) {
+          si.createCommandInterp(cmdName, callback, min_params);
         }
 
         /**
