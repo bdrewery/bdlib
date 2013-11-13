@@ -33,6 +33,7 @@ void ScriptInterpTCLTest :: evalTest (void)
   ScriptInterpTCL tcl_script;
 
   CPPUNIT_ASSERT_STRING_EQUAL("8", tcl_script.eval("expr {4 + 4}"));
+  tcl_script.eval("unknown");
   CPPUNIT_ASSERT_STRING_EQUAL(tcl_script.eval("set errorInfo"), tcl_script.eval("unknown"));
 }
 
