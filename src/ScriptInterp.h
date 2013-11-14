@@ -74,6 +74,10 @@ class ScriptInterp {
             callbackParamMax(_callbackParamMax) {};
         };
 
+        enum script_type {
+          SCRIPT_TYPE_TCL,
+        };
+
         ScriptInterp() {};
         virtual ~ScriptInterp() {};
 
@@ -129,7 +133,7 @@ class ScriptInterp {
         virtual void unlinkVar(const String& varName) = 0;
 
         // Used for downcasting hack due to no virtual templates
-        virtual String type() const = 0;
+        virtual script_type type() const = 0;
 };
 
 

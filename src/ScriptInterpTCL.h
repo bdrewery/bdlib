@@ -189,7 +189,7 @@ class ScriptInterpTCL : public ScriptInterp {
           Tcl_UnsetVar(interp, *varName, TCL_GLOBAL_ONLY);
         }
 
-        virtual String type() const { return String("ScriptInterpTCL"); }
+        virtual script_type type() const { return SCRIPT_TYPE_TCL; }
   private:
         static const char* TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
 
