@@ -23,7 +23,6 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (unlinkVarTest);
     CPPUNIT_TEST (createCommandTest);
     CPPUNIT_TEST (createCommandEventTest);
-    CPPUNIT_TEST (createCommandInterpTest);
     CPPUNIT_TEST (deleteCommandTest);
     CPPUNIT_TEST_SUITE_END ();
 
@@ -39,7 +38,6 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
         void unlinkVarTest(void);
         void createCommandTest(void);
         void createCommandEventTest(void);
-        void createCommandInterpTest(void);
         void deleteCommandTest(void);
     private:
 };

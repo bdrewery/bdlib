@@ -61,7 +61,7 @@ struct tcl_to_c_cast;
 template<>                                                        \
   struct tcl_to_c_cast<T>                                         \
   {                                                               \
-    static T from(Tcl_Obj* obj); \
+    static T from(Tcl_Obj* obj, ScriptInterp* si); \
   }
 
 tcl_to_c_castable(int);
@@ -72,6 +72,7 @@ tcl_to_c_castable(double);
 tcl_to_c_castable(bool);
 tcl_to_c_castable(String);
 tcl_to_c_castable(const char*);
+tcl_to_c_castable(ScriptCallbacker*);
 
 #define define_tcl_traceGet(T)                                                                                                     \
 template<>                                                                                                                         \
@@ -85,7 +86,7 @@ const char* tcl_traceSet<T> (ClientData clientData, Tcl_Interp* interp, char* na
   Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);                                                           \
   if (!obj) goto fail;                                                                                                             \
                                                                                                                                    \
-  *static_cast<T*>(clientData) = std::move(tcl_to_c_cast<T>::from(obj));                                                           \
+  *static_cast<T*>(clientData) = std::move(tcl_to_c_cast<T>::from(obj, NULL));                                                           \
   return NULL;                                                                                                                     \
 fail:                                                                                                                              \
   return name1;                                                                                                                    \
@@ -103,6 +104,16 @@ const char* tcl_traceGet (ClientData clientData, Tcl_Interp* interp, char* name1
 
 template <typename T>
 const char* tcl_traceSet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
+
+class ScriptCallbackerTCL : public ScriptCallbacker {
+  private:
+    ScriptCallbackerTCL(const ScriptCallbackerTCL&) = delete;
+    ScriptCallbackerTCL& operator=(const ScriptCallbackerTCL&) = delete;
+  public:
+    ScriptCallbackerTCL(ScriptInterp* _si, const String _cmd) : ScriptCallbacker(_si, _cmd) {};
+    virtual ~ScriptCallbackerTCL() {};
+    virtual String call(const Array<String>& params);
+};
 
 class ScriptInterpTCL : public ScriptInterp {
   private:
@@ -143,11 +154,6 @@ class ScriptInterpTCL : public ScriptInterp {
         template<typename ReturnType, typename... Params>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(Params...), size_t min_params = size_t(-1)) {
           _createCommand(cmdName, new ScriptCallbackTCL<ReturnType, Params...>(callback), min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
-        }
-
-        template<typename ReturnType, typename... Params>
-        inline void createCommandInterp(const String& cmdName, ReturnType(*callback)(ScriptInterp*, Params...), size_t min_params = size_t(-1)) {
-          _createCommand(cmdName, new ScriptCallbackInterpTCL<ReturnType, Params...>(callback), min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
         }
 
         virtual void deleteCommand(const String& cmdName) {

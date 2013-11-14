@@ -281,46 +281,55 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   tcl_script.createCommand("xz", my_xz);
 }
 
-HashTable<String, Array<String> > Events;
+HashTable<String, ScriptCallbacker* > Events;
 
-void on_event(String eventName, String eventCommand) {
+void script_bind(String eventName, ScriptCallbacker* scb) {
   // s:event c:Proc
-  Events[eventName] << eventCommand;
+  Events[eventName] = scb;
 }
 
 void ScriptInterpTCLTest :: createCommandEventTest (void)
 {
   ScriptInterpTCL tcl_script;
+  ScriptCallbacker* scb;
+  String result, input;
+  Array<String> params;
 
   tcl_script.createCommand("param_test", param_test);
 
   /* Try a TCL Callback from C++ (event binding from C)
-   * Execute on_event from TCL, which will record the bound event callback in Events
+   * Execute script_bind from TCL, which will record the bound event callback in Events
    * Then call the Event and verify that it returns our expected result
    */
-  // Create on_event which will add the passed proc to our event handling procedures (Just an Array for now)
-  tcl_script.createCommand("on_event", on_event);
+  // Create script_bind which will add the passed proc to our event handling procedures (Just an Array for now)
+  tcl_script.createCommand("bind", script_bind);
   // Bind an event
-  tcl_script.eval("on_event \"first test\" param_test");
+  tcl_script.eval("proc echo {args} { return $args }");
+  tcl_script.eval("bind test echo");
+
+  // Call the event from C++ and then verify it echos back the input
+  scb = Events["test"];
+  input = "my params";
+  params << input;
+  // FIXME: This call line needs help to accept arbitrary params
+  result = scb->call(params);
+  CPPUNIT_ASSERT_STRING_EQUAL(bd::String::printf("{%s}", input.c_str()), result);
+  params.clear();
+
+  tcl_script.eval("bind \"complex test\" param_test");
+  scb = Events["complex test"];
+
   // Now trigger the callback and verify that it calls the passed event
-  CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: test arg2: 42", tcl_script.eval(Events["first test"][0] + " \"test\" 42"));
-  Array<String> params;
-  params << Events["first test"][0];
+  params << "test";
+  params << "42";
+  result = scb->call(params);
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: test arg2: 42", result);
+  params.clear();
+
   params << "some argument";
   params << "45";
-  CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: some argument arg2: 45", tcl_script.eval(params.join(" ", true)));
-}
-
-String interp_cmd_test(ScriptInterp* interp, String params) {
-  return params;
-}
-
-void ScriptInterpTCLTest :: createCommandInterpTest (void)
-{
-  ScriptInterpTCL tcl_script;
-
-  tcl_script.createCommandInterp("interp_cmd_test", interp_cmd_test);
-  CPPUNIT_ASSERT_STRING_EQUAL("test", tcl_script.eval("interp_cmd_test test"));
+  result = scb->call(params);
+  CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: some argument arg2: 45", result);
 }
 
 void ScriptInterpTCLTest :: deleteCommandTest (void)
