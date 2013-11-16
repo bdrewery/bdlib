@@ -11,6 +11,7 @@
 BDLIB_NS_BEGIN
 
 HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
+HashTable<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
 
 /* Define static tcl_traceGet() template functions */
 define_tcl_traceGet(int);
@@ -91,10 +92,11 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
   return TCL_OK;
 }
 
-void ScriptInterpTCL::setupTraces(const String& varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set) {
+void ScriptInterpTCL::setupTraces(const String& varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
   Tcl_SetVar(interp, *varName, "", TCL_GLOBAL_ONLY);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
+  link_var_hooks[varName] = hook_func;
 }
 
 const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {

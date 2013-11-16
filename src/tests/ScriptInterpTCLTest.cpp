@@ -78,6 +78,14 @@ void ScriptInterpTCLTest :: operatorEqualsTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("5", tcl_script2.eval("set x"));
 }
 */
+
+static String changed_nick_oldval;
+static String changed_nick_newval;
+void changed_nick(const String* oldval, const String *newval) {
+  changed_nick_oldval = *oldval;
+  changed_nick_newval = *newval;
+}
+
 void ScriptInterpTCLTest :: linkVarTest (void)
 {
   ScriptInterpTCL tcl_script;
@@ -199,8 +207,18 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL((bool)1, (bool)atol(tcl_script.eval("set bcy").c_str()));
   CPPUNIT_ASSERT_EQUAL((bool)1, bcy);
 
-  /* Test invalid type conversion */
+  /* XXX: Test invalid type conversion */
 
+  /* Test hooked vars */
+  String nick("oldval");
+  tcl_script.linkVar("nick", nick, reinterpret_cast<ScriptInterp::link_var_hook>(changed_nick));
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", nick);
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_oldval.isEmpty());
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_newval.isEmpty());
+  tcl_script.eval("set nick newval");
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_oldval);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", changed_nick_newval);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", nick);
 }
 
 void ScriptInterpTCLTest::unlinkVarTest(void) {

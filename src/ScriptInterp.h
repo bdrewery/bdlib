@@ -90,6 +90,7 @@ class ScriptInterp {
         enum script_type {
           SCRIPT_TYPE_TCL,
         };
+        typedef void (*link_var_hook)(const void*, const void*);
 
         ScriptInterp() {};
         virtual ~ScriptInterp() {};
