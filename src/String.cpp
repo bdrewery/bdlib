@@ -48,7 +48,7 @@ int String::compare(const String& str, size_t n, size_t start) const
 
   const size_t slen = n ? std::min(str.length(), n) : str.length();
   const size_t len = std::min(my_len - start, slen);
-  const int diff = memcmp(begin() + start, str.begin(), len);
+  const int diff = std::memcmp(begin() + start, str.begin(), len);
   if (diff)
     return diff;
   else if (n)
@@ -215,7 +215,7 @@ size_t String::find(const String& str) const {
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
     for (size_t pos = 0; pos <= last_pos; ++pos)
-      if (str[0] == (*this)[pos] && !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+      if (str[0] == (*this)[pos] && !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
         return pos;
   }
   return npos;
@@ -239,7 +239,7 @@ size_t String::rfind(const String& str, const size_t lpos) const {
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
     for (size_t pos = last_pos; pos + 1 > lpos; --pos)
-      if (str[0] == (*this)[pos] && !memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+      if (str[0] == (*this)[pos] && !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
         return pos;
   }
   return npos;

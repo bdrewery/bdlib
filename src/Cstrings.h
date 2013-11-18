@@ -31,7 +31,7 @@
 #include "bdlib.h"
 
 #ifdef HAVE_STRING_H
-#include <string.h>
+#include <cstring>
 #endif
 
 BDLIB_NS_BEGIN
