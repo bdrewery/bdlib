@@ -31,6 +31,7 @@
 #include "bdlib.h"
 #include "hash.h"
 #include <algorithm>
+#include <atomic>
 #include <iterator>
 #include <memory>
 #include <cstdint>
@@ -53,7 +54,7 @@ class ArrayRef {
     mutable Allocator alloc;
     mutable size_t size; //Capacity of buffer
     mutable iterator buf;
-    mutable int n; //References
+    mutable std::atomic<int> n; //References
 
     ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), n(1) {};
     ~ArrayRef() {
@@ -500,7 +501,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief How many references does this object have?
      */
-    inline size_t rcount() const { return Ref ? Ref->n : 0; };
+    inline size_t rcount() const { return Ref ? Ref->n.load() : 0; };
     /**
      * @return True if this object is shared; false if not.
      */
