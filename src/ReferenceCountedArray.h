@@ -30,6 +30,7 @@
 
 #include "bdlib.h"
 #include "hash.h"
+#include <algorithm>
 #include <iterator>
 #include <memory>
 #include <cstdint>
