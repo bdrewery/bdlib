@@ -25,7 +25,7 @@
 /* StringTest.c
  *
  */
-#include <ctype.h>
+#include <cctype>
 #include "StringTest.h"
 #include "Array.h"
 #include "HashTable.h"

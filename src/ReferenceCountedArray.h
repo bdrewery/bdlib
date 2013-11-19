@@ -33,12 +33,12 @@
 #include <algorithm>
 #include <iterator>
 #include <memory>
-#include <stdint.h>
+#include <cstdint>
 #include <sys/types.h>
 #ifdef DEBUG
-#include <stdio.h>
+#include <cstdio>
 #endif
-#include <string.h>
+#include <cstring>
 
 BDLIB_NS_BEGIN
 template <class T, class Allocator = std::allocator<T> >

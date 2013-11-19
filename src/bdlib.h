@@ -37,7 +37,7 @@
 #endif
 
 #ifdef HAVE_STDLIB_H
-#include <stdlib.h>
+#include <cstdlib>
 #endif
 #define BDLIB_NS bd
 #define BDLIB_NS_BEGIN namespace BDLIB_NS {

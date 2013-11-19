@@ -31,7 +31,6 @@
 #include "bdlib.h"
 #include "ReferenceCountedArray.h"
 #include "String.h"
-#include <stdio.h>
 
 #ifdef CPPUNIT_VERSION
 #include <cppunit/SourceLine.h>
