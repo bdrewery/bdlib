@@ -50,7 +50,7 @@ int ScriptInterpTCL::init() {
 int ScriptInterpTCL::destroy() {
   if (interp && !Tcl_InterpDeleted(interp)) {
     Tcl_DeleteInterp(interp);
-    interp = NULL;
+    interp = nullptr;
   }
   return 0;
 }
@@ -79,7 +79,7 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
  * @brief Callback handler for when a TCL->C function call is made
  */
 int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
-  String cmdName(tcl_to_c_cast<String>::from(objv[0], NULL));
+  String cmdName(tcl_to_c_cast<String>::from(objv[0], nullptr));
   script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
 
   if ((size_t(objc) - 1) < ccd->callbackParamMin || size_t(objc) - 1 > ccd->callbackParamMax) {
@@ -105,10 +105,10 @@ const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *inte
 
 const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags) {
   if (value) {
-    Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast<const char*>::from(value, NULL), flags);
+    Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast<const char*>::from(value, nullptr), flags);
     Tcl_DecrRefCount(value);
   }
-  return NULL;
+  return nullptr;
 }
 
 Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
@@ -135,7 +135,7 @@ Tcl_Obj* c_to_tcl_cast<double>::from(double value) {
 }
 
 Tcl_Obj* c_to_tcl_cast<String>::from(String value) {
-  return (value.length() < INT_MAX) ? Tcl_NewStringObj(value.data(), value.length()) : NULL;
+  return (value.length() < INT_MAX) ? Tcl_NewStringObj(value.data(), value.length()) : nullptr;
 }
 
 Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value) {return c_to_tcl_cast<String>::from(value);}
@@ -154,7 +154,7 @@ String tcl_to_c_cast<String>::from(Tcl_Obj* obj, ScriptInterp* si) {
   }
 
   return String(cstr, len);
-  //return NULL;
+  //return nullptr;
 }
 
 const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj, ScriptInterp* si) {
@@ -213,7 +213,7 @@ ScriptCallbacker* tcl_to_c_cast<ScriptCallbacker*>::from(Tcl_Obj* obj, ScriptInt
   int len = 0;
   char *cstr = Tcl_GetStringFromObj(obj, &len);
   if (!cstr) {
-    return NULL;
+    return nullptr;
     //return "Type Error";
   }
 

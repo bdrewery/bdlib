@@ -87,10 +87,10 @@ const char* tcl_traceSet<T> (ClientData clientData, Tcl_Interp* interp, char* na
   if (!obj) return name1;                                                                                                          \
   const T oldval(*static_cast<T*>(clientData));                                                                                    \
                                                                                                                                    \
-  *static_cast<T*>(clientData) = std::move(tcl_to_c_cast<T>::from(obj, NULL));                                                     \
+  *static_cast<T*>(clientData) = std::move(tcl_to_c_cast<T>::from(obj, nullptr));                                                     \
   if (ScriptInterpTCL::link_var_hooks[name1])                                                                                      \
     (ScriptInterpTCL::link_var_hooks[name1])((const void*)&oldval, (const void*)(clientData));                                     \
-  return NULL;                                                                                                                     \
+  return nullptr;                                                                                                                     \
 }
 
 class ScriptCallbackTCLBase : public ScriptCallbackBase {
@@ -130,7 +130,7 @@ class ScriptInterpTCL : public ScriptInterp {
         void _createCommand(const String& cmdName, ScriptCallbackBase* callback_proxy, size_t callbackParamMin, size_t callbackParamMax) {
           script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, callback_proxy, callbackParamMin, callbackParamMax);
           CmdHandlerData[cmdName] = ccd;
-          Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, NULL, NULL);
+          Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
         }
 
   protected:
@@ -139,7 +139,7 @@ class ScriptInterpTCL : public ScriptInterp {
 
   public:
         static HashTable<String, link_var_hook> link_var_hooks;
-        ScriptInterpTCL() : ScriptInterp(), interp(NULL) {init();};
+        ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
         virtual ~ScriptInterpTCL() {
           // Delete all of my ccd
           CmdHandlerData.each([](String cmdName, script_cmd_handler_clientdata* ccd, void* param) {
@@ -174,7 +174,7 @@ class ScriptInterpTCL : public ScriptInterp {
          * @param var The variable to link to
          */
         template <typename T>
-          inline void linkVar(const String& varName, T& var, link_var_hook hook_func = NULL) {
+          inline void linkVar(const String& varName, T& var, link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var, (Tcl_VarTraceProc*) tcl_traceGet<T>, (Tcl_VarTraceProc*) tcl_traceSet<T>, hook_func);
           };
 
@@ -185,7 +185,7 @@ class ScriptInterpTCL : public ScriptInterp {
          * @note The variable will be created as read-only
          */
         template <typename T>
-          inline void linkVar(const String& varName, const T& var, link_var_hook hook_func = NULL) {
+          inline void linkVar(const String& varName, const T& var, link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var, (Tcl_VarTraceProc*) tcl_traceGet<T>, (Tcl_VarTraceProc*) TraceSetRO, hook_func);
           };
 
