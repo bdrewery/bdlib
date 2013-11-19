@@ -43,7 +43,7 @@ void BinaryTreeTest :: setUp (void)
     h = new String(35);
 */
   a = new BinaryTree<int, String>();
-  b = c = d = e = f = g = h = NULL;
+  b = c = d = e = f = g = h = nullptr;
 }
 
 void BinaryTreeTest :: tearDown (void)

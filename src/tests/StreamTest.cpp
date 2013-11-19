@@ -229,9 +229,9 @@ void StreamTest :: loadFileTest (void)
 {
   const char *file = "/etc/passwd";
 
-  FILE *f = NULL;
+  FILE *f = nullptr;
   f = fopen(file, "rb");
-  if (f == NULL)
+  if (f == nullptr)
     return;
 
   fseek(f, 0, SEEK_END);
@@ -252,7 +252,7 @@ void StreamTest :: loadFileTest (void)
   String gbuf;
 
   fseek(f, 0, SEEK_SET);
-  while (fgets(buf, sizeof(buf), f) != NULL) {
+  while (fgets(buf, sizeof(buf), f) != nullptr) {
     gbuf = a->getline(sizeof(buf) - 1);
     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
   }
@@ -276,9 +276,9 @@ void StreamTest :: writeFileFDTest (void)
 
   /* Verify that the written file matches the source file */
 
-  FILE *f = NULL;
+  FILE *f = nullptr;
   f = fopen(file, "rb");
-  if (f == NULL)
+  if (f == nullptr)
     return;
 
   fseek(f, 0, SEEK_END);
@@ -297,7 +297,7 @@ void StreamTest :: writeFileFDTest (void)
   String gbuf;
 
   fseek(f, 0, SEEK_SET);
-  while (fgets(buf, sizeof(buf), f) != NULL) {
+  while (fgets(buf, sizeof(buf), f) != nullptr) {
     gbuf = a->getline(sizeof(buf) - 1);
     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
   }
@@ -323,9 +323,9 @@ void StreamTest :: writeFileTest (void)
 
   /* Verify that the written file matches the source file */
 
-  FILE *f = NULL;
+  FILE *f = nullptr;
   f = fopen(file, "rb");
-  if (f == NULL)
+  if (f == nullptr)
     return;
 
   fseek(f, 0, SEEK_END);
@@ -344,7 +344,7 @@ void StreamTest :: writeFileTest (void)
   String gbuf;
 
   fseek(f, 0, SEEK_SET);
-  while (fgets(buf, sizeof(buf), f) != NULL) {
+  while (fgets(buf, sizeof(buf), f) != nullptr) {
     gbuf = a->getline(sizeof(buf) - 1);
     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
   }

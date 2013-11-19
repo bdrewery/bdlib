@@ -126,7 +126,7 @@ int Stream::loadFile(const int fd)
   munmap(static_cast<void*>(map), size);
 #else
   FILE *f = fdopen(fd, "rb");
-  if (f == NULL)
+  if (f == nullptr)
     return 1;
 
   loading = 1;
@@ -176,7 +176,7 @@ int Stream::writeFile(const int fd) const
   if (munmap(map, length()) == -1) return 1;
 #else
   FILE *f = fdopen(fd, "wb");
-  if (f == NULL)
+  if (f == nullptr)
     return 1;
 
   if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {

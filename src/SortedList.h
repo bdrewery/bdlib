@@ -58,15 +58,15 @@ class SortedList : public List<T> {
        * 3) list = (X)->(Y)
        * 4) list = (W)->(X)->(Y)
        */
-      Node* node = new Node(item), *prev = NULL, *current = this->head;
-      while (current != NULL && item < current->item) {
+      Node* node = new Node(item), *prev = nullptr, *current = this->head;
+      while (current != nullptr && item < current->item) {
         prev = current;
         current = current->next;
       }
 
-      if (current == NULL && this->head == NULL) {
+      if (current == nullptr && this->head == nullptr) {
         this->head = this->tail = node;
-      } else if (current == NULL) { //Ran off the end, insert AS tail
+      } else if (current == nullptr) { //Ran off the end, insert AS tail
         this->tail = prev->next = node;
         node->prev = prev; //prev=tail
       } else if (current == this->head) {

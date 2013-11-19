@@ -69,9 +69,9 @@ class Thread {
 
   friend threadMainRet_t threadMain(void*);
   public:
-    Thread(void) : handle(0), id(0), status(0), param(NULL) {};
+    Thread(void) : handle(0), id(0), status(0), param(nullptr) {};
     virtual ~Thread() { stop(); };
-    int start(void* = NULL);
+    int start(void* = nullptr);
     void detach(void);
     void* wait(void);
     void stop(void);

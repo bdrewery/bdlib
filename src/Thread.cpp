@@ -64,7 +64,7 @@ int Thread::start(void* _param) {
 /* endif USE_PTHREAD */
 #elif defined(WIN32)  
     /* Attempt to create the thread */
-    if (this->handle = (HANDLE)_beginthreadex(NULL, 0, threadMain, this, 0, &(this->id)) {
+    if (this->handle = (HANDLE)_beginthreadex(nullptr, 0, threadMain, this, 0, &(this->id)) {
       if (isDetached())
         CloseHandle(this->handle);
       setStarted();
@@ -91,7 +91,7 @@ void Thread::detach(void) {
 }
 
 void* Thread::wait(void) {
-  void* _status = NULL;
+  void* _status = nullptr;
 
   if (shouldDetach()) {
 #if defined(USE_PTHREAD)
@@ -137,7 +137,7 @@ void Thread::sleep(int delay) {
 
   timeout.tv_sec = delay / 1000;
   timeout.tv_usec = (delay * 1000) % 1000000;
-  select(0, (fd_set*) NULL, (fd_set*) NULL, (fd_set*) NULL, &timeout);
+  select(0, (fd_set*) nullptr, (fd_set*) nullptr, (fd_set*) nullptr, &timeout);
 #elif defined(WIN32)
   ::Sleep(delay);
 #endif

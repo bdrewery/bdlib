@@ -107,9 +107,9 @@ class Queue : public List<T> {
     }
 
     inline iterator begin() { return iterator(this, this->tail); };
-    inline iterator end() { return iterator(this, NULL); };
+    inline iterator end() { return iterator(this, nullptr); };
     inline const_iterator begin() const { return const_iterator(this, this->tail); };
-    inline const_iterator end() const { return const_iterator(this, NULL, 1); };
+    inline const_iterator end() const { return const_iterator(this, nullptr, 1); };
 };
 
 template <class T>
@@ -134,7 +134,7 @@ class QueueIterator {
 
     QueueIterator(Queue<T>* _queue, Node* start) : queue(_queue), current(start) {};
   public:
-    QueueIterator() : queue(NULL), current(NULL) {};
+    QueueIterator() : queue(nullptr), current(nullptr) {};
     ~QueueIterator() { }
 
     reference operator *() const { return current->item; }
@@ -180,7 +180,7 @@ class QueueConstIterator {
     QueueConstIterator(const Queue<T>* _queue, const Node* start) : queue(_queue), current(start) {};
   public:
     QueueConstIterator(const iterator& iter) : queue(iter.queue), current(iter.current) {};
-    QueueConstIterator() : queue(NULL), current(NULL) {};
+    QueueConstIterator() : queue(nullptr), current(nullptr) {};
     ~QueueConstIterator() { }
 /* This should be implemented in Queue.remove(iterator) */
 /*
@@ -193,7 +193,7 @@ class QueueConstIterator {
     }
 */
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    virtual explicit operator bool() const { return (current != NULL); };
+    virtual explicit operator bool() const { return (current != nullptr); };
 #endif
     reference operator *() const { return current->item; }
     pointer operator ->() const { return &(operator*()); }

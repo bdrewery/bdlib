@@ -52,9 +52,9 @@ class BinaryTree {
         Node *right;
         iterator_type kv;
 
-        Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
-        Node(const Node& n) : left(n.left ? new Node(*(n.left)) : NULL),
-                              right(n.right ? new Node(*(n.right)) : NULL),
+        Node(const Key k, const Value v) : left(nullptr), right(nullptr), kv(k, v) { };
+        Node(const Node& n) : left(n.left ? new Node(*(n.left)) : nullptr),
+                              right(n.right ? new Node(*(n.right)) : nullptr),
                               kv(n.kv) {};
     };
 
@@ -68,7 +68,7 @@ class BinaryTree {
       * @return The node searched for, if found, otherwise NULL
       */
     Node*& fetchNode(Node* const* search, const Key& key) const {
-      while ((*search) != NULL) {
+      while ((*search) != nullptr) {
         if (key < (*search)->kv.key())
           search = &(*search)->left;
         else if (key > (*search)->kv.key())
@@ -103,14 +103,14 @@ class BinaryTree {
       * @param node A reference to the node to delete.
       */
     void deleteNode(Node*& node) {
-      if (node == NULL) 
+      if (node == nullptr)
         return;
-      if (node->left == NULL) {
+      if (node->left == nullptr) {
         Node* temp = node->right;
         delete node;
         node = temp;
         --my_size;
-      } else if (node->right == NULL) {
+      } else if (node->right == nullptr) {
         Node* temp = node->left;
         delete node;
         node = temp;
@@ -119,7 +119,7 @@ class BinaryTree {
         //Two children, find max of left subtree and swap
         Node** temp = &(node->left);
 
-        while ((*temp)->right != NULL)
+        while ((*temp)->right != nullptr)
           temp = &(*temp)->right;
         node->kv = (*temp)->kv;
         deleteNode(*temp);
@@ -150,11 +150,11 @@ class BinaryTree {
 #endif
 
   public:
-    BinaryTree() : my_size(0), root(NULL) {};
+    BinaryTree() : my_size(0), root(nullptr) {};
     BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
     BinaryTree(BinaryTree&& tree) : my_size(std::move(tree.my_size)), root(std::move(tree.root)) {
-      root = NULL;
+      root = nullptr;
       my_size = 0;
     };
 #endif
@@ -225,7 +225,7 @@ class BinaryTree {
     bool remove(const Key& key) {
       Node*& node = fetchNode(&root, key);
 
-      if (node != NULL) {
+      if (node != nullptr) {
         deleteNode(node);
         return true;
       }
@@ -233,7 +233,7 @@ class BinaryTree {
     }
 
     inline void clear() {
-      while (root != NULL)
+      while (root != nullptr)
         deleteNode(root);
     }
 
@@ -282,7 +282,7 @@ class BinaryTree {
         iterator_type* storage;
 
         void fillArray(int& i, const Node* node) {
-          if (node == NULL) 
+          if (node == nullptr) 
             return;
           fillArray(i, node->left);
           storage[i++] = iterator_type(node->kv);
@@ -311,11 +311,11 @@ class BinaryTree {
         }
 
         BinaryTreeIterator() : Iterator<iterator_type>(),
-                               tree(NULL),
+                               tree(nullptr),
                                index(0),
                                my_size(0),
                                reverse(0),
-                               storage(NULL) {
+                               storage(nullptr) {
         };
 
         iterator& operator=(const iterator& iter) {

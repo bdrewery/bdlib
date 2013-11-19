@@ -56,14 +56,14 @@ class List {
       Node* next;
       Node* prev;
       
-      Node(const_reference p) : item(p), next(NULL), prev(NULL) {};
+      Node(const_reference p) : item(p), next(nullptr), prev(nullptr) {};
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
       Node(const value_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
-        item = NULL;
-        next = NULL;
-        prev = NULL;
+        item = nullptr;
+        next = nullptr;
+        prev = nullptr;
       };
 #endif
 
@@ -102,7 +102,7 @@ class List {
           return current;
         }
       }
-      return NULL;
+      return nullptr;
     }
 
     Node* head;
@@ -110,16 +110,16 @@ class List {
     size_type my_size;
 
   public:
-    List() : head(NULL), tail(NULL), my_size(0) {};
+    List() : head(nullptr), tail(nullptr), my_size(0) {};
     virtual ~List() { clear(); };
 
-    List(const List& list) : head(NULL), tail(NULL), my_size(0) {
+    List(const List& list) : head(nullptr), tail(nullptr), my_size(0) {
       for (Node* search = list.head; search; search = search->next)
         insert(search->item);
     }
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-    List(List&& list) : head(NULL), tail(NULL), my_size(0) {
+    List(List&& list) : head(nullptr), tail(nullptr), my_size(0) {
       swap(*this, list);
     }
 #endif
@@ -138,13 +138,13 @@ class List {
     }
 
     void clear() {
-      Node* node = head, *node_n = NULL;
+      Node* node = head, *node_n = nullptr;
       while (node) {
         node_n = node->next;
         delete node;
         node = node_n;
       }
-      head = tail = NULL;
+      head = tail = nullptr;
       my_size = 0;
     };
 
@@ -230,8 +230,8 @@ class List {
                                              end(iter.end) {
         };
         ListIterator() : Iterator<value_type>(),
-                         list(NULL),
-                         current(NULL),
+                         list(nullptr),
+                         current(nullptr),
                          end(0) {
         };
 
@@ -256,7 +256,7 @@ class List {
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
           explicit
 #endif
-        operator bool() const { return (current != NULL); };
+        operator bool() const { return (current != nullptr); };
         virtual operator value_type () { return operator*(); };
           
         virtual value_type& operator *() { return static_cast<value_type&>(current->item); }

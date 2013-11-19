@@ -99,7 +99,7 @@ str_redup(char **str, const char *newstr)
 
         if (!newstr) {
                 if (*str) free(*str);
-                *str = NULL;
+                *str = nullptr;
                 return;
         }
         len = strlen(newstr) + 1;
@@ -112,7 +112,7 @@ strdup(const char *entry)
 {
   size_t len = strlen(entry);
   char *target = static_cast<char*>(calloc(1, len + 1));
-  if (target == NULL) return NULL;
+  if (target == nullptr) return nullptr;
   target[len] = 0;
   return static_cast<char*>(memcpy(target, entry, len));
 }
@@ -123,7 +123,7 @@ strldup(const char *entry, size_t maxlen)
   size_t slen = strlen(entry);
   size_t len = slen < maxlen ? slen : maxlen;
   char *target = static_cast<char*>(calloc(1, len + 1));
-  if (target == NULL) return NULL;
+  if (target == nullptr) return nullptr;
   target[len] = 0;
   return static_cast<char*>(memcpy(target, entry, len));
 }
@@ -132,7 +132,7 @@ void *calloc(size_t nmemb, size_t size)
 {
   void *ptr = ::calloc(nmemb, size);
 
-  if (ptr == NULL)
+  if (ptr == nullptr)
     exit(5);
 
   return ptr;
@@ -142,7 +142,7 @@ void *realloc(void *ptr, size_t size)
 {
   void *x = ::realloc(ptr, size);
 
-  if (x == NULL && size > 0)
+  if (x == nullptr && size > 0)
     exit(5);
 
   return x;

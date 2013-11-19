@@ -980,7 +980,7 @@ void StringTest :: base64Test(void)
 #ifdef DISABLED
 void StringTest :: encryptTest(void)
 {
-  b->encrypt(NULL);
+  b->encrypt(nullptr);
   CPPUNIT_ASSERT(*b == *c);
   CPPUNIT_ASSERT(*b == "blah");
   b->encrypt("");

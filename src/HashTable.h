@@ -68,7 +68,7 @@ class HashTable {
     };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
     HashTable(HashTable<Key, Value>&& table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-      _list = NULL;
+      _list = nullptr;
       _size = 0;
       _capacity = default_list_size;
       _hash = _hash();
@@ -95,7 +95,7 @@ class HashTable {
      * @param block The block to execute for each element
      * @param param An optional parameter to pass to the block.
      */
-    void each(hash_table_block block, void* param = NULL) {
+    void each(hash_table_block block, void* param = nullptr) {
       if (!size()) return;
 
       // Make a list of KeyValues to yield from.

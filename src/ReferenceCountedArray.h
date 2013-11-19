@@ -56,7 +56,7 @@ class ArrayRef {
     mutable iterator buf;
     mutable std::atomic<int> refs; //References
 
-    ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), refs(1) {};
+    ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
     ~ArrayRef() {
       if (buf) {
         FreeBuf(buf);
@@ -229,7 +229,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void doDetach() const {
       decRef();
-      Ref = NULL;
+      Ref = nullptr;
       sublen = 0;
       offset = 0;
       my_hash = 0;
@@ -269,7 +269,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Mutable Ref->buf reference for use internally
      */
-    inline pointer Buf(size_t pos = 0) const { return Ref ? &Ref->buf[offset + pos] : NULL; };
+    inline pointer Buf(size_t pos = 0) const { return Ref ? &Ref->buf[offset + pos] : nullptr; };
 
     /**
      * @brief Ref->buf reference for use internally
@@ -286,7 +286,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
      */
-    inline const_pointer real_begin() const { return Ref ? Ref->buf : NULL; };
+    inline const_pointer real_begin() const { return Ref ? Ref->buf : nullptr; };
 
     /**
      * This is for subarrays: so we know where the subarray starts.
@@ -328,7 +328,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline void CheckDeallocRef() {
       if (Ref && decRef() < 1) {
         delete Ref;
-        Ref = NULL;
+        Ref = nullptr;
       }
     }
 
@@ -376,13 +376,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       }
     }
   public:
-    ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
     };
     ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
     ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
       rca.alloc = Allocator();
-      rca.Ref = NULL;
+      rca.Ref = nullptr;
       rca.offset = 0;
       rca.sublen = 0;
       rca.my_hash = 0;
@@ -397,7 +397,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * The idea behind this is that if a specific size was asked for, the buffer is like
      * a char buf[N];
      */
-    explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+    explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
       if (newSize) {
         Reserve(newSize);
       }
@@ -410,7 +410,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post A buffer has been created.
      *
      */
-    ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
       if (newSize) {
         Reserve(newSize);
 
@@ -479,7 +479,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       rca.offset = 0;
       rca.sublen = 0;
       rca.my_hash = 0;
-      rca.Ref = NULL;
+      rca.Ref = nullptr;
 
       return *this;
     }

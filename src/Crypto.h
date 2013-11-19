@@ -41,7 +41,7 @@ class Crypto {
     static const size_t iv_len = 0;
     int flags;
   public:
-    Crypto(const unsigned char* key, const unsigned char* iv = NULL);
+    Crypto(const unsigned char* key, const unsigned char* iv = nullptr);
     Crypto(const Crypto& crypter) {};
     ~Crypto() {};
 };
