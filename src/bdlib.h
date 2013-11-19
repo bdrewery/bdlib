@@ -37,7 +37,7 @@
 #endif
 
 #ifdef HAVE_STDLIB_H
-#include <stdlib.h>
+#include <cstdlib>
 #endif
 
 #include "bits.h"

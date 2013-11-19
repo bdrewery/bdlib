@@ -31,13 +31,11 @@
 #include "bdlib.h"
 #include "ReferenceCountedArray.h"
 
-#include <stdint.h>
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
 #include <cstring>
 
-#include <stdio.h>
 
 #ifdef CPPUNIT_VERSION
 #include <cppunit/SourceLine.h>

@@ -28,14 +28,11 @@
 #include "String.h"
 #include "Array.h"
 #include "HashTable.h"
-#include <stdarg.h>
+#include <cstdarg>
 #include <cstring>
-using std::strlen;
-using std::memmove;
 #include "base64.h"
 //#include <memory>
 //#include <iostream>
-//using namespace std;
 
 BDLIB_NS_BEGIN
 
@@ -76,10 +73,10 @@ void String::insert(size_t pos, const char *string, size_t n)
   if (n == 0) return;
   if (pos && !hasIndex(pos-1)) return;
   
-  size_t slen = (n == npos) ? strlen(string) : n;
+  size_t slen = (n == npos) ? std::strlen(string) : n;
 
   AboutToModify(length() + slen);
-  memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+  std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
   std::copy(string, string + slen, Buf() + pos);
   addLength(slen);
 }
@@ -95,7 +92,7 @@ void String::replace(size_t pos, const char *string, size_t n)
   if (n == 0) return;
   if (pos && !hasIndex(pos-1)) return;
 
-  size_t slen = (n == npos) ? strlen(string) : n;
+  size_t slen = (n == npos) ? std::strlen(string) : n;
   size_t newlen = pos + slen;
   
   if (newlen >= length()) {
@@ -194,7 +191,7 @@ String String::printf(const char* format, ...) {
   va_list va;
 
   va_start(va, format);
-  size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
+  size_t len = std::vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
   return String(va_out, len);
