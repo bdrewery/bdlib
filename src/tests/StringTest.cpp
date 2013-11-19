@@ -73,10 +73,8 @@ void StringTest :: lengthTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t) 1, g->length());
   CPPUNIT_ASSERT_EQUAL((size_t) 0, h->length());
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
   // Check boolean operator
   CPPUNIT_ASSERT_EQUAL((bool) true, *g ? true : false);
-#endif
 }
 
 void StringTest :: clearTest (void)
@@ -145,7 +143,6 @@ void StringTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
   // Test move semantics
   String my_string(std::move(*a));
   CPPUNIT_ASSERT_EQUAL(size_t(2), my_string.rcount());
@@ -159,7 +156,6 @@ void StringTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
-#endif
 }
 
 void StringTest :: swapTest (void)

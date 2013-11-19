@@ -25,6 +25,7 @@
 /* HashTableTest.c
  *
  */
+#include <unordered_map>
 #include "HashTableTest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION (HashTableTest);
@@ -398,8 +399,6 @@ void HashTableTest :: iterateTest (void)
 }
 #endif
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
-#include <unordered_map>
 void HashTableTest :: initializerTest(void) {
   HashTable<String, int> my_hash {
     {"One", 1}, {"Two", 2}
@@ -408,4 +407,3 @@ void HashTableTest :: initializerTest(void) {
   CPPUNIT_ASSERT_EQUAL(1, static_cast<int>(my_hash["One"]));
   CPPUNIT_ASSERT_EQUAL(2, static_cast<int>(my_hash["Two"]));
 }
-#endif

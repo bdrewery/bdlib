@@ -66,19 +66,15 @@ class HashTable {
       for (size_t i = 0; i < _capacity; ++i)
           _list[i] = table._list[i];
     };
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     HashTable(HashTable<Key, Value>&& table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
       _list = nullptr;
       _size = 0;
       _capacity = default_list_size;
       _hash = _hash();
     }
-#endif
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     HashTable(std::initializer_list<iterator_type> list) : _list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
       *this = list;
     }
-#endif
 
     virtual ~HashTable() {
       delete[] _list;
@@ -131,7 +127,6 @@ class HashTable {
       return *this; 
     }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list
@@ -142,14 +137,11 @@ class HashTable {
       }
       return *this;
     }
-#endif
 
     inline size_t size() const { return _size; };
     inline size_t capacity() const { return _capacity; };
     inline bool isEmpty() const { return size() == 0; };
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); };
-#endif
 
     bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;

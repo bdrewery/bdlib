@@ -84,9 +84,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /* Constructors */
         String(const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
 	String(const String& string) : ReferenceCountedArray<String_Array_Type, Allocator>(string) {};
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
 	String(String&& string) : ReferenceCountedArray<String_Array_Type, Allocator>(std::move(string)) {};
-#endif
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
@@ -138,12 +136,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           ReferenceCountedArray<String_Array_Type, Allocator>::operator=(string);
           return *this;
         }
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
         String& operator=(String&& string) {
           ReferenceCountedArray<String_Array_Type, Allocator>::operator=(std::move(string));
           return *this;
         }
-#endif
 
         /**
          * @brief Find a string in the string

@@ -414,7 +414,6 @@ void ArrayTest :: operatorsTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("4", str_c->join(' '));
 }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
 void ArrayTest :: initializerTest(void) {
   // Test initializer constructor
   Array<int> my_array_initializer = {0, 1, 2, 3};
@@ -432,4 +431,3 @@ void ArrayTest :: initializerTest(void) {
   CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_a)[2]);
   CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_a)[3]);
 }
-#endif

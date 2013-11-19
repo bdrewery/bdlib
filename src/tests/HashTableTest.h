@@ -45,9 +45,7 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (getValueTest);
     CPPUNIT_TEST (removeTest);
 //    CPPUNIT_TEST (iterateTest);
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     CPPUNIT_TEST (initializerTest);
-#endif
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -62,9 +60,7 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
         void getValueTest(void);
         void removeTest(void);
 //        void iterateTest(void);
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
         void initializerTest(void);
-#endif
     private:
         HashTable<int, String> *a, *b;
         HashTable<String, String> *sa, *sb;

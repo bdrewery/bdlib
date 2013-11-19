@@ -53,7 +53,10 @@ class ArrayRef {
     typedef typename Allocator::pointer iterator;
     mutable Allocator alloc;
     mutable size_t size; //Capacity of buffer
-    mutable iterator buf;
+    union {
+      mutable iterator buf;
+      mutable T buf_local[16];
+    };
     mutable std::atomic<int> refs; //References
 
     ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
@@ -120,13 +123,8 @@ class ArrayRef {
     inline bool isShared() const { return refs > 1; };
   private:
     // No copying allowed
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     ArrayRef(const ArrayRef&) = delete;
     ArrayRef& operator=(const ArrayRef&) = delete;
-#else
-    ArrayRef(const ArrayRef&);
-    ArrayRef& operator=(const ArrayRef&);
-#endif
 };
 
 template <class T>
@@ -145,11 +143,7 @@ class Slice {
     int start;
     int len;
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     Slice() = delete;
-#else
-    Slice();
-#endif
 
   public:
     Slice(T& _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
@@ -379,7 +373,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
     };
     ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
       rca.alloc = Allocator();
       rca.Ref = nullptr;
@@ -387,7 +380,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       rca.sublen = 0;
       rca.my_hash = 0;
     };
-#endif
+
     /**
      * @brief Create an empty container with at least the specified bytes in size.
      * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
@@ -461,7 +454,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       return *this;
     }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     /**
      * @brief Moves the given ReferenceCountedArray to this
      * @param rca The ReferenceCountedArray object to take ownership of.
@@ -483,7 +475,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       return *this;
     }
-#endif
 
     /**
      * @brief Sets our buffer to the given item.
@@ -570,9 +561,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * Having if(string) conflicts with another operator
      */
     inline bool operator!() const { return isEmpty(); };
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); }
-#endif
 
     /**
      * @brief Data accessor
@@ -724,11 +713,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @brief Used by Cref operator[]
          */
         Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
         Cref() = delete;
-#else
-        Cref();
-#endif
 
       public:
         Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};

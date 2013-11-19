@@ -53,11 +53,7 @@ class Iterator { //This should not exist.
     virtual bool hasNext() { return bool(*this); };
     virtual ~Iterator() {};
 
-    virtual
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
-      explicit
-#endif
-    operator bool() const = 0;
+    virtual explicit operator bool() const = 0;
     virtual T& operator*() = 0;
     virtual T* operator->() { return &(operator*()); };
 
@@ -98,11 +94,9 @@ struct KeyValue {
     KeyValue() : k(), v() {};
     KeyValue(const Key& _key, const Value& _value) : k(_key), v(_value) {};
     KeyValue(const KeyValue& kv) : k(kv.k), v(kv.v) {};
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     KeyValue(KeyValue&& kv) : k(), v() {
       swap(*this, kv);
     }
-#endif
       friend void swap(KeyValue& a, KeyValue& b) {
         using std::swap;
 

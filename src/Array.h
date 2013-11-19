@@ -58,9 +58,7 @@ class Array : public ReferenceCountedArray<T> {
     /* Constructors */
     Array() : ReferenceCountedArray<value_type>() {};
     Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(std::move(array)) {};
-#endif
     /**
      * @brief Create a Array from a given carray.
      * @param carray The null-terminated array to create the object from.
@@ -77,7 +75,6 @@ class Array : public ReferenceCountedArray<T> {
       }
     };
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list
@@ -85,7 +82,6 @@ class Array : public ReferenceCountedArray<T> {
     Array(std::initializer_list<value_type> list) : ReferenceCountedArray<value_type>() {
       *this = list;
     }
-#endif
 
     /**
      * @brief Create a Array from a given carray.
@@ -112,7 +108,6 @@ class Array : public ReferenceCountedArray<T> {
 
     virtual ~Array() {};
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list
@@ -125,18 +120,16 @@ class Array : public ReferenceCountedArray<T> {
       }
       return *this;
     }
-#endif
 
     Array& operator=(const Array<value_type>& array) {
       ReferenceCountedArray<value_type>::operator=(array);
       return *this;
     }
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+
     Array& operator=(Array<value_type>&& array) {
       ReferenceCountedArray<value_type>::operator=(std::move(array));
       return *this;
     }
-#endif
 
     /**
      * @brief Add an item to the end of the array

@@ -145,19 +145,15 @@ class BinaryTree {
       */
     inline size_t size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); };
-#endif
 
   public:
     BinaryTree() : my_size(0), root(nullptr) {};
     BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     BinaryTree(BinaryTree&& tree) : my_size(std::move(tree.my_size)), root(std::move(tree.root)) {
       root = nullptr;
       my_size = 0;
     };
-#endif
 
     friend void swap(BinaryTree& a, BinaryTree& b) {
       using std::swap;
@@ -348,11 +344,7 @@ class BinaryTree {
 */
         }
 
-        virtual
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
-          explicit
-#endif
-        operator bool() const {
+        virtual explicit operator bool() const {
           return ((reverse && index > 0) || (!reverse && index < (my_size)));
         };
 

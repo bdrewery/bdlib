@@ -59,13 +59,11 @@ class List {
       Node(const_reference p) : item(p), next(nullptr), prev(nullptr) {};
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
       Node(const value_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
         item = nullptr;
         next = nullptr;
         prev = nullptr;
       };
-#endif
 
       friend void swap(Node& a, Node& b) {
         using std::swap;
@@ -118,11 +116,9 @@ class List {
         insert(search->item);
     }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     List(List&& list) : head(nullptr), tail(nullptr), my_size(0) {
       swap(*this, list);
     }
-#endif
 
     friend void swap(List& a, List& b) {
       using std::swap;
@@ -150,9 +146,7 @@ class List {
 
     inline size_type size() const { return my_size; };
     inline bool isEmpty() const { return size() == 0; };
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     inline explicit operator bool() const { return !isEmpty(); };
-#endif
 
     /**
      * @brief Insert into the list at the head
@@ -252,11 +246,7 @@ class List {
           current = nextValue;
         }
 
-        virtual
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
-          explicit
-#endif
-        operator bool() const { return (current != nullptr); };
+        virtual explicit operator bool() const { return (current != nullptr); };
         virtual operator value_type () { return operator*(); };
           
         virtual value_type& operator *() { return static_cast<value_type&>(current->item); }

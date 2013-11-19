@@ -192,9 +192,7 @@ class QueueConstIterator {
       current = nextValue;
     }
 */
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     virtual explicit operator bool() const { return (current != nullptr); };
-#endif
     reference operator *() const { return current->item; }
     pointer operator ->() const { return &(operator*()); }
 
