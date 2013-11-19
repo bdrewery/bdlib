@@ -54,9 +54,9 @@ class ArrayRef {
     mutable Allocator alloc;
     mutable size_t size; //Capacity of buffer
     mutable iterator buf;
-    mutable std::atomic<int> n; //References
+    mutable std::atomic<int> refs; //References
 
-    ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), n(1) {};
+    ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(NULL), refs(1) {};
     ~ArrayRef() {
       if (buf) {
         FreeBuf(buf);
@@ -117,7 +117,7 @@ class ArrayRef {
     /**
      * @brief Is this ReferenceCountedArray shared?
      */
-    inline bool isShared() const { return n > 1; };
+    inline bool isShared() const { return refs > 1; };
   private:
     // No copying allowed
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
@@ -237,12 +237,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Increment our reference counter.
      */
-    inline int incRef() const { return Ref ? ++Ref->n : 0; };
+    inline int incRef() const { return Ref ? ++Ref->refs : 0; };
 
     /**
      * @brief Decrement our reference counter.
      */
-    inline int decRef() const { return Ref ? --Ref->n : 0; };
+    inline int decRef() const { return Ref ? --Ref->refs : 0; };
 
   protected:
     /**
@@ -279,7 +279,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     Allocator alloc;
     /**
      * @brief The array reference for reference counting
-     * This is mutable so that Ref->n can be modified, which really is mutable
+     * This is mutable so that Ref->refs can be modified, which really is mutable
      */
     mutable ArrayRef<value_type, Allocator> *Ref;
   protected:
@@ -501,7 +501,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief How many references does this object have?
      */
-    inline size_t rcount() const { return Ref ? Ref->n.load() : 0; };
+    inline size_t rcount() const { return Ref ? Ref->refs.load() : 0; };
     /**
      * @return True if this object is shared; false if not.
      */
