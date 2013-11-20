@@ -90,7 +90,12 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
     return TCL_ERROR;
   }
 
-  ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
+  try {
+    ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
+  } catch (bd::String& e) {
+    Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(e));
+    return TCL_ERROR;
+  }
   return TCL_OK;
 }
 

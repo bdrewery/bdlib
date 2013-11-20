@@ -243,7 +243,7 @@ int my_xi(String my_cd) {
   return 53 + atoi(*my_cd);
 }
 
-bool my_xz(String my_cd, int my_i, bool my_bool, String my_string) {
+bool my_xz(const String my_cd, int my_i, bool my_bool, String my_string) {
   return true;
 }
 
@@ -258,6 +258,8 @@ String param_test(String arg1, int arg2) {
 }
 
 void args(int foo1, int foo2) {
+  if (foo1 == -1)
+    throw bd::String("Invalid param: -1");
 }
 
 void ScriptInterpTCLTest :: createCommandTest (void)
@@ -304,6 +306,9 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   tcl_script.createCommand("args", args, "foo1 ?foo2?", 1);
   CPPUNIT_ASSERT_STRING_EQUAL("Wrong # args. Expected 1, got 0. Should "
       "be \"args foo1 ?foo2?\"\n    while executing\n\"args\"", tcl_script.eval("args"));
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Invalid param: -1\n    "
+      "while executing\n\"args -1\"", tcl_script.eval("args -1"));
 }
 
 HashTable<String, ScriptCallbacker* > Events;
