@@ -31,15 +31,6 @@
 
 BDLIB_NS_BEGIN
 
-#define SCRIPT_BADARGS(nl, nh, example) do {                              \
-	if ((args.length() < (nl)) || (args.length() > (nh))) {           \
-                return_data.type = bd::SCRIPT_RETURN_TYPE_STRING;         \
-                return_data.value_string = "wrong # args: should be \"" + \
-                               args.getArgString(0) + (example) + "\"";   \
-                return bd::SCRIPT_ERROR;                                  \
-	}                                                                 \
-} while (0)
-
 class ScriptInterp;
 
 class ScriptCallbackBase {
