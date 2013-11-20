@@ -260,6 +260,8 @@ String param_test(String arg1, int arg2) {
 void args(int foo1, int foo2) {
   if (foo1 == -1)
     throw bd::String("Invalid param: -1");
+  else if (foo1 == -2)
+    throw std::exception();
 }
 
 void ScriptInterpTCLTest :: createCommandTest (void)
@@ -309,6 +311,9 @@ void ScriptInterpTCLTest :: createCommandTest (void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("Invalid param: -1\n    "
       "while executing\n\"args -1\"", tcl_script.eval("args -1"));
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Unhandled exception.\n    "
+      "while executing\n\"args -2\"", tcl_script.eval("args -2"));
 }
 
 HashTable<String, ScriptCallbacker* > Events;

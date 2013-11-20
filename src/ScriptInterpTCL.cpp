@@ -95,6 +95,9 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
   } catch (bd::String& e) {
     Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(e));
     return TCL_ERROR;
+  } catch (...) {
+    Tcl_SetObjResult(interp, c_to_tcl_cast<const char*>::from("Unhandled exception."));
+    return TCL_ERROR;
   }
   return TCL_OK;
 }
