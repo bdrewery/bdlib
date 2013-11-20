@@ -78,11 +78,13 @@ class ScriptInterp {
         struct script_cmd_handler_clientdata {
           ScriptInterp* si;
           ScriptCallbackBase* callback_proxy;
+          const char* usage;
           size_t callbackParamMin;
           size_t callbackParamMax;
-          script_cmd_handler_clientdata (ScriptInterp* _si, ScriptCallbackBase* _callback_proxy, size_t _callbackParamMin, size_t _callbackParamMax) :
+          script_cmd_handler_clientdata (ScriptInterp* _si, ScriptCallbackBase* _callback_proxy, const char* _usage, size_t _callbackParamMin, size_t _callbackParamMax) :
             si(_si),
             callback_proxy(_callback_proxy),
+            usage(_usage),
             callbackParamMin(_callbackParamMin),
             callbackParamMax(_callbackParamMax) {};
         };
@@ -113,8 +115,8 @@ class ScriptInterp {
         virtual LoadError loadScript(const String& fileName, String& resultStr) = 0;
 
         template<typename InterpType, typename ReturnType, typename... Params>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(Params...), size_t min_params = size_t(-1)) {
-          si.createCommand(cmdName, callback, min_params);
+        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+          si.createCommand(cmdName, callback, usage, min_params);
         }
 
         /**

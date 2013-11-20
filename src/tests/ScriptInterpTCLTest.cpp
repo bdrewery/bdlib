@@ -257,13 +257,16 @@ String param_test(String arg1, int arg2) {
   return return_string;
 }
 
+void args(int foo1, int foo2) {
+}
+
 void ScriptInterpTCLTest :: createCommandTest (void)
 {
   ScriptInterpTCL tcl_script;
   String result;
 
   tcl_script.createCommand("x", my_x);
-  result = String::printf("Wrong # args. Expected 1, got 0\n    while executing\n\"x\"");
+  result = String::printf("Wrong # args. Expected 1, got 0.\n    while executing\n\"x\"");
   CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("x"));
 
   tcl_script.createCommand("x", my_x);
@@ -278,12 +281,12 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   CPPUNIT_ASSERT_EQUAL(53, atoi(*tcl_script.eval("xi \"0\"")));
 
   // Test dispatch through ScriptInterp
-  ScriptInterp::createCommand(tcl_script, "param_test", param_test, 1);
+  ScriptInterp::createCommand(tcl_script, "param_test", param_test, nullptr, 1);
   // Try too little
-  result = String::printf("Wrong # args. Expected 1, got 0\n    while executing\n\"param_test\"");
+  result = String::printf("Wrong # args. Expected 1, got 0.\n    while executing\n\"param_test\"");
   CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("param_test"));
   // Try too many
-  result = String::printf("Wrong # args. Expected 1, got 3\n    while executing\n\"param_test \"TEST\" 1 2\"");
+  result = String::printf("Wrong # args. Expected 1, got 3.\n    while executing\n\"param_test \"TEST\" 1 2\"");
   CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("param_test \"TEST\" 1 2"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: TEST arg2: 1", tcl_script.eval("param_test \"TEST\" 1"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: 5 arg2: 10", tcl_script.eval("param_test 5 10"));
@@ -297,6 +300,10 @@ void ScriptInterpTCLTest :: createCommandTest (void)
 
   // Mostly a compile test on the templates
   tcl_script.createCommand("xz", my_xz);
+
+  tcl_script.createCommand("args", args, "foo1 ?foo2?", 1);
+  CPPUNIT_ASSERT_STRING_EQUAL("Wrong # args. Expected 1, got 0. Should "
+      "be \"args foo1 ?foo2?\"\n    while executing\n\"args\"", tcl_script.eval("args"));
 }
 
 HashTable<String, ScriptCallbacker* > Events;

@@ -127,8 +127,8 @@ class ScriptInterpTCL : public ScriptInterp {
         void setupTraces(const String& name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func);
         static int _createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
 
-        void _createCommand(const String& cmdName, ScriptCallbackBase* callback_proxy, size_t callbackParamMin, size_t callbackParamMax) {
-          script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, callback_proxy, callbackParamMin, callbackParamMax);
+        void _createCommand(const String& cmdName, ScriptCallbackBase* callback_proxy, const char* usage, size_t callbackParamMin, size_t callbackParamMax) {
+          script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, callback_proxy, usage, callbackParamMin, callbackParamMax);
           CmdHandlerData[cmdName] = ccd;
           Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
         }
@@ -154,8 +154,8 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual LoadError loadScript(const String& fileName, String& resultStr);
 
         template<typename ReturnType, typename... Params>
-        inline void createCommand(const String& cmdName, ReturnType(*callback)(Params...), size_t min_params = size_t(-1)) {
-          _createCommand(cmdName, new ScriptCallbackTCL<ReturnType, Params...>(callback), min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
+        inline void createCommand(const String& cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+          _createCommand(cmdName, new ScriptCallbackTCL<ReturnType, Params...>(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
         }
 
         virtual void deleteCommand(const String& cmdName) {
