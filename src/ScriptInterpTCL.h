@@ -113,7 +113,7 @@ class ScriptCallbackerTCL : public ScriptCallbacker {
   public:
     ScriptCallbackerTCL(ScriptInterp* _si, const String _cmd) : ScriptCallbacker(_si, _cmd) {};
     virtual ~ScriptCallbackerTCL() {};
-    virtual String call(const Array<String>& params);
+    virtual String call(const Array<String>& params = Array<String>());
 };
 
 class ScriptInterpTCL : public ScriptInterp {
