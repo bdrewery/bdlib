@@ -170,6 +170,16 @@ Tcl_Obj* c_to_tcl_cast<Array<String>>::from(Array<String> array, Tcl_Interp* int
   return value;
 }
 
+Tcl_Obj* c_to_tcl_cast<Array<Array<String>>>::from(Array<Array<String>> array, Tcl_Interp* interp) {
+  Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
+
+  for (auto element : array) {
+    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<decltype(element)>::from(element, interp));
+  }
+
+  return value;
+}
+
 /* tcl->c casting */
 String tcl_to_c_cast<String>::from(Tcl_Obj* obj, ScriptInterp* si) {
   int len = 0;

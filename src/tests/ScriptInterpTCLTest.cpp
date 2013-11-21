@@ -272,6 +272,14 @@ Array<String> listReturn(String arg1, String arg2, String arg3) {
   return ret;
 }
 
+Array<Array<String>> nestedListReturn(String arg1, String arg2, String arg3) {
+  Array<Array<String>> ret;
+  ret << Array<String>{arg1, "10"};
+  ret << Array<String>{arg2, "20"};
+  ret << Array<String>{arg3, "30"};
+  return ret;
+}
+
 String listParam(Array<String> list, String param) {
   return param + " " + list.join("-");
 }
@@ -310,6 +318,10 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   // Test [list] return
   tcl_script.createCommand("listReturn", listReturn);
   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", tcl_script.eval("listReturn 1 2 3"));
+
+  // Test [list {} {} {}] return
+  tcl_script.createCommand("nestedListReturn", nestedListReturn);
+  CPPUNIT_ASSERT_STRING_EQUAL("{1 10} {2 20} {3 30}", tcl_script.eval("nestedListReturn 1 2 3"));
 
   // Test [list] param
   tcl_script.createCommand("listParam", listParam);

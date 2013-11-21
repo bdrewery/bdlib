@@ -54,6 +54,7 @@ c_to_tcl_castable(bool);
 c_to_tcl_castable(String);
 c_to_tcl_castable(const char*);
 c_to_tcl_castable(Array<String>);
+c_to_tcl_castable(Array<Array<String>>);
 
 template <typename T>
 struct tcl_to_c_cast;
