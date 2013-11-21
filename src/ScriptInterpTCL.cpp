@@ -276,4 +276,20 @@ Array<String> tcl_to_c_cast<Array<String>>::from(Tcl_Obj* obj, ScriptInterp* si)
   return ret;
 }
 
+Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, ScriptInterp* si) {
+  int objc, i;
+  Tcl_Obj** objv;
+
+  // FIXME: Exception
+  if (Tcl_ListObjGetElements((reinterpret_cast<ScriptInterpTCL*>(si))->interp, obj, &objc, &objv) != TCL_OK)
+    return Array<Array<String>>();
+
+  Array<Array<String>> ret(objc);
+
+  for (i = 0; i < objc; ++i)
+    ret << tcl_to_c_cast<Array<String>>::from(objv[i], si);
+
+  return ret;
+}
+
 BDLIB_NS_END

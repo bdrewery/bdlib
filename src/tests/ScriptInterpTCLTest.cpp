@@ -284,6 +284,12 @@ String listParam(Array<String> list, String param) {
   return param + " " + list.join("-");
 }
 
+String nestedListParam(Array<Array<String>> list, String param) {
+  return param + " ;" + static_cast<Array<String>>(list[0]).join("-") +
+    ";" + static_cast<Array<String>>(list[1]).join("-") + ";" +
+    static_cast<Array<String>>(list[2]).join("-");
+}
+
 void ScriptInterpTCLTest :: createCommandTest (void)
 {
   ScriptInterpTCL tcl_script;
@@ -326,6 +332,10 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   // Test [list] param
   tcl_script.createCommand("listParam", listParam);
   CPPUNIT_ASSERT_STRING_EQUAL("list 1-2-3", tcl_script.eval("listParam {1 2 3} list"));
+
+  // Test [list {} {} {}] param
+  tcl_script.createCommand("nestedListParam", nestedListParam);
+  CPPUNIT_ASSERT_STRING_EQUAL("list ;1-10;2-20;3-30", tcl_script.eval("nestedListParam [list [list 1 10] [list 2 20] [list 3 30]] list"));
 
   // Test default params
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TEST", tcl_script.eval("param_test \"TEST\""));

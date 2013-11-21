@@ -76,6 +76,7 @@ tcl_to_c_castable(String);
 tcl_to_c_castable(const char*);
 tcl_to_c_castable(ScriptCallbacker*);
 tcl_to_c_castable(Array<String>);
+tcl_to_c_castable(Array<Array<String>>);
 
 #define define_tcl_traceGet(T)                                                                                                     \
 template<>                                                                                                                         \
@@ -121,6 +122,7 @@ class ScriptCallbackerTCL : public ScriptCallbacker {
 
 class ScriptInterpTCL : public ScriptInterp {
   friend Array<String> tcl_to_c_cast<Array<String>>::from(Tcl_Obj* obj, ScriptInterp* si);
+  friend Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, ScriptInterp* si);
   private:
         Tcl_Interp *interp;
         static HashTable<String, script_cmd_handler_clientdata*> CmdHandlerData;
