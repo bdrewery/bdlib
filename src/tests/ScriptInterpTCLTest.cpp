@@ -272,6 +272,10 @@ Array<String> listReturn(String arg1, String arg2, String arg3) {
   return ret;
 }
 
+String listParam(Array<String> list, String param) {
+  return param + " " + list.join("-");
+}
+
 void ScriptInterpTCLTest :: createCommandTest (void)
 {
   ScriptInterpTCL tcl_script;
@@ -306,6 +310,10 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   // Test [list] return
   tcl_script.createCommand("listReturn", listReturn);
   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", tcl_script.eval("listReturn 1 2 3"));
+
+  // Test [list] param
+  tcl_script.createCommand("listParam", listParam);
+  CPPUNIT_ASSERT_STRING_EQUAL("list 1-2-3", tcl_script.eval("listParam {1 2 3} list"));
 
   // Test default params
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TEST", tcl_script.eval("param_test \"TEST\""));
