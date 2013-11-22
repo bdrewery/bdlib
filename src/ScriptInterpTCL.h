@@ -42,7 +42,7 @@ struct c_to_tcl_cast;
 template<>                                                        \
   struct c_to_tcl_cast<T>                                         \
   {                                                               \
-    static Tcl_Obj* from(T value);                                \
+    static Tcl_Obj* from(T value, Tcl_Interp*);                   \
   }
 
 c_to_tcl_castable(int);
@@ -53,6 +53,7 @@ c_to_tcl_castable(double);
 c_to_tcl_castable(bool);
 c_to_tcl_castable(String);
 c_to_tcl_castable(const char*);
+c_to_tcl_castable(Array<String>);
 
 template <typename T>
 struct tcl_to_c_cast;
@@ -77,7 +78,7 @@ tcl_to_c_castable(ScriptCallbacker*);
 #define define_tcl_traceGet(T)                                                                                                     \
 template<>                                                                                                                         \
 const char* tcl_traceGet<T> (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
-  return ScriptInterpTCL::TraceGet(c_to_tcl_cast<T>::from( *static_cast<T*>(clientData) ), interp, name1, name2, flags);           \
+  return ScriptInterpTCL::TraceGet(c_to_tcl_cast<T>::from(*static_cast<T*>(clientData), interp), interp, name1, name2, flags);     \
 }
 
 #define define_tcl_traceSet(T)                                                                                                     \
@@ -87,10 +88,10 @@ const char* tcl_traceSet<T> (ClientData clientData, Tcl_Interp* interp, char* na
   if (!obj) return name1;                                                                                                          \
   const T oldval(*static_cast<T*>(clientData));                                                                                    \
                                                                                                                                    \
-  *static_cast<T*>(clientData) = std::move(tcl_to_c_cast<T>::from(obj, nullptr));                                                     \
+  *static_cast<T*>(clientData) = std::move(tcl_to_c_cast<T>::from(obj, nullptr));                                                  \
   if (ScriptInterpTCL::link_var_hooks[name1])                                                                                      \
     (ScriptInterpTCL::link_var_hooks[name1])((const void*)&oldval, (const void*)(clientData));                                     \
-  return nullptr;                                                                                                                     \
+  return nullptr;                                                                                                                  \
 }
 
 class ScriptCallbackTCLBase : public ScriptCallbackBase {

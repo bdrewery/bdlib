@@ -86,17 +86,17 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
     String errorResult(String::printf("Wrong # args. Expected %zu, got %d.", ccd->callbackParamMin, objc - 1));
     if (ccd->usage)
       errorResult += String::printf(" Should be \"%s %s\"", cmdName.c_str(), ccd->usage);
-    Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(errorResult));
+    Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(errorResult, interp));
     return TCL_ERROR;
   }
 
   try {
     ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
   } catch (bd::String& e) {
-    Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(e));
+    Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(e, interp));
     return TCL_ERROR;
   } catch (...) {
-    Tcl_SetObjResult(interp, c_to_tcl_cast<const char*>::from("Unhandled exception."));
+    Tcl_SetObjResult(interp, c_to_tcl_cast<const char*>::from("Unhandled exception.", interp));
     return TCL_ERROR;
   }
   return TCL_OK;
@@ -122,36 +122,52 @@ const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char 
 }
 
 Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
-  Tcl_Obj *name1o = c_to_tcl_cast<const char*>::from(name1);
+  Tcl_Obj *name1o = c_to_tcl_cast<const char*>::from(name1, interp);
   Tcl_Obj *value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
   Tcl_DecrRefCount(name1o);
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<int>::from(int value) {
+Tcl_Obj* c_to_tcl_cast<int>::from(int value, Tcl_Interp* interp) {
   return Tcl_NewIntObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<unsigned int>::from(unsigned int value) {return c_to_tcl_cast<int>::from(value);}
+Tcl_Obj* c_to_tcl_cast<unsigned int>::from(unsigned int value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<int>::from(value, interp);
+}
 
-Tcl_Obj* c_to_tcl_cast<long>::from(long value) {
+Tcl_Obj* c_to_tcl_cast<long>::from(long value, Tcl_Interp* interp) {
   return Tcl_NewLongObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<unsigned long>::from(unsigned long value) {return c_to_tcl_cast<long>::from(value);}
+Tcl_Obj* c_to_tcl_cast<unsigned long>::from(unsigned long value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<long>::from(value, interp);
+}
 
-Tcl_Obj* c_to_tcl_cast<double>::from(double value) {
+Tcl_Obj* c_to_tcl_cast<double>::from(double value, Tcl_Interp* interp) {
   return Tcl_NewDoubleObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<String>::from(String value) {
+Tcl_Obj* c_to_tcl_cast<String>::from(String value, Tcl_Interp* interp) {
   return (value.length() < INT_MAX) ? Tcl_NewStringObj(value.data(), value.length()) : nullptr;
 }
 
-Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value) {return c_to_tcl_cast<String>::from(value);}
+Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<String>::from(value, interp);
+}
 
-Tcl_Obj* c_to_tcl_cast<bool>::from(bool value) {
+Tcl_Obj* c_to_tcl_cast<bool>::from(bool value, Tcl_Interp* interp) {
   return Tcl_NewBooleanObj(value);
+}
+
+Tcl_Obj* c_to_tcl_cast<Array<String>>::from(Array<String> array, Tcl_Interp* interp) {
+  Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
+
+  for (auto element : array) {
+    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<decltype(element)>::from(element, interp));
+  }
+
+  return value;
 }
 
 /* tcl->c casting */

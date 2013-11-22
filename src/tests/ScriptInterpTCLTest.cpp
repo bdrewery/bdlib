@@ -267,6 +267,11 @@ void args(int foo1, int foo2) {
     throw std::exception();
 }
 
+Array<String> listReturn(String arg1, String arg2, String arg3) {
+  Array<String> ret = {arg1, arg2, arg3};
+  return ret;
+}
+
 void ScriptInterpTCLTest :: createCommandTest (void)
 {
   ScriptInterpTCL tcl_script;
@@ -297,6 +302,10 @@ void ScriptInterpTCLTest :: createCommandTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL(result, tcl_script.eval("param_test \"TEST\" 1 2"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: TEST arg2: 1", tcl_script.eval("param_test \"TEST\" 1"));
   CPPUNIT_ASSERT_STRING_EQUAL("I got 2 args, arg1: 5 arg2: 10", tcl_script.eval("param_test 5 10"));
+
+  // Test [list] return
+  tcl_script.createCommand("listReturn", listReturn);
+  CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", tcl_script.eval("listReturn 1 2 3"));
 
   // Test default params
   CPPUNIT_ASSERT_STRING_EQUAL("I got 1 args, arg1: TEST", tcl_script.eval("param_test \"TEST\""));
