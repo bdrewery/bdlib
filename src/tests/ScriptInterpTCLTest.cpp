@@ -247,6 +247,9 @@ bool my_xz(const String my_cd, int my_i, bool my_bool, String my_string) {
   return true;
 }
 
+void voidFunc() {
+}
+
 String param_test(String arg1, int arg2) {
   String return_string;
   if (arg2) {
@@ -304,6 +307,7 @@ void ScriptInterpTCLTest :: createCommandTest (void)
 
   // Mostly a compile test on the templates
   tcl_script.createCommand("xz", my_xz);
+  tcl_script.createCommand("voidFunc", voidFunc);
 
   tcl_script.createCommand("args", args, "foo1 ?foo2?", 1);
   CPPUNIT_ASSERT_STRING_EQUAL("Wrong # args. Expected 1, got 0. Should "

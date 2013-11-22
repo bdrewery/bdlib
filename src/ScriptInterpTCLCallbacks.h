@@ -33,7 +33,7 @@ class ScriptCallbackTCL : public ScriptCallbackTCLBase {
     function_t _callback;
 
     template<std::size_t... Indices>
-    inline void real_call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data, indices<Indices...>) {
+    inline void real_call(__attribute__((__unused__)) size_t argc, void* const argv[], __attribute__((__unused__)) ScriptInterp* si, void *proxy_data, indices<Indices...>) {
       Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
       Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
       // Doing argc check to pass default params in if not enough were passed to the handler
