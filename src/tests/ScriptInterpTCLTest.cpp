@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "ScriptInterpTCLTest.h"
 
+#ifdef USE_SCRIPT_TCL
 CPPUNIT_TEST_SUITE_REGISTRATION (ScriptInterpTCLTest);
 
 void ScriptInterpTCLTest :: setUp (void)
@@ -420,3 +421,5 @@ void ScriptInterpTCLTest :: deleteCommandTest (void)
   tcl_script.deleteCommand("x");
   CPPUNIT_ASSERT_STRING_EQUAL(bad_cmd, tcl_script.eval("x"));
 }
+
+#endif /* USE_SCRIPT_TCL */

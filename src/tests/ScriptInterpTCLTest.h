@@ -11,8 +11,12 @@
 #include "Stream.h"
 #include "ScriptInterp.h"
 #include "ScriptInterpTCL.h"
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 using namespace BDLIB_NS;
 
+#ifdef USE_SCRIPT_TCL
 class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
 {
     CPPUNIT_TEST_SUITE (ScriptInterpTCLTest);
@@ -41,4 +45,5 @@ class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
         void deleteCommandTest(void);
     private:
 };
+#endif /* USE_SCRIPT_TCL */
 #endif /* !_SCRIPTINTERPTCLTEST_H */

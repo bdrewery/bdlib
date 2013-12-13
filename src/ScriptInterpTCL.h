@@ -23,6 +23,12 @@
 #ifndef _BD_SCRIPTINTERPTCL_H
 #define _BD_SCRIPTINTERPTCL_H 1
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
+
+#ifdef USE_SCRIPT_TCL
+
 #include "bdlib.h"
 #include "String.h"
 #include "ScriptInterp.h"
@@ -214,4 +220,5 @@ class ScriptInterpTCL : public ScriptInterp {
 };
 
 BDLIB_NS_END
+#endif /* USE_SCRIPT_TCL */
 #endif /* _BD_SCRIPTINTERPTCL_H */

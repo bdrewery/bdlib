@@ -2,11 +2,10 @@
  *
  */
 #include "ScriptInterpTCL.h"
+
+#ifdef USE_SCRIPT_TCL
 #include <stdarg.h>
 #include <algorithm> // min() / max()
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
 
 BDLIB_NS_BEGIN
 
@@ -293,3 +292,4 @@ Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, Scr
 }
 
 BDLIB_NS_END
+#endif /* USE_SCRIPT_TCL */

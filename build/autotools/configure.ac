@@ -148,6 +148,8 @@ AC_CACHE_SAVE
 #FIND_WRAPS
 DO_DEPS
 
+AH_BOTTOM([#include "config-sanity.h"])
+
 AC_CONFIG_FILES([
 	Makefile 
 	src/Makefile 
