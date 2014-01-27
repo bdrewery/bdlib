@@ -30,6 +30,7 @@
 #include "HashTable.h"
 #include <cstdarg>
 #include <cstring>
+#include <cstdio>
 #include "base64.h"
 //#include <memory>
 //#include <iostream>
@@ -191,7 +192,7 @@ String String::printf(const char* format, ...) {
   va_list va;
 
   va_start(va, format);
-  size_t len = std::vsnprintf(va_out, sizeof(va_out), format, va);
+  size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
   return String(va_out, len);
