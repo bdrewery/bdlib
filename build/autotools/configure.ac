@@ -37,7 +37,7 @@ AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 # Check for compiler features
 EGG_CHECK_CCWALL
 EGG_CHECK_CCPIPE
-CHECK_CC_COLOR_DIAGNOSTICS
+CXX_FLAG_CHECK([CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
 EGG_CHECK_CCSTATIC
 CXX_FLAG_CHECK([DEBCXXFLAGS], [-Wdocumentation], [wdocumentation])
 CXX_FLAG_CHECK([DEBCXXFLAGS], [-fstack-protector-all], [stackprotector])
