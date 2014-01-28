@@ -63,7 +63,6 @@ AC_CHECK_PROG(CCACHE, ccache, ccache)
 AC_CHECK_PROG(DISTCC, distcc, distcc)
 
 AC_SUBST(CXXDEBUG)dnl
-AC_SUBST(MAKEJOBS)dnl
 
 #checkpoint
 AC_CACHE_SAVE 
