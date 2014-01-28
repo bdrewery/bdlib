@@ -17,7 +17,7 @@ if test $version_major -ge "3"; then
   DEBNOUNITSGCC3="-Weffc++ -Woverloaded-virtual"
 fi
 if test $version_major -ge "4"; then
-  GCC4DEB="-fstack-protector-all -Winvalid-pch"
+  GCC4DEB="-Winvalid-pch"
   if test $version_minor -ge 6; then
     GCC3="$GCC3 -std=c++0x"
   else
