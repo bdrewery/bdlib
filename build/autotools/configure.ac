@@ -36,7 +36,7 @@ AC_REQUIRE_CPP
 # Check for compiler features
 EGG_CHECK_CCWALL
 EGG_CHECK_CCPIPE
-CHECK_CC_COLOR_DIAGNOSTICS
+CXX_FLAG_CHECK([CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
 EGG_CHECK_CCSTATIC
 CXX_FLAG_CHECK([DEBCXXFLAGS], [-fstack-protector-all], [stackprotector])
 
