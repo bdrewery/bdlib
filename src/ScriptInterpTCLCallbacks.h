@@ -4,7 +4,6 @@
 #include "indices.h"
 
 /**
- * @class ScriptCallbackDispatchTCL
  * @brief Execute the callback and set the return type
  */
 template <typename ReturnType, typename... Params>
