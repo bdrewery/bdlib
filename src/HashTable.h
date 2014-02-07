@@ -87,7 +87,7 @@ class HashTable {
     }
 
     /**
-     * @brief A ruby stule block which will yield to the passed callback for each Key/Value pair.
+     * @brief A ruby style block which will yield to the passed callback for each Key/Value pair.
      * @param block The block to execute for each element
      * @param param An optional parameter to pass to the block.
      */
