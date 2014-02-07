@@ -90,9 +90,11 @@ class HashTable {
      * @brief A ruby style block which will yield to the passed callback for each Key/Value pair.
      * @param block The block to execute for each element
      * @param param An optional parameter to pass to the block.
+     * @return How many iterations were called
      */
-    void each(hash_table_block block, void* param = nullptr) {
-      if (!size()) return;
+    int each(hash_table_block block, void* param = nullptr) {
+      int n = 0;
+      if (!size()) return n;
 
       // Make a list of KeyValues to yield from.
       // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
@@ -109,8 +111,10 @@ class HashTable {
       // Now yield on our temporary, so (this) isn't a factor.
       for (iter = items.begin(); iter; (++iter)) {
         iterator_type kv = *iter;
+        ++n;
         block(kv.key(), kv.value(), param);
       }
+      return n;
     }
 
     friend void swap(HashTable<Key, Value>& a, HashTable<Key, Value>& b) {
