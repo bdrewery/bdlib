@@ -64,6 +64,7 @@ AC_CHECK_PROG(DIFF, gdiff, gdiff, diff)
 AC_CHECK_PROG(UNAME, uname, uname)
 AC_CHECK_PROG(CCACHE, ccache, ccache)
 AC_CHECK_PROG(DISTCC, distcc, distcc)
+EGG_PROG_HEAD_1
 
 AC_SUBST(CXXDEBUG)dnl
 AC_SUBST(DEBCXXFLAGS)
@@ -89,8 +90,14 @@ AC_CHECK_FUNCS([select])
 #checkpoint
 AC_CACHE_SAVE
 
+SCRIPT_TCL
+
+AC_CACHE_SAVE
+
 #FIND_WRAPS
 DO_DEPS
+
+AH_BOTTOM([#include "config-sanity.h"])
 
 AC_CONFIG_FILES([
 	Makefile 

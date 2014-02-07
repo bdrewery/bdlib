@@ -12,8 +12,8 @@ version_minor=`$CXX -dumpversion | cut -d . -f 2`
 if test $version_major -ge "3"; then
   CCDEPMODE=gcc3
   GCC3="-W -Wno-unused-parameter -Wdisabled-optimization -Wmissing-format-attribute"
-  NOUNITSGCC3="-fno-rtti -fstrict-aliasing"
-  DEBGCC3="-Wno-disabled-optimization -Wabi"
+  NOUNITSGCC3="-fstrict-aliasing"
+  DEBGCC3="-Wno-disabled-optimization"
   DEBNOUNITSGCC3="-Weffc++ -Woverloaded-virtual"
 fi
 if test $version_major -ge "4"; then
