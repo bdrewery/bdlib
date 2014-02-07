@@ -120,6 +120,7 @@ AC_DEFUN([SC_PATH_TCLCONFIG], [
 			`ls -d ${exec_prefix}/lib 2>/dev/null` \
 			`ls -d ${prefix}/lib 2>/dev/null` \
 			`ls -d /usr/local/lib 2>/dev/null` \
+			`ls -d /usr/local/lib/tcl[[8-9]].[[0-9]] 2>/dev/null` \
 			`ls -d /usr/contrib/lib 2>/dev/null` \
 			`ls -d /usr/share/tcltk/tcl8.4 2>/dev/null` \
 			`ls -d /usr/lib 2>/dev/null` \
