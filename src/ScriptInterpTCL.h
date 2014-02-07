@@ -153,11 +153,12 @@ class ScriptInterpTCL : public ScriptInterp {
         static HashTable<String, link_var_hook> link_var_hooks;
         ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
         virtual ~ScriptInterpTCL() {
+
           // Delete all of my ccd
-          CmdHandlerData.each([](String cmdName, script_cmd_handler_clientdata* ccd, void* param) {
+          for (auto ccd : CmdHandlerData.values()) {
               delete ccd->callback_proxy;
               delete ccd;
-          });
+          }
           CmdHandlerData.clear();
           destroy();
         };
