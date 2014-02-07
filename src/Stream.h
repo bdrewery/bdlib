@@ -131,7 +131,7 @@ class Stream {
          * @note The fd is not closed.
          * @sa puts
          */
-        virtual int loadFile(const int);
+        virtual int loadFile(const int fd);
 
         /**
          * @brief Load a file into the stream

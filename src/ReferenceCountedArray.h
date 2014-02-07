@@ -754,8 +754,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline value_type at(size_t pos) const { return hasIndex(pos) ? (*this)[pos] : 0; };
 
     /**
-     * @brief Return a new array from a subarray
-     * @return a new ReferenceCountedArray
      * @param start The offset to begin the subarray from (indexed from 0)
      * @param len The length of the subarray to return
      * The returned slice is a reference to the original array until modified.
