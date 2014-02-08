@@ -44,7 +44,6 @@ MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$
 'CFLGS=$(CFLGS) $(DEBCXXFLAGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
 .PHONY: all clean distclean bdlib debug general test.debug test test.verbose checkclean.bdlib checkclean.debug buildcheck
-.NOTPARALELL: checkclean.bdlib checkclean.debug
 
 all: bdlib
 
@@ -63,15 +62,15 @@ checkclean.bdlib:
 	@(if test -f build/stamp.debug; then \
 	echo "[*] Cleaning up alternate build"; \
 	$(MAKE) MAKEFLAGS=-s clean; \
-	fi)
-	@touch build/stamp.bdlib
+	fi) && \
+	touch build/stamp.bdlib
 
 checkclean.debug:
 	@(if test -f build/stamp.bdlib; then \
 	echo "[*] Cleaning up alternate build"; \
 	$(MAKE) MAKEFLAGS=-s clean; \
-	fi)
-	@touch build/stamp.debug
+	fi) && \
+	touch build/stamp.debug
 
 bdlib: checkclean.bdlib general
 	@echo "[*] Making BDLIB"
