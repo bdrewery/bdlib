@@ -1,8 +1,6 @@
 #ifndef INDICES_H
 #define INDICES_H
 
-#include <cstddef>
-
 // Define holder for indices...
 template <std::size_t... Indices>
 struct indices {};

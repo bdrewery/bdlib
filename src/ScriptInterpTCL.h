@@ -34,6 +34,7 @@
 #include "ScriptInterp.h"
 #include "HashTable.h"
 
+#include <cstddef>
 #include <limits.h>
 #include <sys/types.h>
 
