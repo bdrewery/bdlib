@@ -36,8 +36,6 @@ test:
 
 include ./.deps/includes
 
-check: UnitRunner
-
 UnitRunner: UnitRunner.o $(BDLIB) $(BDLIB_UNITS)
 	@echo "[LD]	$@"
-	$(LD) -o $@ $< -Wl,--whole-archive $(BDLIB_UNITS) -Wl,--no-whole-archive $(subst main.o,,$(BDLIB)) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
+	$(LD) -o $@ UnitRunner.o -Wl,--whole-archive $(BDLIB_UNITS) -Wl,--no-whole-archive $(BDLIB) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@

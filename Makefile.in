@@ -18,6 +18,8 @@ LDDEBUG = @CXXDEBUG@
 LIBS = @LIBS@
 INCLUDES = @TCL_INCLUDE_SPEC@
 
+include $(top_srcdir)/build/build.mk
+
 # utils
 STRIP = @STRIP@
 DIFF = @DIFF@
@@ -43,7 +45,7 @@ MAKE_UNITS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'LD=$(LDDEBUG) -g' 'CCDEPM
 MAKE_UTILS = $(MAKE) 'MAKE=$(MAKE)' 'CXX=$(CXXDEBUG)' 'STRIP=touch' 'CCDEPMODE=$(CCDEPMODE)' \
 'CFLGS=$(CFLGS) $(DEBCXXFLAGS)' 'LIBS=$(LIBS)' 'LD=$(LDDEBUG) -g'
 
-.PHONY: all clean distclean bdlib debug general test.debug test test.verbose checkclean.bdlib checkclean.debug buildcheck
+.PHONY: all clean distclean bdlib debug test.debug test test.verbose checkclean.bdlib checkclean.debug
 
 all: bdlib
 
@@ -60,43 +62,40 @@ distclean: clean
 
 checkclean.bdlib:
 	@(if test -f build/stamp.debug; then \
-	echo "[*] Cleaning up alternate build"; \
-	$(MAKE) MAKEFLAGS=-s clean; \
-	fi) && \
-	touch build/stamp.bdlib
+	  echo "[*] Cleaning up alternate build"; \
+	  $(MAKE) MAKEFLAGS=-s clean; \
+	  fi) && \
+	  touch build/stamp.bdlib
 
 checkclean.debug:
 	@(if test -f build/stamp.bdlib; then \
-	echo "[*] Cleaning up alternate build"; \
-	$(MAKE) MAKEFLAGS=-s clean; \
-	fi) && \
-	touch build/stamp.debug
+	  echo "[*] Cleaning up alternate build"; \
+	  $(MAKE) MAKEFLAGS=-s clean; \
+	  fi) && \
+	  touch build/stamp.debug
 
-bdlib: checkclean.bdlib general
+bdlib: checkclean.bdlib
 	@echo "[*] Making BDLIB"
 	+@cd src && $(MAKE_BDLIB) bdlib
 
-
-debug: checkclean.debug general
+debug: checkclean.debug
 	@echo "[*] Making BDLIB (debug)"
 	+@cd src && $(MAKE_DEBUG) bdlib
 
-general:
-
-buildcheck: checkclean.debug
-	+@cd src && $(MAKE_DEBUG) bdlib
+$(BDLIB_UNITS):
 	+@cd src/tests && $(MAKE_UNITS) units
-	+@cd build && ${MAKE_DEBUG} check
 
+$(UNITRUNNER): debug $(BDLIB_UNITS)
+	+@cd build && ${MAKE_DEBUG} UnitRunner
 
-test.debug: checkclean.debug general buildcheck
+test.debug: checkclean.debug $(UNITRUNNER)
 	@echo "[*] Running unit tests..."
 	@$(VALGRIND) $(UNITRUNNER) quiet
 
-test.verbose: checkclean.debug general buildcheck
+test.verbose: checkclean.debug $(UNITRUNNER)
 	@echo "[*] Running unit tests..."
 	@$(VALGRIND) $(UNITRUNNER)
 
-test: checkclean.debug general buildcheck
+test: checkclean.debug $(UNITRUNNER)
 	@echo "[*] Running unit tests..."
 	@$(UNITRUNNER) quiet
