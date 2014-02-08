@@ -26,7 +26,7 @@ GREP = @GREP@
 AWK = @AWK@
 YACC = @YACC@
 VALGRIND = GLIBCPP_FORCE_NEW=1 GLIBCXX_FORCE_NEW=1 @VALGRIND@
-UNITRUNNER = build/UnitRunner@EXEEXT@
+UNITRUNNER = build/UnitRunner
 
 DEBCXXFLAGS = -DDEBUG -fno-inline -g3 -ggdb3 -Wshadow -O0 @DEBGCC3@ @GCC4DEB@ @DEBCXXFLAGS@
 CFLGS = @GCC3@ -x c++ $(INCLUDES)
@@ -50,7 +50,7 @@ all: bdlib
 clean:
 	-+@cd src && $(MAKE) clean
 	-+@cd build && $(MAKE) clean
-	@rm -f build/stamp.* *~ src/*~ configure.temp utctime@EXEEXT@ ts@EXEEXT@
+	@rm -f build/stamp.* *~ src/*~ configure.temp utctime ts
 
 distclean: clean
 	-+@cd build && $(MAKE) distclean
