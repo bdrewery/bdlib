@@ -39,9 +39,10 @@ EGG_CHECK_CCWALL
 EGG_CHECK_CCPIPE
 CXX_FLAG_CHECK([CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
 EGG_CHECK_CCSTATIC
-CXX_FLAG_CHECK([DEBCXXFLAGS], [-Wdocumentation], [wdocumentation])
 CXX_FLAG_CHECK([CXXFLAGS], [-Qunused-arguments], [unusedarguments])
 CXX_FLAG_CHECK([DEBCXXFLAGS], [-fstack-protector-all], [stackprotector])
+CXX_FLAG_CHECK([WDOCUMENTATION], [-Wdocumentation], [wdocumentation])
+AC_SUBST(WDOCUMENTATION)
 
 AM_PATH_CPPUNIT(1.9.10)
 
