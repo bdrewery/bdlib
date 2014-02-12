@@ -11,7 +11,7 @@ depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 	if [ "$(CCDEPMODE)" = "gcc3" ]; then \
 		if $(CXX) -MT '$@' -MD -MP -MF '.deps/$*.TPo' $(CXXFLAGS) -c $< -o $@; then \
 		mv '.deps/$*.TPo' '.deps/$*.Po'; \
-		else rm -f '.deps/$*.Tpo'; exit 1; \
+		else rm -f '.deps/$*.TPo'; exit 1; \
 		fi; \
 	else \
 		source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
@@ -23,7 +23,7 @@ depcomp = /bin/sh $(top_srcdir)/build/autotools/depcomp
 	if [ "$(CCDEPMODE)" = "gcc3" ]; then \
 		if $(CXX) -MT '$@' -MD -MP -MF '.deps/$*.TPo' $(CXXFLAGS) -c $< -o $@; then \
 		mv '.deps/$*.TPo' '.deps/$*.Po'; \
-		else rm -f '.deps/$*.Tpo'; exit 1; \
+		else rm -f '.deps/$*.TPo'; exit 1; \
 		fi; \
 	else \
 		source='$<' object='$@' depfile='.deps/$*.Po' tmpdepfile='.deps/$*.TPo' depmode=$(CCDEPMODE) $(depcomp) \
