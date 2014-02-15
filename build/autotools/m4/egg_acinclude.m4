@@ -34,35 +34,6 @@ AC_DEFUN([EGG_CHECK_CCPIPE],
   fi
 ])
 
-dnl EGG_CHECK_CCWALL()
-dnl
-dnl See if the compiler supports -Wall.
-dnl
-AC_DEFUN([EGG_CHECK_CCWALL],
-[
-  if test -n "$GXX" && test -z "$no_wall"; then
-    AC_CACHE_CHECK([whether the compiler understands -Wall], egg_cv_var_ccwall, [
-      ac_old_CXXFLAGS="$CXXFLAGS"
-      CXXFLAGS="$CXXFLAGS -Wall"
-       AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-         int main ()
-         {
-           return(0);
-         }
-       ])], [
-         egg_cv_var_ccwall="yes"
-       ], [
-         egg_cv_var_ccwall="no"
-       ])
-      CXXFLAGS="$ac_old_CXXFLAGS"
-    ])
-
-    if test "$egg_cv_var_ccwall" = "yes"; then
-      CXXFLAGS="$CXXFLAGS -Wall"
-    fi
-  fi
-])
-
 dnl @synopsis CXX_FLAGS_CHECK [var] [compiler flags] [cache name] [required]
 dnl @summary check whether compiler supports given C++ flags or not
 AC_DEFUN([CXX_FLAG_CHECK],
