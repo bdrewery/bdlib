@@ -9,6 +9,7 @@ AM_SILENT_RULES([yes])
 AC_CONFIG_MACRO_DIR([build/autotools/m4])
 AC_CONFIG_AUX_DIR([build/autotools/aux])
 AM_INIT_AUTOMAKE([1.11 subdir-objects foreign -Wall -Wno-portability])
+AM_MAINTAINER_MODE([disable])
 #LT_INIT()
 AC_CONFIG_HEADERS(src/config.h)
 AC_COPYRIGHT([Copyright (c) 2006-2014, Bryan Drewery <bryan@shatow.net>
