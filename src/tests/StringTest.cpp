@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2013, Bryan Drewery <bryan@shatow.net>
+ * Copyright (c) 2006-2014, Bryan Drewery <bryan@shatow.net>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
