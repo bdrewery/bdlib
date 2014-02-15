@@ -116,7 +116,6 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_libbdlib_a_OBJECTS = src/libbdlib_a-Cstrings.$(OBJEXT) \
 	src/libbdlib_a-base64.$(OBJEXT) src/libbdlib_a-Array.$(OBJEXT) \
 	src/libbdlib_a-BinaryTree.$(OBJEXT) \
-	src/libbdlib_a-Crypto.$(OBJEXT) \
 	src/libbdlib_a-HashTable.$(OBJEXT) \
 	src/libbdlib_a-List.$(OBJEXT) src/libbdlib_a-Queue.$(OBJEXT) \
 	src/libbdlib_a-ReferenceCountedArray.$(OBJEXT) \
@@ -551,7 +550,6 @@ libbdlib_a_SOURCES = \
 			src/base64.cpp \
 			src/Array.cpp \
 			src/BinaryTree.cpp \
-			src/Crypto.cpp \
 			src/HashTable.cpp \
 			src/List.cpp \
 			src/Queue.cpp \
@@ -651,8 +649,6 @@ src/libbdlib_a-Array.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-BinaryTree.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-Crypto.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-HashTable.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-List.$(OBJEXT): src/$(am__dirstamp) \
@@ -726,7 +722,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Array.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-BinaryTree.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Crypto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Cstrings.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-HashTable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-List.Po@am__quote@
@@ -823,20 +818,6 @@ src/libbdlib_a-BinaryTree.obj: src/BinaryTree.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/BinaryTree.cpp' object='src/libbdlib_a-BinaryTree.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-BinaryTree.obj `if test -f 'src/BinaryTree.cpp'; then $(CYGPATH_W) 'src/BinaryTree.cpp'; else $(CYGPATH_W) '$(srcdir)/src/BinaryTree.cpp'; fi`
-
-src/libbdlib_a-Crypto.o: src/Crypto.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Crypto.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Crypto.Tpo -c -o src/libbdlib_a-Crypto.o `test -f 'src/Crypto.cpp' || echo '$(srcdir)/'`src/Crypto.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Crypto.Tpo src/$(DEPDIR)/libbdlib_a-Crypto.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Crypto.cpp' object='src/libbdlib_a-Crypto.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Crypto.o `test -f 'src/Crypto.cpp' || echo '$(srcdir)/'`src/Crypto.cpp
-
-src/libbdlib_a-Crypto.obj: src/Crypto.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Crypto.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Crypto.Tpo -c -o src/libbdlib_a-Crypto.obj `if test -f 'src/Crypto.cpp'; then $(CYGPATH_W) 'src/Crypto.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Crypto.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Crypto.Tpo src/$(DEPDIR)/libbdlib_a-Crypto.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Crypto.cpp' object='src/libbdlib_a-Crypto.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Crypto.obj `if test -f 'src/Crypto.cpp'; then $(CYGPATH_W) 'src/Crypto.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Crypto.cpp'; fi`
 
 src/libbdlib_a-HashTable.o: src/HashTable.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-HashTable.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-HashTable.Tpo -c -o src/libbdlib_a-HashTable.o `test -f 'src/HashTable.cpp' || echo '$(srcdir)/'`src/HashTable.cpp

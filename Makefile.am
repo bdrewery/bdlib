@@ -9,7 +9,6 @@ libbdlib_a_SOURCES= \
 			src/base64.cpp \
 			src/Array.cpp \
 			src/BinaryTree.cpp \
-			src/Crypto.cpp \
 			src/HashTable.cpp \
 			src/List.cpp \
 			src/Queue.cpp \
