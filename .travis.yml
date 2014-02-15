@@ -5,8 +5,9 @@ compiler:
   - gcc
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install libcppunit-dev libcppunit-1.12-1 tcl tcl-dev gcc-4.7
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libcppunit-dev libcppunit-1.12-1 tcl tcl-dev g++-4.8
 
 # Skip install
 install: true
