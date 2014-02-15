@@ -42,7 +42,7 @@ class Crypto {
     int flags;
   public:
     Crypto(const unsigned char* key, const unsigned char* iv = nullptr);
-    Crypto(const Crypto& crypter) {};
+    Crypto(const Crypto& crypter) : flags(0) {};
     ~Crypto() {};
 };
 
