@@ -56,9 +56,9 @@ class Stream {
         Stream() : str(), pos(0), loading(0) {};
         Stream(const Stream& stream) : str(stream.str), pos(stream.pos), loading(0) {};
         Stream(Stream&& stream) : str(stream.str), pos(stream.pos), loading(stream.loading) {
-          str = String();
-          pos = 0;
-          loading = 0;
+          stream.str = String();
+          stream.pos = 0;
+          stream.loading = 0;
         }
         Stream(const String& string) : str(string), pos(0), loading(0) {};
         Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };

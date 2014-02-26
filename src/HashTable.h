@@ -67,10 +67,10 @@ class HashTable {
           _list[i] = table._list[i];
     };
     HashTable(HashTable<Key, Value>&& table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-      _list = nullptr;
-      _size = 0;
-      _capacity = default_list_size;
-      _hash = _hash();
+      table._list = nullptr;
+      table._size = 0;
+      table._capacity = default_list_size;
+      table._hash = _hash();
     }
     HashTable(std::initializer_list<iterator_type> list) : _list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
       *this = list;

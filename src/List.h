@@ -60,9 +60,9 @@ class List {
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
       Node(const value_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
-        item = nullptr;
-        next = nullptr;
-        prev = nullptr;
+        p.item = nullptr;
+        p.next = nullptr;
+        p.prev = nullptr;
       };
 
       friend void swap(Node& a, Node& b) {

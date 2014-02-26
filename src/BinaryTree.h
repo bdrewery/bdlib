@@ -151,8 +151,8 @@ class BinaryTree {
     BinaryTree() : my_size(0), root(nullptr) {};
     BinaryTree(const BinaryTree& tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
     BinaryTree(BinaryTree&& tree) : my_size(std::move(tree.my_size)), root(std::move(tree.root)) {
-      root = nullptr;
-      my_size = 0;
+      tree.root = nullptr;
+      tree.my_size = 0;
     };
 
     friend void swap(BinaryTree& a, BinaryTree& b) {
