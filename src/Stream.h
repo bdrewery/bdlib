@@ -55,7 +55,7 @@ class Stream {
   public:
         Stream() : str(), pos(0), loading(0) {};
         Stream(const Stream& stream) : str(stream.str), pos(stream.pos), loading(0) {};
-        Stream(Stream&& stream) : str(stream.str), pos(stream.pos), loading(stream.loading) {
+        Stream(Stream&& stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
           stream.str = String();
           stream.pos = 0;
           stream.loading = 0;
