@@ -41,7 +41,7 @@
 
 BDLIB_NS_BEGIN
 static threadMainRet_t threadMain(void* object) {
-  Thread* thread = (Thread*) object;
+  Thread* thread = static_cast<Thread*>(object);
   return (threadMainRet_t) thread->run(thread->param);
 }
 

@@ -70,13 +70,13 @@ class Socket {
     sockname_t addr;
     int flags;
   public:
-    Socket() : sock(-1), addr(0), pfamily(0) {};
+    Socket() : sock(-1), addr(0), flags(0) {};
     Socket(int f) : sock(-1), addr(0), flags(f) {};
     Socket(Socket& s) : sock(s.sock), addr(s.addr), flags(s.flags) {};
     virtual ~Socket();
     
     bool create();
-    bool connect(const String host, const in_port_t port);
+    bool connect(const String& host, const in_port_t port);
     bool bind(const in_port_t port);
     bool listen() const;
     bool accept (Socket&) const;

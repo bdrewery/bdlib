@@ -155,9 +155,10 @@ Array<String> String::split(const String& delim, size_t limit) const {
   Array<String> array;
   // Use a temporary - is a fast reference and never modified, so no COW ever used.
   String str(*this);
-  size_t pos = 0;
 
   while (array.size() < limit - 1) {
+    size_t pos;
+
     // Trim out left whitespace
     if (delim == space) while (str.length() && str[0] == ' ') ++str;
 
