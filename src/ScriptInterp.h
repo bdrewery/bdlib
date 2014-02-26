@@ -47,7 +47,7 @@ class ScriptCallbacker {
     ScriptInterp* si;
     const String cmd;
 
-    ScriptCallbacker(ScriptInterp* _si, const String _cmd) : si(_si), cmd(_cmd) {};
+    ScriptCallbacker(ScriptInterp* _si, const String& _cmd) : si(_si), cmd(_cmd) {};
     virtual ~ScriptCallbacker() {};
     virtual String call(const Array<String>& params = Array<String>()) = 0;
 };

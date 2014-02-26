@@ -122,7 +122,7 @@ class ScriptCallbackerTCL : public ScriptCallbacker {
     ScriptCallbackerTCL(const ScriptCallbackerTCL&) = delete;
     ScriptCallbackerTCL& operator=(const ScriptCallbackerTCL&) = delete;
   public:
-    ScriptCallbackerTCL(ScriptInterp* _si, const String _cmd) : ScriptCallbacker(_si, _cmd) {};
+    ScriptCallbackerTCL(ScriptInterp* _si, const String& _cmd) : ScriptCallbacker(_si, _cmd) {};
     virtual ~ScriptCallbackerTCL() {};
     virtual String call(const Array<String>& params = Array<String>());
 };
