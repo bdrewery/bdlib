@@ -116,7 +116,6 @@ int Stream::loadFile(const int fd)
   Reserve(size);
   void* map = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
   if (map == MAP_FAILED) {
-    close(fd);
     return 1;
   }
   loading = 1;
