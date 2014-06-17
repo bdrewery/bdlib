@@ -33,12 +33,12 @@
 
 #ifdef HAVE_MMAP
 #  include <sys/mman.h>
-#  include <unistd.h>
 #  include <sys/types.h>
 #  include <sys/stat.h>
 #  include <fcntl.h>
 #  include <cstring>
 #endif
+#include <unistd.h>
 
 
 BDLIB_NS_BEGIN
