@@ -124,9 +124,15 @@ int Stream::loadFile(const int fd)
 
   munmap(static_cast<void*>(map), size);
 #else
-  FILE *f = fdopen(fd, "rb");
-  if (f == nullptr)
+  int my_fd = dup(fd);
+  if (my_fd == -1) {
     return 1;
+  }
+  FILE *f = fdopen(my_fd, "rb");
+  if (f == nullptr) {
+    close(my_fd);
+    return 1;
+  }
 
   loading = 1;
   fseek(f, 0, SEEK_END);
@@ -174,9 +180,15 @@ int Stream::writeFile(const int fd) const
 
   if (munmap(map, length()) == -1) return 1;
 #else
-  FILE *f = fdopen(fd, "wb");
-  if (f == nullptr)
+  int my_fd = dup(fd);
+  if (my_fd == -1) {
     return 1;
+  }
+  FILE *f = fdopen(my_fd, "wb");
+  if (f == nullptr) {
+    close(my_fd);
+    return 1;
+  }
 
   if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
     fclose(f);
