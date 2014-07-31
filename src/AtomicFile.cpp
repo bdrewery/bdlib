@@ -62,9 +62,10 @@ void AtomicFile::open(const String& fname) {
 }
 
 bool AtomicFile::close() {
-  bool result;
+  bool result, remove_temp;
 
   result = false;
+  remove_temp = true;
   if (::fsync(this->_fd) != 0) {
     goto cleanup;
   }
@@ -75,9 +76,13 @@ bool AtomicFile::close() {
     goto cleanup;
   }
 
+  remove_temp = false;
   result = true;
 
 cleanup:
+  if (remove_temp) {
+    ::unlink(this->_tmpname.c_str());
+  }
   this->_fd = -1;
   return result;
 }
