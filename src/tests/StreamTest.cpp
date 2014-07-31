@@ -227,7 +227,7 @@ void StreamTest :: getlineTest (void)
 
 void StreamTest :: loadFileTest (void)
 {
-  const char *file = "/etc/passwd";
+  const char *file = "/etc/services";
 
   FILE *f = NULL;
   f = fopen(file, "rb");
@@ -269,7 +269,7 @@ void StreamTest :: writeFileFDTest (void)
   char fname[20] = "";
   strcpy(fname, ".stream-out-XXXXXX");
   int fd = mkstemp(fname);
-  const char *file = "/etc/passwd";
+  const char *file = "/etc/services";
 
   a->loadFile(file);
   CPPUNIT_ASSERT_EQUAL(a->writeFile(fd), 0);
@@ -316,7 +316,7 @@ void StreamTest :: writeFileFDTest (void)
 void StreamTest :: writeFileTest (void)
 {
   const char *writefile = "/tmp/bdlib";
-  const char *file = "/etc/passwd";
+  const char *file = "/etc/services";
 
   a->loadFile(file);
   CPPUNIT_ASSERT_EQUAL(a->writeFile(writefile), 0);
