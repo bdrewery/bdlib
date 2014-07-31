@@ -61,6 +61,16 @@ void AtomicFile::open(const String& fname) {
   this->_fd = mkstemp(this->_tmpname.begin());
 }
 
+bool AtomicFile::abort() {
+  if (!this->is_open()) {
+    return false;
+  }
+  ::unlink(this->_tmpname.c_str());
+  ::close(this->_fd);
+  this->_fd = -1;
+  return true;
+}
+
 bool AtomicFile::close() {
   bool result, remove_temp;
 

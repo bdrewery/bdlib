@@ -54,6 +54,11 @@ class AtomicFile {
     void open(const String& fname);
 
     /**
+     * @brief Abort creating a file and cleanup.
+     */
+    bool abort();
+
+    /**
      * @brief Check if a file was successfully opened.
      */
     bool is_open() const {
