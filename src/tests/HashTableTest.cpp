@@ -425,3 +425,4 @@ void HashTableTest :: eachTest(void) {
 
   CPPUNIT_ASSERT_EQUAL(2, n);
 }
+/* vim: set sts=2 sw=2 ts=8 et: */

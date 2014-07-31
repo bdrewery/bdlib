@@ -63,3 +63,4 @@ class ListTest : public CPPUNIT_NS :: TestFixture
         List<String*> *e, *f, *g, *h;
 };
 #endif /* !_LISTTEST_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

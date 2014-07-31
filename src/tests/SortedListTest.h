@@ -63,3 +63,4 @@ class SortedListTest : public CPPUNIT_NS :: TestFixture
         SortedList<String*> *e, *f, *g, *h;
 };
 #endif /* !_SORTEDLISTTEST_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

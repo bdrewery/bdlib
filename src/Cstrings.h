@@ -47,3 +47,4 @@ void *realloc(void *, size_t);
 BDLIB_NS_END
 
 #endif /* _BD_CSTRINGS_H */ 
+/* vim: set sts=2 sw=2 ts=8 et: */

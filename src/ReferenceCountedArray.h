@@ -900,3 +900,4 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 BDLIB_NS_END
 
 #endif
+/* vim: set sts=2 sw=2 ts=8 et: */

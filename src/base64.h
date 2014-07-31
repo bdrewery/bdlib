@@ -111,3 +111,4 @@ void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* 
 
 BDLIB_NS_END
 #endif /* _BD_BASE64_H */ 
+/* vim: set sts=2 sw=2 ts=8 et: */

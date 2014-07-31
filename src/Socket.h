@@ -107,3 +107,4 @@ class ServerSocket : public Socket {
 };
 BDLIB_NS_END
 #endif /* _BD_SOCKET_H */ 
+/* vim: set sts=2 sw=2 ts=8 et: */

@@ -393,3 +393,4 @@ class BinaryTree {
 
 BDLIB_NS_END
 #endif /* _BD_BINARYTREE_H */ 
+/* vim: set sts=2 sw=2 ts=8 et: */

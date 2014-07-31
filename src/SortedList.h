@@ -87,3 +87,4 @@ class SortedList : public List<T> {
 
 BDLIB_NS_END
 #endif /* _BD_SORTEDLIST_H */ 
+/* vim: set sts=2 sw=2 ts=8 et: */

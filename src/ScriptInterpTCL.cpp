@@ -293,3 +293,4 @@ Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, Scr
 
 BDLIB_NS_END
 #endif /* USE_SCRIPT_TCL */
+/* vim: set sts=2 sw=2 ts=8 et: */

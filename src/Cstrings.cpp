@@ -148,3 +148,4 @@ void *realloc(void *ptr, size_t size)
   return x;
 }
 BDLIB_NS_END
+/* vim: set sts=2 sw=2 ts=8 et: */

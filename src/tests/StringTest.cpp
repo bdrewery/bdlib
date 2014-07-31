@@ -1493,3 +1493,4 @@ void StringTest :: substTest(void) {
   CPPUNIT_ASSERT_STRING_EQUAL("$this $is $a $test $this", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS,IS,A,TEST,THIS", *b);
 }
+/* vim: set sts=2 sw=2 ts=8 et: */

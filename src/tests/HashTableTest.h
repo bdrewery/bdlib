@@ -68,3 +68,4 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
         HashTable<String, String> *sa, *sb;
 };
 #endif /* !_HASHTABLETEST_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

@@ -283,3 +283,4 @@ class List {
 BDLIB_NS_END
 
 #endif /* _BD_LIST_H */ 
+/* vim: set sts=2 sw=2 ts=8 et: */

@@ -360,3 +360,4 @@ void StreamTest :: writeFileTest (void)
   close(fd);
   fclose(f);
 }
+/* vim: set sts=2 sw=2 ts=8 et: */

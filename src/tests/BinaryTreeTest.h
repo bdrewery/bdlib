@@ -64,3 +64,4 @@ class BinaryTreeTest : public CPPUNIT_NS :: TestFixture
         BinaryTree<int, String> *a, *b, *c, *d, *e, *f, *g, *h;
 };
 #endif /* !_BINARYTREETEST_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

@@ -59,3 +59,4 @@ int main (int argc, char* argv[])
     // return 0 if tests were successful
     return collectedresults.wasSuccessful () ? 0 : 1;
 }
+/* vim: set sts=2 sw=2 ts=8 et: */

@@ -31,3 +31,4 @@
 #define BIT30   (uint32_t) 0x040000000
 #define BIT31   (uint32_t) 0x080000000
 
+/* vim: set sts=2 sw=2 ts=8 et: */

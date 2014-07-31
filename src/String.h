@@ -539,3 +539,4 @@ std::istream& getline(std::istream&, String&);
 BDLIB_NS_END
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
 #endif /* _BD_STRING_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

@@ -172,3 +172,4 @@ inline Stream& operator<<(Stream& stream, const String& string) { stream.puts(st
 
 BDLIB_NS_END
 #endif /* _BD_STREAM_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

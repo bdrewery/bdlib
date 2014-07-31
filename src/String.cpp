@@ -303,3 +303,4 @@ String newsplit(String& str, char delim)
   return first;
 }
 BDLIB_NS_END
+/* vim: set sts=2 sw=2 ts=8 et: */

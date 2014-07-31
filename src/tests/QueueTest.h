@@ -55,3 +55,4 @@ class QueueTest : public CPPUNIT_NS :: TestFixture
         Queue<String*> *e, *f, *g, *h;
 };
 #endif /* !_QUEUETEST_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

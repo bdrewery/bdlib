@@ -126,3 +126,4 @@ class StringTest : public CPPUNIT_NS :: TestFixture
 	char cstring[50];
 };
 #endif
+/* vim: set sts=2 sw=2 ts=8 et: */

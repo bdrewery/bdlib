@@ -431,3 +431,4 @@ void ArrayTest :: initializerTest(void) {
   CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_a)[2]);
   CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_a)[3]);
 }
+/* vim: set sts=2 sw=2 ts=8 et: */

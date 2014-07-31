@@ -200,3 +200,4 @@ int Stream::writeFile(const int fd) const
 }
 
 BDLIB_NS_END
+/* vim: set sts=2 sw=2 ts=8 et: */

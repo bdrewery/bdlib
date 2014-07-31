@@ -224,3 +224,4 @@ class ScriptInterpTCL : public ScriptInterp {
 BDLIB_NS_END
 #endif /* USE_SCRIPT_TCL */
 #endif /* _BD_SCRIPTINTERPTCL_H */
+/* vim: set sts=2 sw=2 ts=8 et: */

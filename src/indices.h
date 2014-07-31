@@ -35,3 +35,4 @@ inline typename make_indices_impl<max_index>::type make_indices()
 }
 
 #endif
+/* vim: set sts=2 sw=2 ts=8 et: */

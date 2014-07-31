@@ -132,3 +132,4 @@ void StackTest :: iterateTest (void)
     CPPUNIT_ASSERT_STRING_EQUAL(buf, a->pop());
   }
 }
+/* vim: set sts=2 sw=2 ts=8 et: */

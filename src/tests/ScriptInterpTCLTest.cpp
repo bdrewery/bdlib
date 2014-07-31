@@ -423,3 +423,4 @@ void ScriptInterpTCLTest :: deleteCommandTest (void)
 }
 
 #endif /* USE_SCRIPT_TCL */
+/* vim: set sts=2 sw=2 ts=8 et: */
