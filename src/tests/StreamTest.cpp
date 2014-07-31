@@ -36,6 +36,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION (StreamTest);
 
 void StreamTest :: setUp (void)
 {
+    chdir("/tmp/");
     strcpy(cstring, "Some static cstring to play with");
     // set up test environment (initializing objects)
     a = new Stream();
