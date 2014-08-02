@@ -1,15 +1,16 @@
 <html>
 <head>
-<title>newstr</title>
+<title>newbuf</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/48.html#L96'>newstr</a>             96 Cstrings.cpp   str_redup(char **str, const char *newstr)
-<a href='../S/48.html#L100'>newstr</a>            100 Cstrings.cpp           if (!newstr) {
-<a href='../S/48.html#L105'>newstr</a>            105 Cstrings.cpp           len = strlen(newstr) + 1;
-<a href='../S/48.html#L107'>newstr</a>            107 Cstrings.cpp           memcpy(*str, newstr, len);
+<a href='../S/51.html#L84'>newbuf</a>             84 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/51.html#L86'>newbuf</a>             86 ReferenceCountedArray.h         if (newbuf != buf) {
+<a href='../S/51.html#L88'>newbuf</a>             88 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/51.html#L91'>newbuf</a>             91 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
+<a href='../S/51.html#L94'>newbuf</a>             94 ReferenceCountedArray.h           buf = newbuf;
 </pre>
 </body>
 </html>

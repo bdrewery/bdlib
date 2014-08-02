@@ -1,20 +1,31 @@
 <html>
 <head>
-<title>ReferenceCountedArrayBase</title>
+<title>Params</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/42.html#L31'>ReferenceCountedArrayBase</a>   31 ReferenceCountedArray.cpp const size_t ReferenceCountedArrayBase::npos;
-<a href='../S/56.html#L188'>ReferenceCountedArrayBase</a>  188 ReferenceCountedArray.h class ReferenceCountedArrayBase {
-<a href='../S/56.html#L191'>ReferenceCountedArrayBase</a>  191 ReferenceCountedArray.h     virtual ~ReferenceCountedArrayBase() {};
-<a href='../S/56.html#L202'>ReferenceCountedArrayBase</a>  202 ReferenceCountedArray.h class ReferenceCountedArray : public ReferenceCountedArrayBase {
-<a href='../S/56.html#L373'>ReferenceCountedArrayBase</a>  373 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L375'>ReferenceCountedArrayBase</a>  375 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/56.html#L376'>ReferenceCountedArrayBase</a>  376 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
-<a href='../S/56.html#L393'>ReferenceCountedArrayBase</a>  393 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L406'>ReferenceCountedArrayBase</a>  406 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/61.html#L108'>Params</a>            108 ScriptInterp.h         template&lt;typename InterpType, typename ReturnType, typename... Params&gt;
+<a href='../S/61.html#L109'>Params</a>            109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/39.html#L170'>Params</a>            170 ScriptInterpTCL.h         template&lt;typename ReturnType, typename... Params&gt;
+<a href='../S/39.html#L171'>Params</a>            171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/39.html#L172'>Params</a>            172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
+<a href='../S/5.html#L9'>Params</a>              9 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/5.html#L11'>Params</a>             11 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L12'>Params</a>             12 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L13'>Params</a>             13 ScriptInterpTCLCallbacks.h     ReturnType result = std::move(callback(std::forward&lt;Params&gt;(args)...));
+<a href='../S/5.html#L19'>Params</a>             19 ScriptInterpTCLCallbacks.h template &lt;typename... Params&gt;
+<a href='../S/5.html#L20'>Params</a>             20 ScriptInterpTCLCallbacks.h struct ScriptCallbackDispatchTCL&lt;void, Params...&gt; {
+<a href='../S/5.html#L21'>Params</a>             21 ScriptInterpTCLCallbacks.h   typedef void (*function_t)(Params...);
+<a href='../S/5.html#L22'>Params</a>             22 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L23'>Params</a>             23 ScriptInterpTCLCallbacks.h     callback(std::forward&lt;Params&gt;(args)...);
+<a href='../S/5.html#L27'>Params</a>             27 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/5.html#L29'>Params</a>             29 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L39'>Params</a>             39 ScriptInterpTCLCallbacks.h       ScriptCallbackDispatchTCL&lt;ReturnType, Params...&gt;::dispatch(interp, _callback,
+<a href='../S/5.html#L42'>Params</a>             42 ScriptInterpTCLCallbacks.h            (std::move(tcl_to_c_cast&lt;Params&gt;::from(std::move(objv[Indices + 1]), si))) :
+<a href='../S/5.html#L43'>Params</a>             43 ScriptInterpTCLCallbacks.h            (std::move(Params()))
+<a href='../S/5.html#L51'>Params</a>             51 ScriptInterpTCLCallbacks.h       real_call(argc, argv, si, proxy_data, make_indices&lt;sizeof...(Params)&gt;());
 </pre>
 </body>
 </html>

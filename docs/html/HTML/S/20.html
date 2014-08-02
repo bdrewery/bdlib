@@ -1,14 +1,18 @@
 <html>
 <head>
-<title>tests/ListTest.h</title>
+<title>tests/UnitRunner.cpp</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/77.html'>tests</a>/ListTest.h</h2>
-<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/70.html'>tests</a>/UnitRunner.cpp</h2>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L35'>[^]</a>[v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='31.html#L28' title='Included from 28 in tests/ListTest.cpp.'>INCLUDED FROM</a></h2>
+<h2>DEFINITIONS</h2>
+This source file includes following definitions.
+<ol>
+<li><a href='#L35' title='Defined at 35.'>main</a>
+</ol>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -35,51 +39,47 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* ListTest.h</font></i>
+<a name='L25'>  25 <i><font color='green'>/* UnitRunner.c</font></i>
 <a name='L26'>  26 <i><font color='green'> *</font></i>
 <a name='L27'>  27 <i><font color='green'> */</font></i>
-<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/20.html#L29' title='Defined at 29 in tests/ListTest.h.'>_LISTTEST_H</a>
-<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/20.html#L28' title='Refered from 28 in tests/ListTest.h.'>_LISTTEST_H</a> 1
-<a name='L30'>  30 
-<a name='L31'>  31 <font color='darkred'>#include</font> &lt;cppunit/TestFixture.h&gt;
-<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cppunit/extensions/HelperMacros.h&gt;
-<a name='L33'>  33 <font color='darkred'>#include</font> "<a href='47.html'>String.h</a>"
-<a name='L34'>  34 <font color='darkred'>#include</font> "<a href='50.html'>List.h</a>"
-<a name='L35'>  35 <a href='../Y/732.html' title='Multiple used in 24 places.'>using</a> <a href='../Y/513.html' title='Multiple used in 12 places.'>namespace</a> <a href='../S/54.html#L46' title='Defined at 46 in bdlib.h.'>BDLIB_NS</a>;
-<a name='L36'>  36 
-<a name='L37'>  37 <a href='../Y/267.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/64.html' title='Multiple used in 13 places.'>ListTest</a> : <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a> <a href='../Y/21.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: <a href='../Y/155.html' title='Multiple used in 11 places.'>TestFixture</a>
-<a name='L38'>  38 <font color='red'>{</font>
-<a name='L39'>  39     <a href='../Y/24.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE</a> (<a href='../Y/64.html' title='Multiple used in 13 places.'>ListTest</a>);
-<a name='L40'>  40     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/212.html' title='Multiple defined in 5 places.'>insertTest</a>);
-<a name='L41'>  41     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/170.html' title='Multiple defined in 4 places.'>containsTest</a>);
-<a name='L42'>  42     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/171.html' title='Multiple defined in 3 places.'>copyTest</a>);
-<a name='L43'>  43     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/191.html' title='Multiple defined in 4 places.'>findTest</a>);
-<a name='L44'>  44     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/161.html' title='Multiple defined in 6 places.'>clearTest</a>);
-<a name='L45'>  45     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/252.html' title='Multiple defined in 4 places.'>removeTest</a>);
-<a name='L46'>  46     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/213.html' title='Multiple defined in 8 places.'>iterateTest</a>);
-<a name='L47'>  47     <a href='../Y/25.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE_END</a> ();
-<a name='L48'>  48 
-<a name='L49'>  49     <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a>:
-<a name='L50'>  50         <b>void</b> <a href='../D/268.html' title='Multiple defined in 11 places.'>setUp</a> (<b>void</b>);
-<a name='L51'>  51         <b>void</b> <a href='../D/294.html' title='Multiple defined in 11 places.'>tearDown</a> (<b>void</b>);
-<a name='L52'>  52 
-<a name='L53'>  53     <a href='../Y/560.html' title='Multiple used in 20 places.'>protected</a>:
-<a name='L54'>  54         <b>void</b> <a href='../D/212.html' title='Multiple defined in 5 places.'>insertTest</a>(<b>void</b>);
-<a name='L55'>  55         <b>void</b> <a href='../D/170.html' title='Multiple defined in 4 places.'>containsTest</a>(<b>void</b>);
-<a name='L56'>  56         <b>void</b> <a href='../D/171.html' title='Multiple defined in 3 places.'>copyTest</a>(<b>void</b>);
-<a name='L57'>  57         <b>void</b> <a href='../D/191.html' title='Multiple defined in 4 places.'>findTest</a>(<b>void</b>);
-<a name='L58'>  58         <b>void</b> <a href='../D/161.html' title='Multiple defined in 6 places.'>clearTest</a>(<b>void</b>);
-<a name='L59'>  59         <b>void</b> <a href='../D/252.html' title='Multiple defined in 4 places.'>removeTest</a>(<b>void</b>);
-<a name='L60'>  60         <b>void</b> <a href='../D/213.html' title='Multiple defined in 8 places.'>iterateTest</a>(<b>void</b>);
-<a name='L61'>  61     <a href='../Y/559.html' title='Multiple used in 39 places.'>private</a>:
-<a name='L62'>  62         <a href='../Y/62.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>&gt; *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>, *<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>, *<a href='../Y/241.html' title='Multiple used in 118 places.'>c</a>, *<a href='../Y/298.html' title='Multiple used in 77 places.'>d</a>;
-<a name='L63'>  63         <a href='../Y/62.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>*&gt; *<a href='../Y/326.html' title='Multiple used in 41 places.'>e</a>, *<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, *<a href='../Y/388.html' title='Multiple used in 34 places.'>g</a>, *<a href='../Y/396.html' title='Multiple used in 27 places.'>h</a>;
-<a name='L64'>  64 <font color='red'>}</font>;
-<a name='L65'>  65 <font color='darkred'>#endif</font> <i><font color='green'>/* !_LISTTEST_H */</font></i>
-<a name='L66'>  66 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L28'>  28 <font color='darkred'>#include</font> &lt;cppunit/CompilerOutputter.h&gt;
+<a name='L29'>  29 <font color='darkred'>#include</font> &lt;cppunit/extensions/TestFactoryRegistry.h&gt;
+<a name='L30'>  30 <font color='darkred'>#include</font> &lt;cppunit/TestResult.h&gt;
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;cppunit/TestResultCollector.h&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cppunit/TestRunner.h&gt;
+<a name='L33'>  33 <font color='darkred'>#include</font> &lt;cppunit/BriefTestProgressListener.h&gt;
+<a name='L34'>  34 
+<a name='L35'>  35 <b>int</b> main (<b>int</b> <a href='../Y/218.html' title='Multiple used in 7 places.'>argc</a>, <b>char</b>* <a href='../Y/219.html' title='Multiple used in 6 places.'>argv</a>[])
+<a name='L36'>  36 <font color='red'>{</font>
+<a name='L37'>  37     <i><font color='green'>// informs test-listener about testresults</font></i>
+<a name='L38'>  38     <a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: TestResult <a href='../Y/701.html' title='Multiple used in 4 places.'>testresult</a>;
+<a name='L39'>  39 
+<a name='L40'>  40     <i><font color='green'>// register listener for collecting the test-results</font></i>
+<a name='L41'>  41     <a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: TestResultCollector <a href='../Y/282.html' title='Multiple used in 4 places.'>collectedresults</a>;
+<a name='L42'>  42     <a href='../Y/701.html' title='Multiple used in 4 places.'>testresult</a>.<a href='../Y/208.html' title='Multiple used in 2 places.'>addListener</a> (&amp;<a href='../Y/282.html' title='Multiple used in 4 places.'>collectedresults</a>);
+<a name='L43'>  43 
+<a name='L44'>  44     <a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: BriefTestProgressListener <a href='../Y/470.html' title='Multiple used in 2 places.'>listener</a>;
+<a name='L45'>  45     <b>if</b> (<a href='../Y/218.html' title='Multiple used in 7 places.'>argc</a> == 1) <font color='red'>{</font>
+<a name='L46'>  46       <i><font color='green'>// Shows a message as each test starts</font></i>
+<a name='L47'>  47       <a href='../Y/701.html' title='Multiple used in 4 places.'>testresult</a>.<a href='../Y/208.html' title='Multiple used in 2 places.'>addListener</a>( &amp;<a href='../Y/470.html' title='Multiple used in 2 places.'>listener</a> );
+<a name='L48'>  48     <font color='red'>}</font>
+<a name='L49'>  49 
+<a name='L50'>  50     <i><font color='green'>// insert test-suite at test-runner by registry</font></i>
+<a name='L51'>  51     <a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: TestRunner <a href='../Y/702.html' title='Multiple used in 3 places.'>testrunner</a>;
+<a name='L52'>  52     <a href='../Y/702.html' title='Multiple used in 3 places.'>testrunner</a>.addTest (<a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: TestFactoryRegistry :: getRegistry ().makeTest ());
+<a name='L53'>  53     <a href='../Y/702.html' title='Multiple used in 3 places.'>testrunner</a>.<a href='../Y/610.html' title='Multiple used in 3 places.'>run</a> (<a href='../Y/701.html' title='Multiple used in 4 places.'>testresult</a>);
+<a name='L54'>  54 
+<a name='L55'>  55     <i><font color='green'>// output results in compiler-format</font></i>
+<a name='L56'>  56     <a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: CompilerOutputter <a href='../Y/283.html' title='Multiple used in 2 places.'>compileroutputter</a> (&amp;<a href='../Y/282.html' title='Multiple used in 4 places.'>collectedresults</a>, <a href='../S/28.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::cerr);
+<a name='L57'>  57     <a href='../Y/283.html' title='Multiple used in 2 places.'>compileroutputter</a>.<a href='../Y/759.html' title='Multiple used in 3 places.'>write</a> ();
+<a name='L58'>  58 
+<a name='L59'>  59     <i><font color='green'>// return 0 if tests were successful</font></i>
+<a name='L60'>  60     <b>return</b> <a href='../Y/282.html' title='Multiple used in 4 places.'>collectedresults</a>.wasSuccessful () ? 0 : 1;
+<a name='L61'>  61 <font color='red'>}</font>
+<a name='L62'>  62 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;][^]<a href='#L35'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

@@ -5,6 +5,5 @@ var searchData=
   ['bdlib_2eh',['bdlib.h',['../bdlib_8h.html',1,'']]],
   ['binarytree_2ecpp',['BinaryTree.cpp',['../BinaryTree_8cpp.html',1,'']]],
   ['binarytree_2eh',['BinaryTree.h',['../BinaryTree_8h.html',1,'']]],
-  ['bits_2eh',['bits.h',['../bits_8h.html',1,'']]],
-  ['blah_2ecpp',['blah.cpp',['../blah_8cpp.html',1,'']]]
+  ['bits_2eh',['bits.h',['../bits_8h.html',1,'']]]
 ];

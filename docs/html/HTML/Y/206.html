@@ -1,29 +1,19 @@
 <html>
 <head>
-<title>alloc</title>
+<title>actual</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/56.html#L54'>alloc</a>              54 ReferenceCountedArray.h     mutable Allocator alloc;
-<a href='../S/56.html#L62'>alloc</a>              62 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
-<a href='../S/56.html#L84'>alloc</a>              84 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
-<a href='../S/56.html#L115'>alloc</a>             115 ReferenceCountedArray.h         alloc.destroy(i);
-<a href='../S/56.html#L117'>alloc</a>             117 ReferenceCountedArray.h       alloc.deallocate(p, size);
-<a href='../S/56.html#L164'>alloc</a>             164 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
-<a href='../S/56.html#L273'>alloc</a>             273 ReferenceCountedArray.h     Allocator alloc;
-<a href='../S/56.html#L373'>alloc</a>             373 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L375'>alloc</a>             375 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/56.html#L376'>alloc</a>             376 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
-<a href='../S/56.html#L377'>alloc</a>             377 ReferenceCountedArray.h       rca.alloc = Allocator();
-<a href='../S/56.html#L393'>alloc</a>             393 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L406'>alloc</a>             406 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L430'>alloc</a>             430 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
-<a href='../S/56.html#L448'>alloc</a>             448 ReferenceCountedArray.h       alloc = rca.alloc;
-<a href='../S/56.html#L464'>alloc</a>             464 ReferenceCountedArray.h       alloc = std::move(rca.alloc);
-<a href='../S/56.html#L470'>alloc</a>             470 ReferenceCountedArray.h       rca.alloc = Allocator();
-<a href='../S/56.html#L510'>alloc</a>             510 ReferenceCountedArray.h         Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/52.html#L38'>actual</a>             38 Array.h        #define CPPUNIT_ASSERT_ARRAY_EQUAL(expected, actual) expected.CPPUNIT_checkArrayEqual(actual, CPPUNIT_SOURCELINE())
+<a href='../S/52.html#L268'>actual</a>            268 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/52.html#L269'>actual</a>            269 Array.h              if ((*this) == actual) return;
+<a href='../S/52.html#L270'>actual</a>            270 Array.h              ::CPPUNIT_NS::Asserter::failNotEqual(this-&gt;join("|").c_str(), actual.join("|").c_str(), sourceLine);
+<a href='../S/42.html#L43'>actual</a>             43 String.h       #define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual) BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
+<a href='../S/42.html#L357'>actual</a>            357 String.h               static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/42.html#L358'>actual</a>            358 String.h                 if (expected == actual) return;
+<a href='../S/42.html#L359'>actual</a>            359 String.h                 ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
 </pre>
 </body>
 </html>

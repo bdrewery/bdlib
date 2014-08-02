@@ -1,28 +1,29 @@
 <html>
 <head>
-<title>cstr</title>
+<title>createCommand</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L185'>cstr</a>              185 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
-<a href='../S/52.html#L186'>cstr</a>              186 ScriptInterpTCL.cpp   if (!cstr) {
-<a href='../S/52.html#L191'>cstr</a>              191 ScriptInterpTCL.cpp   return String(cstr, len);
-<a href='../S/52.html#L197'>cstr</a>              197 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
-<a href='../S/52.html#L198'>cstr</a>              198 ScriptInterpTCL.cpp   if (!cstr) {
-<a href='../S/52.html#L202'>cstr</a>              202 ScriptInterpTCL.cpp   return cstr;
-<a href='../S/52.html#L249'>cstr</a>              249 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
-<a href='../S/52.html#L250'>cstr</a>              250 ScriptInterpTCL.cpp   if (!cstr) {
-<a href='../S/52.html#L255'>cstr</a>              255 ScriptInterpTCL.cpp   const String cmd(cstr, len);
-<a href='../S/32.html#L519'>cstr</a>              519 tests/StringTest.cpp   const String cstr("testing123\r\n");
-<a href='../S/32.html#L520'>cstr</a>              520 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.chomp());
-<a href='../S/32.html#L521'>cstr</a>              521 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(12), cstr.length());
-<a href='../S/32.html#L522'>cstr</a>              522 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.chomp().length());
-<a href='../S/32.html#L549'>cstr</a>              549 tests/StringTest.cpp   const String cstr("   \t\ftesting123\r\n");
-<a href='../S/32.html#L550'>cstr</a>              550 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.trim());
-<a href='../S/32.html#L551'>cstr</a>              551 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(17), cstr.length());
-<a href='../S/32.html#L552'>cstr</a>              552 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.trim().length());
+<a href='../S/61.html#L109'>createCommand</a>     109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/61.html#L110'>createCommand</a>     110 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
+<a href='../S/39.html#L171'>createCommand</a>     171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/17.html#L299'>createCommand</a>     299 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
+<a href='../S/17.html#L303'>createCommand</a>     303 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
+<a href='../S/17.html#L309'>createCommand</a>     309 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("xi", my_xi);
+<a href='../S/17.html#L315'>createCommand</a>     315 tests/ScriptInterpTCLTest.cpp   ScriptInterp::createCommand(tcl_script, "param_test", param_test, nullptr, 1);
+<a href='../S/17.html#L326'>createCommand</a>     326 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("listReturn", listReturn);
+<a href='../S/17.html#L330'>createCommand</a>     330 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("nestedListReturn", nestedListReturn);
+<a href='../S/17.html#L334'>createCommand</a>     334 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("listParam", listParam);
+<a href='../S/17.html#L338'>createCommand</a>     338 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("nestedListParam", nestedListParam);
+<a href='../S/17.html#L344'>createCommand</a>     344 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("atoi", atoi);
+<a href='../S/17.html#L349'>createCommand</a>     349 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("xz", my_xz);
+<a href='../S/17.html#L350'>createCommand</a>     350 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("voidFunc", voidFunc);
+<a href='../S/17.html#L352'>createCommand</a>     352 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("args", args, "foo1 ?foo2?", 1);
+<a href='../S/17.html#L377'>createCommand</a>     377 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("param_test", param_test);
+<a href='../S/17.html#L384'>createCommand</a>     384 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("bind", script_bind);
+<a href='../S/17.html#L419'>createCommand</a>     419 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
 </pre>
 </body>
 </html>

@@ -1,14 +1,22 @@
 <html>
 <head>
-<title>tests/StringTest.h</title>
+<title>tests/QueueTest.cpp</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/77.html'>tests</a>/StringTest.h</h2>
-<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/70.html'>tests</a>/QueueTest.cpp</h2>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L32'>[^]</a><a href='#L123'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='32.html#L29' title='Included from 29 in tests/StringTest.cpp.'>INCLUDED FROM</a></h2>
+<h2>DEFINITIONS</h2>
+This source file includes following definitions.
+<ol>
+<li><a href='#L32' title='Defined at 32.'>setUp</a>
+<li><a href='#L55' title='Defined at 55.'>tearDown</a>
+<li><a href='#L62' title='Defined at 62.'>enqueueTest</a>
+<li><a href='#L80' title='Defined at 80.'>dequeueTest</a>
+<li><a href='#L123' title='Defined at 123.'>iterateTest</a>
+</ol>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -35,114 +43,120 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* StringTest.h</font></i>
+<a name='L25'>  25 <i><font color='green'>/* QueueTest.c</font></i>
 <a name='L26'>  26 <i><font color='green'> *</font></i>
 <a name='L27'>  27 <i><font color='green'> */</font></i>
-<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/19.html#L29' title='Defined at 29 in tests/StringTest.h.'>STRINGTEST_H</a>
-<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/19.html#L28' title='Refered from 28 in tests/StringTest.h.'>STRINGTEST_H</a> 1
-<a name='L30'>  30 
-<a name='L31'>  31 <font color='darkred'>#include</font> &lt;cppunit/TestFixture.h&gt;
-<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cppunit/extensions/HelperMacros.h&gt;
-<a name='L33'>  33 <font color='darkred'>#include</font> "<a href='47.html'>String.h</a>"
-<a name='L34'>  34 <a href='../Y/732.html' title='Multiple used in 24 places.'>using</a> <a href='../Y/513.html' title='Multiple used in 12 places.'>namespace</a> <a href='../S/54.html#L46' title='Defined at 46 in bdlib.h.'>BDLIB_NS</a>;
-<a name='L35'>  35 
-<a name='L36'>  36 <a href='../Y/267.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/113.html' title='Multiple used in 44 places.'>StringTest</a> : <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a> <a href='../Y/21.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: <a href='../Y/155.html' title='Multiple used in 11 places.'>TestFixture</a>
-<a name='L37'>  37 <font color='red'>{</font>
-<a name='L38'>  38     <a href='../Y/24.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE</a> (<a href='../Y/113.html' title='Multiple used in 44 places.'>StringTest</a>);
-<a name='L39'>  39     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L65' title='Defined at 65 in tests/StringTest.cpp.'>lengthTest</a>);
-<a name='L40'>  40     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/161.html' title='Multiple defined in 6 places.'>clearTest</a>);
-<a name='L41'>  41     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L102' title='Defined at 102 in tests/StringTest.cpp.'>capacityTest</a>);
-<a name='L42'>  42     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/250.html' title='Multiple defined in 2 places.'>refTest</a>);
-<a name='L43'>  43     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L161' title='Defined at 161 in tests/StringTest.cpp.'>swapTest</a>);
-<a name='L44'>  44     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/164.html' title='Multiple defined in 2 places.'>compareTest</a>);
-<a name='L45'>  45     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L173' title='Defined at 173 in tests/StringTest.cpp.'>equalTest</a>);
-<a name='L46'>  46     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L191' title='Defined at 191 in tests/StringTest.cpp.'>setTest</a>);
-<a name='L47'>  47     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L211' title='Defined at 211 in tests/StringTest.cpp.'>c_strTest</a>);
-<a name='L48'>  48     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L233' title='Defined at 233 in tests/StringTest.cpp.'>hasIndexTest</a>);
-<a name='L49'>  49     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L242' title='Defined at 242 in tests/StringTest.cpp.'>charAtTest</a>);
-<a name='L50'>  50     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/206.html' title='Multiple defined in 2 places.'>indexTest</a>);
-<a name='L51'>  51     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L281' title='Defined at 281 in tests/StringTest.cpp.'>iteratorTest</a>);
-<a name='L52'>  52     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L298' title='Defined at 298 in tests/StringTest.cpp.'>stl_iteratorTest</a>);
-<a name='L53'>  53     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L307' title='Defined at 307 in tests/StringTest.cpp.'>stl_reverse_iteratorTest</a>);
-<a name='L54'>  54     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L316' title='Defined at 316 in tests/StringTest.cpp.'>stl_const_iteratorTest</a>);
-<a name='L55'>  55     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L322' title='Defined at 322 in tests/StringTest.cpp.'>appendTest</a>);
-<a name='L56'>  56     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/212.html' title='Multiple defined in 5 places.'>insertTest</a>);
-<a name='L57'>  57     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L388' title='Defined at 388 in tests/StringTest.cpp.'>replaceTest</a>);
-<a name='L58'>  58     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L476' title='Defined at 476 in tests/StringTest.cpp.'>chompTest</a>);
-<a name='L59'>  59     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L525' title='Defined at 525 in tests/StringTest.cpp.'>trimTest</a>);
-<a name='L60'>  60     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/191.html' title='Multiple defined in 4 places.'>findTest</a>);
-<a name='L61'>  61     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L583' title='Defined at 583 in tests/StringTest.cpp.'>rfindTest</a>);
-<a name='L62'>  62     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L570' title='Defined at 570 in tests/StringTest.cpp.'>ifindTest</a>);
-<a name='L63'>  63     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L577' title='Defined at 577 in tests/StringTest.cpp.'>rifindTest</a>);
-<a name='L64'>  64     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L607' title='Defined at 607 in tests/StringTest.cpp.'>newsplitTest</a>);
-<a name='L65'>  65     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L657' title='Defined at 657 in tests/StringTest.cpp.'>concatTest</a>);
-<a name='L66'>  66     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L669' title='Defined at 669 in tests/StringTest.cpp.'>incDecTest</a>);
-<a name='L67'>  67     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L689' title='Defined at 689 in tests/StringTest.cpp.'>incDecEqualTest</a>);
-<a name='L68'>  68     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L822' title='Defined at 822 in tests/StringTest.cpp.'>operatorStarTest</a>);
-<a name='L69'>  69     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L1423' title='Defined at 1423 in tests/StringTest.cpp.'>resizeTest</a>);
-<a name='L70'>  70         <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L833' title='Defined at 833 in tests/StringTest.cpp.'>printfTest</a>);
-<a name='L71'>  71 <i><font color='green'>//    CPPUNIT_TEST (encryptTest);</font></i>
-<a name='L72'>  72     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L855' title='Defined at 855 in tests/StringTest.cpp.'>base64Test</a>);
-<a name='L73'>  73 <i><font color='green'>//    CPPUNIT_TEST (encryptBase64Test);</font></i>
-<a name='L74'>  74     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L1025' title='Defined at 1025 in tests/StringTest.cpp.'>substringTest</a>);
-<a name='L75'>  75     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L1306' title='Defined at 1306 in tests/StringTest.cpp.'>splitTest</a>);
-<a name='L76'>  76     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/200.html' title='Multiple defined in 2 places.'>hashTest</a>);
-<a name='L77'>  77     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/32.html#L1475' title='Defined at 1475 in tests/StringTest.cpp.'>substTest</a>);
-<a name='L78'>  78     <a href='../Y/25.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE_END</a> ();
+<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='29.html'>QueueTest.h</a>"
+<a name='L29'>  29 
+<a name='L30'>  30 CPPUNIT_TEST_SUITE_REGISTRATION (<a href='../Y/89.html' title='Multiple used in 8 places.'>QueueTest</a>);
+<a name='L31'>  31 
+<a name='L32'>  32 <b>void</b> <a href='../Y/89.html' title='Multiple used in 8 places.'>QueueTest</a> :: <a href='../R/203.html' title='Multiple refered from 11 places.'>setUp</a> (<b>void</b>)
+<a name='L33'>  33 <font color='red'>{</font>
+<a name='L34'>  34 <i><font color='green'>/*</font></i>
+<a name='L35'>  35 <i><font color='green'>    // set up test environment (initializing objects)</font></i>
+<a name='L36'>  36 <i><font color='green'>    a = new String();</font></i>
+<a name='L37'>  37 <i><font color='green'>    b = new String("blah");</font></i>
+<a name='L38'>  38 <i><font color='green'>    c = new String(*b);</font></i>
+<a name='L39'>  39 <i><font color='green'>    d = new String(cstring);</font></i>
+<a name='L40'>  40 <i><font color='green'>    e = new String(*d);</font></i>
+<a name='L41'>  41 <i><font color='green'>    f = new String(cstring, 11);</font></i>
+<a name='L42'>  42 <i><font color='green'>    g = new String('x');</font></i>
+<a name='L43'>  43 <i><font color='green'>    h = new String(35);</font></i>
+<a name='L44'>  44 <i><font color='green'>*/</font></i>
+<a name='L45'>  45   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;();
+<a name='L46'>  46   <a href='../Y/228.html' title='Multiple used in 467 places.'>b</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;();
+<a name='L47'>  47   <a href='../Y/246.html' title='Multiple used in 118 places.'>c</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;();
+<a name='L48'>  48   <a href='../Y/302.html' title='Multiple used in 77 places.'>d</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;();
+<a name='L49'>  49   <a href='../Y/330.html' title='Multiple used in 41 places.'>e</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>*&gt;();
+<a name='L50'>  50   <a href='../Y/349.html' title='Multiple used in 147 places.'>f</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>*&gt;();
+<a name='L51'>  51   <a href='../Y/392.html' title='Multiple used in 34 places.'>g</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>*&gt;();
+<a name='L52'>  52   <a href='../Y/400.html' title='Multiple used in 27 places.'>h</a> = <b>new</b> Queue&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>*&gt;();
+<a name='L53'>  53 <font color='red'>}</font>
+<a name='L54'>  54 
+<a name='L55'>  55 <b>void</b> <a href='../Y/89.html' title='Multiple used in 8 places.'>QueueTest</a> :: <a href='../R/229.html' title='Multiple refered from 11 places.'>tearDown</a> (<b>void</b>)
+<a name='L56'>  56 <font color='red'>{</font>
+<a name='L57'>  57     <i><font color='green'>// finally delete objects</font></i>
+<a name='L58'>  58     <b>delete</b> <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>; <b>delete</b> <a href='../Y/228.html' title='Multiple used in 467 places.'>b</a>; <b>delete</b> <a href='../Y/246.html' title='Multiple used in 118 places.'>c</a>; <b>delete</b> <a href='../Y/302.html' title='Multiple used in 77 places.'>d</a>;
+<a name='L59'>  59     <b>delete</b> <a href='../Y/330.html' title='Multiple used in 41 places.'>e</a>; <b>delete</b> <a href='../Y/349.html' title='Multiple used in 147 places.'>f</a>; <b>delete</b> <a href='../Y/392.html' title='Multiple used in 34 places.'>g</a>; <b>delete</b> <a href='../Y/400.html' title='Multiple used in 27 places.'>h</a>;
+<a name='L60'>  60 <font color='red'>}</font>
+<a name='L61'>  61 
+<a name='L62'>  62 <b>void</b> <a href='../Y/89.html' title='Multiple used in 8 places.'>QueueTest</a> :: <a href='../R/124.html' title='Multiple refered from 2 places.'>enqueueTest</a> (<b>void</b>)
+<a name='L63'>  63 <font color='red'>{</font>
+<a name='L64'>  64   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)0, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L65'>  65   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blah");
+<a name='L66'>  66   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)1, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L67'>  67   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blah");
+<a name='L68'>  68   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)2, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L69'>  69   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blah");
+<a name='L70'>  70   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)3, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L71'>  71   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blah");
+<a name='L72'>  72   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)4, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L73'>  73   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blah");
+<a name='L74'>  74   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)5, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L75'>  75 
+<a name='L76'>  76   (*<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>) &lt;&lt; "Blah1" &lt;&lt; "Blah2";
+<a name='L77'>  77   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)7, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L78'>  78 <font color='red'>}</font>
 <a name='L79'>  79 
-<a name='L80'>  80     <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a>:
-<a name='L81'>  81         <b>void</b> <a href='../D/268.html' title='Multiple defined in 11 places.'>setUp</a> (<b>void</b>);
-<a name='L82'>  82         <b>void</b> <a href='../D/294.html' title='Multiple defined in 11 places.'>tearDown</a> (<b>void</b>);
-<a name='L83'>  83 
-<a name='L84'>  84     <a href='../Y/560.html' title='Multiple used in 20 places.'>protected</a>:
-<a name='L85'>  85         <b>void</b> <a href='../S/32.html#L65' title='Defined at 65 in tests/StringTest.cpp.'>lengthTest</a>(<b>void</b>);
-<a name='L86'>  86         <b>void</b> <a href='../D/161.html' title='Multiple defined in 6 places.'>clearTest</a>(<b>void</b>);
-<a name='L87'>  87         <b>void</b> <a href='../S/32.html#L102' title='Defined at 102 in tests/StringTest.cpp.'>capacityTest</a>(<b>void</b>);
-<a name='L88'>  88         <b>void</b> <a href='../D/164.html' title='Multiple defined in 2 places.'>compareTest</a> (<b>void</b>);
-<a name='L89'>  89         <b>void</b> <a href='../D/250.html' title='Multiple defined in 2 places.'>refTest</a>(<b>void</b>);
-<a name='L90'>  90         <b>void</b> <a href='../S/32.html#L161' title='Defined at 161 in tests/StringTest.cpp.'>swapTest</a>(<b>void</b>);
-<a name='L91'>  91         <b>void</b> <a href='../S/32.html#L173' title='Defined at 173 in tests/StringTest.cpp.'>equalTest</a> (<b>void</b>);
-<a name='L92'>  92         <b>void</b> <a href='../S/32.html#L191' title='Defined at 191 in tests/StringTest.cpp.'>setTest</a> (<b>void</b>);
-<a name='L93'>  93         <b>void</b> <a href='../S/32.html#L211' title='Defined at 211 in tests/StringTest.cpp.'>c_strTest</a> (<b>void</b>);
-<a name='L94'>  94         <b>void</b> <a href='../S/32.html#L233' title='Defined at 233 in tests/StringTest.cpp.'>hasIndexTest</a>(<b>void</b>);
-<a name='L95'>  95         <b>void</b> <a href='../S/32.html#L242' title='Defined at 242 in tests/StringTest.cpp.'>charAtTest</a>(<b>void</b>);
-<a name='L96'>  96         <b>void</b> <a href='../D/206.html' title='Multiple defined in 2 places.'>indexTest</a>(<b>void</b>);
-<a name='L97'>  97         <b>void</b> <a href='../S/32.html#L281' title='Defined at 281 in tests/StringTest.cpp.'>iteratorTest</a>(<b>void</b>);
-<a name='L98'>  98         <b>void</b> <a href='../S/32.html#L298' title='Defined at 298 in tests/StringTest.cpp.'>stl_iteratorTest</a>(<b>void</b>);
-<a name='L99'>  99         <b>void</b> <a href='../S/32.html#L307' title='Defined at 307 in tests/StringTest.cpp.'>stl_reverse_iteratorTest</a>(<b>void</b>);
-<a name='L100'> 100         <b>void</b> <a href='../S/32.html#L316' title='Defined at 316 in tests/StringTest.cpp.'>stl_const_iteratorTest</a>(<b>void</b>);
-<a name='L101'> 101         <b>void</b> <a href='../S/32.html#L322' title='Defined at 322 in tests/StringTest.cpp.'>appendTest</a>(<b>void</b>);
-<a name='L102'> 102         <b>void</b> <a href='../D/212.html' title='Multiple defined in 5 places.'>insertTest</a>(<b>void</b>);
-<a name='L103'> 103         <b>void</b> <a href='../S/32.html#L388' title='Defined at 388 in tests/StringTest.cpp.'>replaceTest</a>(<b>void</b>);
-<a name='L104'> 104         <b>void</b> <a href='../S/32.html#L476' title='Defined at 476 in tests/StringTest.cpp.'>chompTest</a>(<b>void</b>);
-<a name='L105'> 105         <b>void</b> <a href='../S/32.html#L525' title='Defined at 525 in tests/StringTest.cpp.'>trimTest</a>(<b>void</b>);
-<a name='L106'> 106         <b>void</b> <a href='../S/32.html#L583' title='Defined at 583 in tests/StringTest.cpp.'>rfindTest</a>(<b>void</b>);
-<a name='L107'> 107         <b>void</b> <a href='../D/191.html' title='Multiple defined in 4 places.'>findTest</a>(<b>void</b>);
-<a name='L108'> 108         <b>void</b> <a href='../S/32.html#L577' title='Defined at 577 in tests/StringTest.cpp.'>rifindTest</a>(<b>void</b>);
-<a name='L109'> 109         <b>void</b> <a href='../S/32.html#L570' title='Defined at 570 in tests/StringTest.cpp.'>ifindTest</a>(<b>void</b>);
-<a name='L110'> 110         <b>void</b> <a href='../S/32.html#L607' title='Defined at 607 in tests/StringTest.cpp.'>newsplitTest</a>(<b>void</b>);
-<a name='L111'> 111         <b>void</b> <a href='../S/32.html#L1423' title='Defined at 1423 in tests/StringTest.cpp.'>resizeTest</a>(<b>void</b>);
-<a name='L112'> 112         <b>void</b> <a href='../S/32.html#L657' title='Defined at 657 in tests/StringTest.cpp.'>concatTest</a>(<b>void</b>);
-<a name='L113'> 113         <b>void</b> <a href='../S/32.html#L669' title='Defined at 669 in tests/StringTest.cpp.'>incDecTest</a>(<b>void</b>);
-<a name='L114'> 114         <b>void</b> <a href='../S/32.html#L689' title='Defined at 689 in tests/StringTest.cpp.'>incDecEqualTest</a>(<b>void</b>);
-<a name='L115'> 115         <b>void</b> <a href='../S/32.html#L822' title='Defined at 822 in tests/StringTest.cpp.'>operatorStarTest</a>(<b>void</b>);
-<a name='L116'> 116         <b>void</b> <a href='../S/32.html#L833' title='Defined at 833 in tests/StringTest.cpp.'>printfTest</a>(<b>void</b>);
-<a name='L117'> 117 <i><font color='green'>//        void encryptTest(void);</font></i>
-<a name='L118'> 118         <b>void</b> <a href='../S/32.html#L855' title='Defined at 855 in tests/StringTest.cpp.'>base64Test</a>(<b>void</b>);
-<a name='L119'> 119 <i><font color='green'>//        void encryptBase64Test(void);</font></i>
-<a name='L120'> 120         <b>void</b> <a href='../S/32.html#L1025' title='Defined at 1025 in tests/StringTest.cpp.'>substringTest</a>(<b>void</b>);
-<a name='L121'> 121         <b>void</b> <a href='../S/32.html#L1306' title='Defined at 1306 in tests/StringTest.cpp.'>splitTest</a>(<b>void</b>);
-<a name='L122'> 122         <b>void</b> <a href='../D/200.html' title='Multiple defined in 2 places.'>hashTest</a>(<b>void</b>);
-<a name='L123'> 123         <b>void</b> <a href='../S/32.html#L1475' title='Defined at 1475 in tests/StringTest.cpp.'>substTest</a>(<b>void</b>);
-<a name='L124'> 124     <a href='../Y/559.html' title='Multiple used in 39 places.'>private</a>:
-<a name='L125'> 125         <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a> *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>, *<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>, *<a href='../Y/241.html' title='Multiple used in 118 places.'>c</a>, *<a href='../Y/298.html' title='Multiple used in 77 places.'>d</a>, *<a href='../Y/326.html' title='Multiple used in 41 places.'>e</a>, *<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, *<a href='../Y/388.html' title='Multiple used in 34 places.'>g</a>, *<a href='../Y/396.html' title='Multiple used in 27 places.'>h</a>;
-<a name='L126'> 126         <b>char</b> <a href='../Y/295.html' title='Multiple used in 28 places.'>cstring</a>[50];
-<a name='L127'> 127 <font color='red'>}</font>;
-<a name='L128'> 128 <font color='darkred'>#endif</font>
-<a name='L129'> 129 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L80'>  80 <b>void</b> <a href='../Y/89.html' title='Multiple used in 8 places.'>QueueTest</a> :: <a href='../R/120.html' title='Multiple refered from 2 places.'>dequeueTest</a> (<b>void</b>)
+<a name='L81'>  81 <font color='red'>{</font>
+<a name='L82'>  82   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blahstart");
+<a name='L83'>  83   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Bleck");
+<a name='L84'>  84   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blah");
+<a name='L85'>  85   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blah");
+<a name='L86'>  86   <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>("Blahend");
+<a name='L87'>  87 
+<a name='L88'>  88   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)5, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L89'>  89   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Blahstart", <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/317.html' title='Multiple used in 7 places.'>dequeue</a>());
+<a name='L90'>  90 
+<a name='L91'>  91   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)4, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L92'>  92 
+<a name='L93'>  93   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Bleck", *(<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/384.html' title='Multiple used in 3 places.'>front</a>()));
+<a name='L94'>  94   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)4, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L95'>  95 
+<a name='L96'>  96   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Bleck", *(<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/384.html' title='Multiple used in 3 places.'>front</a>()));
+<a name='L97'>  97   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)4, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L98'>  98 
+<a name='L99'>  99   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Bleck", <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/317.html' title='Multiple used in 7 places.'>dequeue</a>());
+<a name='L100'> 100   
+<a name='L101'> 101   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)3, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L102'> 102   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Blah", <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/317.html' title='Multiple used in 7 places.'>dequeue</a>());
+<a name='L103'> 103   
+<a name='L104'> 104   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)2, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L105'> 105   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Blah", <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/317.html' title='Multiple used in 7 places.'>dequeue</a>());
+<a name='L106'> 106   
+<a name='L107'> 107   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)1, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L108'> 108   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Blahend", <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/317.html' title='Multiple used in 7 places.'>dequeue</a>());
+<a name='L109'> 109   
+<a name='L110'> 110   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)0, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L111'> 111 
+<a name='L112'> 112   (*<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>) &lt;&lt; "One" &lt;&lt; "Two" &lt;&lt; "Three";
+<a name='L113'> 113   <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/547.html' title='Multiple used in 6 places.'>one</a>, <a href='../Y/724.html' title='Multiple used in 6 places.'>two</a>, <a href='../Y/706.html' title='Multiple used in 6 places.'>three</a>;
+<a name='L114'> 114   (*<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>) &gt;&gt; <a href='../Y/547.html' title='Multiple used in 6 places.'>one</a> &gt;&gt; <a href='../Y/724.html' title='Multiple used in 6 places.'>two</a>;
+<a name='L115'> 115   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)1, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L116'> 116   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("One", <a href='../Y/547.html' title='Multiple used in 6 places.'>one</a>);
+<a name='L117'> 117   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Two", <a href='../Y/724.html' title='Multiple used in 6 places.'>two</a>);
+<a name='L118'> 118   (*<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>) &gt;&gt; <a href='../Y/706.html' title='Multiple used in 6 places.'>three</a>;
+<a name='L119'> 119   <a href='../Y/19.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>)0, <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>());
+<a name='L120'> 120   <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>("Three", <a href='../Y/706.html' title='Multiple used in 6 places.'>three</a>);
+<a name='L121'> 121 <font color='red'>}</font>
+<a name='L122'> 122 
+<a name='L123'> 123 <b>void</b> <a href='../Y/89.html' title='Multiple used in 8 places.'>QueueTest</a> :: <a href='../R/150.html' title='Multiple refered from 10 places.'>iterateTest</a> (<b>void</b>)
+<a name='L124'> 124 <font color='red'>{</font>
+<a name='L125'> 125   (*<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>) &lt;&lt; "1" &lt;&lt; "2" &lt;&lt; "3" &lt;&lt; "4";
+<a name='L126'> 126   <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a> <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>(<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/235.html' title='Multiple used in 89 places.'>begin</a>());
+<a name='L127'> 127   <b>int</b> <a href='../Y/293.html' title='Multiple used in 6 places.'>count</a> = 1;
+<a name='L128'> 128   <b>for</b> (<a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a> = <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/235.html' title='Multiple used in 89 places.'>begin</a>(); <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a> != <a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/338.html' title='Multiple used in 34 places.'>end</a>(); ++<a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>) <font color='red'>{</font>
+<a name='L129'> 129     <b>char</b> <a href='../Y/242.html' title='Multiple used in 144 places.'>buf</a>[2] = "";
+<a name='L130'> 130     <a href='../Y/653.html' title='Multiple used in 23 places.'>sprintf</a>(<a href='../Y/242.html' title='Multiple used in 144 places.'>buf</a>, "%d", <a href='../Y/293.html' title='Multiple used in 6 places.'>count</a>);
+<a name='L131'> 131     ++<a href='../Y/293.html' title='Multiple used in 6 places.'>count</a>;
+<a name='L132'> 132     <a href='../S/42.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>(<a href='../Y/242.html' title='Multiple used in 144 places.'>buf</a>, *<a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>);
+<a name='L133'> 133   <font color='red'>}</font>
+<a name='L134'> 134 <font color='red'>}</font>
+<a name='L135'> 135 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L32'>[^]</a><a href='#L123'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

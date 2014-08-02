@@ -1,66 +1,84 @@
 <html>
 <head>
-<title>str_b</title>
+<title>str</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/37.html#L42'>str_b</a>              42 tests/ArrayTest.cpp     str_b = new Array&lt;String&gt;(20);
-<a href='../S/37.html#L51'>str_b</a>              51 tests/ArrayTest.cpp     delete str_a; delete str_b; delete str_c;
-<a href='../S/37.html#L59'>str_b</a>              59 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_b-&gt;size());
-<a href='../S/37.html#L60'>str_b</a>              60 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(true, str_b-&gt;isEmpty());
-<a href='../S/37.html#L61'>str_b</a>              61 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_b-&gt;capacity() &gt;= 20);
-<a href='../S/37.html#L242'>str_b</a>             242 tests/ArrayTest.cpp   str_b-&gt;push("Test1");
-<a href='../S/37.html#L243'>str_b</a>             243 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (*str_a) == (*str_b));
-<a href='../S/37.html#L244'>str_b</a>             244 tests/ArrayTest.cpp   str_b-&gt;push("Test2");
-<a href='../S/37.html#L246'>str_b</a>             246 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(true, (*str_a) == (*str_b));
-<a href='../S/37.html#L265'>str_b</a>             265 tests/ArrayTest.cpp   (*str_b) = (*str_a);
-<a href='../S/37.html#L271'>str_b</a>             271 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
-<a href='../S/37.html#L272'>str_b</a>             272 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
-<a href='../S/37.html#L288'>str_b</a>             288 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 2);
-<a href='../S/37.html#L292'>str_b</a>             292 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_b-&gt;size());
-<a href='../S/37.html#L293'>str_b</a>             293 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test0", (*str_b)[0]);
-<a href='../S/37.html#L294'>str_b</a>             294 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[1]);
-<a href='../S/37.html#L296'>str_b</a>             296 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_b-&gt;pop());
-<a href='../S/37.html#L297'>str_b</a>             297 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test0", (*str_b)[0]);
-<a href='../S/37.html#L298'>str_b</a>             298 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_b-&gt;size());
-<a href='../S/37.html#L306'>str_b</a>             306 tests/ArrayTest.cpp   (*str_b) = (*str_a);
-<a href='../S/37.html#L307'>str_b</a>             307 tests/ArrayTest.cpp   (*str_b)(0, 2) = inplaceTest;
-<a href='../S/37.html#L313'>str_b</a>             313 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(8), str_b-&gt;size());
-<a href='../S/37.html#L314'>str_b</a>             314 tests/ArrayTest.cpp   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_b), expectedResults);
-<a href='../S/37.html#L324'>str_b</a>             324 tests/ArrayTest.cpp   (*str_b).push("test");
-<a href='../S/37.html#L325'>str_b</a>             325 tests/ArrayTest.cpp   (*str_b).push("test2");
-<a href='../S/37.html#L326'>str_b</a>             326 tests/ArrayTest.cpp   (*str_c) = (*str_b);
-<a href='../S/37.html#L327'>str_b</a>             327 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_a-&gt;hash(), str_b-&gt;hash());
-<a href='../S/37.html#L329'>str_b</a>             329 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_b-&gt;hash(), str_c-&gt;hash());
-<a href='../S/37.html#L332'>str_b</a>             332 tests/ArrayTest.cpp   str_b-&gt;clear();
-<a href='../S/37.html#L335'>str_b</a>             335 tests/ArrayTest.cpp   (*str_b).push("test");
-<a href='../S/37.html#L336'>str_b</a>             336 tests/ArrayTest.cpp   (*str_c) = (*str_b);
-<a href='../S/37.html#L337'>str_b</a>             337 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_b-&gt;hash());
-<a href='../S/37.html#L339'>str_b</a>             339 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_b-&gt;hash(), str_c-&gt;hash());
-<a href='../S/37.html#L341'>str_b</a>             341 tests/ArrayTest.cpp   str_b-&gt;clear();
-<a href='../S/37.html#L342'>str_b</a>             342 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 1);
-<a href='../S/37.html#L343'>str_b</a>             343 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_b-&gt;hash());
-<a href='../S/37.html#L344'>str_b</a>             344 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 2);
-<a href='../S/37.html#L345'>str_b</a>             345 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() == str_b-&gt;hash());
-<a href='../S/37.html#L347'>str_b</a>             347 tests/ArrayTest.cpp   *str_b = *str_a;
-<a href='../S/37.html#L353'>str_b</a>             353 tests/ArrayTest.cpp   ht2["blahb"] = *str_b;
-<a href='../S/37.html#L364'>str_b</a>             364 tests/ArrayTest.cpp   ha1[*str_b] = 1;
-<a href='../S/37.html#L367'>str_b</a>             367 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(ha1[*str_b], ha2[*str_b]);
-<a href='../S/37.html#L368'>str_b</a>             368 tests/ArrayTest.cpp   CPPUNIT_ASSERT(ha1[*str_b] != ha2[*str_c]);
-<a href='../S/37.html#L375'>str_b</a>             375 tests/ArrayTest.cpp   str_b-&gt;push("3");
-<a href='../S/37.html#L376'>str_b</a>             376 tests/ArrayTest.cpp   str_b-&gt;push("4");
-<a href='../S/37.html#L379'>str_b</a>             379 tests/ArrayTest.cpp   (*str_c) = (*str_a) + (*str_b);
-<a href='../S/37.html#L388'>str_b</a>             388 tests/ArrayTest.cpp   (*str_b)[0] = "5";
-<a href='../S/37.html#L389'>str_b</a>             389 tests/ArrayTest.cpp   (*str_b)[1] = "6";
-<a href='../S/37.html#L390'>str_b</a>             390 tests/ArrayTest.cpp   (*str_c) += (*str_b);
-<a href='../S/37.html#L395'>str_b</a>             395 tests/ArrayTest.cpp   (*str_b) = (*str_c)--;
-<a href='../S/37.html#L397'>str_b</a>             397 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("6", str_b-&gt;join(' '));
-<a href='../S/37.html#L399'>str_b</a>             399 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_b-&gt;size());
-<a href='../S/37.html#L411'>str_b</a>             411 tests/ArrayTest.cpp   (*str_b) = (*str_c)++;
-<a href='../S/37.html#L413'>str_b</a>             413 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", str_b-&gt;join(' '));
-<a href='../S/29.html#L78'>str_b</a>              78 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
+<a href='../S/52.html#L198'>str</a>               198 Array.h              String str(str_size);
+<a href='../S/52.html#L202'>str</a>               202 Array.h                  str += delim;
+<a href='../S/52.html#L204'>str</a>               204 Array.h                  str += '"' + *(this-&gt;Buf(i)) + '"';
+<a href='../S/52.html#L206'>str</a>               206 Array.h                  str += *(this-&gt;Buf(i));
+<a href='../S/52.html#L209'>str</a>               209 Array.h              return str;
+<a href='../S/43.html#L96'>str</a>                96 Cstrings.cpp   str_redup(char **str, const char *newstr)
+<a href='../S/43.html#L101'>str</a>               101 Cstrings.cpp                   if (*str) free(*str);
+<a href='../S/43.html#L102'>str</a>               102 Cstrings.cpp                   *str = nullptr;
+<a href='../S/43.html#L106'>str</a>               106 Cstrings.cpp           *str = static_cast&lt;char*&gt;(realloc(*str, len));
+<a href='../S/43.html#L107'>str</a>               107 Cstrings.cpp           memcpy(*str, newstr, len);
+<a href='../S/65.html#L49'>str</a>                49 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
+<a href='../S/65.html#L82'>str</a>                82 Stream.cpp         String ret(str(pos, toRead));
+<a href='../S/65.html#L90'>str</a>                90 Stream.cpp       while ((ret.length() &lt; toRead) &amp;&amp; (str[pos] != delim)) {
+<a href='../S/65.html#L91'>str</a>                91 Stream.cpp         ret += str[pos++];
+<a href='../S/65.html#L93'>str</a>                93 Stream.cpp       if (str.hasIndex(pos) &amp;&amp; str[pos] == delim) {
+<a href='../S/65.html#L179'>str</a>               179 Stream.cpp       std::memcpy(map, str.data(), length());
+<a href='../S/65.html#L193'>str</a>               193 Stream.cpp       if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
+<a href='../S/40.html#L51'>str</a>                51 Stream.h               String str;
+<a href='../S/40.html#L56'>str</a>                56 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/40.html#L57'>str</a>                57 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/40.html#L58'>str</a>                58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/40.html#L59'>str</a>                59 Stream.h                 stream.str = String();
+<a href='../S/40.html#L63'>str</a>                63 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/40.html#L64'>str</a>                64 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/40.html#L70'>str</a>                70 Stream.h                 swap(a.str, b.str);
+<a href='../S/40.html#L91'>str</a>                91 Stream.h               void truncate() { str = str(0, pos); };
+<a href='../S/40.html#L93'>str</a>                93 Stream.h               String peek() { return str(pos); };
+<a href='../S/40.html#L98'>str</a>                98 Stream.h               void clear() { str.clear(); pos = 0; }
+<a href='../S/40.html#L105'>str</a>               105 Stream.h                 str.replace(tell(), string);
+<a href='../S/40.html#L163'>str</a>               163 Stream.h               inline operator String() const { return str; };
+<a href='../S/40.html#L164'>str</a>               164 Stream.h               inline size_t length() const { return str.length(); };
+<a href='../S/40.html#L165'>str</a>               165 Stream.h               inline size_t capacity() const { return str.capacity(); };
+<a href='../S/40.html#L166'>str</a>               166 Stream.h               inline bool operator!() const { return str.isEmpty(); };
+<a href='../S/66.html#L43'>str</a>                43 String.cpp     int String::compare(const String&amp; str, size_t n, size_t start) const
+<a href='../S/66.html#L47'>str</a>                47 String.cpp       if (data() == str.data() &amp;&amp; my_len == str.length())
+<a href='../S/66.html#L50'>str</a>                50 String.cpp       const size_t slen = n ? std::min(str.length(), n) : str.length();
+<a href='../S/66.html#L52'>str</a>                52 String.cpp       const int diff = std::memcmp(begin() + start, str.begin(), len);
+<a href='../S/66.html#L157'>str</a>               157 String.cpp       String str(*this);
+<a href='../S/66.html#L163'>str</a>               163 String.cpp         if (delim == space) while (str.length() &amp;&amp; str[0] == ' ') ++str;
+<a href='../S/66.html#L166'>str</a>               166 String.cpp         if (!str) break;
+<a href='../S/66.html#L168'>str</a>               168 String.cpp         if ((pos = str.find(delim)) == npos)
+<a href='../S/66.html#L169'>str</a>               169 String.cpp           pos = str.length();
+<a href='../S/66.html#L170'>str</a>               170 String.cpp         array &lt;&lt; str(0, pos);
+<a href='../S/66.html#L171'>str</a>               171 String.cpp         str += pos + delim.length();
+<a href='../S/66.html#L177'>str</a>               177 String.cpp         if (delim == space) while (str.length() &amp;&amp; str[0] == ' ') ++str;
+<a href='../S/66.html#L178'>str</a>               178 String.cpp         array &lt;&lt; str;
+<a href='../S/66.html#L216'>str</a>               216 String.cpp     size_t String::find(const String&amp; str) const {
+<a href='../S/66.html#L217'>str</a>               217 String.cpp       if (length() &gt;= str.length()) {
+<a href='../S/66.html#L218'>str</a>               218 String.cpp         const size_t last_pos = length() - str.length();
+<a href='../S/66.html#L220'>str</a>               220 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+<a href='../S/66.html#L226'>str</a>               226 String.cpp     size_t String::ifind(const String&amp; str) const {
+<a href='../S/66.html#L227'>str</a>               227 String.cpp       String str_upper(str), this_upper(*this);
+<a href='../S/66.html#L228'>str</a>               228 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
+<a href='../S/66.html#L233'>str</a>               233 String.cpp     size_t String::rifind(const String&amp; str, const size_t lpos) const {
+<a href='../S/66.html#L234'>str</a>               234 String.cpp       String str_upper(str), this_upper(*this);
+<a href='../S/66.html#L235'>str</a>               235 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
+<a href='../S/66.html#L240'>str</a>               240 String.cpp     size_t String::rfind(const String&amp; str, const size_t lpos) const {
+<a href='../S/66.html#L241'>str</a>               241 String.cpp       if (length() &gt;= str.length()) {
+<a href='../S/66.html#L242'>str</a>               242 String.cpp         const size_t last_pos = length() - str.length();
+<a href='../S/66.html#L244'>str</a>               244 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+<a href='../S/66.html#L286'>str</a>               286 String.cpp     String newsplit(String&amp; str, char delim)
+<a href='../S/66.html#L288'>str</a>               288 String.cpp       if (!str.length()) return "";
+<a href='../S/66.html#L289'>str</a>               289 String.cpp       size_t pos = str.find(delim);
+<a href='../S/66.html#L291'>str</a>               291 String.cpp         pos = str.length();
+<a href='../S/66.html#L293'>str</a>               293 String.cpp       String first(str(0, pos));
+<a href='../S/66.html#L297'>str</a>               297 String.cpp         while ((str.begin() + pos + 1) &lt; str.end() &amp;&amp; str[pos + 1] == ' ')
+<a href='../S/66.html#L302'>str</a>               302 String.cpp       str += pos + 1;
+<a href='../S/42.html#L149'>str</a>               149 String.h               size_t find(const String&amp; str) const;
+<a href='../S/42.html#L159'>str</a>               159 String.h               size_t rfind(const String&amp; str, const size_t lpos = 0) const;
+<a href='../S/42.html#L169'>str</a>               169 String.h               size_t rifind(const String&amp; str, const size_t lpos = 0) const;
+<a href='../S/42.html#L176'>str</a>               176 String.h               size_t ifind(const String&amp; str) const;
+<a href='../S/42.html#L281'>str</a>               281 String.h               int compare(const String&amp; str, size_t n = 0, size_t start = 0) const;
+<a href='../S/42.html#L534'>str</a>               534 String.h       String newsplit(String&amp; str, char delim = ' ');
 </pre>
 </body>
 </html>

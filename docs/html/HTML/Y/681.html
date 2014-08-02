@@ -1,31 +1,23 @@
 <html>
 <head>
-<title>sublen</title>
+<title>subLength</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/56.html#L78'>sublen</a>             78 ReferenceCountedArray.h     void Reserve(size_t newSize, double scaling_factor, size_t&amp; offset, size_t sublen) const
-<a href='../S/56.html#L91'>sublen</a>             91 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
-<a href='../S/56.html#L102'>sublen</a>            102 ReferenceCountedArray.h         std::memmove(static_cast&lt;void*&gt;(buf), static_cast&lt;void*&gt;(buf + offset), sublen);
-<a href='../S/56.html#L227'>sublen</a>            227 ReferenceCountedArray.h       sublen = 0;
-<a href='../S/56.html#L246'>sublen</a>            246 ReferenceCountedArray.h     inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
-<a href='../S/56.html#L251'>sublen</a>            251 ReferenceCountedArray.h     inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
-<a href='../S/56.html#L256'>sublen</a>            256 ReferenceCountedArray.h     inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
-<a href='../S/56.html#L292'>sublen</a>            292 ReferenceCountedArray.h     mutable size_t sublen;
-<a href='../S/56.html#L373'>sublen</a>            373 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L375'>sublen</a>            375 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/56.html#L376'>sublen</a>            376 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
-<a href='../S/56.html#L380'>sublen</a>            380 ReferenceCountedArray.h       rca.sublen = 0;
-<a href='../S/56.html#L393'>sublen</a>            393 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L406'>sublen</a>            406 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/56.html#L432'>sublen</a>            432 ReferenceCountedArray.h       swap(a.sublen, b.sublen);
-<a href='../S/56.html#L450'>sublen</a>            450 ReferenceCountedArray.h       sublen = rca.sublen;
-<a href='../S/56.html#L466'>sublen</a>            466 ReferenceCountedArray.h       sublen = std::move(rca.sublen);
-<a href='../S/56.html#L472'>sublen</a>            472 ReferenceCountedArray.h       rca.sublen = 0;
-<a href='../S/56.html#L512'>sublen</a>            512 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
-<a href='../S/56.html#L547'>sublen</a>            547 ReferenceCountedArray.h     inline size_t length() const { return sublen; };
+<a href='../S/52.html#L160'>subLength</a>         160 Array.h              this-&gt;subLength(1);
+<a href='../S/52.html#L172'>subLength</a>         172 Array.h              this-&gt;subLength(1);
+<a href='../S/52.html#L301'>subLength</a>         301 Array.h              this-&gt;subLength(1);
+<a href='../S/52.html#L317'>subLength</a>         317 Array.h              this-&gt;subLength(1);
+<a href='../S/52.html#L345'>subLength</a>         345 Array.h                this-&gt;subLength(n);
+<a href='../S/52.html#L357'>subLength</a>         357 Array.h                this-&gt;subLength(n);
+<a href='../S/51.html#L256'>subLength</a>         256 ReferenceCountedArray.h     inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
+<a href='../S/51.html#L533'>subLength</a>         533 ReferenceCountedArray.h         this-&gt;subLength(this-&gt;length() - len);
+<a href='../S/66.html#L210'>subLength</a>         210 String.cpp       while (length() &amp;&amp; isspace((*this)[0])) { ++offset; subLength(1); }
+<a href='../S/66.html#L212'>subLength</a>         212 String.cpp       while (length() &amp;&amp; isspace((*this)[length() - 1])) subLength(1);
+<a href='../S/42.html#L455'>subLength</a>         455 String.h           subLength(n);
+<a href='../S/42.html#L467'>subLength</a>         467 String.h           subLength(n);
 </pre>
 </body>
 </html>

@@ -1,20 +1,44 @@
 <html>
 <head>
-<title>sock</title>
+<title>slen</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L33'>sock</a>               33 Socket.cpp         ::shutdown(sock, SHUT_RDWR);
-<a href='../S/3.html#L34'>sock</a>               34 Socket.cpp         ::close(sock);
-<a href='../S/3.html#L46'>sock</a>               46 Socket.cpp       sock = socket(pfamily, ptype, 0);
-<a href='../S/3.html#L47'>sock</a>               47 Socket.cpp       if (sock == -1)
-<a href='../S/1.html#L69'>sock</a>               69 Socket.h           int sock;
-<a href='../S/1.html#L73'>sock</a>               73 Socket.h           Socket() : sock(-1), addr(0), flags(0) {};
-<a href='../S/1.html#L74'>sock</a>               74 Socket.h           Socket(int f) : sock(-1), addr(0), flags(f) {};
-<a href='../S/1.html#L75'>sock</a>               75 Socket.h           Socket(Socket&amp; s) : sock(s.sock), addr(s.addr), flags(s.flags) {};
-<a href='../S/1.html#L88'>sock</a>               88 Socket.h           inline bool isValid() const { return sock != -1; };
+<a href='../S/52.html#L231'>slen</a>              231 Array.h              size_t slen = std::min(array.length(), n);
+<a href='../S/52.html#L232'>slen</a>              232 Array.h              size_t len = std::min(my_len, slen);
+<a href='../S/43.html#L123'>slen</a>              123 Cstrings.cpp     size_t slen = strlen(entry);
+<a href='../S/43.html#L124'>slen</a>              124 Cstrings.cpp     size_t len = slen &lt; maxlen ? slen : maxlen;
+<a href='../S/51.html#L816'>slen</a>              816 ReferenceCountedArray.h       size_t slen = rca.length();
+<a href='../S/51.html#L819'>slen</a>              819 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
+<a href='../S/51.html#L824'>slen</a>              824 ReferenceCountedArray.h       if (n == npos || n &gt; slen)
+<a href='../S/51.html#L825'>slen</a>              825 ReferenceCountedArray.h         n = slen;
+<a href='../S/51.html#L826'>slen</a>              826 ReferenceCountedArray.h       slen -= slen - n;
+<a href='../S/51.html#L827'>slen</a>              827 ReferenceCountedArray.h       AboutToModify(length() + slen);
+<a href='../S/51.html#L828'>slen</a>              828 ReferenceCountedArray.h       std::memmove(static_cast&lt;void*&gt;(Buf() + pos + slen), static_cast&lt;void*&gt;(Buf() + pos), length() - pos);
+<a href='../S/51.html#L829'>slen</a>              829 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/51.html#L830'>slen</a>              830 ReferenceCountedArray.h       addLength(slen);
+<a href='../S/51.html#L875'>slen</a>              875 ReferenceCountedArray.h       size_t slen = rca.length();
+<a href='../S/51.html#L878'>slen</a>              878 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
+<a href='../S/51.html#L883'>slen</a>              883 ReferenceCountedArray.h       if (n == npos || n &gt; slen)
+<a href='../S/51.html#L884'>slen</a>              884 ReferenceCountedArray.h         n = slen;
+<a href='../S/51.html#L885'>slen</a>              885 ReferenceCountedArray.h       slen -= slen - n;
+<a href='../S/51.html#L887'>slen</a>              887 ReferenceCountedArray.h       size_t newlen = pos + slen;
+<a href='../S/51.html#L895'>slen</a>              895 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/66.html#L50'>slen</a>               50 String.cpp       const size_t slen = n ? std::min(str.length(), n) : str.length();
+<a href='../S/66.html#L51'>slen</a>               51 String.cpp       const size_t len = std::min(my_len - start, slen);
+<a href='../S/66.html#L56'>slen</a>               56 String.cpp         return std::min(my_len - start, n) - slen;
+<a href='../S/66.html#L58'>slen</a>               58 String.cpp         return (my_len - start) - slen;
+<a href='../S/66.html#L77'>slen</a>               77 String.cpp       size_t slen = (n == npos) ? std::strlen(string) : n;
+<a href='../S/66.html#L79'>slen</a>               79 String.cpp       AboutToModify(length() + slen);
+<a href='../S/66.html#L80'>slen</a>               80 String.cpp       std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+<a href='../S/66.html#L81'>slen</a>               81 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/66.html#L82'>slen</a>               82 String.cpp       addLength(slen);
+<a href='../S/66.html#L96'>slen</a>               96 String.cpp       size_t slen = (n == npos) ? std::strlen(string) : n;
+<a href='../S/66.html#L97'>slen</a>               97 String.cpp       size_t newlen = pos + slen;
+<a href='../S/66.html#L105'>slen</a>              105 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/42.html#L104'>slen</a>              104 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
 </pre>
 </body>
 </html>

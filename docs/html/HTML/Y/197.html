@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>_size</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/6.html#L55'>_size</a>              55 HashTable.h        size_t _size;
+<a href='../S/6.html#L63'>_size</a>              63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
+<a href='../S/6.html#L64'>_size</a>              64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+<a href='../S/6.html#L65'>_size</a>              65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/6.html#L69'>_size</a>              69 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
+<a href='../S/6.html#L71'>_size</a>              71 HashTable.h          table._size = 0;
+<a href='../S/6.html#L75'>_size</a>              75 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
+<a href='../S/6.html#L86'>_size</a>              86 HashTable.h          _size = 0;
+<a href='../S/6.html#L124'>_size</a>             124 HashTable.h          swap(a._size, b._size);
+<a href='../S/6.html#L145'>_size</a>             145 HashTable.h        inline size_t size() const { return _size; };
+<a href='../S/6.html#L153'>_size</a>             153 HashTable.h          ++_size;
+<a href='../S/6.html#L165'>_size</a>             165 HashTable.h            --_size;
+</pre>
+</body>
+</html>

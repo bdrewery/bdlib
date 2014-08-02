@@ -1,20 +1,23 @@
 <html>
 <head>
-<title>Slice</title>
+<title>ScriptCallbacker</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/57.html#L265'>Slice</a>             265 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
-<a href='../S/56.html#L140'>Slice</a>             140 ReferenceCountedArray.h class Slice {
-<a href='../S/56.html#L146'>Slice</a>             146 ReferenceCountedArray.h     Slice() = delete;
-<a href='../S/56.html#L149'>Slice</a>             149 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-<a href='../S/56.html#L150'>Slice</a>             150 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
-<a href='../S/56.html#L161'>Slice</a>             161 ReferenceCountedArray.h     friend void swap(Slice&amp; a, Slice&amp; b) {
-<a href='../S/56.html#L173'>Slice</a>             173 ReferenceCountedArray.h     inline Slice&amp; operator=(const Slice&amp; slice) {
-<a href='../S/56.html#L182'>Slice</a>             182 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
-<a href='../S/47.html#L272'>Slice</a>             272 String.h               inline Slice&lt;String&gt; operator()(int start, int len = -1) { return Slice&lt;String&gt;(*this, start, len); };
+<a href='../S/61.html#L42'>ScriptCallbacker</a>   42 ScriptInterp.h class ScriptCallbacker {
+<a href='../S/61.html#L44'>ScriptCallbacker</a>   44 ScriptInterp.h     ScriptCallbacker(const ScriptCallbacker&amp;) = delete;
+<a href='../S/61.html#L45'>ScriptCallbacker</a>   45 ScriptInterp.h     ScriptCallbacker&amp; operator=(const ScriptCallbacker&amp;) = delete;
+<a href='../S/61.html#L50'>ScriptCallbacker</a>   50 ScriptInterp.h     ScriptCallbacker(ScriptInterp* _si, const String&amp; _cmd) : si(_si), cmd(_cmd) {};
+<a href='../S/61.html#L51'>ScriptCallbacker</a>   51 ScriptInterp.h     virtual ~ScriptCallbacker() {};
+<a href='../S/47.html#L247'>ScriptCallbacker</a>  247 ScriptInterpTCL.cpp ScriptCallbacker* tcl_to_c_cast&lt;ScriptCallbacker*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/39.html#L84'>ScriptCallbacker</a>   84 ScriptInterpTCL.h tcl_to_c_castable(ScriptCallbacker*);
+<a href='../S/39.html#L120'>ScriptCallbacker</a>  120 ScriptInterpTCL.h class ScriptCallbackerTCL : public ScriptCallbacker {
+<a href='../S/39.html#L125'>ScriptCallbacker</a>  125 ScriptInterpTCL.h     ScriptCallbackerTCL(ScriptInterp* _si, const String&amp; _cmd) : ScriptCallbacker(_si, _cmd) {};
+<a href='../S/17.html#L363'>ScriptCallbacker</a>  363 tests/ScriptInterpTCLTest.cpp HashTable&lt;String, ScriptCallbacker* &gt; Events;
+<a href='../S/17.html#L365'>ScriptCallbacker</a>  365 tests/ScriptInterpTCLTest.cpp void script_bind(String eventName, ScriptCallbacker* scb) {
+<a href='../S/17.html#L373'>ScriptCallbacker</a>  373 tests/ScriptInterpTCLTest.cpp   ScriptCallbacker* scb;
 </pre>
 </body>
 </html>

@@ -1,12 +1,14 @@
 <html>
 <head>
-<title>HashTable.cpp</title>
+<title>Stack.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/HashTable.cpp</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/Stack.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2><a href='../J/32.html' title='Multiple included from 2 places.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -33,14 +35,75 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* HashTable.cpp</font></i>
+<a name='L25'>  25 <i><font color='green'>/* Stack.h</font></i>
 <a name='L26'>  26 <i><font color='green'> */</font></i>
 <a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='7.html'>HashTable.h</a>"
-<a name='L29'>  29 
-<a name='L30'>  30 <a href='../S/54.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L31'>  31 <a href='../S/54.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L32'>  32 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/10.html#L29' title='Defined at 29 in Stack.h.'>_BD_STACK_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/10.html#L28' title='Refered from 28 in Stack.h.'>_BD_STACK_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> "<a href='49.html'>bdlib.h</a>"
+<a name='L32'>  32 <font color='darkred'>#include</font> "<a href='45.html'>List.h</a>"
+<a name='L33'>  33 
+<a name='L34'>  34 <a href='../S/49.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L35'>  35 
+<a name='L36'>  36 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;
+<a name='L37'>  37 <i><font color='green'>/**</font></i>
+<a name='L38'>  38 <i><font color='green'> * @class Stack</font></i>
+<a name='L39'>  39 <i><font color='green'> * @brief A FILO Stack, what else!</font></i>
+<a name='L40'>  40 <i><font color='green'> */</font></i>
+<a name='L41'>  41 <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/115.html' title='Multiple used in 8 places.'>Stack</a> : <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a> <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; <font color='red'>{</font>
+<a name='L42'>  42   <b>typedef</b> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a> <a href='../R/153.html' title='Multiple refered from 42 places.'>iterator_type</a>;
+<a name='L43'>  43   <b>typedef</b> <a href='../Y/726.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/447.html' title='Multiple used in 2 places.'>iterator_type</a>&gt;::<a href='../R/22.html' title='Multiple refered from 53 places.'>Node</a> <a href='../Y/77.html' title='Multiple used in 5 places.'>Node</a>;
+<a name='L44'>  44 
+<a name='L45'>  45   <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L46'>  46     <a href='../Y/115.html' title='Multiple used in 8 places.'>Stack</a>() : <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>&gt;() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L47'>  47     <a href='../Y/749.html' title='Multiple used in 77 places.'>virtual</a> ~<a href='../Y/115.html' title='Multiple used in 8 places.'>Stack</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L48'>  48 
+<a name='L49'>  49     <i><font color='green'>/**</font></i>
+<a name='L50'>  50 <i><font color='green'>     * @brief Pop an element off the top of the stack</font></i>
+<a name='L51'>  51 <i><font color='green'>     */</font></i>
+<a name='L52'>  52     <a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a> <a href='../Y/557.html' title='Multiple used in 54 places.'>pop</a>() <font color='red'>{</font>
+<a name='L53'>  53       <a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a> <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a> = <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/409.html' title='Multiple used in 25 places.'>head</a>-&gt;<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>;
+<a name='L54'>  54       <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/593.html' title='Multiple used in 75 places.'>remove</a>(<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>);
+<a name='L55'>  55       <b>return</b> <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>;
+<a name='L56'>  56     <font color='red'>}</font>;
+<a name='L57'>  57 
+<a name='L58'>  58     <i><font color='green'>/**</font></i>
+<a name='L59'>  59 <i><font color='green'>     * @sa pop</font></i>
+<a name='L60'>  60 <i><font color='green'>     */</font></i>
+<a name='L61'>  61     <b>inline</b> <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/115.html' title='Multiple used in 8 places.'>Stack</a>&lt;<a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>&gt;&amp; <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>&gt;&gt; (<a href='../Y/115.html' title='Multiple used in 8 places.'>Stack</a>&lt;<a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>&gt;&amp; <a href='../Y/659.html' title='Multiple used in 6 places.'>stack</a>, <a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>&amp; <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>) <font color='red'>{</font>
+<a name='L62'>  62       <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a> = <a href='../Y/659.html' title='Multiple used in 6 places.'>stack</a>.<a href='../Y/557.html' title='Multiple used in 54 places.'>pop</a>();
+<a name='L63'>  63       <b>return</b> <a href='../Y/659.html' title='Multiple used in 6 places.'>stack</a>;
+<a name='L64'>  64     <font color='red'>}</font>
+<a name='L65'>  65 
+<a name='L66'>  66     <i><font color='green'>/**</font></i>
+<a name='L67'>  67 <i><font color='green'>     * @brief Peek at the first element, but don't pop it off</font></i>
+<a name='L68'>  68 <i><font color='green'>     * @todo Throw an exception?</font></i>
+<a name='L69'>  69 <i><font color='green'>     */</font></i>
+<a name='L70'>  70     <b>inline</b> <b>const</b> <a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a> <a href='../Y/554.html' title='Multiple used in 4 places.'>peek</a>() <b>const</b> <font color='red'>{</font>
+<a name='L71'>  71       <b>return</b> <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/436.html' title='Multiple used in 72 places.'>isEmpty</a>() ? <a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>() : <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/409.html' title='Multiple used in 25 places.'>head</a>-&gt;<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>;
+<a name='L72'>  72     <font color='red'>}</font>
+<a name='L73'>  73 
+<a name='L74'>  74     <i><font color='green'>/**</font></i>
+<a name='L75'>  75 <i><font color='green'>     * @brief Push an element on to the top of stack</font></i>
+<a name='L76'>  76 <i><font color='green'>     * @param item The element to push back</font></i>
+<a name='L77'>  77 <i><font color='green'>     */</font></i>
+<a name='L78'>  78     <b>inline</b> <b>void</b> <a href='../Y/577.html' title='Multiple used in 60 places.'>push</a>(<b>const</b> <a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a> &amp;<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>) <font color='red'>{</font>
+<a name='L79'>  79       <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../S/66.html#L72' title='Defined at 72 in String.cpp.'>insert</a>(<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>);
+<a name='L80'>  80     <font color='red'>}</font>;
+<a name='L81'>  81 
+<a name='L82'>  82     <i><font color='green'>/**</font></i>
+<a name='L83'>  83 <i><font color='green'>     * @sa push</font></i>
+<a name='L84'>  84 <i><font color='green'>     */</font></i>
+<a name='L85'>  85     <b>inline</b> <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/115.html' title='Multiple used in 8 places.'>Stack</a>&lt;<a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>&gt;&amp; <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>&lt;&lt; (<a href='../Y/115.html' title='Multiple used in 8 places.'>Stack</a>&lt;<a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>&gt;&amp; <a href='../Y/659.html' title='Multiple used in 6 places.'>stack</a>, <b>const</b> <a href='../D/188.html' title='Multiple defined in 4 places.'>iterator_type</a>&amp; <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>) <font color='red'>{</font>
+<a name='L86'>  86       <a href='../Y/659.html' title='Multiple used in 6 places.'>stack</a>.<a href='../S/66.html#L72' title='Defined at 72 in String.cpp.'>insert</a>(<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>);
+<a name='L87'>  87       <b>return</b> <a href='../Y/659.html' title='Multiple used in 6 places.'>stack</a>;
+<a name='L88'>  88     <font color='red'>}</font>
+<a name='L89'>  89 <font color='red'>}</font>;
+<a name='L90'>  90 
+<a name='L91'>  91 <a href='../S/49.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L92'>  92 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_STACK_H */</font></i> 
+<a name='L93'>  93 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>

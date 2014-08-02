@@ -1,15 +1,23 @@
 <html>
 <head>
-<title>Script</title>
+<title>ReturnType</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/74.html#L33'>Script</a>             33 Script.h       class Script {
-<a href='../S/74.html#L37'>Script</a>             37 Script.h               Script() {};
-<a href='../S/74.html#L38'>Script</a>             38 Script.h               Script(const Script&amp; script) {};
-<a href='../S/74.html#L39'>Script</a>             39 Script.h               virtual ~Script() {};
+<a href='../S/61.html#L108'>ReturnType</a>        108 ScriptInterp.h         template&lt;typename InterpType, typename ReturnType, typename... Params&gt;
+<a href='../S/61.html#L109'>ReturnType</a>        109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/39.html#L170'>ReturnType</a>        170 ScriptInterpTCL.h         template&lt;typename ReturnType, typename... Params&gt;
+<a href='../S/39.html#L171'>ReturnType</a>        171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/39.html#L172'>ReturnType</a>        172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
+<a href='../S/5.html#L9'>ReturnType</a>          9 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/5.html#L11'>ReturnType</a>         11 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L13'>ReturnType</a>         13 ScriptInterpTCLCallbacks.h     ReturnType result = std::move(callback(std::forward&lt;Params&gt;(args)...));
+<a href='../S/5.html#L14'>ReturnType</a>         14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;ReturnType&gt;::from(std::move(result), interp)));
+<a href='../S/5.html#L27'>ReturnType</a>         27 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/5.html#L29'>ReturnType</a>         29 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L39'>ReturnType</a>         39 ScriptInterpTCLCallbacks.h       ScriptCallbackDispatchTCL&lt;ReturnType, Params...&gt;::dispatch(interp, _callback,
 </pre>
 </body>
 </html>

@@ -1,23 +1,87 @@
 <html>
 <head>
-<title>clientData</title>
+<title>class</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L80'>clientData</a>         80 ScriptInterpTCL.cpp int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
-<a href='../S/52.html#L111'>clientData</a>        111 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-<a href='../S/44.html#L90'>clientData</a>         90 ScriptInterpTCL.h const char* tcl_traceGet&lt;T&gt; (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
-<a href='../S/44.html#L91'>clientData</a>         91 ScriptInterpTCL.h   return ScriptInterpTCL::TraceGet(c_to_tcl_cast&lt;T&gt;::from(*static_cast&lt;T*&gt;(clientData), interp), interp, name1, name2, flags);     \
-<a href='../S/44.html#L96'>clientData</a>         96 ScriptInterpTCL.h const char* tcl_traceSet&lt;T&gt; (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
-<a href='../S/44.html#L99'>clientData</a>         99 ScriptInterpTCL.h   const T oldval(*static_cast&lt;T*&gt;(clientData));                                                                                    \
-<a href='../S/44.html#L101'>clientData</a>        101 ScriptInterpTCL.h   *static_cast&lt;T*&gt;(clientData) = std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));                                                  \
-<a href='../S/44.html#L103'>clientData</a>        103 ScriptInterpTCL.h     (ScriptInterpTCL::link_var_hooks[name1])((const void*)&amp;oldval, (const void*)(clientData));                                     \
-<a href='../S/44.html#L115'>clientData</a>        115 ScriptInterpTCL.h const char* tcl_traceGet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
-<a href='../S/44.html#L118'>clientData</a>        118 ScriptInterpTCL.h const char* tcl_traceSet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
-<a href='../S/44.html#L141'>clientData</a>        141 ScriptInterpTCL.h         static int _createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
-<a href='../S/44.html#L217'>clientData</a>        217 ScriptInterpTCL.h         static const char* TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+<a href='../S/52.html#L42'>class</a>              42 Array.h        template &lt;class T&gt;
+<a href='../S/52.html#L47'>class</a>              47 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
+<a href='../S/53.html#L39'>class</a>              39 AtomicFile.h   class AtomicFile {
+<a href='../S/4.html#L36'>class</a>              36 BinaryTree.h   template &lt;class Key, class Value&gt;
+<a href='../S/4.html#L41'>class</a>              41 BinaryTree.h   class BinaryTree {
+<a href='../S/4.html#L42'>class</a>              42 BinaryTree.h     class BinaryTreeIterator;
+<a href='../S/4.html#L49'>class</a>              49 BinaryTree.h       class Node {
+<a href='../S/4.html#L270'>class</a>             270 BinaryTree.h       class BinaryTreeIterator : public Iterator&lt;iterator_type&gt; {
+<a href='../S/4.html#L271'>class</a>             271 BinaryTree.h         friend class BinaryTree;
+<a href='../S/62.html#L37'>class</a>              37 Crypto.h       class Crypto {
+<a href='../S/6.html#L38'>class</a>              38 HashTable.h    template &lt;class Key, class Value&gt;
+<a href='../S/6.html#L47'>class</a>              47 HashTable.h    class HashTable {
+<a href='../S/36.html#L36'>class</a>              36 Iterator.h     class Iterator { //This should not exist.
+<a href='../S/36.html#L88'>class</a>              88 Iterator.h     template &lt;class Key, class Value&gt;
+<a href='../S/45.html#L34'>class</a>              34 List.h         template &lt;class T&gt;
+<a href='../S/45.html#L39'>class</a>              39 List.h         class List {
+<a href='../S/45.html#L40'>class</a>              40 List.h           class ListIterator;
+<a href='../S/45.html#L208'>class</a>             208 List.h             class ListIterator : public Iterator&lt;value_type&gt; {
+<a href='../S/45.html#L209'>class</a>             209 List.h               friend class List;
+<a href='../S/55.html#L37'>class</a>              37 Queue.h        template &lt;class T&gt; class QueueIterator;
+<a href='../S/55.html#L38'>class</a>              38 Queue.h        template &lt;class T&gt; class QueueConstIterator;
+<a href='../S/55.html#L40'>class</a>              40 Queue.h        template &lt;class T&gt;
+<a href='../S/55.html#L45'>class</a>              45 Queue.h        class Queue : public List&lt;T&gt; {
+<a href='../S/55.html#L49'>class</a>              49 Queue.h            friend class QueueIterator&lt;T&gt;;
+<a href='../S/55.html#L50'>class</a>              50 Queue.h            friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/55.html#L115'>class</a>             115 Queue.h        template &lt;class T&gt;
+<a href='../S/55.html#L116'>class</a>             116 Queue.h        class QueueIterator {
+<a href='../S/55.html#L117'>class</a>             117 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/55.html#L118'>class</a>             118 Queue.h          friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/55.html#L160'>class</a>             160 Queue.h        template &lt;class T&gt;
+<a href='../S/55.html#L161'>class</a>             161 Queue.h        class QueueConstIterator {
+<a href='../S/55.html#L162'>class</a>             162 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/55.html#L163'>class</a>             163 Queue.h          friend class QueueIterator&lt;T&gt;;
+<a href='../S/51.html#L45'>class</a>              45 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/51.html#L51'>class</a>              51 ReferenceCountedArray.h class ArrayRef {
+<a href='../S/51.html#L130'>class</a>             130 ReferenceCountedArray.h template &lt;class T&gt;
+<a href='../S/51.html#L140'>class</a>             140 ReferenceCountedArray.h class Slice {
+<a href='../S/51.html#L188'>class</a>             188 ReferenceCountedArray.h class ReferenceCountedArrayBase {
+<a href='../S/51.html#L197'>class</a>             197 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/51.html#L202'>class</a>             202 ReferenceCountedArray.h class ReferenceCountedArray : public ReferenceCountedArrayBase {
+<a href='../S/51.html#L706'>class</a>             706 ReferenceCountedArray.h     class Cref {
+<a href='../S/51.html#L708'>class</a>             708 ReferenceCountedArray.h         friend class ReferenceCountedArray;
+<a href='../S/68.html#L33'>class</a>              33 Script.h       class Script {
+<a href='../S/61.html#L34'>class</a>              34 ScriptInterp.h class ScriptInterp;
+<a href='../S/61.html#L36'>class</a>              36 ScriptInterp.h class ScriptCallbackBase {
+<a href='../S/61.html#L42'>class</a>              42 ScriptInterp.h class ScriptCallbacker {
+<a href='../S/61.html#L59'>class</a>              59 ScriptInterp.h class ScriptInterp {
+<a href='../S/39.html#L107'>class</a>             107 ScriptInterpTCL.h class ScriptCallbackTCLBase : public ScriptCallbackBase {
+<a href='../S/39.html#L120'>class</a>             120 ScriptInterpTCL.h class ScriptCallbackerTCL : public ScriptCallbacker {
+<a href='../S/39.html#L130'>class</a>             130 ScriptInterpTCL.h class ScriptInterpTCL : public ScriptInterp {
+<a href='../S/5.html#L28'>class</a>              28 ScriptInterpTCLCallbacks.h class ScriptCallbackTCL : public ScriptCallbackTCLBase {
+<a href='../S/1.html#L67'>class</a>              67 Socket.h       class Socket {
+<a href='../S/1.html#L91'>class</a>              91 Socket.h       class ClientSocket : public Socket {
+<a href='../S/1.html#L100'>class</a>             100 Socket.h       class ServerSocket : public Socket {
+<a href='../S/9.html#L36'>class</a>              36 SortedList.h   template &lt;class T&gt;
+<a href='../S/9.html#L41'>class</a>              41 SortedList.h   class SortedList : public List&lt;T&gt; {
+<a href='../S/10.html#L36'>class</a>              36 Stack.h        template &lt;class T&gt;
+<a href='../S/10.html#L41'>class</a>              41 Stack.h        class Stack : public List&lt;T&gt; {
+<a href='../S/40.html#L49'>class</a>              49 Stream.h       class Stream {
+<a href='../S/42.html#L48'>class</a>              48 String.h       template &lt;class T&gt;
+<a href='../S/42.html#L49'>class</a>              49 String.h       class Array;
+<a href='../S/42.html#L52'>class</a>              52 String.h       class HashTable;
+<a href='../S/42.html#L62'>class</a>              62 String.h       class String : public ReferenceCountedArray&lt;String_Array_Type&gt; {
+<a href='../S/59.html#L63'>class</a>              63 Thread.h       class Thread {
+<a href='../S/46.html#L35'>class</a>              35 base64.h       class Base64 {
+<a href='../S/25.html#L37'>class</a>              37 tests/ArrayTest.h class ArrayTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/30.html#L36'>class</a>              36 tests/AtomicFileTest.h class AtomicFileTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/23.html#L37'>class</a>              37 tests/BinaryTreeTest.h class BinaryTreeTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/26.html#L38'>class</a>              38 tests/HashTableTest.h class HashTableTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/16.html#L37'>class</a>              37 tests/ListTest.h class ListTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/29.html#L37'>class</a>              37 tests/QueueTest.h class QueueTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/32.html#L20'>class</a>              20 tests/ScriptInterpTCLTest.h class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/11.html#L37'>class</a>              37 tests/SortedListTest.h class SortedListTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/18.html#L37'>class</a>              37 tests/StackTest.h class StackTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/22.html#L36'>class</a>              36 tests/StreamTest.h class StreamTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/15.html#L36'>class</a>              36 tests/StringTest.h class StringTest : public CPPUNIT_NS :: TestFixture
 </pre>
 </body>
 </html>

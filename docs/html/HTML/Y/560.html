@@ -1,31 +1,33 @@
 <html>
 <head>
-<title>protected</title>
+<title>prev</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/50.html#L53'>protected</a>          53 List.h           protected:
-<a href='../S/56.html#L241'>protected</a>         241 ReferenceCountedArray.h   protected:
-<a href='../S/56.html#L279'>protected</a>         279 ReferenceCountedArray.h   protected:
-<a href='../S/56.html#L352'>protected</a>         352 ReferenceCountedArray.h   protected:
-<a href='../S/74.html#L34'>protected</a>          34 Script.h         protected:
-<a href='../S/67.html#L64'>protected</a>          64 ScriptInterp.h   protected:
-<a href='../S/44.html#L149'>protected</a>         149 ScriptInterpTCL.h   protected:
-<a href='../S/45.html#L50'>protected</a>          50 Stream.h         protected:
-<a href='../S/64.html#L81'>protected</a>          81 Thread.h         protected: 
-<a href='../S/29.html#L61'>protected</a>          61 tests/ArrayTest.h     protected:
-<a href='../S/34.html#L49'>protected</a>          49 tests/AtomicFileTest.h     protected:
-<a href='../S/27.html#L54'>protected</a>          54 tests/BinaryTreeTest.h     protected:
-<a href='../S/30.html#L56'>protected</a>          56 tests/HashTableTest.h     protected:
-<a href='../S/20.html#L53'>protected</a>          53 tests/ListTest.h     protected:
-<a href='../S/33.html#L49'>protected</a>          49 tests/QueueTest.h     protected:
-<a href='../S/36.html#L37'>protected</a>          37 tests/ScriptInterpTCLTest.h     protected:
-<a href='../S/14.html#L53'>protected</a>          53 tests/SortedListTest.h     protected:
-<a href='../S/22.html#L49'>protected</a>          49 tests/StackTest.h     protected:
-<a href='../S/26.html#L55'>protected</a>          55 tests/StreamTest.h     protected:
-<a href='../S/19.html#L84'>protected</a>          84 tests/StringTest.h     protected:
+<a href='../S/45.html#L57'>prev</a>               57 List.h               Node* prev;
+<a href='../S/45.html#L59'>prev</a>               59 List.h               Node(const_reference p) : item(p), next(nullptr), prev(nullptr) {};
+<a href='../S/45.html#L61'>prev</a>               61 List.h               Node(const Node&amp; n) : item(n.item), next(n.next), prev(n.prev) {};
+<a href='../S/45.html#L62'>prev</a>               62 List.h               Node(const value_type&amp;&amp; p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+<a href='../S/45.html#L65'>prev</a>               65 List.h                 p.prev = nullptr;
+<a href='../S/45.html#L73'>prev</a>               73 List.h                 swap(a.prev, b.prev);
+<a href='../S/45.html#L84'>prev</a>               84 List.h               Node* prev = node-&gt;prev; //NULL if node = head
+<a href='../S/45.html#L88'>prev</a>               88 List.h               if (next) next-&gt;prev = prev;
+<a href='../S/45.html#L89'>prev</a>               89 List.h               if (prev) prev-&gt;next = next;
+<a href='../S/45.html#L92'>prev</a>               92 List.h               if (node == tail) tail = prev;
+<a href='../S/45.html#L160'>prev</a>              160 List.h                 head-&gt;prev = node;
+<a href='../S/45.html#L242'>prev</a>              242 List.h                   Node *nextValue = end == 0 ? current-&gt;next : current-&gt;prev;
+<a href='../S/45.html#L257'>prev</a>              257 List.h                   current = current-&gt;prev;
+<a href='../S/45.html#L262'>prev</a>              262 List.h                   current = current-&gt;prev;
+<a href='../S/9.html#L61'>prev</a>               61 SortedList.h         Node* node = new Node(item), *prev = nullptr, *current = this-&gt;head;
+<a href='../S/9.html#L63'>prev</a>               63 SortedList.h           prev = current;
+<a href='../S/9.html#L70'>prev</a>               70 SortedList.h           this-&gt;tail = prev-&gt;next = node;
+<a href='../S/9.html#L71'>prev</a>               71 SortedList.h           node-&gt;prev = prev; //prev=tail
+<a href='../S/9.html#L74'>prev</a>               74 SortedList.h           current-&gt;prev = node;
+<a href='../S/9.html#L78'>prev</a>               78 SortedList.h           node-&gt;prev = prev;
+<a href='../S/9.html#L79'>prev</a>               79 SortedList.h           current-&gt;prev = node;
+<a href='../S/9.html#L80'>prev</a>               80 SortedList.h           prev-&gt;next = node;
 </pre>
 </body>
 </html>

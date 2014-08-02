@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['l_5fendian',['L_ENDIAN',['../config_8h.html#a9469f350a500755bf54aa4c1a2d2388a',1,'config.h']]],
   ['len',['len',['../structbd_1_1sockname__t.html#a593e741599f213191e9fa467fb083b10',1,'bd::sockname_t']]],
   ['length',['length',['../classbd_1_1ReferenceCountedArray.html#a8f7ce58fe762cabec3bd97e5b443080b',1,'bd::ReferenceCountedArray::length()'],['../classbd_1_1Stream.html#aafb9a787b7b0a4bc2f3365c3e63dbf1c',1,'bd::Stream::length()']]],
   ['link_5fvar_5fhook',['link_var_hook',['../classbd_1_1ScriptInterp.html#a6896a7e0a51427f34743dc96265ed47a',1,'bd::ScriptInterp']]],

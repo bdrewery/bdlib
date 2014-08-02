@@ -61,7 +61,6 @@ var searchData=
   ['stack_2ecpp',['Stack.cpp',['../Stack_8cpp.html',1,'']]],
   ['stack_2eh',['Stack.h',['../Stack_8h.html',1,'']]],
   ['start',['start',['../classbd_1_1Thread.html#a57a70d16aa6930b0ca54ec1416e835a7',1,'bd::Thread']]],
-  ['stdc_5fheaders',['STDC_HEADERS',['../config_8h.html#a550e5c272cc3cf3814651721167dcd23',1,'config.h']]],
   ['stop',['stop',['../classbd_1_1Thread.html#a415838bc1a1163573578e70f83596fca',1,'bd::Thread']]],
   ['str',['str',['../classbd_1_1Stream.html#af4419d7dcc88bffa62420c6dbe2b2cc3',1,'bd::Stream']]],
   ['str_5fredup',['str_redup',['../namespacebd.html#a4396eeb7b865ba189a3a4247b1e5a298',1,'bd']]],

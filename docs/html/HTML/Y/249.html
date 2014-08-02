@@ -1,47 +1,34 @@
 <html>
 <head>
-<title>capacity</title>
+<title>c_to_tcl_cast</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/7.html#L146'>capacity</a>          146 HashTable.h        inline size_t capacity() const { return _capacity; };
-<a href='../S/7.html#L190'>capacity</a>          190 HashTable.h          for (size_t i = 0; i &lt; capacity(); ++i) {
-<a href='../S/7.html#L208'>capacity</a>          208 HashTable.h          for (size_t i = 0; i &lt; capacity(); ++i) {
-<a href='../S/56.html#L524'>capacity</a>          524 ReferenceCountedArray.h     inline size_t capacity() const { return Ref ? Ref-&gt;size : 0; };
-<a href='../S/71.html#L47'>capacity</a>           47 Stream.cpp       if (newSize &lt; capacity())
-<a href='../S/71.html#L63'>capacity</a>           63 Stream.cpp           newpos = capacity() - offset;
-<a href='../S/71.html#L70'>capacity</a>           70 Stream.cpp       else if (static_cast&lt;size_t&gt;(newpos) &gt; capacity())
-<a href='../S/71.html#L71'>capacity</a>           71 Stream.cpp         newpos = capacity();
-<a href='../S/45.html#L165'>capacity</a>          165 Stream.h               inline size_t capacity() const { return str.capacity(); };
-<a href='../S/47.html#L69'>capacity</a>           69 String.h                 const size_t len = capacity();
-<a href='../S/37.html#L61'>capacity</a>           61 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_b-&gt;capacity() &gt;= 20);
-<a href='../S/37.html#L72'>capacity</a>           72 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;capacity() &gt;= 2);
-<a href='../S/37.html#L76'>capacity</a>           76 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;capacity() &gt;= 2);
-<a href='../S/16.html#L62'>capacity</a>           62 tests/StreamTest.cpp   CPPUNIT_ASSERT((a-&gt;capacity() % 2048) == 0);
-<a href='../S/16.html#L65'>capacity</a>           65 tests/StreamTest.cpp   CPPUNIT_ASSERT(b-&gt;capacity() &gt;= 1024);
-<a href='../S/16.html#L66'>capacity</a>           66 tests/StreamTest.cpp   CPPUNIT_ASSERT(h-&gt;capacity() &gt;= 1024);
-<a href='../S/16.html#L67'>capacity</a>           67 tests/StreamTest.cpp   CPPUNIT_ASSERT((b-&gt;capacity() % 1024) == 0);
-<a href='../S/16.html#L74'>capacity</a>           74 tests/StreamTest.cpp   CPPUNIT_ASSERT((g-&gt;capacity() &gt;= 2048));
-<a href='../S/16.html#L78'>capacity</a>           78 tests/StreamTest.cpp   CPPUNIT_ASSERT((b-&gt;capacity() &gt;= 2048));
-<a href='../S/16.html#L94'>capacity</a>           94 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), b-&gt;tell());
-<a href='../S/16.html#L103'>capacity</a>          103 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity() - 1, b-&gt;tell());
-<a href='../S/16.html#L118'>capacity</a>          118 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), a-&gt;capacity());
-<a href='../S/16.html#L133'>capacity</a>          133 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), a-&gt;capacity());
-<a href='../S/32.html#L104'>capacity</a>          104 tests/StringTest.cpp   CPPUNIT_ASSERT(b-&gt;capacity() &gt;= 4);
-<a href='../S/32.html#L105'>capacity</a>          105 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), c-&gt;capacity());
-<a href='../S/32.html#L106'>capacity</a>          106 tests/StringTest.cpp   CPPUNIT_ASSERT(d-&gt;capacity() &gt;= strlen(cstring));
-<a href='../S/32.html#L107'>capacity</a>          107 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(d-&gt;capacity(), e-&gt;capacity());
-<a href='../S/32.html#L108'>capacity</a>          108 tests/StringTest.cpp   CPPUNIT_ASSERT(f-&gt;capacity() &gt;= 11);
-<a href='../S/32.html#L109'>capacity</a>          109 tests/StringTest.cpp   CPPUNIT_ASSERT(g-&gt;capacity() &gt;= 1);
-<a href='../S/32.html#L110'>capacity</a>          110 tests/StringTest.cpp   CPPUNIT_ASSERT(h-&gt;capacity() &gt;= 35);
-<a href='../S/32.html#L114'>capacity</a>          114 tests/StringTest.cpp   CPPUNIT_ASSERT(ssize_t(a-&gt;capacity()) &gt;= 0);
-<a href='../S/32.html#L1264'>capacity</a>         1264 tests/StringTest.cpp   CPPUNIT_ASSERT(e-&gt;capacity() &gt; d-&gt;capacity());
-<a href='../S/32.html#L1276'>capacity</a>         1276 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(130), big.capacity());
-<a href='../S/32.html#L1282'>capacity</a>         1282 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
-<a href='../S/32.html#L1287'>capacity</a>         1287 tests/StringTest.cpp   CPPUNIT_ASSERT(sub.capacity() &gt;= 11);
-<a href='../S/32.html#L1289'>capacity</a>         1289 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
+<a href='../S/47.html#L88'>c_to_tcl_cast</a>      88 ScriptInterpTCL.cpp     Tcl_SetObjResult(interp, c_to_tcl_cast&lt;String&gt;::from(errorResult, interp));
+<a href='../S/47.html#L95'>c_to_tcl_cast</a>      95 ScriptInterpTCL.cpp     Tcl_SetObjResult(interp, c_to_tcl_cast&lt;String&gt;::from(e, interp));
+<a href='../S/47.html#L98'>c_to_tcl_cast</a>      98 ScriptInterpTCL.cpp     Tcl_SetObjResult(interp, c_to_tcl_cast&lt;const char*&gt;::from("Unhandled exception.", interp));
+<a href='../S/47.html#L124'>c_to_tcl_cast</a>     124 ScriptInterpTCL.cpp   Tcl_Obj *name1o = c_to_tcl_cast&lt;const char*&gt;::from(name1, interp);
+<a href='../S/47.html#L130'>c_to_tcl_cast</a>     130 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;int&gt;::from(int value, Tcl_Interp* interp) {
+<a href='../S/47.html#L134'>c_to_tcl_cast</a>     134 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;unsigned int&gt;::from(unsigned int value, Tcl_Interp* interp) {
+<a href='../S/47.html#L135'>c_to_tcl_cast</a>     135 ScriptInterpTCL.cpp   return c_to_tcl_cast&lt;int&gt;::from(value, interp);
+<a href='../S/47.html#L138'>c_to_tcl_cast</a>     138 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;long&gt;::from(long value, Tcl_Interp* interp) {
+<a href='../S/47.html#L142'>c_to_tcl_cast</a>     142 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;unsigned long&gt;::from(unsigned long value, Tcl_Interp* interp) {
+<a href='../S/47.html#L143'>c_to_tcl_cast</a>     143 ScriptInterpTCL.cpp   return c_to_tcl_cast&lt;long&gt;::from(value, interp);
+<a href='../S/47.html#L146'>c_to_tcl_cast</a>     146 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;double&gt;::from(double value, Tcl_Interp* interp) {
+<a href='../S/47.html#L150'>c_to_tcl_cast</a>     150 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;String&gt;::from(String value, Tcl_Interp* interp) {
+<a href='../S/47.html#L154'>c_to_tcl_cast</a>     154 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;const char *&gt;::from(const char* value, Tcl_Interp* interp) {
+<a href='../S/47.html#L155'>c_to_tcl_cast</a>     155 ScriptInterpTCL.cpp   return c_to_tcl_cast&lt;String&gt;::from(value, interp);
+<a href='../S/47.html#L158'>c_to_tcl_cast</a>     158 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;bool&gt;::from(bool value, Tcl_Interp* interp) {
+<a href='../S/47.html#L162'>c_to_tcl_cast</a>     162 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;Array&lt;String&gt;&gt;::from(Array&lt;String&gt; array, Tcl_Interp* interp) {
+<a href='../S/47.html#L166'>c_to_tcl_cast</a>     166 ScriptInterpTCL.cpp     Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast&lt;decltype(element)&gt;::from(element, interp));
+<a href='../S/47.html#L172'>c_to_tcl_cast</a>     172 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Array&lt;Array&lt;String&gt;&gt; array, Tcl_Interp* interp) {
+<a href='../S/47.html#L176'>c_to_tcl_cast</a>     176 ScriptInterpTCL.cpp     Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast&lt;decltype(element)&gt;::from(element, interp));
+<a href='../S/39.html#L46'>c_to_tcl_cast</a>      46 ScriptInterpTCL.h struct c_to_tcl_cast;
+<a href='../S/39.html#L50'>c_to_tcl_cast</a>      50 ScriptInterpTCL.h   struct c_to_tcl_cast&lt;T&gt;                                         \
+<a href='../S/39.html#L91'>c_to_tcl_cast</a>      91 ScriptInterpTCL.h   return ScriptInterpTCL::TraceGet(c_to_tcl_cast&lt;T&gt;::from(*static_cast&lt;T*&gt;(clientData), interp), interp, name1, name2, flags);     \
+<a href='../S/5.html#L14'>c_to_tcl_cast</a>      14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;ReturnType&gt;::from(std::move(result), interp)));
 </pre>
 </body>
 </html>

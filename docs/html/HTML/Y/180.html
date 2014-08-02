@@ -1,19 +1,24 @@
 <html>
 <head>
-<title>_fname</title>
+<title>_capacity</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/70.html#L40'>_fname</a>             40 AtomicFile.cpp   this-&gt;_fname = fname;
-<a href='../S/70.html#L47'>_fname</a>             47 AtomicFile.cpp   if ((slash_pos = this-&gt;_fname.rfind("/")) == String::npos) {
-<a href='../S/70.html#L51'>_fname</a>             51 AtomicFile.cpp     dir = this-&gt;_fname(0, slash_pos + 1);	/* include the '/' */
-<a href='../S/70.html#L55'>_fname</a>             55 AtomicFile.cpp       static_cast&lt;String&gt;(this-&gt;_fname(slash_pos)).c_str());
-<a href='../S/70.html#L88'>_fname</a>             88 AtomicFile.cpp   if (::rename(this-&gt;_tmpname.c_str(), this-&gt;_fname.c_str()) != 0) {
-<a href='../S/58.html#L41'>_fname</a>             41 AtomicFile.h       String _fname;
-<a href='../S/58.html#L46'>_fname</a>             46 AtomicFile.h       AtomicFile() : _fname(), _tmpname(), _fd(-1), _mode(-1) {};
-<a href='../S/58.html#L47'>_fname</a>             47 AtomicFile.h       AtomicFile(AtomicFile&amp; f) : _fname(f._fname), _tmpname(), _fd(f._fd),
+<a href='../S/6.html#L56'>_capacity</a>          56 HashTable.h        size_t _capacity;
+<a href='../S/6.html#L60'>_capacity</a>          60 HashTable.h          return _hash(key) % _capacity;
+<a href='../S/6.html#L63'>_capacity</a>          63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
+<a href='../S/6.html#L64'>_capacity</a>          64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
+<a href='../S/6.html#L65'>_capacity</a>          65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
+<a href='../S/6.html#L66'>_capacity</a>          66 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
+<a href='../S/6.html#L69'>_capacity</a>          69 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
+<a href='../S/6.html#L72'>_capacity</a>          72 HashTable.h          table._capacity = default_list_size;
+<a href='../S/6.html#L75'>_capacity</a>          75 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
+<a href='../S/6.html#L84'>_capacity</a>          84 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
+<a href='../S/6.html#L103'>_capacity</a>         103 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i) {
+<a href='../S/6.html#L125'>_capacity</a>         125 HashTable.h          swap(a._capacity, b._capacity);
+<a href='../S/6.html#L146'>_capacity</a>         146 HashTable.h        inline size_t capacity() const { return _capacity; };
 </pre>
 </body>
 </html>

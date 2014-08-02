@@ -1,19 +1,15 @@
 <html>
 <head>
-<title>mode_t</title>
+<title>min_params</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/70.html#L36'>mode_t</a>             36 AtomicFile.cpp bool AtomicFile::open(const String&amp; fname, mode_t mode) {
-<a href='../S/70.html#L79'>mode_t</a>             79 AtomicFile.cpp   if (this-&gt;_mode != mode_t(-1) &amp;&amp; fchmod(this-&gt;_fd, this-&gt;_mode) != 0) {
-<a href='../S/58.html#L44'>mode_t</a>             44 AtomicFile.h       mode_t _mode;
-<a href='../S/58.html#L62'>mode_t</a>             62 AtomicFile.h       bool open(const String&amp; fname, mode_t mode = -1);
-<a href='../S/71.html#L156'>mode_t</a>            156 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
-<a href='../S/45.html#L160'>mode_t</a>            160 Stream.h               virtual int writeFile(const String&amp; fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
-<a href='../S/18.html#L122'>mode_t</a>            122 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode &amp; ~S_IFMT);
-<a href='../S/18.html#L190'>mode_t</a>            190 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode &amp; ~S_IFMT);
+<a href='../S/61.html#L109'>min_params</a>        109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/61.html#L110'>min_params</a>        110 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
+<a href='../S/39.html#L171'>min_params</a>        171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/39.html#L172'>min_params</a>        172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
 </pre>
 </body>
 </html>

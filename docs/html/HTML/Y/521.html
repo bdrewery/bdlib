@@ -1,16 +1,36 @@
 <html>
 <head>
-<title>newbuf</title>
+<title>newSize</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/56.html#L84'>newbuf</a>             84 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
-<a href='../S/56.html#L86'>newbuf</a>             86 ReferenceCountedArray.h         if (newbuf != buf) {
-<a href='../S/56.html#L88'>newbuf</a>             88 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
-<a href='../S/56.html#L91'>newbuf</a>             91 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
-<a href='../S/56.html#L94'>newbuf</a>             94 ReferenceCountedArray.h           buf = newbuf;
+<a href='../S/52.html#L106'>newSize</a>           106 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/52.html#L107'>newSize</a>           107 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
+<a href='../S/51.html#L78'>newSize</a>            78 ReferenceCountedArray.h     void Reserve(size_t newSize, double scaling_factor, size_t&amp; offset, size_t sublen) const
+<a href='../S/51.html#L81'>newSize</a>            81 ReferenceCountedArray.h       if (size &lt; newSize) {
+<a href='../S/51.html#L82'>newSize</a>            82 ReferenceCountedArray.h         newSize = std::max(size_t(size * scaling_factor), newSize);
+<a href='../S/51.html#L84'>newSize</a>            84 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/51.html#L88'>newSize</a>            88 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/51.html#L95'>newSize</a>            95 ReferenceCountedArray.h           size = newSize;
+<a href='../S/51.html#L98'>newSize</a>            98 ReferenceCountedArray.h       } else if ((size - offset) &lt; newSize) {
+<a href='../S/51.html#L393'>newSize</a>           393 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/51.html#L394'>newSize</a>           394 ReferenceCountedArray.h       if (newSize) {
+<a href='../S/51.html#L395'>newSize</a>           395 ReferenceCountedArray.h         Reserve(newSize);
+<a href='../S/51.html#L406'>newSize</a>           406 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/51.html#L407'>newSize</a>           407 ReferenceCountedArray.h       if (newSize) {
+<a href='../S/51.html#L408'>newSize</a>           408 ReferenceCountedArray.h         Reserve(newSize);
+<a href='../S/51.html#L410'>newSize</a>           410 ReferenceCountedArray.h         for (size_t i = 0; i &lt; newSize; ++i) {
+<a href='../S/51.html#L413'>newSize</a>           413 ReferenceCountedArray.h         this-&gt;setLength(newSize);
+<a href='../S/51.html#L508'>newSize</a>           508 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize, double scaling_factor = 1) const {
+<a href='../S/51.html#L512'>newSize</a>           512 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
+<a href='../S/65.html#L46'>newSize</a>            46 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
+<a href='../S/65.html#L47'>newSize</a>            47 Stream.cpp       if (newSize &lt; capacity())
+<a href='../S/65.html#L49'>newSize</a>            49 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
+<a href='../S/40.html#L64'>newSize</a>            64 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/42.html#L124'>newSize</a>           124 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
+<a href='../S/42.html#L125'>newSize</a>           125 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
 </pre>
 </body>
 </html>

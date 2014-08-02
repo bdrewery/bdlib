@@ -1,108 +1,19 @@
 <html>
 <head>
-<title>list</title>
+<title>limit</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/57.html#L82'>list</a>               82 Array.h            Array(std::initializer_list&lt;value_type&gt; list) : ReferenceCountedArray&lt;value_type&gt;() {
-<a href='../S/57.html#L83'>list</a>               83 Array.h              *this = list;
-<a href='../S/57.html#L115'>list</a>              115 Array.h            Array&amp; operator=(std::initializer_list&lt;value_type&gt; list) {
-<a href='../S/57.html#L117'>list</a>              117 Array.h              this-&gt;Reserve(list.size());
-<a href='../S/57.html#L118'>list</a>              118 Array.h              for (value_type item : list) {
-<a href='../S/7.html#L75'>list</a>               75 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/7.html#L76'>list</a>               76 HashTable.h          *this = list;
-<a href='../S/7.html#L138'>list</a>              138 HashTable.h        HashTable&amp; operator=(std::initializer_list&lt;iterator_type&gt; list) {
-<a href='../S/7.html#L139'>list</a>              139 HashTable.h          for (iterator_type item : list) {
-<a href='../S/50.html#L114'>list</a>              114 List.h             List(const List&amp; list) : head(nullptr), tail(nullptr), my_size(0) {
-<a href='../S/50.html#L115'>list</a>              115 List.h               for (Node* search = list.head; search; search = search-&gt;next)
-<a href='../S/50.html#L119'>list</a>              119 List.h             List(List&amp;&amp; list) : head(nullptr), tail(nullptr), my_size(0) {
-<a href='../S/50.html#L120'>list</a>              120 List.h               swap(*this, list);
-<a href='../S/50.html#L131'>list</a>              131 List.h             List&amp; operator=(List list) {
-<a href='../S/50.html#L132'>list</a>              132 List.h               swap(*this, list);
-<a href='../S/50.html#L170'>list</a>              170 List.h             inline friend List&lt;value_type&gt;&amp; operator&lt;&lt; (List&lt;value_type&gt;&amp; list, const_reference item) {
-<a href='../S/50.html#L171'>list</a>              171 List.h               list.insert(item);
-<a href='../S/50.html#L172'>list</a>              172 List.h               return list;
-<a href='../S/50.html#L211'>list</a>              211 List.h                 List *list;
-<a href='../S/50.html#L216'>list</a>              216 List.h                                                                       list(&amp;_list),
-<a href='../S/50.html#L222'>list</a>              222 List.h                                                      list(iter.list),
-<a href='../S/50.html#L227'>list</a>              227 List.h                                  list(nullptr),
-<a href='../S/50.html#L233'>list</a>              233 List.h                   list = iter.list;
-<a href='../S/50.html#L244'>list</a>              244 List.h                   list-&gt;deleteNode(current);
-<a href='../S/72.html#L150'>list</a>              150 String.cpp         String list[] = {*this};
-<a href='../S/72.html#L151'>list</a>              151 String.cpp         return Array&lt;String&gt;(list, 1);
-<a href='../S/21.html#L284'>list</a>              284 tests/ScriptInterpTCLTest.cpp String listParam(Array&lt;String&gt; list, String param) {
-<a href='../S/21.html#L285'>list</a>              285 tests/ScriptInterpTCLTest.cpp   return param + " " + list.join("-");
-<a href='../S/21.html#L288'>list</a>              288 tests/ScriptInterpTCLTest.cpp String nestedListParam(Array&lt;Array&lt;String&gt;&gt; list, String param) {
-<a href='../S/21.html#L289'>list</a>              289 tests/ScriptInterpTCLTest.cpp   return param + " ;" + static_cast&lt;Array&lt;String&gt;&gt;(list[0]).join("-") +
-<a href='../S/21.html#L290'>list</a>              290 tests/ScriptInterpTCLTest.cpp     ";" + static_cast&lt;Array&lt;String&gt;&gt;(list[1]).join("-") + ";" +
-<a href='../S/21.html#L291'>list</a>              291 tests/ScriptInterpTCLTest.cpp     static_cast&lt;Array&lt;String&gt;&gt;(list[2]).join("-");
-<a href='../S/32.html#L1308'>list</a>             1308 tests/StringTest.cpp   Array&lt;String&gt; list;
-<a href='../S/32.html#L1311'>list</a>             1311 tests/StringTest.cpp   list = a-&gt;split(' ');
-<a href='../S/32.html#L1312'>list</a>             1312 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
-<a href='../S/32.html#L1313'>list</a>             1313 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
-<a href='../S/32.html#L1314'>list</a>             1314 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
-<a href='../S/32.html#L1315'>list</a>             1315 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
-<a href='../S/32.html#L1316'>list</a>             1316 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
-<a href='../S/32.html#L1317'>list</a>             1317 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
-<a href='../S/32.html#L1318'>list</a>             1318 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1319'>list</a>             1319 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
-<a href='../S/32.html#L1320'>list</a>             1320 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
-<a href='../S/32.html#L1324'>list</a>             1324 tests/StringTest.cpp   list = a-&gt;split(' ', 4);
-<a href='../S/32.html#L1325'>list</a>             1325 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
-<a href='../S/32.html#L1326'>list</a>             1326 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
-<a href='../S/32.html#L1327'>list</a>             1327 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
-<a href='../S/32.html#L1328'>list</a>             1328 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
-<a href='../S/32.html#L1329'>list</a>             1329 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
-<a href='../S/32.html#L1330'>list</a>             1330 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
-<a href='../S/32.html#L1331'>list</a>             1331 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1332'>list</a>             1332 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
-<a href='../S/32.html#L1333'>list</a>             1333 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
-<a href='../S/32.html#L1337'>list</a>             1337 tests/StringTest.cpp   list = a-&gt;split(' ', 3);
-<a href='../S/32.html#L1338'>list</a>             1338 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
-<a href='../S/32.html#L1339'>list</a>             1339 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3 4", list.pop());
-<a href='../S/32.html#L1340'>list</a>             1340 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
-<a href='../S/32.html#L1341'>list</a>             1341 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
-<a href='../S/32.html#L1342'>list</a>             1342 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1343'>list</a>             1343 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
-<a href='../S/32.html#L1344'>list</a>             1344 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
-<a href='../S/32.html#L1349'>list</a>             1349 tests/StringTest.cpp   list = a-&gt;split(' ', 2);
-<a href='../S/32.html#L1350'>list</a>             1350 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
-<a href='../S/32.html#L1351'>list</a>             1351 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", list.pop());
-<a href='../S/32.html#L1352'>list</a>             1352 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1353'>list</a>             1353 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
-<a href='../S/32.html#L1354'>list</a>             1354 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
-<a href='../S/32.html#L1358'>list</a>             1358 tests/StringTest.cpp   list = a-&gt;split(' ', 1);
-<a href='../S/32.html#L1359'>list</a>             1359 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1360'>list</a>             1360 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", list.pop());
-<a href='../S/32.html#L1361'>list</a>             1361 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
-<a href='../S/32.html#L1365'>list</a>             1365 tests/StringTest.cpp   list = a-&gt;split(' ');
-<a href='../S/32.html#L1366'>list</a>             1366 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
-<a href='../S/32.html#L1367'>list</a>             1367 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
-<a href='../S/32.html#L1368'>list</a>             1368 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
-<a href='../S/32.html#L1369'>list</a>             1369 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
-<a href='../S/32.html#L1370'>list</a>             1370 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
-<a href='../S/32.html#L1371'>list</a>             1371 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
-<a href='../S/32.html#L1372'>list</a>             1372 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1373'>list</a>             1373 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
-<a href='../S/32.html#L1374'>list</a>             1374 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
-<a href='../S/32.html#L1378'>list</a>             1378 tests/StringTest.cpp   list = a-&gt;split(' ', 2);
-<a href='../S/32.html#L1379'>list</a>             1379 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
-<a href='../S/32.html#L1380'>list</a>             1380 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2   3   4  ", list.pop());
-<a href='../S/32.html#L1381'>list</a>             1381 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1382'>list</a>             1382 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
-<a href='../S/32.html#L1383'>list</a>             1383 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
-<a href='../S/32.html#L1387'>list</a>             1387 tests/StringTest.cpp   list = a-&gt;split("--");
-<a href='../S/32.html#L1388'>list</a>             1388 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), list.length());
-<a href='../S/32.html#L1389'>list</a>             1389 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", list.pop());
-<a href='../S/32.html#L1390'>list</a>             1390 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), list.length());
-<a href='../S/32.html#L1391'>list</a>             1391 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", list.pop());
-<a href='../S/32.html#L1392'>list</a>             1392 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), list.length());
-<a href='../S/32.html#L1393'>list</a>             1393 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", list.pop());
-<a href='../S/32.html#L1394'>list</a>             1394 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), list.length());
-<a href='../S/32.html#L1395'>list</a>             1395 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", list.pop());
-<a href='../S/32.html#L1396'>list</a>             1396 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), list.length());
+<a href='../S/66.html#L147'>limit</a>             147 String.cpp     Array&lt;String&gt; String::split(const String&amp; delim, size_t limit) const {
+<a href='../S/66.html#L149'>limit</a>             149 String.cpp       if (limit == 1) {
+<a href='../S/66.html#L159'>limit</a>             159 String.cpp       while (array.size() &lt; limit - 1) {
+<a href='../S/66.html#L175'>limit</a>             175 String.cpp       if (limit != npos) {
+<a href='../S/66.html#L250'>limit</a>             250 String.cpp     String String::sub(const String&amp; search, const String&amp; replacement, int limit) const {
+<a href='../S/66.html#L259'>limit</a>             259 String.cpp         if (limit != -1 &amp;&amp; ++cnt == limit) break;
+<a href='../S/42.html#L283'>limit</a>             283 String.h               Array&lt;String&gt; split(const String&amp;, size_t limit = npos) const;
+<a href='../S/42.html#L310'>limit</a>             310 String.h               String sub(const String&amp; search, const String&amp; replacement, int limit = -1) const;
 </pre>
 </body>
 </html>

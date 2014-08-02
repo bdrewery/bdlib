@@ -1,17 +1,25 @@
 <html>
 <head>
-<title>charAt</title>
+<title>ccd</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/47.html#L249'>charAt</a>            249 String.h               inline char charAt(size_t pos) const { return at(pos); };
-<a href='../S/32.html#L244'>charAt</a>            244 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('b', b-&gt;charAt(0));
-<a href='../S/32.html#L245'>charAt</a>            245 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('h', b-&gt;charAt(3));
-<a href='../S/32.html#L246'>charAt</a>            246 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((char) 0, b-&gt;charAt(4));
-<a href='../S/32.html#L247'>charAt</a>            247 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(cstring[5], d-&gt;charAt(5));
-<a href='../S/32.html#L248'>charAt</a>            248 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL('x', g-&gt;charAt(0));
+<a href='../S/47.html#L82'>ccd</a>                82 ScriptInterpTCL.cpp   script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
+<a href='../S/47.html#L84'>ccd</a>                84 ScriptInterpTCL.cpp   if ((size_t(objc) - 1) &lt; ccd-&gt;callbackParamMin || size_t(objc) - 1 &gt; ccd-&gt;callbackParamMax) {
+<a href='../S/47.html#L85'>ccd</a>                85 ScriptInterpTCL.cpp     String errorResult(String::printf("Wrong # args. Expected %zu, got %d.", ccd-&gt;callbackParamMin, objc - 1));
+<a href='../S/47.html#L86'>ccd</a>                86 ScriptInterpTCL.cpp     if (ccd-&gt;usage)
+<a href='../S/47.html#L87'>ccd</a>                87 ScriptInterpTCL.cpp       errorResult += String::printf(" Should be \"%s %s\"", cmdName.c_str(), ccd-&gt;usage);
+<a href='../S/47.html#L93'>ccd</a>                93 ScriptInterpTCL.cpp     ccd-&gt;callback_proxy-&gt;call(objc, reinterpret_cast&lt;void* CONST*&gt;(objv), ccd-&gt;si, interp);
+<a href='../S/39.html#L144'>ccd</a>               144 ScriptInterpTCL.h           script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, callback_proxy, usage, callbackParamMin, callbackParamMax);
+<a href='../S/39.html#L145'>ccd</a>               145 ScriptInterpTCL.h           CmdHandlerData[cmdName] = ccd;
+<a href='../S/39.html#L159'>ccd</a>               159 ScriptInterpTCL.h           for (auto ccd : CmdHandlerData.values()) {
+<a href='../S/39.html#L160'>ccd</a>               160 ScriptInterpTCL.h               delete ccd-&gt;callback_proxy;
+<a href='../S/39.html#L161'>ccd</a>               161 ScriptInterpTCL.h               delete ccd;
+<a href='../S/39.html#L176'>ccd</a>               176 ScriptInterpTCL.h           script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
+<a href='../S/39.html#L177'>ccd</a>               177 ScriptInterpTCL.h           delete ccd-&gt;callback_proxy;
+<a href='../S/39.html#L178'>ccd</a>               178 ScriptInterpTCL.h           delete ccd;
 </pre>
 </body>
 </html>

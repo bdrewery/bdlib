@@ -1,17 +1,54 @@
 <html>
 <head>
-<title>str_upper</title>
+<title>str_c</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/72.html#L227'>str_upper</a>         227 String.cpp       String str_upper(str), this_upper(*this);
-<a href='../S/72.html#L228'>str_upper</a>         228 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/72.html#L230'>str_upper</a>         230 String.cpp       return this_upper.find(str_upper);
-<a href='../S/72.html#L234'>str_upper</a>         234 String.cpp       String str_upper(str), this_upper(*this);
-<a href='../S/72.html#L235'>str_upper</a>         235 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/72.html#L237'>str_upper</a>         237 String.cpp       return this_upper.rfind(str_upper);
+<a href='../S/33.html#L51'>str_c</a>              51 tests/ArrayTest.cpp     delete str_a; delete str_b; delete str_c;
+<a href='../S/33.html#L140'>str_c</a>             140 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;(carray2, 2);
+<a href='../S/33.html#L141'>str_c</a>             141 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_c-&gt;size());
+<a href='../S/33.html#L142'>str_c</a>             142 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2Test2", str_c-&gt;pop());
+<a href='../S/33.html#L143'>str_c</a>             143 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_c-&gt;size());
+<a href='../S/33.html#L144'>str_c</a>             144 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2Test1", str_c-&gt;pop());
+<a href='../S/33.html#L145'>str_c</a>             145 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_c-&gt;size());
+<a href='../S/33.html#L286'>str_c</a>             286 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;();
+<a href='../S/33.html#L287'>str_c</a>             287 tests/ArrayTest.cpp   (*str_c) = (*str_a);
+<a href='../S/33.html#L290'>str_c</a>             290 tests/ArrayTest.cpp   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_c), (*str_a));
+<a href='../S/33.html#L320'>str_c</a>             320 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;();
+<a href='../S/33.html#L326'>str_c</a>             326 tests/ArrayTest.cpp   (*str_c) = (*str_b);
+<a href='../S/33.html#L328'>str_c</a>             328 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_a-&gt;hash(), str_c-&gt;hash());
+<a href='../S/33.html#L329'>str_c</a>             329 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_b-&gt;hash(), str_c-&gt;hash());
+<a href='../S/33.html#L336'>str_c</a>             336 tests/ArrayTest.cpp   (*str_c) = (*str_b);
+<a href='../S/33.html#L338'>str_c</a>             338 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_c-&gt;hash());
+<a href='../S/33.html#L339'>str_c</a>             339 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_b-&gt;hash(), str_c-&gt;hash());
+<a href='../S/33.html#L357'>str_c</a>             357 tests/ArrayTest.cpp   ht2["blah3"] = *str_c;
+<a href='../S/33.html#L366'>str_c</a>             366 tests/ArrayTest.cpp   ha2[*str_c] = 5;
+<a href='../S/33.html#L368'>str_c</a>             368 tests/ArrayTest.cpp   CPPUNIT_ASSERT(ha1[*str_b] != ha2[*str_c]);
+<a href='../S/33.html#L378'>str_c</a>             378 tests/ArrayTest.cpp   str_c = new Array&lt;String&gt;();
+<a href='../S/33.html#L379'>str_c</a>             379 tests/ArrayTest.cpp   (*str_c) = (*str_a) + (*str_b);
+<a href='../S/33.html#L381'>str_c</a>             381 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", str_c-&gt;join(' '));
+<a href='../S/33.html#L382'>str_c</a>             382 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), str_c-&gt;size());
+<a href='../S/33.html#L384'>str_c</a>             384 tests/ArrayTest.cpp   (*str_c) += 1;
+<a href='../S/33.html#L385'>str_c</a>             385 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", str_c-&gt;join(' '));
+<a href='../S/33.html#L386'>str_c</a>             386 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), str_c-&gt;size());
+<a href='../S/33.html#L390'>str_c</a>             390 tests/ArrayTest.cpp   (*str_c) += (*str_b);
+<a href='../S/33.html#L392'>str_c</a>             392 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4 5 6", str_c-&gt;join(' '));
+<a href='../S/33.html#L393'>str_c</a>             393 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(5), str_c-&gt;size());
+<a href='../S/33.html#L395'>str_c</a>             395 tests/ArrayTest.cpp   (*str_b) = (*str_c)--;
+<a href='../S/33.html#L398'>str_c</a>             398 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4 5", str_c-&gt;join(' '));
+<a href='../S/33.html#L400'>str_c</a>             400 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), str_c-&gt;size());
+<a href='../S/33.html#L402'>str_c</a>             402 tests/ArrayTest.cpp   --(*str_c);
+<a href='../S/33.html#L404'>str_c</a>             404 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3 4", str_c-&gt;join(' '));
+<a href='../S/33.html#L405'>str_c</a>             405 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), str_c-&gt;size());
+<a href='../S/33.html#L407'>str_c</a>             407 tests/ArrayTest.cpp   ++(*str_c);
+<a href='../S/33.html#L408'>str_c</a>             408 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3 4", str_c-&gt;join(' '));
+<a href='../S/33.html#L409'>str_c</a>             409 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_c-&gt;size());
+<a href='../S/33.html#L411'>str_c</a>             411 tests/ArrayTest.cpp   (*str_b) = (*str_c)++;
+<a href='../S/33.html#L412'>str_c</a>             412 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_c-&gt;size());
+<a href='../S/33.html#L414'>str_c</a>             414 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("4", str_c-&gt;join(' '));
+<a href='../S/25.html#L78'>str_c</a>              78 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
 </pre>
 </body>
 </html>

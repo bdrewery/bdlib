@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>ReferenceCountedArrayBase</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/37.html#L31'>ReferenceCountedArrayBase</a>   31 ReferenceCountedArray.cpp const size_t ReferenceCountedArrayBase::npos;
+<a href='../S/51.html#L188'>ReferenceCountedArrayBase</a>  188 ReferenceCountedArray.h class ReferenceCountedArrayBase {
+<a href='../S/51.html#L191'>ReferenceCountedArrayBase</a>  191 ReferenceCountedArray.h     virtual ~ReferenceCountedArrayBase() {};
+<a href='../S/51.html#L202'>ReferenceCountedArrayBase</a>  202 ReferenceCountedArray.h class ReferenceCountedArray : public ReferenceCountedArrayBase {
+<a href='../S/51.html#L373'>ReferenceCountedArrayBase</a>  373 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/51.html#L375'>ReferenceCountedArrayBase</a>  375 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/51.html#L376'>ReferenceCountedArrayBase</a>  376 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/51.html#L393'>ReferenceCountedArrayBase</a>  393 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/51.html#L406'>ReferenceCountedArrayBase</a>  406 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+</pre>
+</body>
+</html>

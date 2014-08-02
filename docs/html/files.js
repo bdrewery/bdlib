@@ -18,9 +18,7 @@ var files =
       [ "BinaryTree", "classbd_1_1BinaryTree.html", "classbd_1_1BinaryTree" ]
     ] ],
     [ "bits.h", "bits_8h.html", "bits_8h" ],
-    [ "blah.cpp", "blah_8cpp.html", "blah_8cpp" ],
     [ "config-sanity.h", "config-sanity_8h.html", null ],
-    [ "config.h", "config_8h.html", "config_8h" ],
     [ "Crypto.cpp", "Crypto_8cpp.html", null ],
     [ "Crypto.h", "Crypto_8h.html", [
       [ "Crypto", "classbd_1_1Crypto.html", "classbd_1_1Crypto" ]

@@ -1,40 +1,15 @@
 <html>
 <head>
-<title>ScriptInterpTCL</title>
+<title>Script</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L12'>ScriptInterpTCL</a>    12 ScriptInterpTCL.cpp HashTable&lt;String, ScriptInterpTCL::script_cmd_handler_clientdata*&gt; ScriptInterpTCL::CmdHandlerData;
-<a href='../S/52.html#L13'>ScriptInterpTCL</a>    13 ScriptInterpTCL.cpp HashTable&lt;String, ScriptInterp::link_var_hook&gt; ScriptInterpTCL::link_var_hooks;
-<a href='../S/52.html#L36'>ScriptInterpTCL</a>    36 ScriptInterpTCL.cpp int ScriptInterpTCL::init() {
-<a href='../S/52.html#L49'>ScriptInterpTCL</a>    49 ScriptInterpTCL.cpp int ScriptInterpTCL::destroy() {
-<a href='../S/52.html#L57'>ScriptInterpTCL</a>    57 ScriptInterpTCL.cpp String ScriptInterpTCL::eval(const String&amp; script) {
-<a href='../S/52.html#L66'>ScriptInterpTCL</a>    66 ScriptInterpTCL.cpp ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String&amp; fileName, String&amp; resultStr) {
-<a href='../S/52.html#L80'>ScriptInterpTCL</a>    80 ScriptInterpTCL.cpp int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
-<a href='../S/52.html#L104'>ScriptInterpTCL</a>   104 ScriptInterpTCL.cpp void ScriptInterpTCL::setupTraces(const String&amp; varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
-<a href='../S/52.html#L111'>ScriptInterpTCL</a>   111 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-<a href='../S/52.html#L115'>ScriptInterpTCL</a>   115 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags) {
-<a href='../S/52.html#L123'>ScriptInterpTCL</a>   123 ScriptInterpTCL.cpp Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
-<a href='../S/52.html#L267'>ScriptInterpTCL</a>   267 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
-<a href='../S/52.html#L283'>ScriptInterpTCL</a>   283 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
-<a href='../S/44.html#L91'>ScriptInterpTCL</a>    91 ScriptInterpTCL.h   return ScriptInterpTCL::TraceGet(c_to_tcl_cast&lt;T&gt;::from(*static_cast&lt;T*&gt;(clientData), interp), interp, name1, name2, flags);     \
-<a href='../S/44.html#L97'>ScriptInterpTCL</a>    97 ScriptInterpTCL.h   Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);                                                           \
-<a href='../S/44.html#L102'>ScriptInterpTCL</a>   102 ScriptInterpTCL.h   if (ScriptInterpTCL::link_var_hooks[name1])                                                                                      \
-<a href='../S/44.html#L103'>ScriptInterpTCL</a>   103 ScriptInterpTCL.h     (ScriptInterpTCL::link_var_hooks[name1])((const void*)&amp;oldval, (const void*)(clientData));                                     \
-<a href='../S/44.html#L130'>ScriptInterpTCL</a>   130 ScriptInterpTCL.h class ScriptInterpTCL : public ScriptInterp {
-<a href='../S/44.html#L137'>ScriptInterpTCL</a>   137 ScriptInterpTCL.h         ScriptInterpTCL(const ScriptInterpTCL&amp;) = delete;
-<a href='../S/44.html#L138'>ScriptInterpTCL</a>   138 ScriptInterpTCL.h         ScriptInterpTCL&amp; operator=(const ScriptInterpTCL&amp;) = delete;
-<a href='../S/44.html#L155'>ScriptInterpTCL</a>   155 ScriptInterpTCL.h         ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
-<a href='../S/44.html#L156'>ScriptInterpTCL</a>   156 ScriptInterpTCL.h         virtual ~ScriptInterpTCL() {
-<a href='../S/21.html#L34'>ScriptInterpTCL</a>    34 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
-<a href='../S/21.html#L43'>ScriptInterpTCL</a>    43 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
-<a href='../S/21.html#L92'>ScriptInterpTCL</a>    92 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
-<a href='../S/21.html#L226'>ScriptInterpTCL</a>   226 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
-<a href='../S/21.html#L296'>ScriptInterpTCL</a>   296 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
-<a href='../S/21.html#L372'>ScriptInterpTCL</a>   372 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
-<a href='../S/21.html#L416'>ScriptInterpTCL</a>   416 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
+<a href='../S/68.html#L33'>Script</a>             33 Script.h       class Script {
+<a href='../S/68.html#L37'>Script</a>             37 Script.h               Script() {};
+<a href='../S/68.html#L38'>Script</a>             38 Script.h               Script(const Script&amp; script) {};
+<a href='../S/68.html#L39'>Script</a>             39 Script.h               virtual ~Script() {};
 </pre>
 </body>
 </html>

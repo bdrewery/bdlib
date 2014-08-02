@@ -1,29 +1,14 @@
 <html>
 <head>
-<title>tests/StreamTest.cpp</title>
+<title>tests/ListTest.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/77.html'>tests</a>/StreamTest.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L37'>[^]</a><a href='#L317'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/70.html'>tests</a>/ListTest.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2>DEFINITIONS</h2>
-This source file includes following definitions.
-<ol>
-<li><a href='#L37' title='Defined at 37.'>setUp</a>
-<li><a href='#L52' title='Defined at 52.'>tearDown</a>
-<li><a href='#L59' title='Defined at 59.'>reserveTest</a>
-<li><a href='#L81' title='Defined at 81.'>tellTest</a>
-<li><a href='#L88' title='Defined at 88.'>seekTest</a>
-<li><a href='#L107' title='Defined at 107.'>putsTest</a>
-<li><a href='#L137' title='Defined at 137.'>truncateTest</a>
-<li><a href='#L153' title='Defined at 153.'>readTest</a>
-<li><a href='#L197' title='Defined at 197.'>getlineTest</a>
-<li><a href='#L229' title='Defined at 229.'>loadFileTest</a>
-<li><a href='#L268' title='Defined at 268.'>writeFileFDTest</a>
-<li><a href='#L317' title='Defined at 317.'>writeFileTest</a>
-</ol>
+<h2><a href='27.html#L28' title='Included from 28 in tests/ListTest.cpp.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -50,349 +35,51 @@ This source file includes following definitions.
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* StreamTest.c</font></i>
+<a name='L25'>  25 <i><font color='green'>/* ListTest.h</font></i>
 <a name='L26'>  26 <i><font color='green'> *</font></i>
 <a name='L27'>  27 <i><font color='green'> */</font></i>
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='26.html'>StreamTest.h</a>"
-<a name='L29'>  29 <font color='darkred'>#include</font> &lt;cstring&gt;
-<a name='L30'>  30 <font color='darkred'>#include</font> &lt;sys/types.h&gt;
-<a name='L31'>  31 <font color='darkred'>#include</font> &lt;sys/stat.h&gt;
-<a name='L32'>  32 <font color='darkred'>#include</font> &lt;unistd.h&gt;
-<a name='L33'>  33 <b>using</b> <b>namespace</b> <a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>;
-<a name='L34'>  34 
-<a name='L35'>  35 CPPUNIT_TEST_SUITE_REGISTRATION (<a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a>);
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/16.html#L29' title='Defined at 29 in tests/ListTest.h.'>_LISTTEST_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/16.html#L28' title='Refered from 28 in tests/ListTest.h.'>_LISTTEST_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;cppunit/TestFixture.h&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cppunit/extensions/HelperMacros.h&gt;
+<a name='L33'>  33 <font color='darkred'>#include</font> "<a href='42.html'>String.h</a>"
+<a name='L34'>  34 <font color='darkred'>#include</font> "<a href='45.html'>List.h</a>"
+<a name='L35'>  35 <a href='../Y/734.html' title='Multiple used in 24 places.'>using</a> <a href='../Y/516.html' title='Multiple used in 12 places.'>namespace</a> <a href='../S/49.html#L46' title='Defined at 46 in bdlib.h.'>BDLIB_NS</a>;
 <a name='L36'>  36 
-<a name='L37'>  37 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/212.html' title='Multiple refered from 11 places.'>setUp</a> (<b>void</b>)
+<a name='L37'>  37 <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/71.html' title='Multiple used in 13 places.'>ListTest</a> : <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a> <a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: <a href='../Y/162.html' title='Multiple used in 11 places.'>TestFixture</a>
 <a name='L38'>  38 <font color='red'>{</font>
-<a name='L39'>  39     <a href='../Y/263.html' title='Multiple used in 2 places.'>chdir</a>("/tmp/");
-<a name='L40'>  40     <a href='../Y/673.html' title='Multiple used in 4 places.'>strcpy</a>(<a href='../Y/295.html' title='Multiple used in 28 places.'>cstring</a>, "Some static cstring to play with");
-<a name='L41'>  41     <i><font color='green'>// set up test environment (initializing objects)</font></i>
-<a name='L42'>  42     <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> = <b>new</b> Stream();
-<a name='L43'>  43     <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a> = <b>new</b> Stream("blah");
-<a name='L44'>  44     <a href='../Y/241.html' title='Multiple used in 118 places.'>c</a> = <b>new</b> Stream(*<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>);
-<a name='L45'>  45     <a href='../Y/298.html' title='Multiple used in 77 places.'>d</a> = <b>new</b> Stream(<a href='../Y/295.html' title='Multiple used in 28 places.'>cstring</a>);
-<a name='L46'>  46     <a href='../Y/326.html' title='Multiple used in 41 places.'>e</a> = <b>new</b> Stream(*<a href='../Y/298.html' title='Multiple used in 77 places.'>d</a>);
-<a name='L47'>  47     <a href='../Y/42.html' title='Multiple used in 3 places.'>F</a> = <b>new</b> Stream(<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>(<a href='../Y/295.html' title='Multiple used in 28 places.'>cstring</a>, 11));
-<a name='L48'>  48     <a href='../Y/388.html' title='Multiple used in 34 places.'>g</a> = <b>new</b> Stream('x');
-<a name='L49'>  49     <a href='../Y/396.html' title='Multiple used in 27 places.'>h</a> = <b>new</b> Stream(35);
-<a name='L50'>  50 <font color='red'>}</font>
-<a name='L51'>  51 
-<a name='L52'>  52 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/238.html' title='Multiple refered from 11 places.'>tearDown</a> (<b>void</b>)
-<a name='L53'>  53 <font color='red'>{</font>
-<a name='L54'>  54     <i><font color='green'>// finally delete objects</font></i>
-<a name='L55'>  55     <b>delete</b> <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>; <b>delete</b> <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>; <b>delete</b> <a href='../Y/241.html' title='Multiple used in 118 places.'>c</a>; <b>delete</b> <a href='../Y/298.html' title='Multiple used in 77 places.'>d</a>;
-<a name='L56'>  56     <b>delete</b> <a href='../Y/326.html' title='Multiple used in 41 places.'>e</a>; <b>delete</b> <a href='../Y/42.html' title='Multiple used in 3 places.'>F</a>; <b>delete</b> <a href='../Y/388.html' title='Multiple used in 34 places.'>g</a>; <b>delete</b> <a href='../Y/396.html' title='Multiple used in 27 places.'>h</a>;
-<a name='L57'>  57 <font color='red'>}</font>
-<a name='L58'>  58 
-<a name='L59'>  59 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/199.html' title='Multiple refered from 2 places.'>reserveTest</a> (<b>void</b>)
-<a name='L60'>  60 <font color='red'>{</font>
-<a name='L61'>  61   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L46' title='Defined at 46 in Stream.cpp.'>Reserve</a>(2000);
-<a name='L62'>  62   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>((<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>() % 2048) == 0);
-<a name='L63'>  63 
-<a name='L64'>  64   <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../S/71.html#L46' title='Defined at 46 in Stream.cpp.'>Reserve</a>(10);
-<a name='L65'>  65   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>() &gt;= 1024);
-<a name='L66'>  66   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(<a href='../Y/396.html' title='Multiple used in 27 places.'>h</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>() &gt;= 1024);
-<a name='L67'>  67   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>((<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>() % 1024) == 0);
-<a name='L68'>  68 
-<a name='L69'>  69   <b>char</b> <a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>[2050];
-<a name='L70'>  70   <a href='../Y/487.html' title='Multiple used in 2 places.'>memset</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>, 'c', <b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>) - 1);
-<a name='L71'>  71   <a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>[<b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>) - 1] = 0;
-<a name='L72'>  72   <a href='../Y/388.html' title='Multiple used in 34 places.'>g</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>);
-<a name='L73'>  73 
-<a name='L74'>  74   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>((<a href='../Y/388.html' title='Multiple used in 34 places.'>g</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>() &gt;= 2048));
-<a name='L75'>  75 
-<a name='L76'>  76   <i><font color='green'>/* Reference counted */</font></i>
-<a name='L77'>  77   <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>);
-<a name='L78'>  78   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>((<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>() &gt;= 2048));
-<a name='L79'>  79 <font color='red'>}</font>
-<a name='L80'>  80 
-<a name='L81'>  81 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/239.html' title='Multiple refered from 2 places.'>tellTest</a> (<b>void</b>)
-<a name='L82'>  82 <font color='red'>{</font>
-<a name='L83'>  83   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 0, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L84'>  84   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 0, <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L85'>  85   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 0, <a href='../Y/396.html' title='Multiple used in 27 places.'>h</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L86'>  86 <font color='red'>}</font>
-<a name='L87'>  87 
-<a name='L88'>  88 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/210.html' title='Multiple refered from 2 places.'>seekTest</a> (<b>void</b>)
-<a name='L89'>  89 <font color='red'>{</font>
-<a name='L90'>  90   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(0, <a href='../S/45.html#L47' title='Defined at 47 in Stream.h.'>SEEK_END</a>);
-<a name='L91'>  91   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 0, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L92'>  92 
-<a name='L93'>  93   <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(0, <a href='../S/45.html#L47' title='Defined at 47 in Stream.h.'>SEEK_END</a>);
-<a name='L94'>  94   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>(), <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L95'>  95 
-<a name='L96'>  96   <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L97'>  97   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 0, <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L98'>  98 
-<a name='L99'>  99   <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(1, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L100'> 100   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 1, <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L101'> 101 
-<a name='L102'> 102   <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(1, <a href='../S/45.html#L47' title='Defined at 47 in Stream.h.'>SEEK_END</a>);
-<a name='L103'> 103   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>() - 1, <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L104'> 104 
-<a name='L105'> 105 <font color='red'>}</font>
-<a name='L106'> 106 
-<a name='L107'> 107 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/190.html' title='Multiple refered from 2 places.'>putsTest</a> (<b>void</b>)
-<a name='L108'> 108 <font color='red'>{</font>
-<a name='L109'> 109   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is a test of my buffer\n");
-<a name='L110'> 110   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 2, isn't it amazing?\n");
-<a name='L111'> 111   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == "This is a test of my buffer\nThis is line 2, isn't it amazing?\n");
-<a name='L112'> 112   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 62, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L113'> 113   *<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a> = *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>;
-<a name='L114'> 114   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(10, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L115'> 115   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("look");
-<a name='L116'> 116   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == "This is a look of my buffer\nThis is line 2, isn't it amazing?\n");
-<a name='L117'> 117   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 62, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L118'> 118   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>(), <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>());
-<a name='L119'> 119   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L120'> 120 
-<a name='L121'> 121   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/271.html' title='Multiple used in 32 places.'>clear</a>();
-<a name='L122'> 122   <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/271.html' title='Multiple used in 32 places.'>clear</a>();
-<a name='L123'> 123 
-<a name='L124'> 124   *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> &lt;&lt; "This is a test of my buffer\n";
-<a name='L125'> 125   *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> &lt;&lt; "This is line 2, isn't it amazing?\n";
-<a name='L126'> 126   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == "This is a test of my buffer\nThis is line 2, isn't it amazing?\n");
-<a name='L127'> 127   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 62, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L128'> 128   *<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a> = *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>;
-<a name='L129'> 129   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(10, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L130'> 130   *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> &lt;&lt; "look";
-<a name='L131'> 131   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == "This is a look of my buffer\nThis is line 2, isn't it amazing?\n");
-<a name='L132'> 132   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 62, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L133'> 133   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>(), <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/249.html' title='Multiple used in 36 places.'>capacity</a>());
-<a name='L134'> 134   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L135'> 135 <font color='red'>}</font>
-<a name='L136'> 136 
-<a name='L137'> 137 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/247.html' title='Multiple refered from 2 places.'>truncateTest</a> (<b>void</b>)
-<a name='L138'> 138 <font color='red'>{</font>
-<a name='L139'> 139   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is a test of my buffer\n");
-<a name='L140'> 140   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 2, isn't it amazing?\n");
-<a name='L141'> 141   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/271.html' title='Multiple used in 32 places.'>clear</a>();
-<a name='L142'> 142   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 0, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L143'> 143   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == "");
-<a name='L144'> 144 
-<a name='L145'> 145   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is a test of my buffer\n");
-<a name='L146'> 146   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 2, isn't it amazing?\n");
-<a name='L147'> 147   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(10, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L148'> 148   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/717.html' title='Multiple used in 2 places.'>truncate</a>();
-<a name='L149'> 149   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 10, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L150'> 150   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == "This is a ");
-<a name='L151'> 151 <font color='red'>}</font>
-<a name='L152'> 152 
-<a name='L153'> 153 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/192.html' title='Multiple refered from 2 places.'>readTest</a> (<b>void</b>)
-<a name='L154'> 154 <font color='red'>{</font>
-<a name='L155'> 155   <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a>, <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>;
-<a name='L156'> 156 
-<a name='L157'> 157   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 1\n");
-<a name='L158'> 158   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 2\n");
-<a name='L159'> 159   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 3\n");
-<a name='L160'> 160   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 4\n");
-<a name='L161'> 161   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 5\n");
-<a name='L162'> 162   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 6\n");
-<a name='L163'> 163   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 7\n");
-<a name='L164'> 164   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 8\n");
-<a name='L165'> 165   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 9\n");
-<a name='L166'> 166   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line10\n");
-<a name='L167'> 167   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line11\n");
-<a name='L168'> 168   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line12\n");
-<a name='L169'> 169   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line13\n");
-<a name='L170'> 170   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line14\n");
-<a name='L171'> 171   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L172'> 172   <b>int</b> <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a> = 0;
-<a name='L173'> 173   <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a> = 0;
-<a name='L174'> 174   <b>while</b> (<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>() &lt; <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>()) <font color='red'>{</font>
-<a name='L175'> 175     <a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a> = <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>::<a href='../S/72.html#L191' title='Defined at 191 in String.cpp.'>printf</a>("This is line%2d\nThis is line%2d\n", <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a> + 1, <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a> + 2);
-<a name='L176'> 176     <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a> = <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L77' title='Defined at 77 in Stream.cpp.'>read</a>(30);
-<a name='L177'> 177     <a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a> += <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>.<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>();
-<a name='L178'> 178     <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a>, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L179'> 179     <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 30, <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>.<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L180'> 180     <a href='../S/47.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>(<a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a>, <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>);
-<a name='L181'> 181     <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a> += 2;
-<a name='L182'> 182   <font color='red'>}</font>
-<a name='L183'> 183   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(14, <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a>);
-<a name='L184'> 184 
-<a name='L185'> 185   <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/613.html' title='Multiple used in 2 places.'>savelen</a> = <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>();
-<a name='L186'> 186   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>(), <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L187'> 187   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line15\n");
-<a name='L188'> 188   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(<a href='../Y/613.html' title='Multiple used in 2 places.'>savelen</a>, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L189'> 189   <a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a> = "This is line15\n";
-<a name='L190'> 190   <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a> = <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L77' title='Defined at 77 in Stream.cpp.'>read</a>(30);
-<a name='L191'> 191   <a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a> += <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>.<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>();
-<a name='L192'> 192   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a>, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L193'> 193   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 15, <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>.<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L194'> 194   <a href='../S/47.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>(<a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>, <a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a>);
-<a name='L195'> 195 <font color='red'>}</font>
-<a name='L196'> 196 
-<a name='L197'> 197 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/144.html' title='Multiple refered from 2 places.'>getlineTest</a> (<b>void</b>)
-<a name='L198'> 198 <font color='red'>{</font>
-<a name='L199'> 199   <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a>, <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>;
-<a name='L200'> 200 
-<a name='L201'> 201   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 1\n");
-<a name='L202'> 202   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 2\n");
-<a name='L203'> 203   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 3\n");
-<a name='L204'> 204   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 4\n");
-<a name='L205'> 205   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 5\n");
-<a name='L206'> 206   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 6\n");
-<a name='L207'> 207   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 7\n");
-<a name='L208'> 208   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 8\n");
-<a name='L209'> 209   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line 9\n");
-<a name='L210'> 210   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line10\n");
-<a name='L211'> 211   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line11\n");
-<a name='L212'> 212   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line12\n");
-<a name='L213'> 213   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/577.html' title='Multiple used in 41 places.'>puts</a>("This is line13\n");
-<a name='L214'> 214   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/71.html#L52' title='Defined at 52 in Stream.cpp.'>seek</a>(0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L215'> 215   <b>int</b> <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a> = 0;
-<a name='L216'> 216   <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a> = 0;
-<a name='L217'> 217   <b>while</b> (<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>() &lt; <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>()) <font color='red'>{</font>
-<a name='L218'> 218     ++<a href='../Y/759.html' title='Multiple used in 28 places.'>x</a>;
-<a name='L219'> 219     <a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a> = <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>::<a href='../S/72.html#L191' title='Defined at 191 in String.cpp.'>printf</a>("This is line%2d\n", <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a>);
-<a name='L220'> 220     <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a> = <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/72.html#L130' title='Defined at 130 in String.cpp.'>getline</a>();
-<a name='L221'> 221     <a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a> += <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>.<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>();
-<a name='L222'> 222     <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/557.html' title='Multiple used in 91 places.'>pos</a>, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/694.html' title='Multiple used in 19 places.'>tell</a>());
-<a name='L223'> 223     <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>((<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>) 15, <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>.<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L224'> 224     <a href='../S/47.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>(<a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>, <a href='../Y/615.html' title='Multiple used in 8 places.'>sbuf</a>);
-<a name='L225'> 225   <font color='red'>}</font>
-<a name='L226'> 226   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(13, <a href='../Y/759.html' title='Multiple used in 28 places.'>x</a>);
-<a name='L227'> 227 <font color='red'>}</font>
-<a name='L228'> 228 
-<a name='L229'> 229 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/169.html' title='Multiple refered from 2 places.'>loadFileTest</a> (<b>void</b>)
-<a name='L230'> 230 <font color='red'>{</font>
-<a name='L231'> 231   <b>const</b> <b>char</b> *<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a> = "/etc/services";
-<a name='L232'> 232 
-<a name='L233'> 233   <a href='../Y/43.html' title='Multiple used in 10 places.'>FILE</a> *<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> = <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L234'> 234   <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> = <a href='../Y/372.html' title='Multiple used in 16 places.'>fopen</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>, "rb");
-<a name='L235'> 235   <b>if</b> (<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> == <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>)
-<a name='L236'> 236     <b>return</b>;
-<a name='L237'> 237 
-<a name='L238'> 238   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L47' title='Defined at 47 in Stream.h.'>SEEK_END</a>);
-<a name='L239'> 239   <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/634.html' title='Multiple used in 256 places.'>size</a> = <a href='../Y/384.html' title='Multiple used in 9 places.'>ftell</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L240'> 240   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L241'> 241 
-<a name='L242'> 242   <b>char</b> *<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a> = (<b>char</b>*) <a href='../Y/475.html' title='Multiple used in 7 places.'>malloc</a>(<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a> + 1);
-<a name='L243'> 243   <a href='../Y/377.html' title='Multiple used in 13 places.'>fread</a>(<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>, 1, <a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>, <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L244'> 244   <a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>[<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>] = 0;
-<a name='L245'> 245 
-<a name='L246'> 246   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../D/223.html' title='Multiple defined in 2 places.'>loadFile</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>);
-<a name='L247'> 247 
-<a name='L248'> 248   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L249'> 249   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == <a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>);
-<a name='L250'> 250   <a href='../Y/378.html' title='Multiple used in 8 places.'>free</a>(<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>);
-<a name='L251'> 251 
-<a name='L252'> 252   <b>char</b> <a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>[1024] = "";
-<a name='L253'> 253   <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>;
-<a name='L254'> 254 
-<a name='L255'> 255   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L256'> 256   <b>while</b> (<a href='../Y/359.html' title='Multiple used in 3 places.'>fgets</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>, <b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>), <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>) != <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>) <font color='red'>{</font>
-<a name='L257'> 257     <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a> = <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/72.html#L130' title='Defined at 130 in String.cpp.'>getline</a>(<b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>) - 1);
-<a name='L258'> 258     <a href='../S/47.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>(<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>), <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>);
-<a name='L259'> 259   <font color='red'>}</font>
-<a name='L260'> 260   <a href='../Y/353.html' title='Multiple used in 23 places.'>fclose</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L261'> 261 
-<a name='L262'> 262   <b>struct</b> <a href='../Y/659.html' title='Multiple used in 8 places.'>stat</a> <a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>;
-<a name='L263'> 263   <a href='../Y/659.html' title='Multiple used in 8 places.'>stat</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>, &amp;<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>);
-<a name='L264'> 264   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>(<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/656.html' title='Multiple used in 5 places.'>st_size</a>));
-<a name='L265'> 265 <font color='red'>}</font>
-<a name='L266'> 266 
-<a name='L267'> 267 
-<a name='L268'> 268 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/254.html' title='Multiple refered from 2 places.'>writeFileFDTest</a> (<b>void</b>)
-<a name='L269'> 269 <font color='red'>{</font>
-<a name='L270'> 270   <b>char</b> <a href='../Y/369.html' title='Multiple used in 9 places.'>fname</a>[20] = "";
-<a name='L271'> 271   <a href='../Y/673.html' title='Multiple used in 4 places.'>strcpy</a>(<a href='../Y/369.html' title='Multiple used in 9 places.'>fname</a>, ".stream-out-XXXXXX");
-<a name='L272'> 272   <b>int</b> <a href='../Y/354.html' title='Multiple used in 51 places.'>fd</a> = <a href='../Y/490.html' title='Multiple used in 2 places.'>mkstemp</a>(<a href='../Y/369.html' title='Multiple used in 9 places.'>fname</a>);
-<a name='L273'> 273   <b>const</b> <b>char</b> *<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a> = "/etc/services";
-<a name='L274'> 274 
-<a name='L275'> 275   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../D/223.html' title='Multiple defined in 2 places.'>loadFile</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>);
-<a name='L276'> 276   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../D/309.html' title='Multiple defined in 2 places.'>writeFile</a>(<a href='../Y/354.html' title='Multiple used in 51 places.'>fd</a>), 0);
-<a name='L277'> 277 
-<a name='L278'> 278   <i><font color='green'>/* Verify that the written file matches the source file */</font></i>
-<a name='L279'> 279 
-<a name='L280'> 280   <a href='../Y/43.html' title='Multiple used in 10 places.'>FILE</a> *<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> = <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L281'> 281   <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> = <a href='../Y/372.html' title='Multiple used in 16 places.'>fopen</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>, "rb");
-<a name='L282'> 282   <b>if</b> (<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> == <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>)
-<a name='L283'> 283     <b>return</b>;
-<a name='L284'> 284 
-<a name='L285'> 285   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L47' title='Defined at 47 in Stream.h.'>SEEK_END</a>);
-<a name='L286'> 286   <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/634.html' title='Multiple used in 256 places.'>size</a> = <a href='../Y/384.html' title='Multiple used in 9 places.'>ftell</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L287'> 287   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L288'> 288 
-<a name='L289'> 289   <b>char</b> *<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a> = (<b>char</b>*) <a href='../Y/475.html' title='Multiple used in 7 places.'>malloc</a>(<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a> + 1);
-<a name='L290'> 290   <a href='../Y/377.html' title='Multiple used in 13 places.'>fread</a>(<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>, 1, <a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>, <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L291'> 291   <a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>[<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>] = 0;
-<a name='L292'> 292 
-<a name='L293'> 293   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L294'> 294   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == <a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>);
-<a name='L295'> 295   <a href='../Y/378.html' title='Multiple used in 8 places.'>free</a>(<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>);
-<a name='L296'> 296 
-<a name='L297'> 297   <b>char</b> <a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>[1024] = "";
-<a name='L298'> 298   <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>;
-<a name='L299'> 299 
-<a name='L300'> 300   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L301'> 301   <b>while</b> (<a href='../Y/359.html' title='Multiple used in 3 places.'>fgets</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>, <b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>), <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>) != <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>) <font color='red'>{</font>
-<a name='L302'> 302     <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a> = <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/72.html#L130' title='Defined at 130 in String.cpp.'>getline</a>(<b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>) - 1);
-<a name='L303'> 303     <a href='../S/47.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>(<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>), <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>);
-<a name='L304'> 304   <font color='red'>}</font>
-<a name='L305'> 305 
-<a name='L306'> 306   <b>struct</b> <a href='../Y/659.html' title='Multiple used in 8 places.'>stat</a> <a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>;
-<a name='L307'> 307   <a href='../Y/382.html' title='Multiple used in 4 places.'>fstat</a>(<a href='../Y/354.html' title='Multiple used in 51 places.'>fd</a>, &amp;<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>);
-<a name='L308'> 308   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>(<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/656.html' title='Multiple used in 5 places.'>st_size</a>));
-<a name='L309'> 309   <a href='../Y/659.html' title='Multiple used in 8 places.'>stat</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>, &amp;<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>);
-<a name='L310'> 310   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>(<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/656.html' title='Multiple used in 5 places.'>st_size</a>));
-<a name='L311'> 311 
-<a name='L312'> 312   <a href='../Y/729.html' title='Multiple used in 14 places.'>unlink</a>(<a href='../Y/369.html' title='Multiple used in 9 places.'>fname</a>);
-<a name='L313'> 313   <a href='../Y/353.html' title='Multiple used in 23 places.'>fclose</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L314'> 314   <a href='../Y/273.html' title='Multiple used in 11 places.'>close</a>(<a href='../Y/354.html' title='Multiple used in 51 places.'>fd</a>);
-<a name='L315'> 315 <font color='red'>}</font>
-<a name='L316'> 316 
-<a name='L317'> 317 <b>void</b> <a href='../Y/111.html' title='Multiple used in 15 places.'>StreamTest</a> :: <a href='../R/255.html' title='Multiple refered from 2 places.'>writeFileTest</a> (<b>void</b>)
-<a name='L318'> 318 <font color='red'>{</font>
-<a name='L319'> 319   <b>const</b> <b>char</b> *<a href='../Y/758.html' title='Multiple used in 4 places.'>writefile</a> = "/tmp/bdlib";
-<a name='L320'> 320   <b>const</b> <b>char</b> *<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a> = "/etc/services";
-<a name='L321'> 321 
-<a name='L322'> 322   <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../D/223.html' title='Multiple defined in 2 places.'>loadFile</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>);
-<a name='L323'> 323   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../D/309.html' title='Multiple defined in 2 places.'>writeFile</a>(<a href='../Y/758.html' title='Multiple used in 4 places.'>writefile</a>), 0);
-<a name='L324'> 324 
-<a name='L325'> 325   <i><font color='green'>/* Verify that the written file matches the source file */</font></i>
-<a name='L326'> 326 
-<a name='L327'> 327   <a href='../Y/43.html' title='Multiple used in 10 places.'>FILE</a> *<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> = <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L328'> 328   <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> = <a href='../Y/372.html' title='Multiple used in 16 places.'>fopen</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>, "rb");
-<a name='L329'> 329   <b>if</b> (<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a> == <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>)
-<a name='L330'> 330     <b>return</b>;
-<a name='L331'> 331 
-<a name='L332'> 332   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L47' title='Defined at 47 in Stream.h.'>SEEK_END</a>);
-<a name='L333'> 333   <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/634.html' title='Multiple used in 256 places.'>size</a> = <a href='../Y/384.html' title='Multiple used in 9 places.'>ftell</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L334'> 334   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L335'> 335 
-<a name='L336'> 336   <b>char</b> *<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a> = (<b>char</b>*) <a href='../Y/475.html' title='Multiple used in 7 places.'>malloc</a>(<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a> + 1);
-<a name='L337'> 337   <a href='../Y/377.html' title='Multiple used in 13 places.'>fread</a>(<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>, 1, <a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>, <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L338'> 338   <a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>[<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>] = 0;
-<a name='L339'> 339 
-<a name='L340'> 340   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/634.html' title='Multiple used in 256 places.'>size</a>, <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>());
-<a name='L341'> 341   <a href='../Y/19.html' title='Multiple used in 83 places.'>CPPUNIT_ASSERT</a>(*<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a> == <a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>);
-<a name='L342'> 342   <a href='../Y/378.html' title='Multiple used in 8 places.'>free</a>(<a href='../Y/239.html' title='Multiple used in 15 places.'>buffer</a>);
-<a name='L343'> 343 
-<a name='L344'> 344   <b>char</b> <a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>[1024] = "";
-<a name='L345'> 345   <a href='../Y/112.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>;
-<a name='L346'> 346 
-<a name='L347'> 347   <a href='../Y/381.html' title='Multiple used in 19 places.'>fseek</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, 0, <a href='../S/45.html#L45' title='Defined at 45 in Stream.h.'>SEEK_SET</a>);
-<a name='L348'> 348   <b>while</b> (<a href='../Y/359.html' title='Multiple used in 3 places.'>fgets</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>, <b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>), <a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>) != <a href='../Y/534.html' title='Multiple used in 94 places.'>nullptr</a>) <font color='red'>{</font>
-<a name='L349'> 349     <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a> = <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../S/72.html#L130' title='Defined at 130 in String.cpp.'>getline</a>(<b>sizeof</b>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>) - 1);
-<a name='L350'> 350     <a href='../S/47.html#L43' title='Defined at 43 in String.h.'>CPPUNIT_ASSERT_STRING_EQUAL</a>(<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>(<a href='../Y/237.html' title='Multiple used in 144 places.'>buf</a>), <a href='../Y/389.html' title='Multiple used in 23 places.'>gbuf</a>);
-<a name='L351'> 351   <font color='red'>}</font>
-<a name='L352'> 352 
-<a name='L353'> 353   <b>struct</b> <a href='../Y/659.html' title='Multiple used in 8 places.'>stat</a> <a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>;
-<a name='L354'> 354   <b>int</b> <a href='../Y/354.html' title='Multiple used in 51 places.'>fd</a> = <a href='../S/70.html#L36' title='Defined at 36 in AtomicFile.cpp.'>open</a>(<a href='../Y/758.html' title='Multiple used in 4 places.'>writefile</a>, <a href='../Y/72.html' title='Multiple used in 3 places.'>O_RDONLY</a>);
-<a name='L355'> 355   <a href='../Y/382.html' title='Multiple used in 4 places.'>fstat</a>(<a href='../Y/354.html' title='Multiple used in 51 places.'>fd</a>, &amp;<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>);
-<a name='L356'> 356   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>(<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/656.html' title='Multiple used in 5 places.'>st_size</a>));
-<a name='L357'> 357   <a href='../Y/659.html' title='Multiple used in 8 places.'>stat</a>(<a href='../Y/360.html' title='Multiple used in 16 places.'>file</a>, &amp;<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>);
-<a name='L358'> 358   <a href='../Y/20.html' title='Multiple used in 850 places.'>CPPUNIT_ASSERT_EQUAL</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>-&gt;<a href='../Y/457.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>(<a href='../Y/609.html' title='Multiple used in 31 places.'>s</a>.<a href='../Y/656.html' title='Multiple used in 5 places.'>st_size</a>));
-<a name='L359'> 359 
-<a name='L360'> 360   <a href='../Y/729.html' title='Multiple used in 14 places.'>unlink</a>(<a href='../Y/758.html' title='Multiple used in 4 places.'>writefile</a>);
-<a name='L361'> 361   <a href='../Y/273.html' title='Multiple used in 11 places.'>close</a>(<a href='../Y/354.html' title='Multiple used in 51 places.'>fd</a>);
-<a name='L362'> 362   <a href='../Y/353.html' title='Multiple used in 23 places.'>fclose</a>(<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>);
-<a name='L363'> 363 <font color='red'>}</font>
-<a name='L364'> 364 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L39'>  39     <a href='../Y/23.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE</a> (<a href='../Y/71.html' title='Multiple used in 13 places.'>ListTest</a>);
+<a name='L40'>  40     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/183.html' title='Multiple defined in 5 places.'>insertTest</a>);
+<a name='L41'>  41     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/141.html' title='Multiple defined in 4 places.'>containsTest</a>);
+<a name='L42'>  42     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/142.html' title='Multiple defined in 3 places.'>copyTest</a>);
+<a name='L43'>  43     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/162.html' title='Multiple defined in 4 places.'>findTest</a>);
+<a name='L44'>  44     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/132.html' title='Multiple defined in 6 places.'>clearTest</a>);
+<a name='L45'>  45     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/223.html' title='Multiple defined in 4 places.'>removeTest</a>);
+<a name='L46'>  46     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/184.html' title='Multiple defined in 8 places.'>iterateTest</a>);
+<a name='L47'>  47     <a href='../Y/24.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE_END</a> ();
+<a name='L48'>  48 
+<a name='L49'>  49     <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L50'>  50         <b>void</b> <a href='../D/239.html' title='Multiple defined in 11 places.'>setUp</a> (<b>void</b>);
+<a name='L51'>  51         <b>void</b> <a href='../D/265.html' title='Multiple defined in 11 places.'>tearDown</a> (<b>void</b>);
+<a name='L52'>  52 
+<a name='L53'>  53     <a href='../Y/562.html' title='Multiple used in 20 places.'>protected</a>:
+<a name='L54'>  54         <b>void</b> <a href='../D/183.html' title='Multiple defined in 5 places.'>insertTest</a>(<b>void</b>);
+<a name='L55'>  55         <b>void</b> <a href='../D/141.html' title='Multiple defined in 4 places.'>containsTest</a>(<b>void</b>);
+<a name='L56'>  56         <b>void</b> <a href='../D/142.html' title='Multiple defined in 3 places.'>copyTest</a>(<b>void</b>);
+<a name='L57'>  57         <b>void</b> <a href='../D/162.html' title='Multiple defined in 4 places.'>findTest</a>(<b>void</b>);
+<a name='L58'>  58         <b>void</b> <a href='../D/132.html' title='Multiple defined in 6 places.'>clearTest</a>(<b>void</b>);
+<a name='L59'>  59         <b>void</b> <a href='../D/223.html' title='Multiple defined in 4 places.'>removeTest</a>(<b>void</b>);
+<a name='L60'>  60         <b>void</b> <a href='../D/184.html' title='Multiple defined in 8 places.'>iterateTest</a>(<b>void</b>);
+<a name='L61'>  61     <a href='../Y/561.html' title='Multiple used in 39 places.'>private</a>:
+<a name='L62'>  62         <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt; *<a href='../Y/204.html' title='Multiple used in 1371 places.'>a</a>, *<a href='../Y/228.html' title='Multiple used in 467 places.'>b</a>, *<a href='../Y/246.html' title='Multiple used in 118 places.'>c</a>, *<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a>;
+<a name='L63'>  63         <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>*&gt; *<a href='../Y/330.html' title='Multiple used in 41 places.'>e</a>, *<a href='../Y/349.html' title='Multiple used in 147 places.'>f</a>, *<a href='../Y/392.html' title='Multiple used in 34 places.'>g</a>, *<a href='../Y/400.html' title='Multiple used in 27 places.'>h</a>;
+<a name='L64'>  64 <font color='red'>}</font>;
+<a name='L65'>  65 <font color='darkred'>#endif</font> <i><font color='green'>/* !_LISTTEST_H */</font></i>
+<a name='L66'>  66 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L37'>[^]</a><a href='#L317'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

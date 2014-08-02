@@ -1,22 +1,15 @@
 <html>
 <head>
-<title>Thread</title>
+<title>Tcl_VarTraceProc</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/63.html#L44'>Thread</a>             44 Thread.cpp       Thread* thread = static_cast&lt;Thread*&gt;(object);
-<a href='../S/63.html#L48'>Thread</a>             48 Thread.cpp     int Thread::start(void* _param) {
-<a href='../S/63.html#L80'>Thread</a>             80 Thread.cpp     void Thread::detach(void) {
-<a href='../S/63.html#L93'>Thread</a>             93 Thread.cpp     void* Thread::wait(void) {
-<a href='../S/63.html#L109'>Thread</a>            109 Thread.cpp     void Thread::stop(void) {
-<a href='../S/63.html#L122'>Thread</a>            122 Thread.cpp     threadId_t Thread::getThreadId(void) {
-<a href='../S/63.html#L126'>Thread</a>            126 Thread.cpp     threadId_t Thread::getCurrentThreadId(void) {
-<a href='../S/63.html#L134'>Thread</a>            134 Thread.cpp     void Thread::sleep(int delay) {
-<a href='../S/64.html#L63'>Thread</a>             63 Thread.h       class Thread {
-<a href='../S/64.html#L72'>Thread</a>             72 Thread.h           Thread(void) : handle(0), id(0), status(0), param(nullptr) {};
-<a href='../S/64.html#L73'>Thread</a>             73 Thread.h           virtual ~Thread() { stop(); };
+<a href='../S/47.html#L104'>Tcl_VarTraceProc</a>  104 ScriptInterpTCL.cpp void ScriptInterpTCL::setupTraces(const String&amp; varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
+<a href='../S/39.html#L140'>Tcl_VarTraceProc</a>  140 ScriptInterpTCL.h         void setupTraces(const String&amp; name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func);
+<a href='../S/39.html#L192'>Tcl_VarTraceProc</a>  192 ScriptInterpTCL.h             setupTraces(varName, (ClientData) &amp;var, (Tcl_VarTraceProc*) tcl_traceGet&lt;T&gt;, (Tcl_VarTraceProc*) tcl_traceSet&lt;T&gt;, hook_func);
+<a href='../S/39.html#L203'>Tcl_VarTraceProc</a>  203 ScriptInterpTCL.h             setupTraces(varName, (ClientData) &amp;var, (Tcl_VarTraceProc*) tcl_traceGet&lt;T&gt;, (Tcl_VarTraceProc*) TraceSetRO, hook_func);
 </pre>
 </body>
 </html>

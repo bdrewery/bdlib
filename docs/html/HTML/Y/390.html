@@ -1,16 +1,18 @@
 <html>
 <head>
-<title>get</title>
+<title>function_t</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L104'>get</a>               104 ScriptInterpTCL.cpp void ScriptInterpTCL::setupTraces(const String&amp; varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
-<a href='../S/52.html#L106'>get</a>               106 ScriptInterpTCL.cpp   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
-<a href='../S/44.html#L140'>get</a>               140 ScriptInterpTCL.h         void setupTraces(const String&amp; name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func);
-<a href='../S/72.html#L119'>get</a>               119 String.cpp           is.get(ch);
-<a href='../S/72.html#L135'>get</a>               135 String.cpp       while (is.get(ch) &amp;&amp; ch != '\n')
+<a href='../S/5.html#L11'>function_t</a>         11 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L12'>function_t</a>         12 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L21'>function_t</a>         21 ScriptInterpTCLCallbacks.h   typedef void (*function_t)(Params...);
+<a href='../S/5.html#L22'>function_t</a>         22 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L29'>function_t</a>         29 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L32'>function_t</a>         32 ScriptInterpTCLCallbacks.h     function_t _callback;
+<a href='../S/5.html#L49'>function_t</a>         49 ScriptInterpTCLCallbacks.h     ScriptCallbackTCL(function_t callback) : _callback(callback) {};
 </pre>
 </body>
 </html>

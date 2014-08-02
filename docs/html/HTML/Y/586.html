@@ -1,13 +1,45 @@
 <html>
 <head>
-<title>real_call</title>
+<title>rcount</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/6.html#L35'>real_call</a>          35 ScriptInterpTCLCallbacks.h     inline void real_call(__attribute__((__unused__)) size_t argc, void* const argv[], __attribute__((__unused__)) ScriptInterp* si, void *proxy_data, indices&lt;Indices...&gt;) {
-<a href='../S/6.html#L51'>real_call</a>          51 ScriptInterpTCLCallbacks.h       real_call(argc, argv, si, proxy_data, make_indices&lt;sizeof...(Params)&gt;());
+<a href='../S/51.html#L495'>rcount</a>            495 ReferenceCountedArray.h     inline size_t rcount() const { return Ref ? Ref-&gt;refs.load() : 0; };
+<a href='../S/42.html#L130'>rcount</a>            130 String.h                 if (rcount() == 1) {
+<a href='../S/33.html#L173'>rcount</a>            173 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), int_a-&gt;rcount());
+<a href='../S/33.html#L176'>rcount</a>            176 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_a-&gt;rcount());
+<a href='../S/33.html#L178'>rcount</a>            178 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_b-&gt;rcount());
+<a href='../S/33.html#L182'>rcount</a>            182 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), int_a-&gt;rcount());
+<a href='../S/33.html#L184'>rcount</a>            184 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), int_b-&gt;rcount());
+<a href='../S/33.html#L186'>rcount</a>            186 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), int_c-&gt;rcount());
+<a href='../S/33.html#L190'>rcount</a>            190 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_a-&gt;rcount());
+<a href='../S/33.html#L192'>rcount</a>            192 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), int_b-&gt;rcount());
+<a href='../S/33.html#L194'>rcount</a>            194 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_c-&gt;rcount());
+<a href='../S/28.html#L132'>rcount</a>            132 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), a-&gt;rcount());
+<a href='../S/28.html#L134'>rcount</a>            134 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), a-&gt;rcount());
+<a href='../S/28.html#L135'>rcount</a>            135 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), b-&gt;rcount());
+<a href='../S/28.html#L137'>rcount</a>            137 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), a-&gt;rcount());
+<a href='../S/28.html#L138'>rcount</a>            138 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), b-&gt;rcount());
+<a href='../S/28.html#L139'>rcount</a>            139 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), c-&gt;rcount());
+<a href='../S/28.html#L142'>rcount</a>            142 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), a-&gt;rcount());
+<a href='../S/28.html#L143'>rcount</a>            143 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), b-&gt;rcount());
+<a href='../S/28.html#L144'>rcount</a>            144 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), c-&gt;rcount());
+<a href='../S/28.html#L148'>rcount</a>            148 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), my_string.rcount());
+<a href='../S/28.html#L149'>rcount</a>            149 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), a-&gt;rcount());
+<a href='../S/28.html#L150'>rcount</a>            150 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), b-&gt;rcount());
+<a href='../S/28.html#L151'>rcount</a>            151 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), c-&gt;rcount());
+<a href='../S/28.html#L154'>rcount</a>            154 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), d-&gt;rcount());
+<a href='../S/28.html#L155'>rcount</a>            155 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), my_string.rcount());
+<a href='../S/28.html#L156'>rcount</a>            156 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), a-&gt;rcount());
+<a href='../S/28.html#L157'>rcount</a>            157 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), b-&gt;rcount());
+<a href='../S/28.html#L158'>rcount</a>            158 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), c-&gt;rcount());
+<a href='../S/28.html#L1028'>rcount</a>           1028 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), a-&gt;rcount());
+<a href='../S/28.html#L1030'>rcount</a>           1030 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), a-&gt;rcount());
+<a href='../S/28.html#L1031'>rcount</a>           1031 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), substring.rcount());
+<a href='../S/28.html#L1036'>rcount</a>           1036 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), a-&gt;rcount());
+<a href='../S/28.html#L1037'>rcount</a>           1037 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), substring.rcount());
 </pre>
 </body>
 </html>

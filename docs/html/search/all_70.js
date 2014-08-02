@@ -1,12 +1,5 @@
 var searchData=
 [
-  ['package',['PACKAGE',['../config_8h.html#aca8570fb706c81df371b7f9bc454ae03',1,'config.h']]],
-  ['package_5fbugreport',['PACKAGE_BUGREPORT',['../config_8h.html#a1d1d2d7f8d2f95b376954d649ab03233',1,'config.h']]],
-  ['package_5fname',['PACKAGE_NAME',['../config_8h.html#a1c0439e4355794c09b64274849eb0279',1,'config.h']]],
-  ['package_5fstring',['PACKAGE_STRING',['../config_8h.html#ac73e6f903c16eca7710f92e36e1c6fbf',1,'config.h']]],
-  ['package_5ftarname',['PACKAGE_TARNAME',['../config_8h.html#af415af6bfede0e8d5453708afe68651c',1,'config.h']]],
-  ['package_5furl',['PACKAGE_URL',['../config_8h.html#a5c93853116d5a50307b6744f147840aa',1,'config.h']]],
-  ['package_5fversion',['PACKAGE_VERSION',['../config_8h.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0',1,'config.h']]],
   ['padding_5fchar',['PADDING_CHAR',['../base64_8cpp.html#a72317da28f7d9c235ffb341210b9f5f1',1,'base64.cpp']]],
   ['peek',['peek',['../classbd_1_1Stack.html#a5c3176e06387f4f766f973989776e6fb',1,'bd::Stack::peek()'],['../classbd_1_1Stream.html#a89f23982281f56bf0115fcc51b2a8e04',1,'bd::Stream::peek()']]],
   ['pointer',['pointer',['../classbd_1_1Array.html#a865688bb350760c6a9479772c66f4459',1,'bd::Array::pointer()'],['../classbd_1_1List.html#a017cec806478bb201854e56e366ba4de',1,'bd::List::pointer()'],['../classbd_1_1Queue.html#a1a3c61058268e8d9f36154bad6759dd9',1,'bd::Queue::pointer()'],['../classbd_1_1QueueIterator.html#a698d1016bd1519931c1a855cf1b7fea0',1,'bd::QueueIterator::pointer()'],['../classbd_1_1QueueConstIterator.html#a900d1c82ef2d6c33f4cc4b5371fce9dc',1,'bd::QueueConstIterator::pointer()'],['../classbd_1_1ReferenceCountedArray.html#ad41de15ea04d1576a41da7c5fc388c32',1,'bd::ReferenceCountedArray::pointer()']]],

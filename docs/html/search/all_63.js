@@ -16,7 +16,6 @@ var searchData=
   ['commit',['commit',['../classbd_1_1AtomicFile.html#acd5b31ee57ad0e209f9a6aa9939034a2',1,'bd::AtomicFile']]],
   ['compare',['compare',['../classbd_1_1String.html#ac2bd612e56ceff350fa2cd4ea94bccc7',1,'bd::String']]],
   ['config_2dsanity_2eh',['config-sanity.h',['../config-sanity_8h.html',1,'']]],
-  ['config_2eh',['config.h',['../config_8h.html',1,'']]],
   ['connect',['connect',['../classbd_1_1Socket.html#a7dbb094615e145295eb45b22fd6ad6bd',1,'bd::Socket']]],
   ['const_5fiterator',['const_iterator',['../classbd_1_1Queue.html#a1eaee14ba6cabbc30338b882880bb37c',1,'bd::Queue::const_iterator()'],['../classbd_1_1QueueIterator.html#ab8b3d634efcb10a0f04742376b3cd822',1,'bd::QueueIterator::const_iterator()'],['../classbd_1_1QueueConstIterator.html#a4bdb1eb3c253c2eeb04537d0a733c952',1,'bd::QueueConstIterator::const_iterator()'],['../classbd_1_1ReferenceCountedArray.html#ae80df585fb55e117a31b7d0bee90a56d',1,'bd::ReferenceCountedArray::const_iterator()']]],
   ['const_5fpointer',['const_pointer',['../classbd_1_1Array.html#adbcaf67659ff6bcf6583154409071ab1',1,'bd::Array::const_pointer()'],['../classbd_1_1List.html#a3e270697f00737c24ade0c8364e601df',1,'bd::List::const_pointer()'],['../classbd_1_1Queue.html#ae1e52d02d76f66c452baeb75fd51a851',1,'bd::Queue::const_pointer()'],['../classbd_1_1ReferenceCountedArray.html#af9ec43939acdf2a4f5556dc9c52ae60d',1,'bd::ReferenceCountedArray::const_pointer()']]],

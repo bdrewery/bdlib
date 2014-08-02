@@ -1,23 +1,27 @@
 <html>
 <head>
-<title>ReturnType</title>
+<title>Queue</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/67.html#L108'>ReturnType</a>        108 ScriptInterp.h         template&lt;typename InterpType, typename ReturnType, typename... Params&gt;
-<a href='../S/67.html#L109'>ReturnType</a>        109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/44.html#L170'>ReturnType</a>        170 ScriptInterpTCL.h         template&lt;typename ReturnType, typename... Params&gt;
-<a href='../S/44.html#L171'>ReturnType</a>        171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/44.html#L172'>ReturnType</a>        172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
-<a href='../S/6.html#L9'>ReturnType</a>          9 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
-<a href='../S/6.html#L11'>ReturnType</a>         11 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
-<a href='../S/6.html#L13'>ReturnType</a>         13 ScriptInterpTCLCallbacks.h     ReturnType result = std::move(callback(std::forward&lt;Params&gt;(args)...));
-<a href='../S/6.html#L14'>ReturnType</a>         14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;ReturnType&gt;::from(std::move(result), interp)));
-<a href='../S/6.html#L27'>ReturnType</a>         27 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
-<a href='../S/6.html#L29'>ReturnType</a>         29 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
-<a href='../S/6.html#L39'>ReturnType</a>         39 ScriptInterpTCLCallbacks.h       ScriptCallbackDispatchTCL&lt;ReturnType, Params...&gt;::dispatch(interp, _callback,
+<a href='../S/55.html#L45'>Queue</a>              45 Queue.h        class Queue : public List&lt;T&gt; {
+<a href='../S/55.html#L64'>Queue</a>              64 Queue.h            Queue() : List&lt;value_type&gt;() {};
+<a href='../S/55.html#L65'>Queue</a>              65 Queue.h            virtual ~Queue() {};
+<a href='../S/55.html#L79'>Queue</a>              79 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&gt;&gt; (Queue&lt;value_type&gt;&amp; queue, reference item) {
+<a href='../S/55.html#L104'>Queue</a>             104 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
+<a href='../S/55.html#L117'>Queue</a>             117 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/55.html#L123'>Queue</a>             123 Queue.h            typedef typename Queue&lt;T&gt;::Node 	Node;
+<a href='../S/55.html#L132'>Queue</a>             132 Queue.h            Queue&lt;T&gt; *queue;
+<a href='../S/55.html#L135'>Queue</a>             135 Queue.h            QueueIterator(Queue&lt;T&gt;* _queue, Node* start) : queue(_queue), current(start) {};
+<a href='../S/55.html#L162'>Queue</a>             162 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/55.html#L168'>Queue</a>             168 Queue.h            typedef typename Queue&lt;T&gt;::Node 	Node;
+<a href='../S/55.html#L177'>Queue</a>             177 Queue.h            const Queue&lt;T&gt; *queue;
+<a href='../S/55.html#L180'>Queue</a>             180 Queue.h            QueueConstIterator(const Queue&lt;T&gt;* _queue, const Node* start) : queue(_queue), current(start) {};
+<a href='../S/19.html#L126'>Queue</a>             126 tests/QueueTest.cpp   Queue&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/29.html#L54'>Queue</a>              54 tests/QueueTest.h         Queue&lt;String&gt; *a, *b, *c, *d;
+<a href='../S/29.html#L55'>Queue</a>              55 tests/QueueTest.h         Queue&lt;String*&gt; *e, *f, *g, *h;
 </pre>
 </body>
 </html>

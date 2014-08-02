@@ -1,12 +1,14 @@
 <html>
 <head>
-<title>Array.cpp</title>
+<title>Queue.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/Array.cpp</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/Queue.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2><a href='../J/17.html' title='Multiple included from 2 places.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -33,14 +35,200 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* Array.cpp</font></i>
+<a name='L25'>  25 <i><font color='green'>/* Queue.h</font></i>
 <a name='L26'>  26 <i><font color='green'> */</font></i>
 <a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='57.html'>Array.h</a>"
-<a name='L29'>  29 
-<a name='L30'>  30 <a href='../S/54.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L31'>  31 <a href='../S/54.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L32'>  32 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/55.html#L29' title='Defined at 29 in Queue.h.'>_BD_QUEUE_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/55.html#L28' title='Refered from 28 in Queue.h.'>_BD_QUEUE_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;iterator&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> "<a href='49.html'>bdlib.h</a>"
+<a name='L33'>  33 <font color='darkred'>#include</font> "<a href='45.html'>List.h</a>"
+<a name='L34'>  34 
+<a name='L35'>  35 <a href='../S/49.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L36'>  36 
+<a name='L37'>  37 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>;
+<a name='L38'>  38 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>;
+<a name='L39'>  39 
+<a name='L40'>  40 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;
+<a name='L41'>  41 <i><font color='green'>/**</font></i>
+<a name='L42'>  42 <i><font color='green'> * @class Queue</font></i>
+<a name='L43'>  43 <i><font color='green'> * @brief A FIFO Queue, what else!</font></i>
+<a name='L44'>  44 <i><font color='green'> */</font></i>
+<a name='L45'>  45 <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a> : <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a> <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; <font color='red'>{</font>
+<a name='L46'>  46   <b>typedef</b> <a href='../Y/726.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;::<a href='../R/22.html' title='Multiple refered from 53 places.'>Node</a> <a href='../Y/77.html' title='Multiple used in 5 places.'>Node</a>;
+<a name='L47'>  47 
+<a name='L48'>  48   <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L49'>  49     <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;;
+<a name='L50'>  50     <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;;
+<a name='L51'>  51 
+<a name='L52'>  52     <b>typedef</b> <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; <a href='../R/151.html' title='Multiple refered from 49 places.'>iterator</a>;
+<a name='L53'>  53     <b>typedef</b> <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; <a href='../R/107.html' title='Multiple refered from 8 places.'>const_iterator</a>;
+<a name='L54'>  54     <b>typedef</b> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a> <a href='../R/241.html' title='Multiple refered from 66 places.'>value_type</a>;
+<a name='L55'>  55 
+<a name='L56'>  56     <b>typedef</b> <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>             <a href='../R/206.html' title='Multiple refered from 4 places.'>size_type</a>;
+<a name='L57'>  57     <b>typedef</b> <a href='../S/28.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/574.html' title='Multiple used in 5 places.'>ptrdiff_t</a>     difference_type;
+<a name='L58'>  58     <b>typedef</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>*        <a href='../R/175.html' title='Multiple refered from 4 places.'>pointer</a>;
+<a name='L59'>  59     <b>typedef</b> <b>const</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>*  <a href='../R/108.html' title='Multiple refered from 6 places.'>const_pointer</a>;
+<a name='L60'>  60     <b>typedef</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&amp;        <a href='../R/186.html' title='Multiple refered from 5 places.'>reference</a>;
+<a name='L61'>  61     <b>typedef</b> <b>const</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&amp;  <a href='../R/109.html' title='Multiple refered from 18 places.'>const_reference</a>;
+<a name='L62'>  62 
+<a name='L63'>  63 
+<a name='L64'>  64     <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>() : <a href='../Y/69.html' title='Multiple used in 33 places.'>List</a>&lt;<a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&gt;() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L65'>  65     <a href='../Y/749.html' title='Multiple used in 77 places.'>virtual</a> ~<a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L66'>  66 
+<a name='L67'>  67     <i><font color='green'>/**</font></i>
+<a name='L68'>  68 <i><font color='green'>     * @brief Dequeue an element from the tail</font></i>
+<a name='L69'>  69 <i><font color='green'>     */</font></i>
+<a name='L70'>  70     <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a> <a href='../Y/317.html' title='Multiple used in 7 places.'>dequeue</a>() <font color='red'>{</font>
+<a name='L71'>  71       <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a> <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a> = <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/690.html' title='Multiple used in 16 places.'>tail</a>-&gt;<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>;
+<a name='L72'>  72       <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/315.html' title='Multiple used in 8 places.'>deleteNode</a>(<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/690.html' title='Multiple used in 16 places.'>tail</a>);
+<a name='L73'>  73       <b>return</b> <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>;
+<a name='L74'>  74     <font color='red'>}</font>;
+<a name='L75'>  75 
+<a name='L76'>  76     <i><font color='green'>/**</font></i>
+<a name='L77'>  77 <i><font color='green'>     * @sa dequeue</font></i>
+<a name='L78'>  78 <i><font color='green'>     */</font></i>
+<a name='L79'>  79     <b>inline</b> <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&gt;&amp; <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>&gt;&gt; (<a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&gt;&amp; <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>, <a href='../D/222.html' title='Multiple defined in 6 places.'>reference</a> <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>) <font color='red'>{</font>
+<a name='L80'>  80       <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a> = <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>.<a href='../Y/317.html' title='Multiple used in 7 places.'>dequeue</a>();
+<a name='L81'>  81       <b>return</b> <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>;
+<a name='L82'>  82     <font color='red'>}</font>
+<a name='L83'>  83 
+<a name='L84'>  84     <i><font color='green'>/**</font></i>
+<a name='L85'>  85 <i><font color='green'>     * @brief Return the first element, but don't dequeue it</font></i>
+<a name='L86'>  86 <i><font color='green'>     */</font></i>
+<a name='L87'>  87     <b>inline</b> <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a> <a href='../Y/384.html' title='Multiple used in 3 places.'>front</a>() <font color='red'>{</font>
+<a name='L88'>  88       <b>return</b> <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/436.html' title='Multiple used in 72 places.'>isEmpty</a>() ? <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/338.html' title='Multiple used in 34 places.'>end</a>() : <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a>(<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>, <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/690.html' title='Multiple used in 16 places.'>tail</a>);
+<a name='L89'>  89     <font color='red'>}</font>
+<a name='L90'>  90 
+<a name='L91'>  91 
+<a name='L92'>  92     <i><font color='green'>/**</font></i>
+<a name='L93'>  93 <i><font color='green'>     * @brief Enqueue an element into the queue</font></i>
+<a name='L94'>  94 <i><font color='green'>     * @param item The element to enqueue</font></i>
+<a name='L95'>  95 <i><font color='green'>     * @todo Make this take an iterator as a position to insert at</font></i>
+<a name='L96'>  96 <i><font color='green'>     */</font></i>
+<a name='L97'>  97     <b>inline</b> <b>void</b> <a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>(<a href='../D/139.html' title='Multiple defined in 4 places.'>const_reference</a> <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>) <font color='red'>{</font>
+<a name='L98'>  98       <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../S/66.html#L72' title='Defined at 72 in String.cpp.'>insert</a>(<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>);
+<a name='L99'>  99     <font color='red'>}</font>;
+<a name='L100'> 100 
+<a name='L101'> 101     <i><font color='green'>/**</font></i>
+<a name='L102'> 102 <i><font color='green'>     * @sa push</font></i>
+<a name='L103'> 103 <i><font color='green'>     */</font></i>
+<a name='L104'> 104     <b>inline</b> <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&gt;&amp; <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>&lt;&lt; (<a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&gt;&amp; <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>, <a href='../D/139.html' title='Multiple defined in 4 places.'>const_reference</a> <a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>) <font color='red'>{</font>
+<a name='L105'> 105       <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>.<a href='../Y/339.html' title='Multiple used in 12 places.'>enqueue</a>(<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>);
+<a name='L106'> 106       <b>return</b> <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>;
+<a name='L107'> 107     <font color='red'>}</font>
+<a name='L108'> 108 
+<a name='L109'> 109     <b>inline</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a> <a href='../Y/235.html' title='Multiple used in 89 places.'>begin</a>() <font color='red'>{</font> <b>return</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>(<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>, <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/690.html' title='Multiple used in 16 places.'>tail</a>); <font color='red'>}</font>;
+<a name='L110'> 110     <b>inline</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a> <a href='../Y/338.html' title='Multiple used in 34 places.'>end</a>() <font color='red'>{</font> <b>return</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>(<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>, <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>); <font color='red'>}</font>;
+<a name='L111'> 111     <b>inline</b> <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a> <a href='../Y/235.html' title='Multiple used in 89 places.'>begin</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a>(<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>, <a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>-&gt;<a href='../Y/690.html' title='Multiple used in 16 places.'>tail</a>); <font color='red'>}</font>;
+<a name='L112'> 112     <b>inline</b> <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a> <a href='../Y/338.html' title='Multiple used in 34 places.'>end</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a>(<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>, <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>, 1); <font color='red'>}</font>;
+<a name='L113'> 113 <font color='red'>}</font>;
+<a name='L114'> 114 
+<a name='L115'> 115 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;
+<a name='L116'> 116 <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a> <font color='red'>{</font>
+<a name='L117'> 117   <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;;
+<a name='L118'> 118   <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;;
+<a name='L119'> 119 
+<a name='L120'> 120   <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L121'> 121     <b>typedef</b> <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;            <a href='../R/151.html' title='Multiple refered from 49 places.'>iterator</a>;
+<a name='L122'> 122     <b>typedef</b> <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;       <a href='../R/107.html' title='Multiple refered from 8 places.'>const_iterator</a>;
+<a name='L123'> 123     <b>typedef</b> <a href='../Y/726.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;::<a href='../R/22.html' title='Multiple refered from 53 places.'>Node</a>     <a href='../Y/77.html' title='Multiple used in 5 places.'>Node</a>;
+<a name='L124'> 124     <b>typedef</b> <a href='../S/28.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/379.html' title='Multiple used in 2 places.'>forward_iterator_tag</a>   iterator_category;
+<a name='L125'> 125     <b>typedef</b> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>                           <a href='../R/241.html' title='Multiple refered from 66 places.'>value_type</a>;
+<a name='L126'> 126     <b>typedef</b> <a href='../S/28.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/574.html' title='Multiple used in 5 places.'>ptrdiff_t</a>              difference_type;
+<a name='L127'> 127     <b>typedef</b> <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>                      <a href='../R/206.html' title='Multiple refered from 4 places.'>size_type</a>;
+<a name='L128'> 128     <b>typedef</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&amp;                 <a href='../R/186.html' title='Multiple refered from 5 places.'>reference</a>;
+<a name='L129'> 129     <b>typedef</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>*                 <a href='../R/175.html' title='Multiple refered from 4 places.'>pointer</a>;
+<a name='L130'> 130 
+<a name='L131'> 131   <a href='../Y/561.html' title='Multiple used in 39 places.'>private</a>:
+<a name='L132'> 132     <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; *<a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>;
+<a name='L133'> 133     <a href='../D/48.html' title='Multiple defined in 6 places.'>Node</a> *<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>;
+<a name='L134'> 134 
+<a name='L135'> 135     <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>(<a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;* <a href='../Y/192.html' title='Multiple used in 2 places.'>_queue</a>, <a href='../D/48.html' title='Multiple defined in 6 places.'>Node</a>* <a href='../S/58.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>) : <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>(<a href='../Y/192.html' title='Multiple used in 2 places.'>_queue</a>), <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>(<a href='../S/58.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L136'> 136   <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L137'> 137     <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>() : <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>(<a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>), <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>(<a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L138'> 138     ~<a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>() <font color='red'>{</font> <font color='red'>}</font>
+<a name='L139'> 139 
+<a name='L140'> 140     <a href='../D/222.html' title='Multiple defined in 6 places.'>reference</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> *() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>-&gt;<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>; <font color='red'>}</font>
+<a name='L141'> 141     <a href='../D/211.html' title='Multiple defined in 6 places.'>pointer</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> -&gt;() <b>const</b> <font color='red'>{</font> <b>return</b> &amp;(<a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>*()); <font color='red'>}</font>
+<a name='L142'> 142 
+<a name='L143'> 143 
+<a name='L144'> 144     <a href='../Y/241.html' title='Multiple used in 79 places.'>bool</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>==(<b>const</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>&amp; <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>.<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> == <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>; <font color='red'>}</font>
+<a name='L145'> 145     <a href='../Y/241.html' title='Multiple used in 79 places.'>bool</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>!=(<b>const</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>&amp; <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>.<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> != <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>; <font color='red'>}</font>
+<a name='L146'> 146 
+<a name='L147'> 147     <i><font color='green'>//Postfix</font></i>
+<a name='L148'> 148     <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> ++(<b>int</b>) <font color='red'>{</font>
+<a name='L149'> 149       <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a> <a href='../Y/710.html' title='Multiple used in 60 places.'>tmp</a>(*<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>);
+<a name='L150'> 150       <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> = <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>-&gt;<a href='../Y/529.html' title='Multiple used in 59 places.'>next</a>;
+<a name='L151'> 151       <b>return</b> <a href='../Y/710.html' title='Multiple used in 60 places.'>tmp</a>;
+<a name='L152'> 152     <font color='red'>}</font>
+<a name='L153'> 153 
+<a name='L154'> 154     <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>&amp; <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> ++() <font color='red'>{</font>
+<a name='L155'> 155       <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> = <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>-&gt;<a href='../Y/529.html' title='Multiple used in 59 places.'>next</a>;
+<a name='L156'> 156       <b>return</b> *<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>;
+<a name='L157'> 157     <font color='red'>}</font>
+<a name='L158'> 158 <font color='red'>}</font>;
+<a name='L159'> 159 
+<a name='L160'> 160 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;
+<a name='L161'> 161 <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a> <font color='red'>{</font>
+<a name='L162'> 162   <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;;
+<a name='L163'> 163   <a href='../Y/383.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;;
+<a name='L164'> 164 
+<a name='L165'> 165   <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L166'> 166     <b>typedef</b> <a href='../Y/88.html' title='Multiple used in 10 places.'>QueueIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;            <a href='../R/151.html' title='Multiple refered from 49 places.'>iterator</a>;
+<a name='L167'> 167     <b>typedef</b> <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;       <a href='../R/107.html' title='Multiple refered from 8 places.'>const_iterator</a>;
+<a name='L168'> 168     <b>typedef</b> <a href='../Y/726.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;::<a href='../R/22.html' title='Multiple refered from 53 places.'>Node</a>     <a href='../Y/77.html' title='Multiple used in 5 places.'>Node</a>;
+<a name='L169'> 169     <b>typedef</b> <a href='../S/28.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/379.html' title='Multiple used in 2 places.'>forward_iterator_tag</a>   iterator_category;
+<a name='L170'> 170     <b>typedef</b> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>                           <a href='../R/241.html' title='Multiple refered from 66 places.'>value_type</a>;
+<a name='L171'> 171     <b>typedef</b> <a href='../S/28.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/574.html' title='Multiple used in 5 places.'>ptrdiff_t</a>              difference_type;
+<a name='L172'> 172     <b>typedef</b> <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>                      <a href='../R/206.html' title='Multiple refered from 4 places.'>size_type</a>;
+<a name='L173'> 173     <b>typedef</b> <b>const</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>&amp;           <a href='../R/186.html' title='Multiple refered from 5 places.'>reference</a>;
+<a name='L174'> 174     <b>typedef</b> <b>const</b> <a href='../D/277.html' title='Multiple defined in 6 places.'>value_type</a>*           <a href='../R/175.html' title='Multiple refered from 4 places.'>pointer</a>;
+<a name='L175'> 175 
+<a name='L176'> 176   <a href='../Y/561.html' title='Multiple used in 39 places.'>private</a>:
+<a name='L177'> 177     <b>const</b> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt; *<a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>;
+<a name='L178'> 178     <b>const</b> <a href='../D/48.html' title='Multiple defined in 6 places.'>Node</a> *<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>;
+<a name='L179'> 179 
+<a name='L180'> 180     <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>(<b>const</b> <a href='../Y/86.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;* <a href='../Y/192.html' title='Multiple used in 2 places.'>_queue</a>, <b>const</b> <a href='../D/48.html' title='Multiple defined in 6 places.'>Node</a>* <a href='../S/58.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>) : <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>(<a href='../Y/192.html' title='Multiple used in 2 places.'>_queue</a>), <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>(<a href='../S/58.html#L48' title='Defined at 48 in Thread.cpp.'>start</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L181'> 181   <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L182'> 182     <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>(<b>const</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>&amp; <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>) : <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>(<a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>.<a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>), <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>(<a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>.<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L183'> 183     <a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>() : <a href='../Y/580.html' title='Multiple used in 13 places.'>queue</a>(<a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>), <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>(<a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L184'> 184     ~<a href='../Y/87.html' title='Multiple used in 11 places.'>QueueConstIterator</a>() <font color='red'>{</font> <font color='red'>}</font>
+<a name='L185'> 185 <i><font color='green'>/* This should be implemented in Queue.remove(iterator) */</font></i>
+<a name='L186'> 186 <i><font color='green'>/*</font></i>
+<a name='L187'> 187 <i><font color='green'>* void remove() {</font></i>
+<a name='L188'> 188 <i><font color='green'>      Node *nextValue = end == 0 ? current-&gt;next : current-&gt;prev;</font></i>
+<a name='L189'> 189 <i><font color='green'></font></i>
+<a name='L190'> 190 <i><font color='green'>      queue-&gt;deleteNode(current);</font></i>
+<a name='L191'> 191 <i><font color='green'></font></i>
+<a name='L192'> 192 <i><font color='green'>      current = nextValue;</font></i>
+<a name='L193'> 193 <i><font color='green'>    }</font></i>
+<a name='L194'> 194 <i><font color='green'>*/</font></i>
+<a name='L195'> 195     <a href='../Y/749.html' title='Multiple used in 77 places.'>virtual</a> <a href='../Y/348.html' title='Multiple used in 12 places.'>explicit</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> <a href='../Y/241.html' title='Multiple used in 79 places.'>bool</a>() <b>const</b> <font color='red'>{</font> <b>return</b> (<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> != <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>); <font color='red'>}</font>;
+<a name='L196'> 196     <a href='../D/222.html' title='Multiple defined in 6 places.'>reference</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> *() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>-&gt;<a href='../Y/443.html' title='Multiple used in 72 places.'>item</a>; <font color='red'>}</font>
+<a name='L197'> 197     <a href='../D/211.html' title='Multiple defined in 6 places.'>pointer</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> -&gt;() <b>const</b> <font color='red'>{</font> <b>return</b> &amp;(<a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>*()); <font color='red'>}</font>
+<a name='L198'> 198 
+<a name='L199'> 199 
+<a name='L200'> 200     <a href='../Y/241.html' title='Multiple used in 79 places.'>bool</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>==(<b>const</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>&amp; <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>.<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> == <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>; <font color='red'>}</font>
+<a name='L201'> 201     <a href='../Y/241.html' title='Multiple used in 79 places.'>bool</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>!=(<b>const</b> <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a>&amp; <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/445.html' title='Multiple used in 218 places.'>iter</a>.<a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> != <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>; <font color='red'>}</font>
+<a name='L202'> 202 
+<a name='L203'> 203     <i><font color='green'>//Postfix</font></i>
+<a name='L204'> 204     <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> ++(<b>int</b>) <font color='red'>{</font>
+<a name='L205'> 205       <a href='../D/185.html' title='Multiple defined in 7 places.'>iterator</a> <a href='../Y/710.html' title='Multiple used in 60 places.'>tmp</a>(*<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>);
+<a name='L206'> 206       <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> = <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>-&gt;<a href='../Y/529.html' title='Multiple used in 59 places.'>next</a>;
+<a name='L207'> 207       <b>return</b> <a href='../Y/710.html' title='Multiple used in 60 places.'>tmp</a>;
+<a name='L208'> 208     <font color='red'>}</font>
+<a name='L209'> 209 
+<a name='L210'> 210     <a href='../D/137.html' title='Multiple defined in 4 places.'>const_iterator</a>&amp; <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a> ++() <font color='red'>{</font>
+<a name='L211'> 211       <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a> = <a href='../Y/300.html' title='Multiple used in 45 places.'>current</a>-&gt;<a href='../Y/529.html' title='Multiple used in 59 places.'>next</a>;
+<a name='L212'> 212       <b>return</b> *<a href='../Y/703.html' title='Multiple used in 168 places.'>this</a>;
+<a name='L213'> 213     <font color='red'>}</font>
+<a name='L214'> 214 <font color='red'>}</font>;
+<a name='L215'> 215 
+<a name='L216'> 216 <a href='../S/49.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L217'> 217 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_QUEUE_H */</font></i>
+<a name='L218'> 218 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
