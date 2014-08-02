@@ -37,6 +37,7 @@ class AtomicFileTest : public CPPUNIT_NS :: TestFixture
 {
     CPPUNIT_TEST_SUITE (AtomicFileTest);
     CPPUNIT_TEST (basicTest);
+    CPPUNIT_TEST (absoluteTest);
     CPPUNIT_TEST (abortTest);
     CPPUNIT_TEST (deleteTest);
     CPPUNIT_TEST_SUITE_END ();
@@ -47,6 +48,7 @@ class AtomicFileTest : public CPPUNIT_NS :: TestFixture
 
     protected:
         void basicTest(void);
+        void absoluteTest(void);
         void abortTest(void);
         void deleteTest(void);
 

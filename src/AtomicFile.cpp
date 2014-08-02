@@ -48,7 +48,7 @@ bool AtomicFile::open(const String& fname, mode_t mode) {
     slash_pos = 0;
     dir = "./";
   } else {
-    dir = this->_fname(0, slash_pos);
+    dir = this->_fname(0, slash_pos + 1);	/* include the '/' */
   }
 
   this->_tmpname = String::printf("%s.%s.XXXXXX", dir.c_str(),

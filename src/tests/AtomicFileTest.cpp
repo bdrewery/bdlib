@@ -128,6 +128,74 @@ void AtomicFileTest :: basicTest (void)
   delete a;
 }
 
+void AtomicFileTest :: absoluteTest (void)
+{
+  AtomicFile *a;
+  int fd;
+  FILE *f, *f2;
+  const char *dst_name;
+  char buf[4];
+  String verification;
+  struct stat st;
+
+  dst_name = "/tmp/test.file";
+  unlink(dst_name);
+
+  /* Generate a junk file to replace and keep it open */
+  f2 = fopen(dst_name, "w");
+  CPPUNIT_ASSERT(f2 != NULL);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), fwrite("test", 1, 4, f2));
+  fflush(f2);
+  /* !! Keep dst_name open so it is busy */
+
+  /* Write out source into the dst */
+  a = new AtomicFile;
+  a->open(dst_name, S_IRUSR);
+  CPPUNIT_ASSERT_EQUAL(true, a->is_open());
+  /* Write out the data to the fd through a FILE stream */
+  fd = a->fd();
+  CPPUNIT_ASSERT(fd != -1);
+  /* dup(2) the fd due to lack of fdclose() */
+  fd = dup(fd);
+  f = fdopen(fd, "w");
+  CPPUNIT_ASSERT(f != NULL);
+  CPPUNIT_ASSERT_EQUAL(source->length(), fwrite(
+        static_cast<const char*>(source->begin()), 1, source->length(), f));
+  fclose(f);
+
+  /* Verify the contents of the dst have not yet changed */
+  f = fopen(dst_name, "r");
+  CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+  fclose(f);
+  CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+
+  /* Write out the file atomically. */
+  CPPUNIT_ASSERT_EQUAL(true, a->commit());
+  /* !! a left open, it is expected to flush out / rename at close() */
+
+  /* Now verify the contents of dst against source */
+
+  f = fopen(dst_name, "r");
+  CPPUNIT_ASSERT(f != NULL);
+  fseek(f, 0, SEEK_END);
+  CPPUNIT_ASSERT_EQUAL(source->length(), static_cast<size_t>(ftell(f)));
+  verification.resize(source->length());
+  fseek(f, 0, SEEK_SET);
+  CPPUNIT_ASSERT_EQUAL(source->length(), fread(verification.begin(), 1,
+        source->length(), f));
+  CPPUNIT_ASSERT_STRING_EQUAL(*source, verification);
+
+  /* Also verify the chmod */
+  CPPUNIT_ASSERT_EQUAL(0, fstat(fileno(f), &st));
+  CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode & ~S_IFMT);
+
+  fclose(f);
+
+  fclose(f2);		/* The junk file kept open */
+  unlink(dst_name);
+  delete a;
+}
+
 void AtomicFileTest :: abortTest (void)
 {
   AtomicFile *a;
