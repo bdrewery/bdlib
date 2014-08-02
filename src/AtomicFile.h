@@ -41,15 +41,17 @@ class AtomicFile {
     String _fname;
     String _tmpname;
     int _fd;
+    mode_t _mode;
   public:
-    AtomicFile() : _fname(), _tmpname(), _fd(-1) {};
-    AtomicFile(AtomicFile& f) : _fname(f._fname), _tmpname(), _fd(f._fd) {};
+    AtomicFile() : _fname(), _tmpname(), _fd(-1), _mode(-1) {};
+    AtomicFile(AtomicFile& f) : _fname(f._fname), _tmpname(), _fd(f._fd),
+                                _mode(f._mode) {};
     virtual ~AtomicFile();
 
     /**
      * @brief Open a file for writing.
      */
-    void open(const String& fname);
+    void open(const String& fname, mode_t mode = -1);
 
     /**
      * @brief Abort creating a file and cleanup.

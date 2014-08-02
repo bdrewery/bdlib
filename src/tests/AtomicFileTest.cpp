@@ -68,6 +68,7 @@ void AtomicFileTest :: basicTest (void)
   const char *dst_name;
   char buf[4];
   String verification;
+  struct stat st;
 
   dst_name = "test.file";
   unlink(dst_name);
@@ -81,7 +82,7 @@ void AtomicFileTest :: basicTest (void)
 
   /* Write out source into the dst */
   a = new AtomicFile;
-  a->open(dst_name);
+  a->open(dst_name, S_IRUSR);
   CPPUNIT_ASSERT_EQUAL(true, a->is_open());
   /* Write out the data to the fd through a FILE stream */
   fd = a->fd();
@@ -115,6 +116,11 @@ void AtomicFileTest :: basicTest (void)
   CPPUNIT_ASSERT_EQUAL(source->length(), fread(verification.begin(), 1,
         source->length(), f));
   CPPUNIT_ASSERT_STRING_EQUAL(*source, verification);
+
+  /* Also verify the chmod */
+  CPPUNIT_ASSERT_EQUAL(0, fstat(fileno(f), &st));
+  CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode & ~S_IFMT);
+
   fclose(f);
 
   fclose(f2);		/* The junk file kept open */

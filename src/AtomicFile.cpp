@@ -25,6 +25,8 @@
 /* AtomicFile.cpp
  */
 
+#include <sys/stat.h>
+
 #include <unistd.h>
 
 #include "AtomicFile.h"
@@ -36,11 +38,12 @@ AtomicFile::~AtomicFile() {
   }
 }
 
-void AtomicFile::open(const String& fname) {
+void AtomicFile::open(const String& fname, mode_t mode) {
   size_t slash_pos;
   String dir;
 
   this->_fname = fname;
+  this->_mode = mode;
 
   /*
    * Get a tempfile in the same directory as the target so that rename(2)
@@ -76,6 +79,9 @@ bool AtomicFile::commit() {
 
   result = false;
   remove_temp = true;
+  if (this->_mode != mode_t(-1) && fchmod(this->_fd, this->_mode) != 0) {
+    goto cleanup;
+  }
   if (::fsync(this->_fd) != 0) {
     goto cleanup;
   }
