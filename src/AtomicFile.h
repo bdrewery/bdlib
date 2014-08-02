@@ -59,7 +59,7 @@ class AtomicFile {
     /**
      * @brief Open a file for writing.
      */
-    void open(const String& fname, mode_t mode = -1);
+    bool open(const String& fname, mode_t mode = -1);
 
     /**
      * @brief Abort creating a file and cleanup.

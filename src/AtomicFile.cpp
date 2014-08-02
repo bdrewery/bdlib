@@ -33,7 +33,7 @@
 
 BDLIB_NS_BEGIN
 
-void AtomicFile::open(const String& fname, mode_t mode) {
+bool AtomicFile::open(const String& fname, mode_t mode) {
   size_t slash_pos;
   String dir;
 
@@ -57,6 +57,8 @@ void AtomicFile::open(const String& fname, mode_t mode) {
   /* XXX: Move nul-writing to String per C++11 */
   this->_tmpname.resize(this->_tmpname.length() + 1);
   this->_fd = mkstemp(this->_tmpname.begin());
+
+  return this->is_open();
 }
 
 bool AtomicFile::abort() {
