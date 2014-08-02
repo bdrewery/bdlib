@@ -8,6 +8,7 @@ libbdlib_a_SOURCES= \
 			src/Cstrings.cpp \
 			src/base64.cpp \
 			src/Array.cpp \
+			src/AtomicFile.cpp \
 			src/BinaryTree.cpp \
 			src/HashTable.cpp \
 			src/List.cpp \
@@ -26,6 +27,7 @@ TESTS=			UnitRunner
 check_PROGRAMS=		UnitRunner
 UnitRunner_SOURCES=	src/tests/UnitRunner.cpp \
 			src/tests/ArrayTest.cpp \
+			src/tests/AtomicFileTest.cpp \
 			src/tests/BinaryTreeTest.cpp \
 			src/tests/HashTableTest.cpp \
 			src/tests/ListTest.cpp \
