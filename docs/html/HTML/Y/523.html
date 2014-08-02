@@ -1,16 +1,22 @@
 <html>
 <head>
-<title>toRead</title>
+<title>newpos</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/53.html#L78'>toRead</a>             78 Stream.cpp       size_t toRead = std::min(maxSize, length() - pos);
-<a href='../S/53.html#L82'>toRead</a>             82 Stream.cpp         String ret(str(pos, toRead));
-<a href='../S/53.html#L83'>toRead</a>             83 Stream.cpp         pos += toRead;
-<a href='../S/53.html#L88'>toRead</a>             88 Stream.cpp       String ret(toRead);
-<a href='../S/53.html#L90'>toRead</a>             90 Stream.cpp       while ((ret.length() &lt; toRead) &amp;&amp; (str[pos] != delim)) {
+<a href='../S/71.html#L53'>newpos</a>             53 Stream.cpp       int newpos;
+<a href='../S/71.html#L57'>newpos</a>             57 Stream.cpp           newpos = offset;
+<a href='../S/71.html#L60'>newpos</a>             60 Stream.cpp           newpos = tell() + offset;
+<a href='../S/71.html#L63'>newpos</a>             63 Stream.cpp           newpos = capacity() - offset;
+<a href='../S/71.html#L66'>newpos</a>             66 Stream.cpp           newpos = tell();
+<a href='../S/71.html#L68'>newpos</a>             68 Stream.cpp       if (newpos &lt; 0)
+<a href='../S/71.html#L69'>newpos</a>             69 Stream.cpp         newpos = 0;
+<a href='../S/71.html#L70'>newpos</a>             70 Stream.cpp       else if (static_cast&lt;size_t&gt;(newpos) &gt; capacity())
+<a href='../S/71.html#L71'>newpos</a>             71 Stream.cpp         newpos = capacity();
+<a href='../S/71.html#L72'>newpos</a>             72 Stream.cpp       pos = newpos;
+<a href='../S/71.html#L74'>newpos</a>             74 Stream.cpp       return newpos;
 </pre>
 </body>
 </html>

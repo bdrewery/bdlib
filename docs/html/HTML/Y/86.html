@@ -1,24 +1,23 @@
 <html>
 <head>
-<title>SortedListTest</title>
+<title>ReturnType</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/23.html#L30'>SortedListTest</a>     30 tests/SortedListTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (SortedListTest);
-<a href='../S/23.html#L32'>SortedListTest</a>     32 tests/SortedListTest.cpp void SortedListTest :: setUp (void)
-<a href='../S/23.html#L55'>SortedListTest</a>     55 tests/SortedListTest.cpp void SortedListTest :: tearDown (void)
-<a href='../S/23.html#L62'>SortedListTest</a>     62 tests/SortedListTest.cpp void SortedListTest :: insertTest (void)
-<a href='../S/23.html#L82'>SortedListTest</a>     82 tests/SortedListTest.cpp void SortedListTest :: containsTest (void)
-<a href='../S/23.html#L102'>SortedListTest</a>    102 tests/SortedListTest.cpp void SortedListTest :: copyTest (void)
-<a href='../S/23.html#L139'>SortedListTest</a>    139 tests/SortedListTest.cpp void SortedListTest :: findTest(void)
-<a href='../S/23.html#L174'>SortedListTest</a>    174 tests/SortedListTest.cpp void SortedListTest :: clearTest (void)
-<a href='../S/23.html#L191'>SortedListTest</a>    191 tests/SortedListTest.cpp void SortedListTest :: removeTest (void)
-<a href='../S/23.html#L255'>SortedListTest</a>    255 tests/SortedListTest.cpp void SortedListTest :: iterateTest (void)
-<a href='../S/23.html#L298'>SortedListTest</a>    298 tests/SortedListTest.cpp void SortedListTest :: iterateTest (void)
-<a href='../S/11.html#L37'>SortedListTest</a>     37 tests/SortedListTest.h class SortedListTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/11.html#L39'>SortedListTest</a>     39 tests/SortedListTest.h     CPPUNIT_TEST_SUITE (SortedListTest);
+<a href='../S/67.html#L108'>ReturnType</a>        108 ScriptInterp.h         template&lt;typename InterpType, typename ReturnType, typename... Params&gt;
+<a href='../S/67.html#L109'>ReturnType</a>        109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/44.html#L170'>ReturnType</a>        170 ScriptInterpTCL.h         template&lt;typename ReturnType, typename... Params&gt;
+<a href='../S/44.html#L171'>ReturnType</a>        171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/44.html#L172'>ReturnType</a>        172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
+<a href='../S/6.html#L9'>ReturnType</a>          9 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/6.html#L11'>ReturnType</a>         11 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/6.html#L13'>ReturnType</a>         13 ScriptInterpTCLCallbacks.h     ReturnType result = std::move(callback(std::forward&lt;Params&gt;(args)...));
+<a href='../S/6.html#L14'>ReturnType</a>         14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;ReturnType&gt;::from(std::move(result), interp)));
+<a href='../S/6.html#L27'>ReturnType</a>         27 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/6.html#L29'>ReturnType</a>         29 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/6.html#L39'>ReturnType</a>         39 ScriptInterpTCLCallbacks.h       ScriptCallbackDispatchTCL&lt;ReturnType, Params...&gt;::dispatch(interp, _callback,
 </pre>
 </body>
 </html>

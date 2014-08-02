@@ -1,36 +1,15 @@
 <html>
 <head>
-<title>newSize</title>
+<title>fillArray</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L111'>newSize</a>           111 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
-<a href='../S/44.html#L112'>newSize</a>           112 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
-<a href='../S/43.html#L73'>newSize</a>            73 ReferenceCountedArray.h     void Reserve(size_t newSize, double scaling_factor, size_t&amp; offset, size_t sublen) const
-<a href='../S/43.html#L76'>newSize</a>            76 ReferenceCountedArray.h       if (size &lt; newSize) {
-<a href='../S/43.html#L77'>newSize</a>            77 ReferenceCountedArray.h         newSize = std::max(size_t(size * scaling_factor), newSize);
-<a href='../S/43.html#L79'>newSize</a>            79 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
-<a href='../S/43.html#L83'>newSize</a>            83 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
-<a href='../S/43.html#L90'>newSize</a>            90 ReferenceCountedArray.h           size = newSize;
-<a href='../S/43.html#L93'>newSize</a>            93 ReferenceCountedArray.h       } else if ((size - offset) &lt; newSize) {
-<a href='../S/43.html#L398'>newSize</a>           398 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/43.html#L399'>newSize</a>           399 ReferenceCountedArray.h       if (newSize) {
-<a href='../S/43.html#L400'>newSize</a>           400 ReferenceCountedArray.h         Reserve(newSize);
-<a href='../S/43.html#L411'>newSize</a>           411 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/43.html#L412'>newSize</a>           412 ReferenceCountedArray.h       if (newSize) {
-<a href='../S/43.html#L413'>newSize</a>           413 ReferenceCountedArray.h         Reserve(newSize);
-<a href='../S/43.html#L415'>newSize</a>           415 ReferenceCountedArray.h         for (size_t i = 0; i &lt; newSize; ++i) {
-<a href='../S/43.html#L418'>newSize</a>           418 ReferenceCountedArray.h         this-&gt;setLength(newSize);
-<a href='../S/43.html#L515'>newSize</a>           515 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize, double scaling_factor = 1) const {
-<a href='../S/43.html#L519'>newSize</a>           519 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
-<a href='../S/53.html#L46'>newSize</a>            46 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
-<a href='../S/53.html#L47'>newSize</a>            47 Stream.cpp       if (newSize &lt; capacity())
-<a href='../S/53.html#L49'>newSize</a>            49 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
-<a href='../S/34.html#L66'>newSize</a>            66 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
-<a href='../S/35.html#L128'>newSize</a>           128 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
-<a href='../S/35.html#L129'>newSize</a>           129 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/4.html#L280'>fillArray</a>         280 BinaryTree.h           void fillArray(int&amp; i, const Node* node) {
+<a href='../S/4.html#L283'>fillArray</a>         283 BinaryTree.h             fillArray(i, node-&gt;left);
+<a href='../S/4.html#L285'>fillArray</a>         285 BinaryTree.h             fillArray(i, node-&gt;right);
+<a href='../S/4.html#L295'>fillArray</a>         295 BinaryTree.h             fillArray(i, node);
 </pre>
 </body>
 </html>

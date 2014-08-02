@@ -1,19 +1,48 @@
 <html>
 <head>
-<title>USE_PTHREAD</title>
+<title>ScriptInterp</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/48.html#L51'>USE_PTHREAD</a>        51 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L82'>USE_PTHREAD</a>        82 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L97'>USE_PTHREAD</a>        97 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L111'>USE_PTHREAD</a>       111 Thread.cpp     #if defined(USE_PTHREAD)
-<a href='../S/48.html#L127'>USE_PTHREAD</a>       127 Thread.cpp     #if defined(USE_PTHREAD) || defined(NO_THREADS)
-<a href='../S/48.html#L135'>USE_PTHREAD</a>       135 Thread.cpp     #if defined(USE_PTHREAD) || defined(NO_THREADS)
-<a href='../S/49.html#L33'>USE_PTHREAD</a>        33 Thread.h       #if !defined(USE_PTHREAD) &amp;&amp; !defined(WIN32)
-<a href='../S/49.html#L37'>USE_PTHREAD</a>        37 Thread.h       #if defined(USE_PTHREAD)
+<a href='../S/67.html#L34'>ScriptInterp</a>       34 ScriptInterp.h class ScriptInterp;
+<a href='../S/67.html#L39'>ScriptInterp</a>       39 ScriptInterp.h     virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
+<a href='../S/67.html#L47'>ScriptInterp</a>       47 ScriptInterp.h     ScriptInterp* si;
+<a href='../S/67.html#L50'>ScriptInterp</a>       50 ScriptInterp.h     ScriptCallbacker(ScriptInterp* _si, const String&amp; _cmd) : si(_si), cmd(_cmd) {};
+<a href='../S/67.html#L59'>ScriptInterp</a>       59 ScriptInterp.h class ScriptInterp {
+<a href='../S/67.html#L61'>ScriptInterp</a>       61 ScriptInterp.h         ScriptInterp(const ScriptInterp&amp;) = delete;
+<a href='../S/67.html#L62'>ScriptInterp</a>       62 ScriptInterp.h         ScriptInterp&amp; operator=(const ScriptInterp&amp;) = delete;
+<a href='../S/67.html#L70'>ScriptInterp</a>       70 ScriptInterp.h           ScriptInterp* si;
+<a href='../S/67.html#L75'>ScriptInterp</a>       75 ScriptInterp.h           script_cmd_handler_clientdata (ScriptInterp* _si, ScriptCallbackBase* _callback_proxy, const char* _usage, size_t _callbackParamMin, size_t _callbackParamMax) :
+<a href='../S/67.html#L88'>ScriptInterp</a>       88 ScriptInterp.h         ScriptInterp() {};
+<a href='../S/67.html#L89'>ScriptInterp</a>       89 ScriptInterp.h         virtual ~ScriptInterp() {};
+<a href='../S/52.html#L13'>ScriptInterp</a>       13 ScriptInterpTCL.cpp HashTable&lt;String, ScriptInterp::link_var_hook&gt; ScriptInterpTCL::link_var_hooks;
+<a href='../S/52.html#L66'>ScriptInterp</a>       66 ScriptInterpTCL.cpp ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String&amp; fileName, String&amp; resultStr) {
+<a href='../S/52.html#L183'>ScriptInterp</a>      183 ScriptInterpTCL.cpp String tcl_to_c_cast&lt;String&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L195'>ScriptInterp</a>      195 ScriptInterpTCL.cpp const char* tcl_to_c_cast&lt;const char*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L206'>ScriptInterp</a>      206 ScriptInterpTCL.cpp int tcl_to_c_cast&lt;int&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L220'>ScriptInterp</a>      220 ScriptInterpTCL.cpp long tcl_to_c_cast&lt;long&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L229'>ScriptInterp</a>      229 ScriptInterpTCL.cpp double tcl_to_c_cast&lt;double&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L238'>ScriptInterp</a>      238 ScriptInterpTCL.cpp bool tcl_to_c_cast&lt;bool&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L247'>ScriptInterp</a>      247 ScriptInterpTCL.cpp ScriptCallbacker* tcl_to_c_cast&lt;ScriptCallbacker*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L262'>ScriptInterp</a>      262 ScriptInterpTCL.cpp Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/52.html#L278'>ScriptInterp</a>      278 ScriptInterpTCL.cpp Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/44.html#L73'>ScriptInterp</a>       73 ScriptInterpTCL.h     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
+<a href='../S/44.html#L125'>ScriptInterp</a>      125 ScriptInterpTCL.h     ScriptCallbackerTCL(ScriptInterp* _si, const String&amp; _cmd) : ScriptCallbacker(_si, _cmd) {};
+<a href='../S/44.html#L130'>ScriptInterp</a>      130 ScriptInterpTCL.h class ScriptInterpTCL : public ScriptInterp {
+<a href='../S/44.html#L131'>ScriptInterp</a>      131 ScriptInterpTCL.h   friend Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/44.html#L132'>ScriptInterp</a>      132 ScriptInterpTCL.h   friend Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/44.html#L155'>ScriptInterp</a>      155 ScriptInterpTCL.h         ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
+<a href='../S/6.html#L35'>ScriptInterp</a>       35 ScriptInterpTCLCallbacks.h     inline void real_call(__attribute__((__unused__)) size_t argc, void* const argv[], __attribute__((__unused__)) ScriptInterp* si, void *proxy_data, indices&lt;Indices...&gt;) {
+<a href='../S/6.html#L50'>ScriptInterp</a>       50 ScriptInterpTCLCallbacks.h     inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data) {
+<a href='../S/21.html#L48'>ScriptInterp</a>       48 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_WRONG_INTERP, tcl_script.loadScript("/dev/null", resultStr));
+<a href='../S/21.html#L57'>ScriptInterp</a>       57 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_ERROR, tcl_script.loadScript(fileName, resultStr));
+<a href='../S/21.html#L59'>ScriptInterp</a>       59 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_OK, tcl_script.loadScript(fileName, resultStr));
+<a href='../S/21.html#L124'>ScriptInterp</a>      124 tests/ScriptInterpTCLTest.cpp   ScriptInterp::linkVar(tcl_script, "t_x", x);
+<a href='../S/21.html#L148'>ScriptInterp</a>      148 tests/ScriptInterpTCLTest.cpp   ScriptInterp::linkVar(tcl_script, "t_y", y);
+<a href='../S/21.html#L215'>ScriptInterp</a>      215 tests/ScriptInterpTCLTest.cpp   tcl_script.linkVar("nick", nick, reinterpret_cast&lt;ScriptInterp::link_var_hook&gt;(changed_nick));
+<a href='../S/21.html#L315'>ScriptInterp</a>      315 tests/ScriptInterpTCLTest.cpp   ScriptInterp::createCommand(tcl_script, "param_test", param_test, nullptr, 1);
 </pre>
 </body>
 </html>

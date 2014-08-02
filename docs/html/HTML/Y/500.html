@@ -1,31 +1,19 @@
 <html>
 <head>
-<title>sublen</title>
+<title>my_fd</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L73'>sublen</a>             73 ReferenceCountedArray.h     void Reserve(size_t newSize, double scaling_factor, size_t&amp; offset, size_t sublen) const
-<a href='../S/43.html#L86'>sublen</a>             86 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
-<a href='../S/43.html#L97'>sublen</a>             97 ReferenceCountedArray.h         memmove(static_cast&lt;void*&gt;(buf), static_cast&lt;void*&gt;(buf + offset), sublen);
-<a href='../S/43.html#L231'>sublen</a>            231 ReferenceCountedArray.h       sublen = 0;
-<a href='../S/43.html#L250'>sublen</a>            250 ReferenceCountedArray.h     inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
-<a href='../S/43.html#L255'>sublen</a>            255 ReferenceCountedArray.h     inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
-<a href='../S/43.html#L260'>sublen</a>            260 ReferenceCountedArray.h     inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
-<a href='../S/43.html#L296'>sublen</a>            296 ReferenceCountedArray.h     mutable size_t sublen;
-<a href='../S/43.html#L377'>sublen</a>            377 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/43.html#L379'>sublen</a>            379 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/43.html#L381'>sublen</a>            381 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
-<a href='../S/43.html#L385'>sublen</a>            385 ReferenceCountedArray.h       rca.sublen = 0;
-<a href='../S/43.html#L398'>sublen</a>            398 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/43.html#L411'>sublen</a>            411 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(NULL), offset(0), sublen(0), my_hash(0) {
-<a href='../S/43.html#L437'>sublen</a>            437 ReferenceCountedArray.h       swap(a.sublen, b.sublen);
-<a href='../S/43.html#L455'>sublen</a>            455 ReferenceCountedArray.h       sublen = rca.sublen;
-<a href='../S/43.html#L472'>sublen</a>            472 ReferenceCountedArray.h       sublen = std::move(rca.sublen);
-<a href='../S/43.html#L478'>sublen</a>            478 ReferenceCountedArray.h       rca.sublen = 0;
-<a href='../S/43.html#L519'>sublen</a>            519 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
-<a href='../S/43.html#L554'>sublen</a>            554 ReferenceCountedArray.h     inline size_t length() const { return sublen; };
+<a href='../S/71.html#L127'>my_fd</a>             127 Stream.cpp       int my_fd = dup(fd);
+<a href='../S/71.html#L128'>my_fd</a>             128 Stream.cpp       if (my_fd == -1) {
+<a href='../S/71.html#L131'>my_fd</a>             131 Stream.cpp       FILE *f = fdopen(my_fd, "rb");
+<a href='../S/71.html#L133'>my_fd</a>             133 Stream.cpp         close(my_fd);
+<a href='../S/71.html#L183'>my_fd</a>             183 Stream.cpp       int my_fd = dup(fd);
+<a href='../S/71.html#L184'>my_fd</a>             184 Stream.cpp       if (my_fd == -1) {
+<a href='../S/71.html#L187'>my_fd</a>             187 Stream.cpp       FILE *f = fdopen(my_fd, "wb");
+<a href='../S/71.html#L189'>my_fd</a>             189 Stream.cpp         close(my_fd);
 </pre>
 </body>
 </html>

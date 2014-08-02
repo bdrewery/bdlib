@@ -1,13 +1,16 @@
 <html>
 <head>
-<title>write</title>
+<title>proxy_data</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L695'>write</a>             695 ReferenceCountedArray.h     inline void write(size_t pos, value_type item) {
-<a href='../S/43.html#L748'>write</a>             748 ReferenceCountedArray.h           rca.write(k, c);
+<a href='../S/67.html#L39'>proxy_data</a>         39 ScriptInterp.h     virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
+<a href='../S/6.html#L35'>proxy_data</a>         35 ScriptInterpTCLCallbacks.h     inline void real_call(__attribute__((__unused__)) size_t argc, void* const argv[], __attribute__((__unused__)) ScriptInterp* si, void *proxy_data, indices&lt;Indices...&gt;) {
+<a href='../S/6.html#L37'>proxy_data</a>         37 ScriptInterpTCLCallbacks.h       Tcl_Interp* interp = static_cast&lt;Tcl_Interp*&gt;(proxy_data);
+<a href='../S/6.html#L50'>proxy_data</a>         50 ScriptInterpTCLCallbacks.h     inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data) {
+<a href='../S/6.html#L51'>proxy_data</a>         51 ScriptInterpTCLCallbacks.h       real_call(argc, argv, si, proxy_data, make_indices&lt;sizeof...(Params)&gt;());
 </pre>
 </body>
 </html>

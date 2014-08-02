@@ -16,5 +16,6 @@ var searchData=
   ['todo_20list',['Todo List',['../todo.html',1,'']]],
   ['tr1_5fhashtable_5fdefine_5ftrivial_5fhash',['tr1_hashtable_define_trivial_hash',['../hash_8h.html#ae442b198aa3ccb09af85ebc2683f6dc5',1,'hash.h']]],
   ['trim',['trim',['../classbd_1_1String.html#a0580ce3d2e366213b6ab5b350a49a496',1,'bd::String::trim()'],['../classbd_1_1String.html#a8dbed17e9ea0a29e706e4c8c2cd1792d',1,'bd::String::trim() const ']]],
-  ['truncate',['truncate',['../classbd_1_1Stream.html#a4257a7917f865182ad31998b50ea7694',1,'bd::Stream']]]
+  ['truncate',['truncate',['../classbd_1_1Stream.html#a4257a7917f865182ad31998b50ea7694',1,'bd::Stream']]],
+  ['type',['type',['../structmake__indices__impl_3_01index__to__add_00_01indices_3_01Indices_8_8_8_4_01_4.html#a9ecef5deb552146b4e085d069cbcd8f5',1,'make_indices_impl&lt; index_to_add, indices&lt; Indices...&gt; &gt;::type()'],['../structmake__indices__impl_3_010_00_01indices_3_01Indices_8_8_8_4_01_4.html#a54d7790fc9c0542045960bcb46b5d65e',1,'make_indices_impl&lt; 0, indices&lt; Indices...&gt; &gt;::type()'],['../classbd_1_1ScriptInterp.html#aacd6494eedb7f896011772db75aef6c4',1,'bd::ScriptInterp::type()']]]
 ];

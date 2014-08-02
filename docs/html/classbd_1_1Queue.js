@@ -26,6 +26,7 @@ var classbd_1_1Queue =
     [ "front", "classbd_1_1Queue.html#ab42fba31349d2a3fa65514d25a08856d", null ],
     [ "insert", "classbd_1_1Queue.html#ae637e8a7947b75ed2fe50a7a268b7f5e", null ],
     [ "isEmpty", "classbd_1_1Queue.html#a3f87c953fb7b3affd52395d414c5a748", null ],
+    [ "operator bool", "classbd_1_1Queue.html#a3e4b1ef53a4a3c273bfdaaaec3552a7b", null ],
     [ "remove", "classbd_1_1Queue.html#a36f89a30b948455f1a3974b1dd9f172b", null ],
     [ "size", "classbd_1_1Queue.html#ae9c0e07262f03bd74bb85edb10da0b51", null ],
     [ "operator<<", "classbd_1_1Queue.html#a51a03c44815bf33a29a134ab097c80e7", null ],

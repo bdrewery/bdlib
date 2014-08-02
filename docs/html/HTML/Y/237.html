@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>buf</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/56.html#L57'>buf</a>                57 ReferenceCountedArray.h       mutable iterator buf;
+<a href='../S/56.html#L62'>buf</a>                62 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+<a href='../S/56.html#L64'>buf</a>                64 ReferenceCountedArray.h       if (buf) {
+<a href='../S/56.html#L65'>buf</a>                65 ReferenceCountedArray.h         FreeBuf(buf);
+<a href='../S/56.html#L84'>buf</a>                84 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/56.html#L86'>buf</a>                86 ReferenceCountedArray.h         if (newbuf != buf) {
+<a href='../S/56.html#L89'>buf</a>                89 ReferenceCountedArray.h           if (buf) {
+<a href='../S/56.html#L91'>buf</a>                91 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
+<a href='../S/56.html#L92'>buf</a>                92 ReferenceCountedArray.h             FreeBuf(buf);
+<a href='../S/56.html#L94'>buf</a>                94 ReferenceCountedArray.h           buf = newbuf;
+<a href='../S/56.html#L102'>buf</a>               102 ReferenceCountedArray.h         std::memmove(static_cast&lt;void*&gt;(buf), static_cast&lt;void*&gt;(buf + offset), sublen);
+<a href='../S/56.html#L266'>buf</a>               266 ReferenceCountedArray.h     inline pointer Buf(size_t pos = 0) const { return Ref ? &amp;Ref-&gt;buf[offset + pos] : nullptr; };
+<a href='../S/56.html#L283'>buf</a>               283 ReferenceCountedArray.h     inline const_pointer real_begin() const { return Ref ? Ref-&gt;buf : nullptr; };
+<a href='../S/71.html#L144'>buf</a>               144 Stream.cpp       char buf[STREAM_BLOCKSIZE + 1];
+<a href='../S/71.html#L146'>buf</a>               146 Stream.cpp       while ((len = fread(buf, 1, sizeof(buf) - 1, f))) {
+<a href='../S/71.html#L147'>buf</a>               147 Stream.cpp         puts(String(buf, len));
+<a href='../S/43.html#L40'>buf</a>                40 base64.cpp       char *buf = dest;
+<a href='../S/43.html#L71'>buf</a>                71 base64.cpp         buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/43.html#L73'>buf</a>                73 base64.cpp         buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/43.html#L75'>buf</a>                75 base64.cpp         buf[2] = charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
+<a href='../S/43.html#L77'>buf</a>                77 base64.cpp         buf[3] = charset[data[2] &amp; 0x3f];
+<a href='../S/43.html#L80'>buf</a>                80 base64.cpp         buf += NUM_ENCODED_BYTES;
+<a href='../S/43.html#L86'>buf</a>                86 base64.cpp         buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/43.html#L88'>buf</a>                88 base64.cpp           buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
+<a href='../S/43.html#L89'>buf</a>                89 base64.cpp           buf[2] = PADDING_CHAR;
+<a href='../S/43.html#L92'>buf</a>                92 base64.cpp           buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/43.html#L93'>buf</a>                93 base64.cpp           buf[2] = charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
+<a href='../S/43.html#L95'>buf</a>                95 base64.cpp         buf[3] = PADDING_CHAR;
+<a href='../S/43.html#L96'>buf</a>                96 base64.cpp         buf += NUM_ENCODED_BYTES;
+<a href='../S/43.html#L99'>buf</a>                99 base64.cpp       *len = buf - dest;
+<a href='../S/43.html#L123'>buf</a>               123 base64.cpp       char *buf = dest;
+<a href='../S/43.html#L133'>buf</a>               133 base64.cpp         *buf++ = (charset_index[data[0]] &lt;&lt; 2) + ((charset_index[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/43.html#L136'>buf</a>               136 base64.cpp           *buf++ = ((charset_index[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((charset_index[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/43.html#L139'>buf</a>               139 base64.cpp             *buf++ = ((charset_index[data[2]] &amp; 0x03) &lt;&lt; 6) + charset_index[data[3]];
+<a href='../S/43.html#L146'>buf</a>               146 base64.cpp       *len = (buf - dest);
+<a href='../S/18.html#L69'>buf</a>                69 tests/AtomicFileTest.cpp   char buf[4];
+<a href='../S/18.html#L100'>buf</a>               100 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L102'>buf</a>               102 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+<a href='../S/18.html#L137'>buf</a>               137 tests/AtomicFileTest.cpp   char buf[4];
+<a href='../S/18.html#L168'>buf</a>               168 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L170'>buf</a>               170 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+<a href='../S/18.html#L205'>buf</a>               205 tests/AtomicFileTest.cpp   char buf[4];
+<a href='../S/18.html#L236'>buf</a>               236 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L238'>buf</a>               238 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+<a href='../S/18.html#L244'>buf</a>               244 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L248'>buf</a>               248 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+<a href='../S/18.html#L261'>buf</a>               261 tests/AtomicFileTest.cpp   char buf[4];
+<a href='../S/18.html#L292'>buf</a>               292 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L294'>buf</a>               294 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+<a href='../S/18.html#L301'>buf</a>               301 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L305'>buf</a>               305 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+<a href='../S/35.html#L346'>buf</a>               346 tests/BinaryTreeTest.cpp     char buf[10] = "";
+<a href='../S/35.html#L347'>buf</a>               347 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", i);
+<a href='../S/35.html#L348'>buf</a>               348 tests/BinaryTreeTest.cpp     (*a).insert(i, String(buf));
+<a href='../S/35.html#L355'>buf</a>               355 tests/BinaryTreeTest.cpp     char buf[10] = "";
+<a href='../S/35.html#L356'>buf</a>               356 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L358'>buf</a>               358 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/35.html#L365'>buf</a>               365 tests/BinaryTreeTest.cpp     char buf[10] = "";
+<a href='../S/35.html#L366'>buf</a>               366 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L368'>buf</a>               368 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/35.html#L376'>buf</a>               376 tests/BinaryTreeTest.cpp     char buf[10] = "";
+<a href='../S/35.html#L377'>buf</a>               377 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L379'>buf</a>               379 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/35.html#L399'>buf</a>               399 tests/BinaryTreeTest.cpp     char buf[10] = "";
+<a href='../S/35.html#L400'>buf</a>               400 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L402'>buf</a>               402 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/35.html#L410'>buf</a>               410 tests/BinaryTreeTest.cpp     char buf[10] = "";
+<a href='../S/35.html#L411'>buf</a>               411 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", i);
+<a href='../S/35.html#L412'>buf</a>               412 tests/BinaryTreeTest.cpp     (*a).insert(i, String(buf));
+<a href='../S/35.html#L435'>buf</a>               435 tests/BinaryTreeTest.cpp     char buf[10] = "";
+<a href='../S/35.html#L436'>buf</a>               436 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L438'>buf</a>               438 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), iter-&gt;value());
+<a href='../S/31.html#L363'>buf</a>               363 tests/ListTest.cpp     char buf[10] = "";
+<a href='../S/31.html#L364'>buf</a>               364 tests/ListTest.cpp     sprintf(buf, "test%d", i);
+<a href='../S/31.html#L365'>buf</a>               365 tests/ListTest.cpp     (*a).insert(String(buf));
+<a href='../S/31.html#L371'>buf</a>               371 tests/ListTest.cpp     char buf[10] = "";
+<a href='../S/31.html#L372'>buf</a>               372 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L373'>buf</a>               373 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/31.html#L380'>buf</a>               380 tests/ListTest.cpp     char buf[10] = "";
+<a href='../S/31.html#L381'>buf</a>               381 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L382'>buf</a>               382 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/31.html#L390'>buf</a>               390 tests/ListTest.cpp     char buf[10] = "";
+<a href='../S/31.html#L391'>buf</a>               391 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L392'>buf</a>               392 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/31.html#L411'>buf</a>               411 tests/ListTest.cpp     char buf[10] = "";
+<a href='../S/31.html#L412'>buf</a>               412 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L413'>buf</a>               413 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/31.html#L421'>buf</a>               421 tests/ListTest.cpp     char buf[10] = "";
+<a href='../S/31.html#L422'>buf</a>               422 tests/ListTest.cpp     sprintf(buf, "test%d", i);
+<a href='../S/31.html#L423'>buf</a>               423 tests/ListTest.cpp     (*a).insert(String(buf));
+<a href='../S/31.html#L445'>buf</a>               445 tests/ListTest.cpp     char buf[10] = "";
+<a href='../S/31.html#L446'>buf</a>               446 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L447'>buf</a>               447 tests/ListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/23.html#L129'>buf</a>               129 tests/QueueTest.cpp     char buf[2] = "";
+<a href='../S/23.html#L130'>buf</a>               130 tests/QueueTest.cpp     sprintf(buf, "%d", count);
+<a href='../S/23.html#L132'>buf</a>               132 tests/QueueTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, *iter);
+<a href='../S/28.html#L353'>buf</a>               353 tests/SortedListTest.cpp     char buf[10] = "";
+<a href='../S/28.html#L354'>buf</a>               354 tests/SortedListTest.cpp     sprintf(buf, "test%d", i);
+<a href='../S/28.html#L355'>buf</a>               355 tests/SortedListTest.cpp     (*a).insert(String(buf));
+<a href='../S/28.html#L361'>buf</a>               361 tests/SortedListTest.cpp     char buf[10] = "";
+<a href='../S/28.html#L362'>buf</a>               362 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L363'>buf</a>               363 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/28.html#L370'>buf</a>               370 tests/SortedListTest.cpp     char buf[10] = "";
+<a href='../S/28.html#L371'>buf</a>               371 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L372'>buf</a>               372 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/28.html#L380'>buf</a>               380 tests/SortedListTest.cpp     char buf[10] = "";
+<a href='../S/28.html#L381'>buf</a>               381 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L382'>buf</a>               382 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/28.html#L401'>buf</a>               401 tests/SortedListTest.cpp     char buf[10] = "";
+<a href='../S/28.html#L402'>buf</a>               402 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L403'>buf</a>               403 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/28.html#L411'>buf</a>               411 tests/SortedListTest.cpp     char buf[10] = "";
+<a href='../S/28.html#L412'>buf</a>               412 tests/SortedListTest.cpp     sprintf(buf, "test%d", i);
+<a href='../S/28.html#L413'>buf</a>               413 tests/SortedListTest.cpp     (*a).insert(String(buf));
+<a href='../S/28.html#L435'>buf</a>               435 tests/SortedListTest.cpp     char buf[10] = "";
+<a href='../S/28.html#L436'>buf</a>               436 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L437'>buf</a>               437 tests/SortedListTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL( String(buf), *iter);
+<a href='../S/25.html#L129'>buf</a>               129 tests/StackTest.cpp     char buf[2] = "";
+<a href='../S/25.html#L130'>buf</a>               130 tests/StackTest.cpp     sprintf(buf, "%d", count);
+<a href='../S/25.html#L132'>buf</a>               132 tests/StackTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, a-&gt;pop());
+<a href='../S/16.html#L69'>buf</a>                69 tests/StreamTest.cpp   char buf[2050];
+<a href='../S/16.html#L70'>buf</a>                70 tests/StreamTest.cpp   memset(buf, 'c', sizeof(buf) - 1);
+<a href='../S/16.html#L71'>buf</a>                71 tests/StreamTest.cpp   buf[sizeof(buf) - 1] = 0;
+<a href='../S/16.html#L72'>buf</a>                72 tests/StreamTest.cpp   g-&gt;puts(buf);
+<a href='../S/16.html#L77'>buf</a>                77 tests/StreamTest.cpp   b-&gt;puts(buf);
+<a href='../S/16.html#L252'>buf</a>               252 tests/StreamTest.cpp   char buf[1024] = "";
+<a href='../S/16.html#L256'>buf</a>               256 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != nullptr) {
+<a href='../S/16.html#L257'>buf</a>               257 tests/StreamTest.cpp     gbuf = a-&gt;getline(sizeof(buf) - 1);
+<a href='../S/16.html#L258'>buf</a>               258 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+<a href='../S/16.html#L297'>buf</a>               297 tests/StreamTest.cpp   char buf[1024] = "";
+<a href='../S/16.html#L301'>buf</a>               301 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != nullptr) {
+<a href='../S/16.html#L302'>buf</a>               302 tests/StreamTest.cpp     gbuf = a-&gt;getline(sizeof(buf) - 1);
+<a href='../S/16.html#L303'>buf</a>               303 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+<a href='../S/16.html#L344'>buf</a>               344 tests/StreamTest.cpp   char buf[1024] = "";
+<a href='../S/16.html#L348'>buf</a>               348 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != nullptr) {
+<a href='../S/16.html#L349'>buf</a>               349 tests/StreamTest.cpp     gbuf = a-&gt;getline(sizeof(buf) - 1);
+<a href='../S/16.html#L350'>buf</a>               350 tests/StreamTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(String(buf), gbuf);
+<a href='../S/32.html#L909'>buf</a>               909 tests/StringTest.cpp   char *buf = (char*) malloc(100);
+<a href='../S/32.html#L911'>buf</a>               911 tests/StringTest.cpp     buf[0] = 0;
+<a href='../S/32.html#L917'>buf</a>               917 tests/StringTest.cpp       strcat(buf, letter);
+<a href='../S/32.html#L919'>buf</a>               919 tests/StringTest.cpp     buf[i] = 0;
+<a href='../S/32.html#L920'>buf</a>               920 tests/StringTest.cpp     String tmpbuf(base64Encode(buf));
+<a href='../S/32.html#L923'>buf</a>               923 tests/StringTest.cpp     CPPUNIT_ASSERT_STRING_EQUAL(buf, decoded);
+<a href='../S/32.html#L926'>buf</a>               926 tests/StringTest.cpp   free(buf);
+</pre>
+</body>
+</html>

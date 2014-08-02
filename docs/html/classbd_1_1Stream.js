@@ -2,6 +2,7 @@ var classbd_1_1Stream =
 [
     [ "Stream", "classbd_1_1Stream.html#acd71f8441fce6b6d0e27d89fbf00b84f", null ],
     [ "Stream", "classbd_1_1Stream.html#a562a8665d069956c97a59bf9be62cd22", null ],
+    [ "Stream", "classbd_1_1Stream.html#ab0c5b820a0a14dd10488af35e7a3778e", null ],
     [ "Stream", "classbd_1_1Stream.html#a1aed1a170c72fa664ebdc3da97bf8d46", null ],
     [ "Stream", "classbd_1_1Stream.html#aab625c3aa24d7734ad8ada5ea620bba3", null ],
     [ "~Stream", "classbd_1_1Stream.html#a5451b5a88d45ca9503dfc2157bf71bd4", null ],
@@ -9,7 +10,7 @@ var classbd_1_1Stream =
     [ "clear", "classbd_1_1Stream.html#a6f7fd9e2e4ffd37aaaee18747e4ad8f1", null ],
     [ "getline", "classbd_1_1Stream.html#a2dd012ecac0d4764b4a272185ef0cef2", null ],
     [ "length", "classbd_1_1Stream.html#aafb9a787b7b0a4bc2f3365c3e63dbf1c", null ],
-    [ "loadFile", "classbd_1_1Stream.html#a2f877bdf034b3972d980d3268a79c803", null ],
+    [ "loadFile", "classbd_1_1Stream.html#a57cc224f19c5566ff6ececf178b9b94c", null ],
     [ "loadFile", "classbd_1_1Stream.html#a98fdb2a1d0a23d8fb5ff10cea02765cd", null ],
     [ "operator String", "classbd_1_1Stream.html#a2b0aed5fb1adbf7674067700183f0ec9", null ],
     [ "operator!", "classbd_1_1Stream.html#a58855c371b78ac651fb17f14798f18fc", null ],

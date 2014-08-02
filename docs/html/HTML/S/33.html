@@ -1,16 +1,18 @@
 <html>
 <head>
-<title>ReferenceCountedArray.cpp</title>
+<title>tests/QueueTest.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/ReferenceCountedArray.cpp</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/77.html'>tests</a>/QueueTest.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2><a href='23.html#L28' title='Included from 28 in tests/QueueTest.cpp.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
-<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2013, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
+<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2014, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
 <a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
 <a name='L4'>   4 <i><font color='green'> * </font></i>
 <a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
@@ -33,14 +35,40 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* ReferenceCountedArray.cpp</font></i>
-<a name='L26'>  26 <i><font color='green'> */</font></i>
-<a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='43.html'>ReferenceCountedArray.h</a>"
-<a name='L29'>  29 
-<a name='L30'>  30 <a href='../S/41.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L31'>  31 <b>const</b> <a href='../Y/460.html' title='Multiple used in 624 places.'>size_t</a> <a href='../Y/76.html' title='Multiple used in 9 places.'>ReferenceCountedArrayBase</a>::<a href='../Y/376.html' title='Multiple used in 31 places.'>npos</a>;
-<a name='L32'>  32 <a href='../S/41.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L25'>  25 <i><font color='green'>/* QueueTest.h</font></i>
+<a name='L26'>  26 <i><font color='green'> *</font></i>
+<a name='L27'>  27 <i><font color='green'> */</font></i>
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/33.html#L29' title='Defined at 29 in tests/QueueTest.h.'>_QUEUETEST_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/33.html#L28' title='Refered from 28 in tests/QueueTest.h.'>_QUEUETEST_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;cppunit/TestFixture.h&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> &lt;cppunit/extensions/HelperMacros.h&gt;
+<a name='L33'>  33 <font color='darkred'>#include</font> "<a href='47.html'>String.h</a>"
+<a name='L34'>  34 <font color='darkred'>#include</font> "<a href='60.html'>Queue.h</a>"
+<a name='L35'>  35 <a href='../Y/732.html' title='Multiple used in 24 places.'>using</a> <a href='../Y/513.html' title='Multiple used in 12 places.'>namespace</a> <a href='../S/54.html#L46' title='Defined at 46 in bdlib.h.'>BDLIB_NS</a>;
+<a name='L36'>  36 
+<a name='L37'>  37 <a href='../Y/267.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/82.html' title='Multiple used in 8 places.'>QueueTest</a> : <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a> <a href='../Y/21.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: <a href='../Y/155.html' title='Multiple used in 11 places.'>TestFixture</a>
+<a name='L38'>  38 <font color='red'>{</font>
+<a name='L39'>  39     <a href='../Y/24.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE</a> (<a href='../Y/82.html' title='Multiple used in 8 places.'>QueueTest</a>);
+<a name='L40'>  40     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/23.html#L62' title='Defined at 62 in tests/QueueTest.cpp.'>enqueueTest</a>);
+<a name='L41'>  41     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/23.html#L80' title='Defined at 80 in tests/QueueTest.cpp.'>dequeueTest</a>);
+<a name='L42'>  42     <a href='../Y/23.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../D/213.html' title='Multiple defined in 8 places.'>iterateTest</a>);
+<a name='L43'>  43     <a href='../Y/25.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE_END</a> ();
+<a name='L44'>  44 
+<a name='L45'>  45     <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L46'>  46         <b>void</b> <a href='../D/268.html' title='Multiple defined in 11 places.'>setUp</a> (<b>void</b>);
+<a name='L47'>  47         <b>void</b> <a href='../D/294.html' title='Multiple defined in 11 places.'>tearDown</a> (<b>void</b>);
+<a name='L48'>  48 
+<a name='L49'>  49     <a href='../Y/560.html' title='Multiple used in 20 places.'>protected</a>:
+<a name='L50'>  50         <b>void</b> <a href='../S/23.html#L62' title='Defined at 62 in tests/QueueTest.cpp.'>enqueueTest</a>(<b>void</b>);
+<a name='L51'>  51         <b>void</b> <a href='../S/23.html#L80' title='Defined at 80 in tests/QueueTest.cpp.'>dequeueTest</a>(<b>void</b>);
+<a name='L52'>  52         <b>void</b> <a href='../D/213.html' title='Multiple defined in 8 places.'>iterateTest</a>(<b>void</b>);
+<a name='L53'>  53     <a href='../Y/559.html' title='Multiple used in 39 places.'>private</a>:
+<a name='L54'>  54         <a href='../Y/79.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>&gt; *<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>, *<a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>, *<a href='../Y/241.html' title='Multiple used in 118 places.'>c</a>, *<a href='../Y/298.html' title='Multiple used in 77 places.'>d</a>;
+<a name='L55'>  55         <a href='../Y/79.html' title='Multiple used in 16 places.'>Queue</a>&lt;<a href='../Y/112.html' title='Multiple used in 464 places.'>String</a>*&gt; *<a href='../Y/326.html' title='Multiple used in 41 places.'>e</a>, *<a href='../Y/345.html' title='Multiple used in 147 places.'>f</a>, *<a href='../Y/388.html' title='Multiple used in 34 places.'>g</a>, *<a href='../Y/396.html' title='Multiple used in 27 places.'>h</a>;
+<a name='L56'>  56 <font color='red'>}</font>;
+<a name='L57'>  57 <font color='darkred'>#endif</font> <i><font color='green'>/* !_QUEUETEST_H */</font></i>
+<a name='L58'>  58 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>

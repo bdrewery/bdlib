@@ -1,14 +1,14 @@
 <html>
 <head>
-<title>quoted</title>
+<title>incRef</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L195'>quoted</a>            195 Array.h            String join(const String&amp; delim, bool quoted = false) const {
-<a href='../S/44.html#L201'>quoted</a>            201 Array.h              if (quoted)
-<a href='../S/44.html#L211'>quoted</a>            211 Array.h                if (quoted) {
+<a href='../S/56.html#L234'>incRef</a>            234 ReferenceCountedArray.h     inline int incRef() const { return Ref ? ++Ref-&gt;refs : 0; };
+<a href='../S/56.html#L375'>incRef</a>            375 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/56.html#L447'>incRef</a>            447 ReferenceCountedArray.h       rca.incRef();
 </pre>
 </body>
 </html>

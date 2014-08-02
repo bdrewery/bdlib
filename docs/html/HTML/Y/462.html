@@ -1,44 +1,19 @@
 <html>
 <head>
-<title>slen</title>
+<title>link_var_hook</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L239'>slen</a>              239 Array.h              size_t slen = std::min(array.length(), n);
-<a href='../S/44.html#L240'>slen</a>              240 Array.h              size_t len = std::min(my_len, slen);
-<a href='../S/10.html#L123'>slen</a>              123 Cstrings.c       size_t slen = strlen(entry);
-<a href='../S/10.html#L124'>slen</a>              124 Cstrings.c       size_t len = slen &lt; maxlen ? slen : maxlen;
-<a href='../S/43.html#L831'>slen</a>              831 ReferenceCountedArray.h       size_t slen = rca.length();
-<a href='../S/43.html#L834'>slen</a>              834 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
-<a href='../S/43.html#L839'>slen</a>              839 ReferenceCountedArray.h       if (n == npos || n &gt; slen)
-<a href='../S/43.html#L840'>slen</a>              840 ReferenceCountedArray.h         n = slen;
-<a href='../S/43.html#L841'>slen</a>              841 ReferenceCountedArray.h       slen -= slen - n;
-<a href='../S/43.html#L842'>slen</a>              842 ReferenceCountedArray.h       AboutToModify(length() + slen);
-<a href='../S/43.html#L843'>slen</a>              843 ReferenceCountedArray.h       memmove(static_cast&lt;void*&gt;(Buf() + pos + slen), static_cast&lt;void*&gt;(Buf() + pos), length() - pos);
-<a href='../S/43.html#L844'>slen</a>              844 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
-<a href='../S/43.html#L845'>slen</a>              845 ReferenceCountedArray.h       addLength(slen);
-<a href='../S/43.html#L890'>slen</a>              890 ReferenceCountedArray.h       size_t slen = rca.length();
-<a href='../S/43.html#L893'>slen</a>              893 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
-<a href='../S/43.html#L898'>slen</a>              898 ReferenceCountedArray.h       if (n == npos || n &gt; slen)
-<a href='../S/43.html#L899'>slen</a>              899 ReferenceCountedArray.h         n = slen;
-<a href='../S/43.html#L900'>slen</a>              900 ReferenceCountedArray.h       slen -= slen - n;
-<a href='../S/43.html#L902'>slen</a>              902 ReferenceCountedArray.h       size_t newlen = pos + slen;
-<a href='../S/43.html#L910'>slen</a>              910 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
-<a href='../S/54.html#L52'>slen</a>               52 String.cpp       const size_t slen = n ? std::min(str.length(), n) : str.length();
-<a href='../S/54.html#L53'>slen</a>               53 String.cpp       const size_t len = std::min(my_len - start, slen);
-<a href='../S/54.html#L58'>slen</a>               58 String.cpp         return std::min(my_len - start, n) - slen;
-<a href='../S/54.html#L60'>slen</a>               60 String.cpp         return (my_len - start) - slen;
-<a href='../S/54.html#L79'>slen</a>               79 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
-<a href='../S/54.html#L81'>slen</a>               81 String.cpp       AboutToModify(length() + slen);
-<a href='../S/54.html#L82'>slen</a>               82 String.cpp       memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
-<a href='../S/54.html#L83'>slen</a>               83 String.cpp       std::copy(string, string + slen, Buf() + pos);
-<a href='../S/54.html#L84'>slen</a>               84 String.cpp       addLength(slen);
-<a href='../S/54.html#L98'>slen</a>               98 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
-<a href='../S/54.html#L99'>slen</a>               99 String.cpp       size_t newlen = pos + slen;
-<a href='../S/54.html#L107'>slen</a>              107 String.cpp       std::copy(string, string + slen, Buf() + pos);
-<a href='../S/35.html#L108'>slen</a>              108 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
+<a href='../S/67.html#L86'>link_var_hook</a>      86 ScriptInterp.h         typedef void (*link_var_hook)(const void*, const void*);
+<a href='../S/52.html#L13'>link_var_hook</a>      13 ScriptInterpTCL.cpp HashTable&lt;String, ScriptInterp::link_var_hook&gt; ScriptInterpTCL::link_var_hooks;
+<a href='../S/52.html#L104'>link_var_hook</a>     104 ScriptInterpTCL.cpp void ScriptInterpTCL::setupTraces(const String&amp; varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
+<a href='../S/44.html#L140'>link_var_hook</a>     140 ScriptInterpTCL.h         void setupTraces(const String&amp; name, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func);
+<a href='../S/44.html#L154'>link_var_hook</a>     154 ScriptInterpTCL.h         static HashTable&lt;String, link_var_hook&gt; link_var_hooks;
+<a href='../S/44.html#L191'>link_var_hook</a>     191 ScriptInterpTCL.h           inline void linkVar(const String&amp; varName, T&amp; var, link_var_hook hook_func = nullptr) {
+<a href='../S/44.html#L202'>link_var_hook</a>     202 ScriptInterpTCL.h           inline void linkVar(const String&amp; varName, const T&amp; var, link_var_hook hook_func = nullptr) {
+<a href='../S/21.html#L215'>link_var_hook</a>     215 tests/ScriptInterpTCLTest.cpp   tcl_script.linkVar("nick", nick, reinterpret_cast&lt;ScriptInterp::link_var_hook&gt;(changed_nick));
 </pre>
 </body>
 </html>

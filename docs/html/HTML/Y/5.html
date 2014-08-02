@@ -1,29 +1,18 @@
 <html>
 <head>
-<title>ArrayTest</title>
+<title>ArrayRef</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/30.html#L36'>ArrayTest</a>          36 tests/ArrayTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (ArrayTest);
-<a href='../S/30.html#L38'>ArrayTest</a>          38 tests/ArrayTest.cpp void ArrayTest :: setUp (void)
-<a href='../S/30.html#L48'>ArrayTest</a>          48 tests/ArrayTest.cpp void ArrayTest :: tearDown (void)
-<a href='../S/30.html#L56'>ArrayTest</a>          56 tests/ArrayTest.cpp void ArrayTest :: sizeTest (void)
-<a href='../S/30.html#L67'>ArrayTest</a>          67 tests/ArrayTest.cpp void ArrayTest :: push_popTest (void)
-<a href='../S/30.html#L137'>ArrayTest</a>         137 tests/ArrayTest.cpp void ArrayTest :: arrayConsTest(void)
-<a href='../S/30.html#L157'>ArrayTest</a>         157 tests/ArrayTest.cpp void ArrayTest :: clearTest (void)
-<a href='../S/30.html#L168'>ArrayTest</a>         168 tests/ArrayTest.cpp void ArrayTest :: refTest (void)
-<a href='../S/30.html#L224'>ArrayTest</a>         224 tests/ArrayTest.cpp void ArrayTest :: joinTest(void)
-<a href='../S/30.html#L237'>ArrayTest</a>         237 tests/ArrayTest.cpp void ArrayTest :: compareTest(void)
-<a href='../S/30.html#L249'>ArrayTest</a>         249 tests/ArrayTest.cpp void ArrayTest :: findTest(void)
-<a href='../S/30.html#L258'>ArrayTest</a>         258 tests/ArrayTest.cpp void ArrayTest :: indexTest(void)
-<a href='../S/30.html#L275'>ArrayTest</a>         275 tests/ArrayTest.cpp void ArrayTest :: subArrayTest (void)
-<a href='../S/30.html#L318'>ArrayTest</a>         318 tests/ArrayTest.cpp void ArrayTest :: hashTest(void)
-<a href='../S/30.html#L371'>ArrayTest</a>         371 tests/ArrayTest.cpp void ArrayTest :: operatorsTest(void)
-<a href='../S/30.html#L418'>ArrayTest</a>         418 tests/ArrayTest.cpp void ArrayTest :: initializerTest(void) {
-<a href='../S/24.html#L37'>ArrayTest</a>          37 tests/ArrayTest.h class ArrayTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/24.html#L39'>ArrayTest</a>          39 tests/ArrayTest.h     CPPUNIT_TEST_SUITE (ArrayTest);
+<a href='../S/56.html#L51'>ArrayRef</a>           51 ReferenceCountedArray.h class ArrayRef {
+<a href='../S/56.html#L62'>ArrayRef</a>           62 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+<a href='../S/56.html#L63'>ArrayRef</a>           63 ReferenceCountedArray.h     ~ArrayRef() {
+<a href='../S/56.html#L126'>ArrayRef</a>          126 ReferenceCountedArray.h     ArrayRef(const ArrayRef&amp;) = delete;
+<a href='../S/56.html#L127'>ArrayRef</a>          127 ReferenceCountedArray.h     ArrayRef&amp; operator=(const ArrayRef&amp;) = delete;
+<a href='../S/56.html#L278'>ArrayRef</a>          278 ReferenceCountedArray.h     mutable ArrayRef&lt;value_type, Allocator&gt; *Ref;
+<a href='../S/56.html#L510'>ArrayRef</a>          510 ReferenceCountedArray.h         Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
 </pre>
 </body>
 </html>

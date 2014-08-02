@@ -1,49 +1,33 @@
 <html>
 <head>
-<title>string</title>
+<title>move</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/34.html#L65'>string</a>             65 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
-<a href='../S/34.html#L106'>string</a>            106 Stream.h               virtual void puts (const String&amp; string) {
-<a href='../S/34.html#L107'>string</a>            107 Stream.h                 str.replace(tell(), string);
-<a href='../S/34.html#L108'>string</a>            108 Stream.h                 pos += string.length();
-<a href='../S/34.html#L173'>string</a>            173 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
-<a href='../S/54.html#L74'>string</a>             74 String.cpp     void String::insert(size_t pos, const char *string, size_t n)
-<a href='../S/54.html#L79'>string</a>             79 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
-<a href='../S/54.html#L83'>string</a>             83 String.cpp       std::copy(string, string + slen, Buf() + pos);
-<a href='../S/54.html#L93'>string</a>             93 String.cpp     void String::replace(size_t pos, const char *string, size_t n)
-<a href='../S/54.html#L98'>string</a>             98 String.cpp       size_t slen = (n == npos) ? strlen(string) : n;
-<a href='../S/54.html#L107'>string</a>            107 String.cpp       std::copy(string, string + slen, Buf() + pos);
-<a href='../S/54.html#L111'>string</a>            111 String.cpp     std::istream&amp; operator&gt;&gt;(std::istream&amp; is, String&amp; string) {
-<a href='../S/54.html#L113'>string</a>            113 String.cpp       string = "";    // empty string, will build one char at-a-time
-<a href='../S/54.html#L120'>string</a>            120 String.cpp           string += ch;
-<a href='../S/54.html#L132'>string</a>            132 String.cpp     std::istream&amp; getline(std::istream&amp; is, String&amp; string) {
-<a href='../S/54.html#L135'>string</a>            135 String.cpp       string = "";     // empty string, will build one char at-a-time
-<a href='../S/54.html#L138'>string</a>            138 String.cpp         string += ch;
-<a href='../S/35.html#L88'>string</a>             88 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(string) {};
-<a href='../S/35.html#L90'>string</a>             90 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
-<a href='../S/35.html#L139'>string</a>            139 String.h               String&amp; operator=(const String&amp; string) {
-<a href='../S/35.html#L140'>string</a>            140 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(string);
-<a href='../S/35.html#L144'>string</a>            144 String.h               String&amp; operator=(String&amp;&amp; string) {
-<a href='../S/35.html#L145'>string</a>            145 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
-<a href='../S/35.html#L299'>string</a>            299 String.h               inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
-<a href='../S/35.html#L440'>string</a>            440 String.h       inline String&amp; String::operator+=(const char* string) {
-<a href='../S/35.html#L441'>string</a>            441 String.h         append(string);
-<a href='../S/35.html#L448'>string</a>            448 String.h       inline String&amp; String::operator+=(const String&amp; string) {
-<a href='../S/35.html#L449'>string</a>            449 String.h         append(string);
-<a href='../S/35.html#L533'>string</a>            533 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
-<a href='../S/35.html#L534'>string</a>            534 String.h         for (const char* c = string.begin(); c != string.end(); ++c)
-<a href='../S/45.html#L102'>string</a>            102 base64.c       String base64Encode(const String&amp; string, const char* charset) {
-<a href='../S/45.html#L103'>string</a>            103 base64.c         size_t len = string.length();
-<a href='../S/45.html#L104'>string</a>            104 base64.c         char *p = b64enc(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
-<a href='../S/45.html#L166'>string</a>            166 base64.c       String base64Decode(const String&amp; string, const char* charset) {
-<a href='../S/45.html#L167'>string</a>            167 base64.c         size_t len = string.length();
-<a href='../S/45.html#L168'>string</a>            168 base64.c         char *p = b64dec(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
-<a href='../S/38.html#L75'>string</a>             75 base64.h       String base64Encode(const String&amp; string, const char* charset = NULL);
-<a href='../S/38.html#L101'>string</a>            101 base64.h       String base64Decode(const String&amp; string, const char* charset = NULL);
+<a href='../S/57.html#L61'>move</a>               61 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/57.html#L119'>move</a>              119 Array.h                push(std::move(item));
+<a href='../S/57.html#L130'>move</a>              130 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
+<a href='../S/4.html#L153'>move</a>              153 BinaryTree.h       BinaryTree(BinaryTree&amp;&amp; tree) : my_size(std::move(tree.my_size)), root(std::move(tree.root)) {
+<a href='../S/7.html#L69'>move</a>               69 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
+<a href='../S/50.html#L62'>move</a>               62 List.h               Node(const value_type&amp;&amp; p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+<a href='../S/56.html#L376'>move</a>              376 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/56.html#L464'>move</a>              464 ReferenceCountedArray.h       alloc = std::move(rca.alloc);
+<a href='../S/56.html#L465'>move</a>              465 ReferenceCountedArray.h       offset = std::move(rca.offset);
+<a href='../S/56.html#L466'>move</a>              466 ReferenceCountedArray.h       sublen = std::move(rca.sublen);
+<a href='../S/56.html#L467'>move</a>              467 ReferenceCountedArray.h       my_hash = std::move(rca.my_hash);
+<a href='../S/56.html#L468'>move</a>              468 ReferenceCountedArray.h       Ref = std::move(rca.Ref);
+<a href='../S/44.html#L101'>move</a>              101 ScriptInterpTCL.h   *static_cast&lt;T*&gt;(clientData) = std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));                                                  \
+<a href='../S/6.html#L13'>move</a>               13 ScriptInterpTCLCallbacks.h     ReturnType result = std::move(callback(std::forward&lt;Params&gt;(args)...));
+<a href='../S/6.html#L14'>move</a>               14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;ReturnType&gt;::from(std::move(result), interp)));
+<a href='../S/6.html#L42'>move</a>               42 ScriptInterpTCLCallbacks.h            (std::move(tcl_to_c_cast&lt;Params&gt;::from(std::move(objv[Indices + 1]), si))) :
+<a href='../S/6.html#L43'>move</a>               43 ScriptInterpTCLCallbacks.h            (std::move(Params()))
+<a href='../S/45.html#L58'>move</a>               58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/47.html#L87'>move</a>               87 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/47.html#L140'>move</a>              140 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
+<a href='../S/32.html#L147'>move</a>              147 tests/StringTest.cpp   String my_string(std::move(*a));
+<a href='../S/32.html#L153'>move</a>              153 tests/StringTest.cpp   *d = std::move(my_string);
 </pre>
 </body>
 </html>

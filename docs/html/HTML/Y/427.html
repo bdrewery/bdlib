@@ -1,14 +1,72 @@
 <html>
 <head>
-<title>replacement</title>
+<title>interp</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/54.html#L251'>replacement</a>       251 String.cpp     String String::sub(const String&amp; search, const String&amp; replacement, int limit) const {
-<a href='../S/54.html#L258'>replacement</a>       258 String.cpp         newStr += replacement;
-<a href='../S/35.html#L316'>replacement</a>       316 String.h               String sub(const String&amp; search, const String&amp; replacement, int limit = -1) const;
+<a href='../S/52.html#L38'>interp</a>             38 ScriptInterpTCL.cpp   interp = Tcl_CreateInterp();
+<a href='../S/52.html#L41'>interp</a>             41 ScriptInterpTCL.cpp   if (Tcl_Init(interp) != TCL_OK) {
+<a href='../S/52.html#L42'>interp</a>             42 ScriptInterpTCL.cpp     Tcl_Obj* result = Tcl_GetObjResult(interp);
+<a href='../S/52.html#L50'>interp</a>             50 ScriptInterpTCL.cpp   if (interp &amp;&amp; !Tcl_InterpDeleted(interp)) {
+<a href='../S/52.html#L51'>interp</a>             51 ScriptInterpTCL.cpp     Tcl_DeleteInterp(interp);
+<a href='../S/52.html#L52'>interp</a>             52 ScriptInterpTCL.cpp     interp = nullptr;
+<a href='../S/52.html#L58'>interp</a>             58 ScriptInterpTCL.cpp   if (Tcl_EvalEx(interp, script.c_str(), script.length(), TCL_EVAL_GLOBAL) == TCL_OK) {
+<a href='../S/52.html#L59'>interp</a>             59 ScriptInterpTCL.cpp     Tcl_Obj* value = Tcl_GetObjResult(interp);
+<a href='../S/52.html#L69'>interp</a>             69 ScriptInterpTCL.cpp   if (Tcl_EvalFile(interp, *fileName) != TCL_OK) {
+<a href='../S/52.html#L70'>interp</a>             70 ScriptInterpTCL.cpp     Tcl_Obj* value = Tcl_GetObjResult(interp);
+<a href='../S/52.html#L80'>interp</a>             80 ScriptInterpTCL.cpp int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+<a href='../S/52.html#L88'>interp</a>             88 ScriptInterpTCL.cpp     Tcl_SetObjResult(interp, c_to_tcl_cast&lt;String&gt;::from(errorResult, interp));
+<a href='../S/52.html#L93'>interp</a>             93 ScriptInterpTCL.cpp     ccd-&gt;callback_proxy-&gt;call(objc, reinterpret_cast&lt;void* CONST*&gt;(objv), ccd-&gt;si, interp);
+<a href='../S/52.html#L95'>interp</a>             95 ScriptInterpTCL.cpp     Tcl_SetObjResult(interp, c_to_tcl_cast&lt;String&gt;::from(e, interp));
+<a href='../S/52.html#L98'>interp</a>             98 ScriptInterpTCL.cpp     Tcl_SetObjResult(interp, c_to_tcl_cast&lt;const char*&gt;::from("Unhandled exception.", interp));
+<a href='../S/52.html#L105'>interp</a>            105 ScriptInterpTCL.cpp   Tcl_SetVar(interp, *varName, "", TCL_GLOBAL_ONLY);
+<a href='../S/52.html#L106'>interp</a>            106 ScriptInterpTCL.cpp   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
+<a href='../S/52.html#L107'>interp</a>            107 ScriptInterpTCL.cpp   Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
+<a href='../S/52.html#L111'>interp</a>            111 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+<a href='../S/52.html#L115'>interp</a>            115 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+<a href='../S/52.html#L117'>interp</a>            117 ScriptInterpTCL.cpp     Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast&lt;const char*&gt;::from(value, nullptr), flags);
+<a href='../S/52.html#L123'>interp</a>            123 ScriptInterpTCL.cpp Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
+<a href='../S/52.html#L124'>interp</a>            124 ScriptInterpTCL.cpp   Tcl_Obj *name1o = c_to_tcl_cast&lt;const char*&gt;::from(name1, interp);
+<a href='../S/52.html#L125'>interp</a>            125 ScriptInterpTCL.cpp   Tcl_Obj *value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
+<a href='../S/52.html#L130'>interp</a>            130 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;int&gt;::from(int value, Tcl_Interp* interp) {
+<a href='../S/52.html#L134'>interp</a>            134 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;unsigned int&gt;::from(unsigned int value, Tcl_Interp* interp) {
+<a href='../S/52.html#L135'>interp</a>            135 ScriptInterpTCL.cpp   return c_to_tcl_cast&lt;int&gt;::from(value, interp);
+<a href='../S/52.html#L138'>interp</a>            138 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;long&gt;::from(long value, Tcl_Interp* interp) {
+<a href='../S/52.html#L142'>interp</a>            142 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;unsigned long&gt;::from(unsigned long value, Tcl_Interp* interp) {
+<a href='../S/52.html#L143'>interp</a>            143 ScriptInterpTCL.cpp   return c_to_tcl_cast&lt;long&gt;::from(value, interp);
+<a href='../S/52.html#L146'>interp</a>            146 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;double&gt;::from(double value, Tcl_Interp* interp) {
+<a href='../S/52.html#L150'>interp</a>            150 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;String&gt;::from(String value, Tcl_Interp* interp) {
+<a href='../S/52.html#L154'>interp</a>            154 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;const char *&gt;::from(const char* value, Tcl_Interp* interp) {
+<a href='../S/52.html#L155'>interp</a>            155 ScriptInterpTCL.cpp   return c_to_tcl_cast&lt;String&gt;::from(value, interp);
+<a href='../S/52.html#L158'>interp</a>            158 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;bool&gt;::from(bool value, Tcl_Interp* interp) {
+<a href='../S/52.html#L162'>interp</a>            162 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;Array&lt;String&gt;&gt;::from(Array&lt;String&gt; array, Tcl_Interp* interp) {
+<a href='../S/52.html#L166'>interp</a>            166 ScriptInterpTCL.cpp     Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast&lt;decltype(element)&gt;::from(element, interp));
+<a href='../S/52.html#L172'>interp</a>            172 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Array&lt;Array&lt;String&gt;&gt; array, Tcl_Interp* interp) {
+<a href='../S/52.html#L176'>interp</a>            176 ScriptInterpTCL.cpp     Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast&lt;decltype(element)&gt;::from(element, interp));
+<a href='../S/52.html#L267'>interp</a>            267 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/52.html#L283'>interp</a>            283 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/44.html#L90'>interp</a>             90 ScriptInterpTCL.h const char* tcl_traceGet&lt;T&gt; (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
+<a href='../S/44.html#L91'>interp</a>             91 ScriptInterpTCL.h   return ScriptInterpTCL::TraceGet(c_to_tcl_cast&lt;T&gt;::from(*static_cast&lt;T*&gt;(clientData), interp), interp, name1, name2, flags);     \
+<a href='../S/44.html#L96'>interp</a>             96 ScriptInterpTCL.h const char* tcl_traceSet&lt;T&gt; (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
+<a href='../S/44.html#L97'>interp</a>             97 ScriptInterpTCL.h   Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);                                                           \
+<a href='../S/44.html#L115'>interp</a>            115 ScriptInterpTCL.h const char* tcl_traceGet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
+<a href='../S/44.html#L118'>interp</a>            118 ScriptInterpTCL.h const char* tcl_traceSet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
+<a href='../S/44.html#L134'>interp</a>            134 ScriptInterpTCL.h         Tcl_Interp *interp;
+<a href='../S/44.html#L141'>interp</a>            141 ScriptInterpTCL.h         static int _createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+<a href='../S/44.html#L146'>interp</a>            146 ScriptInterpTCL.h           Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
+<a href='../S/44.html#L155'>interp</a>            155 ScriptInterpTCL.h         ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
+<a href='../S/44.html#L180'>interp</a>            180 ScriptInterpTCL.h           Tcl_DeleteCommand(interp, *cmdName);
+<a href='../S/44.html#L211'>interp</a>            211 ScriptInterpTCL.h           Tcl_UnsetVar(interp, *varName, TCL_GLOBAL_ONLY);
+<a href='../S/44.html#L217'>interp</a>            217 ScriptInterpTCL.h         static const char* TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags);
+<a href='../S/44.html#L220'>interp</a>            220 ScriptInterpTCL.h         static Tcl_Obj* TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags);
+<a href='../S/44.html#L221'>interp</a>            221 ScriptInterpTCL.h         static const char* TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags);
+<a href='../S/6.html#L12'>interp</a>             12 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/6.html#L14'>interp</a>             14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;ReturnType&gt;::from(std::move(result), interp)));
+<a href='../S/6.html#L22'>interp</a>             22 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/6.html#L37'>interp</a>             37 ScriptInterpTCLCallbacks.h       Tcl_Interp* interp = static_cast&lt;Tcl_Interp*&gt;(proxy_data);
+<a href='../S/6.html#L39'>interp</a>             39 ScriptInterpTCLCallbacks.h       ScriptCallbackDispatchTCL&lt;ReturnType, Params...&gt;::dispatch(interp, _callback,
 </pre>
 </body>
 </html>

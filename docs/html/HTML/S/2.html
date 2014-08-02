@@ -1,74 +1,57 @@
 <html>
 <head>
-<title>Socket.cpp</title>
+<title>indices.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/Socket.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L38'>[^]</a>[v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/indices.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2>DEFINITIONS</h2>
-This source file includes following definitions.
-<ol>
-<li><a href='#L38' title='Defined at 38.'>create</a>
-</ol>
+<h2><a href='6.html#L4' title='Included from 4 in ScriptInterpTCLCallbacks.h.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/*</font></i>
-<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2013, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
-<a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
-<a name='L4'>   4 <i><font color='green'> * </font></i>
-<a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
-<a name='L6'>   6 <i><font color='green'> * modification, are permitted provided that the following conditions are met:</font></i>
-<a name='L7'>   7 <i><font color='green'> * 1. Redistributions of source code must retain the above copyright</font></i>
-<a name='L8'>   8 <i><font color='green'> *    notice, this list of conditions and the following disclaimer.</font></i>
-<a name='L9'>   9 <i><font color='green'> * 2. Redistributions in binary form must reproduce the above copyright</font></i>
-<a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
-<a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
-<a name='L12'>  12 <i><font color='green'> * </font></i>
-<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
-<a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
-<a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
-<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
-<a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
-<a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
-<a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
-<a name='L20'>  20 <i><font color='green'> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</font></i>
-<a name='L21'>  21 <i><font color='green'> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</font></i>
-<a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
-<a name='L23'>  23 <i><font color='green'> */</font></i>
-<a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* Socket.cpp</font></i>
-<a name='L26'>  26 <i><font color='green'> */</font></i>
-<a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='1.html'>Socket.h</a>"
-<a name='L29'>  29 
-<a name='L30'>  30 <a href='../S/41.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L31'>  31 <a href='../R/29.html' title='Multiple refered from 10 places.'>Socket</a>::~<a href='../S/2.html#L31' title='Defined at 31 in Socket.cpp.'>Socket</a>() <font color='red'>{</font>
-<a name='L32'>  32   <b>if</b> (<a href='../Y/301.html' title='Multiple used in 2 places.'>isValid</a>()) <font color='red'>{</font>
-<a name='L33'>  33     ::shutdown(<a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a>, SHUT_RDWR);
-<a name='L34'>  34     ::<a href='../Y/171.html' title='Multiple used in 7 places.'>close</a>(<a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a>);
-<a name='L35'>  35   <font color='red'>}</font>
-<a name='L36'>  36 <font color='red'>}</font>
-<a name='L37'>  37 
-<a name='L38'>  38 <b>bool</b> <a href='../S/2.html#L31' title='Defined at 31 in Socket.cpp.'>Socket</a>::<a href='../S/1.html#L78' title='Refered from 78 in Socket.h.'>create</a>() <font color='red'>{</font>
-<a name='L39'>  39   <b>int</b> <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a> = 0;
-<a name='L40'>  40 
-<a name='L41'>  41   <b>if</b> (<a href='../Y/245.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L48' title='Defined at 48 in Socket.h.'>SOCKET_UDP</a>)
-<a name='L42'>  42     <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_DGRAM;
-<a name='L43'>  43   <b>else</b> <b>if</b> (<a href='../Y/245.html' title='Multiple used in 6 places.'>flags</a> &amp; <a href='../S/1.html#L47' title='Defined at 47 in Socket.h.'>SOCKET_TCP</a>)
-<a name='L44'>  44     <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_STREAM;
-<a name='L45'>  45 
-<a name='L46'>  46   <a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a> = socket(<a href='../Y/390.html' title='Multiple used in 2 places.'>pfamily</a>, <a href='../Y/409.html' title='Multiple used in 4 places.'>ptype</a>, 0);
-<a name='L47'>  47   <b>if</b> (<a href='../Y/464.html' title='Multiple used in 9 places.'>sock</a> == -1)
-<a name='L48'>  48     <b>return</b> <b>false</b>;
-<a name='L49'>  49 <font color='red'>}</font>
-<a name='L50'>  50 <a href='../S/41.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L51'>  51 
+<a name='L1'>   1 <font color='darkred'>#ifndef</font> <a href='../S/2.html#L2' title='Defined at 2 in indices.h.'>INDICES_H</a>
+<a name='L2'>   2 <font color='darkred'>#define</font> <a href='../S/2.html#L1' title='Refered from 1 in indices.h.'>INDICES_H</a>
+<a name='L3'>   3 
+<a name='L4'>   4 <i><font color='green'>// Define holder for indices...</font></i>
+<a name='L5'>   5 <a href='../Y/696.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>... <a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a>&gt;
+<a name='L6'>   6 <b>struct</b> <a href='../R/154.html' title='Multiple refered from 5 places.'>indices</a> <font color='red'>{</font><font color='red'>}</font>;
+<a name='L7'>   7 
+<a name='L8'>   8 <a href='../Y/696.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../D/207.html' title='Multiple defined in 2 places.'>index_to_add</a>, <a href='../Y/724.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a> = <a href='../S/2.html#L6' title='Defined at 6 in indices.h.'>indices</a>&lt;&gt;&gt;
+<a name='L9'>   9 <b>struct</b> <a href='../Y/474.html' title='Multiple used in 6 places.'>make_indices_impl</a>;
+<a name='L10'>  10 
+<a name='L11'>  11 <i><font color='green'>// Recursive case</font></i>
+<a name='L12'>  12 <a href='../Y/696.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../D/207.html' title='Multiple defined in 2 places.'>index_to_add</a>, <a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>... <a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a>&gt;
+<a name='L13'>  13 <b>struct</b> <a href='../Y/474.html' title='Multiple used in 6 places.'>make_indices_impl</a>&lt;<a href='../D/207.html' title='Multiple defined in 2 places.'>index_to_add</a>, <a href='../S/2.html#L6' title='Defined at 6 in indices.h.'>indices</a>&lt;<a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a>...&gt;&gt;
+<a name='L14'>  14 <font color='red'>{</font>
+<a name='L15'>  15   <b>typedef</b>
+<a name='L16'>  16     <a href='../Y/724.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/474.html' title='Multiple used in 6 places.'>make_indices_impl</a>&lt;
+<a name='L17'>  17       <a href='../R/153.html' title='Multiple refered from 3 places.'>index_to_add</a>-1,
+<a name='L18'>  18       indices&lt;<a href='../R/153.html' title='Multiple refered from 3 places.'>index_to_add</a>-1, <a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a>...&gt;
+<a name='L19'>  19     &gt;::type
+<a name='L20'>  20     type
+<a name='L21'>  21   ;
+<a name='L22'>  22 <font color='red'>}</font>;
+<a name='L23'>  23 
+<a name='L24'>  24 <i><font color='green'>// Termination case</font></i>
+<a name='L25'>  25 <a href='../Y/696.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>... <a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a>&gt;
+<a name='L26'>  26 <b>struct</b> <a href='../Y/474.html' title='Multiple used in 6 places.'>make_indices_impl</a>&lt;0, <a href='../S/2.html#L6' title='Defined at 6 in indices.h.'>indices</a>&lt;<a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a>...&gt;&gt;
+<a name='L27'>  27 <font color='red'>{</font>
+<a name='L28'>  28   <b>typedef</b> <a href='../S/2.html#L6' title='Defined at 6 in indices.h.'>indices</a>&lt;<a href='../Y/57.html' title='Multiple used in 12 places.'>Indices</a>...&gt; <a href='../R/248.html' title='Multiple refered from 4 places.'>type</a>;
+<a name='L29'>  29 <font color='red'>}</font>;
+<a name='L30'>  30 
+<a name='L31'>  31 <a href='../Y/696.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/480.html' title='Multiple used in 3 places.'>max_index</a>&gt;
+<a name='L32'>  32 <b>inline</b> <a href='../Y/724.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/474.html' title='Multiple used in 6 places.'>make_indices_impl</a>&lt;<a href='../Y/480.html' title='Multiple used in 3 places.'>max_index</a>&gt;::<a href='../D/304.html' title='Multiple defined in 2 places.'>type</a> <a href='../S/6.html#L51' title='Refered from 51 in ScriptInterpTCLCallbacks.h.'>make_indices</a>()
+<a name='L33'>  33 <font color='red'>{</font>
+<a name='L34'>  34   <b>return</b> <a href='../Y/724.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/474.html' title='Multiple used in 6 places.'>make_indices_impl</a>&lt;<a href='../Y/480.html' title='Multiple used in 3 places.'>max_index</a>&gt;::<a href='../D/304.html' title='Multiple defined in 2 places.'>type</a>();
+<a name='L35'>  35 <font color='red'>}</font>
+<a name='L36'>  36 
+<a name='L37'>  37 <font color='darkred'>#endif</font>
+<a name='L38'>  38 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;][^]<a href='#L38'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

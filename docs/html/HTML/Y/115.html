@@ -1,13 +1,103 @@
 <html>
 <head>
-<title>_queue</title>
+<title>T</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/47.html#L135'>_queue</a>            135 Queue.h            QueueIterator(Queue&lt;T&gt;* _queue, Node* start) : queue(_queue), current(start) {};
-<a href='../S/47.html#L180'>_queue</a>            180 Queue.h            QueueConstIterator(const Queue&lt;T&gt;* _queue, const Node* start) : queue(_queue), current(start) {};
+<a href='../S/57.html#L42'>T</a>                  42 Array.h        template &lt;class T&gt;
+<a href='../S/57.html#L47'>T</a>                  47 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
+<a href='../S/57.html#L49'>T</a>                  49 Array.h            typedef T value_type;
+<a href='../S/57.html#L363'>T</a>                 363 Array.h        template&lt;typename T&gt;
+<a href='../S/57.html#L366'>T</a>                 366 Array.h        template&lt;typename T&gt;
+<a href='../S/57.html#L367'>T</a>                 367 Array.h          struct Hash&lt; Array&lt;T&gt; &gt; {
+<a href='../S/57.html#L368'>T</a>                 368 Array.h            inline size_t operator()(const Array&lt;T&gt;&amp; val) const { return val.hash(); }
+<a href='../S/41.html#L35'>T</a>                  35 Iterator.h     template &lt;typename T&gt;
+<a href='../S/41.html#L57'>T</a>                  57 Iterator.h         virtual T&amp; operator*() = 0;
+<a href='../S/41.html#L58'>T</a>                  58 Iterator.h         virtual T* operator-&gt;() { return &amp;(operator*()); };
+<a href='../S/50.html#L34'>T</a>                  34 List.h         template &lt;class T&gt;
+<a href='../S/50.html#L44'>T</a>                  44 List.h             typedef T value_type;
+<a href='../S/60.html#L37'>T</a>                  37 Queue.h        template &lt;class T&gt; class QueueIterator;
+<a href='../S/60.html#L38'>T</a>                  38 Queue.h        template &lt;class T&gt; class QueueConstIterator;
+<a href='../S/60.html#L40'>T</a>                  40 Queue.h        template &lt;class T&gt;
+<a href='../S/60.html#L45'>T</a>                  45 Queue.h        class Queue : public List&lt;T&gt; {
+<a href='../S/60.html#L46'>T</a>                  46 Queue.h          typedef typename List&lt;T&gt;::Node Node;
+<a href='../S/60.html#L49'>T</a>                  49 Queue.h            friend class QueueIterator&lt;T&gt;;
+<a href='../S/60.html#L50'>T</a>                  50 Queue.h            friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/60.html#L52'>T</a>                  52 Queue.h            typedef QueueIterator&lt;T&gt; iterator;
+<a href='../S/60.html#L53'>T</a>                  53 Queue.h            typedef QueueConstIterator&lt;T&gt; const_iterator;
+<a href='../S/60.html#L54'>T</a>                  54 Queue.h            typedef T value_type;
+<a href='../S/60.html#L115'>T</a>                 115 Queue.h        template &lt;class T&gt;
+<a href='../S/60.html#L117'>T</a>                 117 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/60.html#L118'>T</a>                 118 Queue.h          friend class QueueConstIterator&lt;T&gt;;
+<a href='../S/60.html#L121'>T</a>                 121 Queue.h            typedef QueueIterator&lt;T&gt; 		iterator;
+<a href='../S/60.html#L122'>T</a>                 122 Queue.h            typedef QueueConstIterator&lt;T&gt; 	const_iterator;
+<a href='../S/60.html#L123'>T</a>                 123 Queue.h            typedef typename Queue&lt;T&gt;::Node 	Node;
+<a href='../S/60.html#L125'>T</a>                 125 Queue.h            typedef T 				value_type;
+<a href='../S/60.html#L132'>T</a>                 132 Queue.h            Queue&lt;T&gt; *queue;
+<a href='../S/60.html#L135'>T</a>                 135 Queue.h            QueueIterator(Queue&lt;T&gt;* _queue, Node* start) : queue(_queue), current(start) {};
+<a href='../S/60.html#L160'>T</a>                 160 Queue.h        template &lt;class T&gt;
+<a href='../S/60.html#L162'>T</a>                 162 Queue.h          friend class Queue&lt;T&gt;;
+<a href='../S/60.html#L163'>T</a>                 163 Queue.h          friend class QueueIterator&lt;T&gt;;
+<a href='../S/60.html#L166'>T</a>                 166 Queue.h            typedef QueueIterator&lt;T&gt;		iterator;
+<a href='../S/60.html#L167'>T</a>                 167 Queue.h            typedef QueueConstIterator&lt;T&gt; 	const_iterator;
+<a href='../S/60.html#L168'>T</a>                 168 Queue.h            typedef typename Queue&lt;T&gt;::Node 	Node;
+<a href='../S/60.html#L170'>T</a>                 170 Queue.h            typedef T 				value_type;
+<a href='../S/60.html#L177'>T</a>                 177 Queue.h            const Queue&lt;T&gt; *queue;
+<a href='../S/60.html#L180'>T</a>                 180 Queue.h            QueueConstIterator(const Queue&lt;T&gt;* _queue, const Node* start) : queue(_queue), current(start) {};
+<a href='../S/56.html#L45'>T</a>                  45 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/56.html#L58'>T</a>                  58 ReferenceCountedArray.h       mutable T buf_local[16];
+<a href='../S/56.html#L88'>T</a>                  88 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/56.html#L130'>T</a>                 130 ReferenceCountedArray.h template &lt;class T&gt;
+<a href='../S/56.html#L142'>T</a>                 142 ReferenceCountedArray.h     T&amp; rca;
+<a href='../S/56.html#L149'>T</a>                 149 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
+<a href='../S/56.html#L155'>T</a>                 155 ReferenceCountedArray.h     inline operator T() const {
+<a href='../S/56.html#L156'>T</a>                 156 ReferenceCountedArray.h       T newArray(rca);
+<a href='../S/56.html#L174'>T</a>                 174 ReferenceCountedArray.h       (*this) = T(slice);
+<a href='../S/56.html#L182'>T</a>                 182 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
+<a href='../S/56.html#L197'>T</a>                 197 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/56.html#L204'>T</a>                 204 ReferenceCountedArray.h     typedef T value_type;
+<a href='../S/67.html#L126'>T</a>                 126 ScriptInterp.h         template &lt;typename Interp, typename T&gt;
+<a href='../S/67.html#L127'>T</a>                 127 ScriptInterp.h           static void linkVar(Interp&amp; si, const String&amp; varName, T&amp; var) {
+<a href='../S/44.html#L45'>T</a>                  45 ScriptInterpTCL.h template &lt;typename T&gt;
+<a href='../S/44.html#L48'>T</a>                  48 ScriptInterpTCL.h #define c_to_tcl_castable(T)                                      \
+<a href='../S/44.html#L50'>T</a>                  50 ScriptInterpTCL.h   struct c_to_tcl_cast&lt;T&gt;                                         \
+<a href='../S/44.html#L52'>T</a>                  52 ScriptInterpTCL.h     static Tcl_Obj* from(T value, Tcl_Interp*);                   \
+<a href='../S/44.html#L66'>T</a>                  66 ScriptInterpTCL.h template &lt;typename T&gt;
+<a href='../S/44.html#L69'>T</a>                  69 ScriptInterpTCL.h #define tcl_to_c_castable(T)                                      \
+<a href='../S/44.html#L71'>T</a>                  71 ScriptInterpTCL.h   struct tcl_to_c_cast&lt;T&gt;                                         \
+<a href='../S/44.html#L73'>T</a>                  73 ScriptInterpTCL.h     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
+<a href='../S/44.html#L88'>T</a>                  88 ScriptInterpTCL.h #define define_tcl_traceGet(T)                                                                                                     \
+<a href='../S/44.html#L90'>T</a>                  90 ScriptInterpTCL.h const char* tcl_traceGet&lt;T&gt; (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
+<a href='../S/44.html#L91'>T</a>                  91 ScriptInterpTCL.h   return ScriptInterpTCL::TraceGet(c_to_tcl_cast&lt;T&gt;::from(*static_cast&lt;T*&gt;(clientData), interp), interp, name1, name2, flags);     \
+<a href='../S/44.html#L94'>T</a>                  94 ScriptInterpTCL.h #define define_tcl_traceSet(T)                                                                                                     \
+<a href='../S/44.html#L96'>T</a>                  96 ScriptInterpTCL.h const char* tcl_traceSet&lt;T&gt; (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags) {                     \
+<a href='../S/44.html#L99'>T</a>                  99 ScriptInterpTCL.h   const T oldval(*static_cast&lt;T*&gt;(clientData));                                                                                    \
+<a href='../S/44.html#L101'>T</a>                 101 ScriptInterpTCL.h   *static_cast&lt;T*&gt;(clientData) = std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));                                                  \
+<a href='../S/44.html#L114'>T</a>                 114 ScriptInterpTCL.h template &lt;typename T&gt;
+<a href='../S/44.html#L117'>T</a>                 117 ScriptInterpTCL.h template &lt;typename T&gt;
+<a href='../S/44.html#L190'>T</a>                 190 ScriptInterpTCL.h         template &lt;typename T&gt;
+<a href='../S/44.html#L191'>T</a>                 191 ScriptInterpTCL.h           inline void linkVar(const String&amp; varName, T&amp; var, link_var_hook hook_func = nullptr) {
+<a href='../S/44.html#L192'>T</a>                 192 ScriptInterpTCL.h             setupTraces(varName, (ClientData) &amp;var, (Tcl_VarTraceProc*) tcl_traceGet&lt;T&gt;, (Tcl_VarTraceProc*) tcl_traceSet&lt;T&gt;, hook_func);
+<a href='../S/44.html#L201'>T</a>                 201 ScriptInterpTCL.h         template &lt;typename T&gt;
+<a href='../S/44.html#L202'>T</a>                 202 ScriptInterpTCL.h           inline void linkVar(const String&amp; varName, const T&amp; var, link_var_hook hook_func = nullptr) {
+<a href='../S/44.html#L203'>T</a>                 203 ScriptInterpTCL.h             setupTraces(varName, (ClientData) &amp;var, (Tcl_VarTraceProc*) tcl_traceGet&lt;T&gt;, (Tcl_VarTraceProc*) TraceSetRO, hook_func);
+<a href='../S/11.html#L36'>T</a>                  36 SortedList.h   template &lt;class T&gt;
+<a href='../S/11.html#L41'>T</a>                  41 SortedList.h   class SortedList : public List&lt;T&gt; {
+<a href='../S/11.html#L42'>T</a>                  42 SortedList.h     typedef T iterator_type;
+<a href='../S/13.html#L36'>T</a>                  36 Stack.h        template &lt;class T&gt;
+<a href='../S/13.html#L41'>T</a>                  41 Stack.h        class Stack : public List&lt;T&gt; {
+<a href='../S/13.html#L42'>T</a>                  42 Stack.h          typedef T iterator_type;
+<a href='../S/47.html#L48'>T</a>                  48 String.h       template &lt;class T&gt;
+<a href='../S/47.html#L365'>T</a>                 365 String.h       template&lt;typename T&gt;
+<a href='../S/40.html#L63'>T</a>                  63 hash.h         template&lt;typename T&gt;
+<a href='../S/40.html#L66'>T</a>                  66 hash.h         #define tr1_hashtable_define_trivial_hash(T)                                      \
+<a href='../S/40.html#L68'>T</a>                  68 hash.h           struct Hash&lt;T&gt;                                                                  \
+<a href='../S/40.html#L70'>T</a>                  70 hash.h             inline size_t operator()(T val) const { return static_cast&lt;size_t&gt;(val); }    \
+<a href='../S/40.html#L96'>T</a>                  96 hash.h         template&lt;typename T&gt;
+<a href='../S/40.html#L97'>T</a>                  97 hash.h           struct Hash&lt;T*&gt;
+<a href='../S/40.html#L99'>T</a>                  99 hash.h             inline size_t operator()(T* p) const { return reinterpret_cast&lt;size_t&gt;(p); }
 </pre>
 </body>
 </html>

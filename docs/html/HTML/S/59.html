@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Cstrings.h</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/Cstrings.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2><a href='48.html#L28' title='Included from 28 in Cstrings.cpp.'>INCLUDED FROM</a></h2>
+<hr>
+<pre>
+<a name='L1'>   1 <i><font color='green'>/*</font></i>
+<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2014, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
+<a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
+<a name='L4'>   4 <i><font color='green'> * </font></i>
+<a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
+<a name='L6'>   6 <i><font color='green'> * modification, are permitted provided that the following conditions are met:</font></i>
+<a name='L7'>   7 <i><font color='green'> * 1. Redistributions of source code must retain the above copyright</font></i>
+<a name='L8'>   8 <i><font color='green'> *    notice, this list of conditions and the following disclaimer.</font></i>
+<a name='L9'>   9 <i><font color='green'> * 2. Redistributions in binary form must reproduce the above copyright</font></i>
+<a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
+<a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
+<a name='L12'>  12 <i><font color='green'> * </font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
+<a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
+<a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
+<a name='L20'>  20 <i><font color='green'> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</font></i>
+<a name='L21'>  21 <i><font color='green'> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</font></i>
+<a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L23'>  23 <i><font color='green'> */</font></i>
+<a name='L24'>  24 
+<a name='L25'>  25 <i><font color='green'>/* Cstrings.h</font></i>
+<a name='L26'>  26 <i><font color='green'> */</font></i>
+<a name='L27'>  27 
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/59.html#L29' title='Defined at 29 in Cstrings.h.'>_BD_CSTRINGS_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/59.html#L28' title='Refered from 28 in Cstrings.h.'>_BD_CSTRINGS_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> "<a href='54.html'>bdlib.h</a>"
+<a name='L32'>  32 
+<a name='L33'>  33 <font color='darkred'>#ifdef</font> <a href='../S/65.html#L50' title='Defined at 50 in config.h.'>HAVE_STRING_H</a>
+<a name='L34'>  34 <font color='darkred'>#include</font> &lt;cstring&gt;
+<a name='L35'>  35 <font color='darkred'>#endif</font>
+<a name='L36'>  36 
+<a name='L37'>  37 <a href='../S/54.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L38'>  38 
+<a name='L39'>  39 <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../S/48.html#L37' title='Defined at 37 in Cstrings.cpp.'>strlcpy</a>(<b>char</b> *, <b>const</b> <b>char</b> *, <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>);
+<a name='L40'>  40 <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a> <a href='../S/48.html#L68' title='Defined at 68 in Cstrings.cpp.'>strlcat</a>(<b>char</b> *, <b>const</b> <b>char</b> *, <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>);
+<a name='L41'>  41 <b>void</b> <a href='../S/48.html#L96' title='Defined at 96 in Cstrings.cpp.'>str_redup</a>(<b>char</b> **, <b>const</b> <b>char</b> *);
+<a name='L42'>  42 <b>char</b> *<a href='../S/48.html#L111' title='Defined at 111 in Cstrings.cpp.'>strdup</a>(<b>const</b> <b>char</b> *);
+<a name='L43'>  43 <b>char</b> *<a href='../S/48.html#L121' title='Defined at 121 in Cstrings.cpp.'>strldup</a>(<b>const</b> <b>char</b> *, <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>);
+<a name='L44'>  44 <b>void</b> *<a href='../S/48.html#L131' title='Defined at 131 in Cstrings.cpp.'>calloc</a>(<a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>, <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>);
+<a name='L45'>  45 <b>void</b> *<a href='../S/48.html#L141' title='Defined at 141 in Cstrings.cpp.'>realloc</a>(<b>void</b> *, <a href='../Y/635.html' title='Multiple used in 659 places.'>size_t</a>);
+<a name='L46'>  46 
+<a name='L47'>  47 <a href='../S/54.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L48'>  48 
+<a name='L49'>  49 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_CSTRINGS_H */</font></i> 
+<a name='L50'>  50 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+</pre>
+<hr>
+<a name='BOTTOM'>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+</body>
+</html>

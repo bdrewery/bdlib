@@ -1,15 +1,70 @@
 <html>
 <head>
-<title>transform</title>
+<title>next</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/54.html#L229'>transform</a>         229 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/54.html#L230'>transform</a>         230 String.cpp       std::transform(this-&gt;begin(), this-&gt;end(), this_upper.begin(), ::toupper);
-<a href='../S/54.html#L236'>transform</a>         236 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/54.html#L237'>transform</a>         237 String.cpp       std::transform(this-&gt;begin(), this-&gt;end(), this_upper.begin(), ::toupper);
+<a href='../S/50.html#L56'>next</a>               56 List.h               Node* next;
+<a href='../S/50.html#L59'>next</a>               59 List.h               Node(const_reference p) : item(p), next(nullptr), prev(nullptr) {};
+<a href='../S/50.html#L61'>next</a>               61 List.h               Node(const Node&amp; n) : item(n.item), next(n.next), prev(n.prev) {};
+<a href='../S/50.html#L62'>next</a>               62 List.h               Node(const value_type&amp;&amp; p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+<a href='../S/50.html#L64'>next</a>               64 List.h                 p.next = nullptr;
+<a href='../S/50.html#L72'>next</a>               72 List.h                 swap(a.next, b.next);
+<a href='../S/50.html#L83'>next</a>               83 List.h               Node* next = node-&gt;next; //NULL if node = tail
+<a href='../S/50.html#L88'>next</a>               88 List.h               if (next) next-&gt;prev = prev;
+<a href='../S/50.html#L89'>next</a>               89 List.h               if (prev) prev-&gt;next = next;
+<a href='../S/50.html#L91'>next</a>               91 List.h               if (node == head) head = next;
+<a href='../S/50.html#L98'>next</a>               98 List.h               for (Node* current = head; current; current = current-&gt;next) {
+<a href='../S/50.html#L115'>next</a>              115 List.h               for (Node* search = list.head; search; search = search-&gt;next)
+<a href='../S/50.html#L139'>next</a>              139 List.h                 node_n = node-&gt;next;
+<a href='../S/50.html#L161'>next</a>              161 List.h                 node-&gt;next = head;
+<a href='../S/50.html#L242'>next</a>              242 List.h                   Node *nextValue = end == 0 ? current-&gt;next : current-&gt;prev;
+<a href='../S/50.html#L269'>next</a>              269 List.h                   current = current-&gt;next;
+<a href='../S/50.html#L274'>next</a>              274 List.h                   current = current-&gt;next;
+<a href='../S/60.html#L150'>next</a>              150 Queue.h              current = current-&gt;next;
+<a href='../S/60.html#L155'>next</a>              155 Queue.h              current = current-&gt;next;
+<a href='../S/60.html#L206'>next</a>              206 Queue.h              current = current-&gt;next;
+<a href='../S/60.html#L211'>next</a>              211 Queue.h              current = current-&gt;next;
+<a href='../S/11.html#L64'>next</a>               64 SortedList.h           current = current-&gt;next;
+<a href='../S/11.html#L70'>next</a>               70 SortedList.h           this-&gt;tail = prev-&gt;next = node;
+<a href='../S/11.html#L73'>next</a>               73 SortedList.h           node-&gt;next = this-&gt;head;
+<a href='../S/11.html#L77'>next</a>               77 SortedList.h           node-&gt;next = current;
+<a href='../S/11.html#L80'>next</a>               80 SortedList.h           prev-&gt;next = node;
+<a href='../S/17.html#L371'>next</a>              371 tests/HashTableTest.cpp     String value = iter.next();
+<a href='../S/17.html#L376'>next</a>              376 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/17.html#L377'>next</a>              377 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/17.html#L378'>next</a>              378 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
+<a href='../S/17.html#L379'>next</a>              379 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/17.html#L383'>next</a>              383 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/17.html#L384'>next</a>              384 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/17.html#L385'>next</a>              385 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/17.html#L389'>next</a>              389 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/17.html#L390'>next</a>              390 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/17.html#L394'>next</a>              394 tests/HashTableTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/31.html#L277'>next</a>              277 tests/ListTest.cpp     String value = iter.next();
+<a href='../S/31.html#L282'>next</a>              282 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", iter.next());
+<a href='../S/31.html#L283'>next</a>              283 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/31.html#L284'>next</a>              284 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
+<a href='../S/31.html#L285'>next</a>              285 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/31.html#L289'>next</a>              289 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/31.html#L290'>next</a>              290 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/31.html#L291'>next</a>              291 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/31.html#L295'>next</a>              295 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/31.html#L296'>next</a>              296 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/31.html#L300'>next</a>              300 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/28.html#L267'>next</a>              267 tests/SortedListTest.cpp     String value = iter.next();
+<a href='../S/28.html#L272'>next</a>              272 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", iter.next());
+<a href='../S/28.html#L273'>next</a>              273 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/28.html#L274'>next</a>              274 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
+<a href='../S/28.html#L275'>next</a>              275 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/28.html#L279'>next</a>              279 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/28.html#L280'>next</a>              280 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
+<a href='../S/28.html#L281'>next</a>              281 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/28.html#L285'>next</a>              285 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
+<a href='../S/28.html#L286'>next</a>              286 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
+<a href='../S/28.html#L290'>next</a>              290 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
 </pre>
 </body>
 </html>

@@ -2,6 +2,7 @@ var structbd_1_1List_1_1Node =
 [
     [ "Node", "structbd_1_1List_1_1Node.html#a639ea4741bb2960be2ca1875fde6d4d5", null ],
     [ "Node", "structbd_1_1List_1_1Node.html#a8e68ea2429676ce9e63bd1ecda706eb5", null ],
+    [ "Node", "structbd_1_1List_1_1Node.html#ad50e3b7232d1bab8e724fc9d8cc81d08", null ],
     [ "operator=", "structbd_1_1List_1_1Node.html#a2e9dec664d9a86451faa6b6feb0d7669", null ],
     [ "swap", "structbd_1_1List_1_1Node.html#a1f0ed51ee0ad21f06f77052852c2dfea", null ],
     [ "item", "structbd_1_1List_1_1Node.html#a52532f5a788657625a244c3ed3d5ba8c", null ],

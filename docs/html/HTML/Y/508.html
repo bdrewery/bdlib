@@ -1,19 +1,156 @@
 <html>
 <head>
-<title>target</title>
+<title>n</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/10.html#L114'>target</a>            114 Cstrings.c       char *target = static_cast&lt;char*&gt;(calloc(1, len + 1));
-<a href='../S/10.html#L115'>target</a>            115 Cstrings.c       if (target == NULL) return NULL;
-<a href='../S/10.html#L116'>target</a>            116 Cstrings.c       target[len] = 0;
-<a href='../S/10.html#L117'>target</a>            117 Cstrings.c       return static_cast&lt;char*&gt;(memcpy(target, entry, len));
-<a href='../S/10.html#L125'>target</a>            125 Cstrings.c       char *target = static_cast&lt;char*&gt;(calloc(1, len + 1));
-<a href='../S/10.html#L126'>target</a>            126 Cstrings.c       if (target == NULL) return NULL;
-<a href='../S/10.html#L127'>target</a>            127 Cstrings.c       target[len] = 0;
-<a href='../S/10.html#L128'>target</a>            128 Cstrings.c       return static_cast&lt;char*&gt;(memcpy(target, entry, len));
+<a href='../S/57.html#L219'>n</a>                 219 Array.h            bool equals(const Array&amp; array, size_t n) const
+<a href='../S/57.html#L231'>n</a>                 231 Array.h              size_t slen = std::min(array.length(), n);
+<a href='../S/57.html#L337'>n</a>                 337 Array.h            inline Array&amp; operator+=(const int n) {
+<a href='../S/57.html#L340'>n</a>                 340 Array.h              if (int(this-&gt;length()) - n &lt; 0) {
+<a href='../S/57.html#L344'>n</a>                 344 Array.h                this-&gt;offset += n;
+<a href='../S/57.html#L345'>n</a>                 345 Array.h                this-&gt;subLength(n);
+<a href='../S/57.html#L350'>n</a>                 350 Array.h            inline Array&amp; operator-=(const int n) {
+<a href='../S/57.html#L353'>n</a>                 353 Array.h              if (int(this-&gt;length()) - n &lt; 0) {
+<a href='../S/57.html#L357'>n</a>                 357 Array.h                this-&gt;subLength(n);
+<a href='../S/4.html#L56'>n</a>                  56 BinaryTree.h           Node(const Node&amp; n) : left(n.left ? new Node(*(n.left)) : nullptr),
+<a href='../S/4.html#L57'>n</a>                  57 BinaryTree.h                                 right(n.right ? new Node(*(n.right)) : nullptr),
+<a href='../S/4.html#L58'>n</a>                  58 BinaryTree.h                                 kv(n.kv) {};
+<a href='../S/48.html#L41'>n</a>                  41 Cstrings.cpp     size_t n = siz;
+<a href='../S/48.html#L44'>n</a>                  44 Cstrings.cpp     if (n != 0 &amp;&amp; --n != 0) {
+<a href='../S/48.html#L48'>n</a>                  48 Cstrings.cpp       } while (--n != 0);
+<a href='../S/48.html#L52'>n</a>                  52 Cstrings.cpp     if (n == 0) {
+<a href='../S/48.html#L72'>n</a>                  72 Cstrings.cpp     size_t n = siz;
+<a href='../S/48.html#L76'>n</a>                  76 Cstrings.cpp     while (*d != '\0' &amp;&amp; n-- != 0)
+<a href='../S/48.html#L79'>n</a>                  79 Cstrings.cpp     n = siz - dlen;
+<a href='../S/48.html#L81'>n</a>                  81 Cstrings.cpp     if (n == 0)
+<a href='../S/48.html#L84'>n</a>                  84 Cstrings.cpp       if (n != 1) {
+<a href='../S/48.html#L86'>n</a>                  86 Cstrings.cpp         n--;
+<a href='../S/7.html#L96'>n</a>                  96 HashTable.h          int n = 0;
+<a href='../S/7.html#L97'>n</a>                  97 HashTable.h          if (!size()) return n;
+<a href='../S/7.html#L114'>n</a>                 114 HashTable.h            ++n;
+<a href='../S/7.html#L117'>n</a>                 117 HashTable.h          return n;
+<a href='../S/50.html#L61'>n</a>                  61 List.h               Node(const Node&amp; n) : item(n.item), next(n.next), prev(n.prev) {};
+<a href='../S/50.html#L76'>n</a>                  76 List.h               Node&amp; operator=(Node n) {
+<a href='../S/50.html#L77'>n</a>                  77 List.h                 swap(*this, n);
+<a href='../S/56.html#L342'>n</a>                 342 ReferenceCountedArray.h     void COW(size_t n) const {
+<a href='../S/56.html#L347'>n</a>                 347 ReferenceCountedArray.h       Reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
+<a href='../S/56.html#L363'>n</a>                 363 ReferenceCountedArray.h     inline void AboutToModify(size_t n) const {
+<a href='../S/56.html#L366'>n</a>                 366 ReferenceCountedArray.h         COW(n); // Clears the offset
+<a href='../S/56.html#L368'>n</a>                 368 ReferenceCountedArray.h         Reserve(n, _rca_cow_scaling_factor);
+<a href='../S/56.html#L802'>n</a>                 802 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, size_t n = npos) { insert(length(), rca, n); };
+<a href='../S/56.html#L812'>n</a>                 812 ReferenceCountedArray.h     void insert(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
+<a href='../S/56.html#L813'>n</a>                 813 ReferenceCountedArray.h       if (n == 0) return;
+<a href='../S/56.html#L819'>n</a>                 819 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
+<a href='../S/56.html#L824'>n</a>                 824 ReferenceCountedArray.h       if (n == npos || n &gt; slen)
+<a href='../S/56.html#L825'>n</a>                 825 ReferenceCountedArray.h         n = slen;
+<a href='../S/56.html#L826'>n</a>                 826 ReferenceCountedArray.h       slen -= slen - n;
+<a href='../S/56.html#L871'>n</a>                 871 ReferenceCountedArray.h     void replace(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
+<a href='../S/56.html#L872'>n</a>                 872 ReferenceCountedArray.h       if (n == 0) return;
+<a href='../S/56.html#L878'>n</a>                 878 ReferenceCountedArray.h       if (pos == 0 &amp;&amp; slen &gt; length() &amp;&amp; (n == npos || n == slen)) {
+<a href='../S/56.html#L883'>n</a>                 883 ReferenceCountedArray.h       if (n == npos || n &gt; slen)
+<a href='../S/56.html#L884'>n</a>                 884 ReferenceCountedArray.h         n = slen;
+<a href='../S/56.html#L885'>n</a>                 885 ReferenceCountedArray.h       slen -= slen - n;
+<a href='../S/72.html#L43'>n</a>                  43 String.cpp     int String::compare(const String&amp; str, size_t n, size_t start) const
+<a href='../S/72.html#L50'>n</a>                  50 String.cpp       const size_t slen = n ? std::min(str.length(), n) : str.length();
+<a href='../S/72.html#L55'>n</a>                  55 String.cpp       else if (n)
+<a href='../S/72.html#L56'>n</a>                  56 String.cpp         return std::min(my_len - start, n) - slen;
+<a href='../S/72.html#L72'>n</a>                  72 String.cpp     void String::insert(size_t pos, const char *string, size_t n)
+<a href='../S/72.html#L74'>n</a>                  74 String.cpp       if (n == 0) return;
+<a href='../S/72.html#L77'>n</a>                  77 String.cpp       size_t slen = (n == npos) ? std::strlen(string) : n;
+<a href='../S/72.html#L91'>n</a>                  91 String.cpp     void String::replace(size_t pos, const char *string, size_t n)
+<a href='../S/72.html#L93'>n</a>                  93 String.cpp       if (n == 0) return;
+<a href='../S/72.html#L96'>n</a>                  96 String.cpp       size_t slen = (n == npos) ? std::strlen(string) : n;
+<a href='../S/47.html#L281'>n</a>                 281 String.h               int compare(const String&amp; str, size_t n = 0, size_t start = 0) const;
+<a href='../S/47.html#L293'>n</a>                 293 String.h               inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
+<a href='../S/47.html#L447'>n</a>                 447 String.h       inline String&amp; String::operator+=(const size_t n) {
+<a href='../S/47.html#L450'>n</a>                 450 String.h         if (n &gt; length()) {
+<a href='../S/47.html#L454'>n</a>                 454 String.h           offset += n;
+<a href='../S/47.html#L455'>n</a>                 455 String.h           subLength(n);
+<a href='../S/47.html#L460'>n</a>                 460 String.h       inline String&amp; String::operator-=(const size_t n) {
+<a href='../S/47.html#L463'>n</a>                 463 String.h         if (n &gt; length()) {
+<a href='../S/47.html#L467'>n</a>                 467 String.h           subLength(n);
+<a href='../S/35.html#L351'>n</a>                 351 tests/BinaryTreeTest.cpp   int n = 0;
+<a href='../S/35.html#L356'>n</a>                 356 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L357'>n</a>                 357 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/35.html#L359'>n</a>                 359 tests/BinaryTreeTest.cpp     ++n;
+<a href='../S/35.html#L362'>n</a>                 362 tests/BinaryTreeTest.cpp   n = (*a).size() - 1;
+<a href='../S/35.html#L366'>n</a>                 366 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L367'>n</a>                 367 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/35.html#L369'>n</a>                 369 tests/BinaryTreeTest.cpp     --n;
+<a href='../S/35.html#L373'>n</a>                 373 tests/BinaryTreeTest.cpp   n = 0;
+<a href='../S/35.html#L377'>n</a>                 377 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L378'>n</a>                 378 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/35.html#L380'>n</a>                 380 tests/BinaryTreeTest.cpp     ++n;
+<a href='../S/35.html#L384'>n</a>                 384 tests/BinaryTreeTest.cpp   n = 0;
+<a href='../S/35.html#L387'>n</a>                 387 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/35.html#L388'>n</a>                 388 tests/BinaryTreeTest.cpp     if (n % 2) {
+<a href='../S/35.html#L393'>n</a>                 393 tests/BinaryTreeTest.cpp     ++n;
+<a href='../S/35.html#L397'>n</a>                 397 tests/BinaryTreeTest.cpp   n = 0;
+<a href='../S/35.html#L400'>n</a>                 400 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L401'>n</a>                 401 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/35.html#L403'>n</a>                 403 tests/BinaryTreeTest.cpp     n += 2;
+<a href='../S/35.html#L417'>n</a>                 417 tests/BinaryTreeTest.cpp   n = (*a).size() - 1;
+<a href='../S/35.html#L418'>n</a>                 418 tests/BinaryTreeTest.cpp   int keep_n = n;
+<a href='../S/35.html#L421'>n</a>                 421 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/35.html#L422'>n</a>                 422 tests/BinaryTreeTest.cpp     if (n % 2) {
+<a href='../S/35.html#L427'>n</a>                 427 tests/BinaryTreeTest.cpp     --n;
+<a href='../S/35.html#L433'>n</a>                 433 tests/BinaryTreeTest.cpp   n = keep_n;
+<a href='../S/35.html#L436'>n</a>                 436 tests/BinaryTreeTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/35.html#L437'>n</a>                 437 tests/BinaryTreeTest.cpp     CPPUNIT_ASSERT_EQUAL(n, iter-&gt;key());
+<a href='../S/35.html#L439'>n</a>                 439 tests/BinaryTreeTest.cpp     n -= 2;
+<a href='../S/17.html#L413'>n</a>                 413 tests/HashTableTest.cpp   int n;
+<a href='../S/17.html#L417'>n</a>                 417 tests/HashTableTest.cpp   n = a-&gt;each([](int key, String value, void* param) {
+<a href='../S/17.html#L426'>n</a>                 426 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(2, n);
+<a href='../S/31.html#L368'>n</a>                 368 tests/ListTest.cpp   int n = 0;
+<a href='../S/31.html#L372'>n</a>                 372 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L374'>n</a>                 374 tests/ListTest.cpp     ++n;
+<a href='../S/31.html#L377'>n</a>                 377 tests/ListTest.cpp   n = (*a).size() - 1;
+<a href='../S/31.html#L381'>n</a>                 381 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L383'>n</a>                 383 tests/ListTest.cpp     --n;
+<a href='../S/31.html#L387'>n</a>                 387 tests/ListTest.cpp   n = 0;
+<a href='../S/31.html#L391'>n</a>                 391 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L393'>n</a>                 393 tests/ListTest.cpp     ++n;
+<a href='../S/31.html#L397'>n</a>                 397 tests/ListTest.cpp   n = 0;
+<a href='../S/31.html#L400'>n</a>                 400 tests/ListTest.cpp     if (n % 2) {
+<a href='../S/31.html#L405'>n</a>                 405 tests/ListTest.cpp     ++n;
+<a href='../S/31.html#L409'>n</a>                 409 tests/ListTest.cpp   n = 0;
+<a href='../S/31.html#L412'>n</a>                 412 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L414'>n</a>                 414 tests/ListTest.cpp     n += 2;
+<a href='../S/31.html#L428'>n</a>                 428 tests/ListTest.cpp   n = (*a).size() - 1;
+<a href='../S/31.html#L429'>n</a>                 429 tests/ListTest.cpp   int keep_n = n;
+<a href='../S/31.html#L432'>n</a>                 432 tests/ListTest.cpp     if (n % 2) {
+<a href='../S/31.html#L437'>n</a>                 437 tests/ListTest.cpp     --n;
+<a href='../S/31.html#L443'>n</a>                 443 tests/ListTest.cpp   n = keep_n;
+<a href='../S/31.html#L446'>n</a>                 446 tests/ListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/31.html#L448'>n</a>                 448 tests/ListTest.cpp     n -= 2;
+<a href='../S/28.html#L358'>n</a>                 358 tests/SortedListTest.cpp   int n = 0;
+<a href='../S/28.html#L362'>n</a>                 362 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L364'>n</a>                 364 tests/SortedListTest.cpp     ++n;
+<a href='../S/28.html#L367'>n</a>                 367 tests/SortedListTest.cpp   n = (*a).size() - 1;
+<a href='../S/28.html#L371'>n</a>                 371 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L373'>n</a>                 373 tests/SortedListTest.cpp     --n;
+<a href='../S/28.html#L377'>n</a>                 377 tests/SortedListTest.cpp   n = 0;
+<a href='../S/28.html#L381'>n</a>                 381 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L383'>n</a>                 383 tests/SortedListTest.cpp     ++n;
+<a href='../S/28.html#L387'>n</a>                 387 tests/SortedListTest.cpp   n = 0;
+<a href='../S/28.html#L390'>n</a>                 390 tests/SortedListTest.cpp     if (n % 2) {
+<a href='../S/28.html#L395'>n</a>                 395 tests/SortedListTest.cpp     ++n;
+<a href='../S/28.html#L399'>n</a>                 399 tests/SortedListTest.cpp   n = 0;
+<a href='../S/28.html#L402'>n</a>                 402 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L404'>n</a>                 404 tests/SortedListTest.cpp     n += 2;
+<a href='../S/28.html#L418'>n</a>                 418 tests/SortedListTest.cpp   n = (*a).size() - 1;
+<a href='../S/28.html#L419'>n</a>                 419 tests/SortedListTest.cpp   int keep_n = n;
+<a href='../S/28.html#L422'>n</a>                 422 tests/SortedListTest.cpp     if (n % 2) {
+<a href='../S/28.html#L427'>n</a>                 427 tests/SortedListTest.cpp     --n;
+<a href='../S/28.html#L433'>n</a>                 433 tests/SortedListTest.cpp   n = keep_n;
+<a href='../S/28.html#L436'>n</a>                 436 tests/SortedListTest.cpp     sprintf(buf, "test%d", n);
+<a href='../S/28.html#L438'>n</a>                 438 tests/SortedListTest.cpp     n -= 2;
+<a href='../S/32.html#L835'>n</a>                 835 tests/StringTest.cpp   int n = 506;
+<a href='../S/32.html#L838'>n</a>                 838 tests/StringTest.cpp   *a = String::printf("%s %d", s, n);
+<a href='../S/32.html#L841'>n</a>                 841 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("506 something 506", String::printf("%d %s %d", n, s, n));
 </pre>
 </body>
 </html>

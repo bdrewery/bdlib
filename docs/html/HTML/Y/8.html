@@ -1,22 +1,22 @@
 <html>
 <head>
-<title>BinaryTree</title>
+<title>AtomicFile</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L41'>BinaryTree</a>         41 BinaryTree.h   class BinaryTree {
-<a href='../S/3.html#L153'>BinaryTree</a>        153 BinaryTree.h       BinaryTree() : my_size(0), root(NULL) {};
-<a href='../S/3.html#L154'>BinaryTree</a>        154 BinaryTree.h       BinaryTree(const BinaryTree&amp; tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
-<a href='../S/3.html#L156'>BinaryTree</a>        156 BinaryTree.h       BinaryTree(BinaryTree&amp;&amp; tree) : my_size(std::move(tree.my_size)), root(std::move(tree.root)) {
-<a href='../S/3.html#L162'>BinaryTree</a>        162 BinaryTree.h       friend void swap(BinaryTree&amp; a, BinaryTree&amp; b) {
-<a href='../S/3.html#L169'>BinaryTree</a>        169 BinaryTree.h       BinaryTree&amp; operator=(BinaryTree tree) {
-<a href='../S/3.html#L180'>BinaryTree</a>        180 BinaryTree.h       virtual ~BinaryTree() { clear(); };
-<a href='../S/3.html#L275'>BinaryTree</a>        275 BinaryTree.h         friend class BinaryTree;
-<a href='../S/3.html#L276'>BinaryTree</a>        276 BinaryTree.h         typedef BinaryTree&lt;Key, Value&gt; Tree;
-<a href='../S/29.html#L303'>BinaryTree</a>        303 tests/BinaryTreeTest.cpp   BinaryTree&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/22.html#L64'>BinaryTree</a>         64 tests/BinaryTreeTest.h         BinaryTree&lt;int, String&gt; *a, *b, *c, *d, *e, *f, *g, *h;
+<a href='../S/70.html#L36'>AtomicFile</a>         36 AtomicFile.cpp bool AtomicFile::open(const String&amp; fname, mode_t mode) {
+<a href='../S/70.html#L64'>AtomicFile</a>         64 AtomicFile.cpp bool AtomicFile::abort() {
+<a href='../S/70.html#L74'>AtomicFile</a>         74 AtomicFile.cpp bool AtomicFile::commit() {
+<a href='../S/58.html#L39'>AtomicFile</a>         39 AtomicFile.h   class AtomicFile {
+<a href='../S/58.html#L46'>AtomicFile</a>         46 AtomicFile.h       AtomicFile() : _fname(), _tmpname(), _fd(-1), _mode(-1) {};
+<a href='../S/58.html#L47'>AtomicFile</a>         47 AtomicFile.h       AtomicFile(AtomicFile&amp; f) : _fname(f._fname), _tmpname(), _fd(f._fd),
+<a href='../S/58.html#L53'>AtomicFile</a>         53 AtomicFile.h       virtual ~AtomicFile() {
+<a href='../S/18.html#L65'>AtomicFile</a>         65 tests/AtomicFileTest.cpp   AtomicFile *a;
+<a href='../S/18.html#L133'>AtomicFile</a>        133 tests/AtomicFileTest.cpp   AtomicFile *a;
+<a href='../S/18.html#L201'>AtomicFile</a>        201 tests/AtomicFileTest.cpp   AtomicFile *a;
+<a href='../S/18.html#L257'>AtomicFile</a>        257 tests/AtomicFileTest.cpp   AtomicFile *a;
 </pre>
 </body>
 </html>

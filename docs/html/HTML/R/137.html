@@ -1,13 +1,65 @@
 <html>
 <head>
-<title>reverse_iterator</title>
+<title>find</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L612'>reverse_iterator</a>  612 ReferenceCountedArray.h     inline reverse_iterator rbegin() { return reverse_iterator(this-&gt;end()); };
-<a href='../S/43.html#L623'>reverse_iterator</a>  623 ReferenceCountedArray.h     inline reverse_iterator rend() { return reverse_iterator(this-&gt;begin()); };
+<a href='../S/7.html#L174'>find</a>              174 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
+<a href='../S/50.html#L179'>find</a>              179 List.h            const value_type find(const_reference item) const {
+<a href='../S/56.html#L643'>find</a>              643 ReferenceCountedArray.h     size_t find(const_reference item) const {
+<a href='../S/72.html#L168'>find</a>              168 String.cpp         if ((pos = str.find(delim)) == npos)
+<a href='../S/72.html#L230'>find</a>              230 String.cpp       return this_upper.find(str_upper);
+<a href='../S/72.html#L255'>find</a>              255 String.cpp       while ((pos = search_str.find(search)) != npos) {
+<a href='../S/72.html#L289'>find</a>              289 String.cpp       size_t pos = str.find(delim);
+<a href='../S/47.html#L149'>find</a>              149 String.h               size_t find(const String&amp; str) const;
+<a href='../S/47.html#L150'>find</a>              150 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::find;
+<a href='../S/37.html#L253'>find</a>              253 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(-1), str_a-&gt;find("Test3"));
+<a href='../S/37.html#L254'>find</a>              254 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a-&gt;find("Test1"));
+<a href='../S/37.html#L255'>find</a>              255 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a-&gt;find("Test2"));
+<a href='../S/17.html#L184'>find</a>              184 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("1") != size_t(-1));
+<a href='../S/17.html#L185'>find</a>              185 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("2") != size_t(-1));
+<a href='../S/17.html#L186'>find</a>              186 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("8") != size_t(-1));
+<a href='../S/17.html#L187'>find</a>              187 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("4") != size_t(-1));
+<a href='../S/17.html#L188'>find</a>              188 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("42") != size_t(-1));
+<a href='../S/17.html#L192'>find</a>              192 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(bool(1), values.find("Blah") != size_t(-1));
+<a href='../S/17.html#L193'>find</a>              193 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(bool(1), values.find("42") != size_t(-1));
+<a href='../S/31.html#L146'>find</a>              146 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/31.html#L149'>find</a>              149 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/31.html#L150'>find</a>              150 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a-&gt;find("Blah2"));
+<a href='../S/31.html#L151'>find</a>              151 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/31.html#L152'>find</a>              152 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/31.html#L156'>find</a>              156 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/31.html#L157'>find</a>              157 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/31.html#L158'>find</a>              158 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/31.html#L162'>find</a>              162 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/31.html#L163'>find</a>              163 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/31.html#L167'>find</a>              167 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/31.html#L170'>find</a>              170 tests/ListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/28.html#L146'>find</a>              146 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/28.html#L149'>find</a>              149 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/28.html#L150'>find</a>              150 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah2", a-&gt;find("Blah2"));
+<a href='../S/28.html#L151'>find</a>              151 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/28.html#L152'>find</a>              152 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/28.html#L153'>find</a>              153 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah5", a-&gt;find("Blah5"));
+<a href='../S/28.html#L157'>find</a>              157 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/28.html#L158'>find</a>              158 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/28.html#L159'>find</a>              159 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah4", a-&gt;find("Blah4"));
+<a href='../S/28.html#L163'>find</a>              163 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah1", a-&gt;find("Blah1"));
+<a href='../S/28.html#L164'>find</a>              164 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/28.html#L168'>find</a>              168 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Blah3", a-&gt;find("Blah3"));
+<a href='../S/28.html#L171'>find</a>              171 tests/SortedListTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("", a-&gt;find("WONT FIND THIS"));
+<a href='../S/32.html#L558'>find</a>              558 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)0, a-&gt;find('T'));
+<a href='../S/32.html#L559'>find</a>              559 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)1, a-&gt;find('h'));
+<a href='../S/32.html#L560'>find</a>              560 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)2, a-&gt;find('i'));
+<a href='../S/32.html#L561'>find</a>              561 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)3, a-&gt;find('s'));
+<a href='../S/32.html#L562'>find</a>              562 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)13, a-&gt;find('l'));
+<a href='../S/32.html#L563'>find</a>              563 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)13, a-&gt;find("long"));
+<a href='../S/32.html#L564'>find</a>              564 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t)18, a-&gt;find("string"));
+<a href='../S/32.html#L566'>find</a>              566 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;find("z"));
+<a href='../S/32.html#L567'>find</a>              567 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;find("notfound"));
+<a href='../S/32.html#L574'>find</a>              574 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(String::npos, a-&gt;find("stRIng"));
 </pre>
 </body>
 </html>

@@ -12,6 +12,7 @@ var classbd_1_1QueueConstIterator =
     [ "QueueConstIterator", "classbd_1_1QueueConstIterator.html#a60dacb33df28d8784e289b55d5239c4b", null ],
     [ "QueueConstIterator", "classbd_1_1QueueConstIterator.html#a538389cf2aea2d1ac8a842f31e277c15", null ],
     [ "~QueueConstIterator", "classbd_1_1QueueConstIterator.html#a997ca837e1440e46800290c84e16523c", null ],
+    [ "operator bool", "classbd_1_1QueueConstIterator.html#ab990a1a884d175335cb7bbad2454d188", null ],
     [ "operator!=", "classbd_1_1QueueConstIterator.html#ae4e487bb9ba7666d798ea18561b6a048", null ],
     [ "operator*", "classbd_1_1QueueConstIterator.html#a0443730b5120d91fe19b7223bf123ddd", null ],
     [ "operator++", "classbd_1_1QueueConstIterator.html#a51d8b1a48df4c5cc8d4a03a91c749563", null ],

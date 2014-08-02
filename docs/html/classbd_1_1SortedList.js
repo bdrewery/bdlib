@@ -21,6 +21,7 @@ var classbd_1_1SortedList =
     [ "insert", "classbd_1_1SortedList.html#accd1c4f47da10d0edfa6edbcdab3ba9c", null ],
     [ "insert", "classbd_1_1SortedList.html#ae637e8a7947b75ed2fe50a7a268b7f5e", null ],
     [ "isEmpty", "classbd_1_1SortedList.html#a3f87c953fb7b3affd52395d414c5a748", null ],
+    [ "operator bool", "classbd_1_1SortedList.html#a3e4b1ef53a4a3c273bfdaaaec3552a7b", null ],
     [ "remove", "classbd_1_1SortedList.html#a36f89a30b948455f1a3974b1dd9f172b", null ],
     [ "size", "classbd_1_1SortedList.html#ae9c0e07262f03bd74bb85edb10da0b51", null ],
     [ "head", "classbd_1_1SortedList.html#a77642fc8f1898ea15dacfc97a4a7444e", null ],

@@ -1,27 +1,64 @@
 <html>
 <head>
-<title>String_Array_Type</title>
+<title>Node</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/35.html#L64'>String_Array_Type</a>   64 String.h       class String : public ReferenceCountedArray&lt;String_Array_Type&gt; {
-<a href='../S/35.html#L87'>String_Array_Type</a>   87 String.h               String(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) {};
-<a href='../S/35.html#L88'>String_Array_Type</a>   88 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(string) {};
-<a href='../S/35.html#L90'>String_Array_Type</a>   90 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
-<a href='../S/35.html#L98'>String_Array_Type</a>   98 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
-<a href='../S/35.html#L108'>String_Array_Type</a>  108 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
-<a href='../S/35.html#L117'>String_Array_Type</a>  117 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
-<a href='../S/35.html#L128'>String_Array_Type</a>  128 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
-<a href='../S/35.html#L129'>String_Array_Type</a>  129 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
-<a href='../S/35.html#L140'>String_Array_Type</a>  140 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(string);
-<a href='../S/35.html#L145'>String_Array_Type</a>  145 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
-<a href='../S/35.html#L156'>String_Array_Type</a>  156 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::find;
-<a href='../S/35.html#L166'>String_Array_Type</a>  166 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::rfind;
-<a href='../S/35.html#L301'>String_Array_Type</a>  301 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::append;
-<a href='../S/35.html#L304'>String_Array_Type</a>  304 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::insert;
-<a href='../S/35.html#L307'>String_Array_Type</a>  307 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::replace;
+<a href='../S/4.html#L49'>Node</a>               49 BinaryTree.h       class Node {
+<a href='../S/4.html#L51'>Node</a>               51 BinaryTree.h           Node *left;
+<a href='../S/4.html#L52'>Node</a>               52 BinaryTree.h           Node *right;
+<a href='../S/4.html#L55'>Node</a>               55 BinaryTree.h           Node(const Key k, const Value v) : left(nullptr), right(nullptr), kv(k, v) { };
+<a href='../S/4.html#L56'>Node</a>               56 BinaryTree.h           Node(const Node&amp; n) : left(n.left ? new Node(*(n.left)) : nullptr),
+<a href='../S/4.html#L57'>Node</a>               57 BinaryTree.h                                 right(n.right ? new Node(*(n.right)) : nullptr),
+<a href='../S/4.html#L62'>Node</a>               62 BinaryTree.h       Node *root;
+<a href='../S/4.html#L70'>Node</a>               70 BinaryTree.h       Node*&amp; fetchNode(Node* const* search, const Key&amp; key) const {
+<a href='../S/4.html#L77'>Node</a>               77 BinaryTree.h             return const_cast&lt;Node*&amp;&gt;(*search);
+<a href='../S/4.html#L80'>Node</a>               80 BinaryTree.h         return const_cast&lt;Node*&amp;&gt;(*search);
+<a href='../S/4.html#L91'>Node</a>               91 BinaryTree.h       inline void insertNode(Node** search, Node* const node) {
+<a href='../S/4.html#L92'>Node</a>               92 BinaryTree.h         Node*&amp; insertAt = fetchNode(search, node-&gt;kv.key());
+<a href='../S/4.html#L96'>Node</a>               96 BinaryTree.h       inline void insertNode(Node*&amp; insertAt, Node* const node) {
+<a href='../S/4.html#L105'>Node</a>              105 BinaryTree.h       void deleteNode(Node*&amp; node) {
+<a href='../S/4.html#L109'>Node</a>              109 BinaryTree.h           Node* temp = node-&gt;right;
+<a href='../S/4.html#L114'>Node</a>              114 BinaryTree.h           Node* temp = node-&gt;left;
+<a href='../S/4.html#L120'>Node</a>              120 BinaryTree.h           Node** temp = &amp;(node-&gt;left);
+<a href='../S/4.html#L152'>Node</a>              152 BinaryTree.h       BinaryTree(const BinaryTree&amp; tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+<a href='../S/4.html#L185'>Node</a>              185 BinaryTree.h         Node*&amp; rNode = fetchNode(&amp;root, key);
+<a href='../S/4.html#L189'>Node</a>              189 BinaryTree.h           Node *newNode = new Node(key, value);
+<a href='../S/4.html#L209'>Node</a>              209 BinaryTree.h         Node*&amp; node = fetchNode(&amp;root, key);
+<a href='../S/4.html#L211'>Node</a>              211 BinaryTree.h           insertNode(node, new Node(key, Value()));
+<a href='../S/4.html#L222'>Node</a>              222 BinaryTree.h         Node*&amp; node = fetchNode(&amp;root, key);
+<a href='../S/4.html#L245'>Node</a>              245 BinaryTree.h         Node* node = fetchNode(&amp;root, key);
+<a href='../S/4.html#L280'>Node</a>              280 BinaryTree.h           void fillArray(int&amp; i, const Node* node) {
+<a href='../S/4.html#L288'>Node</a>              288 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool _reverse = 0) : Iterator&lt;iterator_type&gt;(),
+<a href='../S/50.html#L56'>Node</a>               56 List.h               Node* next;
+<a href='../S/50.html#L57'>Node</a>               57 List.h               Node* prev;
+<a href='../S/50.html#L59'>Node</a>               59 List.h               Node(const_reference p) : item(p), next(nullptr), prev(nullptr) {};
+<a href='../S/50.html#L61'>Node</a>               61 List.h               Node(const Node&amp; n) : item(n.item), next(n.next), prev(n.prev) {};
+<a href='../S/50.html#L62'>Node</a>               62 List.h               Node(const value_type&amp;&amp; p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+<a href='../S/50.html#L68'>Node</a>               68 List.h               friend void swap(Node&amp; a, Node&amp; b) {
+<a href='../S/50.html#L76'>Node</a>               76 List.h               Node&amp; operator=(Node n) {
+<a href='../S/50.html#L82'>Node</a>               82 List.h             void deleteNode(Node* node) {
+<a href='../S/50.html#L83'>Node</a>               83 List.h               Node* next = node-&gt;next; //NULL if node = tail
+<a href='../S/50.html#L84'>Node</a>               84 List.h               Node* prev = node-&gt;prev; //NULL if node = head
+<a href='../S/50.html#L97'>Node</a>               97 List.h             Node* findNode(const_reference item) const {
+<a href='../S/50.html#L98'>Node</a>               98 List.h               for (Node* current = head; current; current = current-&gt;next) {
+<a href='../S/50.html#L106'>Node</a>              106 List.h             Node* head;
+<a href='../S/50.html#L107'>Node</a>              107 List.h             Node* tail;
+<a href='../S/50.html#L115'>Node</a>              115 List.h               for (Node* search = list.head; search; search = search-&gt;next)
+<a href='../S/50.html#L137'>Node</a>              137 List.h               Node* node = head, *node_n = nullptr;
+<a href='../S/50.html#L156'>Node</a>              156 List.h               Node* node = new Node(item);
+<a href='../S/50.html#L180'>Node</a>              180 List.h               Node* node = findNode(item);
+<a href='../S/50.html#L188'>Node</a>              188 List.h               Node* node = findNode(item);
+<a href='../S/50.html#L199'>Node</a>              199 List.h               Node* node = findNode(item);
+<a href='../S/50.html#L212'>Node</a>              212 List.h                 Node *current;
+<a href='../S/50.html#L242'>Node</a>              242 List.h                   Node *nextValue = end == 0 ? current-&gt;next : current-&gt;prev;
+<a href='../S/60.html#L133'>Node</a>              133 Queue.h            Node *current;
+<a href='../S/60.html#L135'>Node</a>              135 Queue.h            QueueIterator(Queue&lt;T&gt;* _queue, Node* start) : queue(_queue), current(start) {};
+<a href='../S/60.html#L178'>Node</a>              178 Queue.h            const Node *current;
+<a href='../S/60.html#L180'>Node</a>              180 Queue.h            QueueConstIterator(const Queue&lt;T&gt;* _queue, const Node* start) : queue(_queue), current(start) {};
+<a href='../S/11.html#L61'>Node</a>               61 SortedList.h         Node* node = new Node(item), *prev = nullptr, *current = this-&gt;head;
 </pre>
 </body>
 </html>

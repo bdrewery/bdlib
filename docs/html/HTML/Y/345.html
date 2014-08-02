@@ -1,13 +1,158 @@
 <html>
 <head>
-<title>mmap</title>
+<title>f</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/53.html#L117'>mmap</a>              117 Stream.cpp       void* map = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
-<a href='../S/53.html#L170'>mmap</a>              170 Stream.cpp       void* map = mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+<a href='../S/58.html#L47'>f</a>                  47 AtomicFile.h       AtomicFile(AtomicFile&amp; f) : _fname(f._fname), _tmpname(), _fd(f._fd),
+<a href='../S/58.html#L48'>f</a>                  48 AtomicFile.h                                   _mode(f._mode) {};
+<a href='../S/1.html#L74'>f</a>                  74 Socket.h           Socket(int f) : sock(-1), addr(0), flags(f) {};
+<a href='../S/71.html#L131'>f</a>                 131 Stream.cpp       FILE *f = fdopen(my_fd, "rb");
+<a href='../S/71.html#L132'>f</a>                 132 Stream.cpp       if (f == nullptr) {
+<a href='../S/71.html#L138'>f</a>                 138 Stream.cpp       fseek(f, 0, SEEK_END);
+<a href='../S/71.html#L139'>f</a>                 139 Stream.cpp       size_t size = ftell(f);
+<a href='../S/71.html#L140'>f</a>                 140 Stream.cpp       fseek(f, 0, SEEK_SET);
+<a href='../S/71.html#L146'>f</a>                 146 Stream.cpp       while ((len = fread(buf, 1, sizeof(buf) - 1, f))) {
+<a href='../S/71.html#L149'>f</a>                 149 Stream.cpp       fclose(f);
+<a href='../S/71.html#L187'>f</a>                 187 Stream.cpp       FILE *f = fdopen(my_fd, "wb");
+<a href='../S/71.html#L188'>f</a>                 188 Stream.cpp       if (f == nullptr) {
+<a href='../S/71.html#L193'>f</a>                 193 Stream.cpp       if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
+<a href='../S/71.html#L194'>f</a>                 194 Stream.cpp         fclose(f);
+<a href='../S/71.html#L197'>f</a>                 197 Stream.cpp       fclose(f);
+<a href='../S/18.html#L39'>f</a>                  39 tests/AtomicFileTest.cpp   FILE *f;
+<a href='../S/18.html#L45'>f</a>                  45 tests/AtomicFileTest.cpp   f = fopen("/etc/services", "r");
+<a href='../S/18.html#L46'>f</a>                  46 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT(f != NULL);
+<a href='../S/18.html#L47'>f</a>                  47 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/18.html#L48'>f</a>                  48 tests/AtomicFileTest.cpp   source_len = ftell(f);
+<a href='../S/18.html#L52'>f</a>                  52 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/18.html#L53'>f</a>                  53 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(source_len, fread(source-&gt;begin(), 1, source_len, f));
+<a href='../S/18.html#L55'>f</a>                  55 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L67'>f</a>                  67 tests/AtomicFileTest.cpp   FILE *f, *f2;
+<a href='../S/18.html#L92'>f</a>                  92 tests/AtomicFileTest.cpp   f = fdopen(fd, "w");
+<a href='../S/18.html#L93'>f</a>                  93 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT(f != NULL);
+<a href='../S/18.html#L95'>f</a>                  95 tests/AtomicFileTest.cpp         static_cast&lt;const char*&gt;(source-&gt;begin()), 1, source-&gt;length(), f));
+<a href='../S/18.html#L96'>f</a>                  96 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L99'>f</a>                  99 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L100'>f</a>                 100 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L101'>f</a>                 101 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L110'>f</a>                 110 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L111'>f</a>                 111 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT(f != NULL);
+<a href='../S/18.html#L112'>f</a>                 112 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/18.html#L113'>f</a>                 113 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(source-&gt;length(), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/18.html#L115'>f</a>                 115 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/18.html#L117'>f</a>                 117 tests/AtomicFileTest.cpp         source-&gt;length(), f));
+<a href='../S/18.html#L121'>f</a>                 121 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(0, fstat(fileno(f), &amp;st));
+<a href='../S/18.html#L124'>f</a>                 124 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L135'>f</a>                 135 tests/AtomicFileTest.cpp   FILE *f, *f2;
+<a href='../S/18.html#L160'>f</a>                 160 tests/AtomicFileTest.cpp   f = fdopen(fd, "w");
+<a href='../S/18.html#L161'>f</a>                 161 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT(f != NULL);
+<a href='../S/18.html#L163'>f</a>                 163 tests/AtomicFileTest.cpp         static_cast&lt;const char*&gt;(source-&gt;begin()), 1, source-&gt;length(), f));
+<a href='../S/18.html#L164'>f</a>                 164 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L167'>f</a>                 167 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L168'>f</a>                 168 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L169'>f</a>                 169 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L178'>f</a>                 178 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L179'>f</a>                 179 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT(f != NULL);
+<a href='../S/18.html#L180'>f</a>                 180 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/18.html#L181'>f</a>                 181 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(source-&gt;length(), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/18.html#L183'>f</a>                 183 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/18.html#L185'>f</a>                 185 tests/AtomicFileTest.cpp         source-&gt;length(), f));
+<a href='../S/18.html#L189'>f</a>                 189 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(0, fstat(fileno(f), &amp;st));
+<a href='../S/18.html#L192'>f</a>                 192 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L203'>f</a>                 203 tests/AtomicFileTest.cpp   FILE *f, *f2;
+<a href='../S/18.html#L227'>f</a>                 227 tests/AtomicFileTest.cpp   f = fdopen(fd, "w");
+<a href='../S/18.html#L228'>f</a>                 228 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT(f != NULL);
+<a href='../S/18.html#L230'>f</a>                 230 tests/AtomicFileTest.cpp         static_cast&lt;const char*&gt;(source-&gt;begin()), 1, source-&gt;length(), f));
+<a href='../S/18.html#L232'>f</a>                 232 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L235'>f</a>                 235 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L236'>f</a>                 236 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L237'>f</a>                 237 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L243'>f</a>                 243 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L244'>f</a>                 244 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L245'>f</a>                 245 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/18.html#L246'>f</a>                 246 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/18.html#L247'>f</a>                 247 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L259'>f</a>                 259 tests/AtomicFileTest.cpp   FILE *f, *f2;
+<a href='../S/18.html#L283'>f</a>                 283 tests/AtomicFileTest.cpp   f = fdopen(fd, "w");
+<a href='../S/18.html#L284'>f</a>                 284 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT(f != NULL);
+<a href='../S/18.html#L286'>f</a>                 286 tests/AtomicFileTest.cpp         static_cast&lt;const char*&gt;(source-&gt;begin()), 1, source-&gt;length(), f));
+<a href='../S/18.html#L288'>f</a>                 288 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L291'>f</a>                 291 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L292'>f</a>                 292 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L293'>f</a>                 293 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/18.html#L300'>f</a>                 300 tests/AtomicFileTest.cpp   f = fopen(dst_name, "r");
+<a href='../S/18.html#L301'>f</a>                 301 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+<a href='../S/18.html#L302'>f</a>                 302 tests/AtomicFileTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/18.html#L303'>f</a>                 303 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/18.html#L304'>f</a>                 304 tests/AtomicFileTest.cpp   fclose(f);
+<a href='../S/35.html#L46'>f</a>                  46 tests/BinaryTreeTest.cpp   b = c = d = e = f = g = h = nullptr;
+<a href='../S/35.html#L53'>f</a>                  53 tests/BinaryTreeTest.cpp     delete e; delete f; delete g; delete h;
+<a href='../S/27.html#L64'>f</a>                  64 tests/BinaryTreeTest.h         BinaryTree&lt;int, String&gt; *a, *b, *c, *d, *e, *f, *g, *h;
+<a href='../S/31.html#L50'>f</a>                  50 tests/ListTest.cpp   f = new List&lt;String*&gt;();
+<a href='../S/31.html#L59'>f</a>                  59 tests/ListTest.cpp     delete e; delete f; delete g; delete h;
+<a href='../S/20.html#L63'>f</a>                  63 tests/ListTest.h         List&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/23.html#L50'>f</a>                  50 tests/QueueTest.cpp   f = new Queue&lt;String*&gt;();
+<a href='../S/23.html#L59'>f</a>                  59 tests/QueueTest.cpp     delete e; delete f; delete g; delete h;
+<a href='../S/33.html#L55'>f</a>                  55 tests/QueueTest.h         Queue&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/28.html#L50'>f</a>                  50 tests/SortedListTest.cpp   f = new SortedList&lt;String*&gt;();
+<a href='../S/28.html#L59'>f</a>                  59 tests/SortedListTest.cpp     delete e; delete f; delete g; delete h;
+<a href='../S/14.html#L63'>f</a>                  63 tests/SortedListTest.h         SortedList&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/25.html#L50'>f</a>                  50 tests/StackTest.cpp   f = new Stack&lt;String*&gt;();
+<a href='../S/25.html#L59'>f</a>                  59 tests/StackTest.cpp     delete e; delete f; delete g; delete h;
+<a href='../S/22.html#L55'>f</a>                  55 tests/StackTest.h         Stack&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/16.html#L233'>f</a>                 233 tests/StreamTest.cpp   FILE *f = nullptr;
+<a href='../S/16.html#L234'>f</a>                 234 tests/StreamTest.cpp   f = fopen(file, "rb");
+<a href='../S/16.html#L235'>f</a>                 235 tests/StreamTest.cpp   if (f == nullptr)
+<a href='../S/16.html#L238'>f</a>                 238 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/16.html#L239'>f</a>                 239 tests/StreamTest.cpp   size_t size = ftell(f);
+<a href='../S/16.html#L240'>f</a>                 240 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/16.html#L243'>f</a>                 243 tests/StreamTest.cpp   fread(buffer, 1, size, f);
+<a href='../S/16.html#L255'>f</a>                 255 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/16.html#L256'>f</a>                 256 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != nullptr) {
+<a href='../S/16.html#L260'>f</a>                 260 tests/StreamTest.cpp   fclose(f);
+<a href='../S/16.html#L280'>f</a>                 280 tests/StreamTest.cpp   FILE *f = nullptr;
+<a href='../S/16.html#L281'>f</a>                 281 tests/StreamTest.cpp   f = fopen(file, "rb");
+<a href='../S/16.html#L282'>f</a>                 282 tests/StreamTest.cpp   if (f == nullptr)
+<a href='../S/16.html#L285'>f</a>                 285 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/16.html#L286'>f</a>                 286 tests/StreamTest.cpp   size_t size = ftell(f);
+<a href='../S/16.html#L287'>f</a>                 287 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/16.html#L290'>f</a>                 290 tests/StreamTest.cpp   fread(buffer, 1, size, f);
+<a href='../S/16.html#L300'>f</a>                 300 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/16.html#L301'>f</a>                 301 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != nullptr) {
+<a href='../S/16.html#L313'>f</a>                 313 tests/StreamTest.cpp   fclose(f);
+<a href='../S/16.html#L327'>f</a>                 327 tests/StreamTest.cpp   FILE *f = nullptr;
+<a href='../S/16.html#L328'>f</a>                 328 tests/StreamTest.cpp   f = fopen(file, "rb");
+<a href='../S/16.html#L329'>f</a>                 329 tests/StreamTest.cpp   if (f == nullptr)
+<a href='../S/16.html#L332'>f</a>                 332 tests/StreamTest.cpp   fseek(f, 0, SEEK_END);
+<a href='../S/16.html#L333'>f</a>                 333 tests/StreamTest.cpp   size_t size = ftell(f);
+<a href='../S/16.html#L334'>f</a>                 334 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/16.html#L337'>f</a>                 337 tests/StreamTest.cpp   fread(buffer, 1, size, f);
+<a href='../S/16.html#L347'>f</a>                 347 tests/StreamTest.cpp   fseek(f, 0, SEEK_SET);
+<a href='../S/16.html#L348'>f</a>                 348 tests/StreamTest.cpp   while (fgets(buf, sizeof(buf), f) != nullptr) {
+<a href='../S/16.html#L362'>f</a>                 362 tests/StreamTest.cpp   fclose(f);
+<a href='../S/32.html#L53'>f</a>                  53 tests/StringTest.cpp     f = new String(cstring, 11);
+<a href='../S/32.html#L62'>f</a>                  62 tests/StringTest.cpp     delete e; delete f; delete g; delete h;
+<a href='../S/32.html#L72'>f</a>                  72 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 11, f-&gt;length());
+<a href='../S/32.html#L108'>f</a>                 108 tests/StringTest.cpp   CPPUNIT_ASSERT(f-&gt;capacity() &gt;= 11);
+<a href='../S/32.html#L121'>f</a>                 121 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
+<a href='../S/32.html#L122'>f</a>                 122 tests/StringTest.cpp   CPPUNIT_ASSERT((*f).compare(cstring) &lt; 0);
+<a href='../S/32.html#L123'>f</a>                 123 tests/StringTest.cpp   CPPUNIT_ASSERT((*d).compare(*f) &gt; 0);
+<a href='../S/32.html#L217'>f</a>                 217 tests/StringTest.cpp   const char *f_test = f-&gt;c_str();
+<a href='../S/32.html#L225'>f</a>                 225 tests/StringTest.cpp   *f = "TESTING 1 2 3 4";
+<a href='../S/32.html#L226'>f</a>                 226 tests/StringTest.cpp   *a = (*f)(2, 5);
+<a href='../S/32.html#L238'>f</a>                 238 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(true, f-&gt;hasIndex(10));
+<a href='../S/32.html#L239'>f</a>                 239 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(false, f-&gt;hasIndex(11));
+<a href='../S/32.html#L330'>f</a>                 330 tests/StringTest.cpp   f-&gt;append(&amp;cstring[11], strlen(cstring) - 11);
+<a href='../S/32.html#L331'>f</a>                 331 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(*d, *f);
+<a href='../S/32.html#L903'>f</a>                 903 tests/StringTest.cpp   String eff = String(*f);
+<a href='../S/32.html#L904'>f</a>                 904 tests/StringTest.cpp   *f = base64Encode(*f);
+<a href='../S/32.html#L905'>f</a>                 905 tests/StringTest.cpp   *f = base64Decode(*f);
+<a href='../S/32.html#L906'>f</a>                 906 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(*f, eff);
+<a href='../S/32.html#L1259'>f</a>                1259 tests/StringTest.cpp   *f = *e;
+<a href='../S/32.html#L1261'>f</a>                1261 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("and replacing work with substrings?test", *f);
+<a href='../S/19.html#L125'>f</a>                 125 tests/StringTest.h         String *a, *b, *c, *d, *e, *f, *g, *h;
 </pre>
 </body>
 </html>

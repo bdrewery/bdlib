@@ -1,23 +1,31 @@
 <html>
 <head>
-<title>_hash</title>
+<title>Stream</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/5.html#L57'>_hash</a>              57 HashTable.h        hasher _hash;
-<a href='../S/5.html#L60'>_hash</a>              60 HashTable.h          return _hash(key) % _capacity;
-<a href='../S/5.html#L63'>_hash</a>              63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/5.html#L64'>_hash</a>              64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L65'>_hash</a>              65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L70'>_hash</a>              70 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-<a href='../S/5.html#L74'>_hash</a>              74 HashTable.h          _hash = _hash();
-<a href='../S/5.html#L78'>_hash</a>              78 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L126'>_hash</a>             126 HashTable.h          swap(a._hash, b._hash);
-<a href='../S/43.html#L640'>_hash</a>             640 ReferenceCountedArray.h       size_t _hash = 5381;
-<a href='../S/43.html#L643'>_hash</a>             643 ReferenceCountedArray.h         _hash = ((_hash &lt;&lt; 5) + _hash) + hasher(this-&gt;data()[i]);
-<a href='../S/43.html#L644'>_hash</a>             644 ReferenceCountedArray.h       return (my_hash = (_hash &amp; 0x7FFFFFFF));
+<a href='../S/71.html#L46'>Stream</a>             46 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
+<a href='../S/71.html#L52'>Stream</a>             52 Stream.cpp     int Stream::seek(int offset, int whence) {
+<a href='../S/71.html#L77'>Stream</a>             77 Stream.cpp     String Stream::read(size_t maxSize, char delim) {
+<a href='../S/71.html#L101'>Stream</a>            101 Stream.cpp     int Stream::loadFile(const String&amp; file)
+<a href='../S/71.html#L111'>Stream</a>            111 Stream.cpp     int Stream::loadFile(const int fd)
+<a href='../S/71.html#L156'>Stream</a>            156 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
+<a href='../S/71.html#L166'>Stream</a>            166 Stream.cpp     int Stream::writeFile(const int fd) const
+<a href='../S/45.html#L49'>Stream</a>             49 Stream.h       class Stream {
+<a href='../S/45.html#L56'>Stream</a>             56 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/45.html#L57'>Stream</a>             57 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/45.html#L58'>Stream</a>             58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/45.html#L63'>Stream</a>             63 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/45.html#L64'>Stream</a>             64 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/45.html#L65'>Stream</a>             65 Stream.h               virtual ~Stream() {};
+<a href='../S/45.html#L67'>Stream</a>             67 Stream.h               friend void swap(Stream&amp; a, Stream&amp; b) {
+<a href='../S/45.html#L75'>Stream</a>             75 Stream.h               Stream&amp; operator=(Stream stream) {
+<a href='../S/45.html#L168'>Stream</a>            168 Stream.h               friend Stream&amp; operator&lt;&lt;(Stream&amp;, const String&amp;);
+<a href='../S/45.html#L171'>Stream</a>            171 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/21.html#L52'>Stream</a>             52 tests/ScriptInterpTCLTest.cpp   Stream test_tcl;
+<a href='../S/26.html#L67'>Stream</a>             67 tests/StreamTest.h         Stream *a, *b, *c, *d, *e, *F, *g, *h;
 </pre>
 </body>
 </html>

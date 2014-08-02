@@ -1,18 +1,18 @@
 <html>
 <head>
-<title>bdlib.h</title>
+<title>Iterator.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/bdlib.h</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/Iterator.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='../J/32.html' title='Multiple included from 17 places.'>INCLUDED FROM</a></h2>
+<h2><a href='../J/13.html' title='Multiple included from 3 places.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
-<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2013, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
+<a name='L2'>   2 <i><font color='green'> * Copyright (c) 2006-2014, Bryan Drewery &lt;bryan@shatow.net&gt;</font></i>
 <a name='L3'>   3 <i><font color='green'> * All rights reserved.</font></i>
 <a name='L4'>   4 <i><font color='green'> * </font></i>
 <a name='L5'>   5 <i><font color='green'> * Redistribution and use in source and binary forms, with or without</font></i>
@@ -35,32 +35,102 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* bdlib.h</font></i>
+<a name='L25'>  25 <i><font color='green'>/* Iterator.h</font></i>
 <a name='L26'>  26 <i><font color='green'> */</font></i>
 <a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/41.html#L29' title='Defined at 29 in bdlib.h.'>_BD_BDLIB_H</a>
-<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/41.html#L28' title='Refered from 28 in bdlib.h.'>_BD_BDLIB_H</a> 1
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/41.html#L29' title='Defined at 29 in Iterator.h.'>_BD_ITERATOR_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/41.html#L28' title='Refered from 28 in Iterator.h.'>_BD_ITERATOR_H</a> 1
 <a name='L30'>  30 
-<a name='L31'>  31 <font color='darkred'>#ifdef</font> <a href='../Y/39.html' title='Multiple used in 2 places.'>HAVE_CONFIG_H</a>
-<a name='L32'>  32 <font color='darkred'>#include</font> &lt;config.h&gt;
-<a name='L33'>  33 <font color='darkred'>#endif</font>
-<a name='L34'>  34 
-<a name='L35'>  35 <font color='darkred'>#ifdef</font> HAVE_SYS_TYPES_H
-<a name='L36'>  36 <font color='darkred'>#include</font> &lt;sys/types.h&gt;
-<a name='L37'>  37 <font color='darkred'>#endif</font>
-<a name='L38'>  38 
-<a name='L39'>  39 <font color='darkred'>#ifdef</font> HAVE_STDLIB_H
-<a name='L40'>  40 <font color='darkred'>#include</font> &lt;stdlib.h&gt;
-<a name='L41'>  41 <font color='darkred'>#endif</font>
-<a name='L42'>  42 
-<a name='L43'>  43 <font color='darkred'>#include</font> "<a href='6.html'>bits.h</a>"
-<a name='L44'>  44 
-<a name='L45'>  45 
-<a name='L46'>  46 <font color='darkred'>#define</font> <a href='../R/2.html' title='Multiple refered from 11 places.'>BDLIB_NS</a> <a href='../Y/141.html' title='Multiple used in 4 places.'>bd</a>
-<a name='L47'>  47 <font color='darkred'>#define</font> <a href='../R/3.html' title='Multiple refered from 32 places.'>BDLIB_NS_BEGIN</a> <a href='../Y/358.html' title='Multiple used in 10 places.'>namespace</a> <a href='../S/41.html#L46' title='Defined at 46 in bdlib.h.'>BDLIB_NS</a> <font color='red'>{</font>
-<a name='L48'>  48 <font color='darkred'>#define</font> <a href='../R/4.html' title='Multiple refered from 32 places.'>BDLIB_NS_END</a> <font color='red'>}</font>
-<a name='L49'>  49 
-<a name='L50'>  50 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_BDLIB_H */</font></i> 
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;iterator&gt;
+<a name='L32'>  32 <font color='darkred'>#include</font> "<a href='54.html'>bdlib.h</a>"
+<a name='L33'>  33 
+<a name='L34'>  34 <a href='../S/54.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L35'>  35 <a href='../Y/696.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/724.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/115.html' title='Multiple used in 92 places.'>T</a>&gt;
+<a name='L36'>  36 <a href='../Y/267.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/60.html' title='Multiple used in 10 places.'>Iterator</a> <font color='red'>{</font> <i><font color='green'>//This should not exist.</font></i>
+<a name='L37'>  37 <i><font color='green'>/*</font></i>
+<a name='L38'>  38 <i><font color='green'>      ** http://www.fifi.org/doc/stl-manual/html/Iterators.html **</font></i>
+<a name='L39'>  39 <i><font color='green'></font></i>
+<a name='L40'>  40 <i><font color='green'>      typedef hashtable&lt;_Val, _Key, _HashFcn, _ExtractKey, _EqualKey, _Alloc&gt;                   _Hashtable;</font></i>
+<a name='L41'>  41 <i><font color='green'>      typedef _Hashtable_iterator&lt;_Val, _Key, _HashFcn, _ExtractKey, _EqualKey, _Alloc&gt;         iterator;</font></i>
+<a name='L42'>  42 <i><font color='green'>      typedef _Hashtable_const_iterator&lt;_Val, _Key, _HashFcn, _ExtractKey, _EqualKey, _Alloc&gt;   const_iterator;</font></i>
+<a name='L43'>  43 <i><font color='green'>//      typedef _Hashtable_node&lt;_Val&gt; _Node;</font></i>
+<a name='L44'>  44 <i><font color='green'>      typedef forward_iterator_tag                                                              iterator_category;</font></i>
+<a name='L45'>  45 <i><font color='green'>      typedef _Val value_type;</font></i>
+<a name='L46'>  46 <i><font color='green'>      typedef std::ptrdiff_t                                                                    difference_type;</font></i>
+<a name='L47'>  47 <i><font color='green'>      typedef size_t                                                                            size_type;</font></i>
+<a name='L48'>  48 <i><font color='green'>      typedef _Val&amp;                                                                             reference;</font></i>
+<a name='L49'>  49 <i><font color='green'>      typedef _Val*                                                                             pointer;</font></i>
+<a name='L50'>  50 <i><font color='green'></font></i>
+<a name='L51'>  51 <i><font color='green'>*/</font></i>
+<a name='L52'>  52   <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L53'>  53     <a href='../Y/747.html' title='Multiple used in 77 places.'>virtual</a> <a href='../Y/236.html' title='Multiple used in 79 places.'>bool</a> <a href='../Y/401.html' title='Multiple used in 7 places.'>hasNext</a>() <font color='red'>{</font> <b>return</b> <a href='../Y/236.html' title='Multiple used in 79 places.'>bool</a>(*<a href='../Y/701.html' title='Multiple used in 168 places.'>this</a>); <font color='red'>}</font>;
+<a name='L54'>  54     <a href='../Y/747.html' title='Multiple used in 77 places.'>virtual</a> ~<a href='../Y/60.html' title='Multiple used in 10 places.'>Iterator</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L55'>  55 
+<a name='L56'>  56     <a href='../Y/747.html' title='Multiple used in 77 places.'>virtual</a> <a href='../Y/344.html' title='Multiple used in 12 places.'>explicit</a> <a href='../Y/546.html' title='Multiple used in 148 places.'>operator</a> <a href='../Y/236.html' title='Multiple used in 79 places.'>bool</a>() <b>const</b> = 0;
+<a name='L57'>  57     <a href='../Y/747.html' title='Multiple used in 77 places.'>virtual</a> <a href='../Y/115.html' title='Multiple used in 92 places.'>T</a>&amp; <a href='../Y/546.html' title='Multiple used in 148 places.'>operator</a>*() = 0;
+<a name='L58'>  58     <a href='../Y/747.html' title='Multiple used in 77 places.'>virtual</a> <a href='../Y/115.html' title='Multiple used in 92 places.'>T</a>* <a href='../Y/546.html' title='Multiple used in 148 places.'>operator</a>-&gt;() <font color='red'>{</font> <b>return</b> &amp;(<a href='../Y/546.html' title='Multiple used in 148 places.'>operator</a>*()); <font color='red'>}</font>;
+<a name='L59'>  59 
+<a name='L60'>  60 <i><font color='green'>//    virtual bool operator==(const Iterator&amp; iter) const;</font></i>
+<a name='L61'>  61 <i><font color='green'>//    virtual bool operator!=(const Iterator&amp; iter) const;</font></i>
+<a name='L62'>  62 <i><font color='green'>//    virtual Iterator&amp; operator++() = 0;</font></i>
+<a name='L63'>  63 <i><font color='green'>//    virtual Iterator operator++(int) = 0;</font></i>
+<a name='L64'>  64 <i><font color='green'>//    virtual Iterator&amp; operator--() = 0; //should not be in all</font></i>
+<a name='L65'>  65 <i><font color='green'>//    virtual Iterator operator--(int) = 0; //should not be in all</font></i>
+<a name='L66'>  66 
+<a name='L67'>  67 <i><font color='green'>//    virtual void remove() = 0;</font></i>
+<a name='L68'>  68 <font color='red'>}</font>;
+<a name='L69'>  69 
+<a name='L70'>  70 <i><font color='green'>/*</font></i>
+<a name='L71'>  71 <i><font color='green'>template&lt;class Iter&gt; struct iterator_traits {</font></i>
+<a name='L72'>  72 <i><font color='green'>  typedef typename Iter::iterator_category iterator_category;           //S(19.2.3)</font></i>
+<a name='L73'>  73 <i><font color='green'>  typedef typename Iter::value_type value_type;                         //Type of element</font></i>
+<a name='L74'>  74 <i><font color='green'>  typedef typename Iter::difference_type difference_type;</font></i>
+<a name='L75'>  75 <i><font color='green'>  typedef typename Iter::pointer pointer;                               //return type of operator-&gt;()</font></i>
+<a name='L76'>  76 <i><font color='green'>  typedef typename Iter::reference reference;                           //return type of operator*()</font></i>
+<a name='L77'>  77 <i><font color='green'>};</font></i>
+<a name='L78'>  78 <i><font color='green'></font></i>
+<a name='L79'>  79 <i><font color='green'>template&lt;class T&gt; struct iterator_traits&lt;T*&gt; {</font></i>
+<a name='L80'>  80 <i><font color='green'>  typedef random_access_iterator_tag iterator_category;</font></i>
+<a name='L81'>  81 <i><font color='green'>  typedef T value_type;</font></i>
+<a name='L82'>  82 <i><font color='green'>  typedef std::ptrdiff_t difference_type;</font></i>
+<a name='L83'>  83 <i><font color='green'>  typedef T* pointer;</font></i>
+<a name='L84'>  84 <i><font color='green'>  typedef T&amp; reference;</font></i>
+<a name='L85'>  85 <i><font color='green'>}</font></i>
+<a name='L86'>  86 <i><font color='green'>*/</font></i>
+<a name='L87'>  87 
+<a name='L88'>  88 <a href='../Y/696.html' title='Multiple used in 47 places.'>template</a> &lt;<a href='../Y/267.html' title='Multiple used in 76 places.'>class</a> <a href='../D/60.html' title='Multiple defined in 3 places.'>Key</a>, <a href='../Y/267.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/161.html' title='Multiple used in 35 places.'>Value</a>&gt;
+<a name='L89'>  89 <b>struct</b> <a href='../R/25.html' title='Multiple refered from 9 places.'>KeyValue</a> <font color='red'>{</font>
+<a name='L90'>  90   <a href='../Y/574.html' title='Multiple used in 81 places.'>public</a>:
+<a name='L91'>  91     <a href='../D/60.html' title='Multiple defined in 3 places.'>Key</a> <a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>;
+<a name='L92'>  92     <a href='../Y/161.html' title='Multiple used in 35 places.'>Value</a> <a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>;
+<a name='L93'>  93 
+<a name='L94'>  94     <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>() : <a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>(), <a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L95'>  95     <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>(<b>const</b> <a href='../D/60.html' title='Multiple defined in 3 places.'>Key</a>&amp; _key, <b>const</b> <a href='../Y/161.html' title='Multiple used in 35 places.'>Value</a>&amp; _value) : <a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>(_key), <a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>(_value) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L96'>  96     <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>(<b>const</b> <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>&amp; <a href='../Y/452.html' title='Multiple used in 22 places.'>kv</a>) : <a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>(<a href='../Y/452.html' title='Multiple used in 22 places.'>kv</a>.<a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>), <a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>(<a href='../Y/452.html' title='Multiple used in 22 places.'>kv</a>.<a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L97'>  97     <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>(<a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>&amp;&amp; <a href='../Y/452.html' title='Multiple used in 22 places.'>kv</a>) : <a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>(), <a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>() <font color='red'>{</font>
+<a name='L98'>  98       <a href='../Y/685.html' title='Multiple used in 51 places.'>swap</a>(*<a href='../Y/701.html' title='Multiple used in 168 places.'>this</a>, <a href='../Y/452.html' title='Multiple used in 22 places.'>kv</a>);
+<a name='L99'>  99     <font color='red'>}</font>
+<a name='L100'> 100       <a href='../Y/379.html' title='Multiple used in 41 places.'>friend</a> <b>void</b> <a href='../Y/685.html' title='Multiple used in 51 places.'>swap</a>(<a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>&amp; <a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>, <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>&amp; <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>) <font color='red'>{</font>
+<a name='L101'> 101         <a href='../Y/732.html' title='Multiple used in 24 places.'>using</a> <a href='../S/32.html#L163' title='Defined at 163 in tests/StringTest.cpp.'>std</a>::<a href='../Y/685.html' title='Multiple used in 51 places.'>swap</a>;
+<a name='L102'> 102 
+<a name='L103'> 103         <a href='../Y/685.html' title='Multiple used in 51 places.'>swap</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>.<a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>, <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>.<a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>);
+<a name='L104'> 104         <a href='../Y/685.html' title='Multiple used in 51 places.'>swap</a>(<a href='../Y/199.html' title='Multiple used in 1371 places.'>a</a>.<a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>, <a href='../Y/223.html' title='Multiple used in 467 places.'>b</a>.<a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>);
+<a name='L105'> 105       <font color='red'>}</font>
+<a name='L106'> 106       <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a>&amp; <a href='../Y/546.html' title='Multiple used in 148 places.'>operator</a>=(<a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a> <a href='../Y/452.html' title='Multiple used in 22 places.'>kv</a>) <font color='red'>{</font>
+<a name='L107'> 107         <a href='../Y/685.html' title='Multiple used in 51 places.'>swap</a>(*<a href='../Y/701.html' title='Multiple used in 168 places.'>this</a>, <a href='../Y/452.html' title='Multiple used in 22 places.'>kv</a>);
+<a name='L108'> 108         <b>return</b> *<a href='../Y/701.html' title='Multiple used in 168 places.'>this</a>;
+<a name='L109'> 109       <font color='red'>}</font>
+<a name='L110'> 110 
+<a name='L111'> 111     <b>inline</b> <b>const</b> <a href='../D/60.html' title='Multiple defined in 3 places.'>Key</a>&amp; <a href='../Y/449.html' title='Multiple used in 56 places.'>key</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/447.html' title='Multiple used in 15 places.'>k</a>; <font color='red'>}</font>;
+<a name='L112'> 112     <b>inline</b> <b>const</b> <a href='../Y/161.html' title='Multiple used in 35 places.'>Value</a>&amp; <a href='../Y/740.html' title='Multiple used in 77 places.'>value</a>() <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/733.html' title='Multiple used in 23 places.'>v</a>; <font color='red'>}</font>;
+<a name='L113'> 113 <i><font color='green'>//    template &lt;class K, class V&gt; inline friend bool operator == (const KeyValue&lt;K, V&gt; &amp;lhs, const KeyValue&lt;K, V&gt; &amp;rhs) { return lhs.key() == rhs.key(); }</font></i>
+<a name='L114'> 114 <i><font color='green'>//    template &lt;&gt;</font></i>
+<a name='L115'> 115       <b>inline</b> <a href='../Y/379.html' title='Multiple used in 41 places.'>friend</a> <a href='../Y/236.html' title='Multiple used in 79 places.'>bool</a> <a href='../Y/546.html' title='Multiple used in 148 places.'>operator</a> == (<b>const</b> <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a> &amp;<a href='../Y/459.html' title='Multiple used in 17 places.'>lhs</a>, <b>const</b> <a href='../S/41.html#L89' title='Defined at 89 in Iterator.h.'>KeyValue</a> &amp;<a href='../Y/604.html' title='Multiple used in 27 places.'>rhs</a>) <font color='red'>{</font> <b>return</b> <a href='../Y/459.html' title='Multiple used in 17 places.'>lhs</a>.<a href='../Y/449.html' title='Multiple used in 56 places.'>key</a>() == <a href='../Y/604.html' title='Multiple used in 27 places.'>rhs</a>.<a href='../Y/449.html' title='Multiple used in 56 places.'>key</a>(); <font color='red'>}</font>
+<a name='L116'> 116 <font color='red'>}</font>;
+<a name='L117'> 117 
+<a name='L118'> 118 <a href='../S/54.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L119'> 119 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_ITERATOR_H */</font></i> 
+<a name='L120'> 120 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>

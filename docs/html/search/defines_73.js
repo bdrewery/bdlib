@@ -9,5 +9,6 @@ var searchData=
   ['socket_5fserver',['SOCKET_SERVER',['../Socket_8h.html#a3fd351f66450b432e299e38efb921b1e',1,'Socket.h']]],
   ['socket_5ftcp',['SOCKET_TCP',['../Socket_8h.html#a95d541bd41bd16f8d5a4c3cfcd6ff3cd',1,'Socket.h']]],
   ['socket_5fudp',['SOCKET_UDP',['../Socket_8h.html#a65e08d8b4929940e5c01735eb47295a0',1,'Socket.h']]],
+  ['stdc_5fheaders',['STDC_HEADERS',['../config_8h.html#a550e5c272cc3cf3814651721167dcd23',1,'config.h']]],
   ['stream_5fblocksize',['STREAM_BLOCKSIZE',['../Stream_8h.html#a53abc99d542fc6959a473024de87e916',1,'Stream.h']]]
 ];

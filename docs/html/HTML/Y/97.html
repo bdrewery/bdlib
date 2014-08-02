@@ -1,20 +1,23 @@
 <html>
 <head>
-<title>TestFixture</title>
+<title>ScriptCallbacker</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/24.html#L37'>TestFixture</a>        37 tests/ArrayTest.h class ArrayTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/22.html#L37'>TestFixture</a>        37 tests/BinaryTreeTest.h class BinaryTreeTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/25.html#L38'>TestFixture</a>        38 tests/HashTableTest.h class HashTableTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/16.html#L37'>TestFixture</a>        37 tests/ListTest.h class ListTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/28.html#L37'>TestFixture</a>        37 tests/QueueTest.h class QueueTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/11.html#L37'>TestFixture</a>        37 tests/SortedListTest.h class SortedListTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/17.html#L37'>TestFixture</a>        37 tests/StackTest.h class StackTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/20.html#L36'>TestFixture</a>        36 tests/StreamTest.h class StreamTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/15.html#L36'>TestFixture</a>        36 tests/StringTest.h class StringTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/67.html#L42'>ScriptCallbacker</a>   42 ScriptInterp.h class ScriptCallbacker {
+<a href='../S/67.html#L44'>ScriptCallbacker</a>   44 ScriptInterp.h     ScriptCallbacker(const ScriptCallbacker&amp;) = delete;
+<a href='../S/67.html#L45'>ScriptCallbacker</a>   45 ScriptInterp.h     ScriptCallbacker&amp; operator=(const ScriptCallbacker&amp;) = delete;
+<a href='../S/67.html#L50'>ScriptCallbacker</a>   50 ScriptInterp.h     ScriptCallbacker(ScriptInterp* _si, const String&amp; _cmd) : si(_si), cmd(_cmd) {};
+<a href='../S/67.html#L51'>ScriptCallbacker</a>   51 ScriptInterp.h     virtual ~ScriptCallbacker() {};
+<a href='../S/52.html#L247'>ScriptCallbacker</a>  247 ScriptInterpTCL.cpp ScriptCallbacker* tcl_to_c_cast&lt;ScriptCallbacker*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/44.html#L84'>ScriptCallbacker</a>   84 ScriptInterpTCL.h tcl_to_c_castable(ScriptCallbacker*);
+<a href='../S/44.html#L120'>ScriptCallbacker</a>  120 ScriptInterpTCL.h class ScriptCallbackerTCL : public ScriptCallbacker {
+<a href='../S/44.html#L125'>ScriptCallbacker</a>  125 ScriptInterpTCL.h     ScriptCallbackerTCL(ScriptInterp* _si, const String&amp; _cmd) : ScriptCallbacker(_si, _cmd) {};
+<a href='../S/21.html#L363'>ScriptCallbacker</a>  363 tests/ScriptInterpTCLTest.cpp HashTable&lt;String, ScriptCallbacker* &gt; Events;
+<a href='../S/21.html#L365'>ScriptCallbacker</a>  365 tests/ScriptInterpTCLTest.cpp void script_bind(String eventName, ScriptCallbacker* scb) {
+<a href='../S/21.html#L373'>ScriptCallbacker</a>  373 tests/ScriptInterpTCLTest.cpp   ScriptCallbacker* scb;
 </pre>
 </body>
 </html>

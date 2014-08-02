@@ -1,62 +1,44 @@
 <html>
 <head>
-<title>swap</title>
+<title>my_size</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L162'>swap</a>              162 BinaryTree.h       friend void swap(BinaryTree&amp; a, BinaryTree&amp; b) {
-<a href='../S/3.html#L163'>swap</a>              163 BinaryTree.h         using std::swap;
-<a href='../S/3.html#L165'>swap</a>              165 BinaryTree.h         swap(a.my_size, b.my_size);
-<a href='../S/3.html#L166'>swap</a>              166 BinaryTree.h         swap(a.root, b.root);
-<a href='../S/3.html#L170'>swap</a>              170 BinaryTree.h         swap(*this, tree);
-<a href='../S/5.html#L120'>swap</a>              120 HashTable.h        friend void swap(HashTable&lt;Key, Value&gt;&amp; a, HashTable&lt;Key, Value&gt;&amp; b) {
-<a href='../S/5.html#L121'>swap</a>              121 HashTable.h          using std::swap;
-<a href='../S/5.html#L123'>swap</a>              123 HashTable.h          swap(a._list, b._list);
-<a href='../S/5.html#L124'>swap</a>              124 HashTable.h          swap(a._size, b._size);
-<a href='../S/5.html#L125'>swap</a>              125 HashTable.h          swap(a._capacity, b._capacity);
-<a href='../S/5.html#L126'>swap</a>              126 HashTable.h          swap(a._hash, b._hash);
-<a href='../S/5.html#L130'>swap</a>              130 HashTable.h          swap(*this, table);
-<a href='../S/32.html#L103'>swap</a>              103 Iterator.h           swap(*this, kv);
-<a href='../S/32.html#L106'>swap</a>              106 Iterator.h           friend void swap(KeyValue&amp; a, KeyValue&amp; b) {
-<a href='../S/32.html#L107'>swap</a>              107 Iterator.h             using std::swap;
-<a href='../S/32.html#L109'>swap</a>              109 Iterator.h             swap(a.k, b.k);
-<a href='../S/32.html#L110'>swap</a>              110 Iterator.h             swap(a.v, b.v);
-<a href='../S/32.html#L113'>swap</a>              113 Iterator.h             swap(*this, kv);
-<a href='../S/37.html#L70'>swap</a>               70 List.h               friend void swap(Node&amp; a, Node&amp; b) {
-<a href='../S/37.html#L71'>swap</a>               71 List.h                 using std::swap;
-<a href='../S/37.html#L73'>swap</a>               73 List.h                 swap(a.item, b.item);
-<a href='../S/37.html#L74'>swap</a>               74 List.h                 swap(a.next, b.next);
-<a href='../S/37.html#L75'>swap</a>               75 List.h                 swap(a.prev, b.prev);
-<a href='../S/37.html#L79'>swap</a>               79 List.h                 swap(*this, n);
-<a href='../S/37.html#L123'>swap</a>              123 List.h               swap(*this, list);
-<a href='../S/37.html#L127'>swap</a>              127 List.h             friend void swap(List&amp; a, List&amp; b) {
-<a href='../S/37.html#L128'>swap</a>              128 List.h               using std::swap;
-<a href='../S/37.html#L130'>swap</a>              130 List.h               swap(a.head, b.head);
-<a href='../S/37.html#L131'>swap</a>              131 List.h               swap(a.tail, b.tail);
-<a href='../S/37.html#L132'>swap</a>              132 List.h               swap(a.my_size, b.my_size);
-<a href='../S/37.html#L136'>swap</a>              136 List.h               swap(*this, list);
-<a href='../S/43.html#L165'>swap</a>              165 ReferenceCountedArray.h     friend void swap(Slice&amp; a, Slice&amp; b) {
-<a href='../S/43.html#L166'>swap</a>              166 ReferenceCountedArray.h       using std::swap;
-<a href='../S/43.html#L168'>swap</a>              168 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
-<a href='../S/43.html#L169'>swap</a>              169 ReferenceCountedArray.h       swap(a.rca, b.rca);
-<a href='../S/43.html#L170'>swap</a>              170 ReferenceCountedArray.h       swap(a.start, b.start);
-<a href='../S/43.html#L171'>swap</a>              171 ReferenceCountedArray.h       swap(a.len, b.len);
-<a href='../S/43.html#L432'>swap</a>              432 ReferenceCountedArray.h     friend void swap(ReferenceCountedArray&amp; a, ReferenceCountedArray&amp; b) {
-<a href='../S/43.html#L433'>swap</a>              433 ReferenceCountedArray.h       using std::swap;
-<a href='../S/43.html#L435'>swap</a>              435 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
-<a href='../S/43.html#L436'>swap</a>              436 ReferenceCountedArray.h       swap(a.offset, b.offset);
-<a href='../S/43.html#L437'>swap</a>              437 ReferenceCountedArray.h       swap(a.sublen, b.sublen);
-<a href='../S/43.html#L438'>swap</a>              438 ReferenceCountedArray.h       swap(a.my_hash, b.my_hash);
-<a href='../S/43.html#L439'>swap</a>              439 ReferenceCountedArray.h       swap(a.Ref, b.Ref);
-<a href='../S/34.html#L69'>swap</a>               69 Stream.h               friend void swap(Stream&amp; a, Stream&amp; b) {
-<a href='../S/34.html#L70'>swap</a>               70 Stream.h                 using std::swap;
-<a href='../S/34.html#L72'>swap</a>               72 Stream.h                 swap(a.str, b.str);
-<a href='../S/34.html#L73'>swap</a>               73 Stream.h                 swap(a.pos, b.pos);
-<a href='../S/34.html#L74'>swap</a>               74 Stream.h                 swap(a.loading, b.loading);
-<a href='../S/34.html#L78'>swap</a>               78 Stream.h                 swap(*this, stream);
-<a href='../S/27.html#L172'>swap</a>              172 tests/StringTest.cpp   swap(*a, *b);
+<a href='../S/4.html#L61'>my_size</a>            61 BinaryTree.h       size_t my_size;
+<a href='../S/4.html#L98'>my_size</a>            98 BinaryTree.h         ++my_size;
+<a href='../S/4.html#L112'>my_size</a>           112 BinaryTree.h           --my_size;
+<a href='../S/4.html#L117'>my_size</a>           117 BinaryTree.h           --my_size;
+<a href='../S/4.html#L146'>my_size</a>           146 BinaryTree.h       inline size_t size() const { return my_size; };
+<a href='../S/4.html#L151'>my_size</a>           151 BinaryTree.h       BinaryTree() : my_size(0), root(nullptr) {};
+<a href='../S/4.html#L152'>my_size</a>           152 BinaryTree.h       BinaryTree(const BinaryTree&amp; tree) : my_size(tree.my_size), root(new Node(*(tree.root))) {};
+<a href='../S/4.html#L153'>my_size</a>           153 BinaryTree.h       BinaryTree(BinaryTree&amp;&amp; tree) : my_size(std::move(tree.my_size)), root(std::move(tree.root)) {
+<a href='../S/4.html#L155'>my_size</a>           155 BinaryTree.h         tree.my_size = 0;
+<a href='../S/4.html#L161'>my_size</a>           161 BinaryTree.h         swap(a.my_size, b.my_size);
+<a href='../S/4.html#L276'>my_size</a>           276 BinaryTree.h           size_t my_size;
+<a href='../S/4.html#L291'>my_size</a>           291 BinaryTree.h                                                                             my_size(size), 
+<a href='../S/4.html#L302'>my_size</a>           302 BinaryTree.h                                                      my_size(iter.my_size), 
+<a href='../S/4.html#L304'>my_size</a>           304 BinaryTree.h                                                      storage(new iterator_type[iter.my_size]) {
+<a href='../S/4.html#L305'>my_size</a>           305 BinaryTree.h             for (size_t i = 0; i &lt; my_size; ++i)
+<a href='../S/4.html#L312'>my_size</a>           312 BinaryTree.h                                  my_size(0),
+<a href='../S/4.html#L319'>my_size</a>           319 BinaryTree.h               if (my_size != iter.my_size) {
+<a href='../S/4.html#L321'>my_size</a>           321 BinaryTree.h                 storage = new iterator_type[iter.my_size];
+<a href='../S/4.html#L326'>my_size</a>           326 BinaryTree.h               my_size = iter.my_size;
+<a href='../S/4.html#L328'>my_size</a>           328 BinaryTree.h               for (size_t i = 0; i &lt; my_size; ++i)
+<a href='../S/4.html#L348'>my_size</a>           348 BinaryTree.h             return ((reverse &amp;&amp; index &gt; 0) || (!reverse &amp;&amp; index &lt; (my_size)));
+<a href='../S/4.html#L389'>my_size</a>           389 BinaryTree.h       inline iterator begin() { return iterator(this, root, my_size); };
+<a href='../S/4.html#L390'>my_size</a>           390 BinaryTree.h       inline iterator end() { return iterator(this, root, my_size, 1); };
+<a href='../S/50.html#L94'>my_size</a>            94 List.h               --my_size;
+<a href='../S/50.html#L108'>my_size</a>           108 List.h             size_type my_size;
+<a href='../S/50.html#L111'>my_size</a>           111 List.h             List() : head(nullptr), tail(nullptr), my_size(0) {};
+<a href='../S/50.html#L114'>my_size</a>           114 List.h             List(const List&amp; list) : head(nullptr), tail(nullptr), my_size(0) {
+<a href='../S/50.html#L119'>my_size</a>           119 List.h             List(List&amp;&amp; list) : head(nullptr), tail(nullptr), my_size(0) {
+<a href='../S/50.html#L128'>my_size</a>           128 List.h               swap(a.my_size, b.my_size);
+<a href='../S/50.html#L144'>my_size</a>           144 List.h               my_size = 0;
+<a href='../S/50.html#L147'>my_size</a>           147 List.h             inline size_type size() const { return my_size; };
+<a href='../S/50.html#L164'>my_size</a>           164 List.h               ++my_size;
+<a href='../S/11.html#L83'>my_size</a>            83 SortedList.h         ++(this-&gt;my_size);
 </pre>
 </body>
 </html>

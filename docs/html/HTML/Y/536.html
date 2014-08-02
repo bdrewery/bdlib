@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>objc</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/52.html#L80'>objc</a>               80 ScriptInterpTCL.cpp int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+<a href='../S/52.html#L84'>objc</a>               84 ScriptInterpTCL.cpp   if ((size_t(objc) - 1) &lt; ccd-&gt;callbackParamMin || size_t(objc) - 1 &gt; ccd-&gt;callbackParamMax) {
+<a href='../S/52.html#L85'>objc</a>               85 ScriptInterpTCL.cpp     String errorResult(String::printf("Wrong # args. Expected %zu, got %d.", ccd-&gt;callbackParamMin, objc - 1));
+<a href='../S/52.html#L93'>objc</a>               93 ScriptInterpTCL.cpp     ccd-&gt;callback_proxy-&gt;call(objc, reinterpret_cast&lt;void* CONST*&gt;(objv), ccd-&gt;si, interp);
+<a href='../S/52.html#L263'>objc</a>              263 ScriptInterpTCL.cpp   int objc, i;
+<a href='../S/52.html#L267'>objc</a>              267 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/52.html#L270'>objc</a>              270 ScriptInterpTCL.cpp   Array&lt;String&gt; ret(objc);
+<a href='../S/52.html#L272'>objc</a>              272 ScriptInterpTCL.cpp   for (i = 0; i &lt; objc; ++i)
+<a href='../S/52.html#L279'>objc</a>              279 ScriptInterpTCL.cpp   int objc, i;
+<a href='../S/52.html#L283'>objc</a>              283 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/52.html#L286'>objc</a>              286 ScriptInterpTCL.cpp   Array&lt;Array&lt;String&gt;&gt; ret(objc);
+<a href='../S/52.html#L288'>objc</a>              288 ScriptInterpTCL.cpp   for (i = 0; i &lt; objc; ++i)
+<a href='../S/44.html#L141'>objc</a>              141 ScriptInterpTCL.h         static int _createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+</pre>
+</body>
+</html>

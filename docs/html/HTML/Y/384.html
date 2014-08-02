@@ -1,156 +1,20 @@
 <html>
 <head>
-<title>operator</title>
+<title>ftell</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/44.html#L121'>operator</a>          121 Array.h            Array&amp; operator=(std::initializer_list&lt;value_type&gt; list) {
-<a href='../S/44.html#L131'>operator</a>          131 Array.h            Array&amp; operator=(const Array&lt;value_type&gt;&amp; array) {
-<a href='../S/44.html#L132'>operator</a>          132 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(array);
-<a href='../S/44.html#L136'>operator</a>          136 Array.h            Array&amp; operator=(Array&lt;value_type&gt;&amp;&amp; array) {
-<a href='../S/44.html#L137'>operator</a>          137 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
-<a href='../S/44.html#L154'>operator</a>          154 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
-<a href='../S/44.html#L187'>operator</a>          187 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
-<a href='../S/44.html#L249'>operator</a>          249 Array.h            inline friend bool operator==(const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
-<a href='../S/44.html#L250'>operator</a>          250 Array.h            inline friend bool operator!=(const Array&amp; lhs, const Array&amp; rhs) { return !(lhs == rhs); };
-<a href='../S/44.html#L265'>operator</a>          265 Array.h            inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
-<a href='../S/44.html#L273'>operator</a>          273 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
-<a href='../S/44.html#L291'>operator</a>          291 Array.h            inline friend Array operator+(Array array1, const Array&amp; array2) {
-<a href='../S/44.html#L299'>operator</a>          299 Array.h            inline const Array&amp; operator++() {
-<a href='../S/44.html#L306'>operator</a>          306 Array.h            inline const Array operator++(int) {
-<a href='../S/44.html#L316'>operator</a>          316 Array.h            inline const Array&amp; operator--() {
-<a href='../S/44.html#L323'>operator</a>          323 Array.h            inline const Array operator--(int) {
-<a href='../S/44.html#L332'>operator</a>          332 Array.h            inline Array&amp; operator+=(const_reference item) {
-<a href='../S/44.html#L340'>operator</a>          340 Array.h            inline Array&amp; operator+=(const Array&amp; array) {
-<a href='../S/44.html#L345'>operator</a>          345 Array.h            inline Array&amp; operator+=(const int n) {
-<a href='../S/44.html#L358'>operator</a>          358 Array.h            inline Array&amp; operator-=(const int n) {
-<a href='../S/44.html#L376'>operator</a>          376 Array.h            inline size_t operator()(const Array&lt;T&gt;&amp; val) const { return val.hash(); }
-<a href='../S/3.html#L149'>operator</a>          149 BinaryTree.h       inline explicit operator bool() const { return !isEmpty(); };
-<a href='../S/3.html#L169'>operator</a>          169 BinaryTree.h       BinaryTree&amp; operator=(BinaryTree tree) {
-<a href='../S/3.html#L204'>operator</a>          204 BinaryTree.h       inline const Value operator[](const Key&amp; key) const { return getValue(key); }
-<a href='../S/3.html#L212'>operator</a>          212 BinaryTree.h       Value&amp; operator[](const Key&amp; key) {
-<a href='../S/3.html#L321'>operator</a>          321 BinaryTree.h           iterator&amp; operator=(const iterator&amp; iter) {
-<a href='../S/3.html#L355'>operator</a>          355 BinaryTree.h           operator bool() const {
-<a href='../S/3.html#L359'>operator</a>          359 BinaryTree.h           virtual operator iterator_type() { return operator*(); };
-<a href='../S/3.html#L360'>operator</a>          360 BinaryTree.h           virtual iterator_type&amp; operator*(){ return storage[index]; }
-<a href='../S/3.html#L365'>operator</a>          365 BinaryTree.h           virtual iterator operator++(int) {
-<a href='../S/3.html#L374'>operator</a>          374 BinaryTree.h           virtual iterator&amp; operator++() {
-<a href='../S/3.html#L382'>operator</a>          382 BinaryTree.h           virtual iterator operator--(int) {
-<a href='../S/3.html#L391'>operator</a>          391 BinaryTree.h           virtual iterator&amp; operator--() {
-<a href='../S/5.html#L129'>operator</a>          129 HashTable.h        HashTable&amp; operator=(HashTable&lt;Key, Value&gt; table) {
-<a href='../S/5.html#L139'>operator</a>          139 HashTable.h        HashTable&amp; operator=(std::initializer_list&lt;iterator_type&gt; list) {
-<a href='../S/5.html#L151'>operator</a>          151 HashTable.h        inline explicit operator bool() const { return !isEmpty(); };
-<a href='../S/5.html#L185'>operator</a>          185 HashTable.h        inline const Value operator[](const Key&amp; key) const { return getValue(key); }
-<a href='../S/5.html#L229'>operator</a>          229 HashTable.h        inline Value&amp; operator[](const Key&amp; key) {
-<a href='../S/32.html#L60'>operator</a>           60 Iterator.h         operator bool() const = 0;
-<a href='../S/32.html#L61'>operator</a>           61 Iterator.h         virtual T&amp; operator*() = 0;
-<a href='../S/32.html#L62'>operator</a>           62 Iterator.h         virtual T* operator-&gt;() { return &amp;(operator*()); };
-<a href='../S/32.html#L112'>operator</a>          112 Iterator.h           KeyValue&amp; operator=(KeyValue kv) {
-<a href='../S/32.html#L121'>operator</a>          121 Iterator.h           inline friend bool operator == (const KeyValue &amp;lhs, const KeyValue &amp;rhs) { return lhs.key() == rhs.key(); }
-<a href='../S/37.html#L78'>operator</a>           78 List.h               Node&amp; operator=(Node n) {
-<a href='../S/37.html#L135'>operator</a>          135 List.h             List&amp; operator=(List list) {
-<a href='../S/37.html#L154'>operator</a>          154 List.h             inline explicit operator bool() const { return !isEmpty(); };
-<a href='../S/37.html#L176'>operator</a>          176 List.h             inline friend List&lt;value_type&gt;&amp; operator&lt;&lt; (List&lt;value_type&gt;&amp; list, const_reference item) {
-<a href='../S/37.html#L238'>operator</a>          238 List.h                 iterator&amp; operator =(const iterator&amp; iter) {
-<a href='../S/37.html#L259'>operator</a>          259 List.h                 operator bool() const { return (current != NULL); };
-<a href='../S/37.html#L260'>operator</a>          260 List.h                 virtual operator value_type () { return operator*(); };
-<a href='../S/37.html#L262'>operator</a>          262 List.h                 virtual value_type&amp; operator *() { return static_cast&lt;value_type&amp;&gt;(current-&gt;item); }
-<a href='../S/37.html#L265'>operator</a>          265 List.h                 virtual iterator operator ++(int) {
-<a href='../S/37.html#L271'>operator</a>          271 List.h                 virtual iterator&amp; operator ++() {
-<a href='../S/37.html#L277'>operator</a>          277 List.h                 virtual iterator operator --(int) {
-<a href='../S/37.html#L283'>operator</a>          283 List.h                 virtual iterator&amp; operator --() {
-<a href='../S/47.html#L79'>operator</a>           79 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&gt;&gt; (Queue&lt;value_type&gt;&amp; queue, reference item) {
-<a href='../S/47.html#L104'>operator</a>          104 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
-<a href='../S/47.html#L140'>operator</a>          140 Queue.h            reference operator *() const { return current-&gt;item; }
-<a href='../S/47.html#L141'>operator</a>          141 Queue.h            pointer operator -&gt;() const { return &amp;(operator*()); }
-<a href='../S/47.html#L144'>operator</a>          144 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/47.html#L145'>operator</a>          145 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/47.html#L148'>operator</a>          148 Queue.h            iterator operator ++(int) {
-<a href='../S/47.html#L154'>operator</a>          154 Queue.h            iterator&amp; operator ++() {
-<a href='../S/47.html#L196'>operator</a>          196 Queue.h            virtual explicit operator bool() const { return (current != NULL); };
-<a href='../S/47.html#L198'>operator</a>          198 Queue.h            reference operator *() const { return current-&gt;item; }
-<a href='../S/47.html#L199'>operator</a>          199 Queue.h            pointer operator -&gt;() const { return &amp;(operator*()); }
-<a href='../S/47.html#L202'>operator</a>          202 Queue.h            bool operator==(const iterator&amp; iter) const { return iter.current == current; }
-<a href='../S/47.html#L203'>operator</a>          203 Queue.h            bool operator!=(const iterator&amp; iter) const { return iter.current != current; }
-<a href='../S/47.html#L206'>operator</a>          206 Queue.h            const_iterator operator ++(int) {
-<a href='../S/47.html#L212'>operator</a>          212 Queue.h            const_iterator&amp; operator ++() {
-<a href='../S/43.html#L123'>operator</a>          123 ReferenceCountedArray.h     ArrayRef&amp; operator=(const ArrayRef&amp;) = delete;
-<a href='../S/43.html#L126'>operator</a>          126 ReferenceCountedArray.h     ArrayRef&amp; operator=(const ArrayRef&amp;);
-<a href='../S/43.html#L159'>operator</a>          159 ReferenceCountedArray.h     inline operator T() const {
-<a href='../S/43.html#L177'>operator</a>          177 ReferenceCountedArray.h     inline Slice&amp; operator=(const Slice&amp; slice) {
-<a href='../S/43.html#L186'>operator</a>          186 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
-<a href='../S/43.html#L451'>operator</a>          451 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(const ReferenceCountedArray&amp; rca) {
-<a href='../S/43.html#L468'>operator</a>          468 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(ReferenceCountedArray&amp;&amp; rca) {
-<a href='../S/43.html#L493'>operator</a>          493 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(const_reference item) {
-<a href='../S/43.html#L570'>operator</a>          570 ReferenceCountedArray.h     inline bool operator!() const { return isEmpty(); };
-<a href='../S/43.html#L572'>operator</a>          572 ReferenceCountedArray.h     inline explicit operator bool() const { return !isEmpty(); }
-<a href='../S/43.html#L704'>operator</a>          704 ReferenceCountedArray.h     inline value_type operator[](size_t pos) const { return read(pos); };
-<a href='../S/43.html#L733'>operator</a>          733 ReferenceCountedArray.h         inline Cref&amp; operator=(const Cref&amp; cref) {
-<a href='../S/43.html#L742'>operator</a>          742 ReferenceCountedArray.h         inline operator value_type() const { return rca.read(k); };
-<a href='../S/43.html#L747'>operator</a>          747 ReferenceCountedArray.h         inline Cref&amp; operator=(value_type c) {
-<a href='../S/43.html#L757'>operator</a>          757 ReferenceCountedArray.h     inline Cref operator[](size_t pos) { return Cref(*this, pos); };
-<a href='../S/9.html#L61'>operator</a>           61 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&gt;&gt; (Stack&lt;iterator_type&gt;&amp; stack, iterator_type&amp; item) {
-<a href='../S/9.html#L85'>operator</a>           85 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&lt;&lt; (Stack&lt;iterator_type&gt;&amp; stack, const iterator_type&amp; item) {
-<a href='../S/34.html#L77'>operator</a>           77 Stream.h               Stream&amp; operator=(Stream stream) {
-<a href='../S/34.html#L165'>operator</a>          165 Stream.h               inline operator String() const { return str; };
-<a href='../S/34.html#L168'>operator</a>          168 Stream.h               inline bool operator!() const { return str.isEmpty(); };
-<a href='../S/34.html#L170'>operator</a>          170 Stream.h               friend Stream&amp; operator&lt;&lt;(Stream&amp;, const String&amp;);
-<a href='../S/34.html#L173'>operator</a>          173 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
-<a href='../S/35.html#L139'>operator</a>          139 String.h               String&amp; operator=(const String&amp; string) {
-<a href='../S/35.html#L140'>operator</a>          140 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(string);
-<a href='../S/35.html#L144'>operator</a>          144 String.h               String&amp; operator=(String&amp;&amp; string) {
-<a href='../S/35.html#L145'>operator</a>          145 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
-<a href='../S/35.html#L210'>operator</a>          210 String.h               inline const char* operator*() const { return c_str(); };
-<a href='../S/35.html#L226'>operator</a>          226 String.h       	String operator*(int) const;
-<a href='../S/35.html#L270'>operator</a>          270 String.h               inline String operator()(int start, int len = -1) const { return substring(start, len); };
-<a href='../S/35.html#L278'>operator</a>          278 String.h               inline Slice&lt;String&gt; operator()(int start, int len = -1) { return Slice&lt;String&gt;(*this, start, len); };
-<a href='../S/35.html#L337'>operator</a>          337 String.h               String&amp; operator+=(const char);
-<a href='../S/35.html#L338'>operator</a>          338 String.h               String&amp; operator+=(const char*);
-<a href='../S/35.html#L339'>operator</a>          339 String.h               String&amp; operator+=(const String&amp;);
-<a href='../S/35.html#L340'>operator</a>          340 String.h               String&amp; operator+=(const size_t);
-<a href='../S/35.html#L341'>operator</a>          341 String.h               String&amp; operator-=(const size_t);
-<a href='../S/35.html#L343'>operator</a>          343 String.h               const String&amp; operator++();
-<a href='../S/35.html#L344'>operator</a>          344 String.h               const String operator++(int);
-<a href='../S/35.html#L345'>operator</a>          345 String.h               const String&amp; operator--();
-<a href='../S/35.html#L346'>operator</a>          346 String.h               const String operator--(int);
-<a href='../S/35.html#L351'>operator</a>          351 String.h               friend String operator+(String, const String&amp;);
-<a href='../S/35.html#L352'>operator</a>          352 String.h               friend bool operator==(const String&amp;, const String&amp;);
-<a href='../S/35.html#L353'>operator</a>          353 String.h               friend bool operator!=(const String&amp;, const String&amp;);
-<a href='../S/35.html#L354'>operator</a>          354 String.h               friend bool operator&lt;(const String&amp;, const String&amp;);
-<a href='../S/35.html#L355'>operator</a>          355 String.h               friend bool operator&lt;=(const String&amp;, const String&amp;);
-<a href='../S/35.html#L356'>operator</a>          356 String.h               friend bool operator&gt;(const String&amp;, const String&amp;);
-<a href='../S/35.html#L357'>operator</a>          357 String.h               friend bool operator&gt;=(const String&amp;, const String&amp;);
-<a href='../S/35.html#L359'>operator</a>          359 String.h               friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp;, const String&amp;);
-<a href='../S/35.html#L360'>operator</a>          360 String.h               friend std::ostream&amp; operator&gt;&gt;(std::ostream&amp;, const String&amp;);
-<a href='../S/35.html#L377'>operator</a>          377 String.h                 inline size_t operator()(const String&amp; val) const { return val.hash(); }
-<a href='../S/35.html#L387'>operator</a>          387 String.h       inline String operator+(String string1, const String&amp; string2) {
-<a href='../S/35.html#L395'>operator</a>          395 String.h       inline const String&amp; String::operator++() {
-<a href='../S/35.html#L402'>operator</a>          402 String.h       inline const String String::operator++(int) {
-<a href='../S/35.html#L411'>operator</a>          411 String.h       inline const String&amp; String::operator--() {
-<a href='../S/35.html#L418'>operator</a>          418 String.h       inline const String String::operator--(int) {
-<a href='../S/35.html#L432'>operator</a>          432 String.h       inline String&amp; String::operator+=(const char ch) {
-<a href='../S/35.html#L440'>operator</a>          440 String.h       inline String&amp; String::operator+=(const char* string) {
-<a href='../S/35.html#L448'>operator</a>          448 String.h       inline String&amp; String::operator+=(const String&amp; string) {
-<a href='../S/35.html#L453'>operator</a>          453 String.h       inline String&amp; String::operator+=(const size_t n) {
-<a href='../S/35.html#L466'>operator</a>          466 String.h       inline String&amp; String::operator-=(const size_t n) {
-<a href='../S/35.html#L480'>operator</a>          480 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L484'>operator</a>          484 String.h       inline bool operator!=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L488'>operator</a>          488 String.h       inline bool operator&lt;(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L492'>operator</a>          492 String.h       inline bool operator&lt;=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L496'>operator</a>          496 String.h       inline bool operator&gt;(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L500'>operator</a>          500 String.h       inline bool operator&gt;=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L508'>operator</a>          508 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/35.html#L512'>operator</a>          512 String.h       inline bool String::operator!=(const String&amp; rhs) const {
-<a href='../S/35.html#L516'>operator</a>          516 String.h       inline bool String::operator&lt;(const String&amp; rhs) const {
-<a href='../S/35.html#L520'>operator</a>          520 String.h       inline bool String::operator&lt;=(const String&amp; rhs) const {
-<a href='../S/35.html#L524'>operator</a>          524 String.h       inline bool String::operator&gt;(const String&amp; rhs) const {
-<a href='../S/35.html#L528'>operator</a>          528 String.h       inline bool String::operator&gt;=(const String&amp; rhs) const {
-<a href='../S/35.html#L533'>operator</a>          533 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
-<a href='../S/35.html#L542'>operator</a>          542 String.h       std::istream&amp; operator&gt;&gt;(std::istream&amp;, String&amp;);
-<a href='../S/31.html#L70'>operator</a>           70 hash.h             inline size_t operator()(T val) const { return static_cast&lt;size_t&gt;(val); }    \
-<a href='../S/31.html#L99'>operator</a>           99 hash.h             inline size_t operator()(T* p) const { return reinterpret_cast&lt;size_t&gt;(p); }
+<a href='../S/71.html#L139'>ftell</a>             139 Stream.cpp       size_t size = ftell(f);
+<a href='../S/18.html#L48'>ftell</a>              48 tests/AtomicFileTest.cpp   source_len = ftell(f);
+<a href='../S/18.html#L113'>ftell</a>             113 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(source-&gt;length(), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/18.html#L181'>ftell</a>             181 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(source-&gt;length(), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/18.html#L246'>ftell</a>             246 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/18.html#L303'>ftell</a>             303 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast&lt;size_t&gt;(ftell(f)));
+<a href='../S/16.html#L239'>ftell</a>             239 tests/StreamTest.cpp   size_t size = ftell(f);
+<a href='../S/16.html#L286'>ftell</a>             286 tests/StreamTest.cpp   size_t size = ftell(f);
+<a href='../S/16.html#L333'>ftell</a>             333 tests/StreamTest.cpp   size_t size = ftell(f);
 </pre>
 </body>
 </html>

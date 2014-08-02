@@ -1,17 +1,15 @@
 <html>
 <head>
-<title>str_upper</title>
+<title>min_params</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/54.html#L228'>str_upper</a>         228 String.cpp       String str_upper(str), this_upper(*this);
-<a href='../S/54.html#L229'>str_upper</a>         229 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/54.html#L231'>str_upper</a>         231 String.cpp       return this_upper.find(str_upper);
-<a href='../S/54.html#L235'>str_upper</a>         235 String.cpp       String str_upper(str), this_upper(*this);
-<a href='../S/54.html#L236'>str_upper</a>         236 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/54.html#L238'>str_upper</a>         238 String.cpp       return this_upper.rfind(str_upper);
+<a href='../S/67.html#L109'>min_params</a>        109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/67.html#L110'>min_params</a>        110 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
+<a href='../S/44.html#L171'>min_params</a>        171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/44.html#L172'>min_params</a>        172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
 </pre>
 </body>
 </html>

@@ -1,34 +1,29 @@
 <html>
 <head>
-<title>int_a</title>
+<title>createCommand</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/30.html#L43'>int_a</a>              43 tests/ArrayTest.cpp     int_a = new Array&lt;int&gt;();
-<a href='../S/30.html#L53'>int_a</a>              53 tests/ArrayTest.cpp     delete int_a; delete int_b; delete int_c;
-<a href='../S/30.html#L160'>int_a</a>             160 tests/ArrayTest.cpp     int_a-&gt;push(i);
-<a href='../S/30.html#L161'>int_a</a>             161 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a-&gt;size());
-<a href='../S/30.html#L162'>int_a</a>             162 tests/ArrayTest.cpp   int_a-&gt;clear();
-<a href='../S/30.html#L163'>int_a</a>             163 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a-&gt;size());
-<a href='../S/30.html#L164'>int_a</a>             164 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(true, int_a-&gt;isEmpty());
-<a href='../S/30.html#L171'>int_a</a>             171 tests/ArrayTest.cpp     int_a-&gt;push(i);
-<a href='../S/30.html#L172'>int_a</a>             172 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a-&gt;size());
-<a href='../S/30.html#L173'>int_a</a>             173 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), int_a-&gt;rcount());
-<a href='../S/30.html#L174'>int_a</a>             174 tests/ArrayTest.cpp   *int_b = *int_a;
-<a href='../S/30.html#L175'>int_a</a>             175 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a-&gt;size());
-<a href='../S/30.html#L176'>int_a</a>             176 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_a-&gt;rcount());
-<a href='../S/30.html#L180'>int_a</a>             180 tests/ArrayTest.cpp   *int_c = *int_a;
-<a href='../S/30.html#L181'>int_a</a>             181 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a-&gt;size());
-<a href='../S/30.html#L182'>int_a</a>             182 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), int_a-&gt;rcount());
-<a href='../S/30.html#L189'>int_a</a>             189 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a-&gt;size());
-<a href='../S/30.html#L190'>int_a</a>             190 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), int_a-&gt;rcount());
-<a href='../S/30.html#L197'>int_a</a>             197 tests/ArrayTest.cpp     CPPUNIT_ASSERT_EQUAL(i, int_a-&gt;pop());
-<a href='../S/30.html#L198'>int_a</a>             198 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a-&gt;size());
-<a href='../S/30.html#L208'>int_a</a>             208 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a-&gt;size());
-<a href='../S/30.html#L216'>int_a</a>             216 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a-&gt;size());
-<a href='../S/24.html#L84'>int_a</a>              84 tests/ArrayTest.h         Array&lt;int&gt; *int_a, *int_b, *int_c;
+<a href='../S/67.html#L109'>createCommand</a>     109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/67.html#L110'>createCommand</a>     110 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
+<a href='../S/44.html#L171'>createCommand</a>     171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/21.html#L299'>createCommand</a>     299 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
+<a href='../S/21.html#L303'>createCommand</a>     303 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
+<a href='../S/21.html#L309'>createCommand</a>     309 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("xi", my_xi);
+<a href='../S/21.html#L315'>createCommand</a>     315 tests/ScriptInterpTCLTest.cpp   ScriptInterp::createCommand(tcl_script, "param_test", param_test, nullptr, 1);
+<a href='../S/21.html#L326'>createCommand</a>     326 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("listReturn", listReturn);
+<a href='../S/21.html#L330'>createCommand</a>     330 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("nestedListReturn", nestedListReturn);
+<a href='../S/21.html#L334'>createCommand</a>     334 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("listParam", listParam);
+<a href='../S/21.html#L338'>createCommand</a>     338 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("nestedListParam", nestedListParam);
+<a href='../S/21.html#L344'>createCommand</a>     344 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("atoi", atoi);
+<a href='../S/21.html#L349'>createCommand</a>     349 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("xz", my_xz);
+<a href='../S/21.html#L350'>createCommand</a>     350 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("voidFunc", voidFunc);
+<a href='../S/21.html#L352'>createCommand</a>     352 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("args", args, "foo1 ?foo2?", 1);
+<a href='../S/21.html#L377'>createCommand</a>     377 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("param_test", param_test);
+<a href='../S/21.html#L384'>createCommand</a>     384 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("bind", script_bind);
+<a href='../S/21.html#L419'>createCommand</a>     419 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
 </pre>
 </body>
 </html>

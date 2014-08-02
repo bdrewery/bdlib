@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>stream</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/45.html#L57'>stream</a>             57 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/45.html#L58'>stream</a>             58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/45.html#L59'>stream</a>             59 Stream.h                 stream.str = String();
+<a href='../S/45.html#L60'>stream</a>             60 Stream.h                 stream.pos = 0;
+<a href='../S/45.html#L61'>stream</a>             61 Stream.h                 stream.loading = 0;
+<a href='../S/45.html#L75'>stream</a>             75 Stream.h               Stream&amp; operator=(Stream stream) {
+<a href='../S/45.html#L76'>stream</a>             76 Stream.h                 swap(*this, stream);
+<a href='../S/45.html#L171'>stream</a>            171 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+</pre>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>handle</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/63.html#L61'>handle</a>             61 Thread.cpp         if (pthread_create(&amp;(this-&gt;handle), &amp;attr, threadMain, this) == 0)
+<a href='../S/63.html#L67'>handle</a>             67 Thread.cpp         if (this-&gt;handle = (HANDLE)_beginthreadex(nullptr, 0, threadMain, this, 0, &amp;(this-&gt;id))) {
+<a href='../S/63.html#L69'>handle</a>             69 Thread.cpp             CloseHandle(this-&gt;handle);
+<a href='../S/63.html#L83'>handle</a>             83 Thread.cpp         pthread_detach(this-&gt;handle);
+<a href='../S/63.html#L85'>handle</a>             85 Thread.cpp         CloseHandle(this-&gt;handle);
+<a href='../S/63.html#L98'>handle</a>             98 Thread.cpp         pthread_join(this-&gt;handle, &amp;_status);
+<a href='../S/63.html#L100'>handle</a>            100 Thread.cpp         WaitForSingleObject(this-&gt;handle, INFINITE);
+<a href='../S/63.html#L101'>handle</a>            101 Thread.cpp         GetExitCodeThread(this-&gt;handle, (DWORD*) &amp;_status);
+<a href='../S/63.html#L102'>handle</a>            102 Thread.cpp         CloseHandle(this-&gt;handle);
+<a href='../S/63.html#L112'>handle</a>            112 Thread.cpp         pthread_cancel(this-&gt;handle);
+<a href='../S/63.html#L113'>handle</a>            113 Thread.cpp         pthread_detach(this-&gt;handle);
+<a href='../S/63.html#L115'>handle</a>            115 Thread.cpp         TerminateThread(this-&gt;handle, 0);
+<a href='../S/63.html#L116'>handle</a>            116 Thread.cpp         CloseHandle(this-&gt;handle);
+<a href='../S/64.html#L65'>handle</a>             65 Thread.h           threadHandle_t handle;
+<a href='../S/64.html#L72'>handle</a>             72 Thread.h           Thread(void) : handle(0), id(0), status(0), param(nullptr) {};
+</pre>
+</body>
+</html>

@@ -1,24 +1,19 @@
 <html>
 <head>
-<title>_capacity</title>
+<title>Stack</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/5.html#L56'>_capacity</a>          56 HashTable.h        size_t _capacity;
-<a href='../S/5.html#L60'>_capacity</a>          60 HashTable.h          return _hash(key) % _capacity;
-<a href='../S/5.html#L63'>_capacity</a>          63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/5.html#L64'>_capacity</a>          64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L65'>_capacity</a>          65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L66'>_capacity</a>          66 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
-<a href='../S/5.html#L70'>_capacity</a>          70 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-<a href='../S/5.html#L73'>_capacity</a>          73 HashTable.h          _capacity = default_list_size;
-<a href='../S/5.html#L78'>_capacity</a>          78 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L88'>_capacity</a>          88 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
-<a href='../S/5.html#L105'>_capacity</a>         105 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i) {
-<a href='../S/5.html#L125'>_capacity</a>         125 HashTable.h          swap(a._capacity, b._capacity);
-<a href='../S/5.html#L148'>_capacity</a>         148 HashTable.h        inline size_t capacity() const { return _capacity; };
+<a href='../S/13.html#L41'>Stack</a>              41 Stack.h        class Stack : public List&lt;T&gt; {
+<a href='../S/13.html#L46'>Stack</a>              46 Stack.h            Stack() : List&lt;iterator_type&gt;() {};
+<a href='../S/13.html#L47'>Stack</a>              47 Stack.h            virtual ~Stack() {};
+<a href='../S/13.html#L61'>Stack</a>              61 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&gt;&gt; (Stack&lt;iterator_type&gt;&amp; stack, iterator_type&amp; item) {
+<a href='../S/13.html#L85'>Stack</a>              85 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&lt;&lt; (Stack&lt;iterator_type&gt;&amp; stack, const iterator_type&amp; item) {
+<a href='../S/25.html#L126'>Stack</a>             126 tests/StackTest.cpp   Stack&lt;String&gt;::iterator iter(a-&gt;begin());
+<a href='../S/22.html#L54'>Stack</a>              54 tests/StackTest.h         Stack&lt;String&gt; *a, *b, *c, *d;
+<a href='../S/22.html#L55'>Stack</a>              55 tests/StackTest.h         Stack&lt;String*&gt; *e, *f, *g, *h;
 </pre>
 </body>
 </html>

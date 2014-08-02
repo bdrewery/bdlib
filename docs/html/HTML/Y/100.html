@@ -1,46 +1,40 @@
 <html>
 <head>
-<title>Value</title>
+<title>ScriptInterpTCL</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/3.html#L36'>Value</a>              36 BinaryTree.h   template &lt;class Key, class Value&gt;
-<a href='../S/3.html#L46'>Value</a>              46 BinaryTree.h       typedef KeyValue&lt;Key, Value&gt; iterator_type;
-<a href='../S/3.html#L55'>Value</a>              55 BinaryTree.h           Node(const Key k, const Value v) : left(NULL), right(NULL), kv(k, v) { };
-<a href='../S/3.html#L188'>Value</a>             188 BinaryTree.h       bool insert(const Key&amp; key, const Value&amp; value) {
-<a href='../S/3.html#L204'>Value</a>             204 BinaryTree.h       inline const Value operator[](const Key&amp; key) const { return getValue(key); }
-<a href='../S/3.html#L212'>Value</a>             212 BinaryTree.h       Value&amp; operator[](const Key&amp; key) {
-<a href='../S/3.html#L215'>Value</a>             215 BinaryTree.h           insertNode(node, new Node(key, Value()));
-<a href='../S/3.html#L245'>Value</a>             245 BinaryTree.h       Value getValue(const Key&amp; key) const {
-<a href='../S/3.html#L246'>Value</a>             246 BinaryTree.h         const Value empty;
-<a href='../S/3.html#L261'>Value</a>             261 BinaryTree.h       Value getKey(const Value&amp; value) const {
-<a href='../S/3.html#L276'>Value</a>             276 BinaryTree.h         typedef BinaryTree&lt;Key, Value&gt; Tree;
-<a href='../S/5.html#L38'>Value</a>              38 HashTable.h    template &lt;class Key, class Value&gt;
-<a href='../S/5.html#L50'>Value</a>              50 HashTable.h        typedef KeyValue&lt;Key, Value&gt; iterator_type;
-<a href='../S/5.html#L52'>Value</a>              52 HashTable.h        typedef void (*hash_table_block)(const Key, Value, void *param);
-<a href='../S/5.html#L65'>Value</a>              65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L70'>Value</a>              70 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-<a href='../S/5.html#L120'>Value</a>             120 HashTable.h        friend void swap(HashTable&lt;Key, Value&gt;&amp; a, HashTable&lt;Key, Value&gt;&amp; b) {
-<a href='../S/5.html#L129'>Value</a>             129 HashTable.h        HashTable&amp; operator=(HashTable&lt;Key, Value&gt; table) {
-<a href='../S/5.html#L154'>Value</a>             154 HashTable.h        bool insert(const Key&amp; key, const Value&amp; value) {
-<a href='../S/5.html#L163'>Value</a>             163 HashTable.h          return _list[getIndex(key)].contains(iterator_type(key, Value()));
-<a href='../S/5.html#L168'>Value</a>             168 HashTable.h          if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
-<a href='../S/5.html#L175'>Value</a>             175 HashTable.h        inline Value getValue(const Key&amp; key) const {
-<a href='../S/5.html#L176'>Value</a>             176 HashTable.h          Value empty;
-<a href='../S/5.html#L178'>Value</a>             178 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
-<a href='../S/5.html#L185'>Value</a>             185 HashTable.h        inline const Value operator[](const Key&amp; key) const { return getValue(key); }
-<a href='../S/5.html#L208'>Value</a>             208 HashTable.h        Array&lt;Value&gt; values() const {
-<a href='../S/5.html#L209'>Value</a>             209 HashTable.h          Array&lt;Value&gt; tmp(size());
-<a href='../S/5.html#L229'>Value</a>             229 HashTable.h        inline Value&amp; operator[](const Key&amp; key) {
-<a href='../S/5.html#L236'>Value</a>             236 HashTable.h        inline Value&amp; find_or_insert_key(const Key&amp; key) {
-<a href='../S/5.html#L238'>Value</a>             238 HashTable.h            insert(key, Value());
-<a href='../S/5.html#L239'>Value</a>             239 HashTable.h          return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
-<a href='../S/32.html#L92'>Value</a>              92 Iterator.h     template &lt;class Key, class Value&gt;
-<a href='../S/32.html#L96'>Value</a>              96 Iterator.h         Value v;
-<a href='../S/32.html#L99'>Value</a>              99 Iterator.h         KeyValue(const Key&amp; _key, const Value&amp; _value) : k(_key), v(_value) {};
-<a href='../S/32.html#L118'>Value</a>             118 Iterator.h         inline const Value&amp; value() const { return v; };
+<a href='../S/52.html#L12'>ScriptInterpTCL</a>    12 ScriptInterpTCL.cpp HashTable&lt;String, ScriptInterpTCL::script_cmd_handler_clientdata*&gt; ScriptInterpTCL::CmdHandlerData;
+<a href='../S/52.html#L13'>ScriptInterpTCL</a>    13 ScriptInterpTCL.cpp HashTable&lt;String, ScriptInterp::link_var_hook&gt; ScriptInterpTCL::link_var_hooks;
+<a href='../S/52.html#L36'>ScriptInterpTCL</a>    36 ScriptInterpTCL.cpp int ScriptInterpTCL::init() {
+<a href='../S/52.html#L49'>ScriptInterpTCL</a>    49 ScriptInterpTCL.cpp int ScriptInterpTCL::destroy() {
+<a href='../S/52.html#L57'>ScriptInterpTCL</a>    57 ScriptInterpTCL.cpp String ScriptInterpTCL::eval(const String&amp; script) {
+<a href='../S/52.html#L66'>ScriptInterpTCL</a>    66 ScriptInterpTCL.cpp ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String&amp; fileName, String&amp; resultStr) {
+<a href='../S/52.html#L80'>ScriptInterpTCL</a>    80 ScriptInterpTCL.cpp int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
+<a href='../S/52.html#L104'>ScriptInterpTCL</a>   104 ScriptInterpTCL.cpp void ScriptInterpTCL::setupTraces(const String&amp; varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
+<a href='../S/52.html#L111'>ScriptInterpTCL</a>   111 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+<a href='../S/52.html#L115'>ScriptInterpTCL</a>   115 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+<a href='../S/52.html#L123'>ScriptInterpTCL</a>   123 ScriptInterpTCL.cpp Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
+<a href='../S/52.html#L267'>ScriptInterpTCL</a>   267 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/52.html#L283'>ScriptInterpTCL</a>   283 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/44.html#L91'>ScriptInterpTCL</a>    91 ScriptInterpTCL.h   return ScriptInterpTCL::TraceGet(c_to_tcl_cast&lt;T&gt;::from(*static_cast&lt;T*&gt;(clientData), interp), interp, name1, name2, flags);     \
+<a href='../S/44.html#L97'>ScriptInterpTCL</a>    97 ScriptInterpTCL.h   Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);                                                           \
+<a href='../S/44.html#L102'>ScriptInterpTCL</a>   102 ScriptInterpTCL.h   if (ScriptInterpTCL::link_var_hooks[name1])                                                                                      \
+<a href='../S/44.html#L103'>ScriptInterpTCL</a>   103 ScriptInterpTCL.h     (ScriptInterpTCL::link_var_hooks[name1])((const void*)&amp;oldval, (const void*)(clientData));                                     \
+<a href='../S/44.html#L130'>ScriptInterpTCL</a>   130 ScriptInterpTCL.h class ScriptInterpTCL : public ScriptInterp {
+<a href='../S/44.html#L137'>ScriptInterpTCL</a>   137 ScriptInterpTCL.h         ScriptInterpTCL(const ScriptInterpTCL&amp;) = delete;
+<a href='../S/44.html#L138'>ScriptInterpTCL</a>   138 ScriptInterpTCL.h         ScriptInterpTCL&amp; operator=(const ScriptInterpTCL&amp;) = delete;
+<a href='../S/44.html#L155'>ScriptInterpTCL</a>   155 ScriptInterpTCL.h         ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
+<a href='../S/44.html#L156'>ScriptInterpTCL</a>   156 ScriptInterpTCL.h         virtual ~ScriptInterpTCL() {
+<a href='../S/21.html#L34'>ScriptInterpTCL</a>    34 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
+<a href='../S/21.html#L43'>ScriptInterpTCL</a>    43 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
+<a href='../S/21.html#L92'>ScriptInterpTCL</a>    92 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
+<a href='../S/21.html#L226'>ScriptInterpTCL</a>   226 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
+<a href='../S/21.html#L296'>ScriptInterpTCL</a>   296 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
+<a href='../S/21.html#L372'>ScriptInterpTCL</a>   372 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
+<a href='../S/21.html#L416'>ScriptInterpTCL</a>   416 tests/ScriptInterpTCLTest.cpp   ScriptInterpTCL tcl_script;
 </pre>
 </body>
 </html>

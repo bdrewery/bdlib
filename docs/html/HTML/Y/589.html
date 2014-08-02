@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>refs</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/56.html#L60'>refs</a>               60 ReferenceCountedArray.h     mutable std::atomic&lt;int&gt; refs; //References
+<a href='../S/56.html#L62'>refs</a>               62 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+<a href='../S/56.html#L123'>refs</a>              123 ReferenceCountedArray.h     inline bool isShared() const { return refs &gt; 1; };
+<a href='../S/56.html#L234'>refs</a>              234 ReferenceCountedArray.h     inline int incRef() const { return Ref ? ++Ref-&gt;refs : 0; };
+<a href='../S/56.html#L239'>refs</a>              239 ReferenceCountedArray.h     inline int decRef() const { return Ref ? --Ref-&gt;refs : 0; };
+<a href='../S/56.html#L495'>refs</a>              495 ReferenceCountedArray.h     inline size_t rcount() const { return Ref ? Ref-&gt;refs.load() : 0; };
+</pre>
+</body>
+</html>

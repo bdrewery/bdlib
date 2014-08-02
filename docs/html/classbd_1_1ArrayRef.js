@@ -8,6 +8,7 @@ var classbd_1_1ArrayRef =
     [ "Reserve", "classbd_1_1ArrayRef.html#abccc8f30945c23ce642ece1ce6c5a7c4", null ],
     [ "alloc", "classbd_1_1ArrayRef.html#a44ded8254954dd2c9df284bb090ada5c", null ],
     [ "buf", "classbd_1_1ArrayRef.html#a52ad8faee75615d9030360e4224c06be", null ],
-    [ "n", "classbd_1_1ArrayRef.html#a8f547388e58d31a208c0aecef64da857", null ],
+    [ "buf_local", "classbd_1_1ArrayRef.html#ac40c9cdcd1b776ec91a563e3a76dc3a9", null ],
+    [ "refs", "classbd_1_1ArrayRef.html#af4457c9ad3436029728fbc4aa9399e23", null ],
     [ "size", "classbd_1_1ArrayRef.html#a15ac5491e1550ccac086100a91a810c5", null ]
 ];

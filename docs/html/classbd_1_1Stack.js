@@ -20,6 +20,7 @@ var classbd_1_1Stack =
     [ "findRef", "classbd_1_1Stack.html#a3c03e45ae5f6986b0cc519babbf1dfd5", null ],
     [ "insert", "classbd_1_1Stack.html#ae637e8a7947b75ed2fe50a7a268b7f5e", null ],
     [ "isEmpty", "classbd_1_1Stack.html#a3f87c953fb7b3affd52395d414c5a748", null ],
+    [ "operator bool", "classbd_1_1Stack.html#a3e4b1ef53a4a3c273bfdaaaec3552a7b", null ],
     [ "peek", "classbd_1_1Stack.html#a5c3176e06387f4f766f973989776e6fb", null ],
     [ "pop", "classbd_1_1Stack.html#a7319fd99c8ca1baf1825555be4a55292", null ],
     [ "push", "classbd_1_1Stack.html#a9ee45be355873463c715bf93c445f4bc", null ],

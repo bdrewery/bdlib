@@ -1,36 +1,55 @@
 <html>
 <head>
-<title>_list</title>
+<title>StringTest</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/5.html#L54'>_list</a>              54 HashTable.h        List&lt;iterator_type&gt; *_list;
-<a href='../S/5.html#L63'>_list</a>              63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/5.html#L64'>_list</a>              64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/5.html#L65'>_list</a>              65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/5.html#L67'>_list</a>              67 HashTable.h              _list[i] = table._list[i];
-<a href='../S/5.html#L70'>_list</a>              70 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-<a href='../S/5.html#L71'>_list</a>              71 HashTable.h          _list = NULL;
-<a href='../S/5.html#L78'>_list</a>              78 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/5.html#L84'>_list</a>              84 HashTable.h          delete[] _list;
-<a href='../S/5.html#L89'>_list</a>              89 HashTable.h            _list[i].clear();
-<a href='../S/5.html#L106'>_list</a>             106 HashTable.h            if (_list[i].size()) {
-<a href='../S/5.html#L107'>_list</a>             107 HashTable.h              for (iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/5.html#L123'>_list</a>             123 HashTable.h          swap(a._list, b._list);
-<a href='../S/5.html#L156'>_list</a>             156 HashTable.h          _list[getIndex(key)] &lt;&lt; iterator_type(key, value);
-<a href='../S/5.html#L163'>_list</a>             163 HashTable.h          return _list[getIndex(key)].contains(iterator_type(key, Value()));
-<a href='../S/5.html#L168'>_list</a>             168 HashTable.h          if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
-<a href='../S/5.html#L178'>_list</a>             178 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
-<a href='../S/5.html#L195'>_list</a>             195 HashTable.h            if (_list[i].size()) {
-<a href='../S/5.html#L196'>_list</a>             196 HashTable.h              for (iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/5.html#L213'>_list</a>             213 HashTable.h            if (_list[i].size()) {
-<a href='../S/5.html#L214'>_list</a>             214 HashTable.h              for (iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/5.html#L239'>_list</a>             239 HashTable.h          return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
-<a href='../S/37.html#L221'>_list</a>             221 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;value_type&gt;(),
-<a href='../S/37.html#L222'>_list</a>             222 List.h                                                                       list(&amp;_list),
-<a href='../S/37.html#L223'>_list</a>             223 List.h                                                                       current(_end ? _list.head : _list.tail), /* tail is beginning */
+<a href='../S/32.html#L42'>StringTest</a>         42 tests/StringTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
+<a href='../S/32.html#L44'>StringTest</a>         44 tests/StringTest.cpp void StringTest :: setUp (void)
+<a href='../S/32.html#L58'>StringTest</a>         58 tests/StringTest.cpp void StringTest :: tearDown (void)
+<a href='../S/32.html#L65'>StringTest</a>         65 tests/StringTest.cpp void StringTest :: lengthTest (void)
+<a href='../S/32.html#L80'>StringTest</a>         80 tests/StringTest.cpp void StringTest :: clearTest (void)
+<a href='../S/32.html#L102'>StringTest</a>        102 tests/StringTest.cpp void StringTest :: capacityTest (void)
+<a href='../S/32.html#L117'>StringTest</a>        117 tests/StringTest.cpp void StringTest :: compareTest (void)
+<a href='../S/32.html#L129'>StringTest</a>        129 tests/StringTest.cpp void StringTest :: refTest (void)
+<a href='../S/32.html#L161'>StringTest</a>        161 tests/StringTest.cpp void StringTest :: swapTest (void)
+<a href='../S/32.html#L173'>StringTest</a>        173 tests/StringTest.cpp void StringTest :: equalTest (void)
+<a href='../S/32.html#L191'>StringTest</a>        191 tests/StringTest.cpp void StringTest :: setTest (void)
+<a href='../S/32.html#L211'>StringTest</a>        211 tests/StringTest.cpp void StringTest :: c_strTest(void)
+<a href='../S/32.html#L233'>StringTest</a>        233 tests/StringTest.cpp void StringTest :: hasIndexTest(void)
+<a href='../S/32.html#L242'>StringTest</a>        242 tests/StringTest.cpp void StringTest :: charAtTest(void)
+<a href='../S/32.html#L251'>StringTest</a>        251 tests/StringTest.cpp void StringTest :: indexTest(void)
+<a href='../S/32.html#L281'>StringTest</a>        281 tests/StringTest.cpp void StringTest :: iteratorTest(void)
+<a href='../S/32.html#L298'>StringTest</a>        298 tests/StringTest.cpp void StringTest :: stl_iteratorTest(void)
+<a href='../S/32.html#L307'>StringTest</a>        307 tests/StringTest.cpp void StringTest :: stl_reverse_iteratorTest(void)
+<a href='../S/32.html#L316'>StringTest</a>        316 tests/StringTest.cpp void StringTest :: stl_const_iteratorTest(void)
+<a href='../S/32.html#L322'>StringTest</a>        322 tests/StringTest.cpp void StringTest :: appendTest(void)
+<a href='../S/32.html#L358'>StringTest</a>        358 tests/StringTest.cpp void StringTest :: insertTest(void)
+<a href='../S/32.html#L388'>StringTest</a>        388 tests/StringTest.cpp void StringTest :: replaceTest(void)
+<a href='../S/32.html#L476'>StringTest</a>        476 tests/StringTest.cpp void StringTest :: chompTest(void)
+<a href='../S/32.html#L525'>StringTest</a>        525 tests/StringTest.cpp void StringTest :: trimTest(void)
+<a href='../S/32.html#L555'>StringTest</a>        555 tests/StringTest.cpp void StringTest :: findTest(void)
+<a href='../S/32.html#L570'>StringTest</a>        570 tests/StringTest.cpp void StringTest :: ifindTest(void)
+<a href='../S/32.html#L577'>StringTest</a>        577 tests/StringTest.cpp void StringTest :: rifindTest(void)
+<a href='../S/32.html#L583'>StringTest</a>        583 tests/StringTest.cpp void StringTest :: rfindTest(void)
+<a href='../S/32.html#L607'>StringTest</a>        607 tests/StringTest.cpp void StringTest :: newsplitTest(void)
+<a href='../S/32.html#L657'>StringTest</a>        657 tests/StringTest.cpp void StringTest :: concatTest(void)
+<a href='../S/32.html#L669'>StringTest</a>        669 tests/StringTest.cpp void StringTest :: incDecTest(void)
+<a href='../S/32.html#L689'>StringTest</a>        689 tests/StringTest.cpp void StringTest :: incDecEqualTest(void)
+<a href='../S/32.html#L822'>StringTest</a>        822 tests/StringTest.cpp void StringTest :: operatorStarTest(void)
+<a href='../S/32.html#L833'>StringTest</a>        833 tests/StringTest.cpp void StringTest :: printfTest(void)
+<a href='../S/32.html#L855'>StringTest</a>        855 tests/StringTest.cpp void StringTest :: base64Test(void)
+<a href='../S/32.html#L977'>StringTest</a>        977 tests/StringTest.cpp void StringTest :: encryptTest(void)
+<a href='../S/32.html#L1003'>StringTest</a>       1003 tests/StringTest.cpp void StringTest :: encryptBase64Test(void)
+<a href='../S/32.html#L1025'>StringTest</a>       1025 tests/StringTest.cpp void StringTest :: substringTest(void)
+<a href='../S/32.html#L1306'>StringTest</a>       1306 tests/StringTest.cpp void StringTest :: splitTest(void)
+<a href='../S/32.html#L1401'>StringTest</a>       1401 tests/StringTest.cpp void StringTest :: hashTest(void)
+<a href='../S/32.html#L1423'>StringTest</a>       1423 tests/StringTest.cpp void StringTest :: resizeTest(void)
+<a href='../S/32.html#L1475'>StringTest</a>       1475 tests/StringTest.cpp void StringTest :: substTest(void) {
+<a href='../S/19.html#L36'>StringTest</a>         36 tests/StringTest.h class StringTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/19.html#L38'>StringTest</a>         38 tests/StringTest.h     CPPUNIT_TEST_SUITE (StringTest);
 </pre>
 </body>
 </html>
