@@ -32,11 +32,6 @@
 #include "AtomicFile.h"
 
 BDLIB_NS_BEGIN
-AtomicFile::~AtomicFile() {
-  if (this->is_open()) {
-    this->commit();
-  }
-}
 
 void AtomicFile::open(const String& fname, mode_t mode) {
   size_t slash_pos;

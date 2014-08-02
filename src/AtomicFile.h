@@ -46,7 +46,15 @@ class AtomicFile {
     AtomicFile() : _fname(), _tmpname(), _fd(-1), _mode(-1) {};
     AtomicFile(AtomicFile& f) : _fname(f._fname), _tmpname(), _fd(f._fd),
                                 _mode(f._mode) {};
-    virtual ~AtomicFile();
+    /**
+     * @brief Calling the destructor will abort the file if it has not already been written.
+     * @sa abort
+     */
+    virtual ~AtomicFile() {
+      if (this->is_open()) {
+        this->abort();
+      }
+    }
 
     /**
      * @brief Open a file for writing.

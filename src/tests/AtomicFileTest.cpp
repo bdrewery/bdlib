@@ -183,4 +183,60 @@ void AtomicFileTest :: abortTest (void)
   unlink(dst_name);
   delete a;
 }
+
+void AtomicFileTest :: deleteTest (void)
+{
+  AtomicFile *a;
+  int fd;
+  FILE *f, *f2;
+  const char *dst_name;
+  char buf[4];
+  String verification;
+
+  dst_name = "test.file";
+  unlink(dst_name);
+
+  /* Generate a junk file to replace and keep it open */
+  f2 = fopen(dst_name, "w");
+  CPPUNIT_ASSERT(f2 != NULL);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), fwrite("test", 1, 4, f2));
+  fflush(f2);
+  /* !! Keep dst_name open so it is busy */
+
+  /* Write out source into the dst */
+  a = new AtomicFile;
+  a->open(dst_name);
+  CPPUNIT_ASSERT_EQUAL(true, a->is_open());
+  /* Write out the data to the fd through a FILE stream */
+  fd = a->fd();
+  CPPUNIT_ASSERT(fd != -1);
+  /* dup(2) the fd due to lack of fdclose() */
+  fd = dup(fd);
+  f = fdopen(fd, "w");
+  CPPUNIT_ASSERT(f != NULL);
+  CPPUNIT_ASSERT_EQUAL(source->length(), fwrite(
+        static_cast<const char*>(source->begin()), 1, source->length(), f));
+  fsync(fd);
+  fclose(f);
+
+  /* Verify the contents of the dst have not yet changed */
+  f = fopen(dst_name, "r");
+  CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+  fclose(f);
+  CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+
+  /* Abort the atomic file writing and verify the contents and file remain. */
+  delete a;
+  a = NULL;
+
+  f = fopen(dst_name, "r");
+  CPPUNIT_ASSERT_EQUAL(size_t(4), fread(buf, 1, 4, f));
+  fseek(f, 0, SEEK_END);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast<size_t>(ftell(f)));
+  fclose(f);
+  CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
+
+  fclose(f2);		/* The junk file kept open */
+  unlink(dst_name);
+}
 /* vim: set sts=2 sw=2 ts=8 et: */
