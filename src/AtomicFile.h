@@ -42,9 +42,7 @@ class AtomicFile {
     String _tmpname;
     int _fd;
   public:
-    AtomicFile(const String& fname) : _fname(), _tmpname(), _fd(-1) {
-      this->open(fname);
-    };
+    AtomicFile() : _fname(), _tmpname(), _fd(-1) {};
     AtomicFile(AtomicFile& f) : _fname(f._fname), _tmpname(), _fd(f._fd) {};
     virtual ~AtomicFile();
 

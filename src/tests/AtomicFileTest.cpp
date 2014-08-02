@@ -80,7 +80,8 @@ void AtomicFileTest :: basicTest (void)
   /* !! Keep dst_name open so it is busy */
 
   /* Write out source into the dst */
-  a = new AtomicFile(dst_name);
+  a = new AtomicFile;
+  a->open(dst_name);
   CPPUNIT_ASSERT_EQUAL(true, a->is_open());
   /* Write out the data to the fd through a FILE stream */
   fd = a->fd();
@@ -141,7 +142,8 @@ void AtomicFileTest :: abortTest (void)
   /* !! Keep dst_name open so it is busy */
 
   /* Write out source into the dst */
-  a = new AtomicFile(dst_name);
+  a = new AtomicFile;
+  a->open(dst_name);
   CPPUNIT_ASSERT_EQUAL(true, a->is_open());
   /* Write out the data to the fd through a FILE stream */
   fd = a->fd();
