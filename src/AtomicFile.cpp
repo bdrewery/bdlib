@@ -32,7 +32,7 @@
 BDLIB_NS_BEGIN
 AtomicFile::~AtomicFile() {
   if (this->is_open()) {
-    this->close();
+    this->commit();
   }
 }
 
@@ -71,7 +71,7 @@ bool AtomicFile::abort() {
   return true;
 }
 
-bool AtomicFile::close() {
+bool AtomicFile::commit() {
   bool result, remove_temp;
 
   result = false;

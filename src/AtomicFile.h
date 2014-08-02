@@ -76,7 +76,7 @@ class AtomicFile {
     /**
      * @brief Write out the file and close the descriptor.
      */
-    bool close();
+    bool commit();
 };
 BDLIB_NS_END
 #endif /* _BD_ATOMICFILE_H */ 

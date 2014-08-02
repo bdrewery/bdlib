@@ -100,7 +100,7 @@ void AtomicFileTest :: basicTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("test", String(buf, 4));
 
   /* Write out the file atomically. */
-  CPPUNIT_ASSERT_EQUAL(true, a->close());
+  CPPUNIT_ASSERT_EQUAL(true, a->commit());
   /* !! a left open, it is expected to flush out / rename at close() */
 
   /* Now verify the contents of dst against source */
