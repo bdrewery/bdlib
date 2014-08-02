@@ -34,7 +34,7 @@ BDLIB_NS_BEGIN
 
 /**
  * @class AtomicFile
- * @brief Write out files atomically via tmpfile/rename, with a backup.
+ * @brief Write out files atomically via tmpfile/rename.
  */
 class AtomicFile {
   private:
