@@ -5,9 +5,11 @@ compiler:
   - gcc
 
 before_install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq libcppunit-dev libcppunit-1.12-1 tcl tcl-dev g++-4.8
+  - if [ "$CXX" = "g++" ]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
+  - sudo apt-get update
+  - sudo apt-get install libcppunit-dev libcppunit-1.12-1 tcl tcl-dev
+  - if [ "$CXX" = "clang++" ]; then sudo apt-get install clang-3.4; fi
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install gcc-4.8 g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 
 # Skip install
