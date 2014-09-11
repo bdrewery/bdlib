@@ -15,4 +15,26 @@ before_install:
 # Skip install
 install: true
 
-script: ./configure --enable-debug && make && make check
+script:
+  - ./configure --enable-debug
+  - make -j2
+  - make -j2 check
+
+# Coverity configuration
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "WG6t7cnbz7SJSNw4e6EOZ2A5dcLhDdCPELxzK/lODYpLkcXZ/LIB9KDMu+cnXAEz5zdu5azF6sMhH6fdhTs3SHB5hQProCVb3S06Z1JqXyGqOl6D7k8MGsylsQw3vy3jrGXp5Wk+6PTyMIcWRFfZk3UQpLTidiWyhJjw9F9/Nh8="
+
+addons:
+  coverity_scan:
+    project:
+      name: "bdrewery/bdlib"
+      description: "Build submitted via Travis CI"
+    notification_email: bryan-coverity@shatow.net
+    build_command_prepend:
+      - ./configure --enable-debug
+    build_command:
+      - make -j2
+    branch_pattern: coverity_scan
