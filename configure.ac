@@ -43,6 +43,8 @@ AC_PROG_CXX([clang++ g++49 g++-4.9 g++48 g++-4.8 g++47 g++-4.7 g++46 g++-4.6 g++
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
 AC_REQUIRE_CPP
 AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+CXXSTD_FLAG="${CXXFLAGS##* }"
+AM_CXXFLAGS="${AM_CXXFLAGS} ${CXXSTD_FLAG}"
 
 # Check for compiler features
 EGG_CHECK_CCPIPE
