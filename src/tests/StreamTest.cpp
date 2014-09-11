@@ -240,7 +240,7 @@ void StreamTest :: loadFileTest (void)
   fseek(f, 0, SEEK_SET);
 
   char *buffer = (char*) malloc(size + 1);
-  fread(buffer, 1, size, f);
+  CPPUNIT_ASSERT_EQUAL(size, fread(buffer, 1, size, f));
   buffer[size] = 0;
 
   a->loadFile(file);
@@ -287,7 +287,7 @@ void StreamTest :: writeFileFDTest (void)
   fseek(f, 0, SEEK_SET);
 
   char *buffer = (char*) malloc(size + 1);
-  fread(buffer, 1, size, f);
+  CPPUNIT_ASSERT_EQUAL(size, fread(buffer, 1, size, f));
   buffer[size] = 0;
 
   CPPUNIT_ASSERT_EQUAL(size, a->length());
@@ -334,7 +334,7 @@ void StreamTest :: writeFileTest (void)
   fseek(f, 0, SEEK_SET);
 
   char *buffer = (char*) malloc(size + 1);
-  fread(buffer, 1, size, f);
+  CPPUNIT_ASSERT_EQUAL(size, fread(buffer, 1, size, f));
   buffer[size] = 0;
 
   CPPUNIT_ASSERT_EQUAL(size, a->length());
