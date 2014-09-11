@@ -44,6 +44,16 @@ clean-local:
 	-find $(top_builddir) \( -name "*.gcda" -o -name "*.gcno" -o \
 	  -name "*.gcov" \) -delete
 
+.PHONY: fix-gcov-names
+fix-gcov-names:
+	@find $(top_builddir) -name '*.gcda' -o -name '*.gcno' | \
+	  while read file; do \
+	    dir=$${file%/*}; \
+	    fname=$${file##*/}; \
+	    fname=$${fname##*-}; \
+	    mv -v "$${file}" "$${dir}/$${fname%.*}.$${fname##*.}"; \
+	  done
+
 .PHONY: test
 test: check
 

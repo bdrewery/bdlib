@@ -8,6 +8,8 @@ before_install:
   - if [ "$CXX" = "g++" ]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
   - sudo apt-get update
   - sudo apt-get install libcppunit-dev libcppunit-1.12-1 tcl tcl-dev
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install python-yaml python-pip; fi
+  - if [ "$CXX" = "g++" ]; then sudo pip install cpp-coveralls; fi
   - if [ "$CXX" = "clang++" ]; then sudo apt-get install clang-3.4; fi
   - if [ "$CXX" = "g++" ]; then sudo apt-get install gcc-4.8 g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
@@ -20,12 +22,16 @@ script:
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2; fi
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check; fi
 
+after_success:
+  - if [ "$CXX" = "g++" ]; coveralls -r . -b . --exclude src/misc --exclude src/tests -t ${COVERALLS_REPO_TOKEN}; fi
+
 # Coverity configuration
 env:
   global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
+   # COVERITY_SCAN_TOKEN
    - secure: "WG6t7cnbz7SJSNw4e6EOZ2A5dcLhDdCPELxzK/lODYpLkcXZ/LIB9KDMu+cnXAEz5zdu5azF6sMhH6fdhTs3SHB5hQProCVb3S06Z1JqXyGqOl6D7k8MGsylsQw3vy3jrGXp5Wk+6PTyMIcWRFfZk3UQpLTidiWyhJjw9F9/Nh8="
+   # COVERALLS_REPO_TOKEN
+  - secure: "T6T+Y9rkSCiIG1gwnBYDmZ5L8r3nMTVl6ls/0hoZahvNsvXOf9LLhV6E/wvMBzRzFvxTKEU0zo3spXlLFh1k4HZ0pImqvwSIi8wrJliDnUmHF7sY+N7BSYEcTrRjudx/H5SNv3U743PI05ke1GmQJnrxKquriEfbbnmwZauvvtc="
 
 addons:
   coverity_scan:
