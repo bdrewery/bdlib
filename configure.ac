@@ -48,7 +48,7 @@ AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 EGG_CHECK_CCPIPE
 EGG_CHECK_CCSTATIC
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
-CXX_FLAG_CHECK([AM_CXXFLAGS], [-Qunused-arguments], [unusedarguments])
+#CXX_FLAG_CHECK([AM_CXXFLAGS], [-Qunused-arguments], [unusedarguments])
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fstack-protector-all], [stackprotector])
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-Winvalid-pch], [invalidpch])
 CXX_FLAG_CHECK([WDOCUMENTATION], [-Wdocumentation], [wdocumentation])
