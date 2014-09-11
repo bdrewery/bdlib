@@ -58,9 +58,8 @@ String ScriptInterpTCL::eval(const String& script) {
   if (Tcl_EvalEx(interp, script.c_str(), script.length(), TCL_EVAL_GLOBAL) == TCL_OK) {
     Tcl_Obj* value = Tcl_GetObjResult(interp);
     return tcl_to_c_cast<String>::from(value, this);
-  } else
-    return eval("set errorInfo");
-  return String();
+  }
+  return eval("set errorInfo");
 }
 
 ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, String& resultStr) {
