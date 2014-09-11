@@ -39,7 +39,7 @@ void AtomicFileTest :: setUp (void)
   FILE *f;
   size_t source_len;
 
-  chdir("/tmp/");
+  CPPUNIT_ASSERT_EQUAL(0, chdir("/tmp/"));
 
   /* Copy /etc/services into source */
   f = fopen("/etc/services", "r");
