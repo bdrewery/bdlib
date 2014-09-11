@@ -112,7 +112,10 @@ int Stream::loadFile(const int fd)
 {
   clear();
 #ifdef HAVE_MMAP
-  size_t size = lseek(fd, 0, SEEK_END);
+  ssize_t size = lseek(fd, 0, SEEK_END);
+  if (size < 0) {
+    return 1;
+  }
   Reserve(size);
   void* map = mmap(0, size, PROT_READ, MAP_PRIVATE, fd, 0);
   if (map == MAP_FAILED) {
