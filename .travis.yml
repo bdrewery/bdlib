@@ -15,9 +15,9 @@ before_install:
 install: true
 
 script:
-  - ./configure --enable-debug
-  - make -j2
-  - make -j2 check
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then ./configure --enable-debug; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check; fi
 
 # Coverity configuration
 env:
@@ -32,7 +32,6 @@ addons:
       name: "bdrewery/bdlib"
       description: "Build submitted via Travis CI"
     notification_email: bryan-coverity@shatow.net
-    build_command_prepend:
-      - ./configure --enable-debug
+    build_command_prepend: "./configure --enable-debug"
     build_command: "make -j2"
     branch_pattern: coverity_scan
