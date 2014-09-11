@@ -960,7 +960,7 @@ void StringTest :: base64Test(void)
 
   for (int i = 0; i < 200; ++i) {
     ++size;
-    read(fd, ubuf, size);
+    CPPUNIT_ASSERT_EQUAL(ssize_t(size), read(fd, ubuf, size));
 
     (*a) = String(ubuf, size);
     (*b) = base64Encode(*a);
