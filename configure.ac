@@ -77,6 +77,7 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
   "
   AC_DEFINE(DEBUG, 1, [Define to enable DEBUG code])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
+  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-coverage], [coverage])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Winvalid-pch], [invalidpch])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wdocumentation], [wdocumentation])
   if [[ "${ax_cv_prog_cc_wdocumentation}" = "yes" ]]; then

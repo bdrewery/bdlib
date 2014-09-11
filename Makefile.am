@@ -40,6 +40,10 @@ UnitRunner_CXXFLAGS=	$(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
 #UnitRunner_LDADD=	libbdlib.a
 UnitRunner_LDADD=	$(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
 
+clean-local:
+	-find $(top_builddir) \( -name "*.gcda" -o -name "*.gcno" -o \
+	  -name "*.gcov" \) -delete
+
 .PHONY: test
 test: check
 
