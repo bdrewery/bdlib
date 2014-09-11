@@ -32,6 +32,6 @@ addons:
       name: "bdrewery/bdlib"
       description: "Build submitted via Travis CI"
     notification_email: bryan-coverity@shatow.net
-    build_command_prepend: "./configure --enable-debug"
+    build_command_prepend: "cov-configure --comptype g++ --compiler ${CXX}; ./configure --enable-debug"
     build_command: "make -j2"
     branch_pattern: coverity_scan
