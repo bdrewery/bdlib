@@ -1,9 +1,6 @@
 noinst_LIBRARIES=	libbdlib.a
 AM_CPPFLAGS=		@TCL_INCLUDE_SPEC@
-AM_CXXFLAGS=		-Wall -W -Wno-unused-parameter -Wdisabled-optimization \
-			-Wmissing-format-attribute -fstrict-aliasing \
-			-Weffc++ -Woverloaded-virtual \
-			@AM_CXXFLAGS@
+AM_CXXFLAGS=		-Wall @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@
 libbdlib_a_SOURCES= \
 			src/Cstrings.cpp \
 			src/base64.cpp \
@@ -21,7 +18,7 @@ libbdlib_a_SOURCES= \
 			src/Stack.cpp \
 			src/Stream.cpp \
 			src/String.cpp
-libbdlib_a_CXXFLAGS=	$(AM_CXXFLAGS) @WDOCUMENTATION@
+libbdlib_a_CXXFLAGS=	$(AM_CXXFLAGS)
 
 TESTS=			UnitRunner
 check_PROGRAMS=		UnitRunner
@@ -38,7 +35,8 @@ UnitRunner_SOURCES=	src/tests/UnitRunner.cpp \
 			src/tests/StreamTest.cpp \
 			src/tests/QueueTest.cpp
 
-UnitRunner_CXXFLAGS=	$(AM_CXXFLAGS) @CPPUNIT_CFLAGS@
+UnitRunner_CXXFLAGS=	$(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
+			@CPPUNIT_CXXFLAGS@
 #UnitRunner_LDADD=	libbdlib.a
 UnitRunner_LDADD=	$(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
 

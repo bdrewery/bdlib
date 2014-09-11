@@ -36,8 +36,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ])
 AC_REVISION($Revision$)
 
+AC_ARG_ENABLE([debug],
+  AS_HELP_STRING(
+    [--enable-debug],
+    [enable maintainer debugging]
+  ),
+  USE_DEBUG="$enableval",
+  USE_DEBUG="no"
+)
+
 # Setup build environment
 dnl Search for newer gcc versions before older
+# Don't let AC_PROG_CXX set -O2 in user CXXFLAGS when we want DEBUG.
+if [[ "${USE_DEBUG}" = "yes" ]]; then
+  : ${CXXFLAGS:=-g}
+fi
 AC_LANG([C++])
 AC_PROG_CXX([clang++ g++49 g++-4.9 g++48 g++-4.8 g++47 g++-4.7 g++46 g++-4.6 g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC])
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
@@ -52,10 +65,30 @@ EGG_CHECK_CCSTATIC
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
 #CXX_FLAG_CHECK([AM_CXXFLAGS], [-Qunused-arguments], [unusedarguments])
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fstack-protector-all], [stackprotector])
-CXX_FLAG_CHECK([AM_CXXFLAGS], [-Winvalid-pch], [invalidpch])
-CXX_FLAG_CHECK([WDOCUMENTATION], [-Wdocumentation], [wdocumentation])
+
+# Debug flags
+if [[ "${USE_DEBUG}" = "yes" ]]; then
+  DEBUG_CXXFLAGS="\
+    -W -Wno-unused-parameter -Wdisabled-optimization \
+    -Wmissing-format-attribute -fstrict-aliasing \
+    -Weffc++ -Woverloaded-virtual -fno-omit-frame-pointer \
+    -Wshadow -fno-inline \
+    -g \
+  "
+  AC_DEFINE(DEBUG, 1, [Define to enable DEBUG code])
+  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Winvalid-pch], [invalidpch])
+  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wdocumentation], [wdocumentation])
+  if [[ "${ax_cv_prog_cc_wdocumentation}" = "yes" ]]; then
+    CPPUNIT_CXXFLAGS="${CPPUNIT_CXXFLAGS} -Wno-documentation"
+  fi
+  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Og], [Og])
+  if [[ "${ax_cv_prog_cc_Og}" = "no" ]]; then
+    DEBUG_CXXFLAGS="${DEBUG_CXXFLAGS} -O0"
+  fi
+fi
 AC_SUBST(AM_CXXFLAGS)
-AC_SUBST(WDOCUMENTATION)
+AC_SUBST(CPPUNIT_CXXFLAGS)
+AC_SUBST(DEBUG_CXXFLAGS)
 
 AM_PATH_CPPUNIT(1.9.10)
 

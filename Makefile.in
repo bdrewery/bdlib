@@ -427,11 +427,7 @@ am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
-AM_CXXFLAGS = -Wall -W -Wno-unused-parameter -Wdisabled-optimization \
-			-Wmissing-format-attribute -fstrict-aliasing \
-			-Weffc++ -Woverloaded-virtual \
-			@AM_CXXFLAGS@
-
+AM_CXXFLAGS = -Wall @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
@@ -442,12 +438,14 @@ CCACHE = @CCACHE@
 CPPFLAGS = @CPPFLAGS@
 CPPUNIT_CFLAGS = @CPPUNIT_CFLAGS@
 CPPUNIT_CONFIG = @CPPUNIT_CONFIG@
+CPPUNIT_CXXFLAGS = @CPPUNIT_CXXFLAGS@
 CPPUNIT_LIBS = @CPPUNIT_LIBS@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
+DEBUG_CXXFLAGS = @DEBUG_CXXFLAGS@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DIFF = @DIFF@
@@ -500,7 +498,6 @@ TCL_VERSION = @TCL_VERSION@
 UNAME = @UNAME@
 VALGRIND = @VALGRIND@
 VERSION = @VERSION@
-WDOCUMENTATION = @WDOCUMENTATION@
 YACC = @YACC@
 YFLAGS = @YFLAGS@
 abs_builddir = @abs_builddir@
@@ -565,7 +562,7 @@ libbdlib_a_SOURCES = \
 			src/Stream.cpp \
 			src/String.cpp
 
-libbdlib_a_CXXFLAGS = $(AM_CXXFLAGS) @WDOCUMENTATION@
+libbdlib_a_CXXFLAGS = $(AM_CXXFLAGS)
 UnitRunner_SOURCES = src/tests/UnitRunner.cpp \
 			src/tests/ArrayTest.cpp \
 			src/tests/AtomicFileTest.cpp \
@@ -579,7 +576,9 @@ UnitRunner_SOURCES = src/tests/UnitRunner.cpp \
 			src/tests/StreamTest.cpp \
 			src/tests/QueueTest.cpp
 
-UnitRunner_CXXFLAGS = $(AM_CXXFLAGS) @CPPUNIT_CFLAGS@
+UnitRunner_CXXFLAGS = $(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
+			@CPPUNIT_CXXFLAGS@
+
 #UnitRunner_LDADD=	libbdlib.a
 UnitRunner_LDADD = $(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
 all: all-am
