@@ -142,7 +142,7 @@ am_UnitRunner_OBJECTS = src/tests/UnitRunner-UnitRunner.$(OBJEXT) \
 UnitRunner_OBJECTS = $(am_UnitRunner_OBJECTS)
 UnitRunner_DEPENDENCIES = $(libbdlib_a_OBJECTS)
 UnitRunner_LINK = $(CXXLD) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) \
-	$(UnitRunner_LDFLAGS) $(LDFLAGS) -o $@
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -580,9 +580,8 @@ UnitRunner_SOURCES = src/tests/UnitRunner.cpp \
 			src/tests/QueueTest.cpp
 
 UnitRunner_CXXFLAGS = $(AM_CXXFLAGS) @CPPUNIT_CFLAGS@
-UnitRunner_LDFLAGS = @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
 #UnitRunner_LDADD=	libbdlib.a
-UnitRunner_LDADD = $(libbdlib_a_OBJECTS)
+UnitRunner_LDADD = $(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
 all: all-am
 
 .SUFFIXES:

@@ -39,9 +39,8 @@ UnitRunner_SOURCES=	src/tests/UnitRunner.cpp \
 			src/tests/QueueTest.cpp
 
 UnitRunner_CXXFLAGS=	$(AM_CXXFLAGS) @CPPUNIT_CFLAGS@
-UnitRunner_LDFLAGS=	@CPPUNIT_LIBS@ @TCL_LIB_SPEC@
 #UnitRunner_LDADD=	libbdlib.a
-UnitRunner_LDADD=	$(libbdlib_a_OBJECTS)
+UnitRunner_LDADD=	$(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
 
 .PHONY: test
 test: check
