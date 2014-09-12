@@ -119,7 +119,7 @@ void AtomicFileTest :: basicTest (void)
 
   /* Also verify the chmod */
   CPPUNIT_ASSERT_EQUAL(0, fstat(fileno(f), &st));
-  CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode & ~S_IFMT);
+  CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), mode_t(st.st_mode & ~S_IFMT));
 
   fclose(f);
 
@@ -187,7 +187,7 @@ void AtomicFileTest :: absoluteTest (void)
 
   /* Also verify the chmod */
   CPPUNIT_ASSERT_EQUAL(0, fstat(fileno(f), &st));
-  CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode & ~S_IFMT);
+  CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), mode_t(st.st_mode & ~S_IFMT));
 
   fclose(f);
 
