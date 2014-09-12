@@ -23,7 +23,7 @@ script:
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check; fi
 
 after_success:
-  - if [ "$CXX" = "g++-4.8" ]; then coveralls --gcov gcov-4.8 -r . -b . --exclude misc --exclude src/misc --exclude src/tests -t ${COVERALLS_REPO_TOKEN}; fi
+  - if [ "$CXX" = "g++-4.8" ]; then coveralls --gcov gcov-4.8 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
 
 # Coverity configuration
 env:
