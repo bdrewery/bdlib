@@ -27,6 +27,7 @@
 
 #include <sys/stat.h>
 
+#include <cstdio>
 #include <unistd.h>
 
 #include "AtomicFile.h"
@@ -85,7 +86,7 @@ bool AtomicFile::commit() {
   if (::close(this->_fd) != 0) {
     goto cleanup;
   }
-  if (::rename(this->_tmpname.c_str(), this->_fname.c_str()) != 0) {
+  if (std::rename(this->_tmpname.c_str(), this->_fname.c_str()) != 0) {
     goto cleanup;
   }
 
