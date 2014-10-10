@@ -37,7 +37,6 @@ AC_REQUIRE_CPP
 EGG_CHECK_CCWALL
 EGG_CHECK_CCPIPE
 CXX_FLAG_CHECK([CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
-EGG_CHECK_CCSTATIC
 CXX_FLAG_CHECK([DEBCXXFLAGS], [-fstack-protector-all], [stackprotector])
 
 AM_PATH_CPPUNIT(1.9.10)
