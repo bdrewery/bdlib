@@ -61,7 +61,6 @@ AM_CXXFLAGS="${AM_CXXFLAGS} ${CXXSTD_FLAG}"
 
 # Check for compiler features
 EGG_CHECK_CCPIPE
-EGG_CHECK_CCSTATIC
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
 #CXX_FLAG_CHECK([AM_CXXFLAGS], [-Qunused-arguments], [unusedarguments])
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fstack-protector-all], [stackprotector])

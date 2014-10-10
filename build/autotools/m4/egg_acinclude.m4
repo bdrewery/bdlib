@@ -33,37 +33,3 @@ AC_DEFUN([EGG_CHECK_CCPIPE],
     fi
   fi
 ])
-
-dnl  EGG_CHECK_CCSTATIC()
-dnl
-dnl  Checks whether the compiler supports the `-static' flag.
-AC_DEFUN([EGG_CHECK_CCSTATIC],
-[
-if test -z "$no_static"
-then
-  if test -n "$GXX"
-  then
-    AC_CACHE_CHECK(whether the compiler understands -static, egg_cv_var_ccstatic, [dnl
-      ac_old_CXX="$CXX"
-      CXX="$CXX -static"
-      AC_TRY_COMPILE(,, egg_cv_var_ccstatic="yes", egg_cv_var_ccstatic="no")
-      CXX="$ac_old_CXX"
-      
-    ])
-    if test "$egg_cv_var_ccstatic" = "yes"
-    then
-      CXXDEBUG="$CXX"
-#      CXX="$CXX -static"
-    else
-      cat << 'EOF' >&2
-configure: error:
-
-  Your C compiler does not support -static.
-  This compile flag is required.
-
-EOF
-  exit 1
-    fi
-  fi
-fi
-])
