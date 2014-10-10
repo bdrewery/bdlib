@@ -7,7 +7,8 @@ CCDEPMODE = @CCDEPMODE@
 
 @SET_MAKE@
 
-CXXFLAGS = @CXXFLAGS@ @CPPUNIT_CFLAGS@ $(CFLGS) -I.. -I$(top_srcdir) -I$(top_srcdir)/build -I$(top_srcdir)/lib @DEFS@
+CXXFLAGS = @CXXFLAGS@ @CPPUNIT_CFLAGS@ $(CFLGS)
+CPPFLAGS = -I.. -I$(top_srcdir) -I$(top_srcdir)/build -I$(top_srcdir)/lib @DEFS@
 
 .PHONY: units clean distclean
 
