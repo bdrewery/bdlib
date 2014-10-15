@@ -23,13 +23,9 @@
 #ifndef _BD_SCRIPTINTERPTCL_H
 #define _BD_SCRIPTINTERPTCL_H 1
 
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
+#include "bdlib.h"
 
 #ifdef USE_SCRIPT_TCL
-
-#include "bdlib.h"
 #include "String.h"
 #include "ScriptInterp.h"
 #include "HashTable.h"

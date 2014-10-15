@@ -11,9 +11,7 @@
 #include "Stream.h"
 #include "ScriptInterp.h"
 #include "ScriptInterpTCL.h"
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
+
 using namespace BDLIB_NS;
 
 #ifdef USE_SCRIPT_TCL
