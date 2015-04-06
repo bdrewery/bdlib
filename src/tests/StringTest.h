@@ -72,6 +72,9 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (base64Test);
 //    CPPUNIT_TEST (encryptBase64Test);
     CPPUNIT_TEST (substringTest);
+    CPPUNIT_TEST (substringOutOfRangeResizeTest);
+    CPPUNIT_TEST (substringOutOfRangeResizeSubTest);
+    CPPUNIT_TEST (substringOutOfRangeInsertTest);
     CPPUNIT_TEST (splitTest);
     CPPUNIT_TEST (hashTest);
     CPPUNIT_TEST (substTest);
@@ -118,6 +121,9 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void base64Test(void);
 //        void encryptBase64Test(void);
         void substringTest(void);
+        void substringOutOfRangeResizeTest(void);
+        void substringOutOfRangeResizeSubTest(void);
+        void substringOutOfRangeInsertTest(void);
         void splitTest(void);
         void hashTest(void);
         void substTest(void);

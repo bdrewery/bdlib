@@ -72,7 +72,8 @@ int String::compare(const String& str, size_t n, size_t start) const
 void String::insert(size_t pos, const char *string, size_t n)
 {
   if (n == 0) return;
-  if (pos && !hasIndex(pos-1)) return;
+  if (pos != 0)
+    validateIndex(pos - 1);
   
   size_t slen = (n == npos) ? std::strlen(string) : n;
 
@@ -91,7 +92,8 @@ void String::insert(size_t pos, const char *string, size_t n)
 void String::replace(size_t pos, const char *string, size_t n)
 {
   if (n == 0) return;
-  if (pos && !hasIndex(pos-1)) return;
+  if (pos != 0)
+    validateIndex(pos - 1);
 
   size_t slen = (n == npos) ? std::strlen(string) : n;
   size_t newlen = pos + slen;

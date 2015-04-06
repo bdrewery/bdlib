@@ -87,7 +87,7 @@ String Stream::read(size_t maxSize, char delim) {
   while ((ret.length() < toRead) && (str[pos] != delim)) {
     ret += str[pos++];
   }
-  if (str.hasIndex(pos) && str[pos] == delim) {
+  if (str.size() > pos && str[pos] == delim) {
     ret += delim;
     ++pos;
   }

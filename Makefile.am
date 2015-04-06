@@ -36,6 +36,7 @@ UnitRunner_SOURCES=	src/tests/UnitRunner.cpp \
 			src/tests/QueueTest.cpp
 
 UnitRunner_CXXFLAGS=	$(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
+			-Wno-unused-value \
 			@CPPUNIT_CFLAGS@ @CPPUNIT_CXXFLAGS@
 #UnitRunner_LDADD=	libbdlib.a
 UnitRunner_LDADD=	$(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@

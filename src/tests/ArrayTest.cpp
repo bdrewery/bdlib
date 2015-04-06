@@ -67,6 +67,7 @@ void ArrayTest :: sizeTest (void)
 void ArrayTest :: push_popTest (void)
 {
   str_a->push(String("Test1"));
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_a->size());
   (*str_a) << String("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
   CPPUNIT_ASSERT(str_a->capacity() >= 2);
@@ -162,6 +163,7 @@ void ArrayTest :: clearTest (void)
   int_a->clear();
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
   CPPUNIT_ASSERT_EQUAL(true, int_a->isEmpty());
+  CPPUNIT_ASSERT_THROW(int_a->at(0), std::out_of_range);
 }
 
 
