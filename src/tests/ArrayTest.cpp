@@ -137,7 +137,7 @@ void ArrayTest :: push_popTest (void)
 
 void ArrayTest :: arrayConsTest(void)
 {
-  String carray2[] = {"2Test1", "2Test2"};
+  String carray2[] = {"2Test1", "2Test2", "2Test3"};
   str_c = new Array<String>(carray2, 2);
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_c->size());
   CPPUNIT_ASSERT_STRING_EQUAL("2Test2", str_c->pop());
@@ -146,7 +146,9 @@ void ArrayTest :: arrayConsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_c->size());
 
   int carray[] = {1, 2, 0};
-  Array<int>* int_d = new Array<int>(carray);
+  Array<int>* int_d = new Array<int>(carray, sizeof(carray) / sizeof(carray[0]));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(0, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_d->size());
   CPPUNIT_ASSERT_EQUAL(2, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_d->size());

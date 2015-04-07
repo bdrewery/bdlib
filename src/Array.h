@@ -59,21 +59,6 @@ class Array : public ReferenceCountedArray<T> {
     Array() : ReferenceCountedArray<value_type>() {};
     Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
     Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(std::move(array)) {};
-    /**
-     * @brief Create a Array from a given carray.
-     * @param carray The null-terminated array to create the object from.
-     * @post A ArrayBuf has been initialized.
-     * @post The buffer has been filled with the array.
-     * @test Array test("Some array");
-     */
-    Array(const_pointer carray) : ReferenceCountedArray<value_type>() {
-      size_t i = 0;
-      while (1) {
-        if (!carray[i]) break;
-        push(carray[i]);
-        ++i;
-      }
-    };
 
     /**
      * @brief Create an array from an initializer list
