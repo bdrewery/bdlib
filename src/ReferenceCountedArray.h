@@ -34,6 +34,7 @@
 #include <atomic>
 #include <iterator>
 #include <memory>
+#include <stdexcept>
 #include <cstdint>
 #include <sys/types.h>
 #include <cstring>
