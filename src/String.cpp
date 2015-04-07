@@ -44,7 +44,7 @@ int String::compare(const String& str, size_t n, size_t start) const
 {
   const size_t my_len = length();
   /* Same string? */
-  if (data() == str.data() && my_len == str.length())
+  if (cbegin() == str.cbegin() && my_len == str.length())
     return 0;
 
   const size_t slen = n ? std::min(str.length(), n) : str.length();

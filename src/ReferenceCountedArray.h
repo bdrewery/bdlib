@@ -587,10 +587,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator begin() { return iterator(mdata()); };
 
+    inline const_iterator cbegin() const {
+      return const_iterator(this->data());
+    };
     /**
      * @brief Returns a read-only iterator into the Array
      */
-    inline const_iterator begin() const { return const_iterator(data()); };
+    inline const_iterator begin() const { return this->cbegin(); };
 
     /**
      * @brief Returns a read/write iterator at the end the Array
@@ -598,10 +601,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator end() { return iterator(begin()) + length(); };
 
+    inline const_iterator cend() const {
+      return const_iterator(this->cbegin()) + this->length();
+    };
     /**
      * @brief Returns a read-only iterator at the end of the Array
      */
-    inline const_iterator end() const { return const_iterator(begin()) + length(); };
+    inline const_iterator end() const { return this->cend(); };
 
     /**
      * @brief Returns a read/write reverse iterator at the end of the Array. Iteration is done in reverse order.
@@ -609,10 +615,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline reverse_iterator rbegin() { return reverse_iterator(this->end()); };
 
+    inline const_reverse_iterator crbegin() const {
+      return const_reverse_iterator(this->cend());
+    };
     /**
      * @brief Returns a read-only reverse iterator at the end of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); };
+    inline const_reverse_iterator rbegin() const { return this->crbegin(); };
 
     /**
      * @brief Returns a read/write reverse iterator at the beginning of the Array. Iteration is done in reverse order.
@@ -620,10 +629,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline reverse_iterator rend() { return reverse_iterator(this->begin()); };
 
+    inline const_reverse_iterator crend() const {
+      return const_reverse_iterator(this->cbegin());
+    };
     /**
      * @brief Returns a read-only reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); };
+    inline const_reverse_iterator rend() const { return this->crend(); };
 
 
     typedef Hash<value_type> HashType;
