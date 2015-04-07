@@ -42,20 +42,19 @@ unsigned char String::cleanse_ctr = 0;
 /* Accessors */
 int String::compare(const String& str, size_t n, size_t start) const
 {
-  const size_t my_len = length();
   /* Same string? */
-  if (cbegin() == str.cbegin() && my_len == str.length())
+  if (cbegin() == str.cbegin() && length() == str.length())
     return 0;
 
   const size_t slen = n ? std::min(str.length(), n) : str.length();
-  const size_t len = std::min(my_len - start, slen);
+  const size_t len = std::min(length() - start, slen);
   const int diff = std::memcmp(begin() + start, str.begin(), len);
   if (diff)
     return diff;
   else if (n)
-    return std::min(my_len - start, n) - slen;
+    return std::min(length() - start, n) - slen;
   else
-    return (my_len - start) - slen;
+    return (length() - start) - slen;
 }
 
 /* Setters */
