@@ -19,8 +19,8 @@ install: true
 
 script:
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then ./configure --enable-debug; fi
-  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2; fi
-  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 V=1; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check V=1; fi
 
 after_success:
   - if [ "$CXX" = "g++-4.8" ]; then coveralls --gcov gcov-4.8 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
