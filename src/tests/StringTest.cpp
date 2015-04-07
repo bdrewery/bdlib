@@ -117,6 +117,8 @@ void StringTest :: capacityTest (void)
 void StringTest :: compareTest (void)
 {
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blah"));
+  CPPUNIT_ASSERT_NO_THROW((*b).compare("blah", 4, 3));
+  CPPUNIT_ASSERT_THROW((*b).compare("blah", 4, 4), std::out_of_range);
   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
   CPPUNIT_ASSERT((*f).compare(cstring) < 0);
