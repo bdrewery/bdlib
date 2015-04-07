@@ -42,7 +42,7 @@ int main (int argc, char* argv[])
     testresult.addListener (&collectedresults);
 
     CPPUNIT_NS :: BriefTestProgressListener listener;
-    if (argc == 1) {
+    if (argc > 1) {
       // Shows a message as each test starts
       testresult.addListener( &listener );
     }
