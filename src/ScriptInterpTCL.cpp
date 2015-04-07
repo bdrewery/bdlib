@@ -35,24 +35,13 @@ String ScriptCallbackerTCL::call(const Array<String>& params) {
 
 int ScriptInterpTCL::init() {
   // create interp
-  if ((interp = Tcl_CreateInterp()) == NULL)
-    return 1;
-
-  if (
-#ifdef USE_TCL_STUBS
-      Tcl_InitStubs(interp, TCL_VERSION, 0)
-#else
-      Tcl_PkgRequire(interp, "Tcl", TCL_VERSION, 0)
-#endif
-      == NULL)
-    return 2;
-
+  interp = Tcl_CreateInterp();
   //Tcl_FindExecutable(binname);
 
   if (Tcl_Init(interp) != TCL_OK) {
     Tcl_Obj* result = Tcl_GetObjResult(interp);
     fprintf(stderr, "Tcl_Init error: %s\n", tcl_to_c_cast<const char*>::from(result, this));
-    return 3;
+    return 1;
   }
   return 0;
 }
