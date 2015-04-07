@@ -60,6 +60,17 @@ int String::compare(const String& str, size_t n, size_t start) const
 }
 
 /* Setters */
+size_t String::copy(char *dst, size_t n, size_t start) const
+{
+  if (start != 0)
+    validateIndex(start);
+
+  size_t slen = std::min(n, length() - start);
+
+  std::copy(cbegin() + start, cend(), dst);
+
+  return slen;
+}
 
 /**
  * @brief Insert a cstring at the given index.

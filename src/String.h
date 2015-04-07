@@ -193,10 +193,18 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline char* dup() const {
           char *ret = new char[length() + 1];
-          std::copy(begin(), end(), ret);
+          std::copy(cbegin(), cend(), ret);
           ret[length()] = '\0';
           return ret;
         }
+
+        /**
+         * @brief Copy the contents of the string to the given cstring ptr.
+         * @param dst The destination cstring ptr;
+         * @param n The number of characters to copy out
+         * @param start The starting position
+         */
+        size_t copy(char* dst, size_t n = npos, size_t start = 0) const;
 
         /**
          * @sa c_str()

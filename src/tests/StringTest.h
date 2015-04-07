@@ -67,6 +67,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (incDecEqualTest);
     CPPUNIT_TEST (operatorStarTest);
     CPPUNIT_TEST (resizeTest);
+    CPPUNIT_TEST (copyTest);
 	CPPUNIT_TEST (printfTest);
 //    CPPUNIT_TEST (encryptTest);
     CPPUNIT_TEST (base64Test);
@@ -116,6 +117,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void incDecTest(void);
         void incDecEqualTest(void);
         void operatorStarTest(void);
+        void copyTest(void);
         void printfTest(void);
 //        void encryptTest(void);
         void base64Test(void);

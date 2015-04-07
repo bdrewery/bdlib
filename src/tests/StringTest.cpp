@@ -872,6 +872,54 @@ void StringTest :: operatorStarTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("Test! Test! Test! ", *b);
 }
 
+void StringTest :: copyTest(void)
+{
+  char buf[30];
+
+  /* Test copy(sizeof(buf)) */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  a->copy(buf, sizeof(buf));
+  b->replace(0, *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("test 12345", *a);
+  CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test unbounded copy (uses a->length()) */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  a->copy(buf);
+  b->replace(0, *a);
+  CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test bad start copy */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  CPPUNIT_ASSERT_THROW(a->copy(buf, sizeof(buf), 10), std::out_of_range);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test bad start copy */
+  memset(buf, 'X', sizeof(buf));
+  a->clear();
+  *b = String(buf, sizeof(buf));
+  CPPUNIT_ASSERT_NO_THROW(a->copy(buf, sizeof(buf), 0));
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test limited copy */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  a->copy(buf, sizeof(buf), 5);
+  b->replace(0, (*a)(5));
+  CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+}
+
 void StringTest :: printfTest(void)
 {
   int n = 506;
