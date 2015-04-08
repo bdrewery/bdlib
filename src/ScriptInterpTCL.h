@@ -48,6 +48,8 @@ template<>                                                        \
     static Tcl_Obj* from(T value, Tcl_Interp*);                   \
   }
 
+c_to_tcl_castable(int8_t);
+c_to_tcl_castable(uint8_t);
 c_to_tcl_castable(int16_t);
 c_to_tcl_castable(uint16_t);
 c_to_tcl_castable(int32_t);
@@ -71,6 +73,8 @@ template<>                                                        \
     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
   }
 
+tcl_to_c_castable(int8_t);
+tcl_to_c_castable(uint8_t);
 tcl_to_c_castable(int16_t);
 tcl_to_c_castable(uint16_t);
 tcl_to_c_castable(int32_t);
