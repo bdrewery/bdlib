@@ -27,9 +27,9 @@ define_tcl_traceGet(String);
 define_tcl_traceSet(int16_t);
 define_tcl_traceSet(uint16_t);
 define_tcl_traceSet(int32_t);
-//define_tcl_traceSet(uint32_t);
+define_tcl_traceSet(uint32_t);
 define_tcl_traceSet(int64_t);
-//define_tcl_traceSet(uint64_t);
+define_tcl_traceSet(uint64_t);
 define_tcl_traceSet(double);
 define_tcl_traceSet(bool);
 define_tcl_traceSet(String);
@@ -256,9 +256,32 @@ int32_t tcl_to_c_cast<int32_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
   return v;
 }
 
+uint32_t tcl_to_c_cast<uint32_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
+  long v;
+  if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
+    if ((v < 0 || v > UINT32_MAX)) {
+      //return "OverflowError";
+      return 0;
+    }
+  } else {
+    return 0;
+    //return "Type Error";
+  }
+  return v;
+}
+
 int64_t tcl_to_c_cast<int64_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
   long v;
   if (Tcl_GetLongFromObj(0, obj, &v) != TCL_OK) {
+    return 0;
+    //return "Type Error";
+  }
+  return v;
+}
+
+uint64_t tcl_to_c_cast<uint64_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
+  long v;
+  if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     return 0;
     //return "Type Error";
   }
