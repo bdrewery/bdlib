@@ -4,6 +4,7 @@
 #include "ScriptInterpTCL.h"
 
 #ifdef USE_SCRIPT_TCL
+#include <limits.h>
 #include <stdarg.h>
 #include <algorithm> // min() / max()
 
@@ -13,22 +14,22 @@ HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpT
 HashTable<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
 
 /* Define static tcl_traceGet() template functions */
-define_tcl_traceGet(short);
-define_tcl_traceGet(unsigned short);
-define_tcl_traceGet(int);
-define_tcl_traceGet(unsigned int);
-define_tcl_traceGet(long);
-define_tcl_traceGet(unsigned long);
+define_tcl_traceGet(int16_t);
+define_tcl_traceGet(uint16_t);
+define_tcl_traceGet(int32_t);
+define_tcl_traceGet(uint32_t);
+define_tcl_traceGet(int64_t);
+define_tcl_traceGet(uint64_t);
 define_tcl_traceGet(double);
 define_tcl_traceGet(bool);
 define_tcl_traceGet(String);
 
-define_tcl_traceSet(short);
-define_tcl_traceSet(unsigned short);
-define_tcl_traceSet(int);
-//define_tcl_traceSet(unsigned int);
-define_tcl_traceSet(long);
-//define_tcl_traceSet(unsigned long);
+define_tcl_traceSet(int16_t);
+define_tcl_traceSet(uint16_t);
+define_tcl_traceSet(int32_t);
+//define_tcl_traceSet(uint32_t);
+define_tcl_traceSet(int64_t);
+//define_tcl_traceSet(uint64_t);
 define_tcl_traceSet(double);
 define_tcl_traceSet(bool);
 define_tcl_traceSet(String);
@@ -130,28 +131,28 @@ Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<short>::from(short value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<int16_t>::from(int16_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<int32_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<unsigned short>::from(unsigned short value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<short>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<uint16_t>::from(uint16_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<int16_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<int>::from(int value, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<int32_t>::from(int32_t value, Tcl_Interp* interp) {
   return Tcl_NewIntObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<unsigned int>::from(unsigned int value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<uint32_t>::from(uint32_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<int32_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<long>::from(long value, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<int64_t>::from(int64_t value, Tcl_Interp* interp) {
   return Tcl_NewLongObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<unsigned long>::from(unsigned long value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<long>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<uint64_t>::from(uint64_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<int64_t>::from(value, interp);
 }
 
 Tcl_Obj* c_to_tcl_cast<double>::from(double value, Tcl_Interp* interp) {
@@ -213,10 +214,10 @@ const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj, ScriptInterp* si) {
   return cstr;
 }
 
-short tcl_to_c_cast<short>::from(Tcl_Obj* obj, ScriptInterp* si) {
+int16_t tcl_to_c_cast<int16_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
   long v;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
-    if ((v < SHRT_MIN || v > SHRT_MAX)) {
+    if ((v < INT16_MIN || v > INT16_MAX)) {
       //return "OverflowError";
       return 0;
     }
@@ -227,10 +228,10 @@ short tcl_to_c_cast<short>::from(Tcl_Obj* obj, ScriptInterp* si) {
   return v;
 }
 
-unsigned short tcl_to_c_cast<unsigned short>::from(Tcl_Obj* obj, ScriptInterp* si) {
+uint16_t tcl_to_c_cast<uint16_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
   long v;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
-    if ((v < 0 || v > USHRT_MAX)) {
+    if ((v < 0 || v > UINT16_MAX)) {
       //return "OverflowError";
       return 0;
     }
@@ -241,10 +242,10 @@ unsigned short tcl_to_c_cast<unsigned short>::from(Tcl_Obj* obj, ScriptInterp* s
   return v;
 }
 
-int tcl_to_c_cast<int>::from(Tcl_Obj* obj, ScriptInterp* si) {
+int32_t tcl_to_c_cast<int32_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
   long v;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
-    if ((v < INT_MIN || v > INT_MAX)) {
+    if ((v < INT32_MIN || v > INT32_MAX)) {
       //return "OverflowError";
       return 0;
     }
@@ -255,7 +256,7 @@ int tcl_to_c_cast<int>::from(Tcl_Obj* obj, ScriptInterp* si) {
   return v;
 }
 
-long tcl_to_c_cast<long>::from(Tcl_Obj* obj, ScriptInterp* si) {
+int64_t tcl_to_c_cast<int64_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
   long v;
   if (Tcl_GetLongFromObj(0, obj, &v) != TCL_OK) {
     return 0;

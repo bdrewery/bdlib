@@ -31,7 +31,7 @@
 #include "HashTable.h"
 
 #include <cstddef>
-#include <limits.h>
+#include <cstdint>
 #include <sys/types.h>
 
 #include <tcl.h>
@@ -48,12 +48,12 @@ template<>                                                        \
     static Tcl_Obj* from(T value, Tcl_Interp*);                   \
   }
 
-c_to_tcl_castable(short);
-c_to_tcl_castable(unsigned short);
-c_to_tcl_castable(int);
-c_to_tcl_castable(unsigned int);
-c_to_tcl_castable(long);
-c_to_tcl_castable(unsigned long);
+c_to_tcl_castable(int16_t);
+c_to_tcl_castable(uint16_t);
+c_to_tcl_castable(int32_t);
+c_to_tcl_castable(uint32_t);
+c_to_tcl_castable(int64_t);
+c_to_tcl_castable(uint64_t);
 c_to_tcl_castable(double);
 c_to_tcl_castable(bool);
 c_to_tcl_castable(String);
@@ -71,12 +71,12 @@ template<>                                                        \
     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
   }
 
-tcl_to_c_castable(short);
-tcl_to_c_castable(unsigned short);
-tcl_to_c_castable(int);
-tcl_to_c_castable(unsigned int);
-tcl_to_c_castable(long);
-tcl_to_c_castable(unsigned long);
+tcl_to_c_castable(int16_t);
+tcl_to_c_castable(uint16_t);
+tcl_to_c_castable(int32_t);
+tcl_to_c_castable(uint32_t);
+tcl_to_c_castable(int64_t);
+tcl_to_c_castable(uint64_t);
 tcl_to_c_castable(double);
 tcl_to_c_castable(bool);
 tcl_to_c_castable(String);
