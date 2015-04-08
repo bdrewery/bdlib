@@ -33,9 +33,9 @@ BDLIB_NS_BEGIN
 
 class ScriptInterp;
 
-class ScriptCallbackBase {
+class ScriptCommandHandlerBase {
   public:
-    virtual ~ScriptCallbackBase() {};
+    virtual ~ScriptCommandHandlerBase() {};
     virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
 };
 
@@ -68,11 +68,13 @@ class ScriptInterp {
   public:
         struct script_cmd_handler_clientdata {
           ScriptInterp* si;
-          ScriptCallbackBase* callback_proxy;
+          ScriptCommandHandlerBase* callback_proxy;
           const char* usage;
           size_t callbackParamMin;
           size_t callbackParamMax;
-          script_cmd_handler_clientdata (ScriptInterp* _si, ScriptCallbackBase* _callback_proxy, const char* _usage, size_t _callbackParamMin, size_t _callbackParamMax) :
+          script_cmd_handler_clientdata (ScriptInterp* _si,
+              ScriptCommandHandlerBase* _callback_proxy, const char* _usage,
+              size_t _callbackParamMin, size_t _callbackParamMax) :
             si(_si),
             callback_proxy(_callback_proxy),
             usage(_usage),

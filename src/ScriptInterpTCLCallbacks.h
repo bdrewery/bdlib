@@ -25,7 +25,7 @@ struct ScriptCallbackDispatchTCL<void, Params...> {
 };
 
 template <typename ReturnType, typename... Params>
-class ScriptCallbackTCL : public ScriptCallbackTCLBase {
+class ScriptCommandHandlerTCL : public ScriptCommandHandlerTCLBase {
   typedef ReturnType (*function_t)(Params...);
 
   private:
@@ -46,7 +46,7 @@ class ScriptCallbackTCL : public ScriptCallbackTCLBase {
     }
 
   public:
-    ScriptCallbackTCL(function_t callback) : _callback(callback) {};
+    ScriptCommandHandlerTCL(function_t callback) : _callback(callback) {};
     inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si,
         void *proxy_data) {
       real_call(argc, argv, si, proxy_data, make_indices<sizeof...(Params)>());
