@@ -94,6 +94,27 @@ void ScriptInterpTCLTest :: linkVarTest (void)
 
   /* Strings */
 
+  const char *ccstr = "I am read-only";
+  tcl_script.linkVar("ccstr", ccstr);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(ccstr), tcl_script.eval("set ccstr"));
+  tcl_script.eval("set ccstr \"test\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", tcl_script.eval("set ccstr"));
+  CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", ccstr);
+
+  char *cstr = strdup("blah");
+  tcl_script.linkVar("cstr", cstr);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(cstr), tcl_script.eval("set cstr"));
+  tcl_script.unlinkVar("cstr");
+  free(cstr);
+
+  char acstr[] = "blah";
+  tcl_script.linkVar("acstr", acstr);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(acstr), tcl_script.eval("set acstr"));
+
+  char alcstr[5] = "blah";
+  tcl_script.linkVar("alcstr", alcstr);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(alcstr), tcl_script.eval("set alcstr"));
+
   String x("54321");
   tcl_script.linkVar("x", x);
 
@@ -138,12 +159,12 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL(y, atoi(tcl_script.eval("set y").c_str()));
 
   // Test const
-  const int cy = 52;
-  tcl_script.linkVar("cy", cy);
-  CPPUNIT_ASSERT_EQUAL(cy, atoi(tcl_script.eval("set cy").c_str()));
-  tcl_script.eval("set cy 12");
-  CPPUNIT_ASSERT_EQUAL(52, atoi(tcl_script.eval("set cy").c_str()));
-  CPPUNIT_ASSERT_EQUAL(52, cy);
+  const int ciy = 52;
+  tcl_script.linkVar("ciy", ciy);
+  CPPUNIT_ASSERT_EQUAL(ciy, atoi(tcl_script.eval("set ciy").c_str()));
+  tcl_script.eval("set ciy 12");
+  CPPUNIT_ASSERT_EQUAL(52, atoi(tcl_script.eval("set ciy").c_str()));
+  CPPUNIT_ASSERT_EQUAL(52, ciy);
 
   // Test templates
   ScriptInterp::linkVar(tcl_script, "t_y", y);
@@ -172,17 +193,30 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL((unsigned short)46, (unsigned short)atoi(tcl_script.eval("set usy [expr {$usy + 4}]").c_str()));
   CPPUNIT_ASSERT_EQUAL((unsigned short)46, usy);
 
+  /* Char */
+  int8_t cy = -42;
+  tcl_script.linkVar("cy", cy);
+  CPPUNIT_ASSERT_EQUAL(cy, (int8_t)atol(tcl_script.eval("set cy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((int8_t)-38, (int8_t)atoi(tcl_script.eval("set cy [expr {$cy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((int8_t)-38, cy);
+
+  uint8_t ucy = 42;
+  tcl_script.linkVar("ucy", ucy);
+  CPPUNIT_ASSERT_EQUAL(ucy, (uint8_t)atol(tcl_script.eval("set ucy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((uint8_t)46, (uint8_t)atoi(tcl_script.eval("set ucy [expr {$ucy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((uint8_t)46, ucy);
+
   // Set from C
   ly = 503;
   CPPUNIT_ASSERT_EQUAL(ly, atol(tcl_script.eval("set ly").c_str()));
 
   // Test const
-  const long lcy = 52;
-  tcl_script.linkVar("lcy", lcy);
-  CPPUNIT_ASSERT_EQUAL(lcy, atol(tcl_script.eval("set lcy").c_str()));
-  tcl_script.eval("set lcy 12");
-  CPPUNIT_ASSERT_EQUAL((long)52, atol(tcl_script.eval("set lcy").c_str()));
-  CPPUNIT_ASSERT_EQUAL((long)52, lcy);
+  const long lciy = 52;
+  tcl_script.linkVar("lciy", lciy);
+  CPPUNIT_ASSERT_EQUAL(lciy, atol(tcl_script.eval("set lciy").c_str()));
+  tcl_script.eval("set lciy 12");
+  CPPUNIT_ASSERT_EQUAL((long)52, atol(tcl_script.eval("set lciy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((long)52, lciy);
 
   /* Doubles */
 

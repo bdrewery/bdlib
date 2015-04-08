@@ -11,7 +11,7 @@ struct ScriptCallbackDispatchTCL {
   typedef ReturnType (*function_t)(Params...);
   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&&... args) {
     ReturnType result = std::move(callback(std::forward<Params>(args)...));
-    Tcl_SetObjResult(interp, std::move(c_to_tcl_cast<ReturnType>::from(std::move(result), interp)));
+    Tcl_SetObjResult(interp, std::move(c_to_tcl_cast<const ReturnType>::from(std::move(result), interp)));
   }
 };
 

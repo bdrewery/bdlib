@@ -24,6 +24,7 @@ define_tcl_traceGet(int64_t);
 define_tcl_traceGet(uint64_t);
 define_tcl_traceGet(double);
 define_tcl_traceGet(bool);
+define_tcl_traceGetPtr(char);
 define_tcl_traceGet(String);
 
 define_tcl_traceSet(int8_t);
@@ -36,6 +37,7 @@ define_tcl_traceSet(int64_t);
 define_tcl_traceSet(uint64_t);
 define_tcl_traceSet(double);
 define_tcl_traceSet(bool);
+define_tcl_traceSet(char*);
 define_tcl_traceSet(String);
 
 String ScriptCallbackerTCL::call(const Array<String>& params) {
@@ -93,14 +95,14 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
     String errorResult(String::printf("Wrong # args. Expected %zu, got %d.", ccd->callbackParamMin, objc - 1));
     if (ccd->usage)
       errorResult += String::printf(" Should be \"%s %s\"", cmdName.c_str(), ccd->usage);
-    Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(errorResult, interp));
+    Tcl_SetObjResult(interp, c_to_tcl_cast<const String>::from(errorResult, interp));
     return TCL_ERROR;
   }
 
   try {
     ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
   } catch (bd::String& e) {
-    Tcl_SetObjResult(interp, c_to_tcl_cast<String>::from(e, interp));
+    Tcl_SetObjResult(interp, c_to_tcl_cast<const String>::from(e, interp));
     return TCL_ERROR;
   } catch (...) {
     Tcl_SetObjResult(interp, c_to_tcl_cast<const char*>::from("Unhandled exception.", interp));
@@ -135,69 +137,69 @@ Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<int8_t>::from(int8_t value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int16_t>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<const int8_t>::from(const int8_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int16_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<uint8_t>::from(uint8_t value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int8_t>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<const uint8_t>::from(const uint8_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int8_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<int16_t>::from(int16_t value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int32_t>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<const int16_t>::from(const int16_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int32_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<uint16_t>::from(uint16_t value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int16_t>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<const uint16_t>::from(const uint16_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int16_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<int32_t>::from(int32_t value, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const int32_t>::from(const int32_t value, Tcl_Interp* interp) {
   return Tcl_NewIntObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<uint32_t>::from(uint32_t value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int32_t>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<const uint32_t>::from(const uint32_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int32_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<int64_t>::from(int64_t value, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const int64_t>::from(const int64_t value, Tcl_Interp* interp) {
   return Tcl_NewLongObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<uint64_t>::from(uint64_t value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<int64_t>::from(value, interp);
+Tcl_Obj* c_to_tcl_cast<const uint64_t>::from(const uint64_t value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int64_t>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<double>::from(double value, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const double>::from(const double value, Tcl_Interp* interp) {
   return Tcl_NewDoubleObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<String>::from(String value, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const String>::from(const String value, Tcl_Interp* interp) {
   return (value.length() < INT_MAX) ? Tcl_NewStringObj(value.data(), value.length()) : nullptr;
 }
 
 Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value, Tcl_Interp* interp) {
-  return c_to_tcl_cast<String>::from(value, interp);
+  return c_to_tcl_cast<const String>::from(value, interp);
 }
 
-Tcl_Obj* c_to_tcl_cast<bool>::from(bool value, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const bool>::from(const bool value, Tcl_Interp* interp) {
   return Tcl_NewBooleanObj(value);
 }
 
-Tcl_Obj* c_to_tcl_cast<Array<String>>::from(Array<String> array, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const Array<String>>::from(const Array<String> array, Tcl_Interp* interp) {
   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
 
   for (auto element : array) {
-    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<decltype(element)>::from(element, interp));
+    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<const decltype(element)>::from(element, interp));
   }
 
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<Array<Array<String>>>::from(Array<Array<String>> array, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const Array<Array<String>>>::from(const Array<Array<String>> array, Tcl_Interp* interp) {
   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
 
   for (auto element : array) {
-    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<decltype(element)>::from(element, interp));
+    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<const decltype(element)>::from(element, interp));
   }
 
   return value;
@@ -216,14 +218,18 @@ String tcl_to_c_cast<String>::from(Tcl_Obj* obj, ScriptInterp* si) {
   //return nullptr;
 }
 
-const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj, ScriptInterp* si) {
+char* tcl_to_c_cast<char*>::from(Tcl_Obj* obj, ScriptInterp* si) {
   int len = 0;
   char *cstr = Tcl_GetStringFromObj(obj, &len);
   if (!cstr) {
-    return "";
+    return (char*)"";
     //return "Type Error";
   }
   return cstr;
+}
+
+const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj, ScriptInterp* si) {
+  return tcl_to_c_cast<char*>::from(obj, si);
 }
 
 int8_t tcl_to_c_cast<int8_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
