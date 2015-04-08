@@ -33,6 +33,7 @@
 #include <type_traits>
 #include <cstddef>
 #include <cstdint>
+#include <limits.h>
 #include <sys/types.h>
 
 #include <tcl.h>
@@ -165,7 +166,11 @@ class ScriptCallbackerTCL : public ScriptCallbacker {
   public:
     ScriptCallbackerTCL(ScriptInterp* _si, const String& _cmd) : ScriptCallbacker(_si, _cmd) {};
     virtual ~ScriptCallbackerTCL() {};
-    virtual String call(const Array<String>& params = Array<String>());
+    inline virtual String call(const Array<String>& params = Array<String>()) {
+      return si->eval(String::printf("%s %s", cmd.c_str(),
+            params.join(" ", true).c_str()));
+    }
+
 };
 
 class ScriptInterpTCL : public ScriptInterp {
@@ -298,6 +303,67 @@ class ScriptInterpTCL : public ScriptInterp {
         static Tcl_Obj* TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags);
         static const char* TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags);
 };
+
+inline Tcl_Obj* c_to_tcl_cast<const int8_t>::from(const int8_t value,
+    Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int16_t>::from(value, interp);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const uint8_t>::from(const uint8_t value,
+    Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int8_t>::from(value, interp);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const int16_t>::from(const int16_t value,
+    Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int32_t>::from(value, interp);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const uint16_t>::from(const uint16_t value,
+    Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int16_t>::from(value, interp);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const int32_t>::from(const int32_t value,
+    Tcl_Interp* interp) {
+  return Tcl_NewIntObj(value);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const uint32_t>::from(const uint32_t value,
+    Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int32_t>::from(value, interp);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const int64_t>::from(const int64_t value,
+    Tcl_Interp* interp) {
+  return Tcl_NewLongObj(value);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const uint64_t>::from(const uint64_t value,
+    Tcl_Interp* interp) {
+  return c_to_tcl_cast<const int64_t>::from(value, interp);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const double>::from(const double value,
+    Tcl_Interp* interp) {
+  return Tcl_NewDoubleObj(value);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const String>::from(const String value,
+    Tcl_Interp* interp) {
+  return (value.length() < INT_MAX) ? Tcl_NewStringObj(
+      value.data(), value.length()) : nullptr;
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value,
+    Tcl_Interp* interp) {
+  return c_to_tcl_cast<const String>::from(value, interp);
+}
+
+inline Tcl_Obj* c_to_tcl_cast<const bool>::from(const bool value,
+    Tcl_Interp* interp) {
+  return Tcl_NewBooleanObj(value);
+}
 
 BDLIB_NS_END
 #endif /* USE_SCRIPT_TCL */

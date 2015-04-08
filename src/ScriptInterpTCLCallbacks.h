@@ -47,7 +47,8 @@ class ScriptCallbackTCL : public ScriptCallbackTCLBase {
 
   public:
     ScriptCallbackTCL(function_t callback) : _callback(callback) {};
-    inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data) {
+    inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si,
+        void *proxy_data) {
       real_call(argc, argv, si, proxy_data, make_indices<sizeof...(Params)>());
     }
 };
