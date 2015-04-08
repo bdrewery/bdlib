@@ -48,6 +48,8 @@ template<>                                                        \
     static Tcl_Obj* from(T value, Tcl_Interp*);                   \
   }
 
+c_to_tcl_castable(short);
+c_to_tcl_castable(unsigned short);
 c_to_tcl_castable(int);
 c_to_tcl_castable(unsigned int);
 c_to_tcl_castable(long);
@@ -69,6 +71,8 @@ template<>                                                        \
     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
   }
 
+tcl_to_c_castable(short);
+tcl_to_c_castable(unsigned short);
 tcl_to_c_castable(int);
 tcl_to_c_castable(unsigned int);
 tcl_to_c_castable(long);

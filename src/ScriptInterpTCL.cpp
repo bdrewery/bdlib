@@ -13,6 +13,8 @@ HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpT
 HashTable<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
 
 /* Define static tcl_traceGet() template functions */
+define_tcl_traceGet(short);
+define_tcl_traceGet(unsigned short);
 define_tcl_traceGet(int);
 define_tcl_traceGet(unsigned int);
 define_tcl_traceGet(long);
@@ -21,6 +23,8 @@ define_tcl_traceGet(double);
 define_tcl_traceGet(bool);
 define_tcl_traceGet(String);
 
+define_tcl_traceSet(short);
+define_tcl_traceSet(unsigned short);
 define_tcl_traceSet(int);
 //define_tcl_traceSet(unsigned int);
 define_tcl_traceSet(long);
@@ -126,6 +130,14 @@ Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2
   return value;
 }
 
+Tcl_Obj* c_to_tcl_cast<short>::from(short value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<int>::from(value, interp);
+}
+
+Tcl_Obj* c_to_tcl_cast<unsigned short>::from(unsigned short value, Tcl_Interp* interp) {
+  return c_to_tcl_cast<short>::from(value, interp);
+}
+
 Tcl_Obj* c_to_tcl_cast<int>::from(int value, Tcl_Interp* interp) {
   return Tcl_NewIntObj(value);
 }
@@ -201,6 +213,33 @@ const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj, ScriptInterp* si) {
   return cstr;
 }
 
+short tcl_to_c_cast<short>::from(Tcl_Obj* obj, ScriptInterp* si) {
+  long v;
+  if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
+    if ((v < SHRT_MIN || v > SHRT_MAX)) {
+      //return "OverflowError";
+      return 0;
+    }
+  } else {
+    return 0;
+    //return "Type Error";
+  }
+  return v;
+}
+
+unsigned short tcl_to_c_cast<unsigned short>::from(Tcl_Obj* obj, ScriptInterp* si) {
+  long v;
+  if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
+    if ((v < 0 || v > USHRT_MAX)) {
+      //return "OverflowError";
+      return 0;
+    }
+  } else {
+    return 0;
+    //return "Type Error";
+  }
+  return v;
+}
 
 int tcl_to_c_cast<int>::from(Tcl_Obj* obj, ScriptInterp* si) {
   long v;

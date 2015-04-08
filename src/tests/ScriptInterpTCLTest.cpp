@@ -1,6 +1,7 @@
 /* ScriptInterpTCLTest.c
  *
  */
+#include <limits.h>
 #include <unistd.h>
 #include "ScriptInterpTCLTest.h"
 
@@ -155,6 +156,21 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL(ly, atol(tcl_script.eval("set ly").c_str()));
   CPPUNIT_ASSERT_EQUAL((long)46, atol(tcl_script.eval("set ly [expr {$ly + 4}]").c_str()));
   CPPUNIT_ASSERT_EQUAL((long)46, ly);
+
+  /* Short */
+  short sy = -42;
+  tcl_script.linkVar("sy", sy);
+  CPPUNIT_ASSERT_EQUAL(sy, (short)atol(tcl_script.eval("set sy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((short)-38, (short)atoi(tcl_script.eval("set sy [expr {$sy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((short)-38, sy);
+  sy = 300;
+  CPPUNIT_ASSERT_EQUAL(sy, (short)atol(tcl_script.eval("set sy").c_str()));
+
+  unsigned short usy = 42;
+  tcl_script.linkVar("usy", usy);
+  CPPUNIT_ASSERT_EQUAL(usy, (unsigned short)atol(tcl_script.eval("set usy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((unsigned short)46, (unsigned short)atoi(tcl_script.eval("set usy [expr {$usy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((unsigned short)46, usy);
 
   // Set from C
   ly = 503;
