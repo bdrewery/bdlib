@@ -6,11 +6,12 @@
 #ifdef USE_SCRIPT_TCL
 #include <stdarg.h>
 #include <algorithm> // min() / max()
+#include <unordered_map>
 
 BDLIB_NS_BEGIN
 
 HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
-HashTable<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
+std::unordered_map<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
 
 int ScriptInterpTCL::init() {
   // create interp
@@ -84,7 +85,8 @@ void ScriptInterpTCL::setupTraces(const String& varName, ClientData var,
   Tcl_SetVar(interp, *varName, "", TCL_GLOBAL_ONLY);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
-  link_var_hooks[varName] = hook_func;
+  if (hook_func != nullptr)
+    link_var_hooks[varName] = hook_func;
 }
 
 const char* ScriptInterpTCL::TraceSetRO(ClientData clientData,

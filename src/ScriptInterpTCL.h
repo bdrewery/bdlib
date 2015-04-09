@@ -184,8 +184,9 @@ class ScriptInterpTCL : public ScriptInterp {
 
             *static_cast<T*>(clientData) =
               std::move(tcl_to_c_cast<T>::from(obj, nullptr));
-            if (link_var_hooks[name1])
-              (link_var_hooks[name1])(
+            const auto link_var_hook = link_var_hooks.find(name1);
+            if (link_var_hook != std::end(link_var_hooks))
+              link_var_hook->second(
                   (const void*)&oldval, (const void*)(clientData));
             return nullptr;
           }
@@ -206,8 +207,9 @@ class ScriptInterpTCL : public ScriptInterp {
             if (std::is_same<T, char*>::value ||
                 std::is_same<T, const char*>::value)
               static_cast<T>(data->ptr)[data->size - 1] = '\0';
-            if (link_var_hooks[name1])
-              (link_var_hooks[name1])(
+            const auto link_var_hook = link_var_hooks.find(name1);
+            if (link_var_hook != std::end(link_var_hooks))
+              link_var_hook->second(
                   (const void*)&oldval, (const void*)(data->ptr));
             return nullptr;
           }
@@ -221,7 +223,7 @@ class ScriptInterpTCL : public ScriptInterp {
   protected:
         virtual int init();
         virtual int destroy();
-        static HashTable<String, link_var_hook> link_var_hooks;
+        static std::unordered_map<String, link_var_hook> link_var_hooks;
 
   public:
         ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
@@ -327,7 +329,7 @@ class ScriptInterpTCL : public ScriptInterp {
          */
         virtual void unlinkVar(const String& varName) {
           Tcl_UnsetVar(interp, *varName, TCL_GLOBAL_ONLY);
-          link_var_hooks.remove(varName);
+          link_var_hooks.erase(varName);
           trace_ptrs.erase(varName);
         }
 
