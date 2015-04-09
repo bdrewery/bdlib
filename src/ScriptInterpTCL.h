@@ -134,6 +134,12 @@ class ScriptInterpTCL : public ScriptInterp {
           Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
         }
 
+        struct trace_ptr_data {
+          void* ptr;
+          size_t size;
+        };
+        static HashTable<String, trace_ptr_data*> trace_ptrs;
+
         void setupTraces(const String& name, ClientData var,
             Tcl_VarTraceProc* get, Tcl_VarTraceProc* set,
             link_var_hook hook_func);
@@ -145,14 +151,23 @@ class ScriptInterpTCL : public ScriptInterp {
           static inline const char* tcl_traceGet(ClientData clientData,
               Tcl_Interp* interp, char* name1, char* name2, int flags) {
             return TraceGet(
-                c_to_tcl_cast<const T>::from(*static_cast<T*>(clientData), interp),
+                c_to_tcl_cast<T>::from(*static_cast<T*>(clientData), interp),
                 interp, name1, name2, flags);
+          }
+        template<typename T>
+          static inline const char* tcl_traceGetPtrData(ClientData clientData,
+              Tcl_Interp* interp, char* name1, char* name2, int flags) {
+            const trace_ptr_data *data =
+              static_cast<trace_ptr_data*>(clientData);
+            return TraceGet(
+                c_to_tcl_cast<T>::from(static_cast<T>(data->ptr),
+                  interp), interp, name1, name2, flags);
           }
         template<typename T>
           static inline const char* tcl_traceGetPtr(ClientData clientData,
               Tcl_Interp* interp, char* name1, char* name2, int flags) {
             return TraceGet(
-                c_to_tcl_cast<const T*>::from(static_cast<const T*>(clientData),
+                c_to_tcl_cast<T>::from(static_cast<T>(clientData),
                   interp), interp, name1, name2, flags);
           }
 
@@ -170,6 +185,27 @@ class ScriptInterpTCL : public ScriptInterp {
             if (link_var_hooks[name1])
               (link_var_hooks[name1])(
                   (const void*)&oldval, (const void*)(clientData));
+            return nullptr;
+          }
+
+        template<typename T>
+          static const char* tcl_traceSetPtr(ClientData clientData,
+              Tcl_Interp* interp, char* name1, char* name2, int flags) {
+            Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2,
+                flags);
+            if (!obj)
+              return name1;
+            trace_ptr_data *data = static_cast<trace_ptr_data*>(clientData);
+            const auto oldval(static_cast<T>(data->ptr));
+
+            memmove(data->ptr, tcl_to_c_cast<T>::from(obj, nullptr),
+                data->size);
+            if (std::is_same<T, char*>::value ||
+                std::is_same<T, const char*>::value)
+              static_cast<T>(data->ptr)[data->size - 1] = '\0';
+            if (link_var_hooks[name1])
+              (link_var_hooks[name1])(
+                  (const void*)&oldval, (const void*)(data->ptr));
             return nullptr;
           }
 
@@ -195,6 +231,10 @@ class ScriptInterpTCL : public ScriptInterp {
           }
           CmdHandlerData.clear();
           link_var_hooks.clear();
+          for (auto data : trace_ptrs.values()) {
+            delete data;
+          }
+          trace_ptrs.clear();
           destroy();
         };
 
@@ -229,7 +269,7 @@ class ScriptInterpTCL : public ScriptInterp {
               T& var,
               link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var,
-                (Tcl_VarTraceProc*) this->tcl_traceGet<T>,
+                (Tcl_VarTraceProc*) this->tcl_traceGet<const T>,
                 (Tcl_VarTraceProc*) this->tcl_traceSet<T>, hook_func);
           };
 
@@ -240,11 +280,15 @@ class ScriptInterpTCL : public ScriptInterp {
          */
         template <typename T>
           inline void linkVar(const String& varName,
-              T* var,
+              T* var, size_t size,
               link_var_hook hook_func = nullptr) {
-            setupTraces(varName, (ClientData) var,
-                (Tcl_VarTraceProc*) this->tcl_traceGetPtr<T>,
-                (Tcl_VarTraceProc*) this->tcl_traceSet<T*>, hook_func);
+            trace_ptr_data *data = new trace_ptr_data;
+            data->ptr = var;
+            data->size = size;
+            trace_ptrs[varName] = data;
+            setupTraces(varName, (ClientData) data,
+                (Tcl_VarTraceProc*) this->tcl_traceGetPtrData<const T*>,
+                (Tcl_VarTraceProc*) this->tcl_traceSetPtr<T*>, hook_func);
           };
 
         /**
@@ -258,7 +302,7 @@ class ScriptInterpTCL : public ScriptInterp {
               const T* var,
               link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) var,
-                (Tcl_VarTraceProc*) this->tcl_traceGetPtr<T>,
+                (Tcl_VarTraceProc*) this->tcl_traceGetPtr<const T*>,
                 (Tcl_VarTraceProc*) this->TraceSetRO, hook_func);
           };
 
@@ -273,7 +317,7 @@ class ScriptInterpTCL : public ScriptInterp {
               const T& var,
               link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var,
-                (Tcl_VarTraceProc*) this->tcl_traceGet<T>,
+                (Tcl_VarTraceProc*) this->tcl_traceGet<const T>,
                 (Tcl_VarTraceProc*) this->TraceSetRO, hook_func);
           };
 
@@ -284,6 +328,11 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual void unlinkVar(const String& varName) {
           Tcl_UnsetVar(interp, *varName, TCL_GLOBAL_ONLY);
           link_var_hooks.remove(varName);
+          if (trace_ptrs.contains(varName)) {
+            trace_ptr_data *data = trace_ptrs[varName];
+            trace_ptrs.remove(varName);
+            delete data;
+          }
         }
 
         virtual script_type type() const { return SCRIPT_TYPE_TCL; }

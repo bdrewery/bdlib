@@ -11,6 +11,7 @@ BDLIB_NS_BEGIN
 
 HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
 HashTable<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
+HashTable<String, ScriptInterpTCL::trace_ptr_data*> ScriptInterpTCL::trace_ptrs;
 
 int ScriptInterpTCL::init() {
   // create interp

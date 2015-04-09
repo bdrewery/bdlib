@@ -101,19 +101,29 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", tcl_script.eval("set ccstr"));
   CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", ccstr);
 
-  char *cstr = strdup("blah");
-  tcl_script.linkVar("cstr", cstr);
+  char *cstr = strdup("blah"), *cstrp = cstr;
+  tcl_script.linkVar("cstr", cstr, strlen(cstr)+1);
   CPPUNIT_ASSERT_STRING_EQUAL(String(cstr), tcl_script.eval("set cstr"));
+  /* Ensure the length is respected */
+  tcl_script.eval("set cstr \"test1234\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", cstr);
+  /* Ensure pointer was not replaced and that strcpy was used. */
+  CPPUNIT_ASSERT_EQUAL(cstrp, cstr);
   tcl_script.unlinkVar("cstr");
   free(cstr);
 
   char acstr[] = "blah";
-  tcl_script.linkVar("acstr", acstr);
+  tcl_script.linkVar("acstr", acstr, sizeof(acstr));
   CPPUNIT_ASSERT_STRING_EQUAL(String(acstr), tcl_script.eval("set acstr"));
+  /* Ensure the length is respected */
+  tcl_script.eval("set acstr \"test123\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", acstr);
 
   char alcstr[5] = "blah";
-  tcl_script.linkVar("alcstr", alcstr);
+  tcl_script.linkVar("alcstr", alcstr, sizeof(alcstr));
   CPPUNIT_ASSERT_STRING_EQUAL(String(alcstr), tcl_script.eval("set alcstr"));
+  tcl_script.eval("set alcstr \"test123\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", alcstr);
 
   String x("54321");
   tcl_script.linkVar("x", x);
