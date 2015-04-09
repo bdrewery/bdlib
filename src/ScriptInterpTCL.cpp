@@ -12,20 +12,6 @@ BDLIB_NS_BEGIN
 HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
 HashTable<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
 
-/* Define static tcl_traceGet() template functions */
-define_tcl_traceGet(int8_t);
-define_tcl_traceGet(uint8_t);
-define_tcl_traceGet(int16_t);
-define_tcl_traceGet(uint16_t);
-define_tcl_traceGet(int32_t);
-define_tcl_traceGet(uint32_t);
-define_tcl_traceGet(int64_t);
-define_tcl_traceGet(uint64_t);
-define_tcl_traceGet(double);
-define_tcl_traceGet(bool);
-define_tcl_traceGetPtr(char);
-define_tcl_traceGet(String);
-
 int ScriptInterpTCL::init() {
   // create interp
   interp = Tcl_CreateInterp();
