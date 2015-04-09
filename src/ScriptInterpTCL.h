@@ -30,6 +30,8 @@
 #include "ScriptInterp.h"
 #include "HashTable.h"
 
+#include <unordered_map>
+#include <memory>
 #include <type_traits>
 #include <cstddef>
 #include <cstdint>
@@ -138,7 +140,7 @@ class ScriptInterpTCL : public ScriptInterp {
           void* ptr;
           size_t size;
         };
-        static HashTable<String, trace_ptr_data*> trace_ptrs;
+        std::unordered_map<String, std::unique_ptr<trace_ptr_data>> trace_ptrs;
 
         void setupTraces(const String& name, ClientData var,
             Tcl_VarTraceProc* get, Tcl_VarTraceProc* set,
@@ -195,7 +197,8 @@ class ScriptInterpTCL : public ScriptInterp {
                 flags);
             if (!obj)
               return name1;
-            trace_ptr_data *data = static_cast<trace_ptr_data*>(clientData);
+            const trace_ptr_data *data =
+              static_cast<trace_ptr_data*>(clientData);
             const auto oldval(static_cast<T>(data->ptr));
 
             memmove(data->ptr, tcl_to_c_cast<T>::from(obj, nullptr),
@@ -231,9 +234,6 @@ class ScriptInterpTCL : public ScriptInterp {
           }
           CmdHandlerData.clear();
           link_var_hooks.clear();
-          for (auto data : trace_ptrs.values()) {
-            delete data;
-          }
           trace_ptrs.clear();
           destroy();
         };
@@ -282,13 +282,13 @@ class ScriptInterpTCL : public ScriptInterp {
           inline void linkVar(const String& varName,
               T* var, size_t size,
               link_var_hook hook_func = nullptr) {
-            trace_ptr_data *data = new trace_ptr_data;
+            std::unique_ptr<trace_ptr_data> data(new trace_ptr_data);
             data->ptr = var;
             data->size = size;
-            trace_ptrs[varName] = data;
-            setupTraces(varName, (ClientData) data,
+            setupTraces(varName, (ClientData) data.get(),
                 (Tcl_VarTraceProc*) tcl_traceGetPtrData<const T*>,
                 (Tcl_VarTraceProc*) tcl_traceSetPtr<T*>, hook_func);
+            trace_ptrs[varName] = std::move(data);
           };
 
         /**
@@ -328,11 +328,7 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual void unlinkVar(const String& varName) {
           Tcl_UnsetVar(interp, *varName, TCL_GLOBAL_ONLY);
           link_var_hooks.remove(varName);
-          if (trace_ptrs.contains(varName)) {
-            trace_ptr_data *data = trace_ptrs[varName];
-            trace_ptrs.remove(varName);
-            delete data;
-          }
+          trace_ptrs.erase(varName);
         }
 
         virtual script_type type() const { return SCRIPT_TYPE_TCL; }
