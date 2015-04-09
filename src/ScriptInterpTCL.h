@@ -194,6 +194,7 @@ class ScriptInterpTCL : public ScriptInterp {
               delete ccd;
           }
           CmdHandlerData.clear();
+          link_var_hooks.clear();
           destroy();
         };
 
