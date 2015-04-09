@@ -129,23 +129,6 @@ const char* tcl_traceGet<const T*> (ClientData clientData, Tcl_Interp* interp,\
       interp, name1, name2, flags);                                           \
 }
 
-#define define_tcl_traceSet(T)                                                \
-template<>                                                                    \
-const char* tcl_traceSet<T> (ClientData clientData, Tcl_Interp* interp,       \
-    char* name1, char* name2, int flags) {                                    \
-  Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);      \
-  if (!obj)                                                                   \
-    return name1;                                                             \
-  const auto oldval(*static_cast<T*>(clientData));                            \
-                                                                              \
-  *static_cast<T*>(clientData) =                                              \
-    std::move(tcl_to_c_cast<T>::from(obj, nullptr));                          \
-  if (ScriptInterpTCL::link_var_hooks[name1])                                 \
-    (ScriptInterpTCL::link_var_hooks[name1])(                                 \
-        (const void*)&oldval, (const void*)(clientData));                     \
-  return nullptr;                                                             \
-}
-
 class ScriptCommandHandlerTCLBase : public ScriptCommandHandlerBase {
   public:
     virtual ~ScriptCommandHandlerTCLBase() {};
@@ -156,8 +139,9 @@ class ScriptCommandHandlerTCLBase : public ScriptCommandHandlerBase {
 template <typename T>
 const char* tcl_traceGet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
 
-template <typename T>
-const char* tcl_traceSet (ClientData clientData, Tcl_Interp* interp, char* name1, char* name2, int flags);
+template<typename T>
+static const char* tcl_traceSet(ClientData clientData, Tcl_Interp* interp,
+    char* name1, char* name2, int flags);
 
 class ScriptCallbackerTCL : public ScriptCallbacker {
   private:
@@ -369,6 +353,22 @@ inline Tcl_Obj* c_to_tcl_cast<const bool>::from(const bool value,
     Tcl_Interp* interp) {
   return Tcl_NewBooleanObj(value);
 }
+
+template<typename T>
+static const char* tcl_traceSet(ClientData clientData, Tcl_Interp* interp,
+    char* name1, char* name2, int flags) {
+  Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2, flags);
+  if (!obj)
+    return name1;
+  const auto oldval(*static_cast<T*>(clientData));
+
+  *static_cast<T*>(clientData) =
+    std::move(tcl_to_c_cast<T>::from(obj, nullptr));
+  if (ScriptInterpTCL::link_var_hooks[name1])
+    (ScriptInterpTCL::link_var_hooks[name1])(
+        (const void*)&oldval, (const void*)(clientData));
+  return nullptr;
+};
 
 BDLIB_NS_END
 #endif /* USE_SCRIPT_TCL */

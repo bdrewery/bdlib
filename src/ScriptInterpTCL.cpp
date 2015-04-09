@@ -26,19 +26,6 @@ define_tcl_traceGet(bool);
 define_tcl_traceGetPtr(char);
 define_tcl_traceGet(String);
 
-define_tcl_traceSet(int8_t);
-define_tcl_traceSet(uint8_t);
-define_tcl_traceSet(int16_t);
-define_tcl_traceSet(uint16_t);
-define_tcl_traceSet(int32_t);
-define_tcl_traceSet(uint32_t);
-define_tcl_traceSet(int64_t);
-define_tcl_traceSet(uint64_t);
-define_tcl_traceSet(double);
-define_tcl_traceSet(bool);
-define_tcl_traceSet(char*);
-define_tcl_traceSet(String);
-
 int ScriptInterpTCL::init() {
   // create interp
   interp = Tcl_CreateInterp();
