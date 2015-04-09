@@ -79,18 +79,21 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
   return TCL_OK;
 }
 
-void ScriptInterpTCL::setupTraces(const String& varName, ClientData var, Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
+void ScriptInterpTCL::setupTraces(const String& varName, ClientData var,
+    Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
   Tcl_SetVar(interp, *varName, "", TCL_GLOBAL_ONLY);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
   link_var_hooks[varName] = hook_func;
 }
 
-const char* ScriptInterpTCL::TraceSetRO (ClientData clientData, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+const char* ScriptInterpTCL::TraceSetRO(ClientData clientData,
+    Tcl_Interp *interp, char *name1, char *name2, int flags) {
   return "variable is read-only";
 }
 
-const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char *name1, char *name2, int flags) {
+const char* ScriptInterpTCL::TraceGet(Tcl_Obj* value, Tcl_Interp *interp,
+    char *name1, char *name2, int flags) {
   if (value) {
     Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast<const char*>::from(value, nullptr), flags);
     Tcl_DecrRefCount(value);
@@ -98,7 +101,8 @@ const char* ScriptInterpTCL::TraceGet (Tcl_Obj* value, Tcl_Interp *interp, char 
   return nullptr;
 }
 
-Tcl_Obj* ScriptInterpTCL::TraceSet (Tcl_Interp *interp, char *name1, char *name2, int flags) {
+Tcl_Obj* ScriptInterpTCL::TraceSet(Tcl_Interp *interp, char *name1,
+    char *name2, int flags) {
   Tcl_Obj *name1o = c_to_tcl_cast<const char*>::from(name1, interp);
   Tcl_Obj *value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
   Tcl_DecrRefCount(name1o);
