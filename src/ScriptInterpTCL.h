@@ -269,8 +269,8 @@ class ScriptInterpTCL : public ScriptInterp {
               T& var,
               link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var,
-                (Tcl_VarTraceProc*) this->tcl_traceGet<const T>,
-                (Tcl_VarTraceProc*) this->tcl_traceSet<T>, hook_func);
+                (Tcl_VarTraceProc*) tcl_traceGet<const T>,
+                (Tcl_VarTraceProc*) tcl_traceSet<T>, hook_func);
           };
 
         /**
@@ -287,8 +287,8 @@ class ScriptInterpTCL : public ScriptInterp {
             data->size = size;
             trace_ptrs[varName] = data;
             setupTraces(varName, (ClientData) data,
-                (Tcl_VarTraceProc*) this->tcl_traceGetPtrData<const T*>,
-                (Tcl_VarTraceProc*) this->tcl_traceSetPtr<T*>, hook_func);
+                (Tcl_VarTraceProc*) tcl_traceGetPtrData<const T*>,
+                (Tcl_VarTraceProc*) tcl_traceSetPtr<T*>, hook_func);
           };
 
         /**
@@ -302,8 +302,8 @@ class ScriptInterpTCL : public ScriptInterp {
               const T* var,
               link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) var,
-                (Tcl_VarTraceProc*) this->tcl_traceGetPtr<const T*>,
-                (Tcl_VarTraceProc*) this->TraceSetRO, hook_func);
+                (Tcl_VarTraceProc*) tcl_traceGetPtr<const T*>,
+                (Tcl_VarTraceProc*) TraceSetRO, hook_func);
           };
 
         /**
@@ -317,8 +317,8 @@ class ScriptInterpTCL : public ScriptInterp {
               const T& var,
               link_var_hook hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var,
-                (Tcl_VarTraceProc*) this->tcl_traceGet<const T>,
-                (Tcl_VarTraceProc*) this->TraceSetRO, hook_func);
+                (Tcl_VarTraceProc*) tcl_traceGet<const T>,
+                (Tcl_VarTraceProc*) TraceSetRO, hook_func);
           };
 
         /**
