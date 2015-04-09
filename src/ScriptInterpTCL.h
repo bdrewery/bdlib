@@ -182,9 +182,9 @@ class ScriptInterpTCL : public ScriptInterp {
   protected:
         virtual int init();
         virtual int destroy();
+        static HashTable<String, link_var_hook> link_var_hooks;
 
   public:
-        static HashTable<String, link_var_hook> link_var_hooks;
         ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
         virtual ~ScriptInterpTCL() {
 
