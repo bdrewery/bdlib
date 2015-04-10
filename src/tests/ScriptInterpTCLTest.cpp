@@ -480,6 +480,7 @@ void ScriptInterpTCLTest :: deleteCommandTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Test command proctest", tcl_script.eval("x \"test\""));
   tcl_script.deleteCommand("x");
   CPPUNIT_ASSERT_STRING_EQUAL(bad_cmd, tcl_script.eval("x"));
+  CPPUNIT_ASSERT_NO_THROW(tcl_script.deleteCommand("x"));
 }
 
 #endif /* USE_SCRIPT_TCL */

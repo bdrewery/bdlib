@@ -252,7 +252,10 @@ class ScriptInterpTCL : public ScriptInterp {
         }
 
         virtual void deleteCommand(const String& cmdName) {
-          script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
+          auto result = CmdHandlerData.find(cmdName);
+          if (result == CmdHandlerData.end())
+            return;
+          auto ccd = result->second;
           delete ccd->callback_proxy;
           delete ccd;
           CmdHandlerData.erase(cmdName);
