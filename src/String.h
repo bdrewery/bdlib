@@ -56,8 +56,6 @@ typedef char String_Array_Type;
 /**
  * @class String
  * @brief Provides custom string class for easy and optimized string manipulation.
- * @todo compute hash on insert, then use to compare instead of strcmp
- * @todo an updating hash as the copy is done.
  */
 class String : public ReferenceCountedArray<String_Array_Type> {
   private:
@@ -472,7 +470,8 @@ inline String& String::operator-=(const size_t n) {
 
 // comparison operators:
 inline bool operator==(const String& lhs, const String& rhs) {
-  return (lhs.compare(rhs) == 0);
+  return (lhs.length() == rhs.length() &&
+      lhs.compare(rhs) == 0);
 }
 
 inline bool operator!=(const String& lhs, const String& rhs) {
