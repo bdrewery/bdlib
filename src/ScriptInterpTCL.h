@@ -31,6 +31,7 @@
 
 #include <unordered_map>
 #include <memory>
+#include "make_unique.h"
 #include <type_traits>
 #include <cstddef>
 #include <cstdint>
@@ -256,8 +257,8 @@ class ScriptInterpTCL : public ScriptInterp {
         template<typename ReturnType, typename... Params>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
           _createCommand(cmdName,
-              std::unique_ptr<ScriptCommandHandlerBase>(
-                new ScriptCommandHandlerTCL<ReturnType, Params...>(callback)),
+              std::make_unique<ScriptCommandHandlerTCL<ReturnType, Params...>>(
+                callback),
               usage, min_params == size_t(-1) ? sizeof...(Params) : min_params,
               sizeof...(Params));
         }
@@ -297,7 +298,7 @@ class ScriptInterpTCL : public ScriptInterp {
           inline void linkVar(const String& varName,
               T* var, size_t size,
               link_var_hook hook_func = nullptr) {
-            std::unique_ptr<trace_ptr_data> data(new trace_ptr_data);
+            auto data = std::make_unique<trace_ptr_data>();
             data->ptr = var;
             data->size = size;
             setupTraces(varName, (ClientData) data.get(),
