@@ -69,18 +69,20 @@ class ScriptInterp {
 
         struct script_cmd_handler_clientdata {
           ScriptInterp* si;
-          ScriptCommandHandlerBase* callback_proxy;
+          std::unique_ptr<ScriptCommandHandlerBase> callback_proxy;
           const char* usage;
           size_t callbackParamMin;
           size_t callbackParamMax;
-          script_cmd_handler_clientdata (ScriptInterp* _si,
-              ScriptCommandHandlerBase* _callback_proxy, const char* _usage,
+          script_cmd_handler_clientdata(ScriptInterp* _si,
+              std::unique_ptr<ScriptCommandHandlerBase> _callback_proxy,
+              const char* _usage,
               size_t _callbackParamMin, size_t _callbackParamMax) :
             si(_si),
-            callback_proxy(_callback_proxy),
+            callback_proxy(std::move(_callback_proxy)),
             usage(_usage),
             callbackParamMin(_callbackParamMin),
-            callbackParamMax(_callbackParamMax) {};
+            callbackParamMax(_callbackParamMax) {
+          }
         };
   public:
         enum script_type {

@@ -135,9 +135,13 @@ class ScriptInterpTCL : public ScriptInterp {
         static int _createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
 
         void _createCommand(const String& cmdName,
-            ScriptCommandHandlerBase* callback_proxy, const char* usage,
+            std::unique_ptr<ScriptCommandHandlerBase> callback_proxy,
+            const char* usage,
             size_t callbackParamMin, size_t callbackParamMax) {
-          script_cmd_handler_clientdata* ccd = new script_cmd_handler_clientdata(this, callback_proxy, usage, callbackParamMin, callbackParamMax);
+          script_cmd_handler_clientdata* ccd =
+            new script_cmd_handler_clientdata(this,
+                std::move(callback_proxy), usage, callbackParamMin,
+                callbackParamMax);
           CmdHandlerData[cmdName] = ccd;
           Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
         }
@@ -238,7 +242,6 @@ class ScriptInterpTCL : public ScriptInterp {
           // Delete all of my ccd
           for (auto& entry : CmdHandlerData) {
             auto ccd = entry.second;
-            delete ccd->callback_proxy;
             delete ccd;
           }
           CmdHandlerData.clear();
@@ -253,7 +256,8 @@ class ScriptInterpTCL : public ScriptInterp {
         template<typename ReturnType, typename... Params>
         inline void createCommand(const String& cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
           _createCommand(cmdName,
-              new ScriptCommandHandlerTCL<ReturnType, Params...>(callback),
+              std::unique_ptr<ScriptCommandHandlerBase>(
+                new ScriptCommandHandlerTCL<ReturnType, Params...>(callback)),
               usage, min_params == size_t(-1) ? sizeof...(Params) : min_params,
               sizeof...(Params));
         }
@@ -263,7 +267,6 @@ class ScriptInterpTCL : public ScriptInterp {
           if (result == CmdHandlerData.end())
             return;
           auto ccd = result->second;
-          delete ccd->callback_proxy;
           delete ccd;
           CmdHandlerData.erase(cmdName);
           Tcl_DeleteCommand(interp, *cmdName);
