@@ -150,6 +150,7 @@ class ScriptInterpTCL : public ScriptInterp {
         struct trace_ptr_data {
           void* ptr;
           size_t size;
+          trace_ptr_data(void* _ptr, size_t _size) : ptr(_ptr), size(_size) {};
         };
         std::unordered_map<String, std::unique_ptr<trace_ptr_data>> trace_ptrs;
 
@@ -298,9 +299,7 @@ class ScriptInterpTCL : public ScriptInterp {
           inline void linkVar(const String& varName,
               T* var, size_t size,
               link_var_hook hook_func = nullptr) {
-            auto data = std::make_unique<trace_ptr_data>();
-            data->ptr = var;
-            data->size = size;
+            auto data = std::make_unique<trace_ptr_data>(var, size);
             setupTraces(varName, (ClientData) data.get(),
                 (Tcl_VarTraceProc*) tcl_traceGetPtrData<const T*>,
                 (Tcl_VarTraceProc*) tcl_traceSetPtr<T*>, hook_func);
