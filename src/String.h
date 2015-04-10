@@ -370,14 +370,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
 };
 
-template<typename T>
-  struct Hash;
-
-template<>
-  struct Hash<String>
-    {
-          inline size_t operator()(const String& val) const { return val.hash(); }
-    };
 /**
  * @relates String
  * @brief Concatenates two string objects together.
@@ -545,6 +537,16 @@ std::istream& operator>>(std::istream&, String&);
 std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END
+
+namespace std {
+template<>
+  struct hash<BDLIB_NS::String>
+    {
+          inline size_t operator()(const BDLIB_NS::String& val) const {
+            return val.hash();
+          }
+    };
+}
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
 #endif /* _BD_STRING_H */
 /* vim: set sts=2 sw=2 ts=8 et: */

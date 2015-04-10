@@ -29,7 +29,6 @@
 #define _BD_REFERENCE_COUNTED_ARRAY_H 1
 
 #include "bdlib.h"
-#include "hash.h"
 #include <algorithm>
 #include <atomic>
 #include <iterator>
@@ -639,7 +638,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline const_reverse_iterator rend() const { return this->crend(); };
 
 
-    typedef Hash<value_type> HashType;
+    typedef std::hash<value_type> HashType;
 
    /**
      * @brief Return a hash of every element in the array. Cache result as well.

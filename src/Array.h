@@ -344,15 +344,19 @@ class Array : public ReferenceCountedArray<T> {
     }
 
 };
-
-template<typename T>
-  struct Hash;
-
-template<typename T>
-  struct Hash< Array<T> > {
-    inline size_t operator()(const Array<T>& val) const { return val.hash(); }
-  };
 BDLIB_NS_END
+
+namespace std {
+template<typename T>
+  struct hash;
+
+template<typename T>
+  struct hash<BDLIB_NS::Array<T>> {
+    inline size_t operator()(const BDLIB_NS::Array<T>& val) const {
+      return val.hash();
+    }
+  };
+}
 
 #endif /* _BD_ARRAY_H */
 /* vim: set sts=2 sw=2 ts=8 et: */

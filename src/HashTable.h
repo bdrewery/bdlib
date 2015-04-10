@@ -28,7 +28,6 @@
 #define _BD_HASHTABLE_H 1
 
 #include "bdlib.h"
-#include "hash.h"
 #include "Iterator.h"
 #include "List.h"
 #include "Array.h"
@@ -48,7 +47,7 @@ class HashTable {
   private:
     static const size_t default_list_size = 100;
     typedef KeyValue<Key, Value> iterator_type;
-    typedef Hash<Key> hasher;
+    typedef std::hash<Key> hasher;
     typedef void (*hash_table_block)(const Key, Value, void *param);
 
     List<iterator_type> *_list;
