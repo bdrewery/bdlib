@@ -10,7 +10,7 @@
 
 BDLIB_NS_BEGIN
 
-HashTable<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
+std::unordered_map<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
 std::unordered_map<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
 
 int ScriptInterpTCL::init() {

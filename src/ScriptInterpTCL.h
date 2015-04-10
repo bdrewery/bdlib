@@ -121,7 +121,7 @@ class ScriptInterpTCL : public ScriptInterp {
   friend Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, ScriptInterp* si);
   private:
         Tcl_Interp *interp;
-        static HashTable<String, script_cmd_handler_clientdata*> CmdHandlerData;
+        static std::unordered_map<String, script_cmd_handler_clientdata*> CmdHandlerData;
 
         ScriptInterpTCL(const ScriptInterpTCL&) = delete;
         ScriptInterpTCL& operator=(const ScriptInterpTCL&) = delete;
@@ -230,9 +230,10 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual ~ScriptInterpTCL() {
 
           // Delete all of my ccd
-          for (auto ccd : CmdHandlerData.values()) {
-              delete ccd->callback_proxy;
-              delete ccd;
+          for (auto& entry : CmdHandlerData) {
+            auto ccd = entry.second;
+            delete ccd->callback_proxy;
+            delete ccd;
           }
           CmdHandlerData.clear();
           link_var_hooks.clear();
@@ -255,7 +256,7 @@ class ScriptInterpTCL : public ScriptInterp {
           script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
           delete ccd->callback_proxy;
           delete ccd;
-          CmdHandlerData.remove(cmdName);
+          CmdHandlerData.erase(cmdName);
           Tcl_DeleteCommand(interp, *cmdName);
         }
 
