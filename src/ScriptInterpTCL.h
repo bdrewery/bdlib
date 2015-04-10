@@ -28,7 +28,6 @@
 #ifdef USE_SCRIPT_TCL
 #include "String.h"
 #include "ScriptInterp.h"
-#include "HashTable.h"
 
 #include <unordered_map>
 #include <memory>

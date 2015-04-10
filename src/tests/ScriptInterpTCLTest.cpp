@@ -420,7 +420,7 @@ void ScriptInterpTCLTest :: createCommandTest (void)
       "while executing\n\"args -2\"", tcl_script.eval("args -2"));
 }
 
-HashTable<String, ScriptCallbacker* > Events;
+std::unordered_map<String, ScriptCallbacker*> Events;
 
 void script_bind(String eventName, ScriptCallbacker* scb) {
   // s:event c:Proc
@@ -447,7 +447,7 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
   tcl_script.eval("bind test echo");
 
   // Call the event from C++ and then verify it echos back the input
-  scb = Events["test"];
+  CPPUNIT_ASSERT_NO_THROW(scb = Events.at("test"));
   input = "my params";
   params << input;
   // FIXME: This call line needs help to accept arbitrary params
@@ -456,7 +456,7 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
   params.clear();
 
   tcl_script.eval("bind \"complex test\" param_test");
-  scb = Events["complex test"];
+  CPPUNIT_ASSERT_NO_THROW(scb = Events.at("complex test"));
 
   // Now trigger the callback and verify that it calls the passed event
   params << "test";
