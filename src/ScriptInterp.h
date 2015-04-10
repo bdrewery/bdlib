@@ -67,7 +67,6 @@ class ScriptInterp {
         virtual int init() = 0;
         virtual int destroy() = 0;
 
-  public:
         struct script_cmd_handler_clientdata {
           ScriptInterp* si;
           ScriptCommandHandlerBase* callback_proxy;
@@ -83,7 +82,7 @@ class ScriptInterp {
             callbackParamMin(_callbackParamMin),
             callbackParamMax(_callbackParamMax) {};
         };
-
+  public:
         enum script_type {
           SCRIPT_TYPE_TCL,
         };
