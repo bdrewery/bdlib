@@ -64,14 +64,16 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
     String errorResult(String::printf("Wrong # args. Expected %zu, got %d.", ccd->callbackParamMin, objc - 1));
     if (ccd->usage)
       errorResult += String::printf(" Should be \"%s %s\"", cmdName.c_str(), ccd->usage);
-    Tcl_SetObjResult(interp, c_to_tcl_cast<const String>::from(errorResult, interp));
+    Tcl_SetObjResult(interp,
+        c_to_tcl_cast<const String&>::from(errorResult, interp));
     return TCL_ERROR;
   }
 
   try {
     ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
   } catch (BDLIB_NS::String& e) {
-    Tcl_SetObjResult(interp, c_to_tcl_cast<const String>::from(e, interp));
+    Tcl_SetObjResult(interp,
+        c_to_tcl_cast<const String&>::from(e, interp));
     return TCL_ERROR;
   } catch (...) {
     Tcl_SetObjResult(interp, c_to_tcl_cast<const char*>::from("Unhandled exception.", interp));
@@ -111,21 +113,23 @@ Tcl_Obj* ScriptInterpTCL::TraceSet(Tcl_Interp *interp, char *name1,
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<const Array<String>>::from(const Array<String> array, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const Array<String>&>::from(const Array<String>& array, Tcl_Interp* interp) {
   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
 
-  for (auto element : array) {
-    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<const decltype(element)>::from(element, interp));
+  for (const auto& element : array) {
+    Tcl_ListObjAppendElement(interp, value,
+        c_to_tcl_cast<const decltype(element)&>::from(element, interp));
   }
 
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<const Array<Array<String>>>::from(const Array<Array<String>> array, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const Array<Array<String>>&>::from(const Array<Array<String>>& array, Tcl_Interp* interp) {
   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
 
-  for (auto element : array) {
-    Tcl_ListObjAppendElement(interp, value, c_to_tcl_cast<const decltype(element)>::from(element, interp));
+  for (const auto& element : array) {
+    Tcl_ListObjAppendElement(interp, value,
+        c_to_tcl_cast<const decltype(element)&>::from(element, interp));
   }
 
   return value;

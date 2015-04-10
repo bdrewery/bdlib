@@ -46,6 +46,13 @@ struct c_to_tcl_cast;
 
 #define c_to_tcl_castable(T)                                                  \
 template<>                                                                    \
+  struct c_to_tcl_cast<const T&>                                              \
+  {                                                                           \
+    static Tcl_Obj* from(const T& value, Tcl_Interp*);                        \
+  }
+
+#define c_to_tcl_castable_ptr(T)                                              \
+template<>                                                                    \
   struct c_to_tcl_cast<const T>                                               \
   {                                                                           \
     static Tcl_Obj* from(const T value, Tcl_Interp*);                         \
@@ -61,7 +68,7 @@ c_to_tcl_castable(int64_t);
 c_to_tcl_castable(uint64_t);
 c_to_tcl_castable(double);
 c_to_tcl_castable(bool);
-c_to_tcl_castable(char*);
+c_to_tcl_castable_ptr(char*);
 c_to_tcl_castable(String);
 c_to_tcl_castable(Array<String>);
 c_to_tcl_castable(Array<Array<String>>);
@@ -152,7 +159,7 @@ class ScriptInterpTCL : public ScriptInterp {
           static inline const char* tcl_traceGet(ClientData clientData,
               Tcl_Interp* interp, char* name1, char* name2, int flags) {
             return TraceGet(
-                c_to_tcl_cast<T>::from(*static_cast<T*>(clientData), interp),
+                c_to_tcl_cast<T&>::from(*static_cast<T*>(clientData), interp),
                 interp, name1, name2, flags);
           }
         template<typename T>
@@ -339,52 +346,52 @@ class ScriptInterpTCL : public ScriptInterp {
         virtual script_type type() const { return SCRIPT_TYPE_TCL; }
 };
 
-inline Tcl_Obj* c_to_tcl_cast<const int8_t>::from(const int8_t value,
+inline Tcl_Obj* c_to_tcl_cast<const int8_t&>::from(const int8_t& value,
     Tcl_Interp* interp) {
-  return c_to_tcl_cast<const int16_t>::from(value, interp);
+  return c_to_tcl_cast<const int16_t&>::from(value, interp);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const uint8_t>::from(const uint8_t value,
+inline Tcl_Obj* c_to_tcl_cast<const uint8_t&>::from(const uint8_t& value,
     Tcl_Interp* interp) {
-  return c_to_tcl_cast<const int8_t>::from(value, interp);
+  return c_to_tcl_cast<const int8_t&>::from(value, interp);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const int16_t>::from(const int16_t value,
+inline Tcl_Obj* c_to_tcl_cast<const int16_t&>::from(const int16_t& value,
     Tcl_Interp* interp) {
-  return c_to_tcl_cast<const int32_t>::from(value, interp);
+  return c_to_tcl_cast<const int32_t&>::from(value, interp);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const uint16_t>::from(const uint16_t value,
+inline Tcl_Obj* c_to_tcl_cast<const uint16_t&>::from(const uint16_t& value,
     Tcl_Interp* interp) {
-  return c_to_tcl_cast<const int16_t>::from(value, interp);
+  return c_to_tcl_cast<const int16_t&>::from(value, interp);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const int32_t>::from(const int32_t value,
+inline Tcl_Obj* c_to_tcl_cast<const int32_t&>::from(const int32_t& value,
     Tcl_Interp* interp) {
   return Tcl_NewIntObj(value);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const uint32_t>::from(const uint32_t value,
+inline Tcl_Obj* c_to_tcl_cast<const uint32_t&>::from(const uint32_t& value,
     Tcl_Interp* interp) {
-  return c_to_tcl_cast<const int32_t>::from(value, interp);
+  return c_to_tcl_cast<const int32_t&>::from(value, interp);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const int64_t>::from(const int64_t value,
+inline Tcl_Obj* c_to_tcl_cast<const int64_t&>::from(const int64_t& value,
     Tcl_Interp* interp) {
   return Tcl_NewLongObj(value);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const uint64_t>::from(const uint64_t value,
+inline Tcl_Obj* c_to_tcl_cast<const uint64_t&>::from(const uint64_t& value,
     Tcl_Interp* interp) {
-  return c_to_tcl_cast<const int64_t>::from(value, interp);
+  return c_to_tcl_cast<const int64_t&>::from(value, interp);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const double>::from(const double value,
+inline Tcl_Obj* c_to_tcl_cast<const double&>::from(const double& value,
     Tcl_Interp* interp) {
   return Tcl_NewDoubleObj(value);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const String>::from(const String value,
+inline Tcl_Obj* c_to_tcl_cast<const String&>::from(const String& value,
     Tcl_Interp* interp) {
   return (value.length() < INT_MAX) ? Tcl_NewStringObj(
       value.data(), value.length()) : nullptr;
@@ -392,10 +399,10 @@ inline Tcl_Obj* c_to_tcl_cast<const String>::from(const String value,
 
 inline Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value,
     Tcl_Interp* interp) {
-  return c_to_tcl_cast<const String>::from(value, interp);
+  return c_to_tcl_cast<const String&>::from(value, interp);
 }
 
-inline Tcl_Obj* c_to_tcl_cast<const bool>::from(const bool value,
+inline Tcl_Obj* c_to_tcl_cast<const bool&>::from(const bool& value,
     Tcl_Interp* interp) {
   return Tcl_NewBooleanObj(value);
 }
