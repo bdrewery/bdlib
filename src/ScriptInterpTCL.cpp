@@ -70,7 +70,7 @@ int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *
 
   try {
     ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
-  } catch (bd::String& e) {
+  } catch (BDLIB_NS::String& e) {
     Tcl_SetObjResult(interp, c_to_tcl_cast<const String>::from(e, interp));
     return TCL_ERROR;
   } catch (...) {

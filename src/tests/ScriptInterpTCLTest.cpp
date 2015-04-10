@@ -323,7 +323,7 @@ String param_test(String arg1, int arg2) {
 
 void args(int foo1, int foo2) {
   if (foo1 == -1)
-    throw bd::String("Invalid param: -1");
+    throw BDLIB_NS::String("Invalid param: -1");
   else if (foo1 == -2)
     throw std::exception();
 }
@@ -452,7 +452,7 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
   params << input;
   // FIXME: This call line needs help to accept arbitrary params
   result = scb->call(params);
-  CPPUNIT_ASSERT_STRING_EQUAL(bd::String::printf("{%s}", input.c_str()), result);
+  CPPUNIT_ASSERT_STRING_EQUAL(BDLIB_NS::String::printf("{%s}", input.c_str()), result);
   params.clear();
 
   tcl_script.eval("bind \"complex test\" param_test");

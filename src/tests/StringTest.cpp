@@ -1611,7 +1611,7 @@ void StringTest :: resizeTest(void)
   *a = (*b)(4, 5);
   CPPUNIT_ASSERT_STRING_EQUAL("01234", *a);
   a->resize(10);
-  CPPUNIT_ASSERT_STRING_EQUAL(bd::String("01234\0\0\0\0\0", 10), *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(BDLIB_NS::String("01234\0\0\0\0\0", 10), *a);
   CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
   CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
   CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());
