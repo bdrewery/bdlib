@@ -241,19 +241,25 @@ class ScriptInterpTCL : public ScriptInterp {
                 flags);
             if (!obj)
               return name1;
+            const auto link_var_hook = link_var_hooks.find(name1);
             const trace_ptr_data *data =
               static_cast<trace_ptr_data*>(clientData);
-            const auto oldval(static_cast<T>(data->ptr));
+            /* Save oldval */
+            typedef typename std::pointer_traits<T>::element_type T_name;
+            std::unique_ptr<T_name[]> oldval;
+            if (link_var_hook != std::end(link_var_hooks)) {
+              oldval = std::move(std::make_unique<T_name[]>(data->size));
+              memcpy(oldval.get(), static_cast<T>(data->ptr), data->size);
+            }
 
             memmove(data->ptr, tcl_to_c_cast<T>::from(obj, nullptr),
                 data->size);
             if (std::is_same<T, char*>::value ||
                 std::is_same<T, const char*>::value)
               static_cast<T>(data->ptr)[data->size - 1] = '\0';
-            const auto link_var_hook = link_var_hooks.find(name1);
             if (link_var_hook != std::end(link_var_hooks))
               link_var_hook->second(
-                  (const void*)&oldval, (const void*)(data->ptr));
+                  (const void*)(oldval.get()), (const void*)(data->ptr));
             return nullptr;
           }
 

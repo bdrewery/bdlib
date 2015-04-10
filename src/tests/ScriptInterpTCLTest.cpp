@@ -84,9 +84,15 @@ void ScriptInterpTCLTest :: operatorEqualsTest (void)
 
 static String changed_nick_oldval;
 static String changed_nick_newval;
-void changed_nick(const String* oldval, const String *newval) {
-  changed_nick_oldval = *oldval;
-  changed_nick_newval = *newval;
+static char* changed_nick_cc_oldval;
+static char* changed_nick_cc_newval;
+void changed_nick(const String oldval, const String newval) {
+  changed_nick_oldval = oldval;
+  changed_nick_newval = newval;
+}
+void changed_nick_cc(const char* oldval, const char *newval) {
+  changed_nick_cc_oldval = strdup(oldval);
+  changed_nick_cc_newval = strdup(newval);
 }
 
 void ScriptInterpTCLTest :: linkVarTest (void)
@@ -278,9 +284,26 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_oldval.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_newval.isEmpty());
   tcl_script.eval("set nick newval");
-  CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_oldval);
-  CPPUNIT_ASSERT_STRING_EQUAL("newval", changed_nick_newval);
   CPPUNIT_ASSERT_STRING_EQUAL("newval", nick);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", changed_nick_newval);
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_oldval);
+
+  char cnick[50];
+  strncpy(cnick, "oldval", sizeof(cnick));
+  cnick[strlen(cnick)] = '\0';
+  tcl_script.linkVar("cnick", cnick, sizeof(cnick),
+      reinterpret_cast<ScriptInterp::link_var_hook>(changed_nick_cc));
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", cnick);
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_oldval == nullptr);
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_newval == nullptr);
+  tcl_script.eval("set cnick newval");
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_oldval != nullptr);
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_newval != nullptr);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", cnick);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", changed_nick_cc_newval);
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_cc_oldval);
+  free(changed_nick_cc_newval);
+  free(changed_nick_cc_oldval);
 }
 
 void ScriptInterpTCLTest::unlinkVarTest(void) {
