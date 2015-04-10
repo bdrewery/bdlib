@@ -192,7 +192,7 @@ class ScriptInterpTCL : public ScriptInterp {
                 flags);
             if (!obj)
               return name1;
-            const auto oldval(*static_cast<T*>(clientData));
+            const auto oldval(std::move(*static_cast<T*>(clientData)));
 
             *static_cast<T*>(clientData) =
               std::move(tcl_to_c_cast<T>::from(obj, nullptr));
