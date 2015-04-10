@@ -97,7 +97,7 @@ tcl_to_c_castable(char*);
 tcl_to_c_castable(String);
 /* Only used internally, no tcl_traceSet defined for these. */
 tcl_to_c_castable(const char*);
-tcl_to_c_castable(ScriptCallbacker*);
+tcl_to_c_castable(ScriptCallbackerPtr);
 tcl_to_c_castable(Array<String>);
 tcl_to_c_castable(Array<Array<String>>);
 

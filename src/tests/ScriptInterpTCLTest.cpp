@@ -1,6 +1,7 @@
 /* ScriptInterpTCLTest.c
  *
  */
+#include <memory>
 #include <limits.h>
 #include <unistd.h>
 #include "ScriptInterpTCLTest.h"
@@ -420,9 +421,9 @@ void ScriptInterpTCLTest :: createCommandTest (void)
       "while executing\n\"args -2\"", tcl_script.eval("args -2"));
 }
 
-std::unordered_map<String, ScriptCallbacker*> Events;
+std::unordered_map<String, ScriptCallbackerPtr> Events;
 
-void script_bind(String eventName, ScriptCallbacker* scb) {
+void script_bind(String eventName, ScriptCallbackerPtr scb) {
   // s:event c:Proc
   Events[eventName] = scb;
 }
@@ -430,7 +431,7 @@ void script_bind(String eventName, ScriptCallbacker* scb) {
 void ScriptInterpTCLTest :: createCommandEventTest (void)
 {
   ScriptInterpTCL tcl_script;
-  ScriptCallbacker* scb;
+  ScriptCallbackerPtr scb;
   String result, input;
   Array<String> params;
 

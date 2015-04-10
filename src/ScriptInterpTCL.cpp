@@ -282,7 +282,8 @@ bool tcl_to_c_cast<bool>::from(Tcl_Obj* obj, ScriptInterp* si) {
   return v ? true : false;
 }
 
-ScriptCallbacker* tcl_to_c_cast<ScriptCallbacker*>::from(Tcl_Obj* obj, ScriptInterp* si) {
+ScriptCallbackerPtr tcl_to_c_cast<ScriptCallbackerPtr>::from(
+    Tcl_Obj* obj, ScriptInterp* si) {
   int len = 0;
   char *cstr = Tcl_GetStringFromObj(obj, &len);
   if (!cstr) {
@@ -292,9 +293,7 @@ ScriptCallbacker* tcl_to_c_cast<ScriptCallbacker*>::from(Tcl_Obj* obj, ScriptInt
 
   const String cmd(cstr, len);
 
-  ScriptCallbackerTCL* scb = new ScriptCallbackerTCL(si, cmd);
-
-  return scb;
+  return std::make_shared<ScriptCallbackerTCL>(si, std::move(cmd));
 }
 
 Array<String> tcl_to_c_cast<Array<String>>::from(Tcl_Obj* obj, ScriptInterp* si) {

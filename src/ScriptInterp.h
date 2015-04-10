@@ -28,6 +28,7 @@
 #include "Array.h"
 
 #include <sys/types.h>
+#include <memory>
 
 BDLIB_NS_BEGIN
 
@@ -51,6 +52,7 @@ class ScriptCallbacker {
     virtual ~ScriptCallbacker() {};
     virtual String call(const Array<String>& params = Array<String>()) = 0;
 };
+typedef std::shared_ptr<ScriptCallbacker> ScriptCallbackerPtr;
 
 /**
  * @class ScriptInterp
