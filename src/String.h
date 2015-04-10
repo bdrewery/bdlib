@@ -495,35 +495,6 @@ inline bool operator>=(const String& lhs, const String& rhs) {
   return ! (lhs < rhs);
 }
 
-#ifdef no
-//inline bool String::operator==(const String& rhs) const {
-//  return (compare(rhs) == 0);
-//}
-inline bool operator==(const String& lhs, const String& rhs) {
-  return (lhs.compare(rhs) == 0);
-}
-
-inline bool String::operator!=(const String& rhs) const {
-  return !(*this == rhs);
-}
-
-inline bool String::operator<(const String& rhs) const {
-  return (compare(rhs) < 0);
-}
-
-inline bool String::operator<=(const String& rhs) const {
-  return !(rhs < *this);
-}
-
-inline bool String::operator>(const String& rhs) const {
-  return (rhs < *this);
-}
-
-inline bool String::operator>=(const String& rhs) const {
-  return !(*this < rhs);
-}
-#endif
-
 inline std::ostream& operator<<(std::ostream& os, const String& string) {
   for (const char* c = string.begin(); c != string.end(); ++c)
     os << *c;
