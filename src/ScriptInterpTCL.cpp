@@ -118,7 +118,7 @@ Tcl_Obj* c_to_tcl_cast<const Array<String>&>::from(const Array<String>& array, T
 
   for (const auto& element : array) {
     Tcl_ListObjAppendElement(interp, value,
-        c_to_tcl_cast<const decltype(element)&>::from(element, interp));
+        c_to_tcl_cast<decltype(element)&>::from(element, interp));
   }
 
   return value;
@@ -129,7 +129,7 @@ Tcl_Obj* c_to_tcl_cast<const Array<Array<String>>&>::from(const Array<Array<Stri
 
   for (const auto& element : array) {
     Tcl_ListObjAppendElement(interp, value,
-        c_to_tcl_cast<const decltype(element)&>::from(element, interp));
+        c_to_tcl_cast<decltype(element)&>::from(element, interp));
   }
 
   return value;
