@@ -7,7 +7,6 @@ libbdlib_a_SOURCES= \
 			src/Array.cpp \
 			src/AtomicFile.cpp \
 			src/HashTable.cpp \
-			src/List.cpp \
 			src/ReferenceCountedArray.cpp \
 			src/Script.cpp \
 			src/ScriptInterp.cpp \
@@ -22,7 +21,6 @@ UnitRunner_SOURCES=	src/tests/UnitRunner.cpp \
 			src/tests/ArrayTest.cpp \
 			src/tests/AtomicFileTest.cpp \
 			src/tests/HashTableTest.cpp \
-			src/tests/ListTest.cpp \
 			src/tests/ScriptInterpTCLTest.cpp \
 			src/tests/StringTest.cpp \
 			src/tests/StreamTest.cpp
