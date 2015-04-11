@@ -14,6 +14,7 @@ before_install:
   - if [ "$CXX" = "clang++" ]; then export CXXFLAGS="-stdlib=libc++"; fi
   - if [ "$CXX" = "g++" ]; then sudo apt-get install gcc-4.8 g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - export CPPFLAGS="-D_FORTIFY_SOURCE=2"
 
 # Skip install
 install: true
