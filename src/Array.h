@@ -32,6 +32,8 @@
 #include "ReferenceCountedArray.h"
 #include "String.h"
 
+#include <functional>
+
 #ifdef CPPUNIT_VERSION
 #include <cppunit/SourceLine.h>
 #include <cppunit/TestAssert.h>
@@ -349,10 +351,7 @@ class Array : public ReferenceCountedArray<T> {
 BDLIB_NS_END
 
 namespace std {
-template<typename T>
-  struct hash;
-
-template<typename T>
+  template<typename T>
   struct hash<BDLIB_NS::Array<T>> {
     inline size_t operator()(const BDLIB_NS::Array<T>& val) const {
       return val.hash();

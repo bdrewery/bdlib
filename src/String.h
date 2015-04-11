@@ -34,6 +34,7 @@
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
+#include <functional>
 #include <cstring>
 
 
@@ -509,7 +510,7 @@ std::istream& getline(std::istream&, String&);
 BDLIB_NS_END
 
 namespace std {
-template<>
+  template<>
   struct hash<BDLIB_NS::String>
     {
           inline size_t operator()(const BDLIB_NS::String& val) const {
