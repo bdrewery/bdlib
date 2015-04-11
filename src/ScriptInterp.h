@@ -68,6 +68,8 @@ class ScriptInterp {
         virtual int destroy() = 0;
 
         struct script_cmd_handler_clientdata {
+          script_cmd_handler_clientdata(const script_cmd_handler_clientdata&) = delete;
+          script_cmd_handler_clientdata& operator=(const script_cmd_handler_clientdata&) = delete;
           ScriptInterp* si;
           std::unique_ptr<ScriptCommandHandlerBase> callback_proxy;
           const char* usage;

@@ -151,6 +151,8 @@ class ScriptInterpTCL : public ScriptInterp {
           void* ptr;
           size_t size;
           trace_ptr_data(void* _ptr, size_t _size) : ptr(_ptr), size(_size) {};
+          trace_ptr_data(const trace_ptr_data&) = delete;
+          trace_ptr_data& operator=(const trace_ptr_data&) = delete;
         };
         std::unordered_map<String, std::unique_ptr<trace_ptr_data>> trace_ptrs;
 
