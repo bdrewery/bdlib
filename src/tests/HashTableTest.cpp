@@ -191,7 +191,7 @@ void HashTableTest :: containsTest (void)
   Array<String> values = sa->values();
   CPPUNIT_ASSERT_EQUAL(bool(1), values.find("Blah") != size_t(-1));
   CPPUNIT_ASSERT_EQUAL(bool(1), values.find("42") != size_t(-1));
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah Blah Blah Blah 42", values.join(' '));
+  CPPUNIT_ASSERT_STRING_EQUAL("42 Blah Blah Blah Blah", values.join(' '));
   CPPUNIT_ASSERT_EQUAL(size_t(5), values.size());
 }
 
@@ -354,50 +354,6 @@ void HashTableTest :: removeTest (void)
   result = a->getValue(1);
   CPPUNIT_ASSERT_EQUAL(true, result.isEmpty());
 }
-
-#ifdef disabled
-void HashTableTest :: iterateTest (void)
-{
-  a->insert(1, "Blah");
-  a->insert(1, "Bleck");
-  a->insert(2, "Blah2");
-  a->insert(8, "Blah8");
-  a->insert(4, "Blah4");
-
-  HashTable<int, String>::iterator iter = a->begin();
-  while (iter.hasNext()) {
-//    int key = (int) iter.next();
-//    printf("%d\n", key);
-    String value = iter.next();
-//    printf("%d: %s\n", key, a->getValue(key));
-  }
-
-  iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah4", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
-
-  a->remove(4);
-  iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah2", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
-
-  a->remove(2);
-  iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah8", iter.next());
-
-  a->remove(8);
-  iter = a->begin();
-  CPPUNIT_ASSERT_STRING_EQUAL("Blah", iter.next());
-
-  a->remove(1);
-  iter = a->begin();
-  CPPUNIT_ASSERT_EQUAL(false, iter.hasNext());
-}
-#endif
 
 void HashTableTest :: initializerTest(void) {
   HashTable<String, int> my_hash {

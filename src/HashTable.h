@@ -27,14 +27,14 @@
 #ifndef _BD_HASHTABLE_H
 #define _BD_HASHTABLE_H 1
 
+#include <unordered_map>
+#include <vector>
 #include "bdlib.h"
 #include "Iterator.h"
-#include "List.h"
 #include "Array.h"
 BDLIB_NS_BEGIN
 
 
-template <class Key, class Value>
 /**
   * @class HashTable
   * @brief HashTable data structure
@@ -43,46 +43,28 @@ template <class Key, class Value>
   * @todo resizing/growing
   *
   */
+template <class Key, class Value>
 class HashTable {
   private:
     static const size_t default_list_size = 100;
-    typedef KeyValue<Key, Value> iterator_type;
-    typedef std::hash<Key> hasher;
+    typedef typename std::unordered_map<Key, Value>::value_type iterator_type;
     typedef void (*hash_table_block)(const Key, Value, void *param);
 
-    List<iterator_type> *_list;
-    size_t _size;
-    size_t _capacity;
-    hasher _hash;
+    std::unordered_map<Key, Value> map;
 
-    inline size_t getIndex(const Key& key) const {
-      return _hash(key) % _capacity;
-    }
   public:
-    HashTable() : _list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-    explicit HashTable(size_t capacity_in) : _list(new List<iterator_type>[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-    HashTable(const HashTable<Key, Value>& table) : _list(new List<iterator_type>[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-      for (size_t i = 0; i < _capacity; ++i)
-          _list[i] = table._list[i];
-    };
-    HashTable(HashTable<Key, Value>&& table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-      table._list = nullptr;
-      table._size = 0;
-      table._capacity = default_list_size;
-      table._hash = _hash();
+    HashTable() : map(default_list_size) {} ;
+    explicit HashTable(size_t capacity_in) : map(capacity_in) {};
+    HashTable(const HashTable<Key, Value>& table) : map(table.map) {}
+    HashTable(HashTable<Key, Value>&& table) : map(std::move(table.map)) {
+      table.map.clear();
     }
-    HashTable(std::initializer_list<iterator_type> list) : _list(new List<iterator_type>[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-      *this = list;
-    }
+    HashTable(std::initializer_list<iterator_type> list) : map(list) {}
 
-    virtual ~HashTable() {
-      delete[] _list;
-    }
+    virtual ~HashTable() {}
 
     void clear() {
-      for (size_t i = 0; i < _capacity; ++i)
-        _list[i].clear();
-      _size = 0;
+      map.clear();
     }
 
     /**
@@ -97,21 +79,15 @@ class HashTable {
 
       // Make a list of KeyValues to yield from.
       // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
-      typename List<iterator_type>::iterator iter;
-      List<iterator_type> items;
-      for (size_t i = 0; i < _capacity; ++i) {
-        if (_list[i].size()) {
-          for (iter = _list[i].begin(); iter; (++iter)) {
-            items << *iter;
-          }
-        }
+      std::vector<iterator_type> items;
+      for (const auto& item : map) {
+        items.push_back(item);
       }
 
       // Now yield on our temporary, so (this) isn't a factor.
-      for (iter = items.begin(); iter; (++iter)) {
-        iterator_type kv = *iter;
+      for (const auto& item : items) {
         ++n;
-        block(kv.key(), kv.value(), param);
+        block(item.first, item.second, param);
       }
       return n;
     }
@@ -119,10 +95,7 @@ class HashTable {
     friend void swap(HashTable<Key, Value>& a, HashTable<Key, Value>& b) {
       using std::swap;
 
-      swap(a._list, b._list);
-      swap(a._size, b._size);
-      swap(a._capacity, b._capacity);
-      swap(a._hash, b._hash);
+      swap(a.map, b.map);
     }
 
     HashTable& operator=(HashTable<Key, Value> table) {
@@ -141,36 +114,32 @@ class HashTable {
       return *this;
     }
 
-    inline size_t size() const { return _size; };
-    inline size_t capacity() const { return _capacity; };
-    inline bool isEmpty() const { return size() == 0; };
+    inline size_t size() const { return map.size(); };
+    inline size_t capacity() const { return map.max_size(); };
+    inline bool isEmpty() const { return map.empty(); };
     inline explicit operator bool() const { return !isEmpty(); };
 
     bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;
-      _list[getIndex(key)] << iterator_type(key, value);
-      ++_size;
+      map[key] = std::move(value);
       return true;
     }
 
     inline bool contains(const Key& key) const {
       if (isEmpty()) return false;
-      return _list[getIndex(key)].contains(iterator_type(key, Value()));
+      return map.find(key) != std::end(map);
     };
 
     bool remove(const Key& key) {
       if (isEmpty()) return false;
-      if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
-        --_size;
-        return true;
-      }
-      return false;
+      return map.erase(key) > 0 ? true : false;
     };
 
     inline Value getValue(const Key& key) const {
-      Value empty;
-      if (isEmpty()) return empty;
-      return _list[getIndex(key)].find(iterator_type(key, Value())).value();
+      auto result = map.find(key);
+      if (result == std::end(map))
+        return Value();
+      return result->second;
     };
 
     /**
@@ -185,14 +154,8 @@ class HashTable {
     Array<Key> keys() const {
       Array<Key> tmp(size());
 
-      typename List<iterator_type>::iterator iter;
-      for (size_t i = 0; i < capacity(); ++i) {
-        if (_list[i].size()) {
-          for (iter = _list[i].begin(); iter; (++iter)) {
-            iterator_type kv = *iter;
-            tmp << kv.key();
-          }
-        }
+      for (const auto& item : map) {
+        tmp << item.first;
       }
       return tmp;
     }
@@ -203,14 +166,8 @@ class HashTable {
     Array<Value> values() const {
       Array<Value> tmp(size());
 
-      typename List<iterator_type>::iterator iter;
-      for (size_t i = 0; i < capacity(); ++i) {
-        if (_list[i].size()) {
-          for (iter = _list[i].begin(); iter; (++iter)) {
-            iterator_type kv = *iter;
-            tmp << kv.value();
-          }
-        }
+      for (const auto& item : map) {
+        tmp << item.second;
       }
       return tmp;
     }
@@ -222,16 +179,7 @@ class HashTable {
       * If the key is not in the table, it is inserted, and the value set to the rvalue given.
       */
     inline Value& operator[](const Key& key) {
-      return find_or_insert_key(key);
-    }
- 
-    /**
-     * @brief Find a key in the list or insert it.
-     */
-    inline Value& find_or_insert_key(const Key& key) {
-      if (!contains(key))
-        insert(key, Value());
-      return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+      return map[key];
     }
 };
 
