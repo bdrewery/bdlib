@@ -59,7 +59,8 @@ class List {
       Node(const_reference p) : item(p), next(nullptr), prev(nullptr) {};
       /* To avoid -Weffc++ warnings */
       Node(const Node& n) : item(n.item), next(n.next), prev(n.prev) {};
-      Node(const value_type&& p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
+      Node(Node&& p) : item(std::move(p.item)), next(std::move(p.next)),
+                             prev(std::move(p.prev)) {
         p.item = nullptr;
         p.next = nullptr;
         p.prev = nullptr;
@@ -116,8 +117,12 @@ class List {
         insert(search->item);
     }
 
-    List(List&& list) : head(nullptr), tail(nullptr), my_size(0) {
-      swap(*this, list);
+    List(List&& list) : head(std::move(list.head)),
+                        tail(std::move(list.tail)),
+                        my_size(std::move(list.my_size)) {
+      list.head = nullptr;
+      list.tail = nullptr;
+      list.my_size = 0;
     }
 
     friend void swap(List& a, List& b) {

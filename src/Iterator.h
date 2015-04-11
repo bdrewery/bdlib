@@ -94,8 +94,9 @@ struct KeyValue {
     KeyValue() : k(), v() {};
     KeyValue(const Key& _key, const Value& _value) : k(_key), v(_value) {};
     KeyValue(const KeyValue& kv) : k(kv.k), v(kv.v) {};
-    KeyValue(KeyValue&& kv) : k(), v() {
-      swap(*this, kv);
+    KeyValue(KeyValue&& kv) : k(std::move(kv.k)), v(std::move(kv.v)) {
+      kv.k = {};
+      kv.v = {};
     }
       friend void swap(KeyValue& a, KeyValue& b) {
         using std::swap;
