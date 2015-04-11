@@ -22,7 +22,6 @@ before_install:
   - if [ "$CXX" = "clang++" ]; then sudo ln -sf libc++.so.1.0 /usr/lib/libc++.so.1; fi
   - export CPPFLAGS="-D_FORTIFY_SOURCE=2"
   - if [ "$CXX" = "clang++" ]; then export CXXFLAGS="-stdlib=libc++"; fi
-  - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.4"; fi
 
 # Skip install
 install: true
