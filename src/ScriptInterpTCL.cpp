@@ -30,6 +30,9 @@ int ScriptInterpTCL::destroy() {
   if (interp && !Tcl_InterpDeleted(interp)) {
     Tcl_DeleteInterp(interp);
     interp = nullptr;
+    /* https://core.tcl.tk/tcl/tktview/35a839cba8a4e6bbdcd9567f958d56076fe5bd0f
+    Tcl_Finalize();
+    */
   }
   return 0;
 }
