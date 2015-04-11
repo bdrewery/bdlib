@@ -240,7 +240,9 @@ class ScriptInterpTCL : public ScriptInterp {
         static std::unordered_map<String, link_var_hook> link_var_hooks;
 
   public:
-        ScriptInterpTCL() : ScriptInterp(), interp(nullptr) {init();};
+        ScriptInterpTCL() : ScriptInterp(), interp(nullptr), trace_ptrs() {
+          init();
+        }
         virtual ~ScriptInterpTCL() {
 
           // Delete all of my ccd
