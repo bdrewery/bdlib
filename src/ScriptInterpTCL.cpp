@@ -10,7 +10,7 @@
 
 BDLIB_NS_BEGIN
 
-std::unordered_map<String, ScriptInterpTCL::script_cmd_handler_clientdata*> ScriptInterpTCL::CmdHandlerData;
+std::unordered_map<String, ScriptInterp::script_cmd_handler_clientdata_ptr> ScriptInterpTCL::CmdHandlerData;
 std::unordered_map<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
 
 int ScriptInterpTCL::init() {
@@ -58,7 +58,7 @@ ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, Stri
  */
 int ScriptInterpTCL::_createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]) {
   String cmdName(tcl_to_c_cast<String>::from(objv[0], nullptr));
-  script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
+  script_cmd_handler_clientdata_ptr ccd = CmdHandlerData[cmdName];
 
   if ((size_t(objc) - 1) < ccd->callbackParamMin || size_t(objc) - 1 > ccd->callbackParamMax) {
     String errorResult(String::printf("Wrong # args. Expected %zu, got %d.", ccd->callbackParamMin, objc - 1));

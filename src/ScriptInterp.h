@@ -86,6 +86,8 @@ class ScriptInterp {
             callbackParamMax(_callbackParamMax) {
           }
         };
+        typedef std::shared_ptr<script_cmd_handler_clientdata>
+          script_cmd_handler_clientdata_ptr;
   public:
         enum script_type {
           SCRIPT_TYPE_TCL,

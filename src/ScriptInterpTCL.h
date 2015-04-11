@@ -128,7 +128,8 @@ class ScriptInterpTCL : public ScriptInterp {
   friend Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, ScriptInterp* si);
   private:
         Tcl_Interp *interp;
-        static std::unordered_map<String, script_cmd_handler_clientdata*> CmdHandlerData;
+        static std::unordered_map<String, script_cmd_handler_clientdata_ptr>
+          CmdHandlerData;
 
         ScriptInterpTCL(const ScriptInterpTCL&) = delete;
         ScriptInterpTCL& operator=(const ScriptInterpTCL&) = delete;
@@ -139,10 +140,10 @@ class ScriptInterpTCL : public ScriptInterp {
             std::unique_ptr<ScriptCommandHandlerBase> callback_proxy,
             const char* usage,
             size_t callbackParamMin, size_t callbackParamMax) {
-          script_cmd_handler_clientdata* ccd =
-            new script_cmd_handler_clientdata(this,
-                std::move(callback_proxy), usage, callbackParamMin,
-                callbackParamMax);
+          auto ccd = std::make_shared<script_cmd_handler_clientdata>(
+              this,
+              std::move(callback_proxy), usage, callbackParamMin,
+              callbackParamMax);
           CmdHandlerData[cmdName] = ccd;
           Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
         }
@@ -244,12 +245,6 @@ class ScriptInterpTCL : public ScriptInterp {
           init();
         }
         virtual ~ScriptInterpTCL() {
-
-          // Delete all of my ccd
-          for (auto& entry : CmdHandlerData) {
-            auto ccd = entry.second;
-            delete ccd;
-          }
           CmdHandlerData.clear();
           link_var_hooks.clear();
           trace_ptrs.clear();
@@ -272,8 +267,6 @@ class ScriptInterpTCL : public ScriptInterp {
           auto result = CmdHandlerData.find(cmdName);
           if (result == CmdHandlerData.end())
             return;
-          auto ccd = result->second;
-          delete ccd;
           CmdHandlerData.erase(cmdName);
           Tcl_DeleteCommand(interp, *cmdName);
         }
