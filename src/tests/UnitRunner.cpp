@@ -25,6 +25,7 @@
 /* UnitRunner.c
  *
  */
+#include <stdlib.h>
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/TestResult.h>
@@ -48,7 +49,7 @@ int main (int argc, char* argv[])
     testresult.addListener (&collectedresults);
 
     CPPUNIT_NS :: BriefTestProgressListener listener;
-    if (argc > 1) {
+    if (argc > 1 || getenv("V")) {
       // Shows a message as each test starts
       testresult.addListener( &listener );
     }
