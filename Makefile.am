@@ -7,8 +7,6 @@ libbdlib_a_SOURCES= \
 			src/AtomicFile.cpp \
 			src/HashTable.cpp \
 			src/ReferenceCountedArray.cpp \
-			src/Script.cpp \
-			src/ScriptInterp.cpp \
 			src/ScriptInterpTCL.cpp \
 			src/Stream.cpp \
 			src/String.cpp

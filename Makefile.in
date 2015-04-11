@@ -117,8 +117,6 @@ am_libbdlib_a_OBJECTS = src/libbdlib_a-Cstrings.$(OBJEXT) \
 	src/libbdlib_a-AtomicFile.$(OBJEXT) \
 	src/libbdlib_a-HashTable.$(OBJEXT) \
 	src/libbdlib_a-ReferenceCountedArray.$(OBJEXT) \
-	src/libbdlib_a-Script.$(OBJEXT) \
-	src/libbdlib_a-ScriptInterp.$(OBJEXT) \
 	src/libbdlib_a-ScriptInterpTCL.$(OBJEXT) \
 	src/libbdlib_a-Stream.$(OBJEXT) \
 	src/libbdlib_a-String.$(OBJEXT)
@@ -359,8 +357,6 @@ libbdlib_a_SOURCES = \
 			src/AtomicFile.cpp \
 			src/HashTable.cpp \
 			src/ReferenceCountedArray.cpp \
-			src/Script.cpp \
-			src/ScriptInterp.cpp \
 			src/ScriptInterpTCL.cpp \
 			src/Stream.cpp \
 			src/String.cpp
@@ -452,10 +448,6 @@ src/libbdlib_a-HashTable.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-ReferenceCountedArray.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-Script.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-ScriptInterp.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-ScriptInterpTCL.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-Stream.$(OBJEXT): src/$(am__dirstamp) \
@@ -507,8 +499,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Cstrings.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-HashTable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-ReferenceCountedArray.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Script.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-ScriptInterp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-ScriptInterpTCL.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Stream.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-String.Po@am__quote@
@@ -606,34 +596,6 @@ src/libbdlib_a-ReferenceCountedArray.obj: src/ReferenceCountedArray.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ReferenceCountedArray.cpp' object='src/libbdlib_a-ReferenceCountedArray.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-ReferenceCountedArray.obj `if test -f 'src/ReferenceCountedArray.cpp'; then $(CYGPATH_W) 'src/ReferenceCountedArray.cpp'; else $(CYGPATH_W) '$(srcdir)/src/ReferenceCountedArray.cpp'; fi`
-
-src/libbdlib_a-Script.o: src/Script.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Script.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Script.Tpo -c -o src/libbdlib_a-Script.o `test -f 'src/Script.cpp' || echo '$(srcdir)/'`src/Script.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Script.Tpo src/$(DEPDIR)/libbdlib_a-Script.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Script.cpp' object='src/libbdlib_a-Script.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Script.o `test -f 'src/Script.cpp' || echo '$(srcdir)/'`src/Script.cpp
-
-src/libbdlib_a-Script.obj: src/Script.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Script.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Script.Tpo -c -o src/libbdlib_a-Script.obj `if test -f 'src/Script.cpp'; then $(CYGPATH_W) 'src/Script.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Script.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Script.Tpo src/$(DEPDIR)/libbdlib_a-Script.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Script.cpp' object='src/libbdlib_a-Script.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Script.obj `if test -f 'src/Script.cpp'; then $(CYGPATH_W) 'src/Script.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Script.cpp'; fi`
-
-src/libbdlib_a-ScriptInterp.o: src/ScriptInterp.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-ScriptInterp.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-ScriptInterp.Tpo -c -o src/libbdlib_a-ScriptInterp.o `test -f 'src/ScriptInterp.cpp' || echo '$(srcdir)/'`src/ScriptInterp.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-ScriptInterp.Tpo src/$(DEPDIR)/libbdlib_a-ScriptInterp.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ScriptInterp.cpp' object='src/libbdlib_a-ScriptInterp.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-ScriptInterp.o `test -f 'src/ScriptInterp.cpp' || echo '$(srcdir)/'`src/ScriptInterp.cpp
-
-src/libbdlib_a-ScriptInterp.obj: src/ScriptInterp.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-ScriptInterp.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-ScriptInterp.Tpo -c -o src/libbdlib_a-ScriptInterp.obj `if test -f 'src/ScriptInterp.cpp'; then $(CYGPATH_W) 'src/ScriptInterp.cpp'; else $(CYGPATH_W) '$(srcdir)/src/ScriptInterp.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-ScriptInterp.Tpo src/$(DEPDIR)/libbdlib_a-ScriptInterp.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ScriptInterp.cpp' object='src/libbdlib_a-ScriptInterp.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-ScriptInterp.obj `if test -f 'src/ScriptInterp.cpp'; then $(CYGPATH_W) 'src/ScriptInterp.cpp'; else $(CYGPATH_W) '$(srcdir)/src/ScriptInterp.cpp'; fi`
 
 src/libbdlib_a-ScriptInterpTCL.o: src/ScriptInterpTCL.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-ScriptInterpTCL.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-ScriptInterpTCL.Tpo -c -o src/libbdlib_a-ScriptInterpTCL.o `test -f 'src/ScriptInterpTCL.cpp' || echo '$(srcdir)/'`src/ScriptInterpTCL.cpp
