@@ -128,24 +128,52 @@ class ScriptInterpTCL : public ScriptInterp {
   friend Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, ScriptInterp* si);
   private:
         Tcl_Interp *interp;
-        static std::unordered_map<String, script_cmd_handler_clientdata_ptr>
+        static std::unordered_map<String, ScriptCmdPtr>
           CmdHandlerData;
 
         ScriptInterpTCL(const ScriptInterpTCL&) = delete;
         ScriptInterpTCL& operator=(const ScriptInterpTCL&) = delete;
 
-        static int _createCommand_callback(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+        struct ScriptCmdTCL : public ScriptCmd {
+          static int _createCommand_callback(ClientData clientData,
+              Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+
+          ScriptCmdTCL(const ScriptCmdTCL&) = delete;
+          ScriptCmdTCL& operator=(const ScriptCmdTCL&) = delete;
+          ScriptCmdTCL(ScriptInterpTCL* _si, const String &_cmdName,
+              std::unique_ptr<ScriptCommandHandlerBase> _callback_proxy,
+              const char* _usage, size_t _callbackParamMin,
+              size_t _callbackParamMax) :
+              ScriptCmd(_si, std::move(_cmdName), std::move(_callback_proxy),
+                  _usage, _callbackParamMin, _callbackParamMax) {};
+          virtual ~ScriptCmdTCL() {
+            this->unregisterCmd();
+          }
+          virtual void registerCmd() {
+            if (registered)
+              return;
+            Tcl_CreateObjCommand(static_cast<ScriptInterpTCL*>(si)->interp,
+                *cmdName, _createCommand_callback, nullptr, nullptr);
+            ScriptCmd::registerCmd();
+          }
+          virtual void unregisterCmd() {
+            if (!registered)
+              return;
+            Tcl_DeleteCommand(static_cast<ScriptInterpTCL*>(si)->interp,
+                *cmdName);
+            ScriptCmd::unregisterCmd();
+          }
+        };
 
         void _createCommand(const String& cmdName,
             std::unique_ptr<ScriptCommandHandlerBase> callback_proxy,
             const char* usage,
             size_t callbackParamMin, size_t callbackParamMax) {
-          auto ccd = std::make_shared<script_cmd_handler_clientdata>(
-              this,
+          auto ccd = std::make_shared<ScriptCmdTCL>(this, cmdName,
               std::move(callback_proxy), usage, callbackParamMin,
               callbackParamMax);
           CmdHandlerData[cmdName] = ccd;
-          Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
+          ccd->registerCmd();
         }
 
         struct trace_ptr_data {
@@ -264,11 +292,7 @@ class ScriptInterpTCL : public ScriptInterp {
         }
 
         virtual void deleteCommand(const String& cmdName) {
-          auto result = CmdHandlerData.find(cmdName);
-          if (result == CmdHandlerData.end())
-            return;
           CmdHandlerData.erase(cmdName);
-          Tcl_DeleteCommand(interp, *cmdName);
         }
 
         /* Variable linking */

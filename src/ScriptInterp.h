@@ -67,27 +67,38 @@ class ScriptInterp {
         virtual int init() = 0;
         virtual int destroy() = 0;
 
-        struct script_cmd_handler_clientdata {
-          script_cmd_handler_clientdata(const script_cmd_handler_clientdata&) = delete;
-          script_cmd_handler_clientdata& operator=(const script_cmd_handler_clientdata&) = delete;
+        struct ScriptCmd {
+          ScriptCmd(const ScriptCmd&) = delete;
+          ScriptCmd& operator=(const ScriptCmd&) = delete;
           ScriptInterp* si;
+          const String cmdName;
           std::unique_ptr<ScriptCommandHandlerBase> callback_proxy;
           const char* usage;
           size_t callbackParamMin;
           size_t callbackParamMax;
-          script_cmd_handler_clientdata(ScriptInterp* _si,
+          bool registered;
+          ScriptCmd(ScriptInterp* _si, const String &_cmdName,
               std::unique_ptr<ScriptCommandHandlerBase> _callback_proxy,
-              const char* _usage,
-              size_t _callbackParamMin, size_t _callbackParamMax) :
+              const char* _usage, size_t _callbackParamMin,
+              size_t _callbackParamMax) :
             si(_si),
+            cmdName(_cmdName),
             callback_proxy(std::move(_callback_proxy)),
             usage(_usage),
             callbackParamMin(_callbackParamMin),
-            callbackParamMax(_callbackParamMax) {
+            callbackParamMax(_callbackParamMax),
+            registered(false)
+          {}
+          virtual ~ScriptCmd() {};
+          virtual void registerCmd() {
+            registered = true;
+          }
+          virtual void unregisterCmd() {
+            registered = false;
           }
         };
-        typedef std::shared_ptr<script_cmd_handler_clientdata>
-          script_cmd_handler_clientdata_ptr;
+        typedef std::shared_ptr<ScriptCmd>
+          ScriptCmdPtr;
   public:
         enum script_type {
           SCRIPT_TYPE_TCL,
