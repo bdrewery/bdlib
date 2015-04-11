@@ -4,7 +4,6 @@ AM_CXXFLAGS=		-Wall @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@
 libbdlib_a_SOURCES= \
 			src/Cstrings.cpp \
 			src/base64.cpp \
-			src/Array.cpp \
 			src/AtomicFile.cpp \
 			src/HashTable.cpp \
 			src/ReferenceCountedArray.cpp \

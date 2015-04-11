@@ -113,7 +113,7 @@ libbdlib_a_AR = $(AR) $(ARFLAGS)
 libbdlib_a_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am_libbdlib_a_OBJECTS = src/libbdlib_a-Cstrings.$(OBJEXT) \
-	src/libbdlib_a-base64.$(OBJEXT) src/libbdlib_a-Array.$(OBJEXT) \
+	src/libbdlib_a-base64.$(OBJEXT) \
 	src/libbdlib_a-AtomicFile.$(OBJEXT) \
 	src/libbdlib_a-HashTable.$(OBJEXT) \
 	src/libbdlib_a-ReferenceCountedArray.$(OBJEXT) \
@@ -356,7 +356,6 @@ AM_CPPFLAGS = @TCL_INCLUDE_SPEC@
 libbdlib_a_SOURCES = \
 			src/Cstrings.cpp \
 			src/base64.cpp \
-			src/Array.cpp \
 			src/AtomicFile.cpp \
 			src/HashTable.cpp \
 			src/ReferenceCountedArray.cpp \
@@ -447,8 +446,6 @@ src/libbdlib_a-Cstrings.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-base64.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-Array.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-AtomicFile.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-HashTable.$(OBJEXT): src/$(am__dirstamp) \
@@ -506,7 +503,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Array.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-AtomicFile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Cstrings.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-HashTable.Po@am__quote@
@@ -568,20 +564,6 @@ src/libbdlib_a-base64.obj: src/base64.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/base64.cpp' object='src/libbdlib_a-base64.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-base64.obj `if test -f 'src/base64.cpp'; then $(CYGPATH_W) 'src/base64.cpp'; else $(CYGPATH_W) '$(srcdir)/src/base64.cpp'; fi`
-
-src/libbdlib_a-Array.o: src/Array.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Array.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Array.Tpo -c -o src/libbdlib_a-Array.o `test -f 'src/Array.cpp' || echo '$(srcdir)/'`src/Array.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Array.Tpo src/$(DEPDIR)/libbdlib_a-Array.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Array.cpp' object='src/libbdlib_a-Array.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Array.o `test -f 'src/Array.cpp' || echo '$(srcdir)/'`src/Array.cpp
-
-src/libbdlib_a-Array.obj: src/Array.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Array.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Array.Tpo -c -o src/libbdlib_a-Array.obj `if test -f 'src/Array.cpp'; then $(CYGPATH_W) 'src/Array.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Array.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Array.Tpo src/$(DEPDIR)/libbdlib_a-Array.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Array.cpp' object='src/libbdlib_a-Array.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Array.obj `if test -f 'src/Array.cpp'; then $(CYGPATH_W) 'src/Array.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Array.cpp'; fi`
 
 src/libbdlib_a-AtomicFile.o: src/AtomicFile.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-AtomicFile.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-AtomicFile.Tpo -c -o src/libbdlib_a-AtomicFile.o `test -f 'src/AtomicFile.cpp' || echo '$(srcdir)/'`src/AtomicFile.cpp
