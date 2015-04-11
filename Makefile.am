@@ -5,7 +5,6 @@ libbdlib_a_SOURCES= \
 			src/Cstrings.cpp \
 			src/base64.cpp \
 			src/AtomicFile.cpp \
-			src/HashTable.cpp \
 			src/ReferenceCountedArray.cpp \
 			src/ScriptInterpTCL.cpp \
 			src/Stream.cpp \
