@@ -638,15 +638,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline const_reverse_iterator rend() const { return this->crend(); };
 
 
-    typedef std::hash<value_type> HashType;
-
    /**
      * @brief Return a hash of every element in the array. Cache result as well.
      * @note DJB's hash function
      */
     virtual size_t hash() const {
       if (my_hash != 0) return my_hash;
-      HashType hasher;
+      std::hash<value_type> hasher;
       size_t _hash = 5381;
 
       for(size_t i = 0; i < this->length(); ++i)
