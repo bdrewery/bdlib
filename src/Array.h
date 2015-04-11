@@ -223,7 +223,9 @@ class Array : public ReferenceCountedArray<T> {
       return true;
     }
 
-    inline friend bool operator==(const Array& lhs, const Array& rhs) { return lhs.equals(rhs); };
+    inline friend bool operator==(const Array& lhs, const Array& rhs) {
+      return lhs.size() == rhs.size() && lhs.equals(rhs);
+    };
     inline friend bool operator!=(const Array& lhs, const Array& rhs) { return !(lhs == rhs); };
 
     // Subarrays
