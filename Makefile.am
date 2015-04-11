@@ -6,16 +6,12 @@ libbdlib_a_SOURCES= \
 			src/base64.cpp \
 			src/Array.cpp \
 			src/AtomicFile.cpp \
-			src/BinaryTree.cpp \
 			src/HashTable.cpp \
 			src/List.cpp \
-			src/Queue.cpp \
 			src/ReferenceCountedArray.cpp \
 			src/Script.cpp \
 			src/ScriptInterp.cpp \
 			src/ScriptInterpTCL.cpp \
-			src/SortedList.cpp \
-			src/Stack.cpp \
 			src/Stream.cpp \
 			src/String.cpp
 libbdlib_a_CXXFLAGS=	$(AM_CXXFLAGS)
@@ -25,15 +21,11 @@ check_PROGRAMS=		UnitRunner
 UnitRunner_SOURCES=	src/tests/UnitRunner.cpp \
 			src/tests/ArrayTest.cpp \
 			src/tests/AtomicFileTest.cpp \
-			src/tests/BinaryTreeTest.cpp \
 			src/tests/HashTableTest.cpp \
 			src/tests/ListTest.cpp \
-			src/tests/SortedListTest.cpp \
 			src/tests/ScriptInterpTCLTest.cpp \
-			src/tests/StackTest.cpp \
 			src/tests/StringTest.cpp \
-			src/tests/StreamTest.cpp \
-			src/tests/QueueTest.cpp
+			src/tests/StreamTest.cpp
 
 UnitRunner_CXXFLAGS=	$(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
 			-Wno-unused-value \

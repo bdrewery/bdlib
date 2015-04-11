@@ -115,29 +115,23 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_libbdlib_a_OBJECTS = src/libbdlib_a-Cstrings.$(OBJEXT) \
 	src/libbdlib_a-base64.$(OBJEXT) src/libbdlib_a-Array.$(OBJEXT) \
 	src/libbdlib_a-AtomicFile.$(OBJEXT) \
-	src/libbdlib_a-BinaryTree.$(OBJEXT) \
 	src/libbdlib_a-HashTable.$(OBJEXT) \
-	src/libbdlib_a-List.$(OBJEXT) src/libbdlib_a-Queue.$(OBJEXT) \
+	src/libbdlib_a-List.$(OBJEXT) \
 	src/libbdlib_a-ReferenceCountedArray.$(OBJEXT) \
 	src/libbdlib_a-Script.$(OBJEXT) \
 	src/libbdlib_a-ScriptInterp.$(OBJEXT) \
 	src/libbdlib_a-ScriptInterpTCL.$(OBJEXT) \
-	src/libbdlib_a-SortedList.$(OBJEXT) \
-	src/libbdlib_a-Stack.$(OBJEXT) src/libbdlib_a-Stream.$(OBJEXT) \
+	src/libbdlib_a-Stream.$(OBJEXT) \
 	src/libbdlib_a-String.$(OBJEXT)
 libbdlib_a_OBJECTS = $(am_libbdlib_a_OBJECTS)
 am_UnitRunner_OBJECTS = src/tests/UnitRunner-UnitRunner.$(OBJEXT) \
 	src/tests/UnitRunner-ArrayTest.$(OBJEXT) \
 	src/tests/UnitRunner-AtomicFileTest.$(OBJEXT) \
-	src/tests/UnitRunner-BinaryTreeTest.$(OBJEXT) \
 	src/tests/UnitRunner-HashTableTest.$(OBJEXT) \
 	src/tests/UnitRunner-ListTest.$(OBJEXT) \
-	src/tests/UnitRunner-SortedListTest.$(OBJEXT) \
 	src/tests/UnitRunner-ScriptInterpTCLTest.$(OBJEXT) \
-	src/tests/UnitRunner-StackTest.$(OBJEXT) \
 	src/tests/UnitRunner-StringTest.$(OBJEXT) \
-	src/tests/UnitRunner-StreamTest.$(OBJEXT) \
-	src/tests/UnitRunner-QueueTest.$(OBJEXT)
+	src/tests/UnitRunner-StreamTest.$(OBJEXT)
 UnitRunner_OBJECTS = $(am_UnitRunner_OBJECTS)
 UnitRunner_DEPENDENCIES = $(libbdlib_a_OBJECTS)
 UnitRunner_LINK = $(CXXLD) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) \
@@ -366,16 +360,12 @@ libbdlib_a_SOURCES = \
 			src/base64.cpp \
 			src/Array.cpp \
 			src/AtomicFile.cpp \
-			src/BinaryTree.cpp \
 			src/HashTable.cpp \
 			src/List.cpp \
-			src/Queue.cpp \
 			src/ReferenceCountedArray.cpp \
 			src/Script.cpp \
 			src/ScriptInterp.cpp \
 			src/ScriptInterpTCL.cpp \
-			src/SortedList.cpp \
-			src/Stack.cpp \
 			src/Stream.cpp \
 			src/String.cpp
 
@@ -383,15 +373,11 @@ libbdlib_a_CXXFLAGS = $(AM_CXXFLAGS)
 UnitRunner_SOURCES = src/tests/UnitRunner.cpp \
 			src/tests/ArrayTest.cpp \
 			src/tests/AtomicFileTest.cpp \
-			src/tests/BinaryTreeTest.cpp \
 			src/tests/HashTableTest.cpp \
 			src/tests/ListTest.cpp \
-			src/tests/SortedListTest.cpp \
 			src/tests/ScriptInterpTCLTest.cpp \
-			src/tests/StackTest.cpp \
 			src/tests/StringTest.cpp \
-			src/tests/StreamTest.cpp \
-			src/tests/QueueTest.cpp
+			src/tests/StreamTest.cpp
 
 UnitRunner_CXXFLAGS = $(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
 			-Wno-unused-value \
@@ -469,13 +455,9 @@ src/libbdlib_a-Array.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-AtomicFile.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-BinaryTree.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-HashTable.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-List.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-Queue.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-ReferenceCountedArray.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -484,10 +466,6 @@ src/libbdlib_a-Script.$(OBJEXT): src/$(am__dirstamp) \
 src/libbdlib_a-ScriptInterp.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-ScriptInterpTCL.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-SortedList.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
-src/libbdlib_a-Stack.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libbdlib_a-Stream.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -513,23 +491,15 @@ src/tests/UnitRunner-ArrayTest.$(OBJEXT): src/tests/$(am__dirstamp) \
 	src/tests/$(DEPDIR)/$(am__dirstamp)
 src/tests/UnitRunner-AtomicFileTest.$(OBJEXT):  \
 	src/tests/$(am__dirstamp) src/tests/$(DEPDIR)/$(am__dirstamp)
-src/tests/UnitRunner-BinaryTreeTest.$(OBJEXT):  \
-	src/tests/$(am__dirstamp) src/tests/$(DEPDIR)/$(am__dirstamp)
 src/tests/UnitRunner-HashTableTest.$(OBJEXT):  \
 	src/tests/$(am__dirstamp) src/tests/$(DEPDIR)/$(am__dirstamp)
 src/tests/UnitRunner-ListTest.$(OBJEXT): src/tests/$(am__dirstamp) \
 	src/tests/$(DEPDIR)/$(am__dirstamp)
-src/tests/UnitRunner-SortedListTest.$(OBJEXT):  \
-	src/tests/$(am__dirstamp) src/tests/$(DEPDIR)/$(am__dirstamp)
 src/tests/UnitRunner-ScriptInterpTCLTest.$(OBJEXT):  \
 	src/tests/$(am__dirstamp) src/tests/$(DEPDIR)/$(am__dirstamp)
-src/tests/UnitRunner-StackTest.$(OBJEXT): src/tests/$(am__dirstamp) \
-	src/tests/$(DEPDIR)/$(am__dirstamp)
 src/tests/UnitRunner-StringTest.$(OBJEXT): src/tests/$(am__dirstamp) \
 	src/tests/$(DEPDIR)/$(am__dirstamp)
 src/tests/UnitRunner-StreamTest.$(OBJEXT): src/tests/$(am__dirstamp) \
-	src/tests/$(DEPDIR)/$(am__dirstamp)
-src/tests/UnitRunner-QueueTest.$(OBJEXT): src/tests/$(am__dirstamp) \
 	src/tests/$(DEPDIR)/$(am__dirstamp)
 
 UnitRunner$(EXEEXT): $(UnitRunner_OBJECTS) $(UnitRunner_DEPENDENCIES) $(EXTRA_UnitRunner_DEPENDENCIES) 
@@ -546,29 +516,21 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Array.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-AtomicFile.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-BinaryTree.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Cstrings.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-HashTable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-List.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Queue.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-ReferenceCountedArray.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Script.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-ScriptInterp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-ScriptInterpTCL.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-SortedList.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Stack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-Stream.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-String.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbdlib_a-base64.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-ArrayTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-AtomicFileTest.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-BinaryTreeTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-HashTableTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-ListTest.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-QueueTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-ScriptInterpTCLTest.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-SortedListTest.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-StackTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-StreamTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-StringTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/tests/$(DEPDIR)/UnitRunner-UnitRunner.Po@am__quote@
@@ -645,20 +607,6 @@ src/libbdlib_a-AtomicFile.obj: src/AtomicFile.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-AtomicFile.obj `if test -f 'src/AtomicFile.cpp'; then $(CYGPATH_W) 'src/AtomicFile.cpp'; else $(CYGPATH_W) '$(srcdir)/src/AtomicFile.cpp'; fi`
 
-src/libbdlib_a-BinaryTree.o: src/BinaryTree.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-BinaryTree.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-BinaryTree.Tpo -c -o src/libbdlib_a-BinaryTree.o `test -f 'src/BinaryTree.cpp' || echo '$(srcdir)/'`src/BinaryTree.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-BinaryTree.Tpo src/$(DEPDIR)/libbdlib_a-BinaryTree.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/BinaryTree.cpp' object='src/libbdlib_a-BinaryTree.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-BinaryTree.o `test -f 'src/BinaryTree.cpp' || echo '$(srcdir)/'`src/BinaryTree.cpp
-
-src/libbdlib_a-BinaryTree.obj: src/BinaryTree.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-BinaryTree.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-BinaryTree.Tpo -c -o src/libbdlib_a-BinaryTree.obj `if test -f 'src/BinaryTree.cpp'; then $(CYGPATH_W) 'src/BinaryTree.cpp'; else $(CYGPATH_W) '$(srcdir)/src/BinaryTree.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-BinaryTree.Tpo src/$(DEPDIR)/libbdlib_a-BinaryTree.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/BinaryTree.cpp' object='src/libbdlib_a-BinaryTree.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-BinaryTree.obj `if test -f 'src/BinaryTree.cpp'; then $(CYGPATH_W) 'src/BinaryTree.cpp'; else $(CYGPATH_W) '$(srcdir)/src/BinaryTree.cpp'; fi`
-
 src/libbdlib_a-HashTable.o: src/HashTable.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-HashTable.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-HashTable.Tpo -c -o src/libbdlib_a-HashTable.o `test -f 'src/HashTable.cpp' || echo '$(srcdir)/'`src/HashTable.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-HashTable.Tpo src/$(DEPDIR)/libbdlib_a-HashTable.Po
@@ -686,20 +634,6 @@ src/libbdlib_a-List.obj: src/List.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/List.cpp' object='src/libbdlib_a-List.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-List.obj `if test -f 'src/List.cpp'; then $(CYGPATH_W) 'src/List.cpp'; else $(CYGPATH_W) '$(srcdir)/src/List.cpp'; fi`
-
-src/libbdlib_a-Queue.o: src/Queue.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Queue.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Queue.Tpo -c -o src/libbdlib_a-Queue.o `test -f 'src/Queue.cpp' || echo '$(srcdir)/'`src/Queue.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Queue.Tpo src/$(DEPDIR)/libbdlib_a-Queue.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Queue.cpp' object='src/libbdlib_a-Queue.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Queue.o `test -f 'src/Queue.cpp' || echo '$(srcdir)/'`src/Queue.cpp
-
-src/libbdlib_a-Queue.obj: src/Queue.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Queue.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Queue.Tpo -c -o src/libbdlib_a-Queue.obj `if test -f 'src/Queue.cpp'; then $(CYGPATH_W) 'src/Queue.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Queue.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Queue.Tpo src/$(DEPDIR)/libbdlib_a-Queue.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Queue.cpp' object='src/libbdlib_a-Queue.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Queue.obj `if test -f 'src/Queue.cpp'; then $(CYGPATH_W) 'src/Queue.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Queue.cpp'; fi`
 
 src/libbdlib_a-ReferenceCountedArray.o: src/ReferenceCountedArray.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-ReferenceCountedArray.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-ReferenceCountedArray.Tpo -c -o src/libbdlib_a-ReferenceCountedArray.o `test -f 'src/ReferenceCountedArray.cpp' || echo '$(srcdir)/'`src/ReferenceCountedArray.cpp
@@ -756,34 +690,6 @@ src/libbdlib_a-ScriptInterpTCL.obj: src/ScriptInterpTCL.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ScriptInterpTCL.cpp' object='src/libbdlib_a-ScriptInterpTCL.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-ScriptInterpTCL.obj `if test -f 'src/ScriptInterpTCL.cpp'; then $(CYGPATH_W) 'src/ScriptInterpTCL.cpp'; else $(CYGPATH_W) '$(srcdir)/src/ScriptInterpTCL.cpp'; fi`
-
-src/libbdlib_a-SortedList.o: src/SortedList.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-SortedList.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-SortedList.Tpo -c -o src/libbdlib_a-SortedList.o `test -f 'src/SortedList.cpp' || echo '$(srcdir)/'`src/SortedList.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-SortedList.Tpo src/$(DEPDIR)/libbdlib_a-SortedList.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/SortedList.cpp' object='src/libbdlib_a-SortedList.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-SortedList.o `test -f 'src/SortedList.cpp' || echo '$(srcdir)/'`src/SortedList.cpp
-
-src/libbdlib_a-SortedList.obj: src/SortedList.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-SortedList.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-SortedList.Tpo -c -o src/libbdlib_a-SortedList.obj `if test -f 'src/SortedList.cpp'; then $(CYGPATH_W) 'src/SortedList.cpp'; else $(CYGPATH_W) '$(srcdir)/src/SortedList.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-SortedList.Tpo src/$(DEPDIR)/libbdlib_a-SortedList.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/SortedList.cpp' object='src/libbdlib_a-SortedList.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-SortedList.obj `if test -f 'src/SortedList.cpp'; then $(CYGPATH_W) 'src/SortedList.cpp'; else $(CYGPATH_W) '$(srcdir)/src/SortedList.cpp'; fi`
-
-src/libbdlib_a-Stack.o: src/Stack.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Stack.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Stack.Tpo -c -o src/libbdlib_a-Stack.o `test -f 'src/Stack.cpp' || echo '$(srcdir)/'`src/Stack.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Stack.Tpo src/$(DEPDIR)/libbdlib_a-Stack.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Stack.cpp' object='src/libbdlib_a-Stack.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Stack.o `test -f 'src/Stack.cpp' || echo '$(srcdir)/'`src/Stack.cpp
-
-src/libbdlib_a-Stack.obj: src/Stack.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Stack.obj -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Stack.Tpo -c -o src/libbdlib_a-Stack.obj `if test -f 'src/Stack.cpp'; then $(CYGPATH_W) 'src/Stack.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Stack.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libbdlib_a-Stack.Tpo src/$(DEPDIR)/libbdlib_a-Stack.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/Stack.cpp' object='src/libbdlib_a-Stack.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbdlib_a-Stack.obj `if test -f 'src/Stack.cpp'; then $(CYGPATH_W) 'src/Stack.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Stack.cpp'; fi`
 
 src/libbdlib_a-Stream.o: src/Stream.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbdlib_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbdlib_a-Stream.o -MD -MP -MF src/$(DEPDIR)/libbdlib_a-Stream.Tpo -c -o src/libbdlib_a-Stream.o `test -f 'src/Stream.cpp' || echo '$(srcdir)/'`src/Stream.cpp
@@ -855,20 +761,6 @@ src/tests/UnitRunner-AtomicFileTest.obj: src/tests/AtomicFileTest.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-AtomicFileTest.obj `if test -f 'src/tests/AtomicFileTest.cpp'; then $(CYGPATH_W) 'src/tests/AtomicFileTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/AtomicFileTest.cpp'; fi`
 
-src/tests/UnitRunner-BinaryTreeTest.o: src/tests/BinaryTreeTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-BinaryTreeTest.o -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-BinaryTreeTest.Tpo -c -o src/tests/UnitRunner-BinaryTreeTest.o `test -f 'src/tests/BinaryTreeTest.cpp' || echo '$(srcdir)/'`src/tests/BinaryTreeTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-BinaryTreeTest.Tpo src/tests/$(DEPDIR)/UnitRunner-BinaryTreeTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/BinaryTreeTest.cpp' object='src/tests/UnitRunner-BinaryTreeTest.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-BinaryTreeTest.o `test -f 'src/tests/BinaryTreeTest.cpp' || echo '$(srcdir)/'`src/tests/BinaryTreeTest.cpp
-
-src/tests/UnitRunner-BinaryTreeTest.obj: src/tests/BinaryTreeTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-BinaryTreeTest.obj -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-BinaryTreeTest.Tpo -c -o src/tests/UnitRunner-BinaryTreeTest.obj `if test -f 'src/tests/BinaryTreeTest.cpp'; then $(CYGPATH_W) 'src/tests/BinaryTreeTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/BinaryTreeTest.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-BinaryTreeTest.Tpo src/tests/$(DEPDIR)/UnitRunner-BinaryTreeTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/BinaryTreeTest.cpp' object='src/tests/UnitRunner-BinaryTreeTest.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-BinaryTreeTest.obj `if test -f 'src/tests/BinaryTreeTest.cpp'; then $(CYGPATH_W) 'src/tests/BinaryTreeTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/BinaryTreeTest.cpp'; fi`
-
 src/tests/UnitRunner-HashTableTest.o: src/tests/HashTableTest.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-HashTableTest.o -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-HashTableTest.Tpo -c -o src/tests/UnitRunner-HashTableTest.o `test -f 'src/tests/HashTableTest.cpp' || echo '$(srcdir)/'`src/tests/HashTableTest.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-HashTableTest.Tpo src/tests/$(DEPDIR)/UnitRunner-HashTableTest.Po
@@ -897,20 +789,6 @@ src/tests/UnitRunner-ListTest.obj: src/tests/ListTest.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-ListTest.obj `if test -f 'src/tests/ListTest.cpp'; then $(CYGPATH_W) 'src/tests/ListTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/ListTest.cpp'; fi`
 
-src/tests/UnitRunner-SortedListTest.o: src/tests/SortedListTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-SortedListTest.o -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-SortedListTest.Tpo -c -o src/tests/UnitRunner-SortedListTest.o `test -f 'src/tests/SortedListTest.cpp' || echo '$(srcdir)/'`src/tests/SortedListTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-SortedListTest.Tpo src/tests/$(DEPDIR)/UnitRunner-SortedListTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/SortedListTest.cpp' object='src/tests/UnitRunner-SortedListTest.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-SortedListTest.o `test -f 'src/tests/SortedListTest.cpp' || echo '$(srcdir)/'`src/tests/SortedListTest.cpp
-
-src/tests/UnitRunner-SortedListTest.obj: src/tests/SortedListTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-SortedListTest.obj -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-SortedListTest.Tpo -c -o src/tests/UnitRunner-SortedListTest.obj `if test -f 'src/tests/SortedListTest.cpp'; then $(CYGPATH_W) 'src/tests/SortedListTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/SortedListTest.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-SortedListTest.Tpo src/tests/$(DEPDIR)/UnitRunner-SortedListTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/SortedListTest.cpp' object='src/tests/UnitRunner-SortedListTest.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-SortedListTest.obj `if test -f 'src/tests/SortedListTest.cpp'; then $(CYGPATH_W) 'src/tests/SortedListTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/SortedListTest.cpp'; fi`
-
 src/tests/UnitRunner-ScriptInterpTCLTest.o: src/tests/ScriptInterpTCLTest.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-ScriptInterpTCLTest.o -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-ScriptInterpTCLTest.Tpo -c -o src/tests/UnitRunner-ScriptInterpTCLTest.o `test -f 'src/tests/ScriptInterpTCLTest.cpp' || echo '$(srcdir)/'`src/tests/ScriptInterpTCLTest.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-ScriptInterpTCLTest.Tpo src/tests/$(DEPDIR)/UnitRunner-ScriptInterpTCLTest.Po
@@ -924,20 +802,6 @@ src/tests/UnitRunner-ScriptInterpTCLTest.obj: src/tests/ScriptInterpTCLTest.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/ScriptInterpTCLTest.cpp' object='src/tests/UnitRunner-ScriptInterpTCLTest.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-ScriptInterpTCLTest.obj `if test -f 'src/tests/ScriptInterpTCLTest.cpp'; then $(CYGPATH_W) 'src/tests/ScriptInterpTCLTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/ScriptInterpTCLTest.cpp'; fi`
-
-src/tests/UnitRunner-StackTest.o: src/tests/StackTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-StackTest.o -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-StackTest.Tpo -c -o src/tests/UnitRunner-StackTest.o `test -f 'src/tests/StackTest.cpp' || echo '$(srcdir)/'`src/tests/StackTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-StackTest.Tpo src/tests/$(DEPDIR)/UnitRunner-StackTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/StackTest.cpp' object='src/tests/UnitRunner-StackTest.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-StackTest.o `test -f 'src/tests/StackTest.cpp' || echo '$(srcdir)/'`src/tests/StackTest.cpp
-
-src/tests/UnitRunner-StackTest.obj: src/tests/StackTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-StackTest.obj -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-StackTest.Tpo -c -o src/tests/UnitRunner-StackTest.obj `if test -f 'src/tests/StackTest.cpp'; then $(CYGPATH_W) 'src/tests/StackTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/StackTest.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-StackTest.Tpo src/tests/$(DEPDIR)/UnitRunner-StackTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/StackTest.cpp' object='src/tests/UnitRunner-StackTest.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-StackTest.obj `if test -f 'src/tests/StackTest.cpp'; then $(CYGPATH_W) 'src/tests/StackTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/StackTest.cpp'; fi`
 
 src/tests/UnitRunner-StringTest.o: src/tests/StringTest.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-StringTest.o -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-StringTest.Tpo -c -o src/tests/UnitRunner-StringTest.o `test -f 'src/tests/StringTest.cpp' || echo '$(srcdir)/'`src/tests/StringTest.cpp
@@ -966,20 +830,6 @@ src/tests/UnitRunner-StreamTest.obj: src/tests/StreamTest.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/StreamTest.cpp' object='src/tests/UnitRunner-StreamTest.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-StreamTest.obj `if test -f 'src/tests/StreamTest.cpp'; then $(CYGPATH_W) 'src/tests/StreamTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/StreamTest.cpp'; fi`
-
-src/tests/UnitRunner-QueueTest.o: src/tests/QueueTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-QueueTest.o -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-QueueTest.Tpo -c -o src/tests/UnitRunner-QueueTest.o `test -f 'src/tests/QueueTest.cpp' || echo '$(srcdir)/'`src/tests/QueueTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-QueueTest.Tpo src/tests/$(DEPDIR)/UnitRunner-QueueTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/QueueTest.cpp' object='src/tests/UnitRunner-QueueTest.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-QueueTest.o `test -f 'src/tests/QueueTest.cpp' || echo '$(srcdir)/'`src/tests/QueueTest.cpp
-
-src/tests/UnitRunner-QueueTest.obj: src/tests/QueueTest.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -MT src/tests/UnitRunner-QueueTest.obj -MD -MP -MF src/tests/$(DEPDIR)/UnitRunner-QueueTest.Tpo -c -o src/tests/UnitRunner-QueueTest.obj `if test -f 'src/tests/QueueTest.cpp'; then $(CYGPATH_W) 'src/tests/QueueTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/QueueTest.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/tests/$(DEPDIR)/UnitRunner-QueueTest.Tpo src/tests/$(DEPDIR)/UnitRunner-QueueTest.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/tests/QueueTest.cpp' object='src/tests/UnitRunner-QueueTest.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(UnitRunner_CXXFLAGS) $(CXXFLAGS) -c -o src/tests/UnitRunner-QueueTest.obj `if test -f 'src/tests/QueueTest.cpp'; then $(CYGPATH_W) 'src/tests/QueueTest.cpp'; else $(CYGPATH_W) '$(srcdir)/src/tests/QueueTest.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
