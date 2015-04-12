@@ -1,13 +1,23 @@
 <html>
 <head>
-<title>Tcl_TraceVar</title>
+<title>_fd</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/47.html#L106'>Tcl_TraceVar</a>      106 ScriptInterpTCL.cpp   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
-<a href='../S/47.html#L107'>Tcl_TraceVar</a>      107 ScriptInterpTCL.cpp   Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
+<a href='../S/44.html#L60'>_fd</a>                60 AtomicFile.cpp   _fd = mkstemp(_tmpname.begin());
+<a href='../S/44.html#L70'>_fd</a>                70 AtomicFile.cpp   ::close(_fd);
+<a href='../S/44.html#L71'>_fd</a>                71 AtomicFile.cpp   _fd = -1;
+<a href='../S/44.html#L80'>_fd</a>                80 AtomicFile.cpp   if (_mode != mode_t(-1) &amp;&amp; fchmod(_fd, _mode) != 0) {
+<a href='../S/44.html#L83'>_fd</a>                83 AtomicFile.cpp   if (::fsync(_fd) != 0) {
+<a href='../S/44.html#L86'>_fd</a>                86 AtomicFile.cpp   if (::close(_fd) != 0) {
+<a href='../S/44.html#L100'>_fd</a>               100 AtomicFile.cpp   _fd = -1;
+<a href='../S/38.html#L43'>_fd</a>                43 AtomicFile.h       int _fd;
+<a href='../S/38.html#L46'>_fd</a>                46 AtomicFile.h       AtomicFile() : _fname(), _tmpname(), _fd(-1), _mode(-1) {};
+<a href='../S/38.html#L47'>_fd</a>                47 AtomicFile.h       AtomicFile(AtomicFile&amp; f) : _fname(f._fname), _tmpname(), _fd(f._fd),
+<a href='../S/38.html#L73'>_fd</a>                73 AtomicFile.h         return _fd != -1;
+<a href='../S/38.html#L81'>_fd</a>                81 AtomicFile.h         return (is_open() ? _fd : -1);
 </pre>
 </body>
 </html>

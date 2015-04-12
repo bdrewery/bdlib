@@ -1,7 +1,8 @@
 var classbd_1_1ScriptInterp =
 [
-    [ "script_cmd_handler_clientdata", "structbd_1_1ScriptInterp_1_1script__cmd__handler__clientdata.html", "structbd_1_1ScriptInterp_1_1script__cmd__handler__clientdata" ],
+    [ "ScriptCmd", "structbd_1_1ScriptInterp_1_1ScriptCmd.html", "structbd_1_1ScriptInterp_1_1ScriptCmd" ],
     [ "link_var_hook", "classbd_1_1ScriptInterp.html#a6896a7e0a51427f34743dc96265ed47a", null ],
+    [ "ScriptCmdPtr", "classbd_1_1ScriptInterp.html#a633872404b37213f6956ce60306ed7fb", null ],
     [ "LoadError", "classbd_1_1ScriptInterp.html#a22e81f37a151c9a03a986cba1d7a3b70", [
       [ "SCRIPT_LOAD_OK", "classbd_1_1ScriptInterp.html#a22e81f37a151c9a03a986cba1d7a3b70a8237481ee65408fc76cf6fc4d1b38c46", null ],
       [ "SCRIPT_LOAD_ERROR", "classbd_1_1ScriptInterp.html#a22e81f37a151c9a03a986cba1d7a3b70af86f373bb6d032f364f3fd0f35607674", null ],

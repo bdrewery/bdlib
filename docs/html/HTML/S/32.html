@@ -1,66 +1,52 @@
 <html>
 <head>
-<title>tests/ScriptInterpTCLTest.h</title>
+<title>make_unique.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/<a href='../files/70.html'>tests</a>/ScriptInterpTCLTest.h</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/make_unique.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='17.html#L5' title='Included from 5 in tests/ScriptInterpTCLTest.cpp.'>INCLUDED FROM</a></h2>
+<h2><a href='25.html#L34' title='Included from 34 in ScriptInterpTCL.h.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* ScriptInterpTCLTest.h</font></i>
-<a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> */</font></i>
-<a name='L4'>   4 <font color='darkred'>#ifndef</font> <a href='../S/32.html#L5' title='Defined at 5 in tests/ScriptInterpTCLTest.h.'>_SCRIPTINTERPTCLTEST_H</a>
-<a name='L5'>   5 <font color='darkred'>#define</font> <a href='../S/32.html#L4' title='Refered from 4 in tests/ScriptInterpTCLTest.h.'>_SCRIPTINTERPTCLTEST_H</a> 1
+<a name='L1'>   1 <i><font color='green'>/* http://isocpp.org/files/papers/N3656.txt */</font></i>
+<a name='L2'>   2 <font color='darkred'>#include</font> &lt;cstddef&gt;
+<a name='L3'>   3 <font color='darkred'>#include</font> &lt;memory&gt;
+<a name='L4'>   4 <font color='darkred'>#include</font> &lt;type_traits&gt;
+<a name='L5'>   5 <font color='darkred'>#include</font> &lt;utility&gt;
 <a name='L6'>   6 
-<a name='L7'>   7 <font color='darkred'>#include</font> &lt;cppunit/TestFixture.h&gt;
-<a name='L8'>   8 <font color='darkred'>#include</font> &lt;cppunit/extensions/HelperMacros.h&gt;
-<a name='L9'>   9 <font color='darkred'>#include</font> "<a href='42.html'>String.h</a>"
-<a name='L10'>  10 <font color='darkred'>#include</font> "<a href='52.html'>Array.h</a>"
-<a name='L11'>  11 <font color='darkred'>#include</font> "<a href='40.html'>Stream.h</a>"
-<a name='L12'>  12 <font color='darkred'>#include</font> "<a href='61.html'>ScriptInterp.h</a>"
-<a name='L13'>  13 <font color='darkred'>#include</font> "<a href='39.html'>ScriptInterpTCL.h</a>"
-<a name='L14'>  14 <font color='darkred'>#ifdef</font> <a href='../Y/47.html' title='Multiple used in 6 places.'>HAVE_CONFIG_H</a>
-<a name='L15'>  15 <font color='darkred'>#  include</font> "config.h"
-<a name='L16'>  16 <font color='darkred'>#endif</font>
-<a name='L17'>  17 <a href='../Y/734.html' title='Multiple used in 24 places.'>using</a> <a href='../Y/516.html' title='Multiple used in 12 places.'>namespace</a> <a href='../S/49.html#L46' title='Defined at 46 in bdlib.h.'>BDLIB_NS</a>;
-<a name='L18'>  18 
-<a name='L19'>  19 <font color='darkred'>#ifdef</font> <a href='../S/56.html#L3' title='Defined at 3 in config-sanity.h.'>USE_SCRIPT_TCL</a>
-<a name='L20'>  20 <a href='../Y/272.html' title='Multiple used in 76 places.'>class</a> <a href='../Y/108.html' title='Multiple used in 12 places.'>ScriptInterpTCLTest</a> : <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a> <a href='../Y/20.html' title='Multiple used in 21 places.'>CPPUNIT_NS</a> :: <a href='../Y/162.html' title='Multiple used in 11 places.'>TestFixture</a>
-<a name='L21'>  21 <font color='red'>{</font>
-<a name='L22'>  22     <a href='../Y/23.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE</a> (<a href='../Y/108.html' title='Multiple used in 12 places.'>ScriptInterpTCLTest</a>);
-<a name='L23'>  23     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/17.html#L32' title='Defined at 32 in tests/ScriptInterpTCLTest.cpp.'>evalTest</a>);
-<a name='L24'>  24     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/17.html#L41' title='Defined at 41 in tests/ScriptInterpTCLTest.cpp.'>loadScriptTest</a>);
-<a name='L25'>  25 <i><font color='green'>//    CPPUNIT_TEST (operatorEqualsTest);</font></i>
-<a name='L26'>  26     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/17.html#L90' title='Defined at 90 in tests/ScriptInterpTCLTest.cpp.'>linkVarTest</a>);
-<a name='L27'>  27     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/17.html#L225' title='Defined at 225 in tests/ScriptInterpTCLTest.cpp.'>unlinkVarTest</a>);
-<a name='L28'>  28     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/17.html#L294' title='Defined at 294 in tests/ScriptInterpTCLTest.cpp.'>createCommandTest</a>);
-<a name='L29'>  29     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/17.html#L370' title='Defined at 370 in tests/ScriptInterpTCLTest.cpp.'>createCommandEventTest</a>);
-<a name='L30'>  30     <a href='../Y/22.html' title='Multiple used in 105 places.'>CPPUNIT_TEST</a> (<a href='../S/17.html#L414' title='Defined at 414 in tests/ScriptInterpTCLTest.cpp.'>deleteCommandTest</a>);
-<a name='L31'>  31     <a href='../Y/24.html' title='Multiple used in 11 places.'>CPPUNIT_TEST_SUITE_END</a> ();
+<a name='L7'>   7 <a href='../Y/473.html' title='Multiple used in 10 places.'>namespace</a> <a href='../S/17.html#L165' title='Defined at 165 in tests/StringTest.cpp.'>std</a> <font color='red'>{</font>
+<a name='L8'>   8     <a href='../Y/636.html' title='Multiple used in 41 places.'>template</a>&lt;<a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt; <b>struct</b> <a href='../R/65.html' title='Multiple refered from 5 places.'>_Unique_if</a> <font color='red'>{</font>
+<a name='L9'>   9         <b>typedef</b> <a href='../Y/667.html' title='Multiple used in 10 places.'>unique_ptr</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt; <a href='../S/32.html#L21' title='Refered from 21 in make_unique.h.'>_Single_object</a>;
+<a name='L10'>  10     <font color='red'>}</font>;
+<a name='L11'>  11 
+<a name='L12'>  12     <a href='../Y/636.html' title='Multiple used in 41 places.'>template</a>&lt;<a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt; <b>struct</b> <a href='../S/32.html#L8' title='Defined at 8 in make_unique.h.'>_Unique_if</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>[]&gt; <font color='red'>{</font>
+<a name='L13'>  13         <b>typedef</b> <a href='../Y/667.html' title='Multiple used in 10 places.'>unique_ptr</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>[]&gt; <a href='../S/32.html#L27' title='Refered from 27 in make_unique.h.'>_Unknown_bound</a>;
+<a name='L14'>  14     <font color='red'>}</font>;
+<a name='L15'>  15 
+<a name='L16'>  16     <a href='../Y/636.html' title='Multiple used in 41 places.'>template</a>&lt;<a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>, <a href='../Y/576.html' title='Multiple used in 568 places.'>size_t</a> N&gt; <b>struct</b> <a href='../S/32.html#L8' title='Defined at 8 in make_unique.h.'>_Unique_if</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>[N]&gt; <font color='red'>{</font>
+<a name='L17'>  17         <b>typedef</b> <b>void</b> <a href='../S/32.html#L34' title='Refered from 34 in make_unique.h.'>_Known_bound</a>;
+<a name='L18'>  18     <font color='red'>}</font>;
+<a name='L19'>  19 
+<a name='L20'>  20     <a href='../Y/636.html' title='Multiple used in 41 places.'>template</a>&lt;<a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>, <a href='../Y/247.html' title='Multiple used in 45 places.'>class</a>... <a href='../Y/4.html' title='Multiple used in 5 places.'>Args</a>&gt;
+<a name='L21'>  21         <a href='../Y/658.html' title='Multiple used in 38 places.'>typename</a> <a href='../S/32.html#L8' title='Defined at 8 in make_unique.h.'>_Unique_if</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt;::<a href='../S/32.html#L9' title='Defined at 9 in make_unique.h.'>_Single_object</a>
+<a name='L22'>  22         <a href='../Y/435.html' title='Multiple used in 6 places.'>make_unique</a>(<a href='../Y/4.html' title='Multiple used in 5 places.'>Args</a>&amp;&amp;... <a href='../S/12.html#L348' title='Defined at 348 in tests/ScriptInterpTCLTest.cpp.'>args</a>) <font color='red'>{</font>
+<a name='L23'>  23             <b>return</b> <a href='../Y/667.html' title='Multiple used in 10 places.'>unique_ptr</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt;(<a href='../Y/474.html' title='Multiple used in 4 places.'>new</a> <a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>(<a href='../S/17.html#L165' title='Defined at 165 in tests/StringTest.cpp.'>std</a>::<a href='../Y/345.html' title='Multiple used in 3 places.'>forward</a>&lt;<a href='../Y/4.html' title='Multiple used in 5 places.'>Args</a>&gt;(<a href='../S/12.html#L348' title='Defined at 348 in tests/ScriptInterpTCLTest.cpp.'>args</a>)...));
+<a name='L24'>  24         <font color='red'>}</font>
+<a name='L25'>  25 
+<a name='L26'>  26     <a href='../Y/636.html' title='Multiple used in 41 places.'>template</a>&lt;<a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt;
+<a name='L27'>  27         <a href='../Y/658.html' title='Multiple used in 38 places.'>typename</a> <a href='../S/32.html#L8' title='Defined at 8 in make_unique.h.'>_Unique_if</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt;::<a href='../S/32.html#L13' title='Defined at 13 in make_unique.h.'>_Unknown_bound</a>
+<a name='L28'>  28         <a href='../Y/435.html' title='Multiple used in 6 places.'>make_unique</a>(<a href='../Y/576.html' title='Multiple used in 568 places.'>size_t</a> <a href='../Y/468.html' title='Multiple used in 71 places.'>n</a>) <font color='red'>{</font>
+<a name='L29'>  29             <b>typedef</b> <a href='../Y/658.html' title='Multiple used in 38 places.'>typename</a> remove_extent&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt;::<a href='../Y/657.html' title='Multiple used in 2 places.'>type</a> <a href='../S/32.html#L30' title='Refered from 30 in make_unique.h.'>U</a>;
+<a name='L30'>  30             <b>return</b> <a href='../Y/667.html' title='Multiple used in 10 places.'>unique_ptr</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt;(<a href='../Y/474.html' title='Multiple used in 4 places.'>new</a> <a href='../S/32.html#L29' title='Defined at 29 in make_unique.h.'>U</a>[<a href='../Y/468.html' title='Multiple used in 71 places.'>n</a>]());
+<a name='L31'>  31         <font color='red'>}</font>
 <a name='L32'>  32 
-<a name='L33'>  33     <a href='../Y/576.html' title='Multiple used in 81 places.'>public</a>:
-<a name='L34'>  34         <b>void</b> <a href='../D/239.html' title='Multiple defined in 11 places.'>setUp</a> (<b>void</b>);
-<a name='L35'>  35         <b>void</b> <a href='../D/265.html' title='Multiple defined in 11 places.'>tearDown</a> (<b>void</b>);
-<a name='L36'>  36 
-<a name='L37'>  37     <a href='../Y/562.html' title='Multiple used in 20 places.'>protected</a>:
-<a name='L38'>  38         <b>void</b> <a href='../S/17.html#L32' title='Defined at 32 in tests/ScriptInterpTCLTest.cpp.'>evalTest</a>(<b>void</b>);
-<a name='L39'>  39         <b>void</b> <a href='../S/17.html#L41' title='Defined at 41 in tests/ScriptInterpTCLTest.cpp.'>loadScriptTest</a>(<b>void</b>);
-<a name='L40'>  40 <i><font color='green'>//        void operatorEqualsTest(void);</font></i>
-<a name='L41'>  41         <b>void</b> <a href='../S/17.html#L90' title='Defined at 90 in tests/ScriptInterpTCLTest.cpp.'>linkVarTest</a>(<b>void</b>);
-<a name='L42'>  42         <b>void</b> <a href='../S/17.html#L225' title='Defined at 225 in tests/ScriptInterpTCLTest.cpp.'>unlinkVarTest</a>(<b>void</b>);
-<a name='L43'>  43         <b>void</b> <a href='../S/17.html#L294' title='Defined at 294 in tests/ScriptInterpTCLTest.cpp.'>createCommandTest</a>(<b>void</b>);
-<a name='L44'>  44         <b>void</b> <a href='../S/17.html#L370' title='Defined at 370 in tests/ScriptInterpTCLTest.cpp.'>createCommandEventTest</a>(<b>void</b>);
-<a name='L45'>  45         <b>void</b> <a href='../S/17.html#L414' title='Defined at 414 in tests/ScriptInterpTCLTest.cpp.'>deleteCommandTest</a>(<b>void</b>);
-<a name='L46'>  46     <a href='../Y/561.html' title='Multiple used in 39 places.'>private</a>:
-<a name='L47'>  47 <font color='red'>}</font>;
-<a name='L48'>  48 <font color='darkred'>#endif</font> <i><font color='green'>/* USE_SCRIPT_TCL */</font></i>
-<a name='L49'>  49 <font color='darkred'>#endif</font> <i><font color='green'>/* !_SCRIPTINTERPTCLTEST_H */</font></i>
-<a name='L50'>  50 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L33'>  33     <a href='../Y/636.html' title='Multiple used in 41 places.'>template</a>&lt;<a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>, <a href='../Y/247.html' title='Multiple used in 45 places.'>class</a>... <a href='../Y/4.html' title='Multiple used in 5 places.'>Args</a>&gt;
+<a name='L34'>  34         <a href='../Y/658.html' title='Multiple used in 38 places.'>typename</a> <a href='../S/32.html#L8' title='Defined at 8 in make_unique.h.'>_Unique_if</a>&lt;<a href='../Y/98.html' title='Multiple used in 77 places.'>T</a>&gt;::<a href='../S/32.html#L17' title='Defined at 17 in make_unique.h.'>_Known_bound</a>
+<a name='L35'>  35         <a href='../Y/435.html' title='Multiple used in 6 places.'>make_unique</a>(<a href='../Y/4.html' title='Multiple used in 5 places.'>Args</a>&amp;&amp;...) = <a href='../Y/288.html' title='Multiple used in 20 places.'>delete</a>;
+<a name='L36'>  36 <font color='red'>}</font>
 </pre>
 <hr>
 <a name='BOTTOM'>

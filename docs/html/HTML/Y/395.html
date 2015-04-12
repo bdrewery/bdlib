@@ -1,17 +1,21 @@
 <html>
 <head>
-<title>getIndex</title>
+<title>is</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/6.html#L59'>getIndex</a>           59 HashTable.h        inline size_t getIndex(const Key&amp; key) const {
-<a href='../S/6.html#L152'>getIndex</a>          152 HashTable.h          _list[getIndex(key)] &lt;&lt; iterator_type(key, value);
-<a href='../S/6.html#L159'>getIndex</a>          159 HashTable.h          return _list[getIndex(key)].contains(iterator_type(key, Value()));
-<a href='../S/6.html#L164'>getIndex</a>          164 HashTable.h          if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
-<a href='../S/6.html#L174'>getIndex</a>          174 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
-<a href='../S/6.html#L235'>getIndex</a>          235 HashTable.h          return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
+<a href='../S/46.html#L123'>is</a>                123 String.cpp     std::istream&amp; operator&gt;&gt;(std::istream&amp; is, String&amp; string) {
+<a href='../S/46.html#L126'>is</a>                126 String.cpp       is &gt;&gt; ch;    // whitespace skipped, first non-white char in ch
+<a href='../S/46.html#L128'>is</a>                128 String.cpp       if (!is.fail())
+<a href='../S/46.html#L133'>is</a>                133 String.cpp           is.get(ch);
+<a href='../S/46.html#L134'>is</a>                134 String.cpp         } while (!is.fail() &amp;&amp; !isspace(ch));
+<a href='../S/46.html#L138'>is</a>                138 String.cpp           is.putback(ch);
+<a href='../S/46.html#L141'>is</a>                141 String.cpp       return is;
+<a href='../S/46.html#L144'>is</a>                144 String.cpp     std::istream&amp; getline(std::istream&amp; is, String&amp; string) {
+<a href='../S/46.html#L149'>is</a>                149 String.cpp       while (is.get(ch) &amp;&amp; ch != '\n')
+<a href='../S/46.html#L152'>is</a>                152 String.cpp       return is;
 </pre>
 </body>
 </html>

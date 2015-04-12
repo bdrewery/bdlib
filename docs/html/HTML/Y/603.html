@@ -1,15 +1,125 @@
 <html>
 <head>
-<title>return_string</title>
+<title>str_a</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/17.html#L255'>return_string</a>     255 tests/ScriptInterpTCLTest.cpp   String return_string;
-<a href='../S/17.html#L257'>return_string</a>     257 tests/ScriptInterpTCLTest.cpp     return_string = String::printf("I got %zu args, arg1: %s arg2: %d", size_t(2), *arg1, arg2);
-<a href='../S/17.html#L259'>return_string</a>     259 tests/ScriptInterpTCLTest.cpp     return_string = String::printf("I got %zu args, arg1: %s", size_t(1), *arg1);
-<a href='../S/17.html#L261'>return_string</a>     261 tests/ScriptInterpTCLTest.cpp   return return_string;
+<a href='../S/20.html#L41'>str_a</a>              41 tests/ArrayTest.cpp     str_a = new Array&lt;String&gt;();
+<a href='../S/20.html#L51'>str_a</a>              51 tests/ArrayTest.cpp     delete str_a; delete str_b; delete str_c;
+<a href='../S/20.html#L58'>str_a</a>              58 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a-&gt;size());
+<a href='../S/20.html#L69'>str_a</a>              69 tests/ArrayTest.cpp   str_a-&gt;push(String("Test1"));
+<a href='../S/20.html#L70'>str_a</a>              70 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a-&gt;size());
+<a href='../S/20.html#L71'>str_a</a>              71 tests/ArrayTest.cpp   (*str_a) &lt;&lt; String("Test2");
+<a href='../S/20.html#L72'>str_a</a>              72 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a-&gt;size());
+<a href='../S/20.html#L73'>str_a</a>              73 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;capacity() &gt;= 2);
+<a href='../S/20.html#L74'>str_a</a>              74 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a-&gt;pop());
+<a href='../S/20.html#L75'>str_a</a>              75 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_a-&gt;pop());
+<a href='../S/20.html#L76'>str_a</a>              76 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a-&gt;size());
+<a href='../S/20.html#L77'>str_a</a>              77 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;capacity() &gt;= 2);
+<a href='../S/20.html#L82'>str_a</a>              82 tests/ArrayTest.cpp   str_a-&gt;push(a);
+<a href='../S/20.html#L84'>str_a</a>              84 tests/ArrayTest.cpp   str_a-&gt;push(a);
+<a href='../S/20.html#L85'>str_a</a>              85 tests/ArrayTest.cpp   str_a-&gt;pop();
+<a href='../S/20.html#L87'>str_a</a>              87 tests/ArrayTest.cpp   str_a-&gt;push(b);
+<a href='../S/20.html#L88'>str_a</a>              88 tests/ArrayTest.cpp   str_a-&gt;push(a);
+<a href='../S/20.html#L89'>str_a</a>              89 tests/ArrayTest.cpp   str_a-&gt;push(b);
+<a href='../S/20.html#L90'>str_a</a>              90 tests/ArrayTest.cpp   str_a-&gt;push(b);
+<a href='../S/20.html#L91'>str_a</a>              91 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(5), str_a-&gt;size());
+<a href='../S/20.html#L93'>str_a</a>              93 tests/ArrayTest.cpp   String res = str_a-&gt;pop();
+<a href='../S/20.html#L95'>str_a</a>              95 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), str_a-&gt;size());
+<a href='../S/20.html#L98'>str_a</a>              98 tests/ArrayTest.cpp   (*str_a) &gt;&gt; res;
+<a href='../S/20.html#L99'>str_a</a>              99 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), str_a-&gt;size());
+<a href='../S/20.html#L103'>str_a</a>             103 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(a, str_a-&gt;pop());
+<a href='../S/20.html#L104'>str_a</a>             104 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a-&gt;size());
+<a href='../S/20.html#L106'>str_a</a>             106 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(b, str_a-&gt;pop());
+<a href='../S/20.html#L107'>str_a</a>             107 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a-&gt;size());
+<a href='../S/20.html#L109'>str_a</a>             109 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(a, str_a-&gt;pop());
+<a href='../S/20.html#L110'>str_a</a>             110 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a-&gt;size());
+<a href='../S/20.html#L112'>str_a</a>             112 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(String(), str_a-&gt;pop());
+<a href='../S/20.html#L114'>str_a</a>             114 tests/ArrayTest.cpp   (*str_a) &lt;&lt; "1";
+<a href='../S/20.html#L115'>str_a</a>             115 tests/ArrayTest.cpp   (*str_a) &lt;&lt; "2";
+<a href='../S/20.html#L116'>str_a</a>             116 tests/ArrayTest.cpp   (*str_a) &lt;&lt; "3";
+<a href='../S/20.html#L117'>str_a</a>             117 tests/ArrayTest.cpp   (*str_a) &lt;&lt; "4";
+<a href='../S/20.html#L118'>str_a</a>             118 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3 4", str_a-&gt;join(' '));
+<a href='../S/20.html#L121'>str_a</a>             121 tests/ArrayTest.cpp   hm = (*str_a).pop();
+<a href='../S/20.html#L122'>str_a</a>             122 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1 2 3", str_a-&gt;join(' '));
+<a href='../S/20.html#L124'>str_a</a>             124 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), str_a-&gt;size());
+<a href='../S/20.html#L126'>str_a</a>             126 tests/ArrayTest.cpp   hm = (*str_a).shift();
+<a href='../S/20.html#L127'>str_a</a>             127 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2 3", str_a-&gt;join(' '));
+<a href='../S/20.html#L129'>str_a</a>             129 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a-&gt;size());
+<a href='../S/20.html#L131'>str_a</a>             131 tests/ArrayTest.cpp   (*str_a) = Array&lt;String&gt;();
+<a href='../S/20.html#L132'>str_a</a>             132 tests/ArrayTest.cpp   (*str_a) &lt;&lt; "Test";
+<a href='../S/20.html#L133'>str_a</a>             133 tests/ArrayTest.cpp   (*str_a) &lt;&lt; "1 2 3";
+<a href='../S/20.html#L134'>str_a</a>             134 tests/ArrayTest.cpp   (*str_a) &lt;&lt; "Last 1";
+<a href='../S/20.html#L135'>str_a</a>             135 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("\"Test\" \"1 2 3\" \"Last 1\"", str_a-&gt;join(" ", true));
+<a href='../S/20.html#L230'>str_a</a>             230 tests/ArrayTest.cpp   str_a-&gt;push("Test1");
+<a href='../S/20.html#L231'>str_a</a>             231 tests/ArrayTest.cpp   str_a-&gt;push("Test2");
+<a href='../S/20.html#L232'>str_a</a>             232 tests/ArrayTest.cpp   str_a-&gt;push("Test3");
+<a href='../S/20.html#L233'>str_a</a>             233 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1 Test2 Test3", str_a-&gt;join(' '));
+<a href='../S/20.html#L234'>str_a</a>             234 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(3), str_a-&gt;size());
+<a href='../S/20.html#L235'>str_a</a>             235 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test3", str_a-&gt;pop());
+<a href='../S/20.html#L236'>str_a</a>             236 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a-&gt;pop());
+<a href='../S/20.html#L237'>str_a</a>             237 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_a-&gt;pop());
+<a href='../S/20.html#L238'>str_a</a>             238 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a-&gt;size());
+<a href='../S/20.html#L243'>str_a</a>             243 tests/ArrayTest.cpp   str_a-&gt;push("Test1");
+<a href='../S/20.html#L244'>str_a</a>             244 tests/ArrayTest.cpp   str_a-&gt;push("Test2");
+<a href='../S/20.html#L247'>str_a</a>             247 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(false, (*str_a) == (*str_b));
+<a href='../S/20.html#L250'>str_a</a>             250 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(true, (*str_a) == (*str_b));
+<a href='../S/20.html#L255'>str_a</a>             255 tests/ArrayTest.cpp   str_a-&gt;push("Test1");
+<a href='../S/20.html#L256'>str_a</a>             256 tests/ArrayTest.cpp   str_a-&gt;push("Test2");
+<a href='../S/20.html#L257'>str_a</a>             257 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(-1), str_a-&gt;find("Test3"));
+<a href='../S/20.html#L258'>str_a</a>             258 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a-&gt;find("Test1"));
+<a href='../S/20.html#L259'>str_a</a>             259 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a-&gt;find("Test2"));
+<a href='../S/20.html#L264'>str_a</a>             264 tests/ArrayTest.cpp   str_a-&gt;push("Test1");
+<a href='../S/20.html#L265'>str_a</a>             265 tests/ArrayTest.cpp   str_a-&gt;push("Test2");
+<a href='../S/20.html#L266'>str_a</a>             266 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
+<a href='../S/20.html#L267'>str_a</a>             267 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_a)[1]);
+<a href='../S/20.html#L269'>str_a</a>             269 tests/ArrayTest.cpp   (*str_b) = (*str_a);
+<a href='../S/20.html#L271'>str_a</a>             271 tests/ArrayTest.cpp   (*str_a)[1] = "Test3";
+<a href='../S/20.html#L272'>str_a</a>             272 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
+<a href='../S/20.html#L273'>str_a</a>             273 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_a)[1]);
+<a href='../S/20.html#L281'>str_a</a>             281 tests/ArrayTest.cpp   str_a-&gt;push("Test0");
+<a href='../S/20.html#L282'>str_a</a>             282 tests/ArrayTest.cpp   str_a-&gt;push("Test1");
+<a href='../S/20.html#L283'>str_a</a>             283 tests/ArrayTest.cpp   str_a-&gt;push("Test2");
+<a href='../S/20.html#L284'>str_a</a>             284 tests/ArrayTest.cpp   str_a-&gt;push("Test3");
+<a href='../S/20.html#L285'>str_a</a>             285 tests/ArrayTest.cpp   str_a-&gt;push("Test4");
+<a href='../S/20.html#L286'>str_a</a>             286 tests/ArrayTest.cpp   str_a-&gt;push("Test5");
+<a href='../S/20.html#L287'>str_a</a>             287 tests/ArrayTest.cpp   str_a-&gt;push("Test6");
+<a href='../S/20.html#L288'>str_a</a>             288 tests/ArrayTest.cpp   str_a-&gt;push("Test7");
+<a href='../S/20.html#L291'>str_a</a>             291 tests/ArrayTest.cpp   (*str_c) = (*str_a);
+<a href='../S/20.html#L292'>str_a</a>             292 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 2);
+<a href='../S/20.html#L294'>str_a</a>             294 tests/ArrayTest.cpp   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_c), (*str_a));
+<a href='../S/20.html#L295'>str_a</a>             295 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(8), str_a-&gt;size());
+<a href='../S/20.html#L310'>str_a</a>             310 tests/ArrayTest.cpp   (*str_b) = (*str_a);
+<a href='../S/20.html#L313'>str_a</a>             313 tests/ArrayTest.cpp   Array&lt;String&gt; expectedResults(*str_a);
+<a href='../S/20.html#L316'>str_a</a>             316 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(8), str_a-&gt;size());
+<a href='../S/20.html#L326'>str_a</a>             326 tests/ArrayTest.cpp   (*str_a).push("test");
+<a href='../S/20.html#L327'>str_a</a>             327 tests/ArrayTest.cpp   (*str_a).push("test2");
+<a href='../S/20.html#L331'>str_a</a>             331 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_a-&gt;hash(), str_b-&gt;hash());
+<a href='../S/20.html#L332'>str_a</a>             332 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(str_a-&gt;hash(), str_c-&gt;hash());
+<a href='../S/20.html#L335'>str_a</a>             335 tests/ArrayTest.cpp   str_a-&gt;clear();
+<a href='../S/20.html#L337'>str_a</a>             337 tests/ArrayTest.cpp   (*str_a).push("test");
+<a href='../S/20.html#L338'>str_a</a>             338 tests/ArrayTest.cpp   (*str_a).push("test1");
+<a href='../S/20.html#L341'>str_a</a>             341 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_b-&gt;hash());
+<a href='../S/20.html#L342'>str_a</a>             342 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_c-&gt;hash());
+<a href='../S/20.html#L346'>str_a</a>             346 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 1);
+<a href='../S/20.html#L347'>str_a</a>             347 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() != str_b-&gt;hash());
+<a href='../S/20.html#L348'>str_a</a>             348 tests/ArrayTest.cpp   (*str_b) = (*str_a)(0, 2);
+<a href='../S/20.html#L349'>str_a</a>             349 tests/ArrayTest.cpp   CPPUNIT_ASSERT(str_a-&gt;hash() == str_b-&gt;hash());
+<a href='../S/20.html#L351'>str_a</a>             351 tests/ArrayTest.cpp   *str_b = *str_a;
+<a href='../S/20.html#L354'>str_a</a>             354 tests/ArrayTest.cpp   ht["blaha"] = *str_a;
+<a href='../S/20.html#L369'>str_a</a>             369 tests/ArrayTest.cpp   ha2[*str_a] = 1;
+<a href='../S/20.html#L377'>str_a</a>             377 tests/ArrayTest.cpp   str_a-&gt;push("1");
+<a href='../S/20.html#L378'>str_a</a>             378 tests/ArrayTest.cpp   str_a-&gt;push("2");
+<a href='../S/20.html#L383'>str_a</a>             383 tests/ArrayTest.cpp   (*str_c) = (*str_a) + (*str_b);
+<a href='../S/20.html#L431'>str_a</a>             431 tests/ArrayTest.cpp   *str_a = {"0", "1", "2", "3"};
+<a href='../S/20.html#L432'>str_a</a>             432 tests/ArrayTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(4), str_a-&gt;size());
+<a href='../S/20.html#L433'>str_a</a>             433 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("0", (*str_a)[0]);
+<a href='../S/20.html#L434'>str_a</a>             434 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_a)[1]);
+<a href='../S/20.html#L435'>str_a</a>             435 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_a)[2]);
+<a href='../S/20.html#L436'>str_a</a>             436 tests/ArrayTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_a)[3]);
+<a href='../S/15.html#L78'>str_a</a>              78 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
 </pre>
 </body>
 </html>

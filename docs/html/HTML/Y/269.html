@@ -1,16 +1,29 @@
 <html>
 <head>
-<title>check</title>
+<title>createCommand</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/28.html#L790'>check</a>             790 tests/StringTest.cpp   char check[100];
-<a href='../S/28.html#L791'>check</a>             791 tests/StringTest.cpp   strcpy(check, cstring); // *d = cstring
-<a href='../S/28.html#L792'>check</a>             792 tests/StringTest.cpp   strcat(check, cstring); 
-<a href='../S/28.html#L793'>check</a>             793 tests/StringTest.cpp   strcat(check, cstring);
-<a href='../S/28.html#L794'>check</a>             794 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(check, *d);
+<a href='../S/42.html#L129'>createCommand</a>     129 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/42.html#L130'>createCommand</a>     130 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
+<a href='../S/25.html#L292'>createCommand</a>     292 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/12.html#L383'>createCommand</a>     383 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
+<a href='../S/12.html#L387'>createCommand</a>     387 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
+<a href='../S/12.html#L393'>createCommand</a>     393 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("xi", my_xi);
+<a href='../S/12.html#L399'>createCommand</a>     399 tests/ScriptInterpTCLTest.cpp   ScriptInterp::createCommand(tcl_script, "param_test", param_test, nullptr, 1);
+<a href='../S/12.html#L410'>createCommand</a>     410 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("listReturn", listReturn);
+<a href='../S/12.html#L414'>createCommand</a>     414 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("nestedListReturn", nestedListReturn);
+<a href='../S/12.html#L418'>createCommand</a>     418 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("listParam", listParam);
+<a href='../S/12.html#L422'>createCommand</a>     422 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("nestedListParam", nestedListParam);
+<a href='../S/12.html#L428'>createCommand</a>     428 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("atoi", atoi);
+<a href='../S/12.html#L433'>createCommand</a>     433 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("xz", my_xz);
+<a href='../S/12.html#L434'>createCommand</a>     434 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("voidFunc", voidFunc);
+<a href='../S/12.html#L436'>createCommand</a>     436 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("args", args, "foo1 ?foo2?", 1);
+<a href='../S/12.html#L461'>createCommand</a>     461 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("param_test", param_test);
+<a href='../S/12.html#L468'>createCommand</a>     468 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("bind", script_bind);
+<a href='../S/12.html#L503'>createCommand</a>     503 tests/ScriptInterpTCLTest.cpp   tcl_script.createCommand("x", my_x);
 </pre>
 </body>
 </html>

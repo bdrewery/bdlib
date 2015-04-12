@@ -1,28 +1,34 @@
 <html>
 <head>
-<title>lhs</title>
+<title>my_hash</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L241'>lhs</a>               241 Array.h            inline friend bool operator==(const Array&amp; lhs, const Array&amp; rhs) { return lhs.equals(rhs); };
-<a href='../S/52.html#L242'>lhs</a>               242 Array.h            inline friend bool operator!=(const Array&amp; lhs, const Array&amp; rhs) { return !(lhs == rhs); };
-<a href='../S/36.html#L115'>lhs</a>               115 Iterator.h           inline friend bool operator == (const KeyValue &amp;lhs, const KeyValue &amp;rhs) { return lhs.key() == rhs.key(); }
-<a href='../S/42.html#L474'>lhs</a>               474 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/42.html#L475'>lhs</a>               475 String.h         return (lhs.compare(rhs) == 0);
-<a href='../S/42.html#L478'>lhs</a>               478 String.h       inline bool operator!=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/42.html#L479'>lhs</a>               479 String.h         return ! (lhs == rhs);
-<a href='../S/42.html#L482'>lhs</a>               482 String.h       inline bool operator&lt;(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/42.html#L483'>lhs</a>               483 String.h         return (lhs.compare(rhs) &lt; 0);
-<a href='../S/42.html#L486'>lhs</a>               486 String.h       inline bool operator&lt;=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/42.html#L487'>lhs</a>               487 String.h         return ! (rhs &lt; lhs);
-<a href='../S/42.html#L490'>lhs</a>               490 String.h       inline bool operator&gt;(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/42.html#L491'>lhs</a>               491 String.h         return (rhs &lt; lhs);
-<a href='../S/42.html#L494'>lhs</a>               494 String.h       inline bool operator&gt;=(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/42.html#L495'>lhs</a>               495 String.h         return ! (lhs &lt; rhs);
-<a href='../S/42.html#L502'>lhs</a>               502 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
-<a href='../S/42.html#L503'>lhs</a>               503 String.h         return (lhs.compare(rhs) == 0);
+<a href='../S/36.html#L226'>my_hash</a>           226 ReferenceCountedArray.h       my_hash = 0;
+<a href='../S/36.html#L243'>my_hash</a>           243 ReferenceCountedArray.h     inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
+<a href='../S/36.html#L248'>my_hash</a>           248 ReferenceCountedArray.h     inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
+<a href='../S/36.html#L253'>my_hash</a>           253 ReferenceCountedArray.h     inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
+<a href='../S/36.html#L294'>my_hash</a>           294 ReferenceCountedArray.h     mutable size_t my_hash;
+<a href='../S/36.html#L308'>my_hash</a>           308 ReferenceCountedArray.h         my_hash = 0;
+<a href='../S/36.html#L361'>my_hash</a>           361 ReferenceCountedArray.h       my_hash = 0;
+<a href='../S/36.html#L380'>my_hash</a>           380 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L382'>my_hash</a>           382 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/36.html#L383'>my_hash</a>           383 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/36.html#L388'>my_hash</a>           388 ReferenceCountedArray.h       rca.my_hash = 0;
+<a href='../S/36.html#L400'>my_hash</a>           400 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L413'>my_hash</a>           413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L440'>my_hash</a>           440 ReferenceCountedArray.h       swap(a.my_hash, b.my_hash);
+<a href='../S/36.html#L458'>my_hash</a>           458 ReferenceCountedArray.h       my_hash = rca.my_hash;
+<a href='../S/36.html#L474'>my_hash</a>           474 ReferenceCountedArray.h       my_hash = std::move(rca.my_hash);
+<a href='../S/36.html#L480'>my_hash</a>           480 ReferenceCountedArray.h       rca.my_hash = 0;
+<a href='../S/36.html#L646'>my_hash</a>           646 ReferenceCountedArray.h       if (my_hash != 0) return my_hash;
+<a href='../S/36.html#L652'>my_hash</a>           652 ReferenceCountedArray.h       return (my_hash = (_hash &amp; 0x7FFFFFFF));
+<a href='../S/9.html#L359'>my_hash</a>           359 tests/HashTableTest.cpp   HashTable&lt;String, int&gt; my_hash {
+<a href='../S/9.html#L362'>my_hash</a>           362 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(2), my_hash.size());
+<a href='../S/9.html#L363'>my_hash</a>           363 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(1, static_cast&lt;int&gt;(my_hash["One"]));
+<a href='../S/9.html#L364'>my_hash</a>           364 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(2, static_cast&lt;int&gt;(my_hash["Two"]));
 </pre>
 </body>
 </html>

@@ -1,19 +1,62 @@
 <html>
 <head>
-<title>target</title>
+<title>virtual</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L114'>target</a>            114 Cstrings.cpp     char *target = static_cast&lt;char*&gt;(calloc(1, len + 1));
-<a href='../S/43.html#L115'>target</a>            115 Cstrings.cpp     if (target == nullptr) return nullptr;
-<a href='../S/43.html#L116'>target</a>            116 Cstrings.cpp     target[len] = 0;
-<a href='../S/43.html#L117'>target</a>            117 Cstrings.cpp     return static_cast&lt;char*&gt;(memcpy(target, entry, len));
-<a href='../S/43.html#L125'>target</a>            125 Cstrings.cpp     char *target = static_cast&lt;char*&gt;(calloc(1, len + 1));
-<a href='../S/43.html#L126'>target</a>            126 Cstrings.cpp     if (target == nullptr) return nullptr;
-<a href='../S/43.html#L127'>target</a>            127 Cstrings.cpp     target[len] = 0;
-<a href='../S/43.html#L128'>target</a>            128 Cstrings.cpp     return static_cast&lt;char*&gt;(memcpy(target, entry, len));
+<a href='../S/37.html#L96'>virtual</a>            96 Array.h            virtual ~Array() {};
+<a href='../S/38.html#L53'>virtual</a>            53 AtomicFile.h       virtual ~AtomicFile() {
+<a href='../S/6.html#L63'>virtual</a>            63 HashTable.h        virtual ~HashTable() {}
+<a href='../S/36.html#L188'>virtual</a>           188 ReferenceCountedArray.h     virtual ~ReferenceCountedArrayBase() {};
+<a href='../S/36.html#L429'>virtual</a>           429 ReferenceCountedArray.h     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
+<a href='../S/36.html#L515'>virtual</a>           515 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize, double scaling_factor = 1) const {
+<a href='../S/36.html#L525'>virtual</a>           525 ReferenceCountedArray.h     virtual inline void clear() { Detach(); };
+<a href='../S/36.html#L645'>virtual</a>           645 ReferenceCountedArray.h     virtual size_t hash() const {
+<a href='../S/47.html#L39'>virtual</a>            39 Script.h               virtual ~Script() {};
+<a href='../S/42.html#L39'>virtual</a>            39 ScriptInterp.h     virtual ~ScriptCommandHandlerBase() {};
+<a href='../S/42.html#L40'>virtual</a>            40 ScriptInterp.h     virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
+<a href='../S/42.html#L52'>virtual</a>            52 ScriptInterp.h     virtual ~ScriptCallbacker() {};
+<a href='../S/42.html#L53'>virtual</a>            53 ScriptInterp.h     virtual String call(const Array&lt;String&gt;&amp; params = Array&lt;String&gt;()) = 0;
+<a href='../S/42.html#L67'>virtual</a>            67 ScriptInterp.h         virtual int init() = 0;
+<a href='../S/42.html#L68'>virtual</a>            68 ScriptInterp.h         virtual int destroy() = 0;
+<a href='../S/42.html#L92'>virtual</a>            92 ScriptInterp.h           virtual ~ScriptCmd() {};
+<a href='../S/42.html#L93'>virtual</a>            93 ScriptInterp.h           virtual void registerCmd() {
+<a href='../S/42.html#L96'>virtual</a>            96 ScriptInterp.h           virtual void unregisterCmd() {
+<a href='../S/42.html#L109'>virtual</a>           109 ScriptInterp.h         virtual ~ScriptInterp() {};
+<a href='../S/42.html#L114'>virtual</a>           114 ScriptInterp.h         virtual String eval(const String&amp; script) = 0;
+<a href='../S/42.html#L126'>virtual</a>           126 ScriptInterp.h         virtual LoadError loadScript(const String&amp; fileName, String&amp; resultStr) = 0;
+<a href='../S/42.html#L137'>virtual</a>           137 ScriptInterp.h         virtual void deleteCommand(const String&amp; name) = 0;
+<a href='../S/42.html#L155'>virtual</a>           155 ScriptInterp.h         virtual void unlinkVar(const String&amp; varName) = 0;
+<a href='../S/42.html#L158'>virtual</a>           158 ScriptInterp.h         virtual script_type type() const = 0;
+<a href='../S/25.html#L107'>virtual</a>           107 ScriptInterpTCL.h     virtual ~ScriptCommandHandlerTCLBase() {};
+<a href='../S/25.html#L118'>virtual</a>           118 ScriptInterpTCL.h     virtual ~ScriptCallbackerTCL() {};
+<a href='../S/25.html#L119'>virtual</a>           119 ScriptInterpTCL.h     inline virtual String call(const Array&lt;String&gt;&amp; params = Array&lt;String&gt;()) {
+<a href='../S/25.html#L149'>virtual</a>           149 ScriptInterpTCL.h           virtual ~ScriptCmdTCL() {
+<a href='../S/25.html#L152'>virtual</a>           152 ScriptInterpTCL.h           virtual void registerCmd() {
+<a href='../S/25.html#L159'>virtual</a>           159 ScriptInterpTCL.h           virtual void unregisterCmd() {
+<a href='../S/25.html#L273'>virtual</a>           273 ScriptInterpTCL.h         virtual int init();
+<a href='../S/25.html#L274'>virtual</a>           274 ScriptInterpTCL.h         virtual int destroy();
+<a href='../S/25.html#L281'>virtual</a>           281 ScriptInterpTCL.h         virtual ~ScriptInterpTCL() {
+<a href='../S/25.html#L288'>virtual</a>           288 ScriptInterpTCL.h         virtual String eval(const String&amp; script);
+<a href='../S/25.html#L289'>virtual</a>           289 ScriptInterpTCL.h         virtual LoadError loadScript(const String&amp; fileName, String&amp; resultStr);
+<a href='../S/25.html#L300'>virtual</a>           300 ScriptInterpTCL.h         virtual void deleteCommand(const String&amp; cmdName) {
+<a href='../S/25.html#L370'>virtual</a>           370 ScriptInterpTCL.h         virtual void unlinkVar(const String&amp; varName) {
+<a href='../S/25.html#L376'>virtual</a>           376 ScriptInterpTCL.h         virtual script_type type() const { return SCRIPT_TYPE_TCL; }
+<a href='../S/5.html#L50'>virtual</a>            50 ScriptInterpTCLCallbacks.h     inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si,
+<a href='../S/1.html#L76'>virtual</a>            76 Socket.h           virtual ~Socket();
+<a href='../S/1.html#L97'>virtual</a>            97 Socket.h           virtual ~ClientSocket();
+<a href='../S/1.html#L106'>virtual</a>           106 Socket.h           virtual ~ServerSocket();
+<a href='../S/26.html#L65'>virtual</a>            65 Stream.h               virtual ~Stream() {};
+<a href='../S/26.html#L104'>virtual</a>           104 Stream.h               virtual void puts (const String&amp; string) {
+<a href='../S/26.html#L115'>virtual</a>           115 Stream.h               virtual String getline (size_t maxSize = 99999999) { return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
+<a href='../S/26.html#L123'>virtual</a>           123 Stream.h               virtual String read (size_t maxSize, char delim = 0);
+<a href='../S/26.html#L134'>virtual</a>           134 Stream.h               virtual int loadFile(const int fd);
+<a href='../S/26.html#L144'>virtual</a>           144 Stream.h               virtual int loadFile(const String&amp; fname);
+<a href='../S/26.html#L152'>virtual</a>           152 Stream.h               virtual int writeFile(const int fd) const;
+<a href='../S/26.html#L160'>virtual</a>           160 Stream.h               virtual int writeFile(const String&amp; fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
+<a href='../S/29.html#L127'>virtual</a>           127 String.h               virtual ~String() {
 </pre>
 </body>
 </html>

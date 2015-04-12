@@ -1,16 +1,88 @@
 <html>
 <head>
-<title>S_IRUSR</title>
+<title>T</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/40.html#L160'>S_IRUSR</a>           160 Stream.h               virtual int writeFile(const String&amp; fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
-<a href='../S/14.html#L85'>S_IRUSR</a>            85 tests/AtomicFileTest.cpp   a-&gt;open(dst_name, S_IRUSR);
-<a href='../S/14.html#L122'>S_IRUSR</a>           122 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode &amp; ~S_IFMT);
-<a href='../S/14.html#L153'>S_IRUSR</a>           153 tests/AtomicFileTest.cpp   a-&gt;open(dst_name, S_IRUSR);
-<a href='../S/14.html#L190'>S_IRUSR</a>           190 tests/AtomicFileTest.cpp   CPPUNIT_ASSERT_EQUAL(mode_t(S_IRUSR), st.st_mode &amp; ~S_IFMT);
+<a href='../S/37.html#L44'>T</a>                  44 Array.h        template &lt;class T&gt;
+<a href='../S/37.html#L49'>T</a>                  49 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
+<a href='../S/37.html#L51'>T</a>                  51 Array.h            typedef T value_type;
+<a href='../S/37.html#L354'>T</a>                 354 Array.h          template&lt;typename T&gt;
+<a href='../S/37.html#L355'>T</a>                 355 Array.h          struct hash&lt;BDLIB_NS::Array&lt;T&gt;&gt; {
+<a href='../S/37.html#L356'>T</a>                 356 Array.h            inline size_t operator()(const BDLIB_NS::Array&lt;T&gt;&amp; val) const {
+<a href='../S/36.html#L42'>T</a>                  42 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/36.html#L55'>T</a>                  55 ReferenceCountedArray.h       mutable T buf_local[16];
+<a href='../S/36.html#L85'>T</a>                  85 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/36.html#L127'>T</a>                 127 ReferenceCountedArray.h template &lt;class T&gt;
+<a href='../S/36.html#L139'>T</a>                 139 ReferenceCountedArray.h     T&amp; rca;
+<a href='../S/36.html#L146'>T</a>                 146 ReferenceCountedArray.h     Slice(T&amp; _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
+<a href='../S/36.html#L152'>T</a>                 152 ReferenceCountedArray.h     inline operator T() const {
+<a href='../S/36.html#L153'>T</a>                 153 ReferenceCountedArray.h       T newArray(rca);
+<a href='../S/36.html#L171'>T</a>                 171 ReferenceCountedArray.h       (*this) = T(slice);
+<a href='../S/36.html#L179'>T</a>                 179 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
+<a href='../S/36.html#L194'>T</a>                 194 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/36.html#L201'>T</a>                 201 ReferenceCountedArray.h     typedef T value_type;
+<a href='../S/42.html#L146'>T</a>                 146 ScriptInterp.h         template &lt;typename Interp, typename T&gt;
+<a href='../S/42.html#L147'>T</a>                 147 ScriptInterp.h           static void linkVar(Interp&amp; si, const String&amp; varName, T&amp; var) {
+<a href='../S/25.html#L45'>T</a>                  45 ScriptInterpTCL.h template &lt;typename T&gt;
+<a href='../S/25.html#L48'>T</a>                  48 ScriptInterpTCL.h #define c_to_tcl_castable(T)                                                  \
+<a href='../S/25.html#L50'>T</a>                  50 ScriptInterpTCL.h   struct c_to_tcl_cast&lt;const T&amp;&gt;                                              \
+<a href='../S/25.html#L52'>T</a>                  52 ScriptInterpTCL.h     static Tcl_Obj* from(const T&amp; value, Tcl_Interp*);                        \
+<a href='../S/25.html#L55'>T</a>                  55 ScriptInterpTCL.h #define c_to_tcl_castable_ptr(T)                                              \
+<a href='../S/25.html#L57'>T</a>                  57 ScriptInterpTCL.h   struct c_to_tcl_cast&lt;const T&gt;                                               \
+<a href='../S/25.html#L59'>T</a>                  59 ScriptInterpTCL.h     static Tcl_Obj* from(const T value, Tcl_Interp*);                         \
+<a href='../S/25.html#L77'>T</a>                  77 ScriptInterpTCL.h template &lt;typename T&gt;
+<a href='../S/25.html#L80'>T</a>                  80 ScriptInterpTCL.h #define tcl_to_c_castable(T)                                      \
+<a href='../S/25.html#L82'>T</a>                  82 ScriptInterpTCL.h   struct tcl_to_c_cast&lt;T&gt;                                         \
+<a href='../S/25.html#L84'>T</a>                  84 ScriptInterpTCL.h     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
+<a href='../S/25.html#L195'>T</a>                 195 ScriptInterpTCL.h         template&lt;typename T&gt;
+<a href='../S/25.html#L199'>T</a>                 199 ScriptInterpTCL.h                 c_to_tcl_cast&lt;T&amp;&gt;::from(*static_cast&lt;T*&gt;(clientData), interp),
+<a href='../S/25.html#L202'>T</a>                 202 ScriptInterpTCL.h         template&lt;typename T&gt;
+<a href='../S/25.html#L208'>T</a>                 208 ScriptInterpTCL.h                 c_to_tcl_cast&lt;T&gt;::from(static_cast&lt;T&gt;(data-&gt;ptr),
+<a href='../S/25.html#L211'>T</a>                 211 ScriptInterpTCL.h         template&lt;typename T&gt;
+<a href='../S/25.html#L215'>T</a>                 215 ScriptInterpTCL.h                 c_to_tcl_cast&lt;T&gt;::from(static_cast&lt;T&gt;(clientData),
+<a href='../S/25.html#L219'>T</a>                 219 ScriptInterpTCL.h         template&lt;typename T&gt;
+<a href='../S/25.html#L226'>T</a>                 226 ScriptInterpTCL.h             const auto oldval(std::move(*static_cast&lt;T*&gt;(clientData)));
+<a href='../S/25.html#L228'>T</a>                 228 ScriptInterpTCL.h             *static_cast&lt;T*&gt;(clientData) =
+<a href='../S/25.html#L229'>T</a>                 229 ScriptInterpTCL.h               std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));
+<a href='../S/25.html#L237'>T</a>                 237 ScriptInterpTCL.h         template&lt;typename T&gt;
+<a href='../S/25.html#L248'>T</a>                 248 ScriptInterpTCL.h             typedef typename std::pointer_traits&lt;T&gt;::element_type T_name;
+<a href='../S/25.html#L252'>T</a>                 252 ScriptInterpTCL.h               memcpy(oldval.get(), static_cast&lt;T&gt;(data-&gt;ptr), data-&gt;size);
+<a href='../S/25.html#L255'>T</a>                 255 ScriptInterpTCL.h             memmove(data-&gt;ptr, tcl_to_c_cast&lt;T&gt;::from(obj, nullptr),
+<a href='../S/25.html#L257'>T</a>                 257 ScriptInterpTCL.h             if (std::is_same&lt;T, char*&gt;::value ||
+<a href='../S/25.html#L258'>T</a>                 258 ScriptInterpTCL.h                 std::is_same&lt;T, const char*&gt;::value)
+<a href='../S/25.html#L259'>T</a>                 259 ScriptInterpTCL.h               static_cast&lt;T&gt;(data-&gt;ptr)[data-&gt;size - 1] = '\0';
+<a href='../S/25.html#L311'>T</a>                 311 ScriptInterpTCL.h         template &lt;typename T&gt;
+<a href='../S/25.html#L313'>T</a>                 313 ScriptInterpTCL.h               T&amp; var,
+<a href='../S/25.html#L316'>T</a>                 316 ScriptInterpTCL.h                 (Tcl_VarTraceProc*) tcl_traceGet&lt;const T&gt;,
+<a href='../S/25.html#L317'>T</a>                 317 ScriptInterpTCL.h                 (Tcl_VarTraceProc*) tcl_traceSet&lt;T&gt;, hook_func);
+<a href='../S/25.html#L325'>T</a>                 325 ScriptInterpTCL.h         template &lt;typename T&gt;
+<a href='../S/25.html#L327'>T</a>                 327 ScriptInterpTCL.h               T* var, size_t size,
+<a href='../S/25.html#L331'>T</a>                 331 ScriptInterpTCL.h                 (Tcl_VarTraceProc*) tcl_traceGetPtrData&lt;const T*&gt;,
+<a href='../S/25.html#L332'>T</a>                 332 ScriptInterpTCL.h                 (Tcl_VarTraceProc*) tcl_traceSetPtr&lt;T*&gt;, hook_func);
+<a href='../S/25.html#L342'>T</a>                 342 ScriptInterpTCL.h         template &lt;typename T&gt;
+<a href='../S/25.html#L344'>T</a>                 344 ScriptInterpTCL.h               const T* var,
+<a href='../S/25.html#L347'>T</a>                 347 ScriptInterpTCL.h                 (Tcl_VarTraceProc*) tcl_traceGetPtr&lt;const T*&gt;,
+<a href='../S/25.html#L357'>T</a>                 357 ScriptInterpTCL.h         template &lt;typename T&gt;
+<a href='../S/25.html#L359'>T</a>                 359 ScriptInterpTCL.h               const T&amp; var,
+<a href='../S/25.html#L362'>T</a>                 362 ScriptInterpTCL.h                 (Tcl_VarTraceProc*) tcl_traceGet&lt;const T&gt;,
+<a href='../S/29.html#L49'>T</a>                  49 String.h       template &lt;class T&gt;
+<a href='../S/32.html#L8'>T</a>                   8 make_unique.h      template&lt;class T&gt; struct _Unique_if {
+<a href='../S/32.html#L9'>T</a>                   9 make_unique.h          typedef unique_ptr&lt;T&gt; _Single_object;
+<a href='../S/32.html#L12'>T</a>                  12 make_unique.h      template&lt;class T&gt; struct _Unique_if&lt;T[]&gt; {
+<a href='../S/32.html#L13'>T</a>                  13 make_unique.h          typedef unique_ptr&lt;T[]&gt; _Unknown_bound;
+<a href='../S/32.html#L16'>T</a>                  16 make_unique.h      template&lt;class T, size_t N&gt; struct _Unique_if&lt;T[N]&gt; {
+<a href='../S/32.html#L20'>T</a>                  20 make_unique.h      template&lt;class T, class... Args&gt;
+<a href='../S/32.html#L21'>T</a>                  21 make_unique.h          typename _Unique_if&lt;T&gt;::_Single_object
+<a href='../S/32.html#L23'>T</a>                  23 make_unique.h              return unique_ptr&lt;T&gt;(new T(std::forward&lt;Args&gt;(args)...));
+<a href='../S/32.html#L26'>T</a>                  26 make_unique.h      template&lt;class T&gt;
+<a href='../S/32.html#L27'>T</a>                  27 make_unique.h          typename _Unique_if&lt;T&gt;::_Unknown_bound
+<a href='../S/32.html#L29'>T</a>                  29 make_unique.h              typedef typename remove_extent&lt;T&gt;::type U;
+<a href='../S/32.html#L30'>T</a>                  30 make_unique.h              return unique_ptr&lt;T&gt;(new U[n]());
+<a href='../S/32.html#L33'>T</a>                  33 make_unique.h      template&lt;class T, class... Args&gt;
+<a href='../S/32.html#L34'>T</a>                  34 make_unique.h          typename _Unique_if&lt;T&gt;::_Known_bound
 </pre>
 </body>
 </html>

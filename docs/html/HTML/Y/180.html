@@ -1,24 +1,29 @@
 <html>
 <head>
-<title>_capacity</title>
+<title>alloc</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/6.html#L56'>_capacity</a>          56 HashTable.h        size_t _capacity;
-<a href='../S/6.html#L60'>_capacity</a>          60 HashTable.h          return _hash(key) % _capacity;
-<a href='../S/6.html#L63'>_capacity</a>          63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/6.html#L64'>_capacity</a>          64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/6.html#L65'>_capacity</a>          65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/6.html#L66'>_capacity</a>          66 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
-<a href='../S/6.html#L69'>_capacity</a>          69 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-<a href='../S/6.html#L72'>_capacity</a>          72 HashTable.h          table._capacity = default_list_size;
-<a href='../S/6.html#L75'>_capacity</a>          75 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/6.html#L84'>_capacity</a>          84 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i)
-<a href='../S/6.html#L103'>_capacity</a>         103 HashTable.h          for (size_t i = 0; i &lt; _capacity; ++i) {
-<a href='../S/6.html#L125'>_capacity</a>         125 HashTable.h          swap(a._capacity, b._capacity);
-<a href='../S/6.html#L146'>_capacity</a>         146 HashTable.h        inline size_t capacity() const { return _capacity; };
+<a href='../S/36.html#L51'>alloc</a>              51 ReferenceCountedArray.h     mutable Allocator alloc;
+<a href='../S/36.html#L59'>alloc</a>              59 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+<a href='../S/36.html#L81'>alloc</a>              81 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/36.html#L112'>alloc</a>             112 ReferenceCountedArray.h         alloc.destroy(i);
+<a href='../S/36.html#L114'>alloc</a>             114 ReferenceCountedArray.h       alloc.deallocate(p, size);
+<a href='../S/36.html#L161'>alloc</a>             161 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
+<a href='../S/36.html#L270'>alloc</a>             270 ReferenceCountedArray.h     Allocator alloc;
+<a href='../S/36.html#L380'>alloc</a>             380 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L382'>alloc</a>             382 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/36.html#L383'>alloc</a>             383 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/36.html#L384'>alloc</a>             384 ReferenceCountedArray.h       rca.alloc = Allocator();
+<a href='../S/36.html#L400'>alloc</a>             400 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L413'>alloc</a>             413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L437'>alloc</a>             437 ReferenceCountedArray.h       swap(a.alloc, b.alloc);
+<a href='../S/36.html#L455'>alloc</a>             455 ReferenceCountedArray.h       alloc = rca.alloc;
+<a href='../S/36.html#L471'>alloc</a>             471 ReferenceCountedArray.h       alloc = std::move(rca.alloc);
+<a href='../S/36.html#L477'>alloc</a>             477 ReferenceCountedArray.h       rca.alloc = Allocator();
+<a href='../S/36.html#L517'>alloc</a>             517 ReferenceCountedArray.h         Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
 </pre>
 </body>
 </html>

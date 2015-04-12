@@ -1,10 +1,9 @@
 var String_8h =
 [
     [ "Array", "classbd_1_1Array.html", "classbd_1_1Array" ],
-    [ "Hash", "structbd_1_1Hash.html", null ],
-    [ "Hash< String >", "structbd_1_1Hash_3_01String_01_4.html", "structbd_1_1Hash_3_01String_01_4" ],
     [ "HashTable", "classbd_1_1HashTable.html", "classbd_1_1HashTable" ],
     [ "String", "classbd_1_1String.html", "classbd_1_1String" ],
+    [ "hash< bd::String >", "structstd_1_1hash_3_01bd_1_1String_01_4.html", "structstd_1_1hash_3_01bd_1_1String_01_4" ],
     [ "String_Array_Type", "String_8h.html#ae274aa51fbc033038b12ff0348a7ca97", null ],
     [ "getline", "String_8h.html#aa7527517b219922283d4e9930db216ca", null ],
     [ "newsplit", "String_8h.html#a1545ecc548b689d903798f865601351d", null ],

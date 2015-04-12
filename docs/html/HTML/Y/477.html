@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>newSize</title>
+<meta name='robots' content='noindex,nofollow'>
+<meta name='generator' content='GLOBAL-5.7.1'>
+</head>
+<body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
+<pre>
+<a href='../S/37.html#L93'>newSize</a>            93 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/37.html#L94'>newSize</a>            94 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
+<a href='../S/36.html#L75'>newSize</a>            75 ReferenceCountedArray.h     void Reserve(size_t newSize, double scaling_factor, size_t&amp; offset, size_t sublen) const
+<a href='../S/36.html#L78'>newSize</a>            78 ReferenceCountedArray.h       if (size &lt; newSize) {
+<a href='../S/36.html#L79'>newSize</a>            79 ReferenceCountedArray.h         newSize = std::max(size_t(size * scaling_factor), newSize);
+<a href='../S/36.html#L81'>newSize</a>            81 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/36.html#L85'>newSize</a>            85 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/36.html#L92'>newSize</a>            92 ReferenceCountedArray.h           size = newSize;
+<a href='../S/36.html#L95'>newSize</a>            95 ReferenceCountedArray.h       } else if ((size - offset) &lt; newSize) {
+<a href='../S/36.html#L400'>newSize</a>           400 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L401'>newSize</a>           401 ReferenceCountedArray.h       if (newSize) {
+<a href='../S/36.html#L402'>newSize</a>           402 ReferenceCountedArray.h         Reserve(newSize);
+<a href='../S/36.html#L413'>newSize</a>           413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L414'>newSize</a>           414 ReferenceCountedArray.h       if (newSize) {
+<a href='../S/36.html#L415'>newSize</a>           415 ReferenceCountedArray.h         Reserve(newSize);
+<a href='../S/36.html#L417'>newSize</a>           417 ReferenceCountedArray.h         for (size_t i = 0; i &lt; newSize; ++i) {
+<a href='../S/36.html#L420'>newSize</a>           420 ReferenceCountedArray.h         this-&gt;setLength(newSize);
+<a href='../S/36.html#L515'>newSize</a>           515 ReferenceCountedArray.h     virtual void Reserve(const size_t newSize, double scaling_factor = 1) const {
+<a href='../S/36.html#L519'>newSize</a>           519 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
+<a href='../S/45.html#L43'>newSize</a>            43 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
+<a href='../S/45.html#L44'>newSize</a>            44 Stream.cpp       if (newSize &lt; capacity())
+<a href='../S/45.html#L46'>newSize</a>            46 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
+<a href='../S/26.html#L64'>newSize</a>            64 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/29.html#L123'>newSize</a>           123 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
+<a href='../S/29.html#L124'>newSize</a>           124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+</pre>
+</body>
+</html>

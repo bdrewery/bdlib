@@ -1,18 +1,128 @@
 <html>
 <head>
-<title>slice</title>
+<title>this</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L250'>slice</a>             250 Array.h              newArray.slice(start, len);
-<a href='../S/51.html#L150'>slice</a>             150 ReferenceCountedArray.h     Slice(const Slice&amp; slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
-<a href='../S/51.html#L157'>slice</a>             157 ReferenceCountedArray.h       newArray.slice(start, len);
-<a href='../S/51.html#L173'>slice</a>             173 ReferenceCountedArray.h     inline Slice&amp; operator=(const Slice&amp; slice) {
-<a href='../S/51.html#L174'>slice</a>             174 ReferenceCountedArray.h       (*this) = T(slice);
-<a href='../S/51.html#L761'>slice</a>             761 ReferenceCountedArray.h     void slice(int start, int len = -1) {
-<a href='../S/42.html#L257'>slice</a>             257 String.h                 newString.slice(start, len);
+<a href='../S/37.html#L70'>this</a>               70 Array.h              *this = list;
+<a href='../S/37.html#L82'>this</a>               82 Array.h              this-&gt;Reserve(len);
+<a href='../S/37.html#L103'>this</a>              103 Array.h              this-&gt;clear();
+<a href='../S/37.html#L104'>this</a>              104 Array.h              this-&gt;Reserve(list.size());
+<a href='../S/37.html#L108'>this</a>              108 Array.h              return *this;
+<a href='../S/37.html#L113'>this</a>              113 Array.h              return *this;
+<a href='../S/37.html#L118'>this</a>              118 Array.h              return *this;
+<a href='../S/37.html#L125'>this</a>              125 Array.h              this-&gt;AboutToModify(this-&gt;length() + 1);
+<a href='../S/37.html#L126'>this</a>              126 Array.h              *(this-&gt;Buf(this-&gt;length())) = item;
+<a href='../S/37.html#L127'>this</a>              127 Array.h              this-&gt;addLength(1);
+<a href='../S/37.html#L143'>this</a>              143 Array.h              if (this-&gt;isEmpty()) return value_type();
+<a href='../S/37.html#L145'>this</a>              145 Array.h              value_type temp(*(this-&gt;Buf(0)));
+<a href='../S/37.html#L146'>this</a>              146 Array.h              ++(this-&gt;offset);
+<a href='../S/37.html#L147'>this</a>              147 Array.h              this-&gt;subLength(1);
+<a href='../S/37.html#L156'>this</a>              156 Array.h              if (this-&gt;isEmpty()) return value_type();
+<a href='../S/37.html#L158'>this</a>              158 Array.h              value_type temp(*(this-&gt;Buf(this-&gt;length() - 1)));
+<a href='../S/37.html#L159'>this</a>              159 Array.h              this-&gt;subLength(1);
+<a href='../S/37.html#L175'>this</a>              175 Array.h              if (!this-&gt;length()) return String();
+<a href='../S/37.html#L179'>this</a>              179 Array.h              str_size += (this-&gt;length() * delim.length()) - 1;
+<a href='../S/37.html#L181'>this</a>              181 Array.h        	str_size += this-&gt;length() * 2;
+<a href='../S/37.html#L182'>this</a>              182 Array.h              for (i = 0; i &lt; this-&gt;length(); ++i)
+<a href='../S/37.html#L183'>this</a>              183 Array.h        	str_size += this-&gt;Buf(i)-&gt;length();
+<a href='../S/37.html#L187'>this</a>              187 Array.h              for (i = 0; i &lt; this-&gt;length(); ++i) {
+<a href='../S/37.html#L191'>this</a>              191 Array.h                  str += '"' + *(this-&gt;Buf(i)) + '"';
+<a href='../S/37.html#L193'>this</a>              193 Array.h                  str += *(this-&gt;Buf(i));
+<a href='../S/37.html#L208'>this</a>              208 Array.h              size_t my_len = this-&gt;length();
+<a href='../S/37.html#L212'>this</a>              212 Array.h              if (this-&gt;data() == array.data() &amp;&amp; same_length)
+<a href='../S/37.html#L222'>this</a>              222 Array.h                if ((*this)[i] != array[i])
+<a href='../S/37.html#L238'>this</a>              238 Array.h              Array newArray(*this);
+<a href='../S/37.html#L254'>this</a>              254 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
+<a href='../S/37.html#L258'>this</a>              258 Array.h              if ((*this) == actual) return;
+<a href='../S/37.html#L259'>this</a>              259 Array.h              ::CPPUNIT_NS::Asserter::failNotEqual(this-&gt;join("|").c_str(), actual.join("|").c_str(), sourceLine);
+<a href='../S/37.html#L281'>this</a>              281 Array.h              return (*this) += 1;
+<a href='../S/37.html#L288'>this</a>              288 Array.h              Array tmp((*this)(0, 1));
+<a href='../S/37.html#L289'>this</a>              289 Array.h              ++(this-&gt;offset);
+<a href='../S/37.html#L290'>this</a>              290 Array.h              this-&gt;subLength(1);
+<a href='../S/37.html#L298'>this</a>              298 Array.h              return (*this) -= 1;
+<a href='../S/37.html#L305'>this</a>              305 Array.h              Array tmp((*this)(this-&gt;length() - 1, 1));
+<a href='../S/37.html#L306'>this</a>              306 Array.h              this-&gt;subLength(1);
+<a href='../S/37.html#L314'>this</a>              314 Array.h              this-&gt;append(item);
+<a href='../S/37.html#L315'>this</a>              315 Array.h              return *this;
+<a href='../S/37.html#L322'>this</a>              322 Array.h              this-&gt;append(array);
+<a href='../S/37.html#L323'>this</a>              323 Array.h              return *this;
+<a href='../S/37.html#L327'>this</a>              327 Array.h              if (!this-&gt;length())
+<a href='../S/37.html#L328'>this</a>              328 Array.h                return *this;
+<a href='../S/37.html#L329'>this</a>              329 Array.h              if (int(this-&gt;length()) - n &lt; 0) {
+<a href='../S/37.html#L330'>this</a>              330 Array.h                this-&gt;offset = this-&gt;length();
+<a href='../S/37.html#L331'>this</a>              331 Array.h                this-&gt;setLength(0);
+<a href='../S/37.html#L333'>this</a>              333 Array.h                this-&gt;offset += n;
+<a href='../S/37.html#L334'>this</a>              334 Array.h                this-&gt;subLength(n);
+<a href='../S/37.html#L336'>this</a>              336 Array.h              return *this;
+<a href='../S/37.html#L340'>this</a>              340 Array.h              if (!this-&gt;length())
+<a href='../S/37.html#L341'>this</a>              341 Array.h                return *this;
+<a href='../S/37.html#L342'>this</a>              342 Array.h              if (int(this-&gt;length()) - n &lt; 0) {
+<a href='../S/37.html#L343'>this</a>              343 Array.h                this-&gt;offset = this-&gt;length();
+<a href='../S/37.html#L344'>this</a>              344 Array.h                this-&gt;setLength(0);
+<a href='../S/37.html#L346'>this</a>              346 Array.h                this-&gt;subLength(n);
+<a href='../S/37.html#L347'>this</a>              347 Array.h              return *this;
+<a href='../S/6.html#L101'>this</a>              101 HashTable.h          swap(*this, table);
+<a href='../S/6.html#L102'>this</a>              102 HashTable.h          return *this; 
+<a href='../S/6.html#L111'>this</a>              111 HashTable.h            (*this)[item.key()] = item.value();
+<a href='../S/6.html#L113'>this</a>              113 HashTable.h          return *this;
+<a href='../S/36.html#L171'>this</a>              171 ReferenceCountedArray.h       (*this) = T(slice);
+<a href='../S/36.html#L172'>this</a>              172 ReferenceCountedArray.h       return (*this);
+<a href='../S/36.html#L181'>this</a>              181 ReferenceCountedArray.h       return (*this);
+<a href='../S/36.html#L420'>this</a>              420 ReferenceCountedArray.h         this-&gt;setLength(newSize);
+<a href='../S/36.html#L461'>this</a>              461 ReferenceCountedArray.h       return *this;
+<a href='../S/36.html#L483'>this</a>              483 ReferenceCountedArray.h       return *this;
+<a href='../S/36.html#L496'>this</a>              496 ReferenceCountedArray.h       return *this;
+<a href='../S/36.html#L539'>this</a>              539 ReferenceCountedArray.h       if (len &lt; this-&gt;length()) {
+<a href='../S/36.html#L540'>this</a>              540 ReferenceCountedArray.h         this-&gt;subLength(this-&gt;length() - len);
+<a href='../S/36.html#L542'>this</a>              542 ReferenceCountedArray.h         this-&gt;AboutToModify(len);
+<a href='../S/36.html#L543'>this</a>              543 ReferenceCountedArray.h         for (size_t i = 0; i &lt; (len - this-&gt;length()); ++i)
+<a href='../S/36.html#L544'>this</a>              544 ReferenceCountedArray.h           *(Buf(this-&gt;length() + i)) = value;
+<a href='../S/36.html#L545'>this</a>              545 ReferenceCountedArray.h         this-&gt;addLength(len - this-&gt;length());
+<a href='../S/36.html#L591'>this</a>              591 ReferenceCountedArray.h       return const_iterator(this-&gt;data());
+<a href='../S/36.html#L596'>this</a>              596 ReferenceCountedArray.h     inline const_iterator begin() const { return this-&gt;cbegin(); };
+<a href='../S/36.html#L605'>this</a>              605 ReferenceCountedArray.h       return const_iterator(this-&gt;cbegin()) + this-&gt;length();
+<a href='../S/36.html#L610'>this</a>              610 ReferenceCountedArray.h     inline const_iterator end() const { return this-&gt;cend(); };
+<a href='../S/36.html#L616'>this</a>              616 ReferenceCountedArray.h     inline reverse_iterator rbegin() { return reverse_iterator(this-&gt;end()); };
+<a href='../S/36.html#L619'>this</a>              619 ReferenceCountedArray.h       return const_reverse_iterator(this-&gt;cend());
+<a href='../S/36.html#L624'>this</a>              624 ReferenceCountedArray.h     inline const_reverse_iterator rbegin() const { return this-&gt;crbegin(); };
+<a href='../S/36.html#L630'>this</a>              630 ReferenceCountedArray.h     inline reverse_iterator rend() { return reverse_iterator(this-&gt;begin()); };
+<a href='../S/36.html#L633'>this</a>              633 ReferenceCountedArray.h       return const_reverse_iterator(this-&gt;cbegin());
+<a href='../S/36.html#L638'>this</a>              638 ReferenceCountedArray.h     inline const_reverse_iterator rend() const { return this-&gt;crend(); };
+<a href='../S/36.html#L650'>this</a>              650 ReferenceCountedArray.h       for(size_t i = 0; i &lt; this-&gt;length(); ++i)
+<a href='../S/36.html#L651'>this</a>              651 ReferenceCountedArray.h         _hash = ((_hash &lt;&lt; 5) + _hash) + hasher(this-&gt;data()[i]);
+<a href='../S/36.html#L728'>this</a>              728 ReferenceCountedArray.h           (*this) = value_type(cref);
+<a href='../S/36.html#L729'>this</a>              729 ReferenceCountedArray.h           return (*this);
+<a href='../S/36.html#L743'>this</a>              743 ReferenceCountedArray.h           return (*this);
+<a href='../S/36.html#L751'>this</a>              751 ReferenceCountedArray.h     inline Cref operator[](size_t pos) { return Cref(*this, pos); };
+<a href='../S/36.html#L763'>this</a>              763 ReferenceCountedArray.h       return (*this)[pos];
+<a href='../S/36.html#L831'>this</a>              831 ReferenceCountedArray.h         *this = rca;
+<a href='../S/36.html#L893'>this</a>              893 ReferenceCountedArray.h         *this = rca;
+<a href='../S/25.html#L150'>this</a>              150 ScriptInterpTCL.h             this-&gt;unregisterCmd();
+<a href='../S/25.html#L172'>this</a>              172 ScriptInterpTCL.h           auto ccd = std::make_shared&lt;ScriptCmdTCL&gt;(this, cmdName,
+<a href='../S/26.html#L76'>this</a>               76 Stream.h                 swap(*this, stream);
+<a href='../S/26.html#L77'>this</a>               77 Stream.h                 return *this;
+<a href='../S/29.html#L136'>this</a>              136 String.h                 return *this;
+<a href='../S/29.html#L140'>this</a>              140 String.h                 return *this;
+<a href='../S/29.html#L239'>this</a>              239 String.h               String chomp() const { return String(*this).chomp(); }
+<a href='../S/29.html#L251'>this</a>              251 String.h               String trim() const { return String(*this).trim(); }
+<a href='../S/29.html#L263'>this</a>              263 String.h                 String newString(*this);
+<a href='../S/29.html#L279'>this</a>              279 String.h               inline Slice&lt;String&gt; operator()(int start, int len = -1) { return Slice&lt;String&gt;(*this, start, len); };
+<a href='../S/29.html#L389'>this</a>              389 String.h         return (*this) += size_t(1);
+<a href='../S/29.html#L396'>this</a>              396 String.h         String tmp(*this);
+<a href='../S/29.html#L397'>this</a>              397 String.h         ++(*this);
+<a href='../S/29.html#L405'>this</a>              405 String.h         return (*this) -= 1;
+<a href='../S/29.html#L412'>this</a>              412 String.h         String tmp(*this);
+<a href='../S/29.html#L413'>this</a>              413 String.h         --(*this);
+<a href='../S/29.html#L427'>this</a>              427 String.h         return *this;
+<a href='../S/29.html#L435'>this</a>              435 String.h         return *this;
+<a href='../S/29.html#L443'>this</a>              443 String.h         return *this;
+<a href='../S/29.html#L448'>this</a>              448 String.h           return *this;
+<a href='../S/29.html#L456'>this</a>              456 String.h         return *this;
+<a href='../S/29.html#L461'>this</a>              461 String.h           return *this;
+<a href='../S/29.html#L467'>this</a>              467 String.h         return *this;
 </pre>
 </body>
 </html>

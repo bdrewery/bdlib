@@ -1,13 +1,172 @@
 <html>
 <head>
-<title>replaceTest</title>
+<title>std</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/15.html#L57'>replaceTest</a>        57 tests/StringTest.h     CPPUNIT_TEST (replaceTest);
-<a href='../S/15.html#L103'>replaceTest</a>       103 tests/StringTest.h         void replaceTest(void);
+<a href='../S/37.html#L54'>std</a>                54 Array.h            typedef std::ptrdiff_t     difference_type;
+<a href='../S/37.html#L63'>std</a>                63 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/37.html#L69'>std</a>                69 Array.h            Array(std::initializer_list&lt;value_type&gt; list) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/37.html#L102'>std</a>               102 Array.h            Array&amp; operator=(std::initializer_list&lt;value_type&gt; list) {
+<a href='../S/37.html#L106'>std</a>               106 Array.h                push(std::move(item));
+<a href='../S/37.html#L117'>std</a>               117 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
+<a href='../S/37.html#L218'>std</a>               218 Array.h              size_t slen = std::min(array.length(), n);
+<a href='../S/37.html#L219'>std</a>               219 Array.h              size_t len = std::min(my_len, slen);
+<a href='../S/37.html#L353'>std</a>               353 Array.h        namespace std {
+<a href='../S/44.html#L89'>std</a>                89 AtomicFile.cpp   if (std::rename(_tmpname.c_str(), _fname.c_str()) != 0) {
+<a href='../S/6.html#L52'>std</a>                52 HashTable.h        std::unordered_map&lt;Key, Value&gt; map;
+<a href='../S/6.html#L58'>std</a>                58 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : map(std::move(table.map)) {
+<a href='../S/6.html#L61'>std</a>                61 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : map(list) {}
+<a href='../S/6.html#L81'>std</a>                81 HashTable.h          std::vector&lt;iterator_type&gt; items;
+<a href='../S/6.html#L95'>std</a>                95 HashTable.h          using std::swap;
+<a href='../S/6.html#L109'>std</a>               109 HashTable.h        HashTable&amp; operator=(std::initializer_list&lt;iterator_type&gt; list) {
+<a href='../S/6.html#L123'>std</a>               123 HashTable.h          map[key] = std::move(value);
+<a href='../S/6.html#L129'>std</a>               129 HashTable.h          return map.find(key) != std::end(map);
+<a href='../S/6.html#L139'>std</a>               139 HashTable.h          if (result == std::end(map))
+<a href='../S/36.html#L42'>std</a>                42 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/36.html#L57'>std</a>                57 ReferenceCountedArray.h     mutable std::atomic&lt;int&gt; refs; //References
+<a href='../S/36.html#L79'>std</a>                79 ReferenceCountedArray.h         newSize = std::max(size_t(size * scaling_factor), newSize);
+<a href='../S/36.html#L85'>std</a>                85 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/36.html#L88'>std</a>                88 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
+<a href='../S/36.html#L99'>std</a>                99 ReferenceCountedArray.h         std::memmove(static_cast&lt;void*&gt;(buf), static_cast&lt;void*&gt;(buf + offset), sublen);
+<a href='../S/36.html#L159'>std</a>               159 ReferenceCountedArray.h       using std::swap;
+<a href='../S/36.html#L194'>std</a>               194 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/36.html#L211'>std</a>               211 ReferenceCountedArray.h     typedef std::random_access_iterator_tag           iterator_category;
+<a href='../S/36.html#L212'>std</a>               212 ReferenceCountedArray.h     typedef std::reverse_iterator&lt;const_iterator&gt;     const_reverse_iterator;
+<a href='../S/36.html#L213'>std</a>               213 ReferenceCountedArray.h     typedef std::reverse_iterator&lt;iterator&gt;           reverse_iterator;
+<a href='../S/36.html#L344'>std</a>               344 ReferenceCountedArray.h       Reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
+<a href='../S/36.html#L345'>std</a>               345 ReferenceCountedArray.h       std::copy(oldBuf, oldBuf + oldLength, Buf());
+<a href='../S/36.html#L376'>std</a>               376 ReferenceCountedArray.h         throw std::out_of_range("ReferenceCountedArray::validateIndex");
+<a href='../S/36.html#L383'>std</a>               383 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/36.html#L435'>std</a>               435 ReferenceCountedArray.h       using std::swap;
+<a href='../S/36.html#L471'>std</a>               471 ReferenceCountedArray.h       alloc = std::move(rca.alloc);
+<a href='../S/36.html#L472'>std</a>               472 ReferenceCountedArray.h       offset = std::move(rca.offset);
+<a href='../S/36.html#L473'>std</a>               473 ReferenceCountedArray.h       sublen = std::move(rca.sublen);
+<a href='../S/36.html#L474'>std</a>               474 ReferenceCountedArray.h       my_hash = std::move(rca.my_hash);
+<a href='../S/36.html#L475'>std</a>               475 ReferenceCountedArray.h       Ref = std::move(rca.Ref);
+<a href='../S/36.html#L647'>std</a>               647 ReferenceCountedArray.h       std::hash&lt;value_type&gt; hasher;
+<a href='../S/36.html#L839'>std</a>               839 ReferenceCountedArray.h       std::memmove(static_cast&lt;void*&gt;(Buf() + pos + slen), static_cast&lt;void*&gt;(Buf() + pos), length() - pos);
+<a href='../S/36.html#L840'>std</a>               840 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/36.html#L858'>std</a>               858 ReferenceCountedArray.h       std::memmove(static_cast&lt;void*&gt;(Buf() + pos + 1), static_cast&lt;void*&gt;(Buf() + pos), length() - pos);
+<a href='../S/36.html#L909'>std</a>               909 ReferenceCountedArray.h       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+<a href='../S/42.html#L55'>std</a>                55 ScriptInterp.h typedef std::shared_ptr&lt;ScriptCallbacker&gt; ScriptCallbackerPtr;
+<a href='../S/42.html#L75'>std</a>                75 ScriptInterp.h           std::unique_ptr&lt;ScriptCommandHandlerBase&gt; callback_proxy;
+<a href='../S/42.html#L81'>std</a>                81 ScriptInterp.h               std::unique_ptr&lt;ScriptCommandHandlerBase&gt; _callback_proxy,
+<a href='../S/42.html#L86'>std</a>                86 ScriptInterp.h             callback_proxy(std::move(_callback_proxy)),
+<a href='../S/42.html#L100'>std</a>               100 ScriptInterp.h         typedef std::shared_ptr&lt;ScriptCmd&gt;
+<a href='../S/34.html#L13'>std</a>                13 ScriptInterpTCL.cpp std::unordered_map&lt;String, ScriptInterp::ScriptCmdPtr&gt; ScriptInterpTCL::CmdHandlerData;
+<a href='../S/34.html#L14'>std</a>                14 ScriptInterpTCL.cpp std::unordered_map&lt;String, ScriptInterp::link_var_hook&gt; ScriptInterpTCL::link_var_hooks;
+<a href='../S/34.html#L301'>std</a>               301 ScriptInterpTCL.cpp   return std::make_shared&lt;ScriptCallbackerTCL&gt;(si, std::move(cmd));
+<a href='../S/25.html#L131'>std</a>               131 ScriptInterpTCL.h         static std::unordered_map&lt;String, ScriptCmdPtr&gt;
+<a href='../S/25.html#L144'>std</a>               144 ScriptInterpTCL.h               std::unique_ptr&lt;ScriptCommandHandlerBase&gt; _callback_proxy,
+<a href='../S/25.html#L147'>std</a>               147 ScriptInterpTCL.h               ScriptCmd(_si, std::move(_cmdName), std::move(_callback_proxy),
+<a href='../S/25.html#L169'>std</a>               169 ScriptInterpTCL.h             std::unique_ptr&lt;ScriptCommandHandlerBase&gt; callback_proxy,
+<a href='../S/25.html#L172'>std</a>               172 ScriptInterpTCL.h           auto ccd = std::make_shared&lt;ScriptCmdTCL&gt;(this, cmdName,
+<a href='../S/25.html#L173'>std</a>               173 ScriptInterpTCL.h               std::move(callback_proxy), usage, callbackParamMin,
+<a href='../S/25.html#L186'>std</a>               186 ScriptInterpTCL.h         std::unordered_map&lt;String, std::unique_ptr&lt;trace_ptr_data&gt;&gt; trace_ptrs;
+<a href='../S/25.html#L226'>std</a>               226 ScriptInterpTCL.h             const auto oldval(std::move(*static_cast&lt;T*&gt;(clientData)));
+<a href='../S/25.html#L229'>std</a>               229 ScriptInterpTCL.h               std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));
+<a href='../S/25.html#L231'>std</a>               231 ScriptInterpTCL.h             if (link_var_hook != std::end(link_var_hooks))
+<a href='../S/25.html#L249'>std</a>               249 ScriptInterpTCL.h             std::unique_ptr&lt;T_name[]&gt; oldval;
+<a href='../S/25.html#L250'>std</a>               250 ScriptInterpTCL.h             if (link_var_hook != std::end(link_var_hooks)) {
+<a href='../S/25.html#L251'>std</a>               251 ScriptInterpTCL.h               oldval = std::move(std::make_unique&lt;T_name[]&gt;(data-&gt;size));
+<a href='../S/25.html#L257'>std</a>               257 ScriptInterpTCL.h             if (std::is_same&lt;T, char*&gt;::value ||
+<a href='../S/25.html#L258'>std</a>               258 ScriptInterpTCL.h                 std::is_same&lt;T, const char*&gt;::value)
+<a href='../S/25.html#L260'>std</a>               260 ScriptInterpTCL.h             if (link_var_hook != std::end(link_var_hooks))
+<a href='../S/25.html#L275'>std</a>               275 ScriptInterpTCL.h         static std::unordered_map&lt;String, link_var_hook&gt; link_var_hooks;
+<a href='../S/25.html#L294'>std</a>               294 ScriptInterpTCL.h               std::make_unique&lt;ScriptCommandHandlerTCL&lt;ReturnType, Params...&gt;&gt;(
+<a href='../S/25.html#L329'>std</a>               329 ScriptInterpTCL.h             auto data = std::make_unique&lt;trace_ptr_data&gt;(var, size);
+<a href='../S/25.html#L333'>std</a>               333 ScriptInterpTCL.h             trace_ptrs[varName] = std::move(data);
+<a href='../S/5.html#L13'>std</a>                13 ScriptInterpTCLCallbacks.h     const ReturnType result(std::move(callback(std::forward&lt;Params&gt;(args)...)));
+<a href='../S/5.html#L14'>std</a>                14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;const ReturnType&amp;&gt;::from(std::move(result), interp)));
+<a href='../S/5.html#L23'>std</a>                23 ScriptInterpTCLCallbacks.h     callback(std::forward&lt;Params&gt;(args)...);
+<a href='../S/5.html#L34'>std</a>                34 ScriptInterpTCLCallbacks.h     template&lt;std::size_t... Indices&gt;
+<a href='../S/5.html#L42'>std</a>                42 ScriptInterpTCLCallbacks.h            (std::move(tcl_to_c_cast&lt;Params&gt;::from(std::move(objv[Indices + 1]), si))) :
+<a href='../S/5.html#L43'>std</a>                43 ScriptInterpTCLCallbacks.h            (std::move(Params()))
+<a href='../S/45.html#L75'>std</a>                75 Stream.cpp       size_t toRead = std::min(maxSize, length() - pos);
+<a href='../S/45.html#L179'>std</a>               179 Stream.cpp       std::memcpy(map, str.data(), length());
+<a href='../S/26.html#L58'>std</a>                58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/26.html#L68'>std</a>                68 Stream.h                 using std::swap;
+<a href='../S/46.html#L51'>std</a>                51 String.cpp       const size_t slen = n ? std::min(str.length(), n) : str.length();
+<a href='../S/46.html#L52'>std</a>                52 String.cpp       const size_t len = std::min(length() - start, slen);
+<a href='../S/46.html#L53'>std</a>                53 String.cpp       const int diff = std::memcmp(begin() + start, str.begin(), len);
+<a href='../S/46.html#L57'>std</a>                57 String.cpp         return std::min(length() - start, n) - slen;
+<a href='../S/46.html#L68'>std</a>                68 String.cpp       size_t slen = std::min(n, length() - start);
+<a href='../S/46.html#L70'>std</a>                70 String.cpp       std::copy(cbegin() + start, cend(), dst);
+<a href='../S/46.html#L90'>std</a>                90 String.cpp       size_t slen = (n == npos) ? std::strlen(string) : n;
+<a href='../S/46.html#L93'>std</a>                93 String.cpp       std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+<a href='../S/46.html#L94'>std</a>                94 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/46.html#L110'>std</a>               110 String.cpp       size_t slen = (n == npos) ? std::strlen(string) : n;
+<a href='../S/46.html#L119'>std</a>               119 String.cpp       std::copy(string, string + slen, Buf() + pos);
+<a href='../S/46.html#L123'>std</a>               123 String.cpp     std::istream&amp; operator&gt;&gt;(std::istream&amp; is, String&amp; string) {
+<a href='../S/46.html#L144'>std</a>               144 String.cpp     std::istream&amp; getline(std::istream&amp; is, String&amp; string) {
+<a href='../S/46.html#L234'>std</a>               234 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+<a href='../S/46.html#L242'>std</a>               242 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
+<a href='../S/46.html#L243'>std</a>               243 String.cpp       std::transform(this-&gt;begin(), this-&gt;end(), this_upper.begin(), ::toupper);
+<a href='../S/46.html#L249'>std</a>               249 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
+<a href='../S/46.html#L250'>std</a>               250 String.cpp       std::transform(this-&gt;begin(), this-&gt;end(), this_upper.begin(), ::toupper);
+<a href='../S/46.html#L258'>std</a>               258 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+<a href='../S/29.html#L63'>std</a>                63 String.h               typedef std::allocator&lt;String_Array_Type&gt; Allocator;
+<a href='../S/29.html#L86'>std</a>                86 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/29.html#L139'>std</a>               139 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
+<a href='../S/29.html#L195'>std</a>               195 String.h                 std::copy(cbegin(), cend(), ret);
+<a href='../S/29.html#L360'>std</a>               360 String.h               friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp;, const String&amp;);
+<a href='../S/29.html#L361'>std</a>               361 String.h               friend std::ostream&amp; operator&gt;&gt;(std::ostream&amp;, const String&amp;);
+<a href='../S/29.html#L498'>std</a>               498 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
+<a href='../S/29.html#L507'>std</a>               507 String.h       std::istream&amp; operator&gt;&gt;(std::istream&amp;, String&amp;);
+<a href='../S/29.html#L508'>std</a>               508 String.h       std::istream&amp; getline(std::istream&amp;, String&amp;);
+<a href='../S/29.html#L512'>std</a>               512 String.h       namespace std {
+<a href='../S/2.html#L5'>std</a>                 5 indices.h      template &lt;std::size_t... Indices&gt;
+<a href='../S/2.html#L8'>std</a>                 8 indices.h      template &lt;std::size_t index_to_add, typename Indices = indices&lt;&gt;&gt;
+<a href='../S/2.html#L12'>std</a>                12 indices.h      template &lt;std::size_t index_to_add, std::size_t... Indices&gt;
+<a href='../S/2.html#L25'>std</a>                25 indices.h      template &lt;std::size_t... Indices&gt;
+<a href='../S/2.html#L31'>std</a>                31 indices.h      template &lt;std::size_t max_index&gt;
+<a href='../S/32.html#L7'>std</a>                 7 make_unique.h  namespace std {
+<a href='../S/32.html#L23'>std</a>                23 make_unique.h              return unique_ptr&lt;T&gt;(new T(std::forward&lt;Args&gt;(args)...));
+<a href='../S/20.html#L34'>std</a>                34 tests/ArrayTest.cpp using namespace std;
+<a href='../S/20.html#L168'>std</a>               168 tests/ArrayTest.cpp   CPPUNIT_ASSERT_THROW(int_a-&gt;at(0), std::out_of_range);
+<a href='../S/10.html#L33'>std</a>                33 tests/AtomicFileTest.cpp using namespace std;
+<a href='../S/12.html#L352'>std</a>               352 tests/ScriptInterpTCLTest.cpp     throw std::exception();
+<a href='../S/12.html#L447'>std</a>               447 tests/ScriptInterpTCLTest.cpp std::unordered_map&lt;String, ScriptCallbackerPtr&gt; Events;
+<a href='../S/8.html#L33'>std</a>                33 tests/StreamTest.cpp using namespace std;
+<a href='../S/17.html#L40'>std</a>                40 tests/StringTest.cpp using namespace std;
+<a href='../S/17.html#L121'>std</a>               121 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW((*b).compare("blah", 4, 4), std::out_of_range);
+<a href='../S/17.html#L149'>std</a>               149 tests/StringTest.cpp   String my_string(std::move(*a));
+<a href='../S/17.html#L155'>std</a>               155 tests/StringTest.cpp   *d = std::move(my_string);
+<a href='../S/17.html#L237'>std</a>               237 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L238'>std</a>               238 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L240'>std</a>               240 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L242'>std</a>               242 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(f-&gt;at(11), std::out_of_range);
+<a href='../S/17.html#L246'>std</a>               246 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L247'>std</a>               247 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L252'>std</a>               252 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;insert(1, 'c'), std::out_of_range);
+<a href='../S/17.html#L257'>std</a>               257 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;replace(1, 'c'), std::out_of_range);
+<a href='../S/17.html#L262'>std</a>               262 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L265'>std</a>               265 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L266'>std</a>               266 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L275'>std</a>               275 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;charAt(4), std::out_of_range);
+<a href='../S/17.html#L389'>std</a>               389 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;insert(1, 'a'), std::out_of_range);
+<a href='../S/17.html#L390'>std</a>               390 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L394'>std</a>               394 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L422'>std</a>               422 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;replace(1, "bla"), std::out_of_range);
+<a href='../S/17.html#L423'>std</a>               423 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L432'>std</a>               432 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(g-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L433'>std</a>               433 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(g-&gt;replace(2, "ml"), std::out_of_range);
+<a href='../S/17.html#L440'>std</a>               440 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(g-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L903'>std</a>               903 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;copy(buf, sizeof(buf), 10), std::out_of_range);
+<a href='../S/17.html#L1406'>std</a>              1406 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(-1), std::out_of_range);
+<a href='../S/17.html#L1410'>std</a>              1410 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L1411'>std</a>              1411 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L1419'>std</a>              1419 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(5), std::out_of_range);
+<a href='../S/17.html#L1423'>std</a>              1423 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L1424'>std</a>              1424 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L1445'>std</a>              1445 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L1461'>std</a>              1461 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(13), std::out_of_range);
+<a href='../S/17.html#L1465'>std</a>              1465 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L1466'>std</a>              1466 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/13.html#L63'>std</a>                63 tests/UnitRunner.cpp     CPPUNIT_NS :: CompilerOutputter compileroutputter (&amp;collectedresults, std::cerr);
 </pre>
 </body>
 </html>

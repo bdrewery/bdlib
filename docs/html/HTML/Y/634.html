@@ -1,43 +1,30 @@
 <html>
 <head>
-<title>si</title>
+<title>tell</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/61.html#L39'>si</a>                 39 ScriptInterp.h     virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
-<a href='../S/61.html#L47'>si</a>                 47 ScriptInterp.h     ScriptInterp* si;
-<a href='../S/61.html#L50'>si</a>                 50 ScriptInterp.h     ScriptCallbacker(ScriptInterp* _si, const String&amp; _cmd) : si(_si), cmd(_cmd) {};
-<a href='../S/61.html#L70'>si</a>                 70 ScriptInterp.h           ScriptInterp* si;
-<a href='../S/61.html#L76'>si</a>                 76 ScriptInterp.h             si(_si),
-<a href='../S/61.html#L109'>si</a>                109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/61.html#L110'>si</a>                110 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
-<a href='../S/61.html#L127'>si</a>                127 ScriptInterp.h           static void linkVar(Interp&amp; si, const String&amp; varName, T&amp; var) {
-<a href='../S/61.html#L128'>si</a>                128 ScriptInterp.h             si.linkVar(varName, var);
-<a href='../S/47.html#L33'>si</a>                 33 ScriptInterpTCL.cpp   return si-&gt;eval(String::printf("%s %s", cmd.c_str(), params.join(" ", true).c_str()));
-<a href='../S/47.html#L93'>si</a>                 93 ScriptInterpTCL.cpp     ccd-&gt;callback_proxy-&gt;call(objc, reinterpret_cast&lt;void* CONST*&gt;(objv), ccd-&gt;si, interp);
-<a href='../S/47.html#L183'>si</a>                183 ScriptInterpTCL.cpp String tcl_to_c_cast&lt;String&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L195'>si</a>                195 ScriptInterpTCL.cpp const char* tcl_to_c_cast&lt;const char*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L206'>si</a>                206 ScriptInterpTCL.cpp int tcl_to_c_cast&lt;int&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L220'>si</a>                220 ScriptInterpTCL.cpp long tcl_to_c_cast&lt;long&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L229'>si</a>                229 ScriptInterpTCL.cpp double tcl_to_c_cast&lt;double&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L238'>si</a>                238 ScriptInterpTCL.cpp bool tcl_to_c_cast&lt;bool&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L247'>si</a>                247 ScriptInterpTCL.cpp ScriptCallbacker* tcl_to_c_cast&lt;ScriptCallbacker*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L257'>si</a>                257 ScriptInterpTCL.cpp   ScriptCallbackerTCL* scb = new ScriptCallbackerTCL(si, cmd);
-<a href='../S/47.html#L262'>si</a>                262 ScriptInterpTCL.cpp Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L267'>si</a>                267 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
-<a href='../S/47.html#L273'>si</a>                273 ScriptInterpTCL.cpp     ret &lt;&lt; tcl_to_c_cast&lt;String&gt;::from(objv[i], si);
-<a href='../S/47.html#L278'>si</a>                278 ScriptInterpTCL.cpp Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
-<a href='../S/47.html#L283'>si</a>                283 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
-<a href='../S/47.html#L289'>si</a>                289 ScriptInterpTCL.cpp     ret &lt;&lt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(objv[i], si);
-<a href='../S/39.html#L73'>si</a>                 73 ScriptInterpTCL.h     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
-<a href='../S/39.html#L131'>si</a>                131 ScriptInterpTCL.h   friend Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
-<a href='../S/39.html#L132'>si</a>                132 ScriptInterpTCL.h   friend Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
-<a href='../S/5.html#L35'>si</a>                 35 ScriptInterpTCLCallbacks.h     inline void real_call(__attribute__((__unused__)) size_t argc, void* const argv[], __attribute__((__unused__)) ScriptInterp* si, void *proxy_data, indices&lt;Indices...&gt;) {
-<a href='../S/5.html#L42'>si</a>                 42 ScriptInterpTCLCallbacks.h            (std::move(tcl_to_c_cast&lt;Params&gt;::from(std::move(objv[Indices + 1]), si))) :
-<a href='../S/5.html#L50'>si</a>                 50 ScriptInterpTCLCallbacks.h     inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data) {
-<a href='../S/5.html#L51'>si</a>                 51 ScriptInterpTCLCallbacks.h       real_call(argc, argv, si, proxy_data, make_indices&lt;sizeof...(Params)&gt;());
+<a href='../S/45.html#L57'>tell</a>               57 Stream.cpp           newpos = tell() + offset;
+<a href='../S/45.html#L63'>tell</a>               63 Stream.cpp           newpos = tell();
+<a href='../S/26.html#L86'>tell</a>               86 Stream.h               size_t tell() const { return pos; };
+<a href='../S/26.html#L105'>tell</a>              105 Stream.h                 str.replace(tell(), string);
+<a href='../S/8.html#L83'>tell</a>               83 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 0, a-&gt;tell());
+<a href='../S/8.html#L84'>tell</a>               84 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 0, b-&gt;tell());
+<a href='../S/8.html#L85'>tell</a>               85 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 0, h-&gt;tell());
+<a href='../S/8.html#L91'>tell</a>               91 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 0, a-&gt;tell());
+<a href='../S/8.html#L94'>tell</a>               94 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity(), b-&gt;tell());
+<a href='../S/8.html#L97'>tell</a>               97 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 0, b-&gt;tell());
+<a href='../S/8.html#L100'>tell</a>              100 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL((size_t) 1, b-&gt;tell());
+<a href='../S/8.html#L103'>tell</a>              103 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(b-&gt;capacity() - 1, b-&gt;tell());
+<a href='../S/8.html#L174'>tell</a>              174 tests/StreamTest.cpp   while (a-&gt;tell() &lt; a-&gt;length()) {
+<a href='../S/8.html#L178'>tell</a>              178 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
+<a href='../S/8.html#L185'>tell</a>              185 tests/StreamTest.cpp   size_t savelen = a-&gt;tell();
+<a href='../S/8.html#L186'>tell</a>              186 tests/StreamTest.cpp   a-&gt;seek(a-&gt;tell(), SEEK_SET);
+<a href='../S/8.html#L192'>tell</a>              192 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
+<a href='../S/8.html#L217'>tell</a>              217 tests/StreamTest.cpp   while (a-&gt;tell() &lt; a-&gt;length()) {
+<a href='../S/8.html#L222'>tell</a>              222 tests/StreamTest.cpp     CPPUNIT_ASSERT_EQUAL(pos, a-&gt;tell());
 </pre>
 </body>
 </html>

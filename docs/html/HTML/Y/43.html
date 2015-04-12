@@ -1,14 +1,33 @@
 <html>
 <head>
-<title>FreeBuf</title>
+<title>HashTable</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/51.html#L65'>FreeBuf</a>            65 ReferenceCountedArray.h         FreeBuf(buf);
-<a href='../S/51.html#L92'>FreeBuf</a>            92 ReferenceCountedArray.h             FreeBuf(buf);
-<a href='../S/51.html#L113'>FreeBuf</a>           113 ReferenceCountedArray.h     inline void FreeBuf(iterator p) const {
+<a href='../S/6.html#L46'>HashTable</a>          46 HashTable.h    class HashTable {
+<a href='../S/6.html#L55'>HashTable</a>          55 HashTable.h        HashTable() : map(default_list_size) {} ;
+<a href='../S/6.html#L56'>HashTable</a>          56 HashTable.h        explicit HashTable(size_t capacity_in) : map(capacity_in) {};
+<a href='../S/6.html#L57'>HashTable</a>          57 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : map(table.map) {}
+<a href='../S/6.html#L58'>HashTable</a>          58 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : map(std::move(table.map)) {
+<a href='../S/6.html#L61'>HashTable</a>          61 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : map(list) {}
+<a href='../S/6.html#L63'>HashTable</a>          63 HashTable.h        virtual ~HashTable() {}
+<a href='../S/6.html#L94'>HashTable</a>          94 HashTable.h        friend void swap(HashTable&lt;Key, Value&gt;&amp; a, HashTable&lt;Key, Value&gt;&amp; b) {
+<a href='../S/6.html#L100'>HashTable</a>         100 HashTable.h        HashTable&amp; operator=(HashTable&lt;Key, Value&gt; table) {
+<a href='../S/6.html#L109'>HashTable</a>         109 HashTable.h        HashTable&amp; operator=(std::initializer_list&lt;iterator_type&gt; list) {
+<a href='../S/46.html#L281'>HashTable</a>         281 String.cpp     String String::subst(HashTable&lt;String, String&gt; hashes) const {
+<a href='../S/29.html#L53'>HashTable</a>          53 String.h       class HashTable;
+<a href='../S/29.html#L324'>HashTable</a>         324 String.h               String subst(HashTable&lt;String, String&gt; hashes) const;
+<a href='../S/20.html#L353'>HashTable</a>         353 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht;
+<a href='../S/20.html#L356'>HashTable</a>         356 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht2;
+<a href='../S/20.html#L365'>HashTable</a>         365 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha1;
+<a href='../S/20.html#L366'>HashTable</a>         366 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha2;
+<a href='../S/9.html#L288'>HashTable</a>         288 tests/HashTableTest.cpp   HashTable&lt;int, String&gt; test(*a);
+<a href='../S/9.html#L359'>HashTable</a>         359 tests/HashTableTest.cpp   HashTable&lt;String, int&gt; my_hash {
+<a href='../S/16.html#L67'>HashTable</a>          67 tests/HashTableTest.h         HashTable&lt;int, String&gt; *a, *b;
+<a href='../S/16.html#L68'>HashTable</a>          68 tests/HashTableTest.h         HashTable&lt;String, String&gt; *sa, *sb;
+<a href='../S/17.html#L1640'>HashTable</a>        1640 tests/StringTest.cpp   HashTable&lt;String, String&gt; hashes;
 </pre>
 </body>
 </html>

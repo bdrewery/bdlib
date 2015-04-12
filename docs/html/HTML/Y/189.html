@@ -1,36 +1,44 @@
 <html>
 <head>
-<title>_list</title>
+<title>array</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/6.html#L54'>_list</a>              54 HashTable.h        List&lt;iterator_type&gt; *_list;
-<a href='../S/6.html#L63'>_list</a>              63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/6.html#L64'>_list</a>              64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/6.html#L65'>_list</a>              65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/6.html#L67'>_list</a>              67 HashTable.h              _list[i] = table._list[i];
-<a href='../S/6.html#L69'>_list</a>              69 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : _list(std::move(table._list)), _size(std::move(table._Size)), _capacity(std::move(table._capacity)), _hash(std::move(table._hash)) {
-<a href='../S/6.html#L70'>_list</a>              70 HashTable.h          table._list = nullptr;
-<a href='../S/6.html#L75'>_list</a>              75 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/6.html#L80'>_list</a>              80 HashTable.h          delete[] _list;
-<a href='../S/6.html#L85'>_list</a>              85 HashTable.h            _list[i].clear();
-<a href='../S/6.html#L104'>_list</a>             104 HashTable.h            if (_list[i].size()) {
-<a href='../S/6.html#L105'>_list</a>             105 HashTable.h              for (iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/6.html#L123'>_list</a>             123 HashTable.h          swap(a._list, b._list);
-<a href='../S/6.html#L152'>_list</a>             152 HashTable.h          _list[getIndex(key)] &lt;&lt; iterator_type(key, value);
-<a href='../S/6.html#L159'>_list</a>             159 HashTable.h          return _list[getIndex(key)].contains(iterator_type(key, Value()));
-<a href='../S/6.html#L164'>_list</a>             164 HashTable.h          if (_list[getIndex(key)].remove(iterator_type(key, Value()))) {
-<a href='../S/6.html#L174'>_list</a>             174 HashTable.h          return _list[getIndex(key)].find(iterator_type(key, Value())).value();
-<a href='../S/6.html#L191'>_list</a>             191 HashTable.h            if (_list[i].size()) {
-<a href='../S/6.html#L192'>_list</a>             192 HashTable.h              for (iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/6.html#L209'>_list</a>             209 HashTable.h            if (_list[i].size()) {
-<a href='../S/6.html#L210'>_list</a>             210 HashTable.h              for (iter = _list[i].begin(); iter; (++iter)) {
-<a href='../S/6.html#L235'>_list</a>             235 HashTable.h          return _list[getIndex(key)].findRef(iterator_type(key, Value())).v;
-<a href='../S/45.html#L215'>_list</a>             215 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;value_type&gt;(),
-<a href='../S/45.html#L216'>_list</a>             216 List.h                                                                       list(&amp;_list),
-<a href='../S/45.html#L217'>_list</a>             217 List.h                                                                       current(_end ? _list.head : _list.tail), /* tail is beginning */
+<a href='../S/37.html#L62'>array</a>              62 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
+<a href='../S/37.html#L63'>array</a>              63 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/37.html#L111'>array</a>             111 Array.h            Array&amp; operator=(const Array&lt;value_type&gt;&amp; array) {
+<a href='../S/37.html#L112'>array</a>             112 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(array);
+<a href='../S/37.html#L116'>array</a>             116 Array.h            Array&amp; operator=(Array&lt;value_type&gt;&amp;&amp; array) {
+<a href='../S/37.html#L117'>array</a>             117 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
+<a href='../S/37.html#L133'>array</a>             133 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/37.html#L134'>array</a>             134 Array.h              array.push(item);
+<a href='../S/37.html#L135'>array</a>             135 Array.h              return array;
+<a href='../S/37.html#L166'>array</a>             166 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/37.html#L167'>array</a>             167 Array.h              item = array.pop();
+<a href='../S/37.html#L168'>array</a>             168 Array.h              return array;
+<a href='../S/37.html#L199'>array</a>             199 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
+<a href='../S/37.html#L206'>array</a>             206 Array.h            bool equals(const Array&amp; array, size_t n) const
+<a href='../S/37.html#L209'>array</a>             209 Array.h              bool same_length = (my_len == array.length());
+<a href='../S/37.html#L212'>array</a>             212 Array.h              if (this-&gt;data() == array.data() &amp;&amp; same_length)
+<a href='../S/37.html#L218'>array</a>             218 Array.h              size_t slen = std::min(array.length(), n);
+<a href='../S/37.html#L222'>array</a>             222 Array.h                if ((*this)[i] != array[i])
+<a href='../S/37.html#L321'>array</a>             321 Array.h            inline Array&amp; operator+=(const Array&amp; array) {
+<a href='../S/37.html#L322'>array</a>             322 Array.h              this-&gt;append(array);
+<a href='../S/36.html#L179'>array</a>             179 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
+<a href='../S/36.html#L180'>array</a>             180 ReferenceCountedArray.h       rca.replace(start, array, len);
+<a href='../S/34.html#L121'>array</a>             121 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;const Array&lt;String&gt;&amp;&gt;::from(const Array&lt;String&gt;&amp; array, Tcl_Interp* interp) {
+<a href='../S/34.html#L122'>array</a>             122 ScriptInterpTCL.cpp   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
+<a href='../S/34.html#L124'>array</a>             124 ScriptInterpTCL.cpp   for (const auto&amp; element : array) {
+<a href='../S/34.html#L132'>array</a>             132 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;const Array&lt;Array&lt;String&gt;&gt;&amp;&gt;::from(const Array&lt;Array&lt;String&gt;&gt;&amp; array, Tcl_Interp* interp) {
+<a href='../S/34.html#L133'>array</a>             133 ScriptInterpTCL.cpp   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
+<a href='../S/34.html#L135'>array</a>             135 ScriptInterpTCL.cpp   for (const auto&amp; element : array) {
+<a href='../S/46.html#L169'>array</a>             169 String.cpp       Array&lt;String&gt; array;
+<a href='../S/46.html#L173'>array</a>             173 String.cpp       while (array.size() &lt; limit - 1) {
+<a href='../S/46.html#L184'>array</a>             184 String.cpp         array &lt;&lt; str(0, pos);
+<a href='../S/46.html#L192'>array</a>             192 String.cpp         array &lt;&lt; str;
+<a href='../S/46.html#L195'>array</a>             195 String.cpp       return array;
 </pre>
 </body>
 </html>

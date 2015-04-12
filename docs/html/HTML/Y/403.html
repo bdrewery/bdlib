@@ -1,26 +1,44 @@
 <html>
 <head>
-<title>handle</title>
+<title>item</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/58.html#L61'>handle</a>             61 Thread.cpp         if (pthread_create(&amp;(this-&gt;handle), &amp;attr, threadMain, this) == 0)
-<a href='../S/58.html#L67'>handle</a>             67 Thread.cpp         if (this-&gt;handle = (HANDLE)_beginthreadex(nullptr, 0, threadMain, this, 0, &amp;(this-&gt;id))) {
-<a href='../S/58.html#L69'>handle</a>             69 Thread.cpp             CloseHandle(this-&gt;handle);
-<a href='../S/58.html#L83'>handle</a>             83 Thread.cpp         pthread_detach(this-&gt;handle);
-<a href='../S/58.html#L85'>handle</a>             85 Thread.cpp         CloseHandle(this-&gt;handle);
-<a href='../S/58.html#L98'>handle</a>             98 Thread.cpp         pthread_join(this-&gt;handle, &amp;_status);
-<a href='../S/58.html#L100'>handle</a>            100 Thread.cpp         WaitForSingleObject(this-&gt;handle, INFINITE);
-<a href='../S/58.html#L101'>handle</a>            101 Thread.cpp         GetExitCodeThread(this-&gt;handle, (DWORD*) &amp;_status);
-<a href='../S/58.html#L102'>handle</a>            102 Thread.cpp         CloseHandle(this-&gt;handle);
-<a href='../S/58.html#L112'>handle</a>            112 Thread.cpp         pthread_cancel(this-&gt;handle);
-<a href='../S/58.html#L113'>handle</a>            113 Thread.cpp         pthread_detach(this-&gt;handle);
-<a href='../S/58.html#L115'>handle</a>            115 Thread.cpp         TerminateThread(this-&gt;handle, 0);
-<a href='../S/58.html#L116'>handle</a>            116 Thread.cpp         CloseHandle(this-&gt;handle);
-<a href='../S/59.html#L65'>handle</a>             65 Thread.h           threadHandle_t handle;
-<a href='../S/59.html#L72'>handle</a>             72 Thread.h           Thread(void) : handle(0), id(0), status(0), param(nullptr) {};
+<a href='../S/37.html#L105'>item</a>              105 Array.h              for (value_type item : list) {
+<a href='../S/37.html#L106'>item</a>              106 Array.h                push(std::move(item));
+<a href='../S/37.html#L124'>item</a>              124 Array.h            inline void push(const value_type item) {
+<a href='../S/37.html#L126'>item</a>              126 Array.h              *(this-&gt;Buf(this-&gt;length())) = item;
+<a href='../S/37.html#L133'>item</a>              133 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/37.html#L134'>item</a>              134 Array.h              array.push(item);
+<a href='../S/37.html#L166'>item</a>              166 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/37.html#L167'>item</a>              167 Array.h              item = array.pop();
+<a href='../S/37.html#L313'>item</a>              313 Array.h            inline Array&amp; operator+=(const_reference item) {
+<a href='../S/37.html#L314'>item</a>              314 Array.h              this-&gt;append(item);
+<a href='../S/6.html#L82'>item</a>               82 HashTable.h          for (const auto&amp; item : map) {
+<a href='../S/6.html#L83'>item</a>               83 HashTable.h            items.push_back(item);
+<a href='../S/6.html#L87'>item</a>               87 HashTable.h          for (const auto&amp; item : items) {
+<a href='../S/6.html#L89'>item</a>               89 HashTable.h            block(item.first, item.second, param);
+<a href='../S/6.html#L110'>item</a>              110 HashTable.h          for (iterator_type item : list) {
+<a href='../S/6.html#L111'>item</a>              111 HashTable.h            (*this)[item.key()] = item.value();
+<a href='../S/6.html#L156'>item</a>              156 HashTable.h          for (const auto&amp; item : map) {
+<a href='../S/6.html#L157'>item</a>              157 HashTable.h            tmp &lt;&lt; item.first;
+<a href='../S/6.html#L168'>item</a>              168 HashTable.h          for (const auto&amp; item : map) {
+<a href='../S/6.html#L169'>item</a>              169 HashTable.h            tmp &lt;&lt; item.second;
+<a href='../S/36.html#L493'>item</a>              493 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(const_reference item) {
+<a href='../S/36.html#L495'>item</a>              495 ReferenceCountedArray.h       append(item);
+<a href='../S/36.html#L660'>item</a>              660 ReferenceCountedArray.h     size_t find(const_reference item) const {
+<a href='../S/36.html#L662'>item</a>              662 ReferenceCountedArray.h         if (*(Buf(i)) == item)
+<a href='../S/36.html#L671'>item</a>              671 ReferenceCountedArray.h     size_t rfind(const_reference item) const {
+<a href='../S/36.html#L673'>item</a>              673 ReferenceCountedArray.h         if (*(Buf(i)) == item)
+<a href='../S/36.html#L691'>item</a>              691 ReferenceCountedArray.h     inline void write(size_t pos, value_type item) {
+<a href='../S/36.html#L693'>item</a>              693 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/36.html#L804'>item</a>              804 ReferenceCountedArray.h     inline void append(const_reference item) { insert(length(), item); };
+<a href='../S/36.html#L852'>item</a>              852 ReferenceCountedArray.h     void insert(size_t pos, const_reference item)
+<a href='../S/36.html#L859'>item</a>              859 ReferenceCountedArray.h       *(Buf(pos)) = item;
+<a href='../S/36.html#L870'>item</a>              870 ReferenceCountedArray.h     void replace(size_t pos, const_reference item) {
+<a href='../S/36.html#L875'>item</a>              875 ReferenceCountedArray.h       *(Buf(pos)) = item;
 </pre>
 </body>
 </html>

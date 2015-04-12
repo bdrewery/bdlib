@@ -1,15 +1,15 @@
 <html>
 <head>
-<title>changed_nick_oldval</title>
+<title>constString</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/17.html#L83'>changed_nick_oldval</a>   83 tests/ScriptInterpTCLTest.cpp static String changed_nick_oldval;
-<a href='../S/17.html#L86'>changed_nick_oldval</a>   86 tests/ScriptInterpTCLTest.cpp   changed_nick_oldval = *oldval;
-<a href='../S/17.html#L217'>changed_nick_oldval</a>  217 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(true, changed_nick_oldval.isEmpty());
-<a href='../S/17.html#L220'>changed_nick_oldval</a>  220 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_oldval);
+<a href='../S/17.html#L1231'>constString</a>      1231 tests/StringTest.cpp   const String constString("THIS CANNOT BE MODIFIED");
+<a href='../S/17.html#L1232'>constString</a>      1232 tests/StringTest.cpp   *a = constString(0, 4);
+<a href='../S/17.html#L1234'>constString</a>      1234 tests/StringTest.cpp   constString(0, 4) = "blah"; //Returns a new string
+<a href='../S/17.html#L1236'>constString</a>      1236 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
 </pre>
 </body>
 </html>

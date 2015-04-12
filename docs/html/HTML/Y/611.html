@@ -1,42 +1,19 @@
 <html>
 <head>
-<title>s</title>
+<title>stream</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L40'>s</a>                  40 Cstrings.cpp     const char *s = src;
-<a href='../S/43.html#L46'>s</a>                  46 Cstrings.cpp         if ((*d++ = *s++) == 0)
-<a href='../S/43.html#L55'>s</a>                  55 Cstrings.cpp       while (*s++) ;
-<a href='../S/43.html#L58'>s</a>                  58 Cstrings.cpp     return (s - src - 1);         /* count does not include NUL */
-<a href='../S/43.html#L71'>s</a>                  71 Cstrings.cpp     const char *s = src;
-<a href='../S/43.html#L82'>s</a>                  82 Cstrings.cpp       return (dlen + strlen(s));
-<a href='../S/43.html#L83'>s</a>                  83 Cstrings.cpp     while (*s != '\0') {
-<a href='../S/43.html#L85'>s</a>                  85 Cstrings.cpp         *d++ = *s;
-<a href='../S/43.html#L88'>s</a>                  88 Cstrings.cpp       s++;
-<a href='../S/43.html#L92'>s</a>                  92 Cstrings.cpp     return (dlen + (s - src));    /* count does not include NUL */
-<a href='../S/1.html#L75'>s</a>                  75 Socket.h           Socket(Socket&amp; s) : sock(s.sock), addr(s.addr), flags(s.flags) {};
-<a href='../S/12.html#L262'>s</a>                 262 tests/StreamTest.cpp   struct stat s;
-<a href='../S/12.html#L263'>s</a>                 263 tests/StreamTest.cpp   stat(file, &amp;s);
-<a href='../S/12.html#L264'>s</a>                 264 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;length(), size_t(s.st_size));
-<a href='../S/12.html#L306'>s</a>                 306 tests/StreamTest.cpp   struct stat s;
-<a href='../S/12.html#L307'>s</a>                 307 tests/StreamTest.cpp   fstat(fd, &amp;s);
-<a href='../S/12.html#L308'>s</a>                 308 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;length(), size_t(s.st_size));
-<a href='../S/12.html#L309'>s</a>                 309 tests/StreamTest.cpp   stat(file, &amp;s);
-<a href='../S/12.html#L310'>s</a>                 310 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;length(), size_t(s.st_size));
-<a href='../S/12.html#L353'>s</a>                 353 tests/StreamTest.cpp   struct stat s;
-<a href='../S/12.html#L355'>s</a>                 355 tests/StreamTest.cpp   fstat(fd, &amp;s);
-<a href='../S/12.html#L356'>s</a>                 356 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;length(), size_t(s.st_size));
-<a href='../S/12.html#L357'>s</a>                 357 tests/StreamTest.cpp   stat(file, &amp;s);
-<a href='../S/12.html#L358'>s</a>                 358 tests/StreamTest.cpp   CPPUNIT_ASSERT_EQUAL(a-&gt;length(), size_t(s.st_size));
-<a href='../S/28.html#L347'>s</a>                 347 tests/StringTest.cpp   char *s = (char*) malloc(255);
-<a href='../S/28.html#L349'>s</a>                 349 tests/StringTest.cpp     s[(unsigned int) C] = C;
-<a href='../S/28.html#L350'>s</a>                 350 tests/StringTest.cpp   String tmp2 = String(s, 255);
-<a href='../S/28.html#L354'>s</a>                 354 tests/StringTest.cpp   free(s);
-<a href='../S/28.html#L836'>s</a>                 836 tests/StringTest.cpp   const char* s = "something";
-<a href='../S/28.html#L838'>s</a>                 838 tests/StringTest.cpp   *a = String::printf("%s %d", s, n);
-<a href='../S/28.html#L841'>s</a>                 841 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("506 something 506", String::printf("%d %s %d", n, s, n));
+<a href='../S/26.html#L57'>stream</a>             57 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/26.html#L58'>stream</a>             58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/26.html#L59'>stream</a>             59 Stream.h                 stream.str = String();
+<a href='../S/26.html#L60'>stream</a>             60 Stream.h                 stream.pos = 0;
+<a href='../S/26.html#L61'>stream</a>             61 Stream.h                 stream.loading = 0;
+<a href='../S/26.html#L75'>stream</a>             75 Stream.h               Stream&amp; operator=(Stream stream) {
+<a href='../S/26.html#L76'>stream</a>             76 Stream.h                 swap(*this, stream);
+<a href='../S/26.html#L171'>stream</a>            171 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
 </pre>
 </body>
 </html>

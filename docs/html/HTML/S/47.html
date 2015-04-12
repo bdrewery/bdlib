@@ -1,347 +1,62 @@
 <html>
 <head>
-<title>ScriptInterpTCL.cpp</title>
+<title>Script.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/ScriptInterpTCL.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L32'>[^]</a><a href='#L278'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
-<hr>
-<h2>DEFINITIONS</h2>
-This source file includes following definitions.
-<ol>
-<li><a href='#L32' title='Defined at 32.'>call</a>
-<li><a href='#L36' title='Defined at 36.'>init</a>
-<li><a href='#L49' title='Defined at 49.'>destroy</a>
-<li><a href='#L57' title='Defined at 57.'>eval</a>
-<li><a href='#L66' title='Defined at 66.'>loadScript</a>
-<li><a href='#L80' title='Defined at 80.'>_createCommand_callback</a>
-<li><a href='#L104' title='Defined at 104.'>setupTraces</a>
-<li><a href='#L111' title='Defined at 111.'>TraceSetRO</a>
-<li><a href='#L115' title='Defined at 115.'>TraceGet</a>
-<li><a href='#L123' title='Defined at 123.'>TraceSet</a>
-<li><a href='#L130' title='Defined at 130.'>from</a>
-<li><a href='#L134' title='Defined at 134.'>from</a>
-<li><a href='#L138' title='Defined at 138.'>from</a>
-<li><a href='#L142' title='Defined at 142.'>from</a>
-<li><a href='#L146' title='Defined at 146.'>from</a>
-<li><a href='#L150' title='Defined at 150.'>from</a>
-<li><a href='#L154' title='Defined at 154.'>from</a>
-<li><a href='#L158' title='Defined at 158.'>from</a>
-<li><a href='#L162' title='Defined at 162.'>from</a>
-<li><a href='#L172' title='Defined at 172.'>from</a>
-<li><a href='#L183' title='Defined at 183.'>from</a>
-<li><a href='#L195' title='Defined at 195.'>from</a>
-<li><a href='#L206' title='Defined at 206.'>from</a>
-<li><a href='#L220' title='Defined at 220.'>from</a>
-<li><a href='#L229' title='Defined at 229.'>from</a>
-<li><a href='#L238' title='Defined at 238.'>from</a>
-<li><a href='#L247' title='Defined at 247.'>from</a>
-<li><a href='#L262' title='Defined at 262.'>from</a>
-<li><a href='#L278' title='Defined at 278.'>from</a>
-</ol>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/Script.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
 <pre>
-<a name='L1'>   1 <i><font color='green'>/* ScriptInterpTCL.cpp</font></i>
+<a name='L1'>   1 <i><font color='green'>/* Script.h</font></i>
 <a name='L2'>   2 <i><font color='green'> *</font></i>
-<a name='L3'>   3 <i><font color='green'> */</font></i>
-<a name='L4'>   4 <font color='darkred'>#include</font> "<a href='39.html'>ScriptInterpTCL.h</a>"
-<a name='L5'>   5 
-<a name='L6'>   6 <font color='darkred'>#ifdef</font> <a href='../S/56.html#L3' title='Defined at 3 in config-sanity.h.'>USE_SCRIPT_TCL</a>
-<a name='L7'>   7 <font color='darkred'>#include</font> &lt;stdarg.h&gt;
-<a name='L8'>   8 <font color='darkred'>#include</font> &lt;algorithm&gt; <i><font color='green'>// min() / max()</font></i>
-<a name='L9'>   9 
-<a name='L10'>  10 <a href='../S/49.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L11'>  11 
-<a name='L12'>  12 <a href='../Y/59.html' title='Multiple used in 28 places.'>HashTable</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>, <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../S/61.html#L69' title='Defined at 69 in ScriptInterp.h.'>script_cmd_handler_clientdata</a>*&gt; <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../Y/31.html' title='Multiple used in 8 places.'>CmdHandlerData</a>;
-<a name='L13'>  13 <a href='../Y/59.html' title='Multiple used in 28 places.'>HashTable</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>::<a href='../Y/466.html' title='Multiple used in 8 places.'>link_var_hook</a>&gt; <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../Y/467.html' title='Multiple used in 6 places.'>link_var_hooks</a>;
-<a name='L14'>  14 
-<a name='L15'>  15 <i><font color='green'>/* Define static tcl_traceGet() template functions */</font></i>
-<a name='L16'>  16 <a href='../S/39.html#L88' title='Defined at 88 in ScriptInterpTCL.h.'>define_tcl_traceGet</a>(<b>int</b>);
-<a name='L17'>  17 <a href='../S/39.html#L88' title='Defined at 88 in ScriptInterpTCL.h.'>define_tcl_traceGet</a>(<b>unsigned</b> <b>int</b>);
-<a name='L18'>  18 <a href='../S/39.html#L88' title='Defined at 88 in ScriptInterpTCL.h.'>define_tcl_traceGet</a>(<b>long</b>);
-<a name='L19'>  19 <a href='../S/39.html#L88' title='Defined at 88 in ScriptInterpTCL.h.'>define_tcl_traceGet</a>(<b>unsigned</b> <b>long</b>);
-<a name='L20'>  20 <a href='../S/39.html#L88' title='Defined at 88 in ScriptInterpTCL.h.'>define_tcl_traceGet</a>(<b>double</b>);
-<a name='L21'>  21 <a href='../S/39.html#L88' title='Defined at 88 in ScriptInterpTCL.h.'>define_tcl_traceGet</a>(<b>bool</b>);
-<a name='L22'>  22 <a href='../S/39.html#L88' title='Defined at 88 in ScriptInterpTCL.h.'>define_tcl_traceGet</a>(<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>);
-<a name='L23'>  23 
-<a name='L24'>  24 <a href='../S/39.html#L94' title='Defined at 94 in ScriptInterpTCL.h.'>define_tcl_traceSet</a>(<b>int</b>);
-<a name='L25'>  25 <i><font color='green'>//define_tcl_traceSet(unsigned int);</font></i>
-<a name='L26'>  26 <a href='../S/39.html#L94' title='Defined at 94 in ScriptInterpTCL.h.'>define_tcl_traceSet</a>(<b>long</b>);
-<a name='L27'>  27 <i><font color='green'>//define_tcl_traceSet(unsigned long);</font></i>
-<a name='L28'>  28 <a href='../S/39.html#L94' title='Defined at 94 in ScriptInterpTCL.h.'>define_tcl_traceSet</a>(<b>double</b>);
-<a name='L29'>  29 <a href='../S/39.html#L94' title='Defined at 94 in ScriptInterpTCL.h.'>define_tcl_traceSet</a>(<b>bool</b>);
-<a name='L30'>  30 <a href='../S/39.html#L94' title='Defined at 94 in ScriptInterpTCL.h.'>define_tcl_traceSet</a>(<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>);
-<a name='L31'>  31 
-<a name='L32'>  32 <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/105.html' title='Multiple used in 7 places.'>ScriptCallbackerTCL</a>::<a href='../R/95.html' title='Multiple refered from 8 places.'>call</a>(<b>const</b> <a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&amp; <a href='../Y/553.html' title='Multiple used in 15 places.'>params</a>) <font color='red'>{</font>
-<a name='L33'>  33   <b>return</b> <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>-&gt;<a href='../S/47.html#L57' title='Defined at 57 in ScriptInterpTCL.cpp.'>eval</a>(<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>::<a href='../S/66.html#L191' title='Defined at 191 in String.cpp.'>printf</a>("%s %s", <a href='../Y/279.html' title='Multiple used in 5 places.'>cmd</a>.<a href='../Y/247.html' title='Multiple used in 46 places.'>c_str</a>(), <a href='../Y/553.html' title='Multiple used in 15 places.'>params</a>.<a href='../Y/450.html' title='Multiple used in 22 places.'>join</a>(" ", <b>true</b>).<a href='../Y/247.html' title='Multiple used in 46 places.'>c_str</a>()));
-<a name='L34'>  34 <font color='red'>}</font>
+<a name='L3'>   3 <i><font color='green'> * Copyright (C) Bryan Drewery</font></i>
+<a name='L4'>   4 <i><font color='green'> *</font></i>
+<a name='L5'>   5 <i><font color='green'> * This program is private and may not be distributed, modified</font></i>
+<a name='L6'>   6 <i><font color='green'> * or used without express permission of Bryan Drewery.</font></i>
+<a name='L7'>   7 <i><font color='green'> *</font></i>
+<a name='L8'>   8 <i><font color='green'> * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY.</font></i>
+<a name='L9'>   9 <i><font color='green'> * IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY</font></i>
+<a name='L10'>  10 <i><font color='green'> * FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES</font></i>
+<a name='L11'>  11 <i><font color='green'> * ARISING OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY</font></i>
+<a name='L12'>  12 <i><font color='green'> * DERIVATIVES THEREOF, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE</font></i>
+<a name='L13'>  13 <i><font color='green'> * POSSIBILITY OF SUCH DAMAGE.</font></i>
+<a name='L14'>  14 <i><font color='green'> *</font></i>
+<a name='L15'>  15 <i><font color='green'> * THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES,</font></i>
+<a name='L16'>  16 <i><font color='green'> * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY,</font></i>
+<a name='L17'>  17 <i><font color='green'> * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE</font></i>
+<a name='L18'>  18 <i><font color='green'> * IS PROVIDED ON AN "AS IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE</font></i>
+<a name='L19'>  19 <i><font color='green'> * NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR</font></i>
+<a name='L20'>  20 <i><font color='green'> * MODIFICATIONS.</font></i>
+<a name='L21'>  21 <i><font color='green'> *</font></i>
+<a name='L22'>  22 <i><font color='green'> */</font></i>
+<a name='L23'>  23 <font color='darkred'>#ifndef</font> <a href='../S/47.html#L24' title='Defined at 24 in Script.h.'>_BD_SCRIPT_H</a>
+<a name='L24'>  24 <font color='darkred'>#define</font> <a href='../S/47.html#L23' title='Refered from 23 in Script.h.'>_BD_SCRIPT_H</a> 1
+<a name='L25'>  25 
+<a name='L26'>  26 <font color='darkred'>#include</font> "<a href='35.html'>bdlib.h</a>"
+<a name='L27'>  27 <font color='darkred'>#include</font> "<a href='29.html'>String.h</a>"
+<a name='L28'>  28 
+<a name='L29'>  29 <font color='darkred'>#include</font> &lt;sys/types.h&gt;
+<a name='L30'>  30 
+<a name='L31'>  31 <a href='../S/35.html#L36' title='Defined at 36 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L32'>  32 
+<a name='L33'>  33 <a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/78.html' title='Multiple used in 4 places.'>Script</a> <font color='red'>{</font>
+<a name='L34'>  34   <a href='../Y/513.html' title='Multiple used in 13 places.'>protected</a>:
 <a name='L35'>  35 
-<a name='L36'>  36 <b>int</b> <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/146.html' title='Multiple refered from 3 places.'>init</a>() <font color='red'>{</font>
-<a name='L37'>  37   <i><font color='green'>// create interp</font></i>
-<a name='L38'>  38   <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a> = Tcl_CreateInterp();
-<a name='L39'>  39   <i><font color='green'>//Tcl_FindExecutable(binname);</font></i>
-<a name='L40'>  40 
-<a name='L41'>  41   <b>if</b> (Tcl_Init(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) != <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>) <font color='red'>{</font>
-<a name='L42'>  42     <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/600.html' title='Multiple used in 73 places.'>result</a> = <a href='../Y/139.html' title='Multiple used in 3 places.'>Tcl_GetObjResult</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L43'>  43     fprintf(stderr, "Tcl_Init error: %s\n", <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<b>const</b> <b>char</b>*&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/600.html' title='Multiple used in 73 places.'>result</a>, <b>this</b>));
-<a name='L44'>  44     <b>return</b> 1;
-<a name='L45'>  45   <font color='red'>}</font>
-<a name='L46'>  46   <b>return</b> 0;
-<a name='L47'>  47 <font color='red'>}</font>
-<a name='L48'>  48 
-<a name='L49'>  49 <b>int</b> <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/121.html' title='Multiple refered from 4 places.'>destroy</a>() <font color='red'>{</font>
-<a name='L50'>  50   <b>if</b> (<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a> &amp;&amp; !Tcl_InterpDeleted(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>)) <font color='red'>{</font>
-<a name='L51'>  51     Tcl_DeleteInterp(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L52'>  52     <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a> = <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L53'>  53   <font color='red'>}</font>
-<a name='L54'>  54   <b>return</b> 0;
-<a name='L55'>  55 <font color='red'>}</font>
-<a name='L56'>  56 
-<a name='L57'>  57 <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/126.html' title='Multiple refered from 73 places.'>eval</a>(<b>const</b> <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&amp; <a href='../Y/620.html' title='Multiple used in 5 places.'>script</a>) <font color='red'>{</font>
-<a name='L58'>  58   <b>if</b> (Tcl_EvalEx(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/620.html' title='Multiple used in 5 places.'>script</a>.<a href='../Y/247.html' title='Multiple used in 46 places.'>c_str</a>(), <a href='../Y/620.html' title='Multiple used in 5 places.'>script</a>.<a href='../Y/461.html' title='Multiple used in 314 places.'>length</a>(), TCL_EVAL_GLOBAL) == <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>) <font color='red'>{</font>
-<a name='L59'>  59     <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a> = <a href='../Y/139.html' title='Multiple used in 3 places.'>Tcl_GetObjResult</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L60'>  60     <b>return</b> <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <b>this</b>);
-<a name='L61'>  61   <font color='red'>}</font> <b>else</b>
-<a name='L62'>  62     <b>return</b> <a href='../S/47.html#L57' title='Defined at 57 in ScriptInterpTCL.cpp.'>eval</a>("set errorInfo");
-<a name='L63'>  63   <b>return</b> <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>();
-<a name='L64'>  64 <font color='red'>}</font>
-<a name='L65'>  65 
-<a name='L66'>  66 <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>::<a href='../S/61.html#L96' title='Defined at 96 in ScriptInterp.h.'>LoadError</a> <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/161.html' title='Multiple refered from 5 places.'>loadScript</a>(<b>const</b> <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&amp; <a href='../Y/365.html' title='Multiple used in 11 places.'>fileName</a>, <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&amp; <a href='../Y/601.html' title='Multiple used in 8 places.'>resultStr</a>) <font color='red'>{</font>
-<a name='L67'>  67   <b>if</b> (<a href='../Y/365.html' title='Multiple used in 11 places.'>fileName</a>.<a href='../S/66.html#L240' title='Defined at 240 in String.cpp.'>rfind</a>(".tcl", <a href='../Y/365.html' title='Multiple used in 11 places.'>fileName</a>.<a href='../Y/461.html' title='Multiple used in 314 places.'>length</a>() - 4) == <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>::<a href='../Y/536.html' title='Multiple used in 33 places.'>npos</a>)
-<a name='L68'>  68     <b>return</b> <a href='../S/61.html#L99' title='Defined at 99 in ScriptInterp.h.'>SCRIPT_LOAD_WRONG_INTERP</a>;
-<a name='L69'>  69   <b>if</b> (Tcl_EvalFile(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, *<a href='../Y/365.html' title='Multiple used in 11 places.'>fileName</a>) != <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>) <font color='red'>{</font>
-<a name='L70'>  70     <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a> = <a href='../Y/139.html' title='Multiple used in 3 places.'>Tcl_GetObjResult</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L71'>  71     <a href='../Y/601.html' title='Multiple used in 8 places.'>resultStr</a> = <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <b>this</b>);
-<a name='L72'>  72     <b>return</b> <a href='../S/61.html#L98' title='Defined at 98 in ScriptInterp.h.'>SCRIPT_LOAD_ERROR</a>;
-<a name='L73'>  73   <font color='red'>}</font>
-<a name='L74'>  74   <b>return</b> <a href='../S/61.html#L97' title='Defined at 97 in ScriptInterp.h.'>SCRIPT_LOAD_OK</a>;
-<a name='L75'>  75 <font color='red'>}</font>
-<a name='L76'>  76 
-<a name='L77'>  77 <i><font color='green'>/**</font></i>
-<a name='L78'>  78 <i><font color='green'> * @brief Callback handler for when a TCL-&gt;C function call is made</font></i>
-<a name='L79'>  79 <i><font color='green'> */</font></i>
-<a name='L80'>  80 <b>int</b> <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/78.html' title='Multiple refered from 2 places.'>_createCommand_callback</a>(<a href='../Y/28.html' title='Multiple used in 12 places.'>ClientData</a> <a href='../Y/277.html' title='Multiple used in 12 places.'>clientData</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a> *<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <b>int</b> <a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>, <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a> *<a href='../Y/16.html' title='Multiple used in 4 places.'>CONST</a> <a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>[]) <font color='red'>{</font>
-<a name='L81'>  81   <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/280.html' title='Multiple used in 14 places.'>cmdName</a>(<a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>[0], <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>));
-<a name='L82'>  82   <a href='../S/61.html#L69' title='Defined at 69 in ScriptInterp.h.'>script_cmd_handler_clientdata</a>* <a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a> = <a href='../Y/31.html' title='Multiple used in 8 places.'>CmdHandlerData</a>[<a href='../Y/280.html' title='Multiple used in 14 places.'>cmdName</a>];
-<a name='L83'>  83 
-<a name='L84'>  84   <b>if</b> ((<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>(<a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>) - 1) &lt; <a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a>-&gt;<a href='../Y/252.html' title='Multiple used in 6 places.'>callbackParamMin</a> || <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>(<a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>) - 1 &gt; <a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a>-&gt;<a href='../Y/251.html' title='Multiple used in 5 places.'>callbackParamMax</a>) <font color='red'>{</font>
-<a name='L85'>  85     <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/342.html' title='Multiple used in 3 places.'>errorResult</a>(<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>::<a href='../S/66.html#L191' title='Defined at 191 in String.cpp.'>printf</a>("Wrong # args. Expected %zu, got %d.", <a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a>-&gt;<a href='../Y/252.html' title='Multiple used in 6 places.'>callbackParamMin</a>, <a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a> - 1));
-<a name='L86'>  86     <b>if</b> (<a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a>-&gt;<a href='../Y/733.html' title='Multiple used in 10 places.'>usage</a>)
-<a name='L87'>  87       <a href='../Y/342.html' title='Multiple used in 3 places.'>errorResult</a> += <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>::<a href='../S/66.html#L191' title='Defined at 191 in String.cpp.'>printf</a>(" Should be \"%s %s\"", <a href='../Y/280.html' title='Multiple used in 14 places.'>cmdName</a>.<a href='../Y/247.html' title='Multiple used in 46 places.'>c_str</a>(), <a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a>-&gt;<a href='../Y/733.html' title='Multiple used in 10 places.'>usage</a>);
-<a name='L88'>  88     <a href='../Y/154.html' title='Multiple used in 4 places.'>Tcl_SetObjResult</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/342.html' title='Multiple used in 3 places.'>errorResult</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>));
-<a name='L89'>  89     <b>return</b> <a href='../Y/123.html' title='Multiple used in 3 places.'>TCL_ERROR</a>;
-<a name='L90'>  90   <font color='red'>}</font>
-<a name='L91'>  91 
-<a name='L92'>  92   <b>try</b> <font color='red'>{</font>
-<a name='L93'>  93     <a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a>-&gt;<a href='../Y/253.html' title='Multiple used in 7 places.'>callback_proxy</a>-&gt;<a href='../S/47.html#L32' title='Defined at 32 in ScriptInterpTCL.cpp.'>call</a>(<a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>, <b>reinterpret_cast</b>&lt;<b>void</b>* <a href='../Y/16.html' title='Multiple used in 4 places.'>CONST</a>*&gt;(<a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>), <a href='../Y/258.html' title='Multiple used in 14 places.'>ccd</a>-&gt;<a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L94'>  94   <font color='red'>}</font> <b>catch</b> (<a href='../Y/234.html' title='Multiple used in 6 places.'>bd</a>::<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&amp; <a href='../Y/330.html' title='Multiple used in 41 places.'>e</a>) <font color='red'>{</font>
-<a name='L95'>  95     <a href='../Y/154.html' title='Multiple used in 4 places.'>Tcl_SetObjResult</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/330.html' title='Multiple used in 41 places.'>e</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>));
-<a name='L96'>  96     <b>return</b> <a href='../Y/123.html' title='Multiple used in 3 places.'>TCL_ERROR</a>;
-<a name='L97'>  97   <font color='red'>}</font> <b>catch</b> (...) <font color='red'>{</font>
-<a name='L98'>  98     <a href='../Y/154.html' title='Multiple used in 4 places.'>Tcl_SetObjResult</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>const</b> <b>char</b>*&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>("Unhandled exception.", <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>));
-<a name='L99'>  99     <b>return</b> <a href='../Y/123.html' title='Multiple used in 3 places.'>TCL_ERROR</a>;
-<a name='L100'> 100   <font color='red'>}</font>
-<a name='L101'> 101   <b>return</b> <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>;
-<a name='L102'> 102 <font color='red'>}</font>
-<a name='L103'> 103 
-<a name='L104'> 104 <b>void</b> <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/204.html' title='Multiple refered from 3 places.'>setupTraces</a>(<b>const</b> <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&amp; <a href='../Y/746.html' title='Multiple used in 15 places.'>varName</a>, <a href='../Y/28.html' title='Multiple used in 12 places.'>ClientData</a> <a href='../Y/745.html' title='Multiple used in 10 places.'>var</a>, <a href='../Y/159.html' title='Multiple used in 4 places.'>Tcl_VarTraceProc</a>* <a href='../Y/394.html' title='Multiple used in 5 places.'>get</a>, <a href='../Y/159.html' title='Multiple used in 4 places.'>Tcl_VarTraceProc</a>* <a href='../Y/626.html' title='Multiple used in 3 places.'>set</a>, <a href='../Y/466.html' title='Multiple used in 8 places.'>link_var_hook</a> <a href='../Y/411.html' title='Multiple used in 7 places.'>hook_func</a>) <font color='red'>{</font>
-<a name='L105'> 105   Tcl_SetVar(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, *<a href='../Y/746.html' title='Multiple used in 15 places.'>varName</a>, "", <a href='../Y/125.html' title='Multiple used in 4 places.'>TCL_GLOBAL_ONLY</a>);
-<a name='L106'> 106   <a href='../Y/157.html' title='Multiple used in 2 places.'>Tcl_TraceVar</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, *<a href='../Y/746.html' title='Multiple used in 15 places.'>varName</a>, TCL_TRACE_READS | <a href='../Y/125.html' title='Multiple used in 4 places.'>TCL_GLOBAL_ONLY</a>, <a href='../Y/394.html' title='Multiple used in 5 places.'>get</a>, <a href='../Y/745.html' title='Multiple used in 10 places.'>var</a>);
-<a name='L107'> 107   <a href='../Y/157.html' title='Multiple used in 2 places.'>Tcl_TraceVar</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, *<a href='../Y/746.html' title='Multiple used in 15 places.'>varName</a>, TCL_TRACE_WRITES | <a href='../Y/125.html' title='Multiple used in 4 places.'>TCL_GLOBAL_ONLY</a>, <a href='../Y/626.html' title='Multiple used in 3 places.'>set</a>, <a href='../Y/745.html' title='Multiple used in 10 places.'>var</a>);
-<a name='L108'> 108   <a href='../Y/467.html' title='Multiple used in 6 places.'>link_var_hooks</a>[<a href='../Y/746.html' title='Multiple used in 15 places.'>varName</a>] = <a href='../Y/411.html' title='Multiple used in 7 places.'>hook_func</a>;
-<a name='L109'> 109 <font color='red'>}</font>
-<a name='L110'> 110 
-<a name='L111'> 111 <b>const</b> <b>char</b>* <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/43.html' title='Multiple refered from 2 places.'>TraceSetRO</a> (<a href='../Y/28.html' title='Multiple used in 12 places.'>ClientData</a> <a href='../Y/277.html' title='Multiple used in 12 places.'>clientData</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a> *<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <b>char</b> *<a href='../Y/513.html' title='Multiple used in 17 places.'>name1</a>, <b>char</b> *<a href='../Y/515.html' title='Multiple used in 13 places.'>name2</a>, <b>int</b> <a href='../Y/372.html' title='Multiple used in 22 places.'>flags</a>) <font color='red'>{</font>
-<a name='L112'> 112   <b>return</b> "variable is read-only";
-<a name='L113'> 113 <font color='red'>}</font>
-<a name='L114'> 114 
-<a name='L115'> 115 <b>const</b> <b>char</b>* <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/41.html' title='Multiple refered from 2 places.'>TraceGet</a> (<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a> *<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <b>char</b> *<a href='../Y/513.html' title='Multiple used in 17 places.'>name1</a>, <b>char</b> *<a href='../Y/515.html' title='Multiple used in 13 places.'>name2</a>, <b>int</b> <a href='../Y/372.html' title='Multiple used in 22 places.'>flags</a>) <font color='red'>{</font>
-<a name='L116'> 116   <b>if</b> (<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>) <font color='red'>{</font>
-<a name='L117'> 117     Tcl_SetVar2(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>,<a href='../Y/513.html' title='Multiple used in 17 places.'>name1</a>,<a href='../Y/515.html' title='Multiple used in 13 places.'>name2</a>, <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<b>const</b> <b>char</b>*&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>), <a href='../Y/372.html' title='Multiple used in 22 places.'>flags</a>);
-<a name='L118'> 118     <a href='../Y/131.html' title='Multiple used in 2 places.'>Tcl_DecrRefCount</a>(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>);
-<a name='L119'> 119   <font color='red'>}</font>
-<a name='L120'> 120   <b>return</b> <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L121'> 121 <font color='red'>}</font>
-<a name='L122'> 122 
-<a name='L123'> 123 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>::<a href='../R/42.html' title='Multiple refered from 2 places.'>TraceSet</a> (<a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a> *<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <b>char</b> *<a href='../Y/513.html' title='Multiple used in 17 places.'>name1</a>, <b>char</b> *<a href='../Y/515.html' title='Multiple used in 13 places.'>name2</a>, <b>int</b> <a href='../Y/372.html' title='Multiple used in 22 places.'>flags</a>) <font color='red'>{</font>
-<a name='L124'> 124   <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a> *<a href='../Y/514.html' title='Multiple used in 3 places.'>name1o</a> = <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>const</b> <b>char</b>*&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/513.html' title='Multiple used in 17 places.'>name1</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L125'> 125   <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a> *<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a> = Tcl_ObjGetVar2(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/514.html' title='Multiple used in 3 places.'>name1o</a>, 0, <a href='../Y/372.html' title='Multiple used in 22 places.'>flags</a>);
-<a name='L126'> 126   <a href='../Y/131.html' title='Multiple used in 2 places.'>Tcl_DecrRefCount</a>(<a href='../Y/514.html' title='Multiple used in 3 places.'>name1o</a>);
-<a name='L127'> 127   <b>return</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>;
-<a name='L128'> 128 <font color='red'>}</font>
-<a name='L129'> 129 
-<a name='L130'> 130 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>int</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<b>int</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L131'> 131   <b>return</b> Tcl_NewIntObj(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>);
-<a name='L132'> 132 <font color='red'>}</font>
-<a name='L133'> 133 
-<a name='L134'> 134 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>unsigned</b> <b>int</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<b>unsigned</b> <b>int</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L135'> 135   <b>return</b> <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>int</b>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L136'> 136 <font color='red'>}</font>
-<a name='L137'> 137 
-<a name='L138'> 138 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>long</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<b>long</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L139'> 139   <b>return</b> Tcl_NewLongObj(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>);
-<a name='L140'> 140 <font color='red'>}</font>
-<a name='L141'> 141 
-<a name='L142'> 142 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>unsigned</b> <b>long</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<b>unsigned</b> <b>long</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L143'> 143   <b>return</b> <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>long</b>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L144'> 144 <font color='red'>}</font>
-<a name='L145'> 145 
-<a name='L146'> 146 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>double</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<b>double</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L147'> 147   <b>return</b> Tcl_NewDoubleObj(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>);
-<a name='L148'> 148 <font color='red'>}</font>
-<a name='L149'> 149 
-<a name='L150'> 150 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L151'> 151   <b>return</b> (<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>.<a href='../Y/461.html' title='Multiple used in 314 places.'>length</a>() &lt; <a href='../Y/62.html' title='Multiple used in 2 places.'>INT_MAX</a>) ? Tcl_NewStringObj(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>.<a href='../Y/304.html' title='Multiple used in 34 places.'>data</a>(), <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>.<a href='../Y/461.html' title='Multiple used in 314 places.'>length</a>()) : <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L152'> 152 <font color='red'>}</font>
-<a name='L153'> 153 
-<a name='L154'> 154 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>const</b> <b>char</b> *&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<b>const</b> <b>char</b>* <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L155'> 155   <b>return</b> <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>);
-<a name='L156'> 156 <font color='red'>}</font>
-<a name='L157'> 157 
-<a name='L158'> 158 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<b>bool</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<b>bool</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L159'> 159   <b>return</b> Tcl_NewBooleanObj(<a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>);
-<a name='L160'> 160 <font color='red'>}</font>
-<a name='L161'> 161 
-<a name='L162'> 162 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt; <a href='../Y/220.html' title='Multiple used in 33 places.'>array</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L163'> 163   <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a> = <a href='../Y/149.html' title='Multiple used in 2 places.'>Tcl_NewListObj</a>(<a href='../Y/220.html' title='Multiple used in 33 places.'>array</a>.<a href='../Y/461.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/76.html' title='Multiple used in 15 places.'>NULL</a>);
-<a name='L164'> 164 
-<a name='L165'> 165   <b>for</b> (<b>auto</b> <a href='../Y/334.html' title='Multiple used in 4 places.'>element</a> : <a href='../Y/220.html' title='Multiple used in 33 places.'>array</a>) <font color='red'>{</font>
-<a name='L166'> 166     <a href='../Y/144.html' title='Multiple used in 2 places.'>Tcl_ListObjAppendElement</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/308.html' title='Multiple used in 2 places.'>decltype</a>(<a href='../Y/334.html' title='Multiple used in 4 places.'>element</a>)&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/334.html' title='Multiple used in 4 places.'>element</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>));
-<a name='L167'> 167   <font color='red'>}</font>
-<a name='L168'> 168 
-<a name='L169'> 169   <b>return</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>;
-<a name='L170'> 170 <font color='red'>}</font>
-<a name='L171'> 171 
-<a name='L172'> 172 <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt;&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt; <a href='../Y/220.html' title='Multiple used in 33 places.'>array</a>, <a href='../Y/142.html' title='Multiple used in 27 places.'>Tcl_Interp</a>* <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>) <font color='red'>{</font>
-<a name='L173'> 173   <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a> = <a href='../Y/149.html' title='Multiple used in 2 places.'>Tcl_NewListObj</a>(<a href='../Y/220.html' title='Multiple used in 33 places.'>array</a>.<a href='../Y/461.html' title='Multiple used in 314 places.'>length</a>(), <a href='../Y/76.html' title='Multiple used in 15 places.'>NULL</a>);
-<a name='L174'> 174 
-<a name='L175'> 175   <b>for</b> (<b>auto</b> <a href='../Y/334.html' title='Multiple used in 4 places.'>element</a> : <a href='../Y/220.html' title='Multiple used in 33 places.'>array</a>) <font color='red'>{</font>
-<a name='L176'> 176     <a href='../Y/144.html' title='Multiple used in 2 places.'>Tcl_ListObjAppendElement</a>(<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>, <a href='../Y/249.html' title='Multiple used in 23 places.'>c_to_tcl_cast</a>&lt;<a href='../Y/308.html' title='Multiple used in 2 places.'>decltype</a>(<a href='../Y/334.html' title='Multiple used in 4 places.'>element</a>)&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/334.html' title='Multiple used in 4 places.'>element</a>, <a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>));
-<a name='L177'> 177   <font color='red'>}</font>
-<a name='L178'> 178 
-<a name='L179'> 179   <b>return</b> <a href='../Y/742.html' title='Multiple used in 77 places.'>value</a>;
-<a name='L180'> 180 <font color='red'>}</font>
-<a name='L181'> 181 
-<a name='L182'> 182 <i><font color='green'>/* tcl-&gt;c casting */</font></i>
-<a name='L183'> 183 <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L184'> 184   <b>int</b> <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> = 0;
-<a name='L185'> 185   <b>char</b> *<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a> = <a href='../Y/140.html' title='Multiple used in 3 places.'>Tcl_GetStringFromObj</a>(<a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>);
-<a name='L186'> 186   <b>if</b> (!<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a>) <font color='red'>{</font>
-<a name='L187'> 187     <b>return</b> <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>();
-<a name='L188'> 188     <i><font color='green'>//return "Type Error";</font></i>
-<a name='L189'> 189   <font color='red'>}</font>
-<a name='L190'> 190 
-<a name='L191'> 191   <b>return</b> <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>(<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a>, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>);
-<a name='L192'> 192   <i><font color='green'>//return nullptr;</font></i>
-<a name='L193'> 193 <font color='red'>}</font>
-<a name='L194'> 194 
-<a name='L195'> 195 <b>const</b> <b>char</b>* <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<b>const</b> <b>char</b>*&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L196'> 196   <b>int</b> <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> = 0;
-<a name='L197'> 197   <b>char</b> *<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a> = <a href='../Y/140.html' title='Multiple used in 3 places.'>Tcl_GetStringFromObj</a>(<a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>);
-<a name='L198'> 198   <b>if</b> (!<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a>) <font color='red'>{</font>
-<a name='L199'> 199     <b>return</b> "";
-<a name='L200'> 200     <i><font color='green'>//return "Type Error";</font></i>
-<a name='L201'> 201   <font color='red'>}</font>
-<a name='L202'> 202   <b>return</b> <a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a>;
-<a name='L203'> 203 <font color='red'>}</font>
-<a name='L204'> 204 
-<a name='L205'> 205 
-<a name='L206'> 206 <b>int</b> <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<b>int</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L207'> 207   <b>long</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>;
-<a name='L208'> 208   <b>if</b> (<a href='../Y/138.html' title='Multiple used in 2 places.'>Tcl_GetLongFromObj</a>(0, <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>) == <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>) <font color='red'>{</font>
-<a name='L209'> 209     <b>if</b> ((<a href='../Y/735.html' title='Multiple used in 23 places.'>v</a> &lt; INT_MIN || <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a> &gt; <a href='../Y/62.html' title='Multiple used in 2 places.'>INT_MAX</a>)) <font color='red'>{</font>
-<a name='L210'> 210       <i><font color='green'>//return "OverflowError";</font></i>
-<a name='L211'> 211       <b>return</b> 0;
-<a name='L212'> 212     <font color='red'>}</font>
-<a name='L213'> 213   <font color='red'>}</font> <b>else</b> <font color='red'>{</font>
-<a name='L214'> 214     <b>return</b> 0;
-<a name='L215'> 215     <i><font color='green'>//return "Type Error";</font></i>
-<a name='L216'> 216   <font color='red'>}</font>
-<a name='L217'> 217   <b>return</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>;
-<a name='L218'> 218 <font color='red'>}</font>
-<a name='L219'> 219 
-<a name='L220'> 220 <b>long</b> <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<b>long</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L221'> 221   <b>long</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>;
-<a name='L222'> 222   <b>if</b> (<a href='../Y/138.html' title='Multiple used in 2 places.'>Tcl_GetLongFromObj</a>(0, <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>) != <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>) <font color='red'>{</font>
-<a name='L223'> 223     <b>return</b> 0;
-<a name='L224'> 224     <i><font color='green'>//return "Type Error";</font></i>
-<a name='L225'> 225   <font color='red'>}</font>
-<a name='L226'> 226   <b>return</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>;
-<a name='L227'> 227 <font color='red'>}</font>
-<a name='L228'> 228 
-<a name='L229'> 229 <b>double</b> <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<b>double</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L230'> 230   <b>double</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>;
-<a name='L231'> 231   <b>if</b> (Tcl_GetDoubleFromObj(0, <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>) != <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>) <font color='red'>{</font>
-<a name='L232'> 232     <b>return</b> 0;
-<a name='L233'> 233     <i><font color='green'>//return "Type Error";</font></i>
-<a name='L234'> 234   <font color='red'>}</font>
-<a name='L235'> 235   <b>return</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>;
-<a name='L236'> 236 <font color='red'>}</font>
-<a name='L237'> 237 
-<a name='L238'> 238 <b>bool</b> <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<b>bool</b>&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L239'> 239   <b>int</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>;
-<a name='L240'> 240   <b>if</b> (Tcl_GetBooleanFromObj(0, <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/735.html' title='Multiple used in 23 places.'>v</a>) != <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>) <font color='red'>{</font>
-<a name='L241'> 241     <b>return</b> <b>false</b>;
-<a name='L242'> 242     <i><font color='green'>//return "Type Error";</font></i>
-<a name='L243'> 243   <font color='red'>}</font>
-<a name='L244'> 244   <b>return</b> <a href='../Y/735.html' title='Multiple used in 23 places.'>v</a> ? <b>true</b> : <b>false</b>;
-<a name='L245'> 245 <font color='red'>}</font>
-<a name='L246'> 246 
-<a name='L247'> 247 <a href='../Y/104.html' title='Multiple used in 12 places.'>ScriptCallbacker</a>* <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/104.html' title='Multiple used in 12 places.'>ScriptCallbacker</a>*&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L248'> 248   <b>int</b> <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> = 0;
-<a name='L249'> 249   <b>char</b> *<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a> = <a href='../Y/140.html' title='Multiple used in 3 places.'>Tcl_GetStringFromObj</a>(<a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>);
-<a name='L250'> 250   <b>if</b> (!<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a>) <font color='red'>{</font>
-<a name='L251'> 251     <b>return</b> <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L252'> 252     <i><font color='green'>//return "Type Error";</font></i>
-<a name='L253'> 253   <font color='red'>}</font>
-<a name='L254'> 254 
-<a name='L255'> 255   <b>const</b> <a href='../Y/119.html' title='Multiple used in 464 places.'>String</a> <a href='../Y/279.html' title='Multiple used in 5 places.'>cmd</a>(<a href='../Y/298.html' title='Multiple used in 17 places.'>cstr</a>, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>);
-<a name='L256'> 256 
-<a name='L257'> 257   <a href='../Y/105.html' title='Multiple used in 7 places.'>ScriptCallbackerTCL</a>* <a href='../Y/619.html' title='Multiple used in 10 places.'>scb</a> = <b>new</b> ScriptCallbackerTCL(<a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>, <a href='../Y/279.html' title='Multiple used in 5 places.'>cmd</a>);
-<a name='L258'> 258 
-<a name='L259'> 259   <b>return</b> <a href='../Y/619.html' title='Multiple used in 10 places.'>scb</a>;
-<a name='L260'> 260 <font color='red'>}</font>
-<a name='L261'> 261 
-<a name='L262'> 262 <a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt; <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L263'> 263   <b>int</b> <a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>, <a href='../Y/415.html' title='Multiple used in 98 places.'>i</a>;
-<a name='L264'> 264   <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>** <a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>;
-<a name='L265'> 265 
-<a name='L266'> 266   <i><font color='green'>// FIXME: Exception</font></i>
-<a name='L267'> 267   <b>if</b> (<a href='../Y/145.html' title='Multiple used in 2 places.'>Tcl_ListObjGetElements</a>((<b>reinterpret_cast</b>&lt;<a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>*&gt;(<a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>))-&gt;<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>, &amp;<a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>) != <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>)
-<a name='L268'> 268     <b>return</b> <a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;();
-<a name='L269'> 269 
-<a name='L270'> 270   <a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt; <a href='../Y/602.html' title='Multiple used in 28 places.'>ret</a>(<a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>);
-<a name='L271'> 271 
-<a name='L272'> 272   <b>for</b> (<a href='../Y/415.html' title='Multiple used in 98 places.'>i</a> = 0; <a href='../Y/415.html' title='Multiple used in 98 places.'>i</a> &lt; <a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>; ++<a href='../Y/415.html' title='Multiple used in 98 places.'>i</a>)
-<a name='L273'> 273     <a href='../Y/602.html' title='Multiple used in 28 places.'>ret</a> &lt;&lt; <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>[<a href='../Y/415.html' title='Multiple used in 98 places.'>i</a>], <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>);
-<a name='L274'> 274 
-<a name='L275'> 275   <b>return</b> <a href='../Y/602.html' title='Multiple used in 28 places.'>ret</a>;
-<a name='L276'> 276 <font color='red'>}</font>
-<a name='L277'> 277 
-<a name='L278'> 278 <a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt; <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt;&gt;::<a href='../R/130.html' title='Multiple refered from 24 places.'>from</a>(<a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>* <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, <a href='../Y/106.html' title='Multiple used in 37 places.'>ScriptInterp</a>* <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>) <font color='red'>{</font>
-<a name='L279'> 279   <b>int</b> <a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>, <a href='../Y/415.html' title='Multiple used in 98 places.'>i</a>;
-<a name='L280'> 280   <a href='../Y/152.html' title='Multiple used in 40 places.'>Tcl_Obj</a>** <a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>;
-<a name='L281'> 281 
-<a name='L282'> 282   <i><font color='green'>// FIXME: Exception</font></i>
-<a name='L283'> 283   <b>if</b> (<a href='../Y/145.html' title='Multiple used in 2 places.'>Tcl_ListObjGetElements</a>((<b>reinterpret_cast</b>&lt;<a href='../Y/107.html' title='Multiple used in 29 places.'>ScriptInterpTCL</a>*&gt;(<a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>))-&gt;<a href='../Y/431.html' title='Multiple used in 61 places.'>interp</a>, <a href='../Y/538.html' title='Multiple used in 24 places.'>obj</a>, &amp;<a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>, &amp;<a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>) != <a href='../Y/126.html' title='Multiple used in 10 places.'>TCL_OK</a>)
-<a name='L284'> 284     <b>return</b> <a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt;();
-<a name='L285'> 285 
-<a name='L286'> 286   <a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt; <a href='../Y/602.html' title='Multiple used in 28 places.'>ret</a>(<a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>);
-<a name='L287'> 287 
-<a name='L288'> 288   <b>for</b> (<a href='../Y/415.html' title='Multiple used in 98 places.'>i</a> = 0; <a href='../Y/415.html' title='Multiple used in 98 places.'>i</a> &lt; <a href='../Y/539.html' title='Multiple used in 13 places.'>objc</a>; ++<a href='../Y/415.html' title='Multiple used in 98 places.'>i</a>)
-<a name='L289'> 289     <a href='../Y/602.html' title='Multiple used in 28 places.'>ret</a> &lt;&lt; <a href='../Y/693.html' title='Multiple used in 22 places.'>tcl_to_c_cast</a>&lt;<a href='../Y/3.html' title='Multiple used in 95 places.'>Array</a>&lt;<a href='../Y/119.html' title='Multiple used in 464 places.'>String</a>&gt;&gt;::<a href='../D/163.html' title='Multiple defined in 19 places.'>from</a>(<a href='../Y/541.html' title='Multiple used in 12 places.'>objv</a>[<a href='../Y/415.html' title='Multiple used in 98 places.'>i</a>], <a href='../Y/634.html' title='Multiple used in 32 places.'>si</a>);
-<a name='L290'> 290 
-<a name='L291'> 291   <b>return</b> <a href='../Y/602.html' title='Multiple used in 28 places.'>ret</a>;
-<a name='L292'> 292 <font color='red'>}</font>
-<a name='L293'> 293 
-<a name='L294'> 294 <a href='../S/49.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L295'> 295 <font color='darkred'>#endif</font> <i><font color='green'>/* USE_SCRIPT_TCL */</font></i>
-<a name='L296'> 296 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L36'>  36   <a href='../Y/518.html' title='Multiple used in 46 places.'>public</a>:
+<a name='L37'>  37         <a href='../Y/78.html' title='Multiple used in 4 places.'>Script</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L38'>  38         <a href='../Y/78.html' title='Multiple used in 4 places.'>Script</a>(<b>const</b> <a href='../Y/78.html' title='Multiple used in 4 places.'>Script</a>&amp; <a href='../Y/561.html' title='Multiple used in 5 places.'>script</a>) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L39'>  39         <a href='../Y/691.html' title='Multiple used in 51 places.'>virtual</a> ~<a href='../Y/78.html' title='Multiple used in 4 places.'>Script</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L40'>  40 <font color='red'>}</font>;
+<a name='L41'>  41 
+<a name='L42'>  42 
+<a name='L43'>  43 <a href='../S/35.html#L37' title='Defined at 37 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L44'>  44 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_SCRIPT_H */</font></i>
+<a name='L45'>  45 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L32'>[^]</a><a href='#L278'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

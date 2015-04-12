@@ -1,17 +1,20 @@
 <html>
 <head>
-<title>argv</title>
+<title>callback</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/61.html#L39'>argv</a>               39 ScriptInterp.h     virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
-<a href='../S/5.html#L35'>argv</a>               35 ScriptInterpTCLCallbacks.h     inline void real_call(__attribute__((__unused__)) size_t argc, void* const argv[], __attribute__((__unused__)) ScriptInterp* si, void *proxy_data, indices&lt;Indices...&gt;) {
-<a href='../S/5.html#L36'>argv</a>               36 ScriptInterpTCLCallbacks.h       Tcl_Obj* CONST *objv = reinterpret_cast&lt;Tcl_Obj* CONST *&gt;(argv);
-<a href='../S/5.html#L50'>argv</a>               50 ScriptInterpTCLCallbacks.h     inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data) {
-<a href='../S/5.html#L51'>argv</a>               51 ScriptInterpTCLCallbacks.h       real_call(argc, argv, si, proxy_data, make_indices&lt;sizeof...(Params)&gt;());
-<a href='../S/20.html#L35'>argv</a>               35 tests/UnitRunner.cpp int main (int argc, char* argv[])
+<a href='../S/42.html#L129'>callback</a>          129 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/42.html#L130'>callback</a>          130 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
+<a href='../S/25.html#L292'>callback</a>          292 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/25.html#L295'>callback</a>          295 ScriptInterpTCL.h                 callback),
+<a href='../S/5.html#L12'>callback</a>           12 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L13'>callback</a>           13 ScriptInterpTCLCallbacks.h     const ReturnType result(std::move(callback(std::forward&lt;Params&gt;(args)...)));
+<a href='../S/5.html#L22'>callback</a>           22 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L23'>callback</a>           23 ScriptInterpTCLCallbacks.h     callback(std::forward&lt;Params&gt;(args)...);
+<a href='../S/5.html#L49'>callback</a>           49 ScriptInterpTCLCallbacks.h     ScriptCommandHandlerTCL(function_t callback) : _callback(callback) {};
 </pre>
 </body>
 </html>

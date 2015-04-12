@@ -1,21 +1,33 @@
 <html>
 <head>
-<title>Iterator</title>
+<title>Params</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/4.html#L270'>Iterator</a>          270 BinaryTree.h       class BinaryTreeIterator : public Iterator&lt;iterator_type&gt; {
-<a href='../S/4.html#L288'>Iterator</a>          288 BinaryTree.h           BinaryTreeIterator(Tree* t, Node* node, size_t size, bool _reverse = 0) : Iterator&lt;iterator_type&gt;(),
-<a href='../S/4.html#L299'>Iterator</a>          299 BinaryTree.h           BinaryTreeIterator(const iterator&amp; iter) : Iterator&lt;iterator_type&gt;(), 
-<a href='../S/4.html#L309'>Iterator</a>          309 BinaryTree.h           BinaryTreeIterator() : Iterator&lt;iterator_type&gt;(),
-<a href='../S/36.html#L36'>Iterator</a>           36 Iterator.h     class Iterator { //This should not exist.
-<a href='../S/36.html#L54'>Iterator</a>           54 Iterator.h         virtual ~Iterator() {};
-<a href='../S/45.html#L208'>Iterator</a>          208 List.h             class ListIterator : public Iterator&lt;value_type&gt; {
-<a href='../S/45.html#L215'>Iterator</a>          215 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;value_type&gt;(),
-<a href='../S/45.html#L221'>Iterator</a>          221 List.h                 ListIterator(const iterator&amp; iter) : Iterator&lt;value_type&gt;(),
-<a href='../S/45.html#L226'>Iterator</a>          226 List.h                 ListIterator() : Iterator&lt;value_type&gt;(),
+<a href='../S/42.html#L128'>Params</a>            128 ScriptInterp.h         template&lt;typename InterpType, typename ReturnType, typename... Params&gt;
+<a href='../S/42.html#L129'>Params</a>            129 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/25.html#L291'>Params</a>            291 ScriptInterpTCL.h         template&lt;typename ReturnType, typename... Params&gt;
+<a href='../S/25.html#L292'>Params</a>            292 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+<a href='../S/25.html#L294'>Params</a>            294 ScriptInterpTCL.h               std::make_unique&lt;ScriptCommandHandlerTCL&lt;ReturnType, Params...&gt;&gt;(
+<a href='../S/25.html#L296'>Params</a>            296 ScriptInterpTCL.h               usage, min_params == size_t(-1) ? sizeof...(Params) : min_params,
+<a href='../S/25.html#L297'>Params</a>            297 ScriptInterpTCL.h               sizeof...(Params));
+<a href='../S/5.html#L9'>Params</a>              9 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/5.html#L11'>Params</a>             11 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L12'>Params</a>             12 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L13'>Params</a>             13 ScriptInterpTCLCallbacks.h     const ReturnType result(std::move(callback(std::forward&lt;Params&gt;(args)...)));
+<a href='../S/5.html#L19'>Params</a>             19 ScriptInterpTCLCallbacks.h template &lt;typename... Params&gt;
+<a href='../S/5.html#L20'>Params</a>             20 ScriptInterpTCLCallbacks.h struct ScriptCallbackDispatchTCL&lt;void, Params...&gt; {
+<a href='../S/5.html#L21'>Params</a>             21 ScriptInterpTCLCallbacks.h   typedef void (*function_t)(Params...);
+<a href='../S/5.html#L22'>Params</a>             22 ScriptInterpTCLCallbacks.h   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&amp;&amp;... args) {
+<a href='../S/5.html#L23'>Params</a>             23 ScriptInterpTCLCallbacks.h     callback(std::forward&lt;Params&gt;(args)...);
+<a href='../S/5.html#L27'>Params</a>             27 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
+<a href='../S/5.html#L29'>Params</a>             29 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
+<a href='../S/5.html#L39'>Params</a>             39 ScriptInterpTCLCallbacks.h       ScriptCallbackDispatchTCL&lt;ReturnType, Params...&gt;::dispatch(interp, _callback,
+<a href='../S/5.html#L42'>Params</a>             42 ScriptInterpTCLCallbacks.h            (std::move(tcl_to_c_cast&lt;Params&gt;::from(std::move(objv[Indices + 1]), si))) :
+<a href='../S/5.html#L43'>Params</a>             43 ScriptInterpTCLCallbacks.h            (std::move(Params()))
+<a href='../S/5.html#L52'>Params</a>             52 ScriptInterpTCLCallbacks.h       real_call(argc, argv, si, proxy_data, make_indices&lt;sizeof...(Params)&gt;());
 </pre>
 </body>
 </html>

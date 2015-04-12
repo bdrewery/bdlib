@@ -1,17 +1,34 @@
 <html>
 <head>
-<title>cleanse_ctr</title>
+<title>cstr</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/66.html#L40'>cleanse_ctr</a>        40 String.cpp     unsigned char String::cleanse_ctr = 0;
-<a href='../S/42.html#L65'>cleanse_ctr</a>        65 String.h               static unsigned char cleanse_ctr;
-<a href='../S/42.html#L76'>cleanse_ctr</a>        76 String.h                   *(p++) = static_cast&lt;unsigned char&gt;(cleanse_ctr);
-<a href='../S/42.html#L77'>cleanse_ctr</a>        77 String.h                   cleanse_ctr += (17 + (reinterpret_cast&lt;size_t&gt;(p) &amp; 0xF));
-<a href='../S/42.html#L79'>cleanse_ctr</a>        79 String.h                 if(memchr(ptr, cleanse_ctr, len))
-<a href='../S/42.html#L80'>cleanse_ctr</a>        80 String.h                   cleanse_ctr += (63 + reinterpret_cast&lt;size_t&gt;(p));
+<a href='../S/34.html#L146'>cstr</a>              146 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
+<a href='../S/34.html#L147'>cstr</a>              147 ScriptInterpTCL.cpp   if (!cstr) {
+<a href='../S/34.html#L152'>cstr</a>              152 ScriptInterpTCL.cpp   return String(cstr, len);
+<a href='../S/34.html#L158'>cstr</a>              158 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
+<a href='../S/34.html#L159'>cstr</a>              159 ScriptInterpTCL.cpp   if (!cstr) {
+<a href='../S/34.html#L163'>cstr</a>              163 ScriptInterpTCL.cpp   return cstr;
+<a href='../S/34.html#L293'>cstr</a>              293 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
+<a href='../S/34.html#L294'>cstr</a>              294 ScriptInterpTCL.cpp   if (!cstr) {
+<a href='../S/34.html#L299'>cstr</a>              299 ScriptInterpTCL.cpp   const String cmd(cstr, len);
+<a href='../S/12.html#L111'>cstr</a>              111 tests/ScriptInterpTCLTest.cpp   char *cstr = strdup("blah"), *cstrp = cstr;
+<a href='../S/12.html#L112'>cstr</a>              112 tests/ScriptInterpTCLTest.cpp   tcl_script.linkVar("cstr", cstr, strlen(cstr)+1);
+<a href='../S/12.html#L113'>cstr</a>              113 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(String(cstr), tcl_script.eval("set cstr"));
+<a href='../S/12.html#L116'>cstr</a>              116 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", cstr);
+<a href='../S/12.html#L118'>cstr</a>              118 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(cstrp, cstr);
+<a href='../S/12.html#L120'>cstr</a>              120 tests/ScriptInterpTCLTest.cpp   free(cstr);
+<a href='../S/17.html#L561'>cstr</a>              561 tests/StringTest.cpp   const String cstr("testing123\r\n");
+<a href='../S/17.html#L562'>cstr</a>              562 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.chomp());
+<a href='../S/17.html#L563'>cstr</a>              563 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(12), cstr.length());
+<a href='../S/17.html#L564'>cstr</a>              564 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.chomp().length());
+<a href='../S/17.html#L591'>cstr</a>              591 tests/StringTest.cpp   const String cstr("   \t\ftesting123\r\n");
+<a href='../S/17.html#L592'>cstr</a>              592 tests/StringTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("testing123", cstr.trim());
+<a href='../S/17.html#L593'>cstr</a>              593 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(17), cstr.length());
+<a href='../S/17.html#L594'>cstr</a>              594 tests/StringTest.cpp   CPPUNIT_ASSERT_EQUAL(size_t(10), cstr.trim().length());
 </pre>
 </body>
 </html>

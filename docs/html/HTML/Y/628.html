@@ -1,23 +1,42 @@
 <html>
 <head>
-<title>setLength</title>
+<title>tcl_to_c_cast</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L342'>setLength</a>         342 Array.h                this-&gt;setLength(0);
-<a href='../S/52.html#L355'>setLength</a>         355 Array.h                this-&gt;setLength(0);
-<a href='../S/51.html#L246'>setLength</a>         246 ReferenceCountedArray.h     inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
-<a href='../S/51.html#L309'>setLength</a>         309 ReferenceCountedArray.h         setLength(0);
-<a href='../S/51.html#L349'>setLength</a>         349 ReferenceCountedArray.h       setLength(oldLength);
-<a href='../S/51.html#L413'>setLength</a>         413 ReferenceCountedArray.h         this-&gt;setLength(newSize);
-<a href='../S/51.html#L766'>setLength</a>         766 ReferenceCountedArray.h         setLength(0);
-<a href='../S/51.html#L784'>setLength</a>         784 ReferenceCountedArray.h       setLength(len);
-<a href='../S/51.html#L896'>setLength</a>         896 ReferenceCountedArray.h       setLength(newlen);
-<a href='../S/66.html#L106'>setLength</a>         106 String.cpp       setLength(newlen);
-<a href='../S/42.html#L452'>setLength</a>         452 String.h           setLength(0);
-<a href='../S/42.html#L465'>setLength</a>         465 String.h           setLength(0);
+<a href='../S/34.html#L23'>tcl_to_c_cast</a>      23 ScriptInterpTCL.cpp     fprintf(stderr, "Tcl_Init error: %s\n", tcl_to_c_cast&lt;const char*&gt;::from(result, this));
+<a href='../S/34.html#L43'>tcl_to_c_cast</a>      43 ScriptInterpTCL.cpp     return tcl_to_c_cast&lt;String&gt;::from(value, this);
+<a href='../S/34.html#L53'>tcl_to_c_cast</a>      53 ScriptInterpTCL.cpp     resultStr = tcl_to_c_cast&lt;String&gt;::from(value, this);
+<a href='../S/34.html#L65'>tcl_to_c_cast</a>      65 ScriptInterpTCL.cpp   String cmdName(tcl_to_c_cast&lt;String&gt;::from(objv[0], nullptr));
+<a href='../S/34.html#L107'>tcl_to_c_cast</a>     107 ScriptInterpTCL.cpp     Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast&lt;const char*&gt;::from(value, nullptr), flags);
+<a href='../S/34.html#L144'>tcl_to_c_cast</a>     144 ScriptInterpTCL.cpp String tcl_to_c_cast&lt;String&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L156'>tcl_to_c_cast</a>     156 ScriptInterpTCL.cpp char* tcl_to_c_cast&lt;char*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L166'>tcl_to_c_cast</a>     166 ScriptInterpTCL.cpp const char* tcl_to_c_cast&lt;const char*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L167'>tcl_to_c_cast</a>     167 ScriptInterpTCL.cpp   return tcl_to_c_cast&lt;char*&gt;::from(obj, si);
+<a href='../S/34.html#L170'>tcl_to_c_cast</a>     170 ScriptInterpTCL.cpp int8_t tcl_to_c_cast&lt;int8_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L184'>tcl_to_c_cast</a>     184 ScriptInterpTCL.cpp uint8_t tcl_to_c_cast&lt;uint8_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L198'>tcl_to_c_cast</a>     198 ScriptInterpTCL.cpp int16_t tcl_to_c_cast&lt;int16_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L212'>tcl_to_c_cast</a>     212 ScriptInterpTCL.cpp uint16_t tcl_to_c_cast&lt;uint16_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L226'>tcl_to_c_cast</a>     226 ScriptInterpTCL.cpp int32_t tcl_to_c_cast&lt;int32_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L240'>tcl_to_c_cast</a>     240 ScriptInterpTCL.cpp uint32_t tcl_to_c_cast&lt;uint32_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L254'>tcl_to_c_cast</a>     254 ScriptInterpTCL.cpp int64_t tcl_to_c_cast&lt;int64_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L263'>tcl_to_c_cast</a>     263 ScriptInterpTCL.cpp uint64_t tcl_to_c_cast&lt;uint64_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L272'>tcl_to_c_cast</a>     272 ScriptInterpTCL.cpp double tcl_to_c_cast&lt;double&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L281'>tcl_to_c_cast</a>     281 ScriptInterpTCL.cpp bool tcl_to_c_cast&lt;bool&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L290'>tcl_to_c_cast</a>     290 ScriptInterpTCL.cpp ScriptCallbackerPtr tcl_to_c_cast&lt;ScriptCallbackerPtr&gt;::from(
+<a href='../S/34.html#L304'>tcl_to_c_cast</a>     304 ScriptInterpTCL.cpp Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L315'>tcl_to_c_cast</a>     315 ScriptInterpTCL.cpp     ret &lt;&lt; tcl_to_c_cast&lt;String&gt;::from(objv[i], si);
+<a href='../S/34.html#L320'>tcl_to_c_cast</a>     320 ScriptInterpTCL.cpp Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L331'>tcl_to_c_cast</a>     331 ScriptInterpTCL.cpp     ret &lt;&lt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(objv[i], si);
+<a href='../S/25.html#L78'>tcl_to_c_cast</a>      78 ScriptInterpTCL.h struct tcl_to_c_cast;
+<a href='../S/25.html#L82'>tcl_to_c_cast</a>      82 ScriptInterpTCL.h   struct tcl_to_c_cast&lt;T&gt;                                         \
+<a href='../S/25.html#L127'>tcl_to_c_cast</a>     127 ScriptInterpTCL.h   friend Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/25.html#L128'>tcl_to_c_cast</a>     128 ScriptInterpTCL.h   friend Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/25.html#L229'>tcl_to_c_cast</a>     229 ScriptInterpTCL.h               std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));
+<a href='../S/25.html#L255'>tcl_to_c_cast</a>     255 ScriptInterpTCL.h             memmove(data-&gt;ptr, tcl_to_c_cast&lt;T&gt;::from(obj, nullptr),
+<a href='../S/5.html#L42'>tcl_to_c_cast</a>      42 ScriptInterpTCLCallbacks.h            (std::move(tcl_to_c_cast&lt;Params&gt;::from(std::move(objv[Indices + 1]), si))) :
 </pre>
 </body>
 </html>

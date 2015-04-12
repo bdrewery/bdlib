@@ -1,31 +1,71 @@
 <html>
 <head>
-<title>sublen</title>
+<title>value</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/51.html#L78'>sublen</a>             78 ReferenceCountedArray.h     void Reserve(size_t newSize, double scaling_factor, size_t&amp; offset, size_t sublen) const
-<a href='../S/51.html#L91'>sublen</a>             91 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
-<a href='../S/51.html#L102'>sublen</a>            102 ReferenceCountedArray.h         std::memmove(static_cast&lt;void*&gt;(buf), static_cast&lt;void*&gt;(buf + offset), sublen);
-<a href='../S/51.html#L227'>sublen</a>            227 ReferenceCountedArray.h       sublen = 0;
-<a href='../S/51.html#L246'>sublen</a>            246 ReferenceCountedArray.h     inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
-<a href='../S/51.html#L251'>sublen</a>            251 ReferenceCountedArray.h     inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
-<a href='../S/51.html#L256'>sublen</a>            256 ReferenceCountedArray.h     inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
-<a href='../S/51.html#L292'>sublen</a>            292 ReferenceCountedArray.h     mutable size_t sublen;
-<a href='../S/51.html#L373'>sublen</a>            373 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/51.html#L375'>sublen</a>            375 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-<a href='../S/51.html#L376'>sublen</a>            376 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
-<a href='../S/51.html#L380'>sublen</a>            380 ReferenceCountedArray.h       rca.sublen = 0;
-<a href='../S/51.html#L393'>sublen</a>            393 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/51.html#L406'>sublen</a>            406 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-<a href='../S/51.html#L432'>sublen</a>            432 ReferenceCountedArray.h       swap(a.sublen, b.sublen);
-<a href='../S/51.html#L450'>sublen</a>            450 ReferenceCountedArray.h       sublen = rca.sublen;
-<a href='../S/51.html#L466'>sublen</a>            466 ReferenceCountedArray.h       sublen = std::move(rca.sublen);
-<a href='../S/51.html#L472'>sublen</a>            472 ReferenceCountedArray.h       rca.sublen = 0;
-<a href='../S/51.html#L512'>sublen</a>            512 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
-<a href='../S/51.html#L547'>sublen</a>            547 ReferenceCountedArray.h     inline size_t length() const { return sublen; };
+<a href='../S/37.html#L94'>value</a>              94 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
+<a href='../S/6.html#L111'>value</a>             111 HashTable.h            (*this)[item.key()] = item.value();
+<a href='../S/6.html#L121'>value</a>             121 HashTable.h        bool insert(const Key&amp; key, const Value&amp; value) {
+<a href='../S/6.html#L123'>value</a>             123 HashTable.h          map[key] = std::move(value);
+<a href='../S/36.html#L413'>value</a>             413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L418'>value</a>             418 ReferenceCountedArray.h           *(Buf(i)) = value;
+<a href='../S/36.html#L538'>value</a>             538 ReferenceCountedArray.h     void resize(size_t len, value_type value = value_type()) {
+<a href='../S/36.html#L544'>value</a>             544 ReferenceCountedArray.h           *(Buf(this-&gt;length() + i)) = value;
+<a href='../S/34.html#L42'>value</a>              42 ScriptInterpTCL.cpp     Tcl_Obj* value = Tcl_GetObjResult(interp);
+<a href='../S/34.html#L43'>value</a>              43 ScriptInterpTCL.cpp     return tcl_to_c_cast&lt;String&gt;::from(value, this);
+<a href='../S/34.html#L52'>value</a>              52 ScriptInterpTCL.cpp     Tcl_Obj* value = Tcl_GetObjResult(interp);
+<a href='../S/34.html#L53'>value</a>              53 ScriptInterpTCL.cpp     resultStr = tcl_to_c_cast&lt;String&gt;::from(value, this);
+<a href='../S/34.html#L104'>value</a>             104 ScriptInterpTCL.cpp const char* ScriptInterpTCL::TraceGet(Tcl_Obj* value, Tcl_Interp *interp,
+<a href='../S/34.html#L106'>value</a>             106 ScriptInterpTCL.cpp   if (value) {
+<a href='../S/34.html#L107'>value</a>             107 ScriptInterpTCL.cpp     Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast&lt;const char*&gt;::from(value, nullptr), flags);
+<a href='../S/34.html#L108'>value</a>             108 ScriptInterpTCL.cpp     Tcl_DecrRefCount(value);
+<a href='../S/34.html#L116'>value</a>             116 ScriptInterpTCL.cpp   Tcl_Obj *value = Tcl_ObjGetVar2(interp, name1o, 0, flags);
+<a href='../S/34.html#L118'>value</a>             118 ScriptInterpTCL.cpp   return value;
+<a href='../S/34.html#L122'>value</a>             122 ScriptInterpTCL.cpp   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
+<a href='../S/34.html#L125'>value</a>             125 ScriptInterpTCL.cpp     Tcl_ListObjAppendElement(interp, value,
+<a href='../S/34.html#L129'>value</a>             129 ScriptInterpTCL.cpp   return value;
+<a href='../S/34.html#L133'>value</a>             133 ScriptInterpTCL.cpp   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
+<a href='../S/34.html#L136'>value</a>             136 ScriptInterpTCL.cpp     Tcl_ListObjAppendElement(interp, value,
+<a href='../S/34.html#L140'>value</a>             140 ScriptInterpTCL.cpp   return value;
+<a href='../S/25.html#L52'>value</a>              52 ScriptInterpTCL.h     static Tcl_Obj* from(const T&amp; value, Tcl_Interp*);                        \
+<a href='../S/25.html#L59'>value</a>              59 ScriptInterpTCL.h     static Tcl_Obj* from(const T value, Tcl_Interp*);                         \
+<a href='../S/25.html#L192'>value</a>             192 ScriptInterpTCL.h         static const char* TraceGet (Tcl_Obj* value, Tcl_Interp *interp,
+<a href='../S/25.html#L257'>value</a>             257 ScriptInterpTCL.h             if (std::is_same&lt;T, char*&gt;::value ||
+<a href='../S/25.html#L258'>value</a>             258 ScriptInterpTCL.h                 std::is_same&lt;T, const char*&gt;::value)
+<a href='../S/25.html#L379'>value</a>             379 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const int8_t&amp;&gt;::from(const int8_t&amp; value,
+<a href='../S/25.html#L381'>value</a>             381 ScriptInterpTCL.h   return c_to_tcl_cast&lt;const int16_t&amp;&gt;::from(value, interp);
+<a href='../S/25.html#L384'>value</a>             384 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const uint8_t&amp;&gt;::from(const uint8_t&amp; value,
+<a href='../S/25.html#L386'>value</a>             386 ScriptInterpTCL.h   return c_to_tcl_cast&lt;const int8_t&amp;&gt;::from(value, interp);
+<a href='../S/25.html#L389'>value</a>             389 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const int16_t&amp;&gt;::from(const int16_t&amp; value,
+<a href='../S/25.html#L391'>value</a>             391 ScriptInterpTCL.h   return c_to_tcl_cast&lt;const int32_t&amp;&gt;::from(value, interp);
+<a href='../S/25.html#L394'>value</a>             394 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const uint16_t&amp;&gt;::from(const uint16_t&amp; value,
+<a href='../S/25.html#L396'>value</a>             396 ScriptInterpTCL.h   return c_to_tcl_cast&lt;const int16_t&amp;&gt;::from(value, interp);
+<a href='../S/25.html#L399'>value</a>             399 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const int32_t&amp;&gt;::from(const int32_t&amp; value,
+<a href='../S/25.html#L401'>value</a>             401 ScriptInterpTCL.h   return Tcl_NewIntObj(value);
+<a href='../S/25.html#L404'>value</a>             404 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const uint32_t&amp;&gt;::from(const uint32_t&amp; value,
+<a href='../S/25.html#L406'>value</a>             406 ScriptInterpTCL.h   return c_to_tcl_cast&lt;const int32_t&amp;&gt;::from(value, interp);
+<a href='../S/25.html#L409'>value</a>             409 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const int64_t&amp;&gt;::from(const int64_t&amp; value,
+<a href='../S/25.html#L411'>value</a>             411 ScriptInterpTCL.h   return Tcl_NewLongObj(value);
+<a href='../S/25.html#L414'>value</a>             414 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const uint64_t&amp;&gt;::from(const uint64_t&amp; value,
+<a href='../S/25.html#L416'>value</a>             416 ScriptInterpTCL.h   return c_to_tcl_cast&lt;const int64_t&amp;&gt;::from(value, interp);
+<a href='../S/25.html#L419'>value</a>             419 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const double&amp;&gt;::from(const double&amp; value,
+<a href='../S/25.html#L421'>value</a>             421 ScriptInterpTCL.h   return Tcl_NewDoubleObj(value);
+<a href='../S/25.html#L424'>value</a>             424 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const String&amp;&gt;::from(const String&amp; value,
+<a href='../S/25.html#L426'>value</a>             426 ScriptInterpTCL.h   return (value.length() &lt; INT_MAX) ? Tcl_NewStringObj(
+<a href='../S/25.html#L427'>value</a>             427 ScriptInterpTCL.h       value.data(), value.length()) : nullptr;
+<a href='../S/25.html#L430'>value</a>             430 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const char *&gt;::from(const char* value,
+<a href='../S/25.html#L432'>value</a>             432 ScriptInterpTCL.h   return c_to_tcl_cast&lt;const String&amp;&gt;::from(value, interp);
+<a href='../S/25.html#L435'>value</a>             435 ScriptInterpTCL.h inline Tcl_Obj* c_to_tcl_cast&lt;const bool&amp;&gt;::from(const bool&amp; value,
+<a href='../S/25.html#L437'>value</a>             437 ScriptInterpTCL.h   return Tcl_NewBooleanObj(value);
+<a href='../S/46.html#L286'>value</a>             286 String.cpp         const String key(keys[i]), value(values[i]);
+<a href='../S/46.html#L288'>value</a>             288 String.cpp         newStr = newStr.sub(key, value);
+<a href='../S/29.html#L124'>value</a>             124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/9.html#L373'>value</a>             373 tests/HashTableTest.cpp   n = a-&gt;each([](int key, String value, void* param) {
+<a href='../S/9.html#L376'>value</a>             376 tests/HashTableTest.cpp       CPPUNIT_ASSERT_STRING_EQUAL("one", value);
+<a href='../S/9.html#L378'>value</a>             378 tests/HashTableTest.cpp       CPPUNIT_ASSERT_STRING_EQUAL("two", value);
 </pre>
 </body>
 </html>

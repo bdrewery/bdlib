@@ -1,29 +1,104 @@
 <html>
 <head>
-<title>ArrayTest</title>
+<title>Array</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/33.html#L36'>ArrayTest</a>          36 tests/ArrayTest.cpp CPPUNIT_TEST_SUITE_REGISTRATION (ArrayTest);
-<a href='../S/33.html#L38'>ArrayTest</a>          38 tests/ArrayTest.cpp void ArrayTest :: setUp (void)
-<a href='../S/33.html#L48'>ArrayTest</a>          48 tests/ArrayTest.cpp void ArrayTest :: tearDown (void)
-<a href='../S/33.html#L56'>ArrayTest</a>          56 tests/ArrayTest.cpp void ArrayTest :: sizeTest (void)
-<a href='../S/33.html#L67'>ArrayTest</a>          67 tests/ArrayTest.cpp void ArrayTest :: push_popTest (void)
-<a href='../S/33.html#L137'>ArrayTest</a>         137 tests/ArrayTest.cpp void ArrayTest :: arrayConsTest(void)
-<a href='../S/33.html#L157'>ArrayTest</a>         157 tests/ArrayTest.cpp void ArrayTest :: clearTest (void)
-<a href='../S/33.html#L168'>ArrayTest</a>         168 tests/ArrayTest.cpp void ArrayTest :: refTest (void)
-<a href='../S/33.html#L224'>ArrayTest</a>         224 tests/ArrayTest.cpp void ArrayTest :: joinTest(void)
-<a href='../S/33.html#L237'>ArrayTest</a>         237 tests/ArrayTest.cpp void ArrayTest :: compareTest(void)
-<a href='../S/33.html#L249'>ArrayTest</a>         249 tests/ArrayTest.cpp void ArrayTest :: findTest(void)
-<a href='../S/33.html#L258'>ArrayTest</a>         258 tests/ArrayTest.cpp void ArrayTest :: indexTest(void)
-<a href='../S/33.html#L275'>ArrayTest</a>         275 tests/ArrayTest.cpp void ArrayTest :: subArrayTest (void)
-<a href='../S/33.html#L318'>ArrayTest</a>         318 tests/ArrayTest.cpp void ArrayTest :: hashTest(void)
-<a href='../S/33.html#L371'>ArrayTest</a>         371 tests/ArrayTest.cpp void ArrayTest :: operatorsTest(void)
-<a href='../S/33.html#L417'>ArrayTest</a>         417 tests/ArrayTest.cpp void ArrayTest :: initializerTest(void) {
-<a href='../S/25.html#L37'>ArrayTest</a>          37 tests/ArrayTest.h class ArrayTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/25.html#L39'>ArrayTest</a>          39 tests/ArrayTest.h     CPPUNIT_TEST_SUITE (ArrayTest);
+<a href='../S/37.html#L49'>Array</a>              49 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
+<a href='../S/37.html#L61'>Array</a>              61 Array.h            Array() : ReferenceCountedArray&lt;value_type&gt;() {};
+<a href='../S/37.html#L62'>Array</a>              62 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
+<a href='../S/37.html#L63'>Array</a>              63 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/37.html#L69'>Array</a>              69 Array.h            Array(std::initializer_list&lt;value_type&gt; list) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/37.html#L81'>Array</a>              81 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/37.html#L93'>Array</a>              93 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/37.html#L94'>Array</a>              94 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
+<a href='../S/37.html#L96'>Array</a>              96 Array.h            virtual ~Array() {};
+<a href='../S/37.html#L102'>Array</a>             102 Array.h            Array&amp; operator=(std::initializer_list&lt;value_type&gt; list) {
+<a href='../S/37.html#L111'>Array</a>             111 Array.h            Array&amp; operator=(const Array&lt;value_type&gt;&amp; array) {
+<a href='../S/37.html#L116'>Array</a>             116 Array.h            Array&amp; operator=(Array&lt;value_type&gt;&amp;&amp; array) {
+<a href='../S/37.html#L133'>Array</a>             133 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
+<a href='../S/37.html#L166'>Array</a>             166 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
+<a href='../S/37.html#L199'>Array</a>             199 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
+<a href='../S/37.html#L206'>Array</a>             206 Array.h            bool equals(const Array&amp; array, size_t n) const
+<a href='../S/37.html#L228'>Array</a>             228 Array.h            inline friend bool operator==(const Array&amp; lhs, const Array&amp; rhs) {
+<a href='../S/37.html#L231'>Array</a>             231 Array.h            inline friend bool operator!=(const Array&amp; lhs, const Array&amp; rhs) { return !(lhs == rhs); };
+<a href='../S/37.html#L237'>Array</a>             237 Array.h            inline Array subarray(int start, int len = -1) const {
+<a href='../S/37.html#L238'>Array</a>             238 Array.h              Array newArray(*this);
+<a href='../S/37.html#L246'>Array</a>             246 Array.h            inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
+<a href='../S/37.html#L254'>Array</a>             254 Array.h            inline Slice&lt;Array&gt; operator()(int start, int len = -1) { return Slice&lt;Array&gt;(*this, start, len); };
+<a href='../S/37.html#L257'>Array</a>             257 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/37.html#L272'>Array</a>             272 Array.h            inline friend Array operator+(Array array1, const Array&amp; array2) {
+<a href='../S/37.html#L280'>Array</a>             280 Array.h            inline const Array&amp; operator++() {
+<a href='../S/37.html#L287'>Array</a>             287 Array.h            inline const Array operator++(int) {
+<a href='../S/37.html#L288'>Array</a>             288 Array.h              Array tmp((*this)(0, 1));
+<a href='../S/37.html#L297'>Array</a>             297 Array.h            inline const Array&amp; operator--() {
+<a href='../S/37.html#L304'>Array</a>             304 Array.h            inline const Array operator--(int) {
+<a href='../S/37.html#L305'>Array</a>             305 Array.h              Array tmp((*this)(this-&gt;length() - 1, 1));
+<a href='../S/37.html#L313'>Array</a>             313 Array.h            inline Array&amp; operator+=(const_reference item) {
+<a href='../S/37.html#L321'>Array</a>             321 Array.h            inline Array&amp; operator+=(const Array&amp; array) {
+<a href='../S/37.html#L326'>Array</a>             326 Array.h            inline Array&amp; operator+=(const int n) {
+<a href='../S/37.html#L339'>Array</a>             339 Array.h            inline Array&amp; operator-=(const int n) {
+<a href='../S/37.html#L355'>Array</a>             355 Array.h          struct hash&lt;BDLIB_NS::Array&lt;T&gt;&gt; {
+<a href='../S/37.html#L356'>Array</a>             356 Array.h            inline size_t operator()(const BDLIB_NS::Array&lt;T&gt;&amp; val) const {
+<a href='../S/6.html#L153'>Array</a>             153 HashTable.h        Array&lt;Key&gt; keys() const {
+<a href='../S/6.html#L154'>Array</a>             154 HashTable.h          Array&lt;Key&gt; tmp(size());
+<a href='../S/6.html#L165'>Array</a>             165 HashTable.h        Array&lt;Value&gt; values() const {
+<a href='../S/6.html#L166'>Array</a>             166 HashTable.h          Array&lt;Value&gt; tmp(size());
+<a href='../S/42.html#L53'>Array</a>              53 ScriptInterp.h     virtual String call(const Array&lt;String&gt;&amp; params = Array&lt;String&gt;()) = 0;
+<a href='../S/34.html#L121'>Array</a>             121 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;const Array&lt;String&gt;&amp;&gt;::from(const Array&lt;String&gt;&amp; array, Tcl_Interp* interp) {
+<a href='../S/34.html#L132'>Array</a>             132 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;const Array&lt;Array&lt;String&gt;&gt;&amp;&gt;::from(const Array&lt;Array&lt;String&gt;&gt;&amp; array, Tcl_Interp* interp) {
+<a href='../S/34.html#L304'>Array</a>             304 ScriptInterpTCL.cpp Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L310'>Array</a>             310 ScriptInterpTCL.cpp     return Array&lt;String&gt;();
+<a href='../S/34.html#L312'>Array</a>             312 ScriptInterpTCL.cpp   Array&lt;String&gt; ret(objc);
+<a href='../S/34.html#L320'>Array</a>             320 ScriptInterpTCL.cpp Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L326'>Array</a>             326 ScriptInterpTCL.cpp     return Array&lt;Array&lt;String&gt;&gt;();
+<a href='../S/34.html#L328'>Array</a>             328 ScriptInterpTCL.cpp   Array&lt;Array&lt;String&gt;&gt; ret(objc);
+<a href='../S/34.html#L331'>Array</a>             331 ScriptInterpTCL.cpp     ret &lt;&lt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(objv[i], si);
+<a href='../S/25.html#L74'>Array</a>              74 ScriptInterpTCL.h c_to_tcl_castable(Array&lt;String&gt;);
+<a href='../S/25.html#L75'>Array</a>              75 ScriptInterpTCL.h c_to_tcl_castable(Array&lt;Array&lt;String&gt;&gt;);
+<a href='../S/25.html#L102'>Array</a>             102 ScriptInterpTCL.h tcl_to_c_castable(Array&lt;String&gt;);
+<a href='../S/25.html#L103'>Array</a>             103 ScriptInterpTCL.h tcl_to_c_castable(Array&lt;Array&lt;String&gt;&gt;);
+<a href='../S/25.html#L119'>Array</a>             119 ScriptInterpTCL.h     inline virtual String call(const Array&lt;String&gt;&amp; params = Array&lt;String&gt;()) {
+<a href='../S/25.html#L127'>Array</a>             127 ScriptInterpTCL.h   friend Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/25.html#L128'>Array</a>             128 ScriptInterpTCL.h   friend Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/46.html#L161'>Array</a>             161 String.cpp     Array&lt;String&gt; String::split(const String&amp; delim, size_t limit) const {
+<a href='../S/46.html#L162'>Array</a>             162 String.cpp       if (!length()) return Array&lt;String&gt;();
+<a href='../S/46.html#L165'>Array</a>             165 String.cpp         return Array&lt;String&gt;(list, 1);
+<a href='../S/46.html#L169'>Array</a>             169 String.cpp       Array&lt;String&gt; array;
+<a href='../S/46.html#L283'>Array</a>             283 String.cpp       Array&lt;String&gt; keys(hashes.keys());
+<a href='../S/46.html#L284'>Array</a>             284 String.cpp       Array&lt;String&gt; values(hashes.values());
+<a href='../S/29.html#L50'>Array</a>              50 String.h       class Array;
+<a href='../S/29.html#L290'>Array</a>             290 String.h               Array&lt;String&gt; split(const String&amp;, size_t limit = npos) const;
+<a href='../S/20.html#L131'>Array</a>             131 tests/ArrayTest.cpp   (*str_a) = Array&lt;String&gt;();
+<a href='../S/20.html#L149'>Array</a>             149 tests/ArrayTest.cpp   Array&lt;int&gt;* int_d = new Array&lt;int&gt;(carray, sizeof(carray) / sizeof(carray[0]));
+<a href='../S/20.html#L305'>Array</a>             305 tests/ArrayTest.cpp   Array&lt;String&gt; inplaceTest;
+<a href='../S/20.html#L313'>Array</a>             313 tests/ArrayTest.cpp   Array&lt;String&gt; expectedResults(*str_a);
+<a href='../S/20.html#L353'>Array</a>             353 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht;
+<a href='../S/20.html#L356'>Array</a>             356 tests/ArrayTest.cpp   HashTable&lt; String, Array&lt;String&gt; &gt; ht2;
+<a href='../S/20.html#L365'>Array</a>             365 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha1;
+<a href='../S/20.html#L366'>Array</a>             366 tests/ArrayTest.cpp   HashTable&lt; Array&lt;String&gt;, int &gt; ha2;
+<a href='../S/20.html#L423'>Array</a>             423 tests/ArrayTest.cpp   Array&lt;int&gt; my_array_initializer = {0, 1, 2, 3};
+<a href='../S/15.html#L78'>Array</a>              78 tests/ArrayTest.h         Array&lt;String&gt; *str_a, *str_b, *str_c;
+<a href='../S/15.html#L79'>Array</a>              79 tests/ArrayTest.h         Array&lt;char&gt; *char_a, *char_b;
+<a href='../S/15.html#L80'>Array</a>              80 tests/ArrayTest.h         Array&lt;int&gt; *int_a, *int_b, *int_c;
+<a href='../S/9.html#L183'>Array</a>             183 tests/HashTableTest.cpp   Array&lt;String&gt; keys = sa-&gt;keys();
+<a href='../S/9.html#L191'>Array</a>             191 tests/HashTableTest.cpp   Array&lt;String&gt; values = sa-&gt;values();
+<a href='../S/12.html#L355'>Array</a>             355 tests/ScriptInterpTCLTest.cpp Array&lt;String&gt; listReturn(String arg1, String arg2, String arg3) {
+<a href='../S/12.html#L356'>Array</a>             356 tests/ScriptInterpTCLTest.cpp   Array&lt;String&gt; ret = {arg1, arg2, arg3};
+<a href='../S/12.html#L360'>Array</a>             360 tests/ScriptInterpTCLTest.cpp Array&lt;Array&lt;String&gt;&gt; nestedListReturn(String arg1, String arg2, String arg3) {
+<a href='../S/12.html#L361'>Array</a>             361 tests/ScriptInterpTCLTest.cpp   Array&lt;Array&lt;String&gt;&gt; ret;
+<a href='../S/12.html#L362'>Array</a>             362 tests/ScriptInterpTCLTest.cpp   ret &lt;&lt; Array&lt;String&gt;{arg1, "10"};
+<a href='../S/12.html#L363'>Array</a>             363 tests/ScriptInterpTCLTest.cpp   ret &lt;&lt; Array&lt;String&gt;{arg2, "20"};
+<a href='../S/12.html#L364'>Array</a>             364 tests/ScriptInterpTCLTest.cpp   ret &lt;&lt; Array&lt;String&gt;{arg3, "30"};
+<a href='../S/12.html#L368'>Array</a>             368 tests/ScriptInterpTCLTest.cpp String listParam(Array&lt;String&gt; list, String param) {
+<a href='../S/12.html#L372'>Array</a>             372 tests/ScriptInterpTCLTest.cpp String nestedListParam(Array&lt;Array&lt;String&gt;&gt; list, String param) {
+<a href='../S/12.html#L373'>Array</a>             373 tests/ScriptInterpTCLTest.cpp   return param + " ;" + static_cast&lt;Array&lt;String&gt;&gt;(list[0]).join("-") +
+<a href='../S/12.html#L374'>Array</a>             374 tests/ScriptInterpTCLTest.cpp     ";" + static_cast&lt;Array&lt;String&gt;&gt;(list[1]).join("-") + ";" +
+<a href='../S/12.html#L375'>Array</a>             375 tests/ScriptInterpTCLTest.cpp     static_cast&lt;Array&lt;String&gt;&gt;(list[2]).join("-");
+<a href='../S/12.html#L459'>Array</a>             459 tests/ScriptInterpTCLTest.cpp   Array&lt;String&gt; params;
+<a href='../S/17.html#L1471'>Array</a>            1471 tests/StringTest.cpp   Array&lt;String&gt; list;
 </pre>
 </body>
 </html>

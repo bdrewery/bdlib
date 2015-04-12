@@ -1,32 +1,44 @@
 <html>
 <head>
-<title>CPPUNIT_NS</title>
+<title>CPPUNIT_ASSERT_THROW</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L268'>CPPUNIT_NS</a>        268 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
-<a href='../S/52.html#L270'>CPPUNIT_NS</a>        270 Array.h              ::CPPUNIT_NS::Asserter::failNotEqual(this-&gt;join("|").c_str(), actual.join("|").c_str(), sourceLine);
-<a href='../S/42.html#L357'>CPPUNIT_NS</a>        357 String.h               static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
-<a href='../S/42.html#L359'>CPPUNIT_NS</a>        359 String.h                 ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
-<a href='../S/25.html#L37'>CPPUNIT_NS</a>         37 tests/ArrayTest.h class ArrayTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/30.html#L36'>CPPUNIT_NS</a>         36 tests/AtomicFileTest.h class AtomicFileTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/23.html#L37'>CPPUNIT_NS</a>         37 tests/BinaryTreeTest.h class BinaryTreeTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/26.html#L38'>CPPUNIT_NS</a>         38 tests/HashTableTest.h class HashTableTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/16.html#L37'>CPPUNIT_NS</a>         37 tests/ListTest.h class ListTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/29.html#L37'>CPPUNIT_NS</a>         37 tests/QueueTest.h class QueueTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/32.html#L20'>CPPUNIT_NS</a>         20 tests/ScriptInterpTCLTest.h class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/11.html#L37'>CPPUNIT_NS</a>         37 tests/SortedListTest.h class SortedListTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/18.html#L37'>CPPUNIT_NS</a>         37 tests/StackTest.h class StackTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/22.html#L36'>CPPUNIT_NS</a>         36 tests/StreamTest.h class StreamTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/15.html#L36'>CPPUNIT_NS</a>         36 tests/StringTest.h class StringTest : public CPPUNIT_NS :: TestFixture
-<a href='../S/20.html#L38'>CPPUNIT_NS</a>         38 tests/UnitRunner.cpp     CPPUNIT_NS :: TestResult testresult;
-<a href='../S/20.html#L41'>CPPUNIT_NS</a>         41 tests/UnitRunner.cpp     CPPUNIT_NS :: TestResultCollector collectedresults;
-<a href='../S/20.html#L44'>CPPUNIT_NS</a>         44 tests/UnitRunner.cpp     CPPUNIT_NS :: BriefTestProgressListener listener;
-<a href='../S/20.html#L51'>CPPUNIT_NS</a>         51 tests/UnitRunner.cpp     CPPUNIT_NS :: TestRunner testrunner;
-<a href='../S/20.html#L52'>CPPUNIT_NS</a>         52 tests/UnitRunner.cpp     testrunner.addTest (CPPUNIT_NS :: TestFactoryRegistry :: getRegistry ().makeTest ());
-<a href='../S/20.html#L56'>CPPUNIT_NS</a>         56 tests/UnitRunner.cpp     CPPUNIT_NS :: CompilerOutputter compileroutputter (&amp;collectedresults, std::cerr);
+<a href='../S/20.html#L168'>CPPUNIT_ASSERT_THROW</a>  168 tests/ArrayTest.cpp   CPPUNIT_ASSERT_THROW(int_a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L121'>CPPUNIT_ASSERT_THROW</a>  121 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW((*b).compare("blah", 4, 4), std::out_of_range);
+<a href='../S/17.html#L237'>CPPUNIT_ASSERT_THROW</a>  237 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L238'>CPPUNIT_ASSERT_THROW</a>  238 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L240'>CPPUNIT_ASSERT_THROW</a>  240 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L242'>CPPUNIT_ASSERT_THROW</a>  242 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(f-&gt;at(11), std::out_of_range);
+<a href='../S/17.html#L246'>CPPUNIT_ASSERT_THROW</a>  246 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L247'>CPPUNIT_ASSERT_THROW</a>  247 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L252'>CPPUNIT_ASSERT_THROW</a>  252 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;insert(1, 'c'), std::out_of_range);
+<a href='../S/17.html#L257'>CPPUNIT_ASSERT_THROW</a>  257 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;replace(1, 'c'), std::out_of_range);
+<a href='../S/17.html#L262'>CPPUNIT_ASSERT_THROW</a>  262 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L265'>CPPUNIT_ASSERT_THROW</a>  265 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L266'>CPPUNIT_ASSERT_THROW</a>  266 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L275'>CPPUNIT_ASSERT_THROW</a>  275 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;charAt(4), std::out_of_range);
+<a href='../S/17.html#L389'>CPPUNIT_ASSERT_THROW</a>  389 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;insert(1, 'a'), std::out_of_range);
+<a href='../S/17.html#L390'>CPPUNIT_ASSERT_THROW</a>  390 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L394'>CPPUNIT_ASSERT_THROW</a>  394 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L422'>CPPUNIT_ASSERT_THROW</a>  422 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;replace(1, "bla"), std::out_of_range);
+<a href='../S/17.html#L423'>CPPUNIT_ASSERT_THROW</a>  423 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(0), std::out_of_range);
+<a href='../S/17.html#L432'>CPPUNIT_ASSERT_THROW</a>  432 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(g-&gt;at(1), std::out_of_range);
+<a href='../S/17.html#L433'>CPPUNIT_ASSERT_THROW</a>  433 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(g-&gt;replace(2, "ml"), std::out_of_range);
+<a href='../S/17.html#L440'>CPPUNIT_ASSERT_THROW</a>  440 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(g-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L903'>CPPUNIT_ASSERT_THROW</a>  903 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;copy(buf, sizeof(buf), 10), std::out_of_range);
+<a href='../S/17.html#L1406'>CPPUNIT_ASSERT_THROW</a> 1406 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(-1), std::out_of_range);
+<a href='../S/17.html#L1410'>CPPUNIT_ASSERT_THROW</a> 1410 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L1411'>CPPUNIT_ASSERT_THROW</a> 1411 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L1419'>CPPUNIT_ASSERT_THROW</a> 1419 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(5), std::out_of_range);
+<a href='../S/17.html#L1423'>CPPUNIT_ASSERT_THROW</a> 1423 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L1424'>CPPUNIT_ASSERT_THROW</a> 1424 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L1445'>CPPUNIT_ASSERT_THROW</a> 1445 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
+<a href='../S/17.html#L1461'>CPPUNIT_ASSERT_THROW</a> 1461 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(a-&gt;at(13), std::out_of_range);
+<a href='../S/17.html#L1465'>CPPUNIT_ASSERT_THROW</a> 1465 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(3), std::out_of_range);
+<a href='../S/17.html#L1466'>CPPUNIT_ASSERT_THROW</a> 1466 tests/StringTest.cpp   CPPUNIT_ASSERT_THROW(b-&gt;at(4), std::out_of_range);
 </pre>
 </body>
 </html>

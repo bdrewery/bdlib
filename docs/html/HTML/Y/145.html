@@ -1,13 +1,26 @@
 <html>
 <head>
-<title>Tcl_ListObjGetElements</title>
+<title>Value</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/47.html#L267'>Tcl_ListObjGetElements</a>  267 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
-<a href='../S/47.html#L283'>Tcl_ListObjGetElements</a>  283 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/6.html#L45'>Value</a>              45 HashTable.h    template &lt;class Key, class Value&gt;
+<a href='../S/6.html#L49'>Value</a>              49 HashTable.h        typedef typename std::unordered_map&lt;Key, Value&gt;::value_type iterator_type;
+<a href='../S/6.html#L50'>Value</a>              50 HashTable.h        typedef void (*hash_table_block)(const Key, Value, void *param);
+<a href='../S/6.html#L52'>Value</a>              52 HashTable.h        std::unordered_map&lt;Key, Value&gt; map;
+<a href='../S/6.html#L57'>Value</a>              57 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : map(table.map) {}
+<a href='../S/6.html#L58'>Value</a>              58 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : map(std::move(table.map)) {
+<a href='../S/6.html#L94'>Value</a>              94 HashTable.h        friend void swap(HashTable&lt;Key, Value&gt;&amp; a, HashTable&lt;Key, Value&gt;&amp; b) {
+<a href='../S/6.html#L100'>Value</a>             100 HashTable.h        HashTable&amp; operator=(HashTable&lt;Key, Value&gt; table) {
+<a href='../S/6.html#L121'>Value</a>             121 HashTable.h        bool insert(const Key&amp; key, const Value&amp; value) {
+<a href='../S/6.html#L137'>Value</a>             137 HashTable.h        inline Value getValue(const Key&amp; key) const {
+<a href='../S/6.html#L140'>Value</a>             140 HashTable.h            return Value();
+<a href='../S/6.html#L148'>Value</a>             148 HashTable.h        inline const Value operator[](const Key&amp; key) const { return getValue(key); }
+<a href='../S/6.html#L165'>Value</a>             165 HashTable.h        Array&lt;Value&gt; values() const {
+<a href='../S/6.html#L166'>Value</a>             166 HashTable.h          Array&lt;Value&gt; tmp(size());
+<a href='../S/6.html#L180'>Value</a>             180 HashTable.h        inline Value&amp; operator[](const Key&amp; key) {
 </pre>
 </body>
 </html>

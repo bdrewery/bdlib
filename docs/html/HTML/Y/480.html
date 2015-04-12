@@ -1,19 +1,16 @@
 <html>
 <head>
-<title>map</title>
+<title>newbuf</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/65.html#L117'>map</a>               117 Stream.cpp       void* map = mmap(0, size, PROT_READ, MAP_PRIVATE, fd, 0);
-<a href='../S/65.html#L118'>map</a>               118 Stream.cpp       if (map == MAP_FAILED) {
-<a href='../S/65.html#L123'>map</a>               123 Stream.cpp       puts(String(static_cast&lt;const char*&gt;(map), size));
-<a href='../S/65.html#L125'>map</a>               125 Stream.cpp       munmap(static_cast&lt;void*&gt;(map), size);
-<a href='../S/65.html#L175'>map</a>               175 Stream.cpp       void* map = mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
-<a href='../S/65.html#L177'>map</a>               177 Stream.cpp       if (map == MAP_FAILED) return 1;
-<a href='../S/65.html#L179'>map</a>               179 Stream.cpp       std::memcpy(map, str.data(), length());
-<a href='../S/65.html#L181'>map</a>               181 Stream.cpp       if (munmap(map, length()) == -1) return 1;
+<a href='../S/36.html#L81'>newbuf</a>             81 ReferenceCountedArray.h         iterator newbuf = alloc.allocate(newSize, buf);
+<a href='../S/36.html#L83'>newbuf</a>             83 ReferenceCountedArray.h         if (newbuf != buf) {
+<a href='../S/36.html#L85'>newbuf</a>             85 ReferenceCountedArray.h           std::uninitialized_fill(newbuf, newbuf + newSize, T());
+<a href='../S/36.html#L88'>newbuf</a>             88 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
+<a href='../S/36.html#L91'>newbuf</a>             91 ReferenceCountedArray.h           buf = newbuf;
 </pre>
 </body>
 </html>

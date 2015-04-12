@@ -1,13 +1,15 @@
 <html>
 <head>
-<title>_callback_proxy</title>
+<title>alcstr</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/61.html#L75'>_callback_proxy</a>    75 ScriptInterp.h           script_cmd_handler_clientdata (ScriptInterp* _si, ScriptCallbackBase* _callback_proxy, const char* _usage, size_t _callbackParamMin, size_t _callbackParamMax) :
-<a href='../S/61.html#L77'>_callback_proxy</a>    77 ScriptInterp.h             callback_proxy(_callback_proxy),
+<a href='../S/12.html#L129'>alcstr</a>            129 tests/ScriptInterpTCLTest.cpp   char alcstr[5] = "blah";
+<a href='../S/12.html#L130'>alcstr</a>            130 tests/ScriptInterpTCLTest.cpp   tcl_script.linkVar("alcstr", alcstr, sizeof(alcstr));
+<a href='../S/12.html#L131'>alcstr</a>            131 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL(String(alcstr), tcl_script.eval("set alcstr"));
+<a href='../S/12.html#L133'>alcstr</a>            133 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_STRING_EQUAL("test", alcstr);
 </pre>
 </body>
 </html>

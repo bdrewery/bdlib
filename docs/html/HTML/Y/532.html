@@ -1,13 +1,17 @@
 <html>
 <head>
-<title>nmemb</title>
+<title>refs</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/43.html#L131'>nmemb</a>             131 Cstrings.cpp   void *calloc(size_t nmemb, size_t size)
-<a href='../S/43.html#L133'>nmemb</a>             133 Cstrings.cpp     void *ptr = ::calloc(nmemb, size);
+<a href='../S/36.html#L57'>refs</a>               57 ReferenceCountedArray.h     mutable std::atomic&lt;int&gt; refs; //References
+<a href='../S/36.html#L59'>refs</a>               59 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+<a href='../S/36.html#L120'>refs</a>              120 ReferenceCountedArray.h     inline bool isShared() const { return refs &gt; 1; };
+<a href='../S/36.html#L231'>refs</a>              231 ReferenceCountedArray.h     inline int incRef() const { return Ref ? ++Ref-&gt;refs : 0; };
+<a href='../S/36.html#L236'>refs</a>              236 ReferenceCountedArray.h     inline int decRef() const { return Ref ? --Ref-&gt;refs : 0; };
+<a href='../S/36.html#L502'>refs</a>              502 ReferenceCountedArray.h     inline size_t rcount() const { return Ref ? Ref-&gt;refs.load() : 0; };
 </pre>
 </body>
 </html>

@@ -1,15 +1,40 @@
 <html>
 <head>
-<title>isShared</title>
+<title>map</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/51.html#L123'>isShared</a>          123 ReferenceCountedArray.h     inline bool isShared() const { return refs &gt; 1; };
-<a href='../S/51.html#L306'>isShared</a>          306 ReferenceCountedArray.h       if (isShared()) {
-<a href='../S/51.html#L365'>isShared</a>          365 ReferenceCountedArray.h       if (isShared())
-<a href='../S/51.html#L499'>isShared</a>          499 ReferenceCountedArray.h     inline bool isShared() const { return Ref &amp;&amp; Ref-&gt;isShared(); };
+<a href='../S/6.html#L52'>map</a>                52 HashTable.h        std::unordered_map&lt;Key, Value&gt; map;
+<a href='../S/6.html#L55'>map</a>                55 HashTable.h        HashTable() : map(default_list_size) {} ;
+<a href='../S/6.html#L56'>map</a>                56 HashTable.h        explicit HashTable(size_t capacity_in) : map(capacity_in) {};
+<a href='../S/6.html#L57'>map</a>                57 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : map(table.map) {}
+<a href='../S/6.html#L58'>map</a>                58 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : map(std::move(table.map)) {
+<a href='../S/6.html#L59'>map</a>                59 HashTable.h          table.map.clear();
+<a href='../S/6.html#L61'>map</a>                61 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : map(list) {}
+<a href='../S/6.html#L66'>map</a>                66 HashTable.h          map.clear();
+<a href='../S/6.html#L82'>map</a>                82 HashTable.h          for (const auto&amp; item : map) {
+<a href='../S/6.html#L97'>map</a>                97 HashTable.h          swap(a.map, b.map);
+<a href='../S/6.html#L116'>map</a>               116 HashTable.h        inline size_t size() const { return map.size(); };
+<a href='../S/6.html#L117'>map</a>               117 HashTable.h        inline size_t capacity() const { return map.max_size(); };
+<a href='../S/6.html#L118'>map</a>               118 HashTable.h        inline bool isEmpty() const { return map.empty(); };
+<a href='../S/6.html#L123'>map</a>               123 HashTable.h          map[key] = std::move(value);
+<a href='../S/6.html#L129'>map</a>               129 HashTable.h          return map.find(key) != std::end(map);
+<a href='../S/6.html#L134'>map</a>               134 HashTable.h          return map.erase(key) &gt; 0 ? true : false;
+<a href='../S/6.html#L138'>map</a>               138 HashTable.h          auto result = map.find(key);
+<a href='../S/6.html#L139'>map</a>               139 HashTable.h          if (result == std::end(map))
+<a href='../S/6.html#L156'>map</a>               156 HashTable.h          for (const auto&amp; item : map) {
+<a href='../S/6.html#L168'>map</a>               168 HashTable.h          for (const auto&amp; item : map) {
+<a href='../S/6.html#L181'>map</a>               181 HashTable.h          return map[key];
+<a href='../S/45.html#L117'>map</a>               117 Stream.cpp       void* map = mmap(0, size, PROT_READ, MAP_PRIVATE, fd, 0);
+<a href='../S/45.html#L118'>map</a>               118 Stream.cpp       if (map == MAP_FAILED) {
+<a href='../S/45.html#L123'>map</a>               123 Stream.cpp       puts(String(static_cast&lt;const char*&gt;(map), size));
+<a href='../S/45.html#L125'>map</a>               125 Stream.cpp       munmap(static_cast&lt;void*&gt;(map), size);
+<a href='../S/45.html#L175'>map</a>               175 Stream.cpp       void* map = mmap(0, length(), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+<a href='../S/45.html#L177'>map</a>               177 Stream.cpp       if (map == MAP_FAILED) return 1;
+<a href='../S/45.html#L179'>map</a>               179 Stream.cpp       std::memcpy(map, str.data(), length());
+<a href='../S/45.html#L181'>map</a>               181 Stream.cpp       if (munmap(map, length()) == -1) return 1;
 </pre>
 </body>
 </html>

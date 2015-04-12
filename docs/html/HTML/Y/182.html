@@ -1,13 +1,24 @@
 <html>
 <head>
-<title>_createCommand</title>
+<title>allocator</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/39.html#L143'>_createCommand</a>    143 ScriptInterpTCL.h         void _createCommand(const String&amp; cmdName, ScriptCallbackBase* callback_proxy, const char* usage, size_t callbackParamMin, size_t callbackParamMax) {
-<a href='../S/39.html#L172'>_createCommand</a>    172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
+<a href='../S/36.html#L42'>allocator</a>          42 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/36.html#L59'>allocator</a>          59 ReferenceCountedArray.h     ArrayRef(const Allocator&amp; allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+<a href='../S/36.html#L194'>allocator</a>         194 ReferenceCountedArray.h template &lt;class T, class Allocator = std::allocator&lt;T&gt; &gt;
+<a href='../S/36.html#L380'>allocator</a>         380 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L400'>allocator</a>         400 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L413'>allocator</a>         413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/29.html#L63'>allocator</a>          63 String.h               typedef std::allocator&lt;String_Array_Type&gt; Allocator;
+<a href='../S/29.html#L84'>allocator</a>          84 String.h               String(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) {};
+<a href='../S/29.html#L93'>allocator</a>          93 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
+<a href='../S/29.html#L103'>allocator</a>         103 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
+<a href='../S/29.html#L112'>allocator</a>         112 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
+<a href='../S/29.html#L123'>allocator</a>         123 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
+<a href='../S/29.html#L124'>allocator</a>         124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
 </pre>
 </body>
 </html>

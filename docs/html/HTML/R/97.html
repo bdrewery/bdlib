@@ -1,13 +1,17 @@
 <html>
 <head>
-<title>capacityTest</title>
+<title>const_iterator</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/15.html#L41'>capacityTest</a>       41 tests/StringTest.h     CPPUNIT_TEST (capacityTest);
-<a href='../S/15.html#L87'>capacityTest</a>       87 tests/StringTest.h         void capacityTest(void);
+<a href='../S/36.html#L590'>const_iterator</a>    590 ReferenceCountedArray.h     inline const_iterator cbegin() const {
+<a href='../S/36.html#L591'>const_iterator</a>    591 ReferenceCountedArray.h       return const_iterator(this-&gt;data());
+<a href='../S/36.html#L596'>const_iterator</a>    596 ReferenceCountedArray.h     inline const_iterator begin() const { return this-&gt;cbegin(); };
+<a href='../S/36.html#L604'>const_iterator</a>    604 ReferenceCountedArray.h     inline const_iterator cend() const {
+<a href='../S/36.html#L605'>const_iterator</a>    605 ReferenceCountedArray.h       return const_iterator(this-&gt;cbegin()) + this-&gt;length();
+<a href='../S/36.html#L610'>const_iterator</a>    610 ReferenceCountedArray.h     inline const_iterator end() const { return this-&gt;cend(); };
 </pre>
 </body>
 </html>

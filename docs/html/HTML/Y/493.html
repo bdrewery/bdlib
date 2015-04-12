@@ -1,15 +1,47 @@
 <html>
 <head>
-<title>min_params</title>
+<title>offset</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/61.html#L109'>min_params</a>        109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/61.html#L110'>min_params</a>        110 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
-<a href='../S/39.html#L171'>min_params</a>        171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/39.html#L172'>min_params</a>        172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
+<a href='../S/37.html#L146'>offset</a>            146 Array.h              ++(this-&gt;offset);
+<a href='../S/37.html#L289'>offset</a>            289 Array.h              ++(this-&gt;offset);
+<a href='../S/37.html#L330'>offset</a>            330 Array.h                this-&gt;offset = this-&gt;length();
+<a href='../S/37.html#L333'>offset</a>            333 Array.h                this-&gt;offset += n;
+<a href='../S/37.html#L343'>offset</a>            343 Array.h                this-&gt;offset = this-&gt;length();
+<a href='../S/36.html#L75'>offset</a>             75 ReferenceCountedArray.h     void Reserve(size_t newSize, double scaling_factor, size_t&amp; offset, size_t sublen) const
+<a href='../S/36.html#L88'>offset</a>             88 ReferenceCountedArray.h             std::copy(buf + offset, buf + offset + sublen, newbuf);
+<a href='../S/36.html#L93'>offset</a>             93 ReferenceCountedArray.h           offset = 0;
+<a href='../S/36.html#L95'>offset</a>             95 ReferenceCountedArray.h       } else if ((size - offset) &lt; newSize) {
+<a href='../S/36.html#L99'>offset</a>             99 ReferenceCountedArray.h         std::memmove(static_cast&lt;void*&gt;(buf), static_cast&lt;void*&gt;(buf + offset), sublen);
+<a href='../S/36.html#L100'>offset</a>            100 ReferenceCountedArray.h         offset = 0;
+<a href='../S/36.html#L225'>offset</a>            225 ReferenceCountedArray.h       offset = 0;
+<a href='../S/36.html#L263'>offset</a>            263 ReferenceCountedArray.h     inline pointer Buf(size_t pos = 0) const { return Ref ? &amp;Ref-&gt;buf[offset + pos] : nullptr; };
+<a href='../S/36.html#L285'>offset</a>            285 ReferenceCountedArray.h     mutable size_t offset;
+<a href='../S/36.html#L307'>offset</a>            307 ReferenceCountedArray.h         offset = 0;
+<a href='../S/36.html#L380'>offset</a>            380 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L382'>offset</a>            382 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/36.html#L383'>offset</a>            383 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/36.html#L386'>offset</a>            386 ReferenceCountedArray.h       rca.offset = 0;
+<a href='../S/36.html#L400'>offset</a>            400 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L413'>offset</a>            413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L438'>offset</a>            438 ReferenceCountedArray.h       swap(a.offset, b.offset);
+<a href='../S/36.html#L456'>offset</a>            456 ReferenceCountedArray.h       offset = rca.offset;
+<a href='../S/36.html#L472'>offset</a>            472 ReferenceCountedArray.h       offset = std::move(rca.offset);
+<a href='../S/36.html#L478'>offset</a>            478 ReferenceCountedArray.h       rca.offset = 0;
+<a href='../S/36.html#L519'>offset</a>            519 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
+<a href='../S/36.html#L775'>offset</a>            775 ReferenceCountedArray.h         offset = length();
+<a href='../S/36.html#L787'>offset</a>            787 ReferenceCountedArray.h       offset += start;
+<a href='../S/45.html#L49'>offset</a>             49 Stream.cpp     int Stream::seek(int offset, int whence) {
+<a href='../S/45.html#L54'>offset</a>             54 Stream.cpp           newpos = offset;
+<a href='../S/45.html#L57'>offset</a>             57 Stream.cpp           newpos = tell() + offset;
+<a href='../S/45.html#L60'>offset</a>             60 Stream.cpp           newpos = capacity() - offset;
+<a href='../S/46.html#L224'>offset</a>            224 String.cpp       while (length() &amp;&amp; isspace((*this)[0])) { ++offset; subLength(1); }
+<a href='../S/29.html#L450'>offset</a>            450 String.h           offset = length();
+<a href='../S/29.html#L453'>offset</a>            453 String.h           offset += n;
+<a href='../S/29.html#L463'>offset</a>            463 String.h           offset = length();
 </pre>
 </body>
 </html>

@@ -1,13 +1,22 @@
 <html>
 <head>
-<title>encoded</title>
+<title>fileName</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/38.html#L105'>encoded</a>           105 base64.cpp       bd::String encoded(p, len);
-<a href='../S/38.html#L107'>encoded</a>           107 base64.cpp       return encoded;
+<a href='../S/42.html#L126'>fileName</a>          126 ScriptInterp.h         virtual LoadError loadScript(const String&amp; fileName, String&amp; resultStr) = 0;
+<a href='../S/34.html#L48'>fileName</a>           48 ScriptInterpTCL.cpp ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String&amp; fileName, String&amp; resultStr) {
+<a href='../S/34.html#L49'>fileName</a>           49 ScriptInterpTCL.cpp   if (fileName.rfind(".tcl", fileName.length() - 4) == String::npos)
+<a href='../S/34.html#L51'>fileName</a>           51 ScriptInterpTCL.cpp   if (Tcl_EvalFile(interp, *fileName) != TCL_OK) {
+<a href='../S/25.html#L289'>fileName</a>          289 ScriptInterpTCL.h         virtual LoadError loadScript(const String&amp; fileName, String&amp; resultStr);
+<a href='../S/12.html#L55'>fileName</a>           55 tests/ScriptInterpTCLTest.cpp   String fileName("test.tcl");
+<a href='../S/12.html#L57'>fileName</a>           57 tests/ScriptInterpTCLTest.cpp   unlink(*fileName);
+<a href='../S/12.html#L59'>fileName</a>           59 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_ERROR, tcl_script.loadScript(fileName, resultStr));
+<a href='../S/12.html#L60'>fileName</a>           60 tests/ScriptInterpTCLTest.cpp   test_tcl.writeFile(fileName);
+<a href='../S/12.html#L61'>fileName</a>           61 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_OK, tcl_script.loadScript(fileName, resultStr));
+<a href='../S/12.html#L63'>fileName</a>           63 tests/ScriptInterpTCLTest.cpp   unlink(*fileName);
 </pre>
 </body>
 </html>

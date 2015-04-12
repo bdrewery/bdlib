@@ -27,10 +27,10 @@ This source file includes following definitions.
 <a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
 <a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
 <a name='L12'>  12 <i><font color='green'> * </font></i>
-<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTIRBUTORS ''AS IS'' AND ANY</font></i>
 <a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
 <a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
-<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY</font></i>
 <a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
 <a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
 <a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
@@ -44,27 +44,27 @@ This source file includes following definitions.
 <a name='L27'>  27 
 <a name='L28'>  28 <font color='darkred'>#include</font> "<a href='1.html'>Socket.h</a>"
 <a name='L29'>  29 
-<a name='L30'>  30 <a href='../S/49.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L31'>  31 <a href='../R/37.html' title='Multiple refered from 10 places.'>Socket</a>::~<a href='../S/3.html#L31' title='Defined at 31 in Socket.cpp.'>Socket</a>() <font color='red'>{</font>
-<a name='L32'>  32   <b>if</b> (<a href='../Y/439.html' title='Multiple used in 2 places.'>isValid</a>()) <font color='red'>{</font>
-<a name='L33'>  33     ::shutdown(<a href='../Y/642.html' title='Multiple used in 9 places.'>sock</a>, SHUT_RDWR);
-<a name='L34'>  34     ::<a href='../Y/278.html' title='Multiple used in 10 places.'>close</a>(<a href='../Y/642.html' title='Multiple used in 9 places.'>sock</a>);
+<a name='L30'>  30 <a href='../S/35.html#L36' title='Defined at 36 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L31'>  31 <a href='../R/35.html' title='Multiple refered from 10 places.'>Socket</a>::~<a href='../S/3.html#L31' title='Defined at 31 in Socket.cpp.'>Socket</a>() <font color='red'>{</font>
+<a name='L32'>  32   <b>if</b> (<a href='../Y/398.html' title='Multiple used in 2 places.'>isValid</a>()) <font color='red'>{</font>
+<a name='L33'>  33     ::shutdown(<a href='../Y/581.html' title='Multiple used in 9 places.'>sock</a>, SHUT_RDWR);
+<a name='L34'>  34     ::<a href='../Y/253.html' title='Multiple used in 10 places.'>close</a>(<a href='../Y/581.html' title='Multiple used in 9 places.'>sock</a>);
 <a name='L35'>  35   <font color='red'>}</font>
 <a name='L36'>  36 <font color='red'>}</font>
 <a name='L37'>  37 
 <a name='L38'>  38 <b>bool</b> <a href='../S/3.html#L31' title='Defined at 31 in Socket.cpp.'>Socket</a>::<a href='../S/1.html#L78' title='Refered from 78 in Socket.h.'>create</a>() <font color='red'>{</font>
-<a name='L39'>  39   <b>int</b> <a href='../Y/575.html' title='Multiple used in 4 places.'>ptype</a> = 0;
+<a name='L39'>  39   <b>int</b> <a href='../Y/517.html' title='Multiple used in 4 places.'>ptype</a> = 0;
 <a name='L40'>  40 
-<a name='L41'>  41   <b>if</b> (<a href='../Y/372.html' title='Multiple used in 22 places.'>flags</a> &amp; <a href='../S/1.html#L48' title='Defined at 48 in Socket.h.'>SOCKET_UDP</a>)
-<a name='L42'>  42     <a href='../Y/575.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_DGRAM;
-<a name='L43'>  43   <b>else</b> <b>if</b> (<a href='../Y/372.html' title='Multiple used in 22 places.'>flags</a> &amp; <a href='../S/1.html#L47' title='Defined at 47 in Socket.h.'>SOCKET_TCP</a>)
-<a name='L44'>  44     <a href='../Y/575.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_STREAM;
+<a name='L41'>  41   <b>if</b> (<a href='../Y/339.html' title='Multiple used in 26 places.'>flags</a> &amp; <a href='../S/1.html#L48' title='Defined at 48 in Socket.h.'>SOCKET_UDP</a>)
+<a name='L42'>  42     <a href='../Y/517.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_DGRAM;
+<a name='L43'>  43   <b>else</b> <b>if</b> (<a href='../Y/339.html' title='Multiple used in 26 places.'>flags</a> &amp; <a href='../S/1.html#L47' title='Defined at 47 in Socket.h.'>SOCKET_TCP</a>)
+<a name='L44'>  44     <a href='../Y/517.html' title='Multiple used in 4 places.'>ptype</a> = SOCK_STREAM;
 <a name='L45'>  45 
-<a name='L46'>  46   <a href='../Y/642.html' title='Multiple used in 9 places.'>sock</a> = socket(pfamily, <a href='../Y/575.html' title='Multiple used in 4 places.'>ptype</a>, 0);
-<a name='L47'>  47   <b>if</b> (<a href='../Y/642.html' title='Multiple used in 9 places.'>sock</a> == -1)
+<a name='L46'>  46   <a href='../Y/581.html' title='Multiple used in 9 places.'>sock</a> = socket(pfamily, <a href='../Y/517.html' title='Multiple used in 4 places.'>ptype</a>, 0);
+<a name='L47'>  47   <b>if</b> (<a href='../Y/581.html' title='Multiple used in 9 places.'>sock</a> == -1)
 <a name='L48'>  48     <b>return</b> <b>false</b>;
 <a name='L49'>  49 <font color='red'>}</font>
-<a name='L50'>  50 <a href='../S/49.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L50'>  50 <a href='../S/35.html#L37' title='Defined at 37 in bdlib.h.'>BDLIB_NS_END</a>
 <a name='L51'>  51 
 <a name='L52'>  52 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>

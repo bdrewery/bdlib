@@ -1,13 +1,36 @@
 <html>
 <head>
-<title>Key</title>
+<title>Ref</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/6.html#L51'>Key</a>                51 HashTable.h        typedef Hash&lt;Key&gt; hasher;
-<a href='../S/6.html#L52'>Key</a>                52 HashTable.h        typedef void (*hash_table_block)(const Key, Value, void *param);
+<a href='../S/36.html#L223'>Ref</a>               223 ReferenceCountedArray.h       Ref = nullptr;
+<a href='../S/36.html#L231'>Ref</a>               231 ReferenceCountedArray.h     inline int incRef() const { return Ref ? ++Ref-&gt;refs : 0; };
+<a href='../S/36.html#L236'>Ref</a>               236 ReferenceCountedArray.h     inline int decRef() const { return Ref ? --Ref-&gt;refs : 0; };
+<a href='../S/36.html#L263'>Ref</a>               263 ReferenceCountedArray.h     inline pointer Buf(size_t pos = 0) const { return Ref ? &amp;Ref-&gt;buf[offset + pos] : nullptr; };
+<a href='../S/36.html#L275'>Ref</a>               275 ReferenceCountedArray.h     mutable ArrayRef&lt;value_type, Allocator&gt; *Ref;
+<a href='../S/36.html#L280'>Ref</a>               280 ReferenceCountedArray.h     inline const_pointer real_begin() const { return Ref ? Ref-&gt;buf : nullptr; };
+<a href='../S/36.html#L320'>Ref</a>               320 ReferenceCountedArray.h       if (Ref &amp;&amp; decRef() &lt; 1) {
+<a href='../S/36.html#L321'>Ref</a>               321 ReferenceCountedArray.h         delete Ref;
+<a href='../S/36.html#L322'>Ref</a>               322 ReferenceCountedArray.h         Ref = nullptr;
+<a href='../S/36.html#L380'>Ref</a>               380 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L382'>Ref</a>               382 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/36.html#L383'>Ref</a>               383 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/36.html#L385'>Ref</a>               385 ReferenceCountedArray.h       rca.Ref = nullptr;
+<a href='../S/36.html#L400'>Ref</a>               400 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L413'>Ref</a>               413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L441'>Ref</a>               441 ReferenceCountedArray.h       swap(a.Ref, b.Ref);
+<a href='../S/36.html#L460'>Ref</a>               460 ReferenceCountedArray.h       Ref = rca.Ref;
+<a href='../S/36.html#L475'>Ref</a>               475 ReferenceCountedArray.h       Ref = std::move(rca.Ref);
+<a href='../S/36.html#L481'>Ref</a>               481 ReferenceCountedArray.h       rca.Ref = nullptr;
+<a href='../S/36.html#L502'>Ref</a>               502 ReferenceCountedArray.h     inline size_t rcount() const { return Ref ? Ref-&gt;refs.load() : 0; };
+<a href='../S/36.html#L506'>Ref</a>               506 ReferenceCountedArray.h     inline bool isShared() const { return Ref &amp;&amp; Ref-&gt;isShared(); };
+<a href='../S/36.html#L516'>Ref</a>               516 ReferenceCountedArray.h       if (!Ref) {
+<a href='../S/36.html#L517'>Ref</a>               517 ReferenceCountedArray.h         Ref = new ArrayRef&lt;value_type, Allocator&gt;(alloc);
+<a href='../S/36.html#L519'>Ref</a>               519 ReferenceCountedArray.h       Ref-&gt;Reserve(newSize, scaling_factor, offset, sublen);
+<a href='../S/36.html#L531'>Ref</a>               531 ReferenceCountedArray.h     inline size_t capacity() const { return Ref ? Ref-&gt;size : 0; };
 </pre>
 </body>
 </html>

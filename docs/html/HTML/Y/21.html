@@ -1,13 +1,27 @@
 <html>
 <head>
-<title>CPPUNIT_SOURCELINE</title>
+<title>CPPUNIT_NS</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L38'>CPPUNIT_SOURCELINE</a>   38 Array.h        #define CPPUNIT_ASSERT_ARRAY_EQUAL(expected, actual) expected.CPPUNIT_checkArrayEqual(actual, CPPUNIT_SOURCELINE())
-<a href='../S/42.html#L43'>CPPUNIT_SOURCELINE</a>   43 String.h       #define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual) BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
+<a href='../S/37.html#L257'>CPPUNIT_NS</a>        257 Array.h            void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/37.html#L259'>CPPUNIT_NS</a>        259 Array.h              ::CPPUNIT_NS::Asserter::failNotEqual(this-&gt;join("|").c_str(), actual.join("|").c_str(), sourceLine);
+<a href='../S/29.html#L364'>CPPUNIT_NS</a>        364 String.h               static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
+<a href='../S/29.html#L366'>CPPUNIT_NS</a>        366 String.h                 ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
+<a href='../S/15.html#L37'>CPPUNIT_NS</a>         37 tests/ArrayTest.h class ArrayTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/18.html#L36'>CPPUNIT_NS</a>         36 tests/AtomicFileTest.h class AtomicFileTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/16.html#L38'>CPPUNIT_NS</a>         38 tests/HashTableTest.h class HashTableTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/19.html#L18'>CPPUNIT_NS</a>         18 tests/ScriptInterpTCLTest.h class ScriptInterpTCLTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/14.html#L36'>CPPUNIT_NS</a>         36 tests/StreamTest.h class StreamTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/11.html#L36'>CPPUNIT_NS</a>         36 tests/StringTest.h class StringTest : public CPPUNIT_NS :: TestFixture
+<a href='../S/13.html#L45'>CPPUNIT_NS</a>         45 tests/UnitRunner.cpp     CPPUNIT_NS :: TestResult testresult;
+<a href='../S/13.html#L48'>CPPUNIT_NS</a>         48 tests/UnitRunner.cpp     CPPUNIT_NS :: TestResultCollector collectedresults;
+<a href='../S/13.html#L51'>CPPUNIT_NS</a>         51 tests/UnitRunner.cpp     CPPUNIT_NS :: BriefTestProgressListener listener;
+<a href='../S/13.html#L58'>CPPUNIT_NS</a>         58 tests/UnitRunner.cpp     CPPUNIT_NS :: TestRunner testrunner;
+<a href='../S/13.html#L59'>CPPUNIT_NS</a>         59 tests/UnitRunner.cpp     testrunner.addTest (CPPUNIT_NS :: TestFactoryRegistry :: getRegistry ().makeTest ());
+<a href='../S/13.html#L63'>CPPUNIT_NS</a>         63 tests/UnitRunner.cpp     CPPUNIT_NS :: CompilerOutputter compileroutputter (&amp;collectedresults, std::cerr);
 </pre>
 </body>
 </html>

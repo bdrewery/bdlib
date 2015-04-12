@@ -1,44 +1,54 @@
 <html>
 <head>
-<title>List</title>
+<title>ReferenceCountedArray</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/6.html#L54'>List</a>               54 HashTable.h        List&lt;iterator_type&gt; *_list;
-<a href='../S/6.html#L63'>List</a>               63 HashTable.h        HashTable() : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {};
-<a href='../S/6.html#L64'>List</a>               64 HashTable.h        explicit HashTable(size_t capacity_in) : _list(new List&lt;iterator_type&gt;[capacity_in]), _size(0), _capacity(capacity_in), _hash() {};
-<a href='../S/6.html#L65'>List</a>               65 HashTable.h        HashTable(const HashTable&lt;Key, Value&gt;&amp; table) : _list(new List&lt;iterator_type&gt;[table._capacity]), _size(table._size), _capacity(table._capacity), _hash(table._hash) {
-<a href='../S/6.html#L75'>List</a>               75 HashTable.h        HashTable(std::initializer_list&lt;iterator_type&gt; list) : _list(new List&lt;iterator_type&gt;[default_list_size]), _size(0), _capacity(default_list_size), _hash() {
-<a href='../S/6.html#L101'>List</a>              101 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
-<a href='../S/6.html#L102'>List</a>              102 HashTable.h          List&lt;iterator_type&gt; items;
-<a href='../S/6.html#L189'>List</a>              189 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
-<a href='../S/6.html#L207'>List</a>              207 HashTable.h          typename List&lt;iterator_type&gt;::iterator iter;
-<a href='../S/45.html#L39'>List</a>               39 List.h         class List {
-<a href='../S/45.html#L111'>List</a>              111 List.h             List() : head(nullptr), tail(nullptr), my_size(0) {};
-<a href='../S/45.html#L112'>List</a>              112 List.h             virtual ~List() { clear(); };
-<a href='../S/45.html#L114'>List</a>              114 List.h             List(const List&amp; list) : head(nullptr), tail(nullptr), my_size(0) {
-<a href='../S/45.html#L119'>List</a>              119 List.h             List(List&amp;&amp; list) : head(nullptr), tail(nullptr), my_size(0) {
-<a href='../S/45.html#L123'>List</a>              123 List.h             friend void swap(List&amp; a, List&amp; b) {
-<a href='../S/45.html#L131'>List</a>              131 List.h             List&amp; operator=(List list) {
-<a href='../S/45.html#L170'>List</a>              170 List.h             inline friend List&lt;value_type&gt;&amp; operator&lt;&lt; (List&lt;value_type&gt;&amp; list, const_reference item) {
-<a href='../S/45.html#L209'>List</a>              209 List.h               friend class List;
-<a href='../S/45.html#L211'>List</a>              211 List.h                 List *list;
-<a href='../S/45.html#L215'>List</a>              215 List.h                 ListIterator(List &amp;_list, bool _end = 0) : Iterator&lt;value_type&gt;(),
-<a href='../S/55.html#L45'>List</a>               45 Queue.h        class Queue : public List&lt;T&gt; {
-<a href='../S/55.html#L46'>List</a>               46 Queue.h          typedef typename List&lt;T&gt;::Node Node;
-<a href='../S/55.html#L64'>List</a>               64 Queue.h            Queue() : List&lt;value_type&gt;() {};
-<a href='../S/9.html#L41'>List</a>               41 SortedList.h   class SortedList : public List&lt;T&gt; {
-<a href='../S/9.html#L43'>List</a>               43 SortedList.h     typedef typename List&lt;iterator_type&gt;::Node Node;
-<a href='../S/9.html#L46'>List</a>               46 SortedList.h       SortedList() : List&lt;iterator_type&gt;() {};
-<a href='../S/10.html#L41'>List</a>               41 Stack.h        class Stack : public List&lt;T&gt; {
-<a href='../S/10.html#L43'>List</a>               43 Stack.h          typedef typename List&lt;iterator_type&gt;::Node Node;
-<a href='../S/10.html#L46'>List</a>               46 Stack.h            Stack() : List&lt;iterator_type&gt;() {};
-<a href='../S/27.html#L273'>List</a>              273 tests/ListTest.cpp   List&lt;int, String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/27.html#L316'>List</a>              316 tests/ListTest.cpp   List&lt;String&gt;::iterator iter = a-&gt;begin();
-<a href='../S/16.html#L62'>List</a>               62 tests/ListTest.h         List&lt;String&gt; *a, *b, *c, *d;
-<a href='../S/16.html#L63'>List</a>               63 tests/ListTest.h         List&lt;String*&gt; *e, *f, *g, *h;
+<a href='../S/37.html#L49'>ReferenceCountedArray</a>   49 Array.h        class Array : public ReferenceCountedArray&lt;T&gt; {
+<a href='../S/37.html#L61'>ReferenceCountedArray</a>   61 Array.h            Array() : ReferenceCountedArray&lt;value_type&gt;() {};
+<a href='../S/37.html#L62'>ReferenceCountedArray</a>   62 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
+<a href='../S/37.html#L63'>ReferenceCountedArray</a>   63 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/37.html#L69'>ReferenceCountedArray</a>   69 Array.h            Array(std::initializer_list&lt;value_type&gt; list) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/37.html#L81'>ReferenceCountedArray</a>   81 Array.h            Array(const_pointer carray, size_t len) : ReferenceCountedArray&lt;value_type&gt;() {
+<a href='../S/37.html#L93'>ReferenceCountedArray</a>   93 Array.h            explicit Array(const size_type newSize) : ReferenceCountedArray&lt;value_type&gt;(newSize) {};
+<a href='../S/37.html#L94'>ReferenceCountedArray</a>   94 Array.h            Array(const size_type newSize, const value_type value) : ReferenceCountedArray&lt;value_type&gt;(newSize, value) {};
+<a href='../S/37.html#L112'>ReferenceCountedArray</a>  112 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(array);
+<a href='../S/37.html#L117'>ReferenceCountedArray</a>  117 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
+<a href='../S/36.html#L199'>ReferenceCountedArray</a>  199 ReferenceCountedArray.h class ReferenceCountedArray : public ReferenceCountedArrayBase {
+<a href='../S/36.html#L380'>ReferenceCountedArray</a>  380 ReferenceCountedArray.h     ReferenceCountedArray(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L382'>ReferenceCountedArray</a>  382 ReferenceCountedArray.h     ReferenceCountedArray(const ReferenceCountedArray&amp; rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
+<a href='../S/36.html#L383'>ReferenceCountedArray</a>  383 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/36.html#L400'>ReferenceCountedArray</a>  400 ReferenceCountedArray.h     explicit ReferenceCountedArray(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L413'>ReferenceCountedArray</a>  413 ReferenceCountedArray.h     ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+<a href='../S/36.html#L429'>ReferenceCountedArray</a>  429 ReferenceCountedArray.h     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
+<a href='../S/36.html#L434'>ReferenceCountedArray</a>  434 ReferenceCountedArray.h     friend void swap(ReferenceCountedArray&amp; a, ReferenceCountedArray&amp; b) {
+<a href='../S/36.html#L453'>ReferenceCountedArray</a>  453 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(const ReferenceCountedArray&amp; rca) {
+<a href='../S/36.html#L469'>ReferenceCountedArray</a>  469 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(ReferenceCountedArray&amp;&amp; rca) {
+<a href='../S/36.html#L493'>ReferenceCountedArray</a>  493 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(const_reference item) {
+<a href='../S/36.html#L715'>ReferenceCountedArray</a>  715 ReferenceCountedArray.h         friend class ReferenceCountedArray;
+<a href='../S/36.html#L716'>ReferenceCountedArray</a>  716 ReferenceCountedArray.h         ReferenceCountedArray&amp; rca;
+<a href='../S/36.html#L722'>ReferenceCountedArray</a>  722 ReferenceCountedArray.h         Cref(ReferenceCountedArray&amp; _rca, size_t pos) : rca(_rca), k(pos) {};
+<a href='../S/36.html#L812'>ReferenceCountedArray</a>  812 ReferenceCountedArray.h     inline void append(const ReferenceCountedArray&amp; rca, size_t n = npos) { insert(length(), rca, n); };
+<a href='../S/36.html#L822'>ReferenceCountedArray</a>  822 ReferenceCountedArray.h     void insert(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
+<a href='../S/36.html#L884'>ReferenceCountedArray</a>  884 ReferenceCountedArray.h     void replace(size_t pos, const ReferenceCountedArray&amp; rca, size_t n = npos) {
+<a href='../S/29.html#L61'>ReferenceCountedArray</a>   61 String.h       class String : public ReferenceCountedArray&lt;String_Array_Type&gt; {
+<a href='../S/29.html#L84'>ReferenceCountedArray</a>   84 String.h               String(const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) {};
+<a href='../S/29.html#L85'>ReferenceCountedArray</a>   85 String.h       	String(const String&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(string) {};
+<a href='../S/29.html#L86'>ReferenceCountedArray</a>   86 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/29.html#L93'>ReferenceCountedArray</a>   93 String.h       	String(const char* cstring, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { if (cstring) append(cstring); };
+<a href='../S/29.html#L103'>ReferenceCountedArray</a>  103 String.h               String(const char* cstring, size_t slen, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(cstring, slen); };
+<a href='../S/29.html#L112'>ReferenceCountedArray</a>  112 String.h               String(const char ch, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(allocator) { append(ch); };
+<a href='../S/29.html#L123'>ReferenceCountedArray</a>  123 String.h               explicit String(const size_t newSize, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, allocator) {};
+<a href='../S/29.html#L124'>ReferenceCountedArray</a>  124 String.h               String(const size_t newSize, const char value, const Allocator&amp; allocator = Allocator()) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(newSize, value, allocator) {};
+<a href='../S/29.html#L135'>ReferenceCountedArray</a>  135 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(string);
+<a href='../S/29.html#L139'>ReferenceCountedArray</a>  139 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
+<a href='../S/29.html#L149'>ReferenceCountedArray</a>  149 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::find;
+<a href='../S/29.html#L159'>ReferenceCountedArray</a>  159 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::rfind;
+<a href='../S/29.html#L302'>ReferenceCountedArray</a>  302 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::append;
+<a href='../S/29.html#L305'>ReferenceCountedArray</a>  305 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::insert;
+<a href='../S/29.html#L308'>ReferenceCountedArray</a>  308 String.h               using ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::replace;
 </pre>
 </body>
 </html>

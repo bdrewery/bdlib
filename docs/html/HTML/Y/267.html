@@ -1,22 +1,47 @@
 <html>
 <head>
-<title>charset_index</title>
+<title>contains</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/38.html#L121'>charset_index</a>     121 base64.cpp     void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
-<a href='../S/38.html#L126'>charset_index</a>     126 base64.cpp       if (!charset_index) {
-<a href='../S/38.html#L127'>charset_index</a>     127 base64.cpp         charset_index = b64_indexes;
-<a href='../S/38.html#L133'>charset_index</a>     133 base64.cpp         *buf++ = (charset_index[data[0]] &lt;&lt; 2) + ((charset_index[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
-<a href='../S/38.html#L136'>charset_index</a>     136 base64.cpp           *buf++ = ((charset_index[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((charset_index[data[2]] &amp; 0x3c) &gt;&gt; 2);
-<a href='../S/38.html#L139'>charset_index</a>     139 base64.cpp             *buf++ = ((charset_index[data[2]] &amp; 0x03) &lt;&lt; 6) + charset_index[data[3]];
-<a href='../S/38.html#L155'>charset_index</a>     155 base64.cpp         char charset_index[256];
-<a href='../S/38.html#L156'>charset_index</a>     156 base64.cpp         memset(charset_index, -1, sizeof(charset_index));
-<a href='../S/38.html#L158'>charset_index</a>     158 base64.cpp           charset_index[int(charset[i])] = i;
-<a href='../S/38.html#L159'>charset_index</a>     159 base64.cpp         b64dec_buf(data, len, dest, charset_index);
-<a href='../S/46.html#L110'>charset_index</a>     110 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index = nullptr);
+<a href='../S/6.html#L122'>contains</a>          122 HashTable.h          if (contains(key)) return false;
+<a href='../S/6.html#L127'>contains</a>          127 HashTable.h        inline bool contains(const Key&amp; key) const {
+<a href='../S/9.html#L124'>contains</a>          124 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, a-&gt;contains(1));
+<a href='../S/9.html#L125'>contains</a>          125 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;contains(3));
+<a href='../S/9.html#L126'>contains</a>          126 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, a-&gt;contains(4));
+<a href='../S/9.html#L130'>contains</a>          130 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, b-&gt;contains(1));
+<a href='../S/9.html#L131'>contains</a>          131 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, b-&gt;contains(3));
+<a href='../S/9.html#L132'>contains</a>          132 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, b-&gt;contains(4));
+<a href='../S/9.html#L135'>contains</a>          135 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, b-&gt;contains(5));
+<a href='../S/9.html#L136'>contains</a>          136 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;contains(5));
+<a href='../S/9.html#L139'>contains</a>          139 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, b-&gt;contains(1));
+<a href='../S/9.html#L140'>contains</a>          140 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, b-&gt;contains(3));
+<a href='../S/9.html#L141'>contains</a>          141 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, b-&gt;contains(4));
+<a href='../S/9.html#L142'>contains</a>          142 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, b-&gt;contains(5));
+<a href='../S/9.html#L143'>contains</a>          143 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, a-&gt;contains(5));
+<a href='../S/9.html#L147'>contains</a>          147 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, a-&gt;contains(42));
+<a href='../S/9.html#L156'>contains</a>          156 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("1"));
+<a href='../S/9.html#L157'>contains</a>          157 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sa-&gt;contains("3"));
+<a href='../S/9.html#L158'>contains</a>          158 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("4"));
+<a href='../S/9.html#L162'>contains</a>          162 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sb-&gt;contains("1"));
+<a href='../S/9.html#L163'>contains</a>          163 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sb-&gt;contains("3"));
+<a href='../S/9.html#L164'>contains</a>          164 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sb-&gt;contains("4"));
+<a href='../S/9.html#L167'>contains</a>          167 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sb-&gt;contains("5"));
+<a href='../S/9.html#L168'>contains</a>          168 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sa-&gt;contains("5"));
+<a href='../S/9.html#L171'>contains</a>          171 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sb-&gt;contains("1"));
+<a href='../S/9.html#L172'>contains</a>          172 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sb-&gt;contains("3"));
+<a href='../S/9.html#L173'>contains</a>          173 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sb-&gt;contains("4"));
+<a href='../S/9.html#L174'>contains</a>          174 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sb-&gt;contains("5"));
+<a href='../S/9.html#L175'>contains</a>          175 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(false, sa-&gt;contains("5"));
+<a href='../S/9.html#L179'>contains</a>          179 tests/HashTableTest.cpp   CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("42"));
+<a href='../S/9.html#L218'>contains</a>          218 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, a-&gt;contains(1));
+<a href='../S/9.html#L219'>contains</a>          219 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, a-&gt;contains(2));
+<a href='../S/9.html#L220'>contains</a>          220 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, a-&gt;contains(3));
+<a href='../S/9.html#L241'>contains</a>          241 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("1"));
+<a href='../S/9.html#L242'>contains</a>          242 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("2"));
+<a href='../S/9.html#L243'>contains</a>          243 tests/HashTableTest.cpp     CPPUNIT_ASSERT_EQUAL(true, sa-&gt;contains("3"));
 </pre>
 </body>
 </html>

@@ -1,84 +1,21 @@
 <html>
 <head>
-<title>str</title>
+<title>unique_ptr</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L198'>str</a>               198 Array.h              String str(str_size);
-<a href='../S/52.html#L202'>str</a>               202 Array.h                  str += delim;
-<a href='../S/52.html#L204'>str</a>               204 Array.h                  str += '"' + *(this-&gt;Buf(i)) + '"';
-<a href='../S/52.html#L206'>str</a>               206 Array.h                  str += *(this-&gt;Buf(i));
-<a href='../S/52.html#L209'>str</a>               209 Array.h              return str;
-<a href='../S/43.html#L96'>str</a>                96 Cstrings.cpp   str_redup(char **str, const char *newstr)
-<a href='../S/43.html#L101'>str</a>               101 Cstrings.cpp                   if (*str) free(*str);
-<a href='../S/43.html#L102'>str</a>               102 Cstrings.cpp                   *str = nullptr;
-<a href='../S/43.html#L106'>str</a>               106 Cstrings.cpp           *str = static_cast&lt;char*&gt;(realloc(*str, len));
-<a href='../S/43.html#L107'>str</a>               107 Cstrings.cpp           memcpy(*str, newstr, len);
-<a href='../S/65.html#L49'>str</a>                49 Stream.cpp       str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
-<a href='../S/65.html#L82'>str</a>                82 Stream.cpp         String ret(str(pos, toRead));
-<a href='../S/65.html#L90'>str</a>                90 Stream.cpp       while ((ret.length() &lt; toRead) &amp;&amp; (str[pos] != delim)) {
-<a href='../S/65.html#L91'>str</a>                91 Stream.cpp         ret += str[pos++];
-<a href='../S/65.html#L93'>str</a>                93 Stream.cpp       if (str.hasIndex(pos) &amp;&amp; str[pos] == delim) {
-<a href='../S/65.html#L179'>str</a>               179 Stream.cpp       std::memcpy(map, str.data(), length());
-<a href='../S/65.html#L193'>str</a>               193 Stream.cpp       if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
-<a href='../S/40.html#L51'>str</a>                51 Stream.h               String str;
-<a href='../S/40.html#L56'>str</a>                56 Stream.h               Stream() : str(), pos(0), loading(0) {};
-<a href='../S/40.html#L57'>str</a>                57 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
-<a href='../S/40.html#L58'>str</a>                58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
-<a href='../S/40.html#L59'>str</a>                59 Stream.h                 stream.str = String();
-<a href='../S/40.html#L63'>str</a>                63 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
-<a href='../S/40.html#L64'>str</a>                64 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
-<a href='../S/40.html#L70'>str</a>                70 Stream.h                 swap(a.str, b.str);
-<a href='../S/40.html#L91'>str</a>                91 Stream.h               void truncate() { str = str(0, pos); };
-<a href='../S/40.html#L93'>str</a>                93 Stream.h               String peek() { return str(pos); };
-<a href='../S/40.html#L98'>str</a>                98 Stream.h               void clear() { str.clear(); pos = 0; }
-<a href='../S/40.html#L105'>str</a>               105 Stream.h                 str.replace(tell(), string);
-<a href='../S/40.html#L163'>str</a>               163 Stream.h               inline operator String() const { return str; };
-<a href='../S/40.html#L164'>str</a>               164 Stream.h               inline size_t length() const { return str.length(); };
-<a href='../S/40.html#L165'>str</a>               165 Stream.h               inline size_t capacity() const { return str.capacity(); };
-<a href='../S/40.html#L166'>str</a>               166 Stream.h               inline bool operator!() const { return str.isEmpty(); };
-<a href='../S/66.html#L43'>str</a>                43 String.cpp     int String::compare(const String&amp; str, size_t n, size_t start) const
-<a href='../S/66.html#L47'>str</a>                47 String.cpp       if (data() == str.data() &amp;&amp; my_len == str.length())
-<a href='../S/66.html#L50'>str</a>                50 String.cpp       const size_t slen = n ? std::min(str.length(), n) : str.length();
-<a href='../S/66.html#L52'>str</a>                52 String.cpp       const int diff = std::memcmp(begin() + start, str.begin(), len);
-<a href='../S/66.html#L157'>str</a>               157 String.cpp       String str(*this);
-<a href='../S/66.html#L163'>str</a>               163 String.cpp         if (delim == space) while (str.length() &amp;&amp; str[0] == ' ') ++str;
-<a href='../S/66.html#L166'>str</a>               166 String.cpp         if (!str) break;
-<a href='../S/66.html#L168'>str</a>               168 String.cpp         if ((pos = str.find(delim)) == npos)
-<a href='../S/66.html#L169'>str</a>               169 String.cpp           pos = str.length();
-<a href='../S/66.html#L170'>str</a>               170 String.cpp         array &lt;&lt; str(0, pos);
-<a href='../S/66.html#L171'>str</a>               171 String.cpp         str += pos + delim.length();
-<a href='../S/66.html#L177'>str</a>               177 String.cpp         if (delim == space) while (str.length() &amp;&amp; str[0] == ' ') ++str;
-<a href='../S/66.html#L178'>str</a>               178 String.cpp         array &lt;&lt; str;
-<a href='../S/66.html#L216'>str</a>               216 String.cpp     size_t String::find(const String&amp; str) const {
-<a href='../S/66.html#L217'>str</a>               217 String.cpp       if (length() &gt;= str.length()) {
-<a href='../S/66.html#L218'>str</a>               218 String.cpp         const size_t last_pos = length() - str.length();
-<a href='../S/66.html#L220'>str</a>               220 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
-<a href='../S/66.html#L226'>str</a>               226 String.cpp     size_t String::ifind(const String&amp; str) const {
-<a href='../S/66.html#L227'>str</a>               227 String.cpp       String str_upper(str), this_upper(*this);
-<a href='../S/66.html#L228'>str</a>               228 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/66.html#L233'>str</a>               233 String.cpp     size_t String::rifind(const String&amp; str, const size_t lpos) const {
-<a href='../S/66.html#L234'>str</a>               234 String.cpp       String str_upper(str), this_upper(*this);
-<a href='../S/66.html#L235'>str</a>               235 String.cpp       std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-<a href='../S/66.html#L240'>str</a>               240 String.cpp     size_t String::rfind(const String&amp; str, const size_t lpos) const {
-<a href='../S/66.html#L241'>str</a>               241 String.cpp       if (length() &gt;= str.length()) {
-<a href='../S/66.html#L242'>str</a>               242 String.cpp         const size_t last_pos = length() - str.length();
-<a href='../S/66.html#L244'>str</a>               244 String.cpp           if (str[0] == (*this)[pos] &amp;&amp; !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
-<a href='../S/66.html#L286'>str</a>               286 String.cpp     String newsplit(String&amp; str, char delim)
-<a href='../S/66.html#L288'>str</a>               288 String.cpp       if (!str.length()) return "";
-<a href='../S/66.html#L289'>str</a>               289 String.cpp       size_t pos = str.find(delim);
-<a href='../S/66.html#L291'>str</a>               291 String.cpp         pos = str.length();
-<a href='../S/66.html#L293'>str</a>               293 String.cpp       String first(str(0, pos));
-<a href='../S/66.html#L297'>str</a>               297 String.cpp         while ((str.begin() + pos + 1) &lt; str.end() &amp;&amp; str[pos + 1] == ' ')
-<a href='../S/66.html#L302'>str</a>               302 String.cpp       str += pos + 1;
-<a href='../S/42.html#L149'>str</a>               149 String.h               size_t find(const String&amp; str) const;
-<a href='../S/42.html#L159'>str</a>               159 String.h               size_t rfind(const String&amp; str, const size_t lpos = 0) const;
-<a href='../S/42.html#L169'>str</a>               169 String.h               size_t rifind(const String&amp; str, const size_t lpos = 0) const;
-<a href='../S/42.html#L176'>str</a>               176 String.h               size_t ifind(const String&amp; str) const;
-<a href='../S/42.html#L281'>str</a>               281 String.h               int compare(const String&amp; str, size_t n = 0, size_t start = 0) const;
-<a href='../S/42.html#L534'>str</a>               534 String.h       String newsplit(String&amp; str, char delim = ' ');
+<a href='../S/42.html#L75'>unique_ptr</a>         75 ScriptInterp.h           std::unique_ptr&lt;ScriptCommandHandlerBase&gt; callback_proxy;
+<a href='../S/42.html#L81'>unique_ptr</a>         81 ScriptInterp.h               std::unique_ptr&lt;ScriptCommandHandlerBase&gt; _callback_proxy,
+<a href='../S/25.html#L144'>unique_ptr</a>        144 ScriptInterpTCL.h               std::unique_ptr&lt;ScriptCommandHandlerBase&gt; _callback_proxy,
+<a href='../S/25.html#L169'>unique_ptr</a>        169 ScriptInterpTCL.h             std::unique_ptr&lt;ScriptCommandHandlerBase&gt; callback_proxy,
+<a href='../S/25.html#L186'>unique_ptr</a>        186 ScriptInterpTCL.h         std::unordered_map&lt;String, std::unique_ptr&lt;trace_ptr_data&gt;&gt; trace_ptrs;
+<a href='../S/25.html#L249'>unique_ptr</a>        249 ScriptInterpTCL.h             std::unique_ptr&lt;T_name[]&gt; oldval;
+<a href='../S/32.html#L9'>unique_ptr</a>          9 make_unique.h          typedef unique_ptr&lt;T&gt; _Single_object;
+<a href='../S/32.html#L13'>unique_ptr</a>         13 make_unique.h          typedef unique_ptr&lt;T[]&gt; _Unknown_bound;
+<a href='../S/32.html#L23'>unique_ptr</a>         23 make_unique.h              return unique_ptr&lt;T&gt;(new T(std::forward&lt;Args&gt;(args)...));
+<a href='../S/32.html#L30'>unique_ptr</a>         30 make_unique.h              return unique_ptr&lt;T&gt;(new U[n]());
 </pre>
 </body>
 </html>

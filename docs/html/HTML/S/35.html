@@ -1,14 +1,14 @@
 <html>
 <head>
-<title>hash.h</title>
+<title>bdlib.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/hash.h</h2>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/bdlib.h</h2>
 <i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
-<h2><a href='../J/44.html' title='Multiple included from 2 places.'>INCLUDED FROM</a></h2>
+<h2><a href='../J/23.html' title='Multiple included from 13 places.'>INCLUDED FROM</a></h2>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -23,10 +23,10 @@
 <a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
 <a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
 <a name='L12'>  12 <i><font color='green'> * </font></i>
-<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTIRBUTORS ''AS IS'' AND ANY</font></i>
 <a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
 <a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
-<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY</font></i>
 <a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
 <a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
 <a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
@@ -35,86 +35,22 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 
-<a name='L26'>  26 <i><font color='green'>// TR1 functional header -*- C++ -*-</font></i>
+<a name='L25'>  25 <i><font color='green'>/* bdlib.h</font></i>
+<a name='L26'>  26 <i><font color='green'> */</font></i>
 <a name='L27'>  27 
-<a name='L28'>  28 <i><font color='green'>// Copyright (C) 2004, 2005 Free Software Foundation, Inc.</font></i>
-<a name='L29'>  29 <i><font color='green'>//</font></i>
-<a name='L30'>  30 <i><font color='green'>// This file is part of the GNU ISO C++ Library.  This library is free</font></i>
-<a name='L31'>  31 <i><font color='green'>// software; you can redistribute it and/or modify it under the</font></i>
-<a name='L32'>  32 <i><font color='green'>// terms of the GNU General Public License as published by the</font></i>
-<a name='L33'>  33 <i><font color='green'>// Free Software Foundation; either version 2, or (at your option)</font></i>
-<a name='L34'>  34 <i><font color='green'>// any later version.</font></i>
-<a name='L35'>  35 
-<a name='L36'>  36 <i><font color='green'>// This library is distributed in the hope that it will be useful,</font></i>
-<a name='L37'>  37 <i><font color='green'>// but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
-<a name='L38'>  38 <i><font color='green'>// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
-<a name='L39'>  39 <i><font color='green'>// GNU General Public License for more details.</font></i>
-<a name='L40'>  40 
-<a name='L41'>  41 <i><font color='green'>// You should have received a copy of the GNU General Public License along</font></i>
-<a name='L42'>  42 <i><font color='green'>// with this library; see the file COPYING.  If not, write to the Free</font></i>
-<a name='L43'>  43 <i><font color='green'>// Software Foundation, 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,</font></i>
-<a name='L44'>  44 <i><font color='green'>// USA.</font></i>
-<a name='L45'>  45 
-<a name='L46'>  46 <i><font color='green'>// As a special exception, you may use this file as part of a free software</font></i>
-<a name='L47'>  47 <i><font color='green'>// library without restriction.  Specifically, if other files instantiate</font></i>
-<a name='L48'>  48 <i><font color='green'>// templates or use macros or inline functions from this file, or you compile</font></i>
-<a name='L49'>  49 <i><font color='green'>// this file and link it with other files to produce an executable, this</font></i>
-<a name='L50'>  50 <i><font color='green'>// file does not by itself cause the resulting executable to be covered by</font></i>
-<a name='L51'>  51 <i><font color='green'>// the GNU General Public License.  This exception does not however</font></i>
-<a name='L52'>  52 <i><font color='green'>// invalidate any other reasons why the executable file might be covered by</font></i>
-<a name='L53'>  53 <i><font color='green'>// the GNU General Public License.</font></i>
-<a name='L54'>  54 
-<a name='L55'>  55 <font color='darkred'>#ifndef</font> <a href='../S/35.html#L56' title='Defined at 56 in hash.h.'>_BD_HASH_H</a>
-<a name='L56'>  56 <font color='darkred'>#define</font> <a href='../S/35.html#L55' title='Refered from 55 in hash.h.'>_BD_HASH_H</a> 1
-<a name='L57'>  57 
-<a name='L58'>  58 <font color='darkred'>#include</font> "<a href='49.html'>bdlib.h</a>"
-<a name='L59'>  59 <font color='darkred'>#include</font> &lt;sys/types.h&gt;
-<a name='L60'>  60 
-<a name='L61'>  61 <a href='../S/49.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L62'>  62 
-<a name='L63'>  63 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a>&lt;<a href='../Y/726.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;
-<a name='L64'>  64   <b>struct</b> <a href='../Y/58.html' title='Multiple used in 9 places.'>Hash</a>;
-<a name='L65'>  65 
-<a name='L66'>  66 <font color='darkred'>#define</font> <a href='../R/235.html' title='Multiple refered from 10 places.'>tr1_hashtable_define_trivial_hash</a>(<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>)                                      \
-<a name='L67'>  67 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a>&lt;&gt;                                                                        \
-<a name='L68'>  68   <b>struct</b> <a href='../Y/58.html' title='Multiple used in 9 places.'>Hash</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;                                                                  \
-<a name='L69'>  69   <font color='red'>{</font>                                                                               \
-<a name='L70'>  70     <b>inline</b> <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>()(<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a> <a href='../Y/741.html' title='Multiple used in 3 places.'>val</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/662.html' title='Multiple used in 13 places.'>static_cast</a>&lt;<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>&gt;(<a href='../Y/741.html' title='Multiple used in 3 places.'>val</a>); <font color='red'>}</font>    \
-<a name='L71'>  71   <font color='red'>}</font>
-<a name='L72'>  72 
-<a name='L73'>  73 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<a href='../Y/241.html' title='Multiple used in 79 places.'>bool</a>);
-<a name='L74'>  74 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>char</b>);
-<a name='L75'>  75 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>signed</b> <b>char</b>);
-<a name='L76'>  76 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>char</b>);
-<a name='L77'>  77 <i><font color='green'>//tr1_hashtable_define_trivial_hash(wchar_t);</font></i>
-<a name='L78'>  78 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>short</b>);
-<a name='L79'>  79 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>int</b>);
-<a name='L80'>  80 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>long</b>);
-<a name='L81'>  81 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>short</b>);
-<a name='L82'>  82 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>int</b>);
-<a name='L83'>  83 <a href='../D/271.html' title='Multiple defined in 2 places.'>tr1_hashtable_define_trivial_hash</a>(<b>unsigned</b> <b>long</b>);
-<a name='L84'>  84 
-<a name='L85'>  85 <font color='darkred'>#undef</font> <a href='../R/235.html' title='Multiple refered from 10 places.'>tr1_hashtable_define_trivial_hash</a>
-<a name='L86'>  86 
-<a name='L87'>  87 <i><font color='green'>/** TODO:</font></i>
-<a name='L88'>  88 <i><font color='green'>float</font></i>
-<a name='L89'>  89 <i><font color='green'>double</font></i>
-<a name='L90'>  90 <i><font color='green'>long double</font></i>
-<a name='L91'>  91 <i><font color='green'>char *</font></i>
-<a name='L92'>  92 <i><font color='green'>const char *</font></i>
-<a name='L93'>  93 <i><font color='green'>String</font></i>
-<a name='L94'>  94 <i><font color='green'>*/</font></i>
-<a name='L95'>  95 
-<a name='L96'>  96 <a href='../Y/698.html' title='Multiple used in 47 places.'>template</a>&lt;<a href='../Y/726.html' title='Multiple used in 40 places.'>typename</a> <a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>&gt;
-<a name='L97'>  97   <b>struct</b> <a href='../Y/58.html' title='Multiple used in 9 places.'>Hash</a>&lt;<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>*&gt;
-<a name='L98'>  98   <font color='red'>{</font>
-<a name='L99'>  99     <b>inline</b> <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/548.html' title='Multiple used in 148 places.'>operator</a>()(<a href='../Y/122.html' title='Multiple used in 92 places.'>T</a>* <a href='../Y/551.html' title='Multiple used in 19 places.'>p</a>) <b>const</b> <font color='red'>{</font> <b>return</b> <a href='../Y/592.html' title='Multiple used in 5 places.'>reinterpret_cast</a>&lt;<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>&gt;(<a href='../Y/551.html' title='Multiple used in 19 places.'>p</a>); <font color='red'>}</font>
-<a name='L100'> 100   <font color='red'>}</font>;
-<a name='L101'> 101 
-<a name='L102'> 102 <a href='../S/49.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L103'> 103 <font color='darkred'>#endif</font>
-<a name='L104'> 104 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/35.html#L29' title='Defined at 29 in bdlib.h.'>_BD_BDLIB_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/35.html#L28' title='Refered from 28 in bdlib.h.'>_BD_BDLIB_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#ifdef</font> <a href='../Y/42.html' title='Multiple used in 2 places.'>HAVE_CONFIG_H</a>
+<a name='L32'>  32 <font color='darkred'>#include</font> &lt;<a href='41.html'>config.h</a>&gt;
+<a name='L33'>  33 <font color='darkred'>#endif</font>
+<a name='L34'>  34 
+<a name='L35'>  35 <font color='darkred'>#define</font> <a href='../R/2.html' title='Multiple refered from 18 places.'>BDLIB_NS</a> bd
+<a name='L36'>  36 <font color='darkred'>#define</font> <a href='../R/3.html' title='Multiple refered from 21 places.'>BDLIB_NS_BEGIN</a> <a href='../Y/473.html' title='Multiple used in 10 places.'>namespace</a> <a href='../S/35.html#L35' title='Defined at 35 in bdlib.h.'>BDLIB_NS</a> <font color='red'>{</font>
+<a name='L37'>  37 <font color='darkred'>#define</font> <a href='../R/4.html' title='Multiple refered from 21 places.'>BDLIB_NS_END</a> <font color='red'>}</font>
+<a name='L38'>  38 
+<a name='L39'>  39 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_BDLIB_H */</font></i> 
+<a name='L40'>  40 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>

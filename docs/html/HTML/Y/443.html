@@ -1,83 +1,13 @@
 <html>
 <head>
-<title>item</title>
+<title>maxlen</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L118'>item</a>              118 Array.h              for (value_type item : list) {
-<a href='../S/52.html#L119'>item</a>              119 Array.h                push(std::move(item));
-<a href='../S/52.html#L137'>item</a>              137 Array.h            inline void push(const value_type item) {
-<a href='../S/52.html#L139'>item</a>              139 Array.h              *(this-&gt;Buf(this-&gt;length())) = item;
-<a href='../S/52.html#L146'>item</a>              146 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
-<a href='../S/52.html#L147'>item</a>              147 Array.h              array.push(item);
-<a href='../S/52.html#L179'>item</a>              179 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
-<a href='../S/52.html#L180'>item</a>              180 Array.h              item = array.pop();
-<a href='../S/52.html#L324'>item</a>              324 Array.h            inline Array&amp; operator+=(const_reference item) {
-<a href='../S/52.html#L325'>item</a>              325 Array.h              this-&gt;append(item);
-<a href='../S/6.html#L139'>item</a>              139 HashTable.h          for (iterator_type item : list) {
-<a href='../S/6.html#L140'>item</a>              140 HashTable.h            (*this)[item.key()] = item.value();
-<a href='../S/45.html#L55'>item</a>               55 List.h               value_type item;
-<a href='../S/45.html#L59'>item</a>               59 List.h               Node(const_reference p) : item(p), next(nullptr), prev(nullptr) {};
-<a href='../S/45.html#L61'>item</a>               61 List.h               Node(const Node&amp; n) : item(n.item), next(n.next), prev(n.prev) {};
-<a href='../S/45.html#L62'>item</a>               62 List.h               Node(const value_type&amp;&amp; p) : item(std::move(p.item)), next(std::move(p.next)), prev(std::move(p.prev)) {
-<a href='../S/45.html#L63'>item</a>               63 List.h                 p.item = nullptr;
-<a href='../S/45.html#L71'>item</a>               71 List.h                 swap(a.item, b.item);
-<a href='../S/45.html#L97'>item</a>               97 List.h             Node* findNode(const_reference item) const {
-<a href='../S/45.html#L99'>item</a>               99 List.h                 if (current-&gt;item == item) {
-<a href='../S/45.html#L116'>item</a>              116 List.h                 insert(search-&gt;item);
-<a href='../S/45.html#L155'>item</a>              155 List.h             void insert(const_reference item) {
-<a href='../S/45.html#L156'>item</a>              156 List.h               Node* node = new Node(item);
-<a href='../S/45.html#L170'>item</a>              170 List.h             inline friend List&lt;value_type&gt;&amp; operator&lt;&lt; (List&lt;value_type&gt;&amp; list, const_reference item) {
-<a href='../S/45.html#L171'>item</a>              171 List.h               list.insert(item);
-<a href='../S/45.html#L175'>item</a>              175 List.h             bool contains(const_reference item) const {
-<a href='../S/45.html#L176'>item</a>              176 List.h               return findNode(item) ? true : false;
-<a href='../S/45.html#L179'>item</a>              179 List.h            const value_type find(const_reference item) const {
-<a href='../S/45.html#L180'>item</a>              180 List.h               Node* node = findNode(item);
-<a href='../S/45.html#L181'>item</a>              181 List.h               return node ? node-&gt;item : value_type();
-<a href='../S/45.html#L187'>item</a>              187 List.h             reference findRef(const_reference item) {
-<a href='../S/45.html#L188'>item</a>              188 List.h               Node* node = findNode(item);
-<a href='../S/45.html#L189'>item</a>              189 List.h               return node ? node-&gt;item : head-&gt;item;
-<a href='../S/45.html#L192'>item</a>              192 List.h             bool remove(const_reference item) {
-<a href='../S/45.html#L199'>item</a>              199 List.h               Node* node = findNode(item);
-<a href='../S/45.html#L252'>item</a>              252 List.h                 virtual value_type&amp; operator *() { return static_cast&lt;value_type&amp;&gt;(current-&gt;item); }
-<a href='../S/55.html#L71'>item</a>               71 Queue.h              value_type item = this-&gt;tail-&gt;item;
-<a href='../S/55.html#L73'>item</a>               73 Queue.h              return item;
-<a href='../S/55.html#L79'>item</a>               79 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&gt;&gt; (Queue&lt;value_type&gt;&amp; queue, reference item) {
-<a href='../S/55.html#L80'>item</a>               80 Queue.h              item = queue.dequeue();
-<a href='../S/55.html#L97'>item</a>               97 Queue.h            inline void enqueue(const_reference item) {
-<a href='../S/55.html#L98'>item</a>               98 Queue.h              this-&gt;insert(item);
-<a href='../S/55.html#L104'>item</a>              104 Queue.h            inline friend Queue&lt;value_type&gt;&amp; operator&lt;&lt; (Queue&lt;value_type&gt;&amp; queue, const_reference item) {
-<a href='../S/55.html#L105'>item</a>              105 Queue.h              queue.enqueue(item);
-<a href='../S/55.html#L140'>item</a>              140 Queue.h            reference operator *() const { return current-&gt;item; }
-<a href='../S/55.html#L196'>item</a>              196 Queue.h            reference operator *() const { return current-&gt;item; }
-<a href='../S/51.html#L486'>item</a>              486 ReferenceCountedArray.h     ReferenceCountedArray&amp; operator=(const_reference item) {
-<a href='../S/51.html#L488'>item</a>              488 ReferenceCountedArray.h       append(item);
-<a href='../S/51.html#L643'>item</a>              643 ReferenceCountedArray.h     size_t find(const_reference item) const {
-<a href='../S/51.html#L645'>item</a>              645 ReferenceCountedArray.h         if (*(Buf(i)) == item)
-<a href='../S/51.html#L654'>item</a>              654 ReferenceCountedArray.h     size_t rfind(const_reference item) const {
-<a href='../S/51.html#L656'>item</a>              656 ReferenceCountedArray.h         if (*(Buf(i)) == item)
-<a href='../S/51.html#L686'>item</a>              686 ReferenceCountedArray.h     inline void write(size_t pos, value_type item) {
-<a href='../S/51.html#L688'>item</a>              688 ReferenceCountedArray.h       *(Buf(pos)) = item;
-<a href='../S/51.html#L794'>item</a>              794 ReferenceCountedArray.h     inline void append(const_reference item) { insert(length(), item); };
-<a href='../S/51.html#L841'>item</a>              841 ReferenceCountedArray.h     void insert(size_t pos, const_reference item)
-<a href='../S/51.html#L847'>item</a>              847 ReferenceCountedArray.h       *(Buf(pos)) = item;
-<a href='../S/51.html#L858'>item</a>              858 ReferenceCountedArray.h     void replace(size_t pos, const_reference item) {
-<a href='../S/51.html#L862'>item</a>              862 ReferenceCountedArray.h       *(Buf(pos)) = item;
-<a href='../S/9.html#L54'>item</a>               54 SortedList.h       virtual void insert(const iterator_type&amp; item) {
-<a href='../S/9.html#L61'>item</a>               61 SortedList.h         Node* node = new Node(item), *prev = nullptr, *current = this-&gt;head;
-<a href='../S/9.html#L62'>item</a>               62 SortedList.h         while (current != nullptr &amp;&amp; item &lt; current-&gt;item) {
-<a href='../S/10.html#L53'>item</a>               53 Stack.h              iterator_type item = this-&gt;head-&gt;item;
-<a href='../S/10.html#L54'>item</a>               54 Stack.h              this-&gt;remove(item);
-<a href='../S/10.html#L55'>item</a>               55 Stack.h              return item;
-<a href='../S/10.html#L61'>item</a>               61 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&gt;&gt; (Stack&lt;iterator_type&gt;&amp; stack, iterator_type&amp; item) {
-<a href='../S/10.html#L62'>item</a>               62 Stack.h              item = stack.pop();
-<a href='../S/10.html#L71'>item</a>               71 Stack.h              return this-&gt;isEmpty() ? iterator_type() : this-&gt;head-&gt;item;
-<a href='../S/10.html#L78'>item</a>               78 Stack.h            inline void push(const iterator_type &amp;item) {
-<a href='../S/10.html#L79'>item</a>               79 Stack.h              this-&gt;insert(item);
-<a href='../S/10.html#L85'>item</a>               85 Stack.h            inline friend Stack&lt;iterator_type&gt;&amp; operator&lt;&lt; (Stack&lt;iterator_type&gt;&amp; stack, const iterator_type&amp; item) {
-<a href='../S/10.html#L86'>item</a>               86 Stack.h              stack.insert(item);
+<a href='../S/30.html#L123'>maxlen</a>            123 Cstrings.cpp   strldup(const char *entry, size_t maxlen)
+<a href='../S/30.html#L126'>maxlen</a>            126 Cstrings.cpp     size_t len = slen &lt; maxlen ? slen : maxlen;
 </pre>
 </body>
 </html>

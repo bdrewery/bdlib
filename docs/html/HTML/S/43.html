@@ -1,24 +1,12 @@
 <html>
 <head>
-<title>Cstrings.cpp</title>
+<title>Crypto.h</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/Cstrings.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L37'>[^]</a><a href='#L141'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
-<hr>
-<h2>DEFINITIONS</h2>
-This source file includes following definitions.
-<ol>
-<li><a href='#L37' title='Defined at 37.'>strlcpy</a>
-<li><a href='#L68' title='Defined at 68.'>strlcat</a>
-<li><a href='#L96' title='Defined at 96.'>str_redup</a>
-<li><a href='#L111' title='Defined at 111.'>strdup</a>
-<li><a href='#L121' title='Defined at 121.'>strldup</a>
-<li><a href='#L131' title='Defined at 131.'>calloc</a>
-<li><a href='#L141' title='Defined at 141.'>realloc</a>
-</ol>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/Crypto.h</h2>
+<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -33,10 +21,10 @@ This source file includes following definitions.
 <a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
 <a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
 <a name='L12'>  12 <i><font color='green'> * </font></i>
-<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTIRBUTORS ''AS IS'' AND ANY</font></i>
 <a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
 <a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
-<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY</font></i>
 <a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
 <a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
 <a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
@@ -45,136 +33,37 @@ This source file includes following definitions.
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* Cstrings.c</font></i>
+<a name='L25'>  25 <i><font color='green'>/* Crypto.h</font></i>
 <a name='L26'>  26 <i><font color='green'> */</font></i>
 <a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='54.html'>Cstrings.h</a>"
-<a name='L29'>  29 
-<a name='L30'>  30 <a href='../S/49.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L31'>  31 <i><font color='green'>/*</font></i>
-<a name='L32'>  32 <i><font color='green'> * Copy src to string dst of size siz.  At most siz-1 characters</font></i>
-<a name='L33'>  33 <i><font color='green'> * will be copied.  Always NUL terminates (unless siz == 0).</font></i>
-<a name='L34'>  34 <i><font color='green'> * Returns strlen(src); if retval &gt;= siz, truncation occurred.</font></i>
-<a name='L35'>  35 <i><font color='green'> */</font></i>
-<a name='L36'>  36 <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>
-<a name='L37'>  37 <a href='../S/54.html#L39' title='Refered from 39 in Cstrings.h.'>strlcpy</a>(<b>char</b> *<a href='../Y/326.html' title='Multiple used in 5 places.'>dst</a>, <b>const</b> <b>char</b> *<a href='../Y/654.html' title='Multiple used in 10 places.'>src</a>, <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/635.html' title='Multiple used in 6 places.'>siz</a>)
-<a name='L38'>  38 <font color='red'>{</font>
-<a name='L39'>  39   <b>char</b> *<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a> = <a href='../Y/326.html' title='Multiple used in 5 places.'>dst</a>;
-<a name='L40'>  40   <b>const</b> <b>char</b> *<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a> = <a href='../Y/654.html' title='Multiple used in 10 places.'>src</a>;
-<a name='L41'>  41   <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> = <a href='../Y/635.html' title='Multiple used in 6 places.'>siz</a>;
-<a name='L42'>  42 
-<a name='L43'>  43   <i><font color='green'>/* Copy as many bytes as will fit */</font></i>
-<a name='L44'>  44   <b>if</b> (<a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> != 0 &amp;&amp; --<a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> != 0) <font color='red'>{</font>
-<a name='L45'>  45     <b>do</b> <font color='red'>{</font>
-<a name='L46'>  46       <b>if</b> ((*<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a>++ = *<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a>++) == 0)
-<a name='L47'>  47         <b>break</b>;
-<a name='L48'>  48     <font color='red'>}</font> <b>while</b> (--<a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> != 0);
-<a name='L49'>  49   <font color='red'>}</font>
+<a name='L28'>  28 <font color='darkred'>#ifndef</font> <a href='../S/43.html#L29' title='Defined at 29 in Crypto.h.'>_BD_CRYPTO_H</a>
+<a name='L29'>  29 <font color='darkred'>#define</font> <a href='../S/43.html#L28' title='Refered from 28 in Crypto.h.'>_BD_CRYPTO_H</a> 1
+<a name='L30'>  30 
+<a name='L31'>  31 <font color='darkred'>#include</font> "<a href='35.html'>bdlib.h</a>"
+<a name='L32'>  32 <a href='../S/35.html#L36' title='Defined at 36 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L33'>  33 
+<a name='L34'>  34 <i><font color='green'>/**</font></i>
+<a name='L35'>  35 <i><font color='green'>  * @class Crypto</font></i>
+<a name='L36'>  36 <i><font color='green'>  */</font></i>
+<a name='L37'>  37 <a href='../Y/247.html' title='Multiple used in 45 places.'>class</a> <a href='../Y/34.html' title='Multiple used in 4 places.'>Crypto</a> <font color='red'>{</font>
+<a name='L38'>  38   <a href='../Y/512.html' title='Multiple used in 24 places.'>private</a>:
+<a name='L39'>  39     <b>static</b> <b>const</b> <a href='../Y/576.html' title='Multiple used in 568 places.'>size_t</a> block_size = 0;
+<a name='L40'>  40     <b>static</b> <b>const</b> <a href='../Y/576.html' title='Multiple used in 568 places.'>size_t</a> key_len = 0;
+<a name='L41'>  41     <b>static</b> <b>const</b> <a href='../Y/576.html' title='Multiple used in 568 places.'>size_t</a> iv_len = 0;
+<a name='L42'>  42     <b>int</b> <a href='../Y/339.html' title='Multiple used in 26 places.'>flags</a>;
+<a name='L43'>  43   <a href='../Y/518.html' title='Multiple used in 46 places.'>public</a>:
+<a name='L44'>  44     <a href='../Y/34.html' title='Multiple used in 4 places.'>Crypto</a>(<b>const</b> <b>unsigned</b> <b>char</b>* <a href='../Y/410.html' title='Multiple used in 19 places.'>key</a>, <b>const</b> <b>unsigned</b> <b>char</b>* iv = <a href='../Y/489.html' title='Multiple used in 59 places.'>nullptr</a>);
+<a name='L45'>  45     <a href='../Y/34.html' title='Multiple used in 4 places.'>Crypto</a>(<b>const</b> <a href='../Y/34.html' title='Multiple used in 4 places.'>Crypto</a>&amp; crypter) : <a href='../Y/339.html' title='Multiple used in 26 places.'>flags</a>(0) <font color='red'>{</font><font color='red'>}</font>;
+<a name='L46'>  46     ~<a href='../Y/34.html' title='Multiple used in 4 places.'>Crypto</a>() <font color='red'>{</font><font color='red'>}</font>;
+<a name='L47'>  47 <font color='red'>}</font>;
+<a name='L48'>  48 
+<a name='L49'>  49 <a href='../S/35.html#L37' title='Defined at 37 in bdlib.h.'>BDLIB_NS_END</a>
 <a name='L50'>  50 
-<a name='L51'>  51   <i><font color='green'>/* Not enough room in dst, add NUL and traverse rest of src */</font></i>
-<a name='L52'>  52   <b>if</b> (<a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> == 0) <font color='red'>{</font>
-<a name='L53'>  53     <b>if</b> (<a href='../Y/635.html' title='Multiple used in 6 places.'>siz</a> != 0)
-<a name='L54'>  54       *<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a> = '\0';                <i><font color='green'>/* NUL-terminate dst */</font></i>
-<a name='L55'>  55     <b>while</b> (*<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a>++) ;
-<a name='L56'>  56   <font color='red'>}</font>
-<a name='L57'>  57 
-<a name='L58'>  58   <b>return</b> (<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a> - <a href='../Y/654.html' title='Multiple used in 10 places.'>src</a> - 1);         <i><font color='green'>/* count does not include NUL */</font></i>
-<a name='L59'>  59 <font color='red'>}</font>
-<a name='L60'>  60 
-<a name='L61'>  61 <i><font color='green'>/*</font></i>
-<a name='L62'>  62 <i><font color='green'> * Appends src to string dst of size siz (unlike strncat, siz is the</font></i>
-<a name='L63'>  63 <i><font color='green'> * full size of dst, not space left).  At most siz-1 characters</font></i>
-<a name='L64'>  64 <i><font color='green'> * will be copied.  Always NUL terminates (unless siz == 0).</font></i>
-<a name='L65'>  65 <i><font color='green'> * Returns strlen(src); if retval &gt;= siz, truncation occurred.</font></i>
-<a name='L66'>  66 <i><font color='green'> */</font></i>
-<a name='L67'>  67 <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a>
-<a name='L68'>  68 <a href='../S/54.html#L40' title='Refered from 40 in Cstrings.h.'>strlcat</a>(<b>char</b> *<a href='../Y/326.html' title='Multiple used in 5 places.'>dst</a>, <b>const</b> <b>char</b> *<a href='../Y/654.html' title='Multiple used in 10 places.'>src</a>, <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/635.html' title='Multiple used in 6 places.'>siz</a>)
-<a name='L69'>  69 <font color='red'>{</font>
-<a name='L70'>  70   <b>char</b> *<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a> = <a href='../Y/326.html' title='Multiple used in 5 places.'>dst</a>;
-<a name='L71'>  71   <b>const</b> <b>char</b> *<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a> = <a href='../Y/654.html' title='Multiple used in 10 places.'>src</a>;
-<a name='L72'>  72   <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> = <a href='../Y/635.html' title='Multiple used in 6 places.'>siz</a>;
-<a name='L73'>  73   <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/324.html' title='Multiple used in 9 places.'>dlen</a>;
-<a name='L74'>  74 
-<a name='L75'>  75   <i><font color='green'>/* Find the end of dst and adjust bytes left but don't go past end */</font></i>
-<a name='L76'>  76   <b>while</b> (*<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a> != '\0' &amp;&amp; <a href='../Y/511.html' title='Multiple used in 145 places.'>n</a>-- != 0)
-<a name='L77'>  77     <a href='../Y/302.html' title='Multiple used in 77 places.'>d</a>++;
-<a name='L78'>  78   <a href='../Y/324.html' title='Multiple used in 9 places.'>dlen</a> = <a href='../Y/302.html' title='Multiple used in 77 places.'>d</a> - <a href='../Y/326.html' title='Multiple used in 5 places.'>dst</a>;
-<a name='L79'>  79   <a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> = <a href='../Y/635.html' title='Multiple used in 6 places.'>siz</a> - <a href='../Y/324.html' title='Multiple used in 9 places.'>dlen</a>;
-<a name='L80'>  80 
-<a name='L81'>  81   <b>if</b> (<a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> == 0)
-<a name='L82'>  82     <b>return</b> (<a href='../Y/324.html' title='Multiple used in 9 places.'>dlen</a> + <a href='../Y/680.html' title='Multiple used in 12 places.'>strlen</a>(<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a>));
-<a name='L83'>  83   <b>while</b> (*<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a> != '\0') <font color='red'>{</font>
-<a name='L84'>  84     <b>if</b> (<a href='../Y/511.html' title='Multiple used in 145 places.'>n</a> != 1) <font color='red'>{</font>
-<a name='L85'>  85       *<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a>++ = *<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a>;
-<a name='L86'>  86       <a href='../Y/511.html' title='Multiple used in 145 places.'>n</a>--;
-<a name='L87'>  87     <font color='red'>}</font>
-<a name='L88'>  88     <a href='../Y/611.html' title='Multiple used in 31 places.'>s</a>++;
-<a name='L89'>  89   <font color='red'>}</font>
-<a name='L90'>  90   *<a href='../Y/302.html' title='Multiple used in 77 places.'>d</a> = '\0';
-<a name='L91'>  91 
-<a name='L92'>  92   <b>return</b> (<a href='../Y/324.html' title='Multiple used in 9 places.'>dlen</a> + (<a href='../Y/611.html' title='Multiple used in 31 places.'>s</a> - <a href='../Y/654.html' title='Multiple used in 10 places.'>src</a>));    <i><font color='green'>/* count does not include NUL */</font></i>
-<a name='L93'>  93 <font color='red'>}</font>
-<a name='L94'>  94 
-<a name='L95'>  95 <b>void</b>
-<a name='L96'>  96 <a href='../S/54.html#L41' title='Refered from 41 in Cstrings.h.'>str_redup</a>(<b>char</b> **<a href='../Y/667.html' title='Multiple used in 73 places.'>str</a>, <b>const</b> <b>char</b> *<a href='../Y/527.html' title='Multiple used in 4 places.'>newstr</a>)
-<a name='L97'>  97 <font color='red'>{</font>
-<a name='L98'>  98         <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>;
-<a name='L99'>  99 
-<a name='L100'> 100         <b>if</b> (!<a href='../Y/527.html' title='Multiple used in 4 places.'>newstr</a>) <font color='red'>{</font>
-<a name='L101'> 101                 <b>if</b> (*<a href='../Y/667.html' title='Multiple used in 73 places.'>str</a>) <a href='../Y/382.html' title='Multiple used in 8 places.'>free</a>(*<a href='../Y/667.html' title='Multiple used in 73 places.'>str</a>);
-<a name='L102'> 102                 *<a href='../Y/667.html' title='Multiple used in 73 places.'>str</a> = <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L103'> 103                 <b>return</b>;
-<a name='L104'> 104         <font color='red'>}</font>
-<a name='L105'> 105         <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> = <a href='../Y/680.html' title='Multiple used in 12 places.'>strlen</a>(<a href='../Y/527.html' title='Multiple used in 4 places.'>newstr</a>) + 1;
-<a name='L106'> 106         *<a href='../Y/667.html' title='Multiple used in 73 places.'>str</a> = <b>static_cast</b>&lt;<b>char</b>*&gt;(<a href='../S/43.html#L141' title='Defined at 141 in Cstrings.cpp.'>realloc</a>(*<a href='../Y/667.html' title='Multiple used in 73 places.'>str</a>, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>));
-<a name='L107'> 107         <a href='../Y/489.html' title='Multiple used in 4 places.'>memcpy</a>(*<a href='../Y/667.html' title='Multiple used in 73 places.'>str</a>, <a href='../Y/527.html' title='Multiple used in 4 places.'>newstr</a>, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>);
-<a name='L108'> 108 <font color='red'>}</font>
-<a name='L109'> 109 
-<a name='L110'> 110 <b>char</b> *
-<a name='L111'> 111 <a href='../S/54.html#L42' title='Refered from 42 in Cstrings.h.'>strdup</a>(<b>const</b> <b>char</b> *<a href='../Y/340.html' title='Multiple used in 6 places.'>entry</a>)
-<a name='L112'> 112 <font color='red'>{</font>
-<a name='L113'> 113   <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> = <a href='../Y/680.html' title='Multiple used in 12 places.'>strlen</a>(<a href='../Y/340.html' title='Multiple used in 6 places.'>entry</a>);
-<a name='L114'> 114   <b>char</b> *<a href='../Y/691.html' title='Multiple used in 8 places.'>target</a> = <b>static_cast</b>&lt;<b>char</b>*&gt;(<a href='../S/43.html#L131' title='Defined at 131 in Cstrings.cpp.'>calloc</a>(1, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> + 1));
-<a name='L115'> 115   <b>if</b> (<a href='../Y/691.html' title='Multiple used in 8 places.'>target</a> == <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>) <b>return</b> <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L116'> 116   <a href='../Y/691.html' title='Multiple used in 8 places.'>target</a>[<a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>] = 0;
-<a name='L117'> 117   <b>return</b> <b>static_cast</b>&lt;<b>char</b>*&gt;(<a href='../Y/489.html' title='Multiple used in 4 places.'>memcpy</a>(<a href='../Y/691.html' title='Multiple used in 8 places.'>target</a>, <a href='../Y/340.html' title='Multiple used in 6 places.'>entry</a>, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>));
-<a name='L118'> 118 <font color='red'>}</font>
-<a name='L119'> 119 
-<a name='L120'> 120 <b>char</b> *
-<a name='L121'> 121 <a href='../S/54.html#L43' title='Refered from 43 in Cstrings.h.'>strldup</a>(<b>const</b> <b>char</b> *<a href='../Y/340.html' title='Multiple used in 6 places.'>entry</a>, <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/485.html' title='Multiple used in 2 places.'>maxlen</a>)
-<a name='L122'> 122 <font color='red'>{</font>
-<a name='L123'> 123   <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/640.html' title='Multiple used in 33 places.'>slen</a> = <a href='../Y/680.html' title='Multiple used in 12 places.'>strlen</a>(<a href='../Y/340.html' title='Multiple used in 6 places.'>entry</a>);
-<a name='L124'> 124   <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> = <a href='../Y/640.html' title='Multiple used in 33 places.'>slen</a> &lt; <a href='../Y/485.html' title='Multiple used in 2 places.'>maxlen</a> ? <a href='../Y/640.html' title='Multiple used in 33 places.'>slen</a> : <a href='../Y/485.html' title='Multiple used in 2 places.'>maxlen</a>;
-<a name='L125'> 125   <b>char</b> *<a href='../Y/691.html' title='Multiple used in 8 places.'>target</a> = <b>static_cast</b>&lt;<b>char</b>*&gt;(<a href='../S/43.html#L131' title='Defined at 131 in Cstrings.cpp.'>calloc</a>(1, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a> + 1));
-<a name='L126'> 126   <b>if</b> (<a href='../Y/691.html' title='Multiple used in 8 places.'>target</a> == <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>) <b>return</b> <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>;
-<a name='L127'> 127   <a href='../Y/691.html' title='Multiple used in 8 places.'>target</a>[<a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>] = 0;
-<a name='L128'> 128   <b>return</b> <b>static_cast</b>&lt;<b>char</b>*&gt;(<a href='../Y/489.html' title='Multiple used in 4 places.'>memcpy</a>(<a href='../Y/691.html' title='Multiple used in 8 places.'>target</a>, <a href='../Y/340.html' title='Multiple used in 6 places.'>entry</a>, <a href='../Y/460.html' title='Multiple used in 92 places.'>len</a>));
-<a name='L129'> 129 <font color='red'>}</font>
-<a name='L130'> 130 
-<a name='L131'> 131 <b>void</b> *<a href='../R/96.html' title='Multiple refered from 4 places.'>calloc</a>(<a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/532.html' title='Multiple used in 2 places.'>nmemb</a>, <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>)
-<a name='L132'> 132 <font color='red'>{</font>
-<a name='L133'> 133   <b>void</b> *<a href='../Y/573.html' title='Multiple used in 8 places.'>ptr</a> = ::<a href='../S/43.html#L131' title='Defined at 131 in Cstrings.cpp.'>calloc</a>(<a href='../Y/532.html' title='Multiple used in 2 places.'>nmemb</a>, <a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>);
-<a name='L134'> 134 
-<a name='L135'> 135   <b>if</b> (<a href='../Y/573.html' title='Multiple used in 8 places.'>ptr</a> == <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a>)
-<a name='L136'> 136     <a href='../Y/344.html' title='Multiple used in 2 places.'>exit</a>(5);
-<a name='L137'> 137 
-<a name='L138'> 138   <b>return</b> <a href='../Y/573.html' title='Multiple used in 8 places.'>ptr</a>;
-<a name='L139'> 139 <font color='red'>}</font>
-<a name='L140'> 140 
-<a name='L141'> 141 <b>void</b> *<a href='../R/184.html' title='Multiple refered from 3 places.'>realloc</a>(<b>void</b> *<a href='../Y/573.html' title='Multiple used in 8 places.'>ptr</a>, <a href='../Y/637.html' title='Multiple used in 659 places.'>size_t</a> <a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>)
-<a name='L142'> 142 <font color='red'>{</font>
-<a name='L143'> 143   <b>void</b> *<a href='../Y/761.html' title='Multiple used in 28 places.'>x</a> = ::<a href='../S/43.html#L141' title='Defined at 141 in Cstrings.cpp.'>realloc</a>(<a href='../Y/573.html' title='Multiple used in 8 places.'>ptr</a>, <a href='../Y/636.html' title='Multiple used in 256 places.'>size</a>);
-<a name='L144'> 144 
-<a name='L145'> 145   <b>if</b> (<a href='../Y/761.html' title='Multiple used in 28 places.'>x</a> == <a href='../Y/537.html' title='Multiple used in 94 places.'>nullptr</a> &amp;&amp; <a href='../Y/636.html' title='Multiple used in 256 places.'>size</a> &gt; 0)
-<a name='L146'> 146     <a href='../Y/344.html' title='Multiple used in 2 places.'>exit</a>(5);
-<a name='L147'> 147 
-<a name='L148'> 148   <b>return</b> <a href='../Y/761.html' title='Multiple used in 28 places.'>x</a>;
-<a name='L149'> 149 <font color='red'>}</font>
-<a name='L150'> 150 <a href='../S/49.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L151'> 151 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L51'>  51 <font color='darkred'>#endif</font> <i><font color='green'>/* _BD_CRYPTO_H */</font></i> 
+<a name='L52'>  52 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;]<a href='#L37'>[^]</a><a href='#L141'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

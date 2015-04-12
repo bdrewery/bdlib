@@ -1,12 +1,20 @@
 <html>
 <head>
-<title>BinaryTree.cpp</title>
+<title>AtomicFile.cpp</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
-<a name='TOP'><h2><a href='../mains.html'>root</a>/BinaryTree.cpp</h2>
-<i><font color='green'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<a name='TOP'><h2><a href='../mains.html'>root</a>/AtomicFile.cpp</h2>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L37'>[^]</a><a href='#L75'>[v]</a>[top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<hr>
+<h2>DEFINITIONS</h2>
+This source file includes following definitions.
+<ol>
+<li><a href='#L37' title='Defined at 37.'>open</a>
+<li><a href='#L65' title='Defined at 65.'>abort</a>
+<li><a href='#L75' title='Defined at 75.'>commit</a>
+</ol>
 <hr>
 <pre>
 <a name='L1'>   1 <i><font color='green'>/*</font></i>
@@ -21,10 +29,10 @@
 <a name='L10'>  10 <i><font color='green'> *    notice, this list of conditions and the following disclaimer in the</font></i>
 <a name='L11'>  11 <i><font color='green'> *    documentation and/or other materials provided with the distribution.</font></i>
 <a name='L12'>  12 <i><font color='green'> * </font></i>
-<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY &lt;COPYRIGHT HOLDER&gt; ''AS IS'' AND ANY</font></i>
+<a name='L13'>  13 <i><font color='green'> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTIRBUTORS ''AS IS'' AND ANY</font></i>
 <a name='L14'>  14 <i><font color='green'> * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</font></i>
 <a name='L15'>  15 <i><font color='green'> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</font></i>
-<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</font></i>
+<a name='L16'>  16 <i><font color='green'> * DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY</font></i>
 <a name='L17'>  17 <i><font color='green'> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</font></i>
 <a name='L18'>  18 <i><font color='green'> * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</font></i>
 <a name='L19'>  19 <i><font color='green'> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</font></i>
@@ -33,17 +41,89 @@
 <a name='L22'>  22 <i><font color='green'> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</font></i>
 <a name='L23'>  23 <i><font color='green'> */</font></i>
 <a name='L24'>  24 
-<a name='L25'>  25 <i><font color='green'>/* BinaryTree.cpp</font></i>
+<a name='L25'>  25 <i><font color='green'>/* AtomicFile.cpp</font></i>
 <a name='L26'>  26 <i><font color='green'> */</font></i>
 <a name='L27'>  27 
-<a name='L28'>  28 <font color='darkred'>#include</font> "<a href='4.html'>BinaryTree.h</a>"
+<a name='L28'>  28 <font color='darkred'>#include</font> &lt;sys/stat.h&gt;
 <a name='L29'>  29 
-<a name='L30'>  30 <a href='../S/49.html#L47' title='Defined at 47 in bdlib.h.'>BDLIB_NS_BEGIN</a>
-<a name='L31'>  31 <a href='../S/49.html#L48' title='Defined at 48 in bdlib.h.'>BDLIB_NS_END</a>
-<a name='L32'>  32 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
+<a name='L30'>  30 <font color='darkred'>#include</font> &lt;cstdio&gt;
+<a name='L31'>  31 <font color='darkred'>#include</font> &lt;unistd.h&gt;
+<a name='L32'>  32 
+<a name='L33'>  33 <font color='darkred'>#include</font> "<a href='38.html'>AtomicFile.h</a>"
+<a name='L34'>  34 
+<a name='L35'>  35 <a href='../S/35.html#L36' title='Defined at 36 in bdlib.h.'>BDLIB_NS_BEGIN</a>
+<a name='L36'>  36 
+<a name='L37'>  37 <b>bool</b> <a href='../Y/9.html' title='Multiple used in 11 places.'>AtomicFile</a>::<a href='../R/153.html' title='Multiple refered from 9 places.'>open</a>(<b>const</b> <a href='../Y/95.html' title='Multiple used in 392 places.'>String</a>&amp; <a href='../Y/340.html' title='Multiple used in 9 places.'>fname</a>, <a href='../Y/455.html' title='Multiple used in 8 places.'>mode_t</a> <a href='../Y/454.html' title='Multiple used in 6 places.'>mode</a>) <font color='red'>{</font>
+<a name='L38'>  38   <a href='../Y/576.html' title='Multiple used in 568 places.'>size_t</a> <a href='../Y/578.html' title='Multiple used in 5 places.'>slash_pos</a>;
+<a name='L39'>  39   <a href='../Y/95.html' title='Multiple used in 392 places.'>String</a> <a href='../Y/294.html' title='Multiple used in 4 places.'>dir</a>;
+<a name='L40'>  40 
+<a name='L41'>  41   <a href='../Y/158.html' title='Multiple used in 8 places.'>_fname</a> = <a href='../Y/340.html' title='Multiple used in 9 places.'>fname</a>;
+<a name='L42'>  42   <a href='../Y/161.html' title='Multiple used in 5 places.'>_mode</a> = <a href='../Y/454.html' title='Multiple used in 6 places.'>mode</a>;
+<a name='L43'>  43 
+<a name='L44'>  44   <i><font color='green'>/*</font></i>
+<a name='L45'>  45 <i><font color='green'>   * Get a tempfile in the same directory as the target so that rename(2)</font></i>
+<a name='L46'>  46 <i><font color='green'>   * is not cross-device.</font></i>
+<a name='L47'>  47 <i><font color='green'>   */</font></i>
+<a name='L48'>  48   <b>if</b> ((<a href='../Y/578.html' title='Multiple used in 5 places.'>slash_pos</a> = <a href='../Y/158.html' title='Multiple used in 8 places.'>_fname</a>.<a href='../S/46.html#L254' title='Defined at 254 in String.cpp.'>rfind</a>("/")) == <a href='../Y/95.html' title='Multiple used in 392 places.'>String</a>::<a href='../Y/488.html' title='Multiple used in 34 places.'>npos</a>) <font color='red'>{</font>
+<a name='L49'>  49     <a href='../Y/578.html' title='Multiple used in 5 places.'>slash_pos</a> = 0;
+<a name='L50'>  50     <a href='../Y/294.html' title='Multiple used in 4 places.'>dir</a> = "./";
+<a name='L51'>  51   <font color='red'>}</font> <b>else</b> <font color='red'>{</font>
+<a name='L52'>  52     <a href='../Y/294.html' title='Multiple used in 4 places.'>dir</a> = <a href='../Y/158.html' title='Multiple used in 8 places.'>_fname</a>(0, <a href='../Y/578.html' title='Multiple used in 5 places.'>slash_pos</a> + 1);     <i><font color='green'>/* include the '/' */</font></i>
+<a name='L53'>  53   <font color='red'>}</font>
+<a name='L54'>  54 
+<a name='L55'>  55   <a href='../Y/168.html' title='Multiple used in 9 places.'>_tmpname</a> = <a href='../Y/95.html' title='Multiple used in 392 places.'>String</a>::<a href='../S/46.html#L205' title='Defined at 205 in String.cpp.'>printf</a>("%s.%s.XXXXXX", <a href='../Y/294.html' title='Multiple used in 4 places.'>dir</a>.<a href='../Y/215.html' title='Multiple used in 56 places.'>c_str</a>(),
+<a name='L56'>  56       <b>static_cast</b>&lt;<a href='../Y/95.html' title='Multiple used in 392 places.'>String</a>&gt;(<a href='../Y/158.html' title='Multiple used in 8 places.'>_fname</a>(<a href='../Y/578.html' title='Multiple used in 5 places.'>slash_pos</a>)).<a href='../Y/215.html' title='Multiple used in 56 places.'>c_str</a>());
+<a name='L57'>  57 
+<a name='L58'>  58   <i><font color='green'>/* XXX: Move nul-writing to String per C++11 */</font></i>
+<a name='L59'>  59   <a href='../Y/168.html' title='Multiple used in 9 places.'>_tmpname</a>.<a href='../Y/543.html' title='Multiple used in 20 places.'>resize</a>(<a href='../Y/168.html' title='Multiple used in 9 places.'>_tmpname</a>.<a href='../Y/416.html' title='Multiple used in 322 places.'>length</a>() + 1);
+<a name='L60'>  60   <a href='../Y/157.html' title='Multiple used in 12 places.'>_fd</a> = <a href='../Y/452.html' title='Multiple used in 2 places.'>mkstemp</a>(<a href='../Y/168.html' title='Multiple used in 9 places.'>_tmpname</a>.<a href='../Y/203.html' title='Multiple used in 25 places.'>begin</a>());
+<a name='L61'>  61 
+<a name='L62'>  62   <b>return</b> <a href='../Y/399.html' title='Multiple used in 9 places.'>is_open</a>();
+<a name='L63'>  63 <font color='red'>}</font>
+<a name='L64'>  64 
+<a name='L65'>  65 <b>bool</b> <a href='../Y/9.html' title='Multiple used in 11 places.'>AtomicFile</a>::<a href='../R/68.html' title='Multiple refered from 3 places.'>abort</a>() <font color='red'>{</font>
+<a name='L66'>  66   <b>if</b> (!<a href='../Y/399.html' title='Multiple used in 9 places.'>is_open</a>()) <font color='red'>{</font>
+<a name='L67'>  67     <b>return</b> <b>false</b>;
+<a name='L68'>  68   <font color='red'>}</font>
+<a name='L69'>  69   ::<a href='../Y/668.html' title='Multiple used in 14 places.'>unlink</a>(<a href='../Y/168.html' title='Multiple used in 9 places.'>_tmpname</a>.<a href='../Y/215.html' title='Multiple used in 56 places.'>c_str</a>());
+<a name='L70'>  70   ::<a href='../Y/253.html' title='Multiple used in 10 places.'>close</a>(<a href='../Y/157.html' title='Multiple used in 12 places.'>_fd</a>);
+<a name='L71'>  71   <a href='../Y/157.html' title='Multiple used in 12 places.'>_fd</a> = -1;
+<a name='L72'>  72   <b>return</b> <b>true</b>;
+<a name='L73'>  73 <font color='red'>}</font>
+<a name='L74'>  74 
+<a name='L75'>  75 <b>bool</b> <a href='../Y/9.html' title='Multiple used in 11 places.'>AtomicFile</a>::<a href='../R/93.html' title='Multiple refered from 3 places.'>commit</a>() <font color='red'>{</font>
+<a name='L76'>  76   <b>bool</b> <a href='../Y/544.html' title='Multiple used in 40 places.'>result</a>, <a href='../Y/538.html' title='Multiple used in 4 places.'>remove_temp</a>;
+<a name='L77'>  77 
+<a name='L78'>  78   <a href='../Y/544.html' title='Multiple used in 40 places.'>result</a> = <b>false</b>;
+<a name='L79'>  79   <a href='../Y/538.html' title='Multiple used in 4 places.'>remove_temp</a> = <b>true</b>;
+<a name='L80'>  80   <b>if</b> (<a href='../Y/161.html' title='Multiple used in 5 places.'>_mode</a> != <a href='../Y/455.html' title='Multiple used in 8 places.'>mode_t</a>(-1) &amp;&amp; fchmod(<a href='../Y/157.html' title='Multiple used in 12 places.'>_fd</a>, <a href='../Y/161.html' title='Multiple used in 5 places.'>_mode</a>) != 0) <font color='red'>{</font>
+<a name='L81'>  81     <b>goto</b> <a href='../Y/250.html' title='Multiple used in 5 places.'>cleanup</a>;
+<a name='L82'>  82   <font color='red'>}</font>
+<a name='L83'>  83   <b>if</b> (::<a href='../Y/352.html' title='Multiple used in 3 places.'>fsync</a>(<a href='../Y/157.html' title='Multiple used in 12 places.'>_fd</a>) != 0) <font color='red'>{</font>
+<a name='L84'>  84     <b>goto</b> <a href='../Y/250.html' title='Multiple used in 5 places.'>cleanup</a>;
+<a name='L85'>  85   <font color='red'>}</font>
+<a name='L86'>  86   <b>if</b> (::<a href='../Y/253.html' title='Multiple used in 10 places.'>close</a>(<a href='../Y/157.html' title='Multiple used in 12 places.'>_fd</a>) != 0) <font color='red'>{</font>
+<a name='L87'>  87     <b>goto</b> <a href='../Y/250.html' title='Multiple used in 5 places.'>cleanup</a>;
+<a name='L88'>  88   <font color='red'>}</font>
+<a name='L89'>  89   <b>if</b> (<a href='../S/17.html#L165' title='Defined at 165 in tests/StringTest.cpp.'>std</a>::rename(<a href='../Y/168.html' title='Multiple used in 9 places.'>_tmpname</a>.<a href='../Y/215.html' title='Multiple used in 56 places.'>c_str</a>(), <a href='../Y/158.html' title='Multiple used in 8 places.'>_fname</a>.<a href='../Y/215.html' title='Multiple used in 56 places.'>c_str</a>()) != 0) <font color='red'>{</font>
+<a name='L90'>  90     <b>goto</b> <a href='../Y/250.html' title='Multiple used in 5 places.'>cleanup</a>;
+<a name='L91'>  91   <font color='red'>}</font>
+<a name='L92'>  92 
+<a name='L93'>  93   <a href='../Y/538.html' title='Multiple used in 4 places.'>remove_temp</a> = <b>false</b>;
+<a name='L94'>  94   <a href='../Y/544.html' title='Multiple used in 40 places.'>result</a> = <b>true</b>;
+<a name='L95'>  95 
+<a name='L96'>  96 <a href='../Y/250.html' title='Multiple used in 5 places.'>cleanup</a>:
+<a name='L97'>  97   <b>if</b> (<a href='../Y/538.html' title='Multiple used in 4 places.'>remove_temp</a>) <font color='red'>{</font>
+<a name='L98'>  98     ::<a href='../Y/668.html' title='Multiple used in 14 places.'>unlink</a>(<a href='../Y/168.html' title='Multiple used in 9 places.'>_tmpname</a>.<a href='../Y/215.html' title='Multiple used in 56 places.'>c_str</a>());
+<a name='L99'>  99   <font color='red'>}</font>
+<a name='L100'> 100   <a href='../Y/157.html' title='Multiple used in 12 places.'>_fd</a> = -1;
+<a name='L101'> 101   <b>return</b> <a href='../Y/544.html' title='Multiple used in 40 places.'>result</a>;
+<a name='L102'> 102 <font color='red'>}</font>
+<a name='L103'> 103 <a href='../S/35.html#L37' title='Defined at 37 in bdlib.h.'>BDLIB_NS_END</a>
+<a name='L104'> 104 <i><font color='green'>/* vim: set sts=2 sw=2 ts=8 et: */</font></i>
 </pre>
 <hr>
 <a name='BOTTOM'>
-<i><font color='green'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
+<i><font color='green'>/* [&lt;][&gt;]<a href='#L37'>[^]</a><a href='#L75'>[v]</a><a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</font></i>
 </body>
 </html>

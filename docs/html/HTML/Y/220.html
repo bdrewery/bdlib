@@ -1,44 +1,16 @@
 <html>
 <head>
-<title>array</title>
+<title>callbackParamMax</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/52.html#L60'>array</a>              60 Array.h            Array(const Array&lt;value_type&gt;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(array) {};
-<a href='../S/52.html#L61'>array</a>              61 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
-<a href='../S/52.html#L124'>array</a>             124 Array.h            Array&amp; operator=(const Array&lt;value_type&gt;&amp; array) {
-<a href='../S/52.html#L125'>array</a>             125 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(array);
-<a href='../S/52.html#L129'>array</a>             129 Array.h            Array&amp; operator=(Array&lt;value_type&gt;&amp;&amp; array) {
-<a href='../S/52.html#L130'>array</a>             130 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
-<a href='../S/52.html#L146'>array</a>             146 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&lt;&lt;(Array&lt;value_type&gt;&amp; array, const_reference item) {
-<a href='../S/52.html#L147'>array</a>             147 Array.h              array.push(item);
-<a href='../S/52.html#L148'>array</a>             148 Array.h              return array;
-<a href='../S/52.html#L179'>array</a>             179 Array.h            inline friend Array&lt;value_type&gt;&amp; operator&gt;&gt;(Array&lt;value_type&gt;&amp; array, reference item) {
-<a href='../S/52.html#L180'>array</a>             180 Array.h              item = array.pop();
-<a href='../S/52.html#L181'>array</a>             181 Array.h              return array;
-<a href='../S/52.html#L212'>array</a>             212 Array.h            inline bool equals(const Array&amp; array) const { return equals(array, array.length()); };
-<a href='../S/52.html#L219'>array</a>             219 Array.h            bool equals(const Array&amp; array, size_t n) const
-<a href='../S/52.html#L222'>array</a>             222 Array.h              bool same_length = (my_len == array.length());
-<a href='../S/52.html#L225'>array</a>             225 Array.h              if (this-&gt;data() == array.data() &amp;&amp; same_length)
-<a href='../S/52.html#L231'>array</a>             231 Array.h              size_t slen = std::min(array.length(), n);
-<a href='../S/52.html#L235'>array</a>             235 Array.h                if ((*this)[i] != array[i])
-<a href='../S/52.html#L332'>array</a>             332 Array.h            inline Array&amp; operator+=(const Array&amp; array) {
-<a href='../S/52.html#L333'>array</a>             333 Array.h              this-&gt;append(array);
-<a href='../S/51.html#L182'>array</a>             182 ReferenceCountedArray.h     inline Slice&amp; operator=(const T&amp; array) {
-<a href='../S/51.html#L183'>array</a>             183 ReferenceCountedArray.h       rca.replace(start, array, len);
-<a href='../S/47.html#L162'>array</a>             162 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;Array&lt;String&gt;&gt;::from(Array&lt;String&gt; array, Tcl_Interp* interp) {
-<a href='../S/47.html#L163'>array</a>             163 ScriptInterpTCL.cpp   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
-<a href='../S/47.html#L165'>array</a>             165 ScriptInterpTCL.cpp   for (auto element : array) {
-<a href='../S/47.html#L172'>array</a>             172 ScriptInterpTCL.cpp Tcl_Obj* c_to_tcl_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Array&lt;Array&lt;String&gt;&gt; array, Tcl_Interp* interp) {
-<a href='../S/47.html#L173'>array</a>             173 ScriptInterpTCL.cpp   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
-<a href='../S/47.html#L175'>array</a>             175 ScriptInterpTCL.cpp   for (auto element : array) {
-<a href='../S/66.html#L155'>array</a>             155 String.cpp       Array&lt;String&gt; array;
-<a href='../S/66.html#L159'>array</a>             159 String.cpp       while (array.size() &lt; limit - 1) {
-<a href='../S/66.html#L170'>array</a>             170 String.cpp         array &lt;&lt; str(0, pos);
-<a href='../S/66.html#L178'>array</a>             178 String.cpp         array &lt;&lt; str;
-<a href='../S/66.html#L181'>array</a>             181 String.cpp       return array;
+<a href='../S/42.html#L78'>callbackParamMax</a>   78 ScriptInterp.h           size_t callbackParamMax;
+<a href='../S/42.html#L89'>callbackParamMax</a>   89 ScriptInterp.h             callbackParamMax(_callbackParamMax),
+<a href='../S/34.html#L68'>callbackParamMax</a>   68 ScriptInterpTCL.cpp   if ((size_t(objc) - 1) &lt; ccd-&gt;callbackParamMin || size_t(objc) - 1 &gt; ccd-&gt;callbackParamMax) {
+<a href='../S/25.html#L171'>callbackParamMax</a>  171 ScriptInterpTCL.h             size_t callbackParamMin, size_t callbackParamMax) {
+<a href='../S/25.html#L174'>callbackParamMax</a>  174 ScriptInterpTCL.h               callbackParamMax);
 </pre>
 </body>
 </html>

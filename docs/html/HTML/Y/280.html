@@ -1,25 +1,56 @@
 <html>
 <head>
-<title>cmdName</title>
+<title>data</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/61.html#L109'>cmdName</a>           109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/61.html#L110'>cmdName</a>           110 ScriptInterp.h           si.createCommand(cmdName, callback, usage, min_params);
-<a href='../S/47.html#L81'>cmdName</a>            81 ScriptInterpTCL.cpp   String cmdName(tcl_to_c_cast&lt;String&gt;::from(objv[0], nullptr));
-<a href='../S/47.html#L82'>cmdName</a>            82 ScriptInterpTCL.cpp   script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
-<a href='../S/47.html#L87'>cmdName</a>            87 ScriptInterpTCL.cpp       errorResult += String::printf(" Should be \"%s %s\"", cmdName.c_str(), ccd-&gt;usage);
-<a href='../S/39.html#L143'>cmdName</a>           143 ScriptInterpTCL.h         void _createCommand(const String&amp; cmdName, ScriptCallbackBase* callback_proxy, const char* usage, size_t callbackParamMin, size_t callbackParamMax) {
-<a href='../S/39.html#L145'>cmdName</a>           145 ScriptInterpTCL.h           CmdHandlerData[cmdName] = ccd;
-<a href='../S/39.html#L146'>cmdName</a>           146 ScriptInterpTCL.h           Tcl_CreateObjCommand(interp, *cmdName, _createCommand_callback, nullptr, nullptr);
-<a href='../S/39.html#L171'>cmdName</a>           171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/39.html#L172'>cmdName</a>           172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
-<a href='../S/39.html#L175'>cmdName</a>           175 ScriptInterpTCL.h         virtual void deleteCommand(const String&amp; cmdName) {
-<a href='../S/39.html#L176'>cmdName</a>           176 ScriptInterpTCL.h           script_cmd_handler_clientdata* ccd = CmdHandlerData[cmdName];
-<a href='../S/39.html#L179'>cmdName</a>           179 ScriptInterpTCL.h           CmdHandlerData.remove(cmdName);
-<a href='../S/39.html#L180'>cmdName</a>           180 ScriptInterpTCL.h           Tcl_DeleteCommand(interp, *cmdName);
+<a href='../S/37.html#L212'>data</a>              212 Array.h              if (this-&gt;data() == array.data() &amp;&amp; same_length)
+<a href='../S/36.html#L577'>data</a>              577 ReferenceCountedArray.h     inline const_pointer data() const { return constBuf(); }
+<a href='../S/36.html#L591'>data</a>              591 ReferenceCountedArray.h       return const_iterator(this-&gt;data());
+<a href='../S/36.html#L651'>data</a>              651 ReferenceCountedArray.h         _hash = ((_hash &lt;&lt; 5) + _hash) + hasher(this-&gt;data()[i]);
+<a href='../S/25.html#L205'>data</a>              205 ScriptInterpTCL.h             const trace_ptr_data *data =
+<a href='../S/25.html#L208'>data</a>              208 ScriptInterpTCL.h                 c_to_tcl_cast&lt;T&gt;::from(static_cast&lt;T&gt;(data-&gt;ptr),
+<a href='../S/25.html#L245'>data</a>              245 ScriptInterpTCL.h             const trace_ptr_data *data =
+<a href='../S/25.html#L251'>data</a>              251 ScriptInterpTCL.h               oldval = std::move(std::make_unique&lt;T_name[]&gt;(data-&gt;size));
+<a href='../S/25.html#L252'>data</a>              252 ScriptInterpTCL.h               memcpy(oldval.get(), static_cast&lt;T&gt;(data-&gt;ptr), data-&gt;size);
+<a href='../S/25.html#L255'>data</a>              255 ScriptInterpTCL.h             memmove(data-&gt;ptr, tcl_to_c_cast&lt;T&gt;::from(obj, nullptr),
+<a href='../S/25.html#L256'>data</a>              256 ScriptInterpTCL.h                 data-&gt;size);
+<a href='../S/25.html#L259'>data</a>              259 ScriptInterpTCL.h               static_cast&lt;T&gt;(data-&gt;ptr)[data-&gt;size - 1] = '\0';
+<a href='../S/25.html#L262'>data</a>              262 ScriptInterpTCL.h                   (const void*)(oldval.get()), (const void*)(data-&gt;ptr));
+<a href='../S/25.html#L329'>data</a>              329 ScriptInterpTCL.h             auto data = std::make_unique&lt;trace_ptr_data&gt;(var, size);
+<a href='../S/25.html#L330'>data</a>              330 ScriptInterpTCL.h             setupTraces(varName, (ClientData) data.get(),
+<a href='../S/25.html#L333'>data</a>              333 ScriptInterpTCL.h             trace_ptrs[varName] = std::move(data);
+<a href='../S/25.html#L427'>data</a>              427 ScriptInterpTCL.h       value.data(), value.length()) : nullptr;
+<a href='../S/45.html#L179'>data</a>              179 Stream.cpp       std::memcpy(map, str.data(), length());
+<a href='../S/45.html#L193'>data</a>              193 Stream.cpp       if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
+<a href='../S/29.html#L187'>data</a>              187 String.h                 return data();
+<a href='../S/24.html#L38'>data</a>               38 base64.cpp     void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset)
+<a href='../S/24.html#L71'>data</a>               71 base64.cpp         buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/24.html#L73'>data</a>               73 base64.cpp         buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/24.html#L75'>data</a>               75 base64.cpp         buf[2] = charset[((data[1] &amp; 0x0f) &lt;&lt; 2) | ((data[2] &amp; 0xc0) &gt;&gt; 6)];
+<a href='../S/24.html#L77'>data</a>               77 base64.cpp         buf[3] = charset[data[2] &amp; 0x3f];
+<a href='../S/24.html#L79'>data</a>               79 base64.cpp         data += NUM_ASCII_BYTES;
+<a href='../S/24.html#L86'>data</a>               86 base64.cpp         buf[0] = charset[(data[0] &amp; 0xfc) &gt;&gt; 2];
+<a href='../S/24.html#L88'>data</a>               88 base64.cpp           buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4)];
+<a href='../S/24.html#L92'>data</a>               92 base64.cpp           buf[1] = charset[((data[0] &amp; 0x03) &lt;&lt; 4) | ((data[1] &amp; 0xf0) &gt;&gt; 4)];
+<a href='../S/24.html#L93'>data</a>               93 base64.cpp           buf[2] = charset[(data[1] &amp; 0x0f) &lt;&lt; 2];
+<a href='../S/24.html#L104'>data</a>              104 base64.cpp       char *p = b64enc(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
+<a href='../S/24.html#L121'>data</a>              121 base64.cpp     void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index)
+<a href='../S/24.html#L133'>data</a>              133 base64.cpp         *buf++ = (charset_index[data[0]] &lt;&lt; 2) + ((charset_index[data[1]] &amp; 0x30) &gt;&gt; 4);  /* 0x30 not required but to be clear. */
+<a href='../S/24.html#L134'>data</a>              134 base64.cpp         if (data[2] != PADDING_CHAR) {
+<a href='../S/24.html#L136'>data</a>              136 base64.cpp           *buf++ = ((charset_index[data[1]] &amp; 0x0f) &lt;&lt; 4) + ((charset_index[data[2]] &amp; 0x3c) &gt;&gt; 2);
+<a href='../S/24.html#L137'>data</a>              137 base64.cpp           if (data[3] != PADDING_CHAR) {
+<a href='../S/24.html#L139'>data</a>              139 base64.cpp             *buf++ = ((charset_index[data[2]] &amp; 0x03) &lt;&lt; 6) + charset_index[data[3]];
+<a href='../S/24.html#L142'>data</a>              142 base64.cpp         data += NUM_ENCODED_BYTES;
+<a href='../S/24.html#L149'>data</a>              149 base64.cpp     char *b64dec(const unsigned char *data, size_t *len, const char* charset)
+<a href='../S/24.html#L159'>data</a>              159 base64.cpp         b64dec_buf(data, len, dest, charset_index);
+<a href='../S/24.html#L161'>data</a>              161 base64.cpp         b64dec_buf(data, len, dest);
+<a href='../S/24.html#L168'>data</a>              168 base64.cpp       char *p = b64dec(reinterpret_cast&lt;const unsigned char*&gt;(string.data()), &amp;len, charset);
+<a href='../S/31.html#L84'>data</a>               84 base64.h       void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* charset = nullptr);
+<a href='../S/31.html#L93'>data</a>               93 base64.h       char *b64dec(const unsigned char *data, size_t *len, const char* charset = nullptr);
+<a href='../S/31.html#L110'>data</a>              110 base64.h       void b64dec_buf(const unsigned char *data, size_t *len, char *dest, const char* charset_index = nullptr);
 </pre>
 </body>
 </html>

@@ -1,33 +1,39 @@
 <html>
 <head>
-<title>kv</title>
+<title>move</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/4.html#L53'>kv</a>                 53 BinaryTree.h           iterator_type kv;
-<a href='../S/4.html#L55'>kv</a>                 55 BinaryTree.h           Node(const Key k, const Value v) : left(nullptr), right(nullptr), kv(k, v) { };
-<a href='../S/4.html#L58'>kv</a>                 58 BinaryTree.h                                 kv(n.kv) {};
-<a href='../S/4.html#L72'>kv</a>                 72 BinaryTree.h           if (key &lt; (*search)-&gt;kv.key())
-<a href='../S/4.html#L74'>kv</a>                 74 BinaryTree.h           else if (key &gt; (*search)-&gt;kv.key())
-<a href='../S/4.html#L92'>kv</a>                 92 BinaryTree.h         Node*&amp; insertAt = fetchNode(search, node-&gt;kv.key());
-<a href='../S/4.html#L124'>kv</a>                124 BinaryTree.h           node-&gt;kv = (*temp)-&gt;kv;
-<a href='../S/4.html#L187'>kv</a>                187 BinaryTree.h           rNode-&gt;kv = iterator_type(key, value);
-<a href='../S/4.html#L213'>kv</a>                213 BinaryTree.h         return node-&gt;kv.v;
-<a href='../S/4.html#L247'>kv</a>                247 BinaryTree.h           return node-&gt;kv.value();
-<a href='../S/4.html#L284'>kv</a>                284 BinaryTree.h             storage[i++] = iterator_type(node-&gt;kv);
-<a href='../S/6.html#L113'>kv</a>                113 HashTable.h            iterator_type kv = *iter;
-<a href='../S/6.html#L115'>kv</a>                115 HashTable.h            block(kv.key(), kv.value(), param);
-<a href='../S/6.html#L193'>kv</a>                193 HashTable.h                iterator_type kv = *iter;
-<a href='../S/6.html#L194'>kv</a>                194 HashTable.h                tmp &lt;&lt; kv.key();
-<a href='../S/6.html#L211'>kv</a>                211 HashTable.h                iterator_type kv = *iter;
-<a href='../S/6.html#L212'>kv</a>                212 HashTable.h                tmp &lt;&lt; kv.value();
-<a href='../S/36.html#L96'>kv</a>                 96 Iterator.h         KeyValue(const KeyValue&amp; kv) : k(kv.k), v(kv.v) {};
-<a href='../S/36.html#L97'>kv</a>                 97 Iterator.h         KeyValue(KeyValue&amp;&amp; kv) : k(), v() {
-<a href='../S/36.html#L98'>kv</a>                 98 Iterator.h           swap(*this, kv);
-<a href='../S/36.html#L106'>kv</a>                106 Iterator.h           KeyValue&amp; operator=(KeyValue kv) {
-<a href='../S/36.html#L107'>kv</a>                107 Iterator.h             swap(*this, kv);
+<a href='../S/37.html#L63'>move</a>               63 Array.h            Array(Array&lt;value_type&gt;&amp;&amp; array) : ReferenceCountedArray&lt;value_type&gt;(std::move(array)) {};
+<a href='../S/37.html#L106'>move</a>              106 Array.h                push(std::move(item));
+<a href='../S/37.html#L117'>move</a>              117 Array.h              ReferenceCountedArray&lt;value_type&gt;::operator=(std::move(array));
+<a href='../S/6.html#L58'>move</a>               58 HashTable.h        HashTable(HashTable&lt;Key, Value&gt;&amp;&amp; table) : map(std::move(table.map)) {
+<a href='../S/6.html#L123'>move</a>              123 HashTable.h          map[key] = std::move(value);
+<a href='../S/36.html#L383'>move</a>              383 ReferenceCountedArray.h     ReferenceCountedArray(ReferenceCountedArray&amp;&amp; rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+<a href='../S/36.html#L471'>move</a>              471 ReferenceCountedArray.h       alloc = std::move(rca.alloc);
+<a href='../S/36.html#L472'>move</a>              472 ReferenceCountedArray.h       offset = std::move(rca.offset);
+<a href='../S/36.html#L473'>move</a>              473 ReferenceCountedArray.h       sublen = std::move(rca.sublen);
+<a href='../S/36.html#L474'>move</a>              474 ReferenceCountedArray.h       my_hash = std::move(rca.my_hash);
+<a href='../S/36.html#L475'>move</a>              475 ReferenceCountedArray.h       Ref = std::move(rca.Ref);
+<a href='../S/42.html#L86'>move</a>               86 ScriptInterp.h             callback_proxy(std::move(_callback_proxy)),
+<a href='../S/34.html#L301'>move</a>              301 ScriptInterpTCL.cpp   return std::make_shared&lt;ScriptCallbackerTCL&gt;(si, std::move(cmd));
+<a href='../S/25.html#L147'>move</a>              147 ScriptInterpTCL.h               ScriptCmd(_si, std::move(_cmdName), std::move(_callback_proxy),
+<a href='../S/25.html#L173'>move</a>              173 ScriptInterpTCL.h               std::move(callback_proxy), usage, callbackParamMin,
+<a href='../S/25.html#L226'>move</a>              226 ScriptInterpTCL.h             const auto oldval(std::move(*static_cast&lt;T*&gt;(clientData)));
+<a href='../S/25.html#L229'>move</a>              229 ScriptInterpTCL.h               std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));
+<a href='../S/25.html#L251'>move</a>              251 ScriptInterpTCL.h               oldval = std::move(std::make_unique&lt;T_name[]&gt;(data-&gt;size));
+<a href='../S/25.html#L333'>move</a>              333 ScriptInterpTCL.h             trace_ptrs[varName] = std::move(data);
+<a href='../S/5.html#L13'>move</a>               13 ScriptInterpTCLCallbacks.h     const ReturnType result(std::move(callback(std::forward&lt;Params&gt;(args)...)));
+<a href='../S/5.html#L14'>move</a>               14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;const ReturnType&amp;&gt;::from(std::move(result), interp)));
+<a href='../S/5.html#L42'>move</a>               42 ScriptInterpTCLCallbacks.h            (std::move(tcl_to_c_cast&lt;Params&gt;::from(std::move(objv[Indices + 1]), si))) :
+<a href='../S/5.html#L43'>move</a>               43 ScriptInterpTCLCallbacks.h            (std::move(Params()))
+<a href='../S/26.html#L58'>move</a>               58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/29.html#L86'>move</a>               86 String.h       	String(String&amp;&amp; string) : ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;(std::move(string)) {};
+<a href='../S/29.html#L139'>move</a>              139 String.h                 ReferenceCountedArray&lt;String_Array_Type, Allocator&gt;::operator=(std::move(string));
+<a href='../S/17.html#L149'>move</a>              149 tests/StringTest.cpp   String my_string(std::move(*a));
+<a href='../S/17.html#L155'>move</a>              155 tests/StringTest.cpp   *d = std::move(my_string);
 </pre>
 </body>
 </html>

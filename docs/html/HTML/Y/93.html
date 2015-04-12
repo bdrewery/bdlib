@@ -1,23 +1,31 @@
 <html>
 <head>
-<title>ReturnType</title>
+<title>Stream</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/61.html#L108'>ReturnType</a>        108 ScriptInterp.h         template&lt;typename InterpType, typename ReturnType, typename... Params&gt;
-<a href='../S/61.html#L109'>ReturnType</a>        109 ScriptInterp.h         static void createCommand(InterpType&amp; si, const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/39.html#L170'>ReturnType</a>        170 ScriptInterpTCL.h         template&lt;typename ReturnType, typename... Params&gt;
-<a href='../S/39.html#L171'>ReturnType</a>        171 ScriptInterpTCL.h         inline void createCommand(const String&amp; cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
-<a href='../S/39.html#L172'>ReturnType</a>        172 ScriptInterpTCL.h           _createCommand(cmdName, new ScriptCallbackTCL&lt;ReturnType, Params...&gt;(callback), usage, min_params == size_t(-1) ? sizeof...(Params) : min_params, sizeof...(Params));
-<a href='../S/5.html#L9'>ReturnType</a>          9 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
-<a href='../S/5.html#L11'>ReturnType</a>         11 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
-<a href='../S/5.html#L13'>ReturnType</a>         13 ScriptInterpTCLCallbacks.h     ReturnType result = std::move(callback(std::forward&lt;Params&gt;(args)...));
-<a href='../S/5.html#L14'>ReturnType</a>         14 ScriptInterpTCLCallbacks.h     Tcl_SetObjResult(interp, std::move(c_to_tcl_cast&lt;ReturnType&gt;::from(std::move(result), interp)));
-<a href='../S/5.html#L27'>ReturnType</a>         27 ScriptInterpTCLCallbacks.h template &lt;typename ReturnType, typename... Params&gt;
-<a href='../S/5.html#L29'>ReturnType</a>         29 ScriptInterpTCLCallbacks.h   typedef ReturnType (*function_t)(Params...);
-<a href='../S/5.html#L39'>ReturnType</a>         39 ScriptInterpTCLCallbacks.h       ScriptCallbackDispatchTCL&lt;ReturnType, Params...&gt;::dispatch(interp, _callback,
+<a href='../S/45.html#L43'>Stream</a>             43 Stream.cpp     void Stream::Reserve(const size_t newSize) const {
+<a href='../S/45.html#L49'>Stream</a>             49 Stream.cpp     int Stream::seek(int offset, int whence) {
+<a href='../S/45.html#L74'>Stream</a>             74 Stream.cpp     String Stream::read(size_t maxSize, char delim) {
+<a href='../S/45.html#L98'>Stream</a>             98 Stream.cpp     int Stream::loadFile(const String&amp; file)
+<a href='../S/45.html#L108'>Stream</a>            108 Stream.cpp     int Stream::loadFile(const int fd)
+<a href='../S/45.html#L156'>Stream</a>            156 Stream.cpp     int Stream::writeFile(const String&amp; file, mode_t mode) const
+<a href='../S/45.html#L166'>Stream</a>            166 Stream.cpp     int Stream::writeFile(const int fd) const
+<a href='../S/26.html#L49'>Stream</a>             49 Stream.h       class Stream {
+<a href='../S/26.html#L56'>Stream</a>             56 Stream.h               Stream() : str(), pos(0), loading(0) {};
+<a href='../S/26.html#L57'>Stream</a>             57 Stream.h               Stream(const Stream&amp; stream) : str(stream.str), pos(stream.pos), loading(0) {};
+<a href='../S/26.html#L58'>Stream</a>             58 Stream.h               Stream(Stream&amp;&amp; stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+<a href='../S/26.html#L63'>Stream</a>             63 Stream.h               Stream(const String&amp; string) : str(string), pos(0), loading(0) {};
+<a href='../S/26.html#L64'>Stream</a>             64 Stream.h               Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize &gt; 0) Reserve(newSize); };
+<a href='../S/26.html#L65'>Stream</a>             65 Stream.h               virtual ~Stream() {};
+<a href='../S/26.html#L67'>Stream</a>             67 Stream.h               friend void swap(Stream&amp; a, Stream&amp; b) {
+<a href='../S/26.html#L75'>Stream</a>             75 Stream.h               Stream&amp; operator=(Stream stream) {
+<a href='../S/26.html#L168'>Stream</a>            168 Stream.h               friend Stream&amp; operator&lt;&lt;(Stream&amp;, const String&amp;);
+<a href='../S/26.html#L171'>Stream</a>            171 Stream.h       inline Stream&amp; operator&lt;&lt;(Stream&amp; stream, const String&amp; string) { stream.puts(string); return stream; }
+<a href='../S/12.html#L54'>Stream</a>             54 tests/ScriptInterpTCLTest.cpp   Stream test_tcl;
+<a href='../S/14.html#L67'>Stream</a>             67 tests/StreamTest.h         Stream *a, *b, *c, *d, *e, *F, *g, *h;
 </pre>
 </body>
 </html>

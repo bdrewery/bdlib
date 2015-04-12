@@ -1,14 +1,27 @@
 <html>
 <head>
-<title>os</title>
+<title>rhs</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/42.html#L527'>os</a>                527 String.h       inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const String&amp; string) {
-<a href='../S/42.html#L529'>os</a>                529 String.h           os &lt;&lt; *c;
-<a href='../S/42.html#L530'>os</a>                530 String.h         return os;
+<a href='../S/37.html#L228'>rhs</a>               228 Array.h            inline friend bool operator==(const Array&amp; lhs, const Array&amp; rhs) {
+<a href='../S/37.html#L229'>rhs</a>               229 Array.h              return lhs.size() == rhs.size() &amp;&amp; lhs.equals(rhs);
+<a href='../S/37.html#L231'>rhs</a>               231 Array.h            inline friend bool operator!=(const Array&amp; lhs, const Array&amp; rhs) { return !(lhs == rhs); };
+<a href='../S/29.html#L473'>rhs</a>               473 String.h       inline bool operator==(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/29.html#L474'>rhs</a>               474 String.h         return (lhs.length() == rhs.length() &amp;&amp;
+<a href='../S/29.html#L475'>rhs</a>               475 String.h             lhs.compare(rhs) == 0);
+<a href='../S/29.html#L478'>rhs</a>               478 String.h       inline bool operator!=(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/29.html#L479'>rhs</a>               479 String.h         return ! (lhs == rhs);
+<a href='../S/29.html#L482'>rhs</a>               482 String.h       inline bool operator&lt;(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/29.html#L483'>rhs</a>               483 String.h         return (lhs.compare(rhs) &lt; 0);
+<a href='../S/29.html#L486'>rhs</a>               486 String.h       inline bool operator&lt;=(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/29.html#L487'>rhs</a>               487 String.h         return ! (rhs &lt; lhs);
+<a href='../S/29.html#L490'>rhs</a>               490 String.h       inline bool operator&gt;(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/29.html#L491'>rhs</a>               491 String.h         return (rhs &lt; lhs);
+<a href='../S/29.html#L494'>rhs</a>               494 String.h       inline bool operator&gt;=(const String&amp; lhs, const String&amp; rhs) {
+<a href='../S/29.html#L495'>rhs</a>               495 String.h         return ! (lhs &lt; rhs);
 </pre>
 </body>
 </html>

@@ -1,15 +1,19 @@
 <html>
 <head>
-<title>oldLength</title>
+<title>resultStr</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/51.html#L344'>oldLength</a>         344 ReferenceCountedArray.h       const size_t oldLength = length();
-<a href='../S/51.html#L347'>oldLength</a>         347 ReferenceCountedArray.h       Reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
-<a href='../S/51.html#L348'>oldLength</a>         348 ReferenceCountedArray.h       std::copy(oldBuf, oldBuf + oldLength, Buf());
-<a href='../S/51.html#L349'>oldLength</a>         349 ReferenceCountedArray.h       setLength(oldLength);
+<a href='../S/42.html#L126'>resultStr</a>         126 ScriptInterp.h         virtual LoadError loadScript(const String&amp; fileName, String&amp; resultStr) = 0;
+<a href='../S/34.html#L48'>resultStr</a>          48 ScriptInterpTCL.cpp ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String&amp; fileName, String&amp; resultStr) {
+<a href='../S/34.html#L53'>resultStr</a>          53 ScriptInterpTCL.cpp     resultStr = tcl_to_c_cast&lt;String&gt;::from(value, this);
+<a href='../S/25.html#L289'>resultStr</a>         289 ScriptInterpTCL.h         virtual LoadError loadScript(const String&amp; fileName, String&amp; resultStr);
+<a href='../S/12.html#L47'>resultStr</a>          47 tests/ScriptInterpTCLTest.cpp   String resultStr;
+<a href='../S/12.html#L50'>resultStr</a>          50 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_WRONG_INTERP, tcl_script.loadScript("/dev/null", resultStr));
+<a href='../S/12.html#L59'>resultStr</a>          59 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_ERROR, tcl_script.loadScript(fileName, resultStr));
+<a href='../S/12.html#L61'>resultStr</a>          61 tests/ScriptInterpTCLTest.cpp   CPPUNIT_ASSERT_EQUAL(ScriptInterp::SCRIPT_LOAD_OK, tcl_script.loadScript(fileName, resultStr));
 </pre>
 </body>
 </html>

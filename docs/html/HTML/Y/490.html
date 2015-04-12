@@ -1,15 +1,52 @@
 <html>
 <head>
-<title>memmove</title>
+<title>obj</title>
 <meta name='robots' content='noindex,nofollow'>
 <meta name='generator' content='GLOBAL-5.7.1'>
 </head>
 <body text='#191970' bgcolor='#f5f5dc' vlink='gray'>
 <pre>
-<a href='../S/51.html#L102'>memmove</a>           102 ReferenceCountedArray.h         std::memmove(static_cast&lt;void*&gt;(buf), static_cast&lt;void*&gt;(buf + offset), sublen);
-<a href='../S/51.html#L828'>memmove</a>           828 ReferenceCountedArray.h       std::memmove(static_cast&lt;void*&gt;(Buf() + pos + slen), static_cast&lt;void*&gt;(Buf() + pos), length() - pos);
-<a href='../S/51.html#L846'>memmove</a>           846 ReferenceCountedArray.h       std::memmove(static_cast&lt;void*&gt;(Buf() + pos + 1), static_cast&lt;void*&gt;(Buf() + pos), length() - pos);
-<a href='../S/66.html#L80'>memmove</a>            80 String.cpp       std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+<a href='../S/34.html#L144'>obj</a>               144 ScriptInterpTCL.cpp String tcl_to_c_cast&lt;String&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L146'>obj</a>               146 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
+<a href='../S/34.html#L156'>obj</a>               156 ScriptInterpTCL.cpp char* tcl_to_c_cast&lt;char*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L158'>obj</a>               158 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
+<a href='../S/34.html#L166'>obj</a>               166 ScriptInterpTCL.cpp const char* tcl_to_c_cast&lt;const char*&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L167'>obj</a>               167 ScriptInterpTCL.cpp   return tcl_to_c_cast&lt;char*&gt;::from(obj, si);
+<a href='../S/34.html#L170'>obj</a>               170 ScriptInterpTCL.cpp int8_t tcl_to_c_cast&lt;int8_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L172'>obj</a>               172 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) == TCL_OK) {
+<a href='../S/34.html#L184'>obj</a>               184 ScriptInterpTCL.cpp uint8_t tcl_to_c_cast&lt;uint8_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L186'>obj</a>               186 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) == TCL_OK) {
+<a href='../S/34.html#L198'>obj</a>               198 ScriptInterpTCL.cpp int16_t tcl_to_c_cast&lt;int16_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L200'>obj</a>               200 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) == TCL_OK) {
+<a href='../S/34.html#L212'>obj</a>               212 ScriptInterpTCL.cpp uint16_t tcl_to_c_cast&lt;uint16_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L214'>obj</a>               214 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) == TCL_OK) {
+<a href='../S/34.html#L226'>obj</a>               226 ScriptInterpTCL.cpp int32_t tcl_to_c_cast&lt;int32_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L228'>obj</a>               228 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) == TCL_OK) {
+<a href='../S/34.html#L240'>obj</a>               240 ScriptInterpTCL.cpp uint32_t tcl_to_c_cast&lt;uint32_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L242'>obj</a>               242 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) == TCL_OK) {
+<a href='../S/34.html#L254'>obj</a>               254 ScriptInterpTCL.cpp int64_t tcl_to_c_cast&lt;int64_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L256'>obj</a>               256 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) != TCL_OK) {
+<a href='../S/34.html#L263'>obj</a>               263 ScriptInterpTCL.cpp uint64_t tcl_to_c_cast&lt;uint64_t&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L265'>obj</a>               265 ScriptInterpTCL.cpp   if (Tcl_GetLongFromObj(0, obj, &amp;v) == TCL_OK) {
+<a href='../S/34.html#L272'>obj</a>               272 ScriptInterpTCL.cpp double tcl_to_c_cast&lt;double&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L274'>obj</a>               274 ScriptInterpTCL.cpp   if (Tcl_GetDoubleFromObj(0, obj, &amp;v) != TCL_OK) {
+<a href='../S/34.html#L281'>obj</a>               281 ScriptInterpTCL.cpp bool tcl_to_c_cast&lt;bool&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L283'>obj</a>               283 ScriptInterpTCL.cpp   if (Tcl_GetBooleanFromObj(0, obj, &amp;v) != TCL_OK) {
+<a href='../S/34.html#L291'>obj</a>               291 ScriptInterpTCL.cpp     Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L293'>obj</a>               293 ScriptInterpTCL.cpp   char *cstr = Tcl_GetStringFromObj(obj, &amp;len);
+<a href='../S/34.html#L304'>obj</a>               304 ScriptInterpTCL.cpp Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L309'>obj</a>               309 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/34.html#L320'>obj</a>               320 ScriptInterpTCL.cpp Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si) {
+<a href='../S/34.html#L325'>obj</a>               325 ScriptInterpTCL.cpp   if (Tcl_ListObjGetElements((reinterpret_cast&lt;ScriptInterpTCL*&gt;(si))-&gt;interp, obj, &amp;objc, &amp;objv) != TCL_OK)
+<a href='../S/25.html#L84'>obj</a>                84 ScriptInterpTCL.h     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
+<a href='../S/25.html#L127'>obj</a>               127 ScriptInterpTCL.h   friend Array&lt;String&gt; tcl_to_c_cast&lt;Array&lt;String&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/25.html#L128'>obj</a>               128 ScriptInterpTCL.h   friend Array&lt;Array&lt;String&gt;&gt; tcl_to_c_cast&lt;Array&lt;Array&lt;String&gt;&gt;&gt;::from(Tcl_Obj* obj, ScriptInterp* si);
+<a href='../S/25.html#L222'>obj</a>               222 ScriptInterpTCL.h             Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2,
+<a href='../S/25.html#L224'>obj</a>               224 ScriptInterpTCL.h             if (!obj)
+<a href='../S/25.html#L229'>obj</a>               229 ScriptInterpTCL.h               std::move(tcl_to_c_cast&lt;T&gt;::from(obj, nullptr));
+<a href='../S/25.html#L240'>obj</a>               240 ScriptInterpTCL.h             Tcl_Obj *obj = ScriptInterpTCL::TraceSet(interp, name1, name2,
+<a href='../S/25.html#L242'>obj</a>               242 ScriptInterpTCL.h             if (!obj)
+<a href='../S/25.html#L255'>obj</a>               255 ScriptInterpTCL.h             memmove(data-&gt;ptr, tcl_to_c_cast&lt;T&gt;::from(obj, nullptr),
 </pre>
 </body>
 </html>
