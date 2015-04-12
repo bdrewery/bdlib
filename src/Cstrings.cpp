@@ -25,6 +25,8 @@
 /* Cstrings.c
  */
 
+#include <cstdlib>
+
 #include "Cstrings.h"
 
 BDLIB_NS_BEGIN

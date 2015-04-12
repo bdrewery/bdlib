@@ -67,6 +67,7 @@ void ArrayTest :: sizeTest (void)
 void ArrayTest :: push_popTest (void)
 {
   str_a->push(String("Test1"));
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_a->size());
   (*str_a) << String("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
   CPPUNIT_ASSERT(str_a->capacity() >= 2);
@@ -136,7 +137,7 @@ void ArrayTest :: push_popTest (void)
 
 void ArrayTest :: arrayConsTest(void)
 {
-  String carray2[] = {"2Test1", "2Test2"};
+  String carray2[] = {"2Test1", "2Test2", "2Test3"};
   str_c = new Array<String>(carray2, 2);
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_c->size());
   CPPUNIT_ASSERT_STRING_EQUAL("2Test2", str_c->pop());
@@ -145,7 +146,9 @@ void ArrayTest :: arrayConsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_c->size());
 
   int carray[] = {1, 2, 0};
-  Array<int>* int_d = new Array<int>(carray);
+  Array<int>* int_d = new Array<int>(carray, sizeof(carray) / sizeof(carray[0]));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(0, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_d->size());
   CPPUNIT_ASSERT_EQUAL(2, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_d->size());
@@ -162,6 +165,7 @@ void ArrayTest :: clearTest (void)
   int_a->clear();
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
   CPPUNIT_ASSERT_EQUAL(true, int_a->isEmpty());
+  CPPUNIT_ASSERT_THROW(int_a->at(0), std::out_of_range);
 }
 
 

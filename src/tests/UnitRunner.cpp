@@ -25,12 +25,19 @@
 /* UnitRunner.c
  *
  */
+#include <stdlib.h>
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+#ifdef USE_SCRIPT_TCL
+#include <tcl.h>
+#endif
 
 int main (int argc, char* argv[])
 {
@@ -42,7 +49,7 @@ int main (int argc, char* argv[])
     testresult.addListener (&collectedresults);
 
     CPPUNIT_NS :: BriefTestProgressListener listener;
-    if (argc == 1) {
+    if (argc > 1 || getenv("V")) {
       // Shows a message as each test starts
       testresult.addListener( &listener );
     }
@@ -57,6 +64,13 @@ int main (int argc, char* argv[])
     compileroutputter.write ();
 
     // return 0 if tests were successful
-    return collectedresults.wasSuccessful () ? 0 : 1;
+    int ret = collectedresults.wasSuccessful() ? 0 : 1;
+
+#ifdef USE_SCRIPT_TCL
+    /* Avoid valgrind memory leaks. */
+    Tcl_Finalize();
+#endif
+
+    return ret;
 }
 /* vim: set sts=2 sw=2 ts=8 et: */

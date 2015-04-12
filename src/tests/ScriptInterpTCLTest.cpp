@@ -1,6 +1,8 @@
 /* ScriptInterpTCLTest.c
  *
  */
+#include <memory>
+#include <limits.h>
 #include <unistd.h>
 #include "ScriptInterpTCLTest.h"
 
@@ -82,9 +84,15 @@ void ScriptInterpTCLTest :: operatorEqualsTest (void)
 
 static String changed_nick_oldval;
 static String changed_nick_newval;
-void changed_nick(const String* oldval, const String *newval) {
-  changed_nick_oldval = *oldval;
-  changed_nick_newval = *newval;
+static char* changed_nick_cc_oldval;
+static char* changed_nick_cc_newval;
+void changed_nick(const String oldval, const String newval) {
+  changed_nick_oldval = oldval;
+  changed_nick_newval = newval;
+}
+void changed_nick_cc(const char* oldval, const char *newval) {
+  changed_nick_cc_oldval = strdup(oldval);
+  changed_nick_cc_newval = strdup(newval);
 }
 
 void ScriptInterpTCLTest :: linkVarTest (void)
@@ -92,6 +100,37 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   ScriptInterpTCL tcl_script;
 
   /* Strings */
+
+  const char *ccstr = "I am read-only";
+  tcl_script.linkVar("ccstr", ccstr);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(ccstr), tcl_script.eval("set ccstr"));
+  tcl_script.eval("set ccstr \"test\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", tcl_script.eval("set ccstr"));
+  CPPUNIT_ASSERT_STRING_EQUAL("I am read-only", ccstr);
+
+  char *cstr = strdup("blah"), *cstrp = cstr;
+  tcl_script.linkVar("cstr", cstr, strlen(cstr)+1);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(cstr), tcl_script.eval("set cstr"));
+  /* Ensure the length is respected */
+  tcl_script.eval("set cstr \"test1234\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", cstr);
+  /* Ensure pointer was not replaced and that strcpy was used. */
+  CPPUNIT_ASSERT_EQUAL(cstrp, cstr);
+  tcl_script.unlinkVar("cstr");
+  free(cstr);
+
+  char acstr[] = "blah";
+  tcl_script.linkVar("acstr", acstr, sizeof(acstr));
+  CPPUNIT_ASSERT_STRING_EQUAL(String(acstr), tcl_script.eval("set acstr"));
+  /* Ensure the length is respected */
+  tcl_script.eval("set acstr \"test123\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", acstr);
+
+  char alcstr[5] = "blah";
+  tcl_script.linkVar("alcstr", alcstr, sizeof(alcstr));
+  CPPUNIT_ASSERT_STRING_EQUAL(String(alcstr), tcl_script.eval("set alcstr"));
+  tcl_script.eval("set alcstr \"test123\"");
+  CPPUNIT_ASSERT_STRING_EQUAL("test", alcstr);
 
   String x("54321");
   tcl_script.linkVar("x", x);
@@ -137,12 +176,12 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL(y, atoi(tcl_script.eval("set y").c_str()));
 
   // Test const
-  const int cy = 52;
-  tcl_script.linkVar("cy", cy);
-  CPPUNIT_ASSERT_EQUAL(cy, atoi(tcl_script.eval("set cy").c_str()));
-  tcl_script.eval("set cy 12");
-  CPPUNIT_ASSERT_EQUAL(52, atoi(tcl_script.eval("set cy").c_str()));
-  CPPUNIT_ASSERT_EQUAL(52, cy);
+  const int ciy = 52;
+  tcl_script.linkVar("ciy", ciy);
+  CPPUNIT_ASSERT_EQUAL(ciy, atoi(tcl_script.eval("set ciy").c_str()));
+  tcl_script.eval("set ciy 12");
+  CPPUNIT_ASSERT_EQUAL(52, atoi(tcl_script.eval("set ciy").c_str()));
+  CPPUNIT_ASSERT_EQUAL(52, ciy);
 
   // Test templates
   ScriptInterp::linkVar(tcl_script, "t_y", y);
@@ -156,17 +195,45 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL((long)46, atol(tcl_script.eval("set ly [expr {$ly + 4}]").c_str()));
   CPPUNIT_ASSERT_EQUAL((long)46, ly);
 
+  /* Short */
+  short sy = -42;
+  tcl_script.linkVar("sy", sy);
+  CPPUNIT_ASSERT_EQUAL(sy, (short)atol(tcl_script.eval("set sy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((short)-38, (short)atoi(tcl_script.eval("set sy [expr {$sy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((short)-38, sy);
+  sy = 300;
+  CPPUNIT_ASSERT_EQUAL(sy, (short)atol(tcl_script.eval("set sy").c_str()));
+
+  unsigned short usy = 42;
+  tcl_script.linkVar("usy", usy);
+  CPPUNIT_ASSERT_EQUAL(usy, (unsigned short)atol(tcl_script.eval("set usy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((unsigned short)46, (unsigned short)atoi(tcl_script.eval("set usy [expr {$usy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((unsigned short)46, usy);
+
+  /* Char */
+  int8_t cy = -42;
+  tcl_script.linkVar("cy", cy);
+  CPPUNIT_ASSERT_EQUAL(cy, (int8_t)atol(tcl_script.eval("set cy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((int8_t)-38, (int8_t)atoi(tcl_script.eval("set cy [expr {$cy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((int8_t)-38, cy);
+
+  uint8_t ucy = 42;
+  tcl_script.linkVar("ucy", ucy);
+  CPPUNIT_ASSERT_EQUAL(ucy, (uint8_t)atol(tcl_script.eval("set ucy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((uint8_t)46, (uint8_t)atoi(tcl_script.eval("set ucy [expr {$ucy + 4}]").c_str()));
+  CPPUNIT_ASSERT_EQUAL((uint8_t)46, ucy);
+
   // Set from C
   ly = 503;
   CPPUNIT_ASSERT_EQUAL(ly, atol(tcl_script.eval("set ly").c_str()));
 
   // Test const
-  const long lcy = 52;
-  tcl_script.linkVar("lcy", lcy);
-  CPPUNIT_ASSERT_EQUAL(lcy, atol(tcl_script.eval("set lcy").c_str()));
-  tcl_script.eval("set lcy 12");
-  CPPUNIT_ASSERT_EQUAL((long)52, atol(tcl_script.eval("set lcy").c_str()));
-  CPPUNIT_ASSERT_EQUAL((long)52, lcy);
+  const long lciy = 52;
+  tcl_script.linkVar("lciy", lciy);
+  CPPUNIT_ASSERT_EQUAL(lciy, atol(tcl_script.eval("set lciy").c_str()));
+  tcl_script.eval("set lciy 12");
+  CPPUNIT_ASSERT_EQUAL((long)52, atol(tcl_script.eval("set lciy").c_str()));
+  CPPUNIT_ASSERT_EQUAL((long)52, lciy);
 
   /* Doubles */
 
@@ -217,9 +284,26 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_oldval.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_newval.isEmpty());
   tcl_script.eval("set nick newval");
-  CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_oldval);
-  CPPUNIT_ASSERT_STRING_EQUAL("newval", changed_nick_newval);
   CPPUNIT_ASSERT_STRING_EQUAL("newval", nick);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", changed_nick_newval);
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_oldval);
+
+  char cnick[50];
+  strncpy(cnick, "oldval", sizeof(cnick));
+  cnick[strlen(cnick)] = '\0';
+  tcl_script.linkVar("cnick", cnick, sizeof(cnick),
+      reinterpret_cast<ScriptInterp::link_var_hook>(changed_nick_cc));
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", cnick);
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_oldval == nullptr);
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_newval == nullptr);
+  tcl_script.eval("set cnick newval");
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_oldval != nullptr);
+  CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_newval != nullptr);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", cnick);
+  CPPUNIT_ASSERT_STRING_EQUAL("newval", changed_nick_cc_newval);
+  CPPUNIT_ASSERT_STRING_EQUAL("oldval", changed_nick_cc_oldval);
+  free(changed_nick_cc_newval);
+  free(changed_nick_cc_oldval);
 }
 
 void ScriptInterpTCLTest::unlinkVarTest(void) {
@@ -263,7 +347,7 @@ String param_test(String arg1, int arg2) {
 
 void args(int foo1, int foo2) {
   if (foo1 == -1)
-    throw bd::String("Invalid param: -1");
+    throw BDLIB_NS::String("Invalid param: -1");
   else if (foo1 == -2)
     throw std::exception();
 }
@@ -360,9 +444,9 @@ void ScriptInterpTCLTest :: createCommandTest (void)
       "while executing\n\"args -2\"", tcl_script.eval("args -2"));
 }
 
-HashTable<String, ScriptCallbacker* > Events;
+std::unordered_map<String, ScriptCallbackerPtr> Events;
 
-void script_bind(String eventName, ScriptCallbacker* scb) {
+void script_bind(String eventName, ScriptCallbackerPtr scb) {
   // s:event c:Proc
   Events[eventName] = scb;
 }
@@ -370,7 +454,7 @@ void script_bind(String eventName, ScriptCallbacker* scb) {
 void ScriptInterpTCLTest :: createCommandEventTest (void)
 {
   ScriptInterpTCL tcl_script;
-  ScriptCallbacker* scb;
+  ScriptCallbackerPtr scb;
   String result, input;
   Array<String> params;
 
@@ -387,16 +471,16 @@ void ScriptInterpTCLTest :: createCommandEventTest (void)
   tcl_script.eval("bind test echo");
 
   // Call the event from C++ and then verify it echos back the input
-  scb = Events["test"];
+  CPPUNIT_ASSERT_NO_THROW(scb = Events.at("test"));
   input = "my params";
   params << input;
   // FIXME: This call line needs help to accept arbitrary params
   result = scb->call(params);
-  CPPUNIT_ASSERT_STRING_EQUAL(bd::String::printf("{%s}", input.c_str()), result);
+  CPPUNIT_ASSERT_STRING_EQUAL(BDLIB_NS::String::printf("{%s}", input.c_str()), result);
   params.clear();
 
   tcl_script.eval("bind \"complex test\" param_test");
-  scb = Events["complex test"];
+  CPPUNIT_ASSERT_NO_THROW(scb = Events.at("complex test"));
 
   // Now trigger the callback and verify that it calls the passed event
   params << "test";
@@ -420,6 +504,7 @@ void ScriptInterpTCLTest :: deleteCommandTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("Test command proctest", tcl_script.eval("x \"test\""));
   tcl_script.deleteCommand("x");
   CPPUNIT_ASSERT_STRING_EQUAL(bad_cmd, tcl_script.eval("x"));
+  CPPUNIT_ASSERT_NO_THROW(tcl_script.deleteCommand("x"));
 }
 
 #endif /* USE_SCRIPT_TCL */

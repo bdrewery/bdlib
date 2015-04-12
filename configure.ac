@@ -8,7 +8,7 @@ AC_CONFIG_SRCDIR(src/bdlib.h)
 AM_SILENT_RULES([yes])
 AC_CONFIG_MACRO_DIR([build/autotools/m4])
 AC_CONFIG_AUX_DIR([build/autotools/aux])
-AM_INIT_AUTOMAKE([1.11 subdir-objects foreign -Wall -Wno-portability])
+AM_INIT_AUTOMAKE([1.11 subdir-objects foreign -Wall -Wno-portability serial-tests])
 AM_MAINTAINER_MODE([disable])
 #LT_INIT()
 AC_CONFIG_HEADERS(src/config.h)
@@ -56,12 +56,9 @@ AC_PROG_CXX([clang++ g++49 g++-4.9 g++48 g++-4.8 g++47 g++-4.7 g++46 g++-4.6 g++
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
 AC_REQUIRE_CPP
 AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
-CXXSTD_FLAG="${CXXFLAGS##* }"
-AM_CXXFLAGS="${AM_CXXFLAGS} ${CXXSTD_FLAG}"
 
 # Check for compiler features
 EGG_CHECK_CCPIPE
-EGG_CHECK_CCSTATIC
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
 #CXX_FLAG_CHECK([AM_CXXFLAGS], [-Qunused-arguments], [unusedarguments])
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fstack-protector-all], [stackprotector])
@@ -75,8 +72,8 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
     -Wshadow -fno-inline \
     -g \
   "
-  AC_DEFINE(DEBUG, 1, [Define to enable DEBUG code])
-  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
+#  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
+#  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-coverage], [coverage])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Winvalid-pch], [invalidpch])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wdocumentation], [wdocumentation])
   if [[ "${ax_cv_prog_cc_wdocumentation}" = "yes" ]]; then

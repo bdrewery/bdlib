@@ -42,23 +42,35 @@ unsigned char String::cleanse_ctr = 0;
 /* Accessors */
 int String::compare(const String& str, size_t n, size_t start) const
 {
-  const size_t my_len = length();
   /* Same string? */
-  if (data() == str.data() && my_len == str.length())
+  if (cbegin() == str.cbegin() && length() == str.length())
     return 0;
+  if (start != 0)
+    validateIndex(start);
 
   const size_t slen = n ? std::min(str.length(), n) : str.length();
-  const size_t len = std::min(my_len - start, slen);
+  const size_t len = std::min(length() - start, slen);
   const int diff = std::memcmp(begin() + start, str.begin(), len);
   if (diff)
     return diff;
   else if (n)
-    return std::min(my_len - start, n) - slen;
+    return std::min(length() - start, n) - slen;
   else
-    return (my_len - start) - slen;
+    return (length() - start) - slen;
 }
 
 /* Setters */
+size_t String::copy(char *dst, size_t n, size_t start) const
+{
+  if (start != 0)
+    validateIndex(start);
+
+  size_t slen = std::min(n, length() - start);
+
+  std::copy(cbegin() + start, cend(), dst);
+
+  return slen;
+}
 
 /**
  * @brief Insert a cstring at the given index.
@@ -72,7 +84,8 @@ int String::compare(const String& str, size_t n, size_t start) const
 void String::insert(size_t pos, const char *string, size_t n)
 {
   if (n == 0) return;
-  if (pos && !hasIndex(pos-1)) return;
+  if (pos != 0)
+    validateIndex(pos - 1);
   
   size_t slen = (n == npos) ? std::strlen(string) : n;
 
@@ -91,7 +104,8 @@ void String::insert(size_t pos, const char *string, size_t n)
 void String::replace(size_t pos, const char *string, size_t n)
 {
   if (n == 0) return;
-  if (pos && !hasIndex(pos-1)) return;
+  if (pos != 0)
+    validateIndex(pos - 1);
 
   size_t slen = (n == npos) ? std::strlen(string) : n;
   size_t newlen = pos + slen;

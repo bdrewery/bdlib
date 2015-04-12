@@ -4,18 +4,9 @@ AM_CXXFLAGS=		-Wall @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@
 libbdlib_a_SOURCES= \
 			src/Cstrings.cpp \
 			src/base64.cpp \
-			src/Array.cpp \
 			src/AtomicFile.cpp \
-			src/BinaryTree.cpp \
-			src/HashTable.cpp \
-			src/List.cpp \
-			src/Queue.cpp \
 			src/ReferenceCountedArray.cpp \
-			src/Script.cpp \
-			src/ScriptInterp.cpp \
 			src/ScriptInterpTCL.cpp \
-			src/SortedList.cpp \
-			src/Stack.cpp \
 			src/Stream.cpp \
 			src/String.cpp
 libbdlib_a_CXXFLAGS=	$(AM_CXXFLAGS)
@@ -25,20 +16,30 @@ check_PROGRAMS=		UnitRunner
 UnitRunner_SOURCES=	src/tests/UnitRunner.cpp \
 			src/tests/ArrayTest.cpp \
 			src/tests/AtomicFileTest.cpp \
-			src/tests/BinaryTreeTest.cpp \
 			src/tests/HashTableTest.cpp \
-			src/tests/ListTest.cpp \
-			src/tests/SortedListTest.cpp \
 			src/tests/ScriptInterpTCLTest.cpp \
-			src/tests/StackTest.cpp \
 			src/tests/StringTest.cpp \
-			src/tests/StreamTest.cpp \
-			src/tests/QueueTest.cpp
+			src/tests/StreamTest.cpp
 
 UnitRunner_CXXFLAGS=	$(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
-			@CPPUNIT_CXXFLAGS@
+			-Wno-unused-value \
+			@CPPUNIT_CFLAGS@ @CPPUNIT_CXXFLAGS@
 #UnitRunner_LDADD=	libbdlib.a
 UnitRunner_LDADD=	$(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
+
+clean-local:
+	-find $(top_builddir) \( -name "*.gcda" -o -name "*.gcno" -o \
+	  -name "*.gcov" \) -delete
+
+.PHONY: fix-gcov-names
+fix-gcov-names:
+	@find $(top_builddir) -name '*.gcda' -o -name '*.gcno' | \
+	  while read file; do \
+	    dir=$${file%/*}; \
+	    fname=$${file##*/}; \
+	    fname=$${fname##*-}; \
+	    mv -v "$${file}" "$${dir}/$${fname%.*}.$${fname##*.}"; \
+	  done
 
 .PHONY: test
 test: check

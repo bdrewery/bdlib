@@ -32,17 +32,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
-#endif
-
-#ifdef HAVE_STDLIB_H
-#include <cstdlib>
-#endif
-
-#include "bits.h"
-
-
 #define BDLIB_NS bd
 #define BDLIB_NS_BEGIN namespace BDLIB_NS {
 #define BDLIB_NS_END }

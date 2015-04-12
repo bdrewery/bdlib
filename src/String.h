@@ -34,6 +34,7 @@
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
+#include <functional>
 #include <cstring>
 
 
@@ -56,8 +57,6 @@ typedef char String_Array_Type;
 /**
  * @class String
  * @brief Provides custom string class for easy and optimized string manipulation.
- * @todo compute hash on insert, then use to compare instead of strcmp
- * @todo an updating hash as the copy is done.
  */
 class String : public ReferenceCountedArray<String_Array_Type> {
   private:
@@ -193,10 +192,18 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline char* dup() const {
           char *ret = new char[length() + 1];
-          std::copy(begin(), end(), ret);
+          std::copy(cbegin(), cend(), ret);
           ret[length()] = '\0';
           return ret;
         }
+
+        /**
+         * @brief Copy the contents of the string to the given cstring ptr.
+         * @param dst The destination cstring ptr;
+         * @param n The number of characters to copy out
+         * @param start The starting position
+         */
+        size_t copy(char* dst, size_t n = npos, size_t start = 0) const;
 
         /**
          * @sa c_str()
@@ -362,14 +369,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
 };
 
-template<typename T>
-  struct Hash;
-
-template<>
-  struct Hash<String>
-    {
-          inline size_t operator()(const String& val) const { return val.hash(); }
-    };
 /**
  * @relates String
  * @brief Concatenates two string objects together.
@@ -472,7 +471,8 @@ inline String& String::operator-=(const size_t n) {
 
 // comparison operators:
 inline bool operator==(const String& lhs, const String& rhs) {
-  return (lhs.compare(rhs) == 0);
+  return (lhs.length() == rhs.length() &&
+      lhs.compare(rhs) == 0);
 }
 
 inline bool operator!=(const String& lhs, const String& rhs) {
@@ -495,35 +495,6 @@ inline bool operator>=(const String& lhs, const String& rhs) {
   return ! (lhs < rhs);
 }
 
-#ifdef no
-//inline bool String::operator==(const String& rhs) const {
-//  return (compare(rhs) == 0);
-//}
-inline bool operator==(const String& lhs, const String& rhs) {
-  return (lhs.compare(rhs) == 0);
-}
-
-inline bool String::operator!=(const String& rhs) const {
-  return !(*this == rhs);
-}
-
-inline bool String::operator<(const String& rhs) const {
-  return (compare(rhs) < 0);
-}
-
-inline bool String::operator<=(const String& rhs) const {
-  return !(rhs < *this);
-}
-
-inline bool String::operator>(const String& rhs) const {
-  return (rhs < *this);
-}
-
-inline bool String::operator>=(const String& rhs) const {
-  return !(*this < rhs);
-}
-#endif
-
 inline std::ostream& operator<<(std::ostream& os, const String& string) {
   for (const char* c = string.begin(); c != string.end(); ++c)
     os << *c;
@@ -537,6 +508,16 @@ std::istream& operator>>(std::istream&, String&);
 std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END
+
+namespace std {
+  template<>
+  struct hash<BDLIB_NS::String>
+    {
+          inline size_t operator()(const BDLIB_NS::String& val) const {
+            return val.hash();
+          }
+    };
+}
 //std::ostream& operator << (std::ostream&, const std::vector<String>);
 #endif /* _BD_STRING_H */
 /* vim: set sts=2 sw=2 ts=8 et: */

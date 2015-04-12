@@ -27,6 +27,7 @@
 
 #include <sys/stat.h>
 
+#include <cstdio>
 #include <unistd.h>
 
 #include "AtomicFile.h"
@@ -37,37 +38,37 @@ bool AtomicFile::open(const String& fname, mode_t mode) {
   size_t slash_pos;
   String dir;
 
-  this->_fname = fname;
-  this->_mode = mode;
+  _fname = fname;
+  _mode = mode;
 
   /*
    * Get a tempfile in the same directory as the target so that rename(2)
    * is not cross-device.
    */
-  if ((slash_pos = this->_fname.rfind("/")) == String::npos) {
+  if ((slash_pos = _fname.rfind("/")) == String::npos) {
     slash_pos = 0;
     dir = "./";
   } else {
-    dir = this->_fname(0, slash_pos + 1);	/* include the '/' */
+    dir = _fname(0, slash_pos + 1);	/* include the '/' */
   }
 
-  this->_tmpname = String::printf("%s.%s.XXXXXX", dir.c_str(),
-      static_cast<String>(this->_fname(slash_pos)).c_str());
+  _tmpname = String::printf("%s.%s.XXXXXX", dir.c_str(),
+      static_cast<String>(_fname(slash_pos)).c_str());
 
   /* XXX: Move nul-writing to String per C++11 */
-  this->_tmpname.resize(this->_tmpname.length() + 1);
-  this->_fd = mkstemp(this->_tmpname.begin());
+  _tmpname.resize(_tmpname.length() + 1);
+  _fd = mkstemp(_tmpname.begin());
 
-  return this->is_open();
+  return is_open();
 }
 
 bool AtomicFile::abort() {
-  if (!this->is_open()) {
+  if (!is_open()) {
     return false;
   }
-  ::unlink(this->_tmpname.c_str());
-  ::close(this->_fd);
-  this->_fd = -1;
+  ::unlink(_tmpname.c_str());
+  ::close(_fd);
+  _fd = -1;
   return true;
 }
 
@@ -76,16 +77,16 @@ bool AtomicFile::commit() {
 
   result = false;
   remove_temp = true;
-  if (this->_mode != mode_t(-1) && fchmod(this->_fd, this->_mode) != 0) {
+  if (_mode != mode_t(-1) && fchmod(_fd, _mode) != 0) {
     goto cleanup;
   }
-  if (::fsync(this->_fd) != 0) {
+  if (::fsync(_fd) != 0) {
     goto cleanup;
   }
-  if (::close(this->_fd) != 0) {
+  if (::close(_fd) != 0) {
     goto cleanup;
   }
-  if (::rename(this->_tmpname.c_str(), this->_fname.c_str()) != 0) {
+  if (std::rename(_tmpname.c_str(), _fname.c_str()) != 0) {
     goto cleanup;
   }
 
@@ -94,9 +95,9 @@ bool AtomicFile::commit() {
 
 cleanup:
   if (remove_temp) {
-    ::unlink(this->_tmpname.c_str());
+    ::unlink(_tmpname.c_str());
   }
-  this->_fd = -1;
+  _fd = -1;
   return result;
 }
 BDLIB_NS_END

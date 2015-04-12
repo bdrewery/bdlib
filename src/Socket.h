@@ -40,12 +40,12 @@
 
 BDLIB_NS_BEGIN
 
-#define SOCKET_CLIENT   BIT0
-#define SOCKET_SERVER   BIT1
-#define SOCKET_BIND     BIT2
-#define SOCKET_ASYNC    BIT3
-#define SOCKET_TCP      BIT4
-#define SOCKET_UDP      BIT5
+#define SOCKET_CLIENT   (1UL << 0)
+#define SOCKET_SERVER   (1UL << 1)
+#define SOCKET_BIND     (1UL << 2)
+#define SOCKET_ASYNC    (1UL << 3)
+#define SOCKET_TCP      (1UL << 4)
+#define SOCKET_UDP      (1UL << 5)
 
 typedef struct {
         int len;

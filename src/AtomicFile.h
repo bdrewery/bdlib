@@ -51,8 +51,8 @@ class AtomicFile {
      * @sa abort
      */
     virtual ~AtomicFile() {
-      if (this->is_open()) {
-        this->abort();
+      if (is_open()) {
+        abort();
       }
     }
 
@@ -78,7 +78,7 @@ class AtomicFile {
      * @return Returns -1 if not open.
      */
     inline int fd() {
-      return (this->is_open() ? _fd : -1);
+      return (is_open() ? _fd : -1);
     }
 
     /**

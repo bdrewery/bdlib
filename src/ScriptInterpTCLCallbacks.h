@@ -10,8 +10,8 @@ template <typename ReturnType, typename... Params>
 struct ScriptCallbackDispatchTCL {
   typedef ReturnType (*function_t)(Params...);
   static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&&... args) {
-    ReturnType result = std::move(callback(std::forward<Params>(args)...));
-    Tcl_SetObjResult(interp, std::move(c_to_tcl_cast<ReturnType>::from(std::move(result), interp)));
+    const ReturnType result(std::move(callback(std::forward<Params>(args)...)));
+    Tcl_SetObjResult(interp, std::move(c_to_tcl_cast<const ReturnType&>::from(std::move(result), interp)));
   }
 };
 
@@ -25,7 +25,7 @@ struct ScriptCallbackDispatchTCL<void, Params...> {
 };
 
 template <typename ReturnType, typename... Params>
-class ScriptCallbackTCL : public ScriptCallbackTCLBase {
+class ScriptCommandHandlerTCL : public ScriptCommandHandlerTCLBase {
   typedef ReturnType (*function_t)(Params...);
 
   private:
@@ -46,8 +46,9 @@ class ScriptCallbackTCL : public ScriptCallbackTCLBase {
     }
 
   public:
-    ScriptCallbackTCL(function_t callback) : _callback(callback) {};
-    inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data) {
+    ScriptCommandHandlerTCL(function_t callback) : _callback(callback) {};
+    inline virtual void call(size_t argc, void* const argv[], ScriptInterp* si,
+        void *proxy_data) {
       real_call(argc, argv, si, proxy_data, make_indices<sizeof...(Params)>());
     }
 };

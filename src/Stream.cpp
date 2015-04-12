@@ -27,9 +27,6 @@
  */
 #include "Stream.h"
 #include <algorithm> // min() / max()
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
 
 #ifdef HAVE_MMAP
 #  include <sys/mman.h>
@@ -90,7 +87,7 @@ String Stream::read(size_t maxSize, char delim) {
   while ((ret.length() < toRead) && (str[pos] != delim)) {
     ret += str[pos++];
   }
-  if (str.hasIndex(pos) && str[pos] == delim) {
+  if (str.size() > pos && str[pos] == delim) {
     ret += delim;
     ++pos;
   }
@@ -112,7 +109,10 @@ int Stream::loadFile(const int fd)
 {
   clear();
 #ifdef HAVE_MMAP
-  size_t size = lseek(fd, 0, SEEK_END);
+  ssize_t size = lseek(fd, 0, SEEK_END);
+  if (size < 0) {
+    return 1;
+  }
   Reserve(size);
   void* map = mmap(0, size, PROT_READ, MAP_PRIVATE, fd, 0);
   if (map == MAP_FAILED) {

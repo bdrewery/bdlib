@@ -29,16 +29,13 @@
 #define _BD_REFERENCE_COUNTED_ARRAY_H 1
 
 #include "bdlib.h"
-#include "hash.h"
 #include <algorithm>
 #include <atomic>
 #include <iterator>
 #include <memory>
+#include <stdexcept>
 #include <cstdint>
 #include <sys/types.h>
-#ifdef DEBUG
-#include <cstdio>
-#endif
 #include <cstring>
 
 BDLIB_NS_BEGIN
@@ -369,6 +366,16 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         /* Shift the offset away */
       }
     }
+
+    /**
+     * @brief Checks if the buffer has the given index or not.
+     * @param pos Index to check.
+     */
+    inline void validateIndex(size_t pos) const {
+      if (pos >= length())
+        throw std::out_of_range("ReferenceCountedArray::validateIndex");
+    };
+
   public:
     ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
     };
@@ -580,10 +587,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator begin() { return iterator(mdata()); };
 
+    inline const_iterator cbegin() const {
+      return const_iterator(this->data());
+    };
     /**
      * @brief Returns a read-only iterator into the Array
      */
-    inline const_iterator begin() const { return const_iterator(data()); };
+    inline const_iterator begin() const { return this->cbegin(); };
 
     /**
      * @brief Returns a read/write iterator at the end the Array
@@ -591,10 +601,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator end() { return iterator(begin()) + length(); };
 
+    inline const_iterator cend() const {
+      return const_iterator(this->cbegin()) + this->length();
+    };
     /**
      * @brief Returns a read-only iterator at the end of the Array
      */
-    inline const_iterator end() const { return const_iterator(begin()) + length(); };
+    inline const_iterator end() const { return this->cend(); };
 
     /**
      * @brief Returns a read/write reverse iterator at the end of the Array. Iteration is done in reverse order.
@@ -602,10 +615,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline reverse_iterator rbegin() { return reverse_iterator(this->end()); };
 
+    inline const_reverse_iterator crbegin() const {
+      return const_reverse_iterator(this->cend());
+    };
     /**
      * @brief Returns a read-only reverse iterator at the end of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); };
+    inline const_reverse_iterator rbegin() const { return this->crbegin(); };
 
     /**
      * @brief Returns a read/write reverse iterator at the beginning of the Array. Iteration is done in reverse order.
@@ -613,13 +629,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline reverse_iterator rend() { return reverse_iterator(this->begin()); };
 
+    inline const_reverse_iterator crend() const {
+      return const_reverse_iterator(this->cbegin());
+    };
     /**
      * @brief Returns a read-only reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); };
+    inline const_reverse_iterator rend() const { return this->crend(); };
 
-
-    typedef Hash<value_type> HashType;
 
    /**
      * @brief Return a hash of every element in the array. Cache result as well.
@@ -627,7 +644,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     virtual size_t hash() const {
       if (my_hash != 0) return my_hash;
-      HashType hasher;
+      std::hash<value_type> hasher;
       size_t _hash = 5381;
 
       for(size_t i = 0; i < this->length(); ++i)
@@ -659,26 +676,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
 
     // Safe index accessors
-    /**
-     * @brief Checks if the buffer has the given index or not.
-     * @return Boolean true/false as to whether or not index exists.
-     * @param pos Index to check.
-     */
-    inline bool hasIndex(size_t pos) const {
-      if (pos >= (offset + length())) {
-#ifdef DEBUG
-        ::printf("ATTEMPT TO ACCESS INDEX %zu/%zu\n", pos, offset + length());
-#endif
-        return 0;
-      }
-      return (pos < length());
-    };
 
     /**
      * @sa at()
-     * Unlinke at() this is unchecked.
+     * Unlike at() this is unchecked.
      */
-    inline value_type read(size_t pos) const { return *(constBuf(pos)); };
+    inline value_type read(size_t pos) const noexcept {
+      return *(constBuf(pos));
+    };
 
     /**
      * @brief Write an item to the given index
@@ -692,7 +697,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Safe element access operator
      * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
      */
-    inline value_type operator[](size_t pos) const { return read(pos); };
+    inline value_type operator[](size_t pos) const noexcept {
+      return read(pos);
+    };
 
     /**
      * @class Cref
@@ -726,7 +733,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         /**
          * @sa ReferenceCountedArray::operator[]
          */
-        inline operator value_type() const { return rca.read(k); };
+        inline operator value_type() const noexcept { return rca.read(k); };
 
         /**
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
@@ -751,7 +758,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @sa operator[]()
      * @todo Perhaps this should throw an exception if out of range?
      */
-    inline value_type at(size_t pos) const { return hasIndex(pos) ? (*this)[pos] : 0; };
+    inline value_type at(size_t pos) const {
+      validateIndex(pos);
+      return (*this)[pos];
+    };
 
     /**
      * @param start The offset to begin the subarray from (indexed from 0)
@@ -811,7 +821,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void insert(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
       if (n == 0) return;
-      if (pos && !hasIndex(pos-1)) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
 
       size_t slen = rca.length();
 
@@ -840,7 +851,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void insert(size_t pos, const_reference item)
     {
-      if (pos && !hasIndex(pos-1)) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
 
       AboutToModify(length() + 1);
       std::memmove(static_cast<void*>(Buf() + pos + 1), static_cast<void*>(Buf() + pos), length() - pos);
@@ -856,7 +868,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post COW is done if needed.
      */
     void replace(size_t pos, const_reference item) {
-      if (pos && !hasIndex(pos-1)) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
 
       getOwnCopy();
       *(Buf(pos)) = item;
@@ -870,7 +883,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void replace(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
       if (n == 0) return;
-      if (pos && !hasIndex(pos-1)) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
 
       size_t slen = rca.length();
 

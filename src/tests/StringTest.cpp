@@ -117,6 +117,8 @@ void StringTest :: capacityTest (void)
 void StringTest :: compareTest (void)
 {
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blah"));
+  CPPUNIT_ASSERT_NO_THROW((*b).compare("blah", 4, 3));
+  CPPUNIT_ASSERT_THROW((*b).compare("blah", 4, 4), std::out_of_range);
   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
   CPPUNIT_ASSERT((*f).compare(cstring) < 0);
@@ -232,18 +234,45 @@ void StringTest :: c_strTest(void)
 
 void StringTest :: hasIndexTest(void)
 {
-  CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(0));
-  CPPUNIT_ASSERT_EQUAL(true, b->hasIndex(3));
-  CPPUNIT_ASSERT_EQUAL(false, b->hasIndex(4));
-  CPPUNIT_ASSERT_EQUAL(true, f->hasIndex(10));
-  CPPUNIT_ASSERT_EQUAL(false, f->hasIndex(11));
+  CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(b->at(3));
+  CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(f->at(10));
+  CPPUNIT_ASSERT_THROW(f->at(11), std::out_of_range);
+  *a = "test";
+  a->resize(0);
+  CPPUNIT_ASSERT_NO_THROW((*a)[0]);
+  CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
+  CPPUNIT_ASSERT_EQUAL(size_t(0), a->length());
+
+  CPPUNIT_ASSERT_NO_THROW(a->insert(0, 'c'));
+  a->resize(0);
+  CPPUNIT_ASSERT_THROW(a->insert(1, 'c'), std::out_of_range);
+  a->resize(0);
+
+  CPPUNIT_ASSERT_NO_THROW(a->replace(0, 'c'));
+  a->resize(0);
+  CPPUNIT_ASSERT_THROW(a->replace(1, 'c'), std::out_of_range);
+  a->resize(0);
+
+  /* std::string compat... */
+  CPPUNIT_ASSERT_NO_THROW((*a)[0] = 'c');
+  CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
+  a->resize(0);
+  CPPUNIT_ASSERT_NO_THROW((*a)[1] = 'c');
+  CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW((const char)(*a)[0]);
+  CPPUNIT_ASSERT_NO_THROW((const char)(*a)[1]);
 }
 
 void StringTest :: charAtTest(void)
 {
   CPPUNIT_ASSERT_EQUAL('b', b->charAt(0));
   CPPUNIT_ASSERT_EQUAL('h', b->charAt(3));
-  CPPUNIT_ASSERT_EQUAL((char) 0, b->charAt(4));
+  CPPUNIT_ASSERT_THROW(b->charAt(4), std::out_of_range);
   CPPUNIT_ASSERT_EQUAL(cstring[5], d->charAt(5));
   CPPUNIT_ASSERT_EQUAL('x', g->charAt(0));
 }
@@ -357,11 +386,12 @@ void StringTest :: appendTest(void)
 
 void StringTest :: insertTest(void)
 {
-  a->insert(1, 'a');
-  CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(0));
+  CPPUNIT_ASSERT_THROW(a->insert(1, 'a'), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
   a->insert(0, 'b');
+  CPPUNIT_ASSERT_NO_THROW(a->at(0));
   CPPUNIT_ASSERT_STRING_EQUAL("b", *a);
-  CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(1));
+  CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
   b->insert(2, "BLAH");
   CPPUNIT_ASSERT_STRING_EQUAL("blBLAHah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
@@ -387,15 +417,27 @@ void StringTest :: insertTest(void)
 
 void StringTest :: replaceTest(void)
 {
-  a->replace(1, "wtf");
-  CPPUNIT_ASSERT_EQUAL(false, a->hasIndex(0));
+  CPPUNIT_ASSERT_NO_THROW(a->replace(0, "bla"));
+  *a = "";
+  CPPUNIT_ASSERT_THROW(a->replace(1, "bla"), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
   b->replace(1, 'x');
   CPPUNIT_ASSERT_STRING_EQUAL("bxah", *b);
-  b->replace(0, "haha");
-  CPPUNIT_ASSERT_STRING_EQUAL("haha", *b);
+  b->replace(0, "ququ");
+  CPPUNIT_ASSERT_STRING_EQUAL("ququ", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
-  g->replace(1, "ml");
+  CPPUNIT_ASSERT_STRING_EQUAL("x", *g);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), g->size());
+  CPPUNIT_ASSERT_NO_THROW(g->at(0));
+  CPPUNIT_ASSERT_THROW(g->at(1), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(g->replace(2, "ml"), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(g->replace(1, "ml"));
   CPPUNIT_ASSERT_STRING_EQUAL("xml", *g);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), g->size());
+  CPPUNIT_ASSERT_NO_THROW(g->at(0));
+  CPPUNIT_ASSERT_NO_THROW(g->at(1));
+  CPPUNIT_ASSERT_NO_THROW(g->at(2));
+  CPPUNIT_ASSERT_THROW(g->at(3), std::out_of_range);
 
   *a = "1 2 3";
   *b = a->sub(" ", ", ");
@@ -830,6 +872,54 @@ void StringTest :: operatorStarTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("Test! Test! Test! ", *b);
 }
 
+void StringTest :: copyTest(void)
+{
+  char buf[30];
+
+  /* Test copy(sizeof(buf)) */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  a->copy(buf, sizeof(buf));
+  b->replace(0, *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("test 12345", *a);
+  CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test unbounded copy (uses a->length()) */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  a->copy(buf);
+  b->replace(0, *a);
+  CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test bad start copy */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  CPPUNIT_ASSERT_THROW(a->copy(buf, sizeof(buf), 10), std::out_of_range);
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test bad start copy */
+  memset(buf, 'X', sizeof(buf));
+  a->clear();
+  *b = String(buf, sizeof(buf));
+  CPPUNIT_ASSERT_NO_THROW(a->copy(buf, sizeof(buf), 0));
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Test limited copy */
+  memset(buf, 'X', sizeof(buf));
+  *a = "test 12345";
+  *b = String(buf, sizeof(buf));
+  a->copy(buf, sizeof(buf), 5);
+  b->replace(0, (*a)(5));
+  CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
+  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+}
+
 void StringTest :: printfTest(void)
 {
   int n = 506;
@@ -960,7 +1050,7 @@ void StringTest :: base64Test(void)
 
   for (int i = 0; i < 200; ++i) {
     ++size;
-    read(fd, ubuf, size);
+    CPPUNIT_ASSERT_EQUAL(ssize_t(size), read(fd, ubuf, size));
 
     (*a) = String(ubuf, size);
     (*b) = base64Encode(*a);
@@ -1303,6 +1393,79 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("b c d", *c);
 }
 
+void StringTest :: substringOutOfRangeResizeTest(void)
+{
+  *a = "one two three";
+  *b = (*a)(4, 3);
+  CPPUNIT_ASSERT_STRING_EQUAL("one two three", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(13), a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), b->size());
+  /* Ensure sublen/offset work properly with validateIndex() */
+  /* Check the substring */
+  CPPUNIT_ASSERT_THROW(b->at(-1), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(b->at(0));
+  CPPUNIT_ASSERT_NO_THROW(b->at(1));
+  CPPUNIT_ASSERT_NO_THROW(b->at(2));
+  CPPUNIT_ASSERT_THROW(b->at(3), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+  /* Truncate the original string and ensure substring unaffected. */
+  a->resize(5);
+  CPPUNIT_ASSERT_STRING_EQUAL("one t", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(5), a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), b->size());
+  CPPUNIT_ASSERT_NO_THROW(a->at(4));
+  CPPUNIT_ASSERT_THROW(a->at(5), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(b->at(0));
+  CPPUNIT_ASSERT_NO_THROW(b->at(1));
+  CPPUNIT_ASSERT_NO_THROW(b->at(2));
+  CPPUNIT_ASSERT_THROW(b->at(3), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+}
+
+void StringTest :: substringOutOfRangeResizeSubTest(void)
+{
+  *a = "one two three";
+  *b = (*a)(4, 3);
+  CPPUNIT_ASSERT_STRING_EQUAL("one two three", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(13), a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), b->size());
+  /* Resize the substring +1 and ensure it doesn't see original string */
+  b->resize(4, '~');
+  CPPUNIT_ASSERT_STRING_EQUAL("one two three", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(13), a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("two~", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), b->size());
+  CPPUNIT_ASSERT_NO_THROW(b->at(0));
+  CPPUNIT_ASSERT_NO_THROW(b->at(1));
+  CPPUNIT_ASSERT_NO_THROW(b->at(2));
+  CPPUNIT_ASSERT_NO_THROW(b->at(3));
+  CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+}
+
+void StringTest :: substringOutOfRangeInsertTest(void)
+{
+  /* Repeat the test with insert() rather than resize() */
+  *a = "one two three";
+  *b = (*a)(4, 3);
+  (*a)[5] = 't';
+  CPPUNIT_ASSERT_STRING_EQUAL("one tto three", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(13), a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), b->size());
+  CPPUNIT_ASSERT_NO_THROW(a->at(4));
+  CPPUNIT_ASSERT_NO_THROW(a->at(5));
+  CPPUNIT_ASSERT_NO_THROW(a->at(6));
+  CPPUNIT_ASSERT_THROW(a->at(13), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(b->at(0));
+  CPPUNIT_ASSERT_NO_THROW(b->at(1));
+  CPPUNIT_ASSERT_NO_THROW(b->at(2));
+  CPPUNIT_ASSERT_THROW(b->at(3), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+}
+
 void StringTest :: splitTest(void)
 {
   Array<String> list;
@@ -1448,7 +1611,7 @@ void StringTest :: resizeTest(void)
   *a = (*b)(4, 5);
   CPPUNIT_ASSERT_STRING_EQUAL("01234", *a);
   a->resize(10);
-  CPPUNIT_ASSERT_STRING_EQUAL(bd::String("01234\0\0\0\0\0", 10), *a);
+  CPPUNIT_ASSERT_STRING_EQUAL(BDLIB_NS::String("01234\0\0\0\0\0", 10), *a);
   CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
   CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
   CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());

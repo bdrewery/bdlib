@@ -28,14 +28,15 @@
 #include "Array.h"
 
 #include <sys/types.h>
+#include <memory>
 
 BDLIB_NS_BEGIN
 
 class ScriptInterp;
 
-class ScriptCallbackBase {
+class ScriptCommandHandlerBase {
   public:
-    virtual ~ScriptCallbackBase() {};
+    virtual ~ScriptCommandHandlerBase() {};
     virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
 };
 
@@ -51,6 +52,7 @@ class ScriptCallbacker {
     virtual ~ScriptCallbacker() {};
     virtual String call(const Array<String>& params = Array<String>()) = 0;
 };
+typedef std::shared_ptr<ScriptCallbacker> ScriptCallbackerPtr;
 
 /**
  * @class ScriptInterp
@@ -65,21 +67,39 @@ class ScriptInterp {
         virtual int init() = 0;
         virtual int destroy() = 0;
 
-  public:
-        struct script_cmd_handler_clientdata {
+        struct ScriptCmd {
+          ScriptCmd(const ScriptCmd&) = delete;
+          ScriptCmd& operator=(const ScriptCmd&) = delete;
           ScriptInterp* si;
-          ScriptCallbackBase* callback_proxy;
+          const String cmdName;
+          std::unique_ptr<ScriptCommandHandlerBase> callback_proxy;
           const char* usage;
           size_t callbackParamMin;
           size_t callbackParamMax;
-          script_cmd_handler_clientdata (ScriptInterp* _si, ScriptCallbackBase* _callback_proxy, const char* _usage, size_t _callbackParamMin, size_t _callbackParamMax) :
+          bool registered;
+          ScriptCmd(ScriptInterp* _si, const String &_cmdName,
+              std::unique_ptr<ScriptCommandHandlerBase> _callback_proxy,
+              const char* _usage, size_t _callbackParamMin,
+              size_t _callbackParamMax) :
             si(_si),
-            callback_proxy(_callback_proxy),
+            cmdName(_cmdName),
+            callback_proxy(std::move(_callback_proxy)),
             usage(_usage),
             callbackParamMin(_callbackParamMin),
-            callbackParamMax(_callbackParamMax) {};
+            callbackParamMax(_callbackParamMax),
+            registered(false)
+          {}
+          virtual ~ScriptCmd() {};
+          virtual void registerCmd() {
+            registered = true;
+          }
+          virtual void unregisterCmd() {
+            registered = false;
+          }
         };
-
+        typedef std::shared_ptr<ScriptCmd>
+          ScriptCmdPtr;
+  public:
         enum script_type {
           SCRIPT_TYPE_TCL,
         };

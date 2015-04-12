@@ -32,6 +32,8 @@
 #include "ReferenceCountedArray.h"
 #include "String.h"
 
+#include <functional>
+
 #ifdef CPPUNIT_VERSION
 #include <cppunit/SourceLine.h>
 #include <cppunit/TestAssert.h>
@@ -59,21 +61,6 @@ class Array : public ReferenceCountedArray<T> {
     Array() : ReferenceCountedArray<value_type>() {};
     Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
     Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(std::move(array)) {};
-    /**
-     * @brief Create a Array from a given carray.
-     * @param carray The null-terminated array to create the object from.
-     * @post A ArrayBuf has been initialized.
-     * @post The buffer has been filled with the array.
-     * @test Array test("Some array");
-     */
-    Array(const_pointer carray) : ReferenceCountedArray<value_type>() {
-      size_t i = 0;
-      while (1) {
-        if (!carray[i]) break;
-        push(carray[i]);
-        ++i;
-      }
-    };
 
     /**
      * @brief Create an array from an initializer list
@@ -238,7 +225,9 @@ class Array : public ReferenceCountedArray<T> {
       return true;
     }
 
-    inline friend bool operator==(const Array& lhs, const Array& rhs) { return lhs.equals(rhs); };
+    inline friend bool operator==(const Array& lhs, const Array& rhs) {
+      return lhs.size() == rhs.size() && lhs.equals(rhs);
+    };
     inline friend bool operator!=(const Array& lhs, const Array& rhs) { return !(lhs == rhs); };
 
     // Subarrays
@@ -359,15 +348,16 @@ class Array : public ReferenceCountedArray<T> {
     }
 
 };
-
-template<typename T>
-  struct Hash;
-
-template<typename T>
-  struct Hash< Array<T> > {
-    inline size_t operator()(const Array<T>& val) const { return val.hash(); }
-  };
 BDLIB_NS_END
+
+namespace std {
+  template<typename T>
+  struct hash<BDLIB_NS::Array<T>> {
+    inline size_t operator()(const BDLIB_NS::Array<T>& val) const {
+      return val.hash();
+    }
+  };
+}
 
 #endif /* _BD_ARRAY_H */
 /* vim: set sts=2 sw=2 ts=8 et: */
