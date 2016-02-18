@@ -6,14 +6,14 @@ compiler:
 
 before_install:
   - if [ "$CXX" = "g++" ]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
-  - sudo apt-get update
-  - sudo apt-get install tcl tcl-dev
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install libcppunit-dev libcppunit-1.12-1; fi
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install python-yaml python-pip; fi
+  - sudo apt-get -y update
+  - sudo apt-get -y install tcl tcl-dev
+  - if [ "$CXX" = "g++" ]; then sudo apt-get -y install libcppunit-dev libcppunit-1.13-0; fi
+  - if [ "$CXX" = "g++" ]; then sudo apt-get -y install python-yaml python-pip; fi
   - if [ "$CXX" = "g++" ]; then sudo pip install cpp-coveralls; fi
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install gcc-4.8 g++-4.8; fi
+  - if [ "$CXX" = "g++" ]; then sudo apt-get -y install gcc-4.8 g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - if [ "$CXX" = "clang++" ]; then sudo apt-get install clang-3.4; fi
+  - if [ "$CXX" = "clang++" ]; then sudo apt-get -y install clang-3.6; fi
   - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxxabi/trunk@r249649 libcxxabi; fi
   - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxx/trunk@r249595 libcxx; fi
   - if [ "$CXX" = "clang++" ]; then (cd libcxx/lib && env CXX="clang++ -I ../../libcxxabi/include" sh buildit); fi
@@ -58,3 +58,7 @@ addons:
     build_command_prepend: "cov-configure --comptype g++ --compiler ${CXX}; ./configure --enable-debug"
     build_command: "make -j2"
     branch_pattern: coverity_scan
+
+# State we need old build infrastructure for now
+sudo: required
+dist: trusty
