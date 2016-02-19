@@ -33,6 +33,9 @@ AC_PROG_CXX([g++49 g++-4.9 g++48 g++-4.8 g++47 g++-4.7 g++46 g++-4.6 g++45 g++-4
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
 AC_REQUIRE_CPP
 AX_CXX_COMPILE_STDCXX_11([noext], [optional])
+if [[ "${HAVE_CXX11}" -eq 0 ]]; then
+  CXX_FLAG_CHECK([CXXFLAGS], [-std=c++0x], [cxx0x])
+fi
 
 # Check for compiler features
 EGG_CHECK_CCWALL
