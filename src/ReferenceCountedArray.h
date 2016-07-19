@@ -33,7 +33,7 @@
 #include <algorithm>
 #include <iterator>
 #include <memory>
-#include <cstdint>
+#include <stdint.h>
 #include <sys/types.h>
 #ifdef DEBUG
 #include <cstdio>
