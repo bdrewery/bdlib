@@ -41,6 +41,7 @@ fi
 EGG_CHECK_CCWALL
 EGG_CHECK_CCPIPE
 CXX_FLAG_CHECK([CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
+CXX_FLAG_CHECK([CXXFLAGS], [-Wno-narrowing], [wnonarrowing])
 CXX_FLAG_CHECK([DEBCXXFLAGS], [-fstack-protector-all], [stackprotector])
 
 AM_PATH_CPPUNIT(1.9.10)
