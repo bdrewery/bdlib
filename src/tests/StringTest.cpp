@@ -264,8 +264,8 @@ void StringTest :: hasIndexTest(void)
   CPPUNIT_ASSERT_NO_THROW((*a)[1] = 'c');
   CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
   CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
-  CPPUNIT_ASSERT_NO_THROW((const char)(*a)[0]);
-  CPPUNIT_ASSERT_NO_THROW((const char)(*a)[1]);
+  CPPUNIT_ASSERT_NO_THROW((char)(*a)[0]);
+  CPPUNIT_ASSERT_NO_THROW((char)(*a)[1]);
 }
 
 void StringTest :: charAtTest(void)
