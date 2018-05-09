@@ -50,3 +50,5 @@ test: check
 #	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 #	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 #check: all-am check-am
+
+DISTCLEANFILES= $(top_builddir)/build/config.h

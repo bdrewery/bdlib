@@ -384,6 +384,14 @@ UnitRunner_CXXFLAGS = $(AM_CXXFLAGS) -Wno-effc++ -Wno-overloaded-virtual \
 
 #UnitRunner_LDADD=	libbdlib.a
 UnitRunner_LDADD = $(libbdlib_a_OBJECTS) @CPPUNIT_LIBS@ @TCL_LIB_SPEC@
+
+# Move all-am dependency to check so that source and unit test objects
+# can be built in parallel
+#check-am:
+#	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
+#	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
+#check: all-am check-am
+DISTCLEANFILES = $(top_builddir)/build/config.h
 all: all-am
 
 .SUFFIXES:
@@ -1078,6 +1086,7 @@ distclean-generic:
 	-rm -f src/$(am__dirstamp)
 	-rm -f src/tests/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/tests/$(am__dirstamp)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -1193,13 +1202,6 @@ fix-gcov-names:
 
 .PHONY: test
 test: check
-
-# Move all-am dependency to check so that source and unit test objects
-# can be built in parallel
-#check-am:
-#	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
-#	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
-#check: all-am check-am
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
