@@ -11,7 +11,7 @@
 BDLIB_NS_BEGIN
 
 std::unordered_map<String, ScriptInterp::ScriptCmdPtr> ScriptInterpTCL::CmdHandlerData;
-std::unordered_map<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
+std::unordered_map<String, ScriptInterp::link_var_hook_t> ScriptInterpTCL::link_var_hooks;
 
 int ScriptInterpTCL::init() {
   // create interp
@@ -88,7 +88,7 @@ int ScriptInterpTCL::ScriptCmdTCL::_createCommand_callback(
 }
 
 void ScriptInterpTCL::setupTraces(const String& varName, ClientData var,
-    Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
+    Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook_t hook_func) {
   Tcl_SetVar(interp, *varName, "", TCL_GLOBAL_ONLY);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);

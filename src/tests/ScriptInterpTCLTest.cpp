@@ -279,7 +279,7 @@ void ScriptInterpTCLTest :: linkVarTest (void)
 
   /* Test hooked vars */
   String nick("oldval");
-  tcl_script.linkVar("nick", nick, reinterpret_cast<ScriptInterp::link_var_hook>(changed_nick));
+  tcl_script.linkVar("nick", nick, reinterpret_cast<ScriptInterp::link_var_hook_t>(changed_nick));
   CPPUNIT_ASSERT_STRING_EQUAL("oldval", nick);
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_oldval.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_newval.isEmpty());
@@ -292,7 +292,7 @@ void ScriptInterpTCLTest :: linkVarTest (void)
   strncpy(cnick, "oldval", sizeof(cnick));
   cnick[strlen(cnick)] = '\0';
   tcl_script.linkVar("cnick", cnick, sizeof(cnick),
-      reinterpret_cast<ScriptInterp::link_var_hook>(changed_nick_cc));
+      reinterpret_cast<ScriptInterp::link_var_hook_t>(changed_nick_cc));
   CPPUNIT_ASSERT_STRING_EQUAL("oldval", cnick);
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_oldval == nullptr);
   CPPUNIT_ASSERT_EQUAL(true, changed_nick_cc_newval == nullptr);

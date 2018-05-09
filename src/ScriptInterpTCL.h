@@ -187,7 +187,7 @@ class ScriptInterpTCL : public ScriptInterp {
 
         void setupTraces(const String& name, ClientData var,
             Tcl_VarTraceProc* get, Tcl_VarTraceProc* set,
-            link_var_hook hook_func);
+            link_var_hook_t hook_func);
 
         static const char* TraceGet (Tcl_Obj* value, Tcl_Interp *interp,
             char *name1, char *name2, int flags);
@@ -272,7 +272,7 @@ class ScriptInterpTCL : public ScriptInterp {
   protected:
         virtual int init();
         virtual int destroy();
-        static std::unordered_map<String, link_var_hook> link_var_hooks;
+        static std::unordered_map<String, link_var_hook_t> link_var_hooks;
 
   public:
         ScriptInterpTCL() : ScriptInterp(), interp(nullptr), trace_ptrs() {
@@ -311,7 +311,7 @@ class ScriptInterpTCL : public ScriptInterp {
         template <typename T>
           inline void linkVar(const String& varName,
               T& var,
-              link_var_hook hook_func = nullptr) {
+              link_var_hook_t hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var,
                 (Tcl_VarTraceProc*) tcl_traceGet<const T>,
                 (Tcl_VarTraceProc*) tcl_traceSet<T>, hook_func);
@@ -325,7 +325,7 @@ class ScriptInterpTCL : public ScriptInterp {
         template <typename T>
           inline void linkVar(const String& varName,
               T* var, size_t size,
-              link_var_hook hook_func = nullptr) {
+              link_var_hook_t hook_func = nullptr) {
             auto data = std::make_unique<trace_ptr_data>(var, size);
             setupTraces(varName, (ClientData) data.get(),
                 (Tcl_VarTraceProc*) tcl_traceGetPtrData<const T*>,
@@ -342,7 +342,7 @@ class ScriptInterpTCL : public ScriptInterp {
         template <typename T>
           inline void linkVar(const String& varName,
               const T* var,
-              link_var_hook hook_func = nullptr) {
+              link_var_hook_t hook_func = nullptr) {
             setupTraces(varName, (ClientData) var,
                 (Tcl_VarTraceProc*) tcl_traceGetPtr<const T*>,
                 (Tcl_VarTraceProc*) TraceSetRO, hook_func);
@@ -357,7 +357,7 @@ class ScriptInterpTCL : public ScriptInterp {
         template <typename T>
           inline void linkVar(const String& varName,
               const T& var,
-              link_var_hook hook_func = nullptr) {
+              link_var_hook_t hook_func = nullptr) {
             setupTraces(varName, (ClientData) &var,
                 (Tcl_VarTraceProc*) tcl_traceGet<const T>,
                 (Tcl_VarTraceProc*) TraceSetRO, hook_func);
