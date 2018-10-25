@@ -285,7 +285,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param start The index to start looking from
          * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
          */
-        int compare(const String& str, size_t n = 0, size_t start = 0) const;
+        int compare(const String& str, size_t n = npos, size_t start = 0) const;
 
         Array<String> split(const String&, size_t limit = npos) const;
 

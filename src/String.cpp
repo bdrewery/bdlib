@@ -42,6 +42,8 @@ unsigned char String::cleanse_ctr = 0;
 /* Accessors */
 int String::compare(const String& str, size_t n, size_t start) const
 {
+  if (n == 0)
+    return 0;
   /* Same string? */
   if (cbegin() == str.cbegin() && length() == str.length())
     return 0;
