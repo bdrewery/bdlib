@@ -227,6 +227,13 @@ String& String::trim() {
 size_t String::find(const String& str) const {
   if (str.length() == 0)
     return 0;
+#ifdef HAVE_MEMMEM
+  const void *p = ::memmem(cbegin(), length(), str.cbegin(), str.length());
+
+  if (p == NULL)
+    return npos;
+  return static_cast<const char*>(p) - data();
+#else
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
     for (size_t pos = 0; pos <= last_pos; ++pos)
@@ -235,6 +242,7 @@ size_t String::find(const String& str) const {
         return pos;
   }
   return npos;
+#endif
 }
 
 size_t String::ifind(const String& str) const {
