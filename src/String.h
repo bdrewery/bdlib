@@ -201,9 +201,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @brief Copy the contents of the string to the given cstring ptr.
          * @param dst The destination cstring ptr;
          * @param n The number of characters to copy out
-         * @param start The starting position
          */
-        size_t copy(char* dst, size_t n = npos, size_t start = 0) const;
+        size_t copy(char* dst, size_t n = npos) const;
 
         /**
          * @sa c_str()
@@ -282,10 +281,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @brief Compare our String object with another String object, but only n characters
          * @param str The String object to compare to.
          * @param n The number of characters to compare.
-         * @param start The index to start looking from
          * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
          */
-        int compare(const String& str, size_t n = npos, size_t start = 0) const;
+        int compare(const String& str, size_t n = npos) const;
 
         Array<String> split(const String&, size_t limit = npos) const;
 

@@ -117,8 +117,6 @@ void StringTest :: capacityTest (void)
 void StringTest :: compareTest (void)
 {
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blah"));
-  CPPUNIT_ASSERT_NO_THROW((*b).compare("blah", 4, 3));
-  CPPUNIT_ASSERT_THROW((*b).compare("blah", 4, 4), std::out_of_range);
   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
   CPPUNIT_ASSERT((*f).compare(cstring) < 0);
@@ -896,25 +894,11 @@ void StringTest :: copyTest(void)
   CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
 
-  /* Test bad start copy */
-  memset(buf, 'X', sizeof(buf));
-  *a = "test 12345";
-  *b = String(buf, sizeof(buf));
-  CPPUNIT_ASSERT_THROW(a->copy(buf, sizeof(buf), 10), std::out_of_range);
-  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
-
-  /* Test bad start copy */
-  memset(buf, 'X', sizeof(buf));
-  a->clear();
-  *b = String(buf, sizeof(buf));
-  CPPUNIT_ASSERT_NO_THROW(a->copy(buf, sizeof(buf), 0));
-  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
-
   /* Test limited copy */
   memset(buf, 'X', sizeof(buf));
   *a = "test 12345";
   *b = String(buf, sizeof(buf));
-  a->copy(buf, sizeof(buf), 5);
+  a->substring(5).copy(buf, sizeof(buf));
   b->replace(0, (*a)(5));
   CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);

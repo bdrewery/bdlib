@@ -40,36 +40,31 @@ BDLIB_NS_BEGIN
 unsigned char String::cleanse_ctr = 0;
 
 /* Accessors */
-int String::compare(const String& str, size_t n, size_t start) const
+int String::compare(const String& str, size_t n) const
 {
   if (n == 0)
     return 0;
   /* Same string? */
   if (cbegin() == str.cbegin() && length() == str.length())
     return 0;
-  if (start != 0)
-    validateIndex(start);
 
   const size_t slen = n ? std::min(str.length(), n) : str.length();
-  const size_t len = std::min(length() - start, slen);
-  const int diff = std::memcmp(cbegin() + start, str.cbegin(), len);
+  const size_t len = std::min(length(), slen);
+  const int diff = std::memcmp(cbegin(), str.cbegin(), len);
   if (diff)
     return diff;
   else if (n)
-    return std::min(length() - start, n) - slen;
+    return std::min(length(), n) - slen;
   else
-    return (length() - start) - slen;
+    return length() - slen;
 }
 
 /* Setters */
-size_t String::copy(char *dst, size_t n, size_t start) const
+size_t String::copy(char *dst, size_t n) const
 {
-  if (start != 0)
-    validateIndex(start);
+  size_t slen = std::min(n, length());
 
-  size_t slen = std::min(n, length() - start);
-
-  std::copy(cbegin() + start, cend(), dst);
+  std::copy(cbegin(), cend(), dst);
 
   return slen;
 }
