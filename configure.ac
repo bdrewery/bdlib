@@ -127,7 +127,7 @@ AC_C_CHAR_UNSIGNED
 
 AC_FUNC_MMAP
 
-AC_CHECK_FUNCS([select])
+AC_CHECK_FUNCS([memmem select])
 
 #checkpoint
 AC_CACHE_SAVE
