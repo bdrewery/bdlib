@@ -225,6 +225,8 @@ String& String::trim() {
 }
 
 size_t String::find(const String& str) const {
+  if (str.length() == 0)
+    return 0;
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
     for (size_t pos = 0; pos <= last_pos; ++pos)
@@ -250,6 +252,8 @@ size_t String::rifind(const String& str, const size_t lpos) const {
 }
 
 size_t String::rfind(const String& str, const size_t lpos) const {
+  if (str.length() == 0)
+    return length() - 1;
   if (length() >= str.length()) {
     const size_t last_pos = length() - str.length();
     for (size_t pos = last_pos; pos + 1 > lpos; --pos)

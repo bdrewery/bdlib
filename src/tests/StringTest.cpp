@@ -603,6 +603,13 @@ void StringTest :: findTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t)13, a->find("long"));
   CPPUNIT_ASSERT_EQUAL((size_t)18, a->find("string"));
 
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find(""));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("blah"));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->find("lah"));
+  CPPUNIT_ASSERT_EQUAL((size_t)2, b->find("ah"));
+  CPPUNIT_ASSERT_EQUAL((size_t)3, b->find("h"));
+  CPPUNIT_ASSERT_EQUAL(String::npos, b->find("blahf"));
+
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("z"));
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("notfound"));
 }
@@ -624,6 +631,7 @@ void StringTest :: rfindTest(void)
 {
 
   *a = "Filename.tcl";
+  CPPUNIT_ASSERT_EQUAL((size_t)a->length() - 1, a->rfind(""));
   CPPUNIT_ASSERT_EQUAL((size_t)7, a->rfind('e'));//Tests ReferenceCountedArray<char>::rfind
   CPPUNIT_ASSERT_EQUAL((size_t)7, a->rfind("e"));//Tests String::rfind(String)
   CPPUNIT_ASSERT_EQUAL((size_t)8, a->rfind('.'));
