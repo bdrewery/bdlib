@@ -62,7 +62,7 @@ class HashTable {
 
     virtual ~HashTable() {}
 
-    void clear() {
+    inline void clear() {
       map.clear();
     }
 
@@ -118,7 +118,7 @@ class HashTable {
     inline bool isEmpty() const { return map.empty(); };
     inline explicit operator bool() const { return !isEmpty(); };
 
-    bool insert(const Key& key, const Value& value) {
+    inline bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;
       map[key] = std::move(value);
       return true;
@@ -129,7 +129,7 @@ class HashTable {
       return map.find(key) != std::end(map);
     };
 
-    bool remove(const Key& key) {
+    inline bool remove(const Key& key) {
       if (isEmpty()) return false;
       return map.erase(key) > 0 ? true : false;
     };
