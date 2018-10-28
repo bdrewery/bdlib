@@ -263,8 +263,9 @@ class ScriptInterpTCL : public ScriptInterp {
             return nullptr;
           }
 
-        static const char* TraceSetRO (ClientData clientData,
-            Tcl_Interp *interp, char *name1, char *name2, int flags);
+        static const char* TraceSetRO (const ClientData clientData,
+            const Tcl_Interp *interp, const char *name1, const char *name2,
+            int flags);
 
         static Tcl_Obj* TraceSet (Tcl_Interp *interp, char *name1, char *name2,
             int flags);

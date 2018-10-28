@@ -96,8 +96,9 @@ void ScriptInterpTCL::setupTraces(const String& varName, ClientData var,
     link_var_hooks[varName] = hook_func;
 }
 
-const char* ScriptInterpTCL::TraceSetRO(ClientData clientData,
-    Tcl_Interp *interp, char *name1, char *name2, int flags) {
+const char* ScriptInterpTCL::TraceSetRO(const ClientData clientData,
+    const Tcl_Interp *interp, const char *name1, const char *name2,
+    int flags) {
   return "variable is read-only";
 }
 
