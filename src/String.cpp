@@ -247,15 +247,15 @@ size_t String::find(const String& str) const {
 
 size_t String::ifind(const String& str) const {
   String str_upper(str), this_upper(*this);
-  std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-  std::transform(this->begin(), this->end(), this_upper.begin(), ::toupper);
+  std::transform(str.cbegin(), str.cend(), str_upper.begin(), ::toupper);
+  std::transform(this->cbegin(), this->cend(), this_upper.begin(), ::toupper);
   return this_upper.find(str_upper);
 }
 
 size_t String::rifind(const String& str, const size_t lpos) const {
   String str_upper(str), this_upper(*this);
-  std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-  std::transform(this->begin(), this->end(), this_upper.begin(), ::toupper);
+  std::transform(str.cbegin(), str.cend(), str_upper.begin(), ::toupper);
+  std::transform(this->cbegin(), this->cend(), this_upper.begin(), ::toupper);
   return this_upper.rfind(str_upper);
 }
 
@@ -319,7 +319,7 @@ String newsplit(String& str, char delim)
 
   /* Trim out runs of whitespaces */
   if (delim == ' ') {
-    while ((str.begin() + pos + 1) < str.end() && str[pos + 1] == ' ')
+    while ((str.cbegin() + pos + 1) < str.cend() && str[pos + 1] == ' ')
       ++pos;
   }
 
