@@ -58,9 +58,7 @@ class ArrayRef {
 
     ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
     ~ArrayRef() {
-      if (buf) {
-        FreeBuf(buf);
-      }
+      FreeBuf(buf);
     };
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
