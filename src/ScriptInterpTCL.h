@@ -273,7 +273,7 @@ class ScriptInterpTCL : public ScriptInterp {
 
         static const char* TraceSetRO (const ClientData clientData,
             const Tcl_Interp *interp, const char *name1, const char *name2,
-            int flags);
+            int flags) __attribute__((const));
 
         static Tcl_Obj* TraceSet (Tcl_Interp *interp, char *name1, char *name2,
             int flags);
@@ -382,7 +382,9 @@ class ScriptInterpTCL : public ScriptInterp {
           trace_ptrs.erase(varName);
         }
 
-        virtual script_type type() const { return SCRIPT_TYPE_TCL; }
+        virtual script_type type() const __attribute__((const)) {
+          return SCRIPT_TYPE_TCL;
+        }
 };
 
 inline Tcl_Obj* c_to_tcl_cast<const int8_t&>::from(const int8_t& value,
