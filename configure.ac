@@ -76,6 +76,7 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
 #  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-coverage], [coverage])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Winvalid-pch], [invalidpch])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wdocumentation], [wdocumentation])
+  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wsuggest-attribute=pure -Wsuggest-attribute=const], [wsuggestattribute])
   if [[ "${ax_cv_prog_cc_wdocumentation}" = "yes" ]]; then
     CPPUNIT_CXXFLAGS="${CPPUNIT_CXXFLAGS} -Wno-documentation"
   fi
