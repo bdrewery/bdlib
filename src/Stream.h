@@ -83,7 +83,9 @@ class Stream {
          * @brief Returns the position of the Stream.
          * @return Position of the Stream.
         */
-        size_t tell() const { return pos; };
+        size_t tell() const __attribute__((pure)) {
+          return pos;
+        }
 
         /**
          * @brief Truncates the stream at the current position.
@@ -160,10 +162,18 @@ class Stream {
         virtual int writeFile(const String& fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
 
 
-        inline operator String() const { return str; };
-        inline size_t length() const { return str.length(); };
-        inline size_t capacity() const { return str.capacity(); };
-        inline bool operator!() const { return str.isEmpty(); };
+        inline operator String() const __attribute__((pure)) {
+          return str;
+        }
+        inline size_t length() const __attribute__((pure)) {
+          return str.length();
+        }
+        inline size_t capacity() const __attribute__((pure)) {
+          return str.capacity();
+        }
+        inline bool operator!() const __attribute__((pure)) {
+          return str.isEmpty();
+        }
 
         friend Stream& operator<<(Stream&, const String&);
 };

@@ -155,7 +155,7 @@ class ScriptInterp {
         virtual void unlinkVar(const String& varName) = 0;
 
         // Used for downcasting hack due to no virtual templates
-        virtual script_type type() const = 0;
+        virtual script_type type() const __attribute__((pure)) = 0;
 };
 
 

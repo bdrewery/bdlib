@@ -69,7 +69,7 @@ class AtomicFile {
     /**
      * @brief Check if a file was successfully opened.
      */
-    inline bool is_open() const {
+    inline bool is_open() const __attribute__((pure)) {
       return _fd != -1;
     }
 
@@ -77,7 +77,7 @@ class AtomicFile {
      * @brief Return an fd for the open file.
      * @return Returns -1 if not open.
      */
-    inline int fd() {
+    inline int fd() __attribute__((pure)) {
       return (is_open() ? _fd : -1);
     }
 

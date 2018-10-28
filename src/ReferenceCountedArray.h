@@ -115,7 +115,9 @@ class ArrayRef {
     /**
      * @brief Is this ReferenceCountedArray shared?
      */
-    inline bool isShared() const { return refs > 1; };
+    inline bool isShared() const __attribute__((pure)) {
+      return refs > 1;
+    }
   private:
     // No copying allowed
     ArrayRef(const ArrayRef&) = delete;
@@ -258,12 +260,16 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Mutable Ref->buf reference for use internally
      */
-    inline pointer Buf(size_t pos = 0) const { return Ref ? &Ref->buf[offset + pos] : nullptr; };
+    inline pointer Buf(size_t pos = 0) const __attribute__((pure)) {
+      return Ref ? &Ref->buf[offset + pos] : nullptr;
+    }
 
     /**
      * @brief Ref->buf reference for use internally
      */
-    inline const_pointer constBuf(size_t pos = 0) const { return Buf(pos); };
+    inline const_pointer constBuf(size_t pos = 0) const __attribute__((pure)) {
+      return Buf(pos);
+    }
   private:
     Allocator alloc;
     /**
@@ -275,7 +281,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
      */
-    inline const_pointer real_begin() const { return Ref ? Ref->buf : nullptr; };
+    inline const_pointer real_begin() const __attribute__((pure)) {
+      return Ref ? Ref->buf : nullptr;
+    }
 
     /**
      * This is for subarrays: so we know where the subarray starts.
@@ -501,8 +509,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @return True if this object is shared; false if not.
      */
-    inline bool isShared() const { return Ref && Ref->isShared(); };
-
+    inline bool isShared() const __attribute__((pure)) {
+      return Ref && Ref->isShared();
+    }
 
     /**
      * @sa ArrayRef::Reserve()
@@ -526,7 +535,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns capacity of the ReferenceCountedArray object.
      * @return Capacity of the ReferenceCountedArray object.
      */
-    inline size_t capacity() const { return Ref ? Ref->size : 0; };
+    inline size_t capacity() const __attribute__((pure)) {
+      return Ref ? Ref->size : 0;
+    }
 
     /**
      * @brief Resize the array to the given length.
@@ -549,30 +560,42 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns length of the ReferenceCountedArray.
      * @return Length of the ReferenceCountedArray.
      */
-    inline size_t length() const { return sublen; };
+    inline size_t length() const __attribute__((pure)) {
+      return sublen;
+    }
     /**
      * @sa length()
      */
-    inline size_t size() const { return length(); };
+    inline size_t size() const __attribute__((pure)) {
+      return length();
+    }
 
     /**
      * @brief Check whether the ReferenceCountedArray is 'empty'
      * @return True if empty, false if non-empty
      */
-    inline bool isEmpty() const { return length() == 0; };
+    inline bool isEmpty() const __attribute__((pure)) {
+      return length() == 0;
+    }
     /**
      * @sa isEmpty()
      * This is for: if (!string)
      * Having if(string) conflicts with another operator
      */
-    inline bool operator!() const { return isEmpty(); };
-    inline explicit operator bool() const { return !isEmpty(); }
+    inline bool operator!() const __attribute__((pure)) {
+      return isEmpty();
+    }
+    inline explicit operator bool() const __attribute__((pure)) {
+      return !isEmpty();
+    }
 
     /**
      * @brief Data accessor
      * @return Pointer to array of characters (not necesarily null-terminated).
      */
-    inline const_pointer data() const { return constBuf(); }
+    inline const_pointer data() const __attribute__((pure)) {
+      return constBuf();
+    }
     /**
      * @brief Give an OutputIterator for STL usage
      * @post The Array is detached.
@@ -585,13 +608,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator begin() { return iterator(mdata()); };
 
-    inline const_iterator cbegin() const {
+    inline const_iterator cbegin() const __attribute__((pure)) {
       return const_iterator(this->data());
     };
     /**
      * @brief Returns a read-only iterator into the Array
      */
-    inline const_iterator begin() const { return this->cbegin(); };
+    inline const_iterator begin() const __attribute__((pure)) {
+      return this->cbegin();
+    }
 
     /**
      * @brief Returns a read/write iterator at the end the Array
@@ -599,13 +624,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator end() { return iterator(begin()) + length(); };
 
-    inline const_iterator cend() const {
+    inline const_iterator cend() const __attribute__((pure)) {
       return const_iterator(this->cbegin()) + this->length();
     };
     /**
      * @brief Returns a read-only iterator at the end of the Array
      */
-    inline const_iterator end() const { return this->cend(); };
+    inline const_iterator end() const __attribute__((pure)) {
+      return this->cend();
+    }
 
     /**
      * @brief Returns a read/write reverse iterator at the end of the Array. Iteration is done in reverse order.
@@ -619,7 +646,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Returns a read-only reverse iterator at the end of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rbegin() const { return this->crbegin(); };
+    inline const_reverse_iterator rbegin() const __attribute__((pure)) {
+      return this->crbegin();
+    }
 
     /**
      * @brief Returns a read/write reverse iterator at the beginning of the Array. Iteration is done in reverse order.
@@ -627,14 +656,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline reverse_iterator rend() { return reverse_iterator(this->begin()); };
 
-    inline const_reverse_iterator crend() const {
+    inline const_reverse_iterator crend() const __attribute__((pure)) {
       return const_reverse_iterator(this->cbegin());
     };
     /**
      * @brief Returns a read-only reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rend() const { return this->crend(); };
-
+    inline const_reverse_iterator rend() const __attribute__((pure)) {
+      return this->crend();
+    }
 
    /**
      * @brief Return a hash of every element in the array. Cache result as well.
@@ -655,7 +685,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Find an item in the array
      * @return The position of the item if found, or npos if not found
      **/
-    size_t find(const_reference item) const {
+    size_t find(const_reference item) const __attribute__((pure)) {
       for (size_t i = 0; i < length(); ++i)
         if (*(Buf(i)) == item)
           return i;
@@ -666,7 +696,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Find an item in the array, starting from the end
      * @return The position of the item if found, or npos if not found
      **/
-    size_t rfind(const_reference item) const {
+    size_t rfind(const_reference item) const __attribute__((pure)) {
       for (size_t i = length() - 1; i + 1 > 0; --i)
         if (*(Buf(i)) == item)
           return i;
@@ -679,7 +709,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @sa at()
      * Unlike at() this is unchecked.
      */
-    inline value_type read(size_t pos) const noexcept {
+    inline value_type read(size_t pos) const noexcept __attribute__((pure)) {
       return *(constBuf(pos));
     };
 
@@ -695,7 +725,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Safe element access operator
      * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
      */
-    inline value_type operator[](size_t pos) const noexcept {
+    inline value_type operator[](size_t pos) const noexcept
+      __attribute__((pure)) {
       return read(pos);
     };
 
@@ -731,7 +762,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         /**
          * @sa ReferenceCountedArray::operator[]
          */
-        inline operator value_type() const noexcept { return rca.read(k); };
+        inline operator value_type() const noexcept __attribute__((pure)) {
+          return rca.read(k);
+        }
 
         /**
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';

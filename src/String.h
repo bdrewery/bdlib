@@ -145,7 +145,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param str The substring to look for
          * @return The position of the string if found, or String::npos if not found
          **/
-        size_t find(const String& str) const;
+        size_t find(const String& str) const __attribute__((pure));
         using ReferenceCountedArray<String_Array_Type, Allocator>::find;
 
         /**
@@ -155,7 +155,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @return The position of the string if found, or String::npos if not found
          * @sa find
          */
-        size_t rfind(const String& str, const size_t lpos = 0) const;
+        size_t rfind(const String& str, const size_t lpos = 0) const
+          __attribute__((pure));
         using ReferenceCountedArray<String_Array_Type, Allocator>::rfind;
 
         /**
@@ -165,14 +166,15 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @return The position of the string if found, or String::npos if not found
          * @sa ifind
          */
-        size_t rifind(const String& str, const size_t lpos = 0) const;
+        size_t rifind(const String& str, const size_t lpos = 0) const
+          __attribute__((pure));
 
         /**
          * @brief Find a string in the string, ignoring case
          * @param str The substring to look for
          * @return The position of the string if found, or String::npos if not found
          **/
-        size_t ifind(const String& str) const;
+        size_t ifind(const String& str) const __attribute__((pure));
 
 	/**
 	 * @brief Cstring accessor
@@ -252,7 +254,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa at
          */
-        inline char charAt(size_t pos) const { return at(pos); };
+        inline char charAt(size_t pos) const {
+          return at(pos);
+        }
 
         // Substrings
         /**
@@ -283,7 +287,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param n The number of characters to compare.
          * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
          */
-        int compare(const String& str, size_t n = npos) const;
+        int compare(const String& str, size_t n = npos) const
+          __attribute__((pure));
 
         Array<String> split(const String&, size_t limit = npos) const;
 
@@ -468,28 +473,34 @@ inline String& String::operator-=(const size_t n) {
 
 
 // comparison operators:
-inline bool operator==(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator==(const String& lhs, const String& rhs) {
   return (lhs.length() == rhs.length() &&
       lhs.compare(rhs) == 0);
 }
 
-inline bool operator!=(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator!=(const String& lhs, const String& rhs) {
   return ! (lhs == rhs);
 }
 
-inline bool operator<(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator<(const String& lhs, const String& rhs) {
   return (lhs.compare(rhs) < 0);
 }
 
-inline bool operator<=(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator<=(const String& lhs, const String& rhs) {
   return ! (rhs < lhs);
 }
 
-inline bool operator>(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator>(const String& lhs, const String& rhs) {
   return (rhs < lhs);
 }
 
-inline bool operator>=(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator>=(const String& lhs, const String& rhs) {
   return ! (lhs < rhs);
 }
 

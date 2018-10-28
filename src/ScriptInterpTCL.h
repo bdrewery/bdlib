@@ -84,16 +84,24 @@ template<>                                                        \
     static T from(Tcl_Obj* obj, ScriptInterp* si);                \
   }
 
-tcl_to_c_castable(int8_t);
-tcl_to_c_castable(uint8_t);
-tcl_to_c_castable(int16_t);
-tcl_to_c_castable(uint16_t);
-tcl_to_c_castable(int32_t);
-tcl_to_c_castable(uint32_t);
-tcl_to_c_castable(int64_t);
-tcl_to_c_castable(uint64_t);
-tcl_to_c_castable(double);
-tcl_to_c_castable(bool);
+#define tcl_to_c_castable_pure(T)                                 \
+template<>                                                        \
+  struct tcl_to_c_cast<T>                                         \
+  {                                                               \
+    static T from(Tcl_Obj* obj, ScriptInterp* si)                 \
+      __attribute__((pure));                                      \
+  }
+
+tcl_to_c_castable_pure(int8_t);
+tcl_to_c_castable_pure(uint8_t);
+tcl_to_c_castable_pure(int16_t);
+tcl_to_c_castable_pure(uint16_t);
+tcl_to_c_castable_pure(int32_t);
+tcl_to_c_castable_pure(uint32_t);
+tcl_to_c_castable_pure(int64_t);
+tcl_to_c_castable_pure(uint64_t);
+tcl_to_c_castable_pure(double);
+tcl_to_c_castable_pure(bool);
 tcl_to_c_castable(char*);
 tcl_to_c_castable(String);
 /* Only used internally, no tcl_traceSet defined for these. */

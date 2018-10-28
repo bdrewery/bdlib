@@ -196,14 +196,16 @@ class Array : public ReferenceCountedArray<T> {
       return str;
     }
 
-    inline bool equals(const Array& array) const { return equals(array, array.length()); };
+    inline bool equals(const Array& array) const __attribute__((pure)) {
+      return equals(array, array.length());
+    }
     /**
      * @brief Compare our Array object with another Array object, but only n elements
      * @param array The Array object to equals to.
      * @param n The number of items to equals.
      * @return True if the number of elements are the same, and they all are equal.
      */
-    bool equals(const Array& array, size_t n) const
+    bool equals(const Array& array, size_t n) const __attribute__((pure))
     {
       size_t my_len = this->length();
       bool same_length = (my_len == array.length());
@@ -225,10 +227,14 @@ class Array : public ReferenceCountedArray<T> {
       return true;
     }
 
-    inline friend bool operator==(const Array& lhs, const Array& rhs) {
+    inline friend bool operator==(const Array& lhs, const Array& rhs)
+      __attribute__((pure)) {
       return lhs.size() == rhs.size() && lhs.equals(rhs);
-    };
-    inline friend bool operator!=(const Array& lhs, const Array& rhs) { return !(lhs == rhs); };
+    }
+    inline friend bool operator!=(const Array& lhs, const Array& rhs)
+      __attribute__((pure)) {
+        return !(lhs == rhs);
+    }
 
     // Subarrays
     /**

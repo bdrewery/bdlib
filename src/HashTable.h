@@ -113,10 +113,18 @@ class HashTable {
       return *this;
     }
 
-    inline size_t size() const { return map.size(); };
-    inline size_t capacity() const { return map.max_size(); };
-    inline bool isEmpty() const { return map.empty(); };
-    inline explicit operator bool() const { return !isEmpty(); };
+    inline size_t size() const __attribute__((pure)) {
+      return map.size();
+    }
+    inline size_t capacity() const __attribute__((pure)) {
+      return map.max_size();
+    }
+    inline bool isEmpty() const __attribute__((pure)) {
+      return map.empty();
+    }
+    inline explicit operator bool() const __attribute__((pure)) {
+      return !isEmpty();
+    }
 
     inline bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;
@@ -124,7 +132,7 @@ class HashTable {
       return true;
     }
 
-    inline bool contains(const Key& key) const {
+    inline bool contains(const Key& key) const __attribute__((pure)) {
       if (isEmpty()) return false;
       return map.find(key) != std::end(map);
     };
@@ -134,7 +142,7 @@ class HashTable {
       return map.erase(key) > 0 ? true : false;
     };
 
-    inline Value getValue(const Key& key) const {
+    inline Value getValue(const Key& key) const __attribute__((pure)) {
       auto result = map.find(key);
       if (result == std::end(map))
         return Value();
@@ -145,7 +153,9 @@ class HashTable {
       * @brief Associate array type accessor (rvalue)
       * @param key The key to search for
       */
-    inline const Value operator[](const Key& key) const { return getValue(key); }
+    inline const Value operator[](const Key& key) const __attribute__((pure)) {
+      return getValue(key);
+    }
 
     /**
      * @brief Return an array of all the keys
@@ -170,7 +180,7 @@ class HashTable {
       }
       return tmp;
     }
-    
+
     /**
       * @brief Associate array type accessor (lvalue)
       * @param key The key to search for
