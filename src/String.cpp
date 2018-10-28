@@ -246,16 +246,16 @@ size_t String::find(const String& str) const {
 }
 
 size_t String::ifind(const String& str) const {
-  String str_upper(str), this_upper(*this);
-  std::transform(str.cbegin(), str.cend(), str_upper.begin(), ::toupper);
-  std::transform(this->cbegin(), this->cend(), this_upper.begin(), ::toupper);
+  String str_upper(str.length()), this_upper(length());
+  std::transform(str.cbegin(), str.cend(), std::back_inserter(str_upper), ::toupper);
+  std::transform(this->cbegin(), this->cend(), std::back_inserter(this_upper), ::toupper);
   return this_upper.find(str_upper);
 }
 
 size_t String::rifind(const String& str, const size_t lpos) const {
-  String str_upper(str), this_upper(*this);
-  std::transform(str.cbegin(), str.cend(), str_upper.begin(), ::toupper);
-  std::transform(this->cbegin(), this->cend(), this_upper.begin(), ::toupper);
+  String str_upper(str.length()), this_upper(length());
+  std::transform(str.cbegin(), str.cend(), std::back_inserter(str_upper), ::toupper);
+  std::transform(this->cbegin(), this->cend(), std::back_inserter(this_upper), ::toupper);
   return this_upper.rfind(str_upper);
 }
 

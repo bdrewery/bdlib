@@ -833,6 +833,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is the same as inserting the item at the end of the buffer.
      */
     inline void append(const_reference item) { insert(length(), item); };
+    inline void push_back(const_reference item) { append(item); };
     /**
      * @brief Appends given rca to the end of buffer
      * @param rca The rca to be appended.
