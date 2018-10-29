@@ -107,7 +107,7 @@ class HashTable {
      * @param list An initializer_list
      */
     HashTable& operator=(std::initializer_list<iterator_type> list) {
-      for (iterator_type item : list) {
+      for (const auto& item : list) {
         (*this)[item.key()] = item.value();
       }
       return *this;
