@@ -48,9 +48,9 @@ int String::compare(const String& str, size_t n) const
   if (cbegin() == str.cbegin() && length() == str.length())
     return 0;
 
-  const size_t slen = n ? std::min(str.length(), n) : str.length();
-  const size_t len = std::min(length(), slen);
-  const int diff = std::memcmp(cbegin(), str.cbegin(), len);
+  const auto slen = n ? std::min(str.length(), n) : str.length();
+  const auto len = std::min(length(), slen);
+  const auto diff = std::memcmp(cbegin(), str.cbegin(), len);
   if (diff)
     return diff;
   else if (n)
@@ -62,7 +62,7 @@ int String::compare(const String& str, size_t n) const
 /* Setters */
 size_t String::copy(char *dst, size_t n) const
 {
-  size_t slen = std::min(n, length());
+  const auto slen = std::min(n, length());
 
   std::copy(cbegin(), cend(), dst);
 
@@ -84,7 +84,7 @@ void String::insert(size_t pos, const char *string, size_t n)
   if (pos != 0)
     validateIndex(pos - 1);
   
-  size_t slen = (n == npos) ? std::strlen(string) : n;
+  const auto slen = (n == npos) ? std::strlen(string) : n;
 
   AboutToModify(length() + slen);
   std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
@@ -104,8 +104,8 @@ void String::replace(size_t pos, const char *string, size_t n)
   if (pos != 0)
     validateIndex(pos - 1);
 
-  size_t slen = (n == npos) ? std::strlen(string) : n;
-  size_t newlen = pos + slen;
+  const auto slen = (n == npos) ? std::strlen(string) : n;
+  auto newlen = pos + slen;
   
   if (newlen >= length()) {
     AboutToModify(newlen);
@@ -168,7 +168,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
   String str(*this);
 
   while (array.size() < limit - 1) {
-    size_t pos;
+    size_type pos;
 
     // Trim out left whitespace
     if (delim == space) while (str.length() && str[0] == ' ') ++str;
@@ -194,7 +194,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
 
 String String::operator*(int times) const {
   String newString((this->length() * times));
-  for (int i = 0; i < times; ++i)
+  for (auto i = 0; i < times; ++i)
     newString += *this;
   return newString;
 }
@@ -204,7 +204,7 @@ String String::printf(const char* format, ...) {
   va_list va;
 
   va_start(va, format);
-  size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
+  const auto len = vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
   return String(va_out, len);
@@ -235,8 +235,8 @@ size_t String::find(const String& str) const {
   return static_cast<const char*>(p) - data();
 #else
   if (length() >= str.length()) {
-    const size_t last_pos = length() - str.length();
-    for (size_t pos = 0; pos <= last_pos; ++pos)
+    const auto last_pos = length() - str.length();
+    for (auto pos = 0; pos <= last_pos; ++pos)
       if (str[0] == (*this)[pos] && !std::memcmp(cbegin() + pos, str.cbegin(),
             std::min(str.length(), length() - pos)))
         return pos;
@@ -263,8 +263,8 @@ size_t String::rfind(const String& str, const size_t lpos) const {
   if (str.length() == 0)
     return length() - 1;
   if (length() >= str.length()) {
-    const size_t last_pos = length() - str.length();
-    for (size_t pos = last_pos; pos + 1 > lpos; --pos)
+    const auto last_pos = length() - str.length();
+    for (auto pos = last_pos; pos + 1 > lpos; --pos)
       if (str[0] == (*this)[pos] && !std::memcmp(cbegin() + pos, str.cbegin(),
             std::min(str.length(), length() - pos)))
         return pos;
@@ -274,8 +274,8 @@ size_t String::rfind(const String& str, const size_t lpos) const {
 
 String String::sub(const String& search, const String& replacement, int limit) const {
   String newStr(length()), search_str(*this);
-  size_t pos = 0;
-  int cnt = 0;
+  size_type pos = 0;
+  auto cnt = 0;
   // Search in our const string so that stuff like \->\\ doesnt become \\\, \\\\ etc.
   while ((pos = search_str.find(search)) != npos) {
     newStr += search_str(0, pos);
@@ -293,8 +293,8 @@ String String::subst(HashTable<String, String> hashes) const {
   String newStr(*this);
   Array<String> keys(hashes.keys());
   Array<String> values(hashes.values());
-  for (size_t i = 0; i < keys.length(); ++i) {
-    const String key(keys[i]), value(values[i]);
+  for (size_type i = 0; i < keys.length(); ++i) {
+    const auto key(keys[i]), value(values[i]);
     //::printf("%s -> %s\n", key.c_str(), value.c_str());
     newStr = newStr.sub(key, value);
   }
@@ -311,7 +311,7 @@ String String::subst(HashTable<String, String> hashes) const {
 String newsplit(String& str, char delim)
 {
   if (!str.length()) return "";
-  size_t pos = str.find(delim);
+  auto pos = str.find(delim);
   if (pos == String::npos)
     pos = str.length();
 

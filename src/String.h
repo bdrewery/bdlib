@@ -81,16 +81,22 @@ class String : public ReferenceCountedArray<String_Array_Type> {
   public:
 
         /* Constructors */
-        String(const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
-	String(const String& string) : ReferenceCountedArray<String_Array_Type, Allocator>(string) {};
-	String(String&& string) : ReferenceCountedArray<String_Array_Type, Allocator>(std::move(string)) {};
+        String(const Allocator& allocator = Allocator()) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
+	String(const String& string) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(string) {};
+	String(String&& string) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(std::move(string)) {};
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
 	 * @post The buffer has been filled with the string.
 	 * @test String test("Some string");
  	*/
-	String(const char* cstring, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { if (cstring) append(cstring); };
+	String(const char* cstring, const Allocator& allocator = Allocator()) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {
+          if (cstring) append(cstring);
+        }
 
 	/**
 	 * @brief Create a String from a given cstring with the given strlen.
@@ -100,7 +106,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the string (up to len characters).
 	 * @test String test("Some string");
          */
-        String(const char* cstring, size_t slen, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { append(cstring, slen); };
+        String(const char* cstring, size_t slen,
+            const Allocator& allocator = Allocator()) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {
+          append(cstring, slen);
+        }
 
 	/**
 	 * @brief Create a String from a given character.
@@ -109,7 +119,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the caracter.
 	 * @test String test('a');
 	 */
-        String(const char ch, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { append(ch); };
+        String(const char ch, const Allocator& allocator = Allocator()) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {
+          append(ch);
+        }
 
 	/**
 	 * @brief Create an empty String container with at least the specified bytes in size.
@@ -120,9 +133,14 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * The idea behind this is that if a specific size was asked for, the buffer is like
 	 * a char buf[N];
          */
-        explicit String(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(newSize, allocator) {};
-        String(const size_t newSize, const char value, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(newSize, value, allocator) {};
-
+        explicit String(const size_t newSize,
+            const Allocator& allocator = Allocator()) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(newSize,
+              allocator) {};
+        String(const size_t newSize, const char value,
+            const Allocator& allocator = Allocator()) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(newSize, value,
+              allocator) {};
 
         virtual ~String() {
           /* If deallocating the last reference, cleanse the string buffer with OPENSSL_cleanse() */
@@ -132,11 +150,13 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         }
 
         String& operator=(const String& string) {
-          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(string);
+          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(
+              string);
           return *this;
         }
         String& operator=(String&& string) {
-          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(std::move(string));
+          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(
+              std::move(string));
           return *this;
         }
 
@@ -271,7 +291,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa substring
          */
-        inline String operator()(int start, int len = -1) const { return substring(start, len); };
+        inline String operator()(int start, int len = -1) const {
+          return substring(start, len);
+        }
 
         /**
          * @brief Returns a 'Slice' class for safe (cow) writing into the array
@@ -279,7 +301,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param start Starting position
          * @param len How many items to use
          */
-        inline Slice<String> operator()(int start, int len = -1) { return Slice<String>(*this, start, len); };
+        inline Slice<String> operator()(int start, int len = -1) {
+          return Slice<String>(*this, start, len);
+        }
 
         /**
          * @brief Compare our String object with another String object, but only n characters
@@ -300,7 +324,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @post The buffer is allocated.
          * This is the same as inserting the string at the end of the buffer.
          */
-        inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
+        inline void append(const char* string, size_t n = npos) {
+          insert(length(), string, n);
+        }
 
         using ReferenceCountedArray<String_Array_Type, Allocator>::append;
 
@@ -317,7 +343,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param limit An optional limit to how many replacements to do
          * @return A new String is returned
          */
-        String sub(const String& search, const String& replacement, int limit = -1) const;
+        String sub(const String& search, const String& replacement,
+            int limit = -1) const;
 
         /**
          * @brief Return a new string with the values mapped from the given hash list

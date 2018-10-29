@@ -56,7 +56,8 @@ class ArrayRef {
     };
     mutable std::atomic<int> refs; //References
 
-    ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+    ArrayRef(const Allocator& allocator = Allocator()) :
+      alloc(allocator), size(0), buf(nullptr), refs(1) {};
     ~ArrayRef() {
       FreeBuf(buf);
     };
@@ -70,7 +71,8 @@ class ArrayRef {
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
      */
-    void Reserve(size_t newSize, double scaling_factor, size_t& offset, size_t sublen) const
+    void Reserve(size_t newSize, double scaling_factor, size_t& offset,
+        size_t sublen) const
     {
       /* Don't new if we already have enough room! */
       if (size < newSize) {
@@ -94,7 +96,8 @@ class ArrayRef {
         // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
         // Shift everything to the beginning and reset the offset
         /* Only copy the subarray */
-        std::memmove(static_cast<void*>(buf), static_cast<void*>(buf + offset), sublen);
+        std::memmove(static_cast<void*>(buf), static_cast<void*>(buf + offset),
+            sublen);
         offset = 0;
       }
     }
@@ -143,8 +146,10 @@ class Slice {
     Slice() = delete;
 
   public:
-    Slice(T& _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-    Slice(const Slice& slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
+    Slice(T& _rca, int _start, int _len) :
+      rca(_rca), start(_start), len(_len) {};
+    Slice(const Slice& slice) :
+      rca(slice.rca), start(slice.start), len(slice.len) {};
 
     /**
      * @brief return a new (const) slice
@@ -383,16 +388,25 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     };
 
   public:
-    ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-    };
-    ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
+    ReferenceCountedArray(const Allocator& allocator = Allocator()) :
+      ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0),
+      sublen(0), my_hash(0) {
+    }
+    ReferenceCountedArray(const ReferenceCountedArray& rca) :
+      ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref),
+      offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) {
+      incRef();
+    }
+    ReferenceCountedArray(ReferenceCountedArray&& rca) :
+      ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)),
+      Ref(std::move(rca.Ref)), offset(std::move(rca.offset)),
+      sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
       rca.alloc = Allocator();
       rca.Ref = nullptr;
       rca.offset = 0;
       rca.sublen = 0;
       rca.my_hash = 0;
-    };
+    }
 
     /**
      * @brief Create an empty container with at least the specified bytes in size.
@@ -403,11 +417,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * The idea behind this is that if a specific size was asked for, the buffer is like
      * a char buf[N];
      */
-    explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+    explicit ReferenceCountedArray(const size_t newSize,
+        const Allocator& allocator = Allocator()) :
+      ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0),
+      sublen(0), my_hash(0) {
       if (newSize) {
         Reserve(newSize);
       }
-    };
+    }
     /**
      * @brief Create a container filled with n copies of the given value.
      * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
@@ -416,7 +433,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post A buffer has been created.
      *
      */
-    ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
+    ReferenceCountedArray(const size_t newSize, const value_type value,
+        const Allocator& allocator = Allocator()) :
+      ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0),
+      sublen(0), my_hash(0) {
       if (newSize) {
         Reserve(newSize);
 
@@ -519,7 +539,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param scaling_factor How much to multiple the size by to help avoid later resizing
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize, double scaling_factor = 1) const {
+    virtual void Reserve(const size_t newSize,
+        double scaling_factor = 1) const {
       if (!Ref) {
         Ref = new ArrayRef<value_type, Allocator>(alloc);
       }
@@ -841,8 +862,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post The buffer is allocated.
      * This is the same as inserting the rca at the end of the buffer.
      */
-    inline void append(const ReferenceCountedArray& rca, size_t n = npos) { insert(length(), rca, n); };
-
+    inline void append(const ReferenceCountedArray& rca, size_t n = npos) {
+      insert(length(), rca, n);
+    }
 
     /**
      * @brief Inserts a ReferenceCountedArray object into our buffer
@@ -851,7 +873,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param n The length to insert.
      * @post The buffer contains n items from rca inserted at index pos.
      */
-    void insert(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
+    void insert(size_t pos, const ReferenceCountedArray& rca,
+        size_t n = npos) {
       if (n == 0) return;
       if (pos != 0)
         validateIndex(pos - 1);
@@ -868,7 +891,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      std::memmove(static_cast<void*>(Buf() + pos + slen), static_cast<void*>(Buf() + pos), length() - pos);
+      std::memmove(static_cast<void*>(Buf() + pos + slen),
+          static_cast<void*>(Buf() + pos), length() - pos);
       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
       addLength(slen);
     }
@@ -887,7 +911,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         validateIndex(pos - 1);
 
       AboutToModify(length() + 1);
-      std::memmove(static_cast<void*>(Buf() + pos + 1), static_cast<void*>(Buf() + pos), length() - pos);
+      std::memmove(static_cast<void*>(Buf() + pos + 1),
+          static_cast<void*>(Buf() + pos), length() - pos);
       *(Buf(pos)) = item;
       addLength(1);
     }

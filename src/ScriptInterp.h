@@ -37,7 +37,8 @@ class ScriptInterp;
 class ScriptCommandHandlerBase {
   public:
     virtual ~ScriptCommandHandlerBase() {};
-    virtual void call(size_t argc, void* const argv[], ScriptInterp* si, void *proxy_data = NULL) = 0;
+    virtual void call(size_t argc, void* const argv[], ScriptInterp* si,
+        void *proxy_data = NULL) = 0;
 };
 
 class ScriptCallbacker {
@@ -48,7 +49,8 @@ class ScriptCallbacker {
     ScriptInterp* si;
     const String cmd;
 
-    ScriptCallbacker(ScriptInterp* _si, const String& _cmd) : si(_si), cmd(_cmd) {};
+    ScriptCallbacker(ScriptInterp* _si, const String& _cmd) :
+      si(_si), cmd(_cmd) {};
     virtual ~ScriptCallbacker() {};
     virtual String call(const Array<String>& params = Array<String>()) = 0;
 };
@@ -97,8 +99,7 @@ class ScriptInterp {
             registered = false;
           }
         };
-        typedef std::shared_ptr<ScriptCmd>
-          ScriptCmdPtr;
+        typedef std::shared_ptr<ScriptCmd> ScriptCmdPtr;
   public:
         enum script_type {
           SCRIPT_TYPE_TCL,
@@ -123,10 +124,14 @@ class ScriptInterp {
          * @param fileName The file to load
          * @param resultStr String to hold error output from interp
          */
-        virtual LoadError loadScript(const String& fileName, String& resultStr) = 0;
+        virtual LoadError loadScript(const String& fileName,
+            String& resultStr) = 0;
 
         template<typename InterpType, typename ReturnType, typename... Params>
-        static void createCommand(InterpType& si, const String& cmdName, ReturnType(*callback)(Params...), const char* usage = nullptr, size_t min_params = size_t(-1)) {
+        static void createCommand(InterpType& si,
+            const String& cmdName,
+            ReturnType(*callback)(Params...), const char* usage = nullptr,
+            size_t min_params = size_t(-1)) {
           si.createCommand(cmdName, callback, usage, min_params);
         }
 
@@ -144,9 +149,9 @@ class ScriptInterp {
          * @note This is dispatching to the derived class due to being unable to do specialized template methods
          */
         template <typename Interp, typename T>
-          static void linkVar(Interp& si, const String& varName, T& var) {
-            si.linkVar(varName, var);
-          };
+        static void linkVar(Interp& si, const String& varName, T& var) {
+          si.linkVar(varName, var);
+        }
 
         /**
          * @brief Remove a variable from the interp

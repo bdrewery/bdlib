@@ -54,14 +54,19 @@ class Stream {
 
   public:
         Stream() : str(), pos(0), loading(0) {};
-        Stream(const Stream& stream) : str(stream.str), pos(stream.pos), loading(0) {};
-        Stream(Stream&& stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
+        Stream(const Stream& stream) :
+          str(stream.str), pos(stream.pos), loading(0) {};
+        Stream(Stream&& stream) :
+          str(std::move(stream.str)), pos(std::move(stream.pos)),
+          loading(std::move(stream.loading)) {
           stream.str = String();
           stream.pos = 0;
           stream.loading = 0;
         }
         Stream(const String& string) : str(string), pos(0), loading(0) {};
-        Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };
+        Stream(const int newSize) : str(), pos(0), loading(0) {
+          if (newSize > 0) Reserve(newSize);
+        }
         virtual ~Stream() {};
 
         friend void swap(Stream& a, Stream& b) {
@@ -114,7 +119,9 @@ class Stream {
          * @param maxSize Optional param which specifies max data to pull
          * @sa read
          */
-        virtual String getline (size_t maxSize = 99999999) { return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
+        virtual String getline (size_t maxSize = 99999999) {
+          return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n');
+        }
 
         /**
          * @brief Reads specified number of bytes from the stream
@@ -159,8 +166,8 @@ class Stream {
          * @param fname Filename to write to
          * @param mode Optional param to specify mode for new file
          */
-        virtual int writeFile(const String& fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
-
+        virtual int writeFile(const String& fname,
+            mode_t mode = (S_IRUSR|S_IWUSR)) const;
 
         inline operator String() const __attribute__((pure)) {
           return str;
@@ -178,7 +185,10 @@ class Stream {
         friend Stream& operator<<(Stream&, const String&);
 };
 
-inline Stream& operator<<(Stream& stream, const String& string) { stream.puts(string); return stream; }
+inline Stream& operator<<(Stream& stream, const String& string) {
+  stream.puts(string);
+  return stream;
+}
 
 BDLIB_NS_END
 #endif /* _BD_STREAM_H */

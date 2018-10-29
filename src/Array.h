@@ -59,14 +59,17 @@ class Array : public ReferenceCountedArray<T> {
 
     /* Constructors */
     Array() : ReferenceCountedArray<value_type>() {};
-    Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
-    Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(std::move(array)) {};
+    Array(const Array<value_type>& array) :
+      ReferenceCountedArray<value_type>(array) {};
+    Array(Array<value_type>&& array) :
+      ReferenceCountedArray<value_type>(std::move(array)) {};
 
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list
      */
-    Array(std::initializer_list<value_type> list) : ReferenceCountedArray<value_type>() {
+    Array(std::initializer_list<value_type> list) :
+      ReferenceCountedArray<value_type>() {
       *this = list;
     }
 
@@ -78,7 +81,8 @@ class Array : public ReferenceCountedArray<T> {
      * @post The buffer has been filled with the array.
      * @test Array test("Some array");
      */
-    Array(const_pointer carray, size_t len) : ReferenceCountedArray<value_type>() {
+    Array(const_pointer carray, size_t len) :
+      ReferenceCountedArray<value_type>() {
       this->Reserve(len);
       for (size_t i = 0; i < len; ++i)
         push(carray[i]);
@@ -90,8 +94,10 @@ class Array : public ReferenceCountedArray<T> {
      * @post This array's memory will also never be shrunk.
      * @post A buffer has been created.
      */
-    explicit Array(const size_type newSize) : ReferenceCountedArray<value_type>(newSize) {};
-    Array(const size_type newSize, const value_type value) : ReferenceCountedArray<value_type>(newSize, value) {};
+    explicit Array(const size_type newSize) :
+      ReferenceCountedArray<value_type>(newSize) {};
+    Array(const size_type newSize, const value_type value) :
+      ReferenceCountedArray<value_type>(newSize, value) {};
 
     virtual ~Array() {};
 
@@ -130,7 +136,8 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa push
      */
-    inline friend Array<value_type>& operator<<(Array<value_type>& array, const_reference item) {
+    inline friend Array<value_type>& operator<<(Array<value_type>& array,
+        const_reference item) {
       array.push(item);
       return array;
     }
@@ -163,7 +170,8 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa pop
      */
-    inline friend Array<value_type>& operator>>(Array<value_type>& array, reference item) {
+    inline friend Array<value_type>& operator>>(Array<value_type>& array,
+        reference item) {
       item = array.pop();
       return array;
     }
@@ -249,7 +257,9 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa subarray
      */
-    inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
+    inline Array operator()(int start, int len = -1) const {
+      return subarray(start, len);
+    }
 
     /**
      * @brief Returns a 'Slice' class for safe (cow) writing into the array
@@ -257,7 +267,9 @@ class Array : public ReferenceCountedArray<T> {
      * @param start Starting position
      * @param len How many items to use
      */
-    inline Slice<Array> operator()(int start, int len = -1) { return Slice<Array>(*this, start, len); };
+    inline Slice<Array> operator()(int start, int len = -1) {
+      return Slice<Array>(*this, start, len);
+    }
 
 #ifdef CPPUNIT_VERSION
     void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
