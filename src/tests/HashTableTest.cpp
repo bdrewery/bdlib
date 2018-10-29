@@ -96,8 +96,29 @@ void HashTableTest :: insertTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)2, sa->size());
   sa->insert("8", "Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)3, sa->size());
-  sa->insert("4", "Blah");
+
+  String four("4");
+  sa->insert(four, "Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", four);
+  sa->remove(four);
+  CPPUNIT_ASSERT_EQUAL((size_t)3, sa->size());
+  String Blah("Blah");
+
+  sa->insert(std::move(four), std::move(Blah));
+  CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("", Blah);
+  CPPUNIT_ASSERT_STRING_EQUAL("", four);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (*sa)["4"]);
+
+  sa->remove("4");
+  four = "4";
+  Blah = "Blah";
+  (*sa)[std::move(four)] = std::move(Blah);
+  CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("", Blah);
+  CPPUNIT_ASSERT_STRING_EQUAL("", four);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (*sa)["4"]);
 
   sb->insert("27", "Test");
   CPPUNIT_ASSERT_EQUAL((size_t)1, sb->size());

@@ -128,7 +128,13 @@ class HashTable {
 
     inline bool insert(const Key& key, const Value& value) {
       if (contains(key)) return false;
-      map[key] = std::move(value);
+      map[key] = value;
+      return true;
+    }
+
+    inline bool insert(Key&& key, Value&& value) {
+      if (contains(key)) return false;
+      map[std::move(key)] = std::move(value);
       return true;
     }
 
@@ -187,8 +193,11 @@ class HashTable {
       * @sa find_or_insert_key 
       * If the key is not in the table, it is inserted, and the value set to the rvalue given.
       */
-    inline Value& operator[](const Key& key) {
+    Value& operator[](const Key& key) {
       return map[key];
+    }
+    Value& operator[](Key&& key) {
+      return map[std::move(key)];
     }
 };
 
