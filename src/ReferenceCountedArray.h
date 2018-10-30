@@ -739,7 +739,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline void write(size_t pos, value_type item) {
       getOwnCopy();
-      *(Buf(pos)) = item;
+      *(Buf(pos)) = std::move(item);
     };
 
     /**
@@ -791,7 +791,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
          */
         inline Cref& operator=(value_type c) {
-          rca.write(k, c);
+          rca.write(k, std::move(c));
           return (*this);
         };
     };

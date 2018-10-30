@@ -160,7 +160,7 @@ class Array : public ReferenceCountedArray<T> {
     inline value_type shift() {
       if (this->isEmpty()) return value_type();
 
-      value_type temp(*(this->Buf(0)));
+      value_type temp(std::move(*(this->Buf(0))));
       ++(this->offset);
       this->subLength(1);
       return temp;
@@ -173,7 +173,7 @@ class Array : public ReferenceCountedArray<T> {
     inline value_type pop() {
       if (this->isEmpty()) return value_type();
 
-      value_type temp(*(this->Buf(this->length() - 1)));
+      value_type temp(std::move(*(this->Buf(this->length() - 1))));
       this->subLength(1);
       return temp;
     }
@@ -183,7 +183,7 @@ class Array : public ReferenceCountedArray<T> {
      */
     inline friend Array<value_type>& operator>>(Array<value_type>& array,
         reference item) {
-      item = array.pop();
+      item = std::move(array.pop());
       return array;
     }
 
