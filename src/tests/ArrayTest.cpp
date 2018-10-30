@@ -76,6 +76,16 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
   CPPUNIT_ASSERT(str_a->capacity() >= 2);
 
+  String foo("Test2");
+  (*str_a) << foo;
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
+  (*str_a) << std::move(foo);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
+
   String a = "Testa";
   String b = "Testb";
   String c = b;

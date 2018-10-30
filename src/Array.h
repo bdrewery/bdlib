@@ -108,8 +108,8 @@ class Array : public ReferenceCountedArray<T> {
     Array& operator=(std::initializer_list<value_type> list) {
       this->clear();
       this->Reserve(list.size());
-      for (value_type item : list) {
-        push(std::move(item));
+      for (auto& item : list) {
+        push(item);
       }
       return *this;
     }
@@ -127,9 +127,15 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Add an item to the end of the array
      */
-    inline void push(const value_type item) {
+    inline void push(const_reference item) {
       this->AboutToModify(this->length() + 1);
       *(this->Buf(this->length())) = item;
+      this->addLength(1);
+    }
+
+    inline void push(value_type&& item) {
+      this->AboutToModify(this->length() + 1);
+      *(this->Buf(this->length())) = std::move(item);
       this->addLength(1);
     }
 
@@ -139,6 +145,11 @@ class Array : public ReferenceCountedArray<T> {
     inline friend Array<value_type>& operator<<(Array<value_type>& array,
         const_reference item) {
       array.push(item);
+      return array;
+    }
+    inline friend Array<value_type>& operator<<(Array<value_type>& array,
+        value_type&& item) {
+      array.push(std::move(item));
       return array;
     }
 
