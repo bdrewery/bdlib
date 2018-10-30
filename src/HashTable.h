@@ -48,6 +48,7 @@ class HashTable {
     static const size_t default_list_size = 100;
     typedef typename std::unordered_map<Key, Value>::value_type iterator_type;
     typedef void (*hash_table_block)(const Key, Value, void *param);
+    const Value empty_value{};
 
     std::unordered_map<Key, Value> map;
 
