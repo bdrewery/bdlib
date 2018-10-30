@@ -395,7 +395,7 @@ void HashTableTest :: iteratorTest (void)
   a->insert(4, "Blah4");
 
   int i = 0;
-  for (const auto& kv : (*a)) {
+  for (auto& kv : (*a)) {
     switch (kv.first) {
       case 1:
         CPPUNIT_ASSERT_STRING_EQUAL("Blah", kv.second);
@@ -408,6 +408,30 @@ void HashTableTest :: iteratorTest (void)
         break;
       case 4:
         CPPUNIT_ASSERT_STRING_EQUAL("Blah4", kv.second);
+        break;
+    }
+    /* Mutate the key for the next test */
+    ++kv.second;
+    CPPUNIT_ASSERT(i < 4);
+    ++i;
+  }
+  CPPUNIT_ASSERT_EQUAL(4, i);
+
+  /* Check that the key was mutated in the first pass. */
+  i = 0;
+  for (const auto& kv : (*a)) {
+    switch (kv.first) {
+      case 1:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah", kv.second);
+        break;
+      case 2:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah2", kv.second);
+        break;
+      case 8:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah8", kv.second);
+        break;
+      case 4:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah4", kv.second);
         break;
     }
     CPPUNIT_ASSERT(i < 4);
