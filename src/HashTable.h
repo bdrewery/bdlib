@@ -45,12 +45,17 @@ BDLIB_NS_BEGIN
 template <class Key, class Value>
 class HashTable {
   private:
+    typedef typename std::unordered_map<Key, Value> map_type;
+  public:
+    typedef typename map_type::value_type		value_type;
+    typedef typename map_type::iterator			iterator;
+    typedef typename map_type::const_iterator		const_iterator;
+  private:
     static const size_t default_list_size = 100;
-    typedef typename std::unordered_map<Key, Value>::value_type iterator_type;
     typedef void (*hash_table_block)(const Key, Value, void *param);
     const Value empty_value{};
 
-    std::unordered_map<Key, Value> map;
+    map_type map;
 
   public:
     HashTable() : map(default_list_size) {} ;
@@ -59,9 +64,16 @@ class HashTable {
     HashTable(HashTable<Key, Value>&& table) : map(std::move(table.map)) {
       table.map.clear();
     }
-    HashTable(std::initializer_list<iterator_type> list) : map(list) {}
+    HashTable(std::initializer_list<value_type> list) : map(list) {}
 
     virtual ~HashTable() {}
+
+    inline iterator begin() { return map.begin(); };
+    inline const_iterator cbegin() const { return map.cbegin(); };
+    inline const_iterator begin() const { return this->cbegin(); };
+    inline iterator end() { return map.end(); };
+    inline const_iterator cend() const { return map.cend(); };
+    inline const_iterator end() const { return this->cend(); };
 
     inline void clear() {
       map.clear();
@@ -79,7 +91,7 @@ class HashTable {
 
       // Make a list of KeyValues to yield from.
       // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
-      std::vector<iterator_type> items;
+      std::vector<value_type> items;
       for (const auto& item : map) {
         items.push_back(item);
       }
@@ -107,7 +119,7 @@ class HashTable {
      * @brief Create an array from an initializer list
      * @param list An initializer_list
      */
-    HashTable& operator=(std::initializer_list<iterator_type> list) {
+    HashTable& operator=(std::initializer_list<value_type> list) {
       for (const auto& item : list) {
         (*this)[item.key()] = item.value();
       }

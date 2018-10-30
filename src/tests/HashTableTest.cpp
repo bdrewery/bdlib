@@ -402,4 +402,56 @@ void HashTableTest :: eachTest(void) {
 
   CPPUNIT_ASSERT_EQUAL(2, n);
 }
+
+void HashTableTest :: iteratorTest (void)
+{
+  a->insert(1, "Blah");
+  a->insert(2, "Blah2");
+  a->insert(8, "Blah8");
+  a->insert(4, "Blah4");
+
+  int i = 0;
+  for (const auto& kv : (*a)) {
+    switch (kv.first) {
+      case 1:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah", kv.second);
+        break;
+      case 2:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah2", kv.second);
+        break;
+      case 8:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah8", kv.second);
+        break;
+      case 4:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah4", kv.second);
+        break;
+    }
+    CPPUNIT_ASSERT(i < 4);
+    ++i;
+  }
+  CPPUNIT_ASSERT_EQUAL(4, i);
+
+  /* Key iterator */
+  i = 0;
+  for (const auto& k : a->keys()) {
+    CPPUNIT_ASSERT(k == 1 || k == 2 || k == 8 || k == 4);
+    CPPUNIT_ASSERT(i < 4);
+    ++i;
+  }
+  CPPUNIT_ASSERT_EQUAL(4, i);
+
+  i = 0;
+  for (const auto& v : a->values()) {
+    CPPUNIT_ASSERT(
+        !strcmp(v.c_str(), "Blah")  ||
+        !strcmp(v.c_str(), "Blah2") ||
+        !strcmp(v.c_str(), "Blah8") ||
+        !strcmp(v.c_str(), "Blah4")
+    );
+    CPPUNIT_ASSERT(i < 4);
+    ++i;
+  }
+  CPPUNIT_ASSERT_EQUAL(4, i);
+}
+
 /* vim: set sts=2 sw=2 ts=8 et: */
