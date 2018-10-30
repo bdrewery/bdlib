@@ -52,6 +52,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (hashTest);
     CPPUNIT_TEST (operatorsTest);
     CPPUNIT_TEST (initializerTest);
+    CPPUNIT_TEST (iteratorTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -74,6 +75,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
         void hashTest(void);
         void operatorsTest(void);
         void initializerTest(void);
+        void iteratorTest(void);
     private:
         Array<String> *str_a, *str_b, *str_c;
         Array<char> *char_a, *char_b;

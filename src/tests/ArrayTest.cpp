@@ -435,4 +435,28 @@ void ArrayTest :: initializerTest(void) {
   CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_a)[2]);
   CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_a)[3]);
 }
+
+void ArrayTest :: iteratorTest(void)
+{
+  str_a->push("1");
+  str_a->push("2");
+  str_a->push("3");
+  str_a->push("4");
+
+  auto it = str_a->begin();
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("2", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("3", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(true, it == str_a->end());
+}
+
 /* vim: set sts=2 sw=2 ts=8 et: */
