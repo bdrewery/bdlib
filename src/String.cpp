@@ -291,12 +291,8 @@ String String::sub(const String& search, const String& replacement, int limit) c
 
 String String::subst(HashTable<String, String> hashes) const {
   String newStr(*this);
-  Array<String> keys(hashes.keys());
-  Array<String> values(hashes.values());
-  for (size_type i = 0; i < keys.length(); ++i) {
-    const auto key(keys[i]), value(values[i]);
-    //::printf("%s -> %s\n", key.c_str(), value.c_str());
-    newStr = newStr.sub(key, value);
+  for (const auto& kv : hashes) {
+    newStr = newStr.sub(kv.first, kv.second);
   }
   return newStr;
 }

@@ -30,7 +30,6 @@
 #include <unordered_map>
 #include <vector>
 #include "bdlib.h"
-#include "Array.h"
 BDLIB_NS_BEGIN
 
 
@@ -180,30 +179,6 @@ class HashTable {
       */
     inline const Value operator[](const Key& key) const __attribute__((pure)) {
       return getValue(key);
-    }
-
-    /**
-     * @brief Return an array of all the keys
-     */
-    Array<Key> keys() const {
-      Array<Key> tmp(size());
-
-      for (const auto& item : map) {
-        tmp << item.first;
-      }
-      return tmp;
-    }
-
-    /**
-     * @brief Return an array of all the values
-     */
-    Array<Value> values() const {
-      Array<Value> tmp(size());
-
-      for (const auto& item : map) {
-        tmp << item.second;
-      }
-      return tmp;
     }
 
     /**

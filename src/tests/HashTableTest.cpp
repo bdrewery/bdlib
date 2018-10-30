@@ -198,22 +198,6 @@ void HashTableTest :: containsTest (void)
   (*sa)["42"] = "42";
   CPPUNIT_ASSERT_EQUAL((size_t)5, sa->size());
   CPPUNIT_ASSERT_EQUAL(true, sa->contains("42"));
-
-
-  //Test .keys and .values
-  Array<String> keys = sa->keys();
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("1") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("2") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("8") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("4") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("42") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(size_t(5), keys.size());
-
-  Array<String> values = sa->values();
-  CPPUNIT_ASSERT_EQUAL(bool(1), values.find("Blah") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), values.find("42") != size_t(-1));
-  CPPUNIT_ASSERT_STRING_EQUAL("42 Blah Blah Blah Blah", values.join(' '));
-  CPPUNIT_ASSERT_EQUAL(size_t(5), values.size());
 }
 
 void HashTableTest :: clearTest (void)
@@ -426,28 +410,6 @@ void HashTableTest :: iteratorTest (void)
         CPPUNIT_ASSERT_STRING_EQUAL("Blah4", kv.second);
         break;
     }
-    CPPUNIT_ASSERT(i < 4);
-    ++i;
-  }
-  CPPUNIT_ASSERT_EQUAL(4, i);
-
-  /* Key iterator */
-  i = 0;
-  for (const auto& k : a->keys()) {
-    CPPUNIT_ASSERT(k == 1 || k == 2 || k == 8 || k == 4);
-    CPPUNIT_ASSERT(i < 4);
-    ++i;
-  }
-  CPPUNIT_ASSERT_EQUAL(4, i);
-
-  i = 0;
-  for (const auto& v : a->values()) {
-    CPPUNIT_ASSERT(
-        !strcmp(v.c_str(), "Blah")  ||
-        !strcmp(v.c_str(), "Blah2") ||
-        !strcmp(v.c_str(), "Blah8") ||
-        !strcmp(v.c_str(), "Blah4")
-    );
     CPPUNIT_ASSERT(i < 4);
     ++i;
   }
