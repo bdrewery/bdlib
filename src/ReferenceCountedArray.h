@@ -708,7 +708,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      **/
     size_t find(const_reference item) const __attribute__((pure)) {
       for (size_t i = 0; i < length(); ++i)
-        if (*(Buf(i)) == item)
+        if (*(constBuf(i)) == item)
           return i;
       return npos;
     }
@@ -719,7 +719,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      **/
     size_t rfind(const_reference item) const __attribute__((pure)) {
       for (size_t i = length() - 1; i + 1 > 0; --i)
-        if (*(Buf(i)) == item)
+        if (*(constBuf(i)) == item)
           return i;
       return npos;
     }
