@@ -74,6 +74,12 @@ class HashTable {
     inline iterator end() { return map.end(); };
     inline const_iterator cend() const { return map.cend(); };
     inline const_iterator end() const { return this->cend(); };
+    inline iterator find(const Key& key) {
+      return map.find(key);
+    }
+    inline const_iterator find(const Key& key) const {
+      return map.find(key);
+    }
 
     inline void clear() {
       map.clear();
