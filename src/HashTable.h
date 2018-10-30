@@ -97,6 +97,7 @@ class HashTable {
       // Make a list of KeyValues to yield from.
       // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
       std::vector<value_type> items;
+      items.reserve(size());
       for (const auto& item : map) {
         items.push_back(item);
       }
