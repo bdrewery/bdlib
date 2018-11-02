@@ -369,24 +369,6 @@ void HashTableTest :: initializerTest(void) {
   CPPUNIT_ASSERT_EQUAL(2, static_cast<int>(my_hash["Two"]));
 }
 
-void HashTableTest :: eachTest(void) {
-  int x = 5;
-  int n;
-
-  a->insert(1, "one");
-  a->insert(2, "two");
-  n = a->each([](int key, String value, void* param) {
-    int _x = *(int*)param;
-    if (key == 1)
-      CPPUNIT_ASSERT_STRING_EQUAL("one", value);
-    else if (key == 2)
-      CPPUNIT_ASSERT_STRING_EQUAL("two", value);
-    CPPUNIT_ASSERT_EQUAL(5, _x);
-  }, &x);
-
-  CPPUNIT_ASSERT_EQUAL(2, n);
-}
-
 void HashTableTest :: iteratorTest (void)
 {
   a->insert(1, "Blah");

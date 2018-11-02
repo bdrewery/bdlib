@@ -46,7 +46,6 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (removeTest);
 //    CPPUNIT_TEST (iterateTest);
     CPPUNIT_TEST (initializerTest);
-    CPPUNIT_TEST (eachTest);
     CPPUNIT_TEST (iteratorTest);
     CPPUNIT_TEST_SUITE_END ();
 
@@ -63,7 +62,6 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
         void removeTest(void);
 //        void iterateTest(void);
         void initializerTest(void);
-        void eachTest(void);
         void iteratorTest(void);
     private:
         HashTable<int, String> *a, *b;
