@@ -352,17 +352,85 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 #endif
         /* Operators */
 
-        String& operator+=(const char) &;
-        String& operator+=(const char*) &;
-        String& operator+=(const String&) &;
-        String& operator+=(const size_t) &;
-        String& operator-=(const size_t) &;
+        /**
+         * \sa append(const char)
+         */
+        inline String& operator+=(const char ch) & {
+          append(ch);
+          return *this;
+        }
 
-        const String& operator++();
-        const String operator++(int);
-        const String& operator--();
-        const String operator--(int);
+        /**
+         * \sa append(const char*)
+         */
+        inline String& operator+=(const char* string) & {
+          append(string);
+          return *this;
+        }
 
+        /**
+         * \sa append(const String&)
+         */
+        inline String& operator+=(const String& string) & {
+          append(string);
+          return *this;
+        }
+
+        inline String& operator+=(const size_t n) & {
+          if (!length())
+            return *this;
+          if (n > length()) {
+            offset = length();
+            setLength(0);
+          } else {
+            offset += n;
+            subLength(n);
+          }
+          return *this;
+        }
+
+        inline String& operator-=(const size_t n) & {
+          if (!length())
+            return *this;
+          if (n > length()) {
+            offset = length();
+            setLength(0);
+          } else
+            subLength(n);
+          return *this;
+        }
+
+        /**
+         * @brief Prefix increment
+         */
+        inline const String& operator++() {
+          return (*this) += size_t(1);
+        }
+
+        /**
+         * @brief Postfix increment
+         */
+        inline const String operator++(int) {
+          String tmp(*this);
+          ++(*this);
+          return tmp;
+        }
+
+        /**
+         * @brief Prefix decrement
+         */
+        inline const String& operator--() {
+          return (*this) -= 1;
+        }
+
+        /**
+         * @brief Postfix decrement
+         */
+        inline const String operator--(int) {
+          String tmp(*this);
+          --(*this);
+          return tmp;
+        }
 
         //using ReferenceCountedArray<String_Array_Type, Allocator>::operator=;
 
@@ -399,93 +467,6 @@ inline String operator+(String string1, const String& string2) {
   string1 += string2;
   return string1;
 }
-
-/**
- * @brief Prefix increment
- */
-inline const String& String::operator++() {
-  return (*this) += size_t(1);
-}
-
-/**
- * @brief Postfix increment
- */
-inline const String String::operator++(int) {
-  String tmp(*this);
-  ++(*this);
-  return tmp;
-}
-
-/**
- * @brief Prefix decrement
- */
-inline const String& String::operator--() {
-  return (*this) -= 1;
-}
-
-/**
- * @brief Postfix decrement
- */
-inline const String String::operator--(int) {
-  String tmp(*this);
-  --(*this);
-  return tmp;
-}
-
-// Setters
-
-/* Operators */
-
-
-/**
- * \sa append(const char)
- */
-inline String& String::operator+=(const char ch) & {
-  append(ch);
-  return *this;
-}
-
-/**
- * \sa append(const char*)
- */
-inline String& String::operator+=(const char* string) & {
-  append(string);
-  return *this;
-}
-
-/**
- * \sa append(const String&)
- */
-inline String& String::operator+=(const String& string) & {
-  append(string);
-  return *this;
-}
-
-inline String& String::operator+=(const size_t n) & {
-  if (!length())
-    return *this;
-  if (n > length()) {
-    offset = length();
-    setLength(0);
-  } else {
-    offset += n;
-    subLength(n);
-  }
-  return *this;
-}
-
-inline String& String::operator-=(const size_t n) & {
-  if (!length())
-    return *this;
-  if (n > length()) {
-    offset = length();
-    setLength(0);
-  } else
-    subLength(n);
-  return *this;
-}
-
-
 
 // comparison operators:
 inline bool __attribute__((pure))
