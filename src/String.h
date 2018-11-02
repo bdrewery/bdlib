@@ -81,21 +81,18 @@ class String : public ReferenceCountedArray<String_Array_Type> {
   public:
 
         /* Constructors */
-        String(const Allocator& allocator = Allocator()) :
+        String(const Allocator& allocator = Allocator()) noexcept :
           ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
-	String(const String& string) noexcept :
-          ReferenceCountedArray<String_Array_Type, Allocator>(string) {};
-	String(String&& string) noexcept :
-          ReferenceCountedArray<String_Array_Type, Allocator>(std::move(string)) {};
+	String(const String& string) noexcept = default;
+	String(String&& string) noexcept = default;
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
 	 * @post The buffer has been filled with the string.
 	 * @test String test("Some string");
  	*/
-	String(const char* cstring, const Allocator& allocator = Allocator()) :
-          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {
-          if (cstring) append(cstring);
+	String(const char* cstring, const Allocator& allocator = Allocator()) : String(allocator) {
+          append(cstring);
         }
 
 	/**
@@ -107,8 +104,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @test String test("Some string");
          */
         String(const char* cstring, size_t slen,
-            const Allocator& allocator = Allocator()) :
-          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {
+            const Allocator& allocator = Allocator()) : String(allocator) {
           append(cstring, slen);
         }
 
@@ -119,8 +115,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the caracter.
 	 * @test String test('a');
 	 */
-        String(const char ch, const Allocator& allocator = Allocator()) :
-          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {
+        String(const char ch, const Allocator& allocator = Allocator()) : String(allocator) {
           append(ch);
         }
 
@@ -149,11 +144,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           }
         }
 
-        String& operator=(const String& string) {
-          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(
-              string);
-          return *this;
-        }
+        String& operator=(const String& string) = default;
         String& operator=(String&& string) noexcept = default;
 
         /**

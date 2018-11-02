@@ -49,20 +49,20 @@ BDLIB_NS_BEGIN
 class Stream {
   protected:
         String str;
-        unsigned int pos;
-        bool loading;
+        size_t pos = 0;
+        bool loading = false;
 
   public:
-        Stream() : str(), pos(0), loading(0) {};
-        Stream(const Stream& stream) :
-          str(stream.str), pos(stream.pos), loading(0) {};
+        Stream() noexcept = default;
+        Stream(const Stream& stream) noexcept = default;
         Stream(Stream&& stream) noexcept = default;
-        Stream(const String& string) : str(string), pos(0), loading(0) {};
-        Stream(String&& string) : str(std::move(string)), pos(0), loading(0) {};
-        Stream(const int newSize) : str(), pos(0), loading(0) {
+        Stream(const int newSize) {
           if (newSize > 0) Reserve(newSize);
         }
         virtual ~Stream() {};
+
+        Stream(const String& string) noexcept : str(string) {};
+        Stream(String&& string) noexcept : str(std::move(string)) {};
 
         friend void swap(Stream& a, Stream& b) {
           using std::swap;

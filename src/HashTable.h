@@ -53,16 +53,14 @@ class HashTable {
     static const size_t default_list_size = 100;
     typedef void (*hash_table_block)(const Key, Value, void *param);
 
-    map_type map;
+    map_type map{default_list_size};
 
   public:
-    HashTable() : map(default_list_size) {} ;
+    HashTable() = default;
     explicit HashTable(size_t capacity_in) : map(capacity_in) {};
-    HashTable(const HashTable<Key, Value>& table) : map(table.map) {}
+    HashTable(const HashTable<Key, Value>& table) = default;
     HashTable(HashTable<Key, Value>&& table) noexcept = default;
     HashTable(std::initializer_list<value_type> list) : map(list) {}
-
-    ~HashTable() {}
 
     inline iterator begin() { return map.begin(); };
     inline const_iterator cbegin() const { return map.cbegin(); };

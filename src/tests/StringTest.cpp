@@ -143,6 +143,28 @@ void StringTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
 
+  /* Check for dangling references */
+  c->clear();
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  *b = *c;
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), c->rcount());
+
+  *b = *a;
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  *b = 'c';
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), b->rcount());
+
+  *b = *a;
+  *c = "test";
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
+
   // Test move semantics
   String my_string(std::move(*a));
   CPPUNIT_ASSERT_EQUAL(size_t(2), my_string.rcount());
@@ -228,6 +250,9 @@ void StringTest :: c_strTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("STING", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("STING", x);
   delete[] x;
+
+  /* rvalue c_str() */
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST", String("TEST").c_str());
 }
 
 void StringTest :: hasIndexTest(void)

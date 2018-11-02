@@ -58,18 +58,15 @@ class Array : public ReferenceCountedArray<T> {
     typedef const value_type&  const_reference;
 
     /* Constructors */
-    Array() : ReferenceCountedArray<value_type>() {};
-    Array(const Array<value_type>& array) noexcept :
-      ReferenceCountedArray<value_type>(array) {};
-    Array(Array<value_type>&& array) noexcept :
-      ReferenceCountedArray<value_type>(std::move(array)) {};
+    Array() noexcept = default;
+    Array(const Array<value_type>& array) noexcept = default;
+    Array(Array<value_type>&& array) noexcept = default;
 
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list
      */
-    Array(std::initializer_list<value_type> list) :
-      ReferenceCountedArray<value_type>() {
+    Array(std::initializer_list<value_type> list) : Array() {
       *this = list;
     }
 
@@ -81,8 +78,7 @@ class Array : public ReferenceCountedArray<T> {
      * @post The buffer has been filled with the array.
      * @test Array test("Some array");
      */
-    Array(const_pointer carray, size_t len) :
-      ReferenceCountedArray<value_type>() {
+    Array(const_pointer carray, size_t len) : Array() {
       this->Reserve(len);
       for (size_t i = 0; i < len; ++i)
         push(carray[i]);
@@ -114,11 +110,7 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
-    Array& operator=(const Array<value_type>& array) {
-      ReferenceCountedArray<value_type>::operator=(array);
-      return *this;
-    }
-
+    Array& operator=(const Array<value_type>& array) = default;
     Array& operator=(Array<value_type>&& array) noexcept = default;
 
     /**

@@ -295,7 +295,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief The array reference for reference counting
      * This is mutable so that Ref->refs can be modified, which really is mutable
      */
-    mutable ArrayRef<value_type, Allocator> *Ref;
+    mutable ArrayRef<value_type, Allocator> *Ref = nullptr;
   protected:
     /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
@@ -307,16 +307,16 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * This is for subarrays: so we know where the subarray starts.
      */
-    mutable size_t offset;
+    mutable size_t offset = 0;
     /**
      * This is for subarrays: so we know where the subarray ends.
      */
-    mutable size_t sublen;
+    mutable size_t sublen = 0;
 
     /**
      * Cache of current hash() result. 0 if stale
      */
-    mutable size_t my_hash;
+    mutable size_t my_hash = 0;
 
   private:
     /**
@@ -402,9 +402,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     };
 
   public:
-    ReferenceCountedArray(const Allocator& allocator = Allocator()) :
-      ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0),
-      sublen(0), my_hash(0) {
+    ReferenceCountedArray(const Allocator& allocator = Allocator()) noexcept :
+      ReferenceCountedArrayBase(), alloc(allocator) {
     }
     ReferenceCountedArray(const ReferenceCountedArray& rca) noexcept :
       ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref),
@@ -413,9 +412,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
     ReferenceCountedArray(ReferenceCountedArray&& rca) noexcept :
       ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)),
-      Ref(std::move(rca.Ref)), offset(std::move(rca.offset)),
-      sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
-      rca.alloc = Allocator();
+      Ref(rca.Ref), offset(rca.offset),
+      sublen(rca.sublen), my_hash(rca.my_hash) {
       rca.Ref = nullptr;
       rca.offset = 0;
       rca.sublen = 0;
@@ -433,8 +431,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     explicit ReferenceCountedArray(const size_t newSize,
         const Allocator& allocator = Allocator()) :
-      ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0),
-      sublen(0), my_hash(0) {
+      ReferenceCountedArray(allocator) {
       if (newSize) {
         Reserve(newSize);
       }
@@ -449,15 +446,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     ReferenceCountedArray(const size_t newSize, const value_type value,
         const Allocator& allocator = Allocator()) :
-      ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0),
-      sublen(0), my_hash(0) {
+      ReferenceCountedArray(allocator) {
       if (newSize) {
         Reserve(newSize);
 
         for (size_t i = 0; i < newSize; ++i) {
           *(Buf(i)) = value;
         }
-        this->setLength(newSize);
+        setLength(newSize);
       }
     }
 
@@ -510,30 +506,16 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         return *this;
       CheckDeallocRef();
       alloc = std::move(rca.alloc);
-      offset = std::move(rca.offset);
-      sublen = std::move(rca.sublen);
-      my_hash = std::move(rca.my_hash);
-      Ref = std::move(rca.Ref);
+      offset = rca.offset;
+      sublen = rca.sublen;
+      my_hash = rca.my_hash;
+      Ref = rca.Ref;
 
-      rca.alloc = Allocator();
       rca.offset = 0;
       rca.sublen = 0;
       rca.my_hash = 0;
       rca.Ref = nullptr;
 
-      return *this;
-    }
-
-    /**
-     * @brief Sets our buffer to the given item.
-     * @param item The item to set our buffer to.
-     * @post The old buffer (if we had one) is free'd.
-     * @post A sufficiently sized new buffer is made with the item within.
-     * @return The new array object.
-     */
-    ReferenceCountedArray& operator=(const_reference item) {
-      Detach();
-      append(item);
       return *this;
     }
 
