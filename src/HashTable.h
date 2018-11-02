@@ -52,7 +52,6 @@ class HashTable {
   private:
     static const size_t default_list_size = 100;
     typedef void (*hash_table_block)(const Key, Value, void *param);
-    const Value empty_value{};
 
     map_type map;
 
