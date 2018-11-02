@@ -163,7 +163,6 @@ class Slice {
     friend void swap(Slice& a, Slice& b) {
       using std::swap;
 
-      swap(a.alloc, b.alloc);
       swap(a.rca, b.rca);
       swap(a.start, b.start);
       swap(a.len, b.len);
