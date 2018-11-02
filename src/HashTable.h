@@ -85,19 +85,19 @@ class HashTable {
       swap(a.map, b.map);
     }
 
-    HashTable& operator=(const HashTable<Key, Value>& table) {
+    HashTable& operator=(const HashTable<Key, Value>& table) & {
       if (&table != this)
         map = table.map;
       return *this;
     }
 
-    HashTable& operator=(HashTable<Key, Value>&& table) noexcept = default;
+    HashTable& operator=(HashTable<Key, Value>&& table) & noexcept = default;
 
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list
      */
-    HashTable& operator=(std::initializer_list<value_type> list) {
+    HashTable& operator=(std::initializer_list<value_type> list) & {
       for (const auto& item : list) {
         (*this)[item.key()] = item.value();
       }

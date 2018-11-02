@@ -72,12 +72,12 @@ class Stream {
           swap(a.loading, b.loading);
         }
 
-        Stream& operator=(Stream stream) {
+        Stream& operator=(Stream stream) & {
           swap(*this, stream);
           return *this;
         }
 
-        Stream& operator=(Stream&& stream) noexcept = default;
+        Stream& operator=(Stream&& stream) & noexcept = default;
 
         void Reserve(const size_t) const;
 
