@@ -143,9 +143,8 @@ class Slice {
     ssize_t start;
     ssize_t len;
 
-    Slice() = delete;
-
   public:
+    Slice() = delete;
     Slice(T* _rca, int _start, int _len) :
       rca(_rca), start(_start), len(_len) {};
     Slice(const Slice& slice) = default;
@@ -786,9 +785,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @brief Used by Cref operator[]
          */
         Cref(ReferenceCountedArray* _rca, size_t pos) : rca(_rca), k(pos) {};
-        Cref() = delete;
 
       public:
+        Cref() = delete;
         Cref(const Cref& cref) = default;
         Cref(Cref&& cref) = default;
         inline Cref& operator=(const Cref& cref) {
