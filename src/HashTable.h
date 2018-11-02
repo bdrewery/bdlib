@@ -65,7 +65,7 @@ class HashTable {
     }
     HashTable(std::initializer_list<value_type> list) : map(list) {}
 
-    virtual ~HashTable() {}
+    ~HashTable() {}
 
     inline iterator begin() { return map.begin(); };
     inline const_iterator cbegin() const { return map.cbegin(); };

@@ -142,7 +142,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           ReferenceCountedArray<String_Array_Type, Allocator>(newSize, value,
               allocator) {};
 
-        virtual ~String() {
+        ~String() {
           /* If deallocating the last reference, cleanse the string buffer with OPENSSL_cleanse() */
           if (rcount() == 1) {
             cleanse();

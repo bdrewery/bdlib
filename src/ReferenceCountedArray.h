@@ -190,7 +190,6 @@ class Slice {
 class ReferenceCountedArrayBase {
   public:
     static const size_t npos = static_cast<size_t>(-1);
-    virtual ~ReferenceCountedArrayBase() {};
 };
 
 
@@ -452,7 +451,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post If the Array's Reference is not shared, it is free'd.
      * @post If the Array's Reference IS shared, it is decremented and detached.
      */
-    virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
+    ~ReferenceCountedArray() { CheckDeallocRef(); };
 
     /**
      * @brief Swap this with another
@@ -540,7 +539,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param scaling_factor How much to multiple the size by to help avoid later resizing
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize,
+    void Reserve(const size_t newSize,
         double scaling_factor = 1) const {
       if (!Ref) {
         Ref = new ArrayRef<value_type, Allocator>(alloc);
@@ -551,7 +550,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Clear contents of ReferenceCountedArray and set length to 0
      */
-    virtual inline void clear() { Detach(); };
+    inline void clear() { Detach(); };
 
     /**
      * @brief Returns capacity of the ReferenceCountedArray object.
@@ -692,7 +691,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Return a hash of every element in the array. Cache result as well.
      * @note DJB's hash function
      */
-    virtual size_t hash() const {
+    size_t hash() const {
       if (my_hash != 0) return my_hash;
       std::hash<value_type> hasher;
       size_t _hash = 5381;

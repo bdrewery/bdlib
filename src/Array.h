@@ -99,7 +99,7 @@ class Array : public ReferenceCountedArray<T> {
     Array(const size_type newSize, const value_type value) :
       ReferenceCountedArray<value_type>(newSize, value) {};
 
-    virtual ~Array() {};
+    ~Array() {};
 
     /**
      * @brief Create an array from an initializer list
