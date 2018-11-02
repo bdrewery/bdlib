@@ -154,11 +154,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
               string);
           return *this;
         }
-        String& operator=(String&& string) noexcept {
-          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(
-              std::move(string));
-          return *this;
-        }
+        String& operator=(String&& string) noexcept = default;
 
         /**
          * @brief Find a string in the string
@@ -302,7 +298,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param len How many items to use
          */
         inline Slice<String> operator()(int start, int len = -1) {
-          return Slice<String>(*this, start, len);
+          return Slice<String>(this, start, len);
         }
 
         /**
@@ -388,6 +384,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         friend bool operator>=(const String&, const String&);
 
         friend std::ostream& operator<<(std::ostream&, const String&);
+        friend std::ostream& operator<<(std::ostream&, String&&);
         friend std::ostream& operator>>(std::ostream&, const String&);
 
 #ifdef CPPUNIT_VERSION
@@ -532,10 +529,16 @@ operator>=(const String& lhs, const String& rhs) {
 }
 
 inline std::ostream& operator<<(std::ostream& os, const String& string) {
-  for (const char* c = string.begin(); c != string.end(); ++c)
+  for (const char* c = string.cbegin(); c != string.cend(); ++c)
     os << *c;
   return os;
   //return os << string.c_str();
+}
+
+inline std::ostream& operator<<(std::ostream& os, String&& string) {
+  for (const char* c = string.begin(); c != string.end(); ++c)
+    os << std::move(*c);
+  return os;
 }
 
 String newsplit(String& str, char delim = ' ');

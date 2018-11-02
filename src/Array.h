@@ -119,10 +119,7 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
-    Array& operator=(Array<value_type>&& array) noexcept {
-      ReferenceCountedArray<value_type>::operator=(std::move(array));
-      return *this;
-    }
+    Array& operator=(Array<value_type>&& array) noexcept = default;
 
     /**
      * @brief Add an item to the end of the array
@@ -279,7 +276,7 @@ class Array : public ReferenceCountedArray<T> {
      * @param len How many items to use
      */
     inline Slice<Array> operator()(int start, int len = -1) {
-      return Slice<Array>(*this, start, len);
+      return Slice<Array>(this, start, len);
     }
 
 #ifdef CPPUNIT_VERSION

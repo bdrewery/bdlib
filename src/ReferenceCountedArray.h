@@ -139,23 +139,23 @@ template <class T>
  */
 class Slice {
   private:
-    T& rca;
+    T* rca;
     int start;
     int len;
 
     Slice() = delete;
 
   public:
-    Slice(T& _rca, int _start, int _len) :
+    Slice(T* _rca, int _start, int _len) :
       rca(_rca), start(_start), len(_len) {};
-    Slice(const Slice& slice) :
-      rca(slice.rca), start(slice.start), len(slice.len) {};
+    Slice(const Slice& slice) = default;
+    Slice(Slice&& slice) noexcept = default;
 
     /**
      * @brief return a new (const) slice
      */
     inline operator T() const {
-      T newArray(rca);
+      T newArray(*rca);
       newArray.slice(start, len);
       return newArray;
     };
@@ -177,11 +177,28 @@ class Slice {
     }
 
     /**
+     * @brief Assign a Slice to a Slice
+     */
+    inline Slice& operator=(Slice&& slice) noexcept {
+      (*this) = T(std::move(slice));
+      return (*this);
+    }
+
+    /**
      * @brief Assign to a Slice
      * @todo This needs to account for negative start/len
      */
     inline Slice& operator=(const T& array) {
-      rca.replace(start, array, len);
+      rca->replace(start, array, len);
+      return (*this);
+    }
+
+    /**
+     * @brief Assign to a Slice
+     * @todo This needs to account for negative start/len
+     */
+    inline Slice& operator=(T&& array) {
+      rca->replace(start, std::move(array), len);
       return (*this);
     }
 };
@@ -762,19 +779,24 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     class Cref {
       private:
         friend class ReferenceCountedArray;
-        ReferenceCountedArray& rca;
+        ReferenceCountedArray* rca;
         size_t k;
 
         /**
          * @brief Used by Cref operator[]
          */
-        Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
+        Cref(ReferenceCountedArray* _rca, size_t pos) : rca(_rca), k(pos) {};
         Cref() = delete;
 
       public:
-        Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
+        Cref(const Cref& cref) = default;
+        Cref(Cref&& cref) = default;
         inline Cref& operator=(const Cref& cref) {
           (*this) = value_type(cref);
+          return (*this);
+        }
+        inline Cref& operator=(Cref&& cref) noexcept {
+          (*this) = value_type(std::move(cref));
           return (*this);
         }
 
@@ -783,14 +805,18 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @sa ReferenceCountedArray::operator[]
          */
         inline operator value_type() const noexcept __attribute__((pure)) {
-          return rca.read(k);
+          return rca->read(k);
         }
 
         /**
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
          */
-        inline Cref& operator=(value_type c) {
-          rca.write(k, std::move(c));
+        inline Cref& operator=(const_reference c) {
+          rca->write(k, c);
+          return (*this);
+        };
+        inline Cref& operator=(value_type&& c) {
+          rca->write(k, std::move(c));
           return (*this);
         };
     };
@@ -799,7 +825,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns 'Cref' class for safe (cow) writing.
      * @sa Cref
      */
-    inline Cref operator[](size_t pos) { return Cref(*this, pos); };
+    inline Cref operator[](size_t pos) { return Cref(this, pos); };
 
     /**
      * @brief Returns the character at the given index.
@@ -853,7 +879,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is the same as inserting the item at the end of the buffer.
      */
     inline void append(const_reference item) { insert(length(), item); };
+    inline void append(value_type&& item) { insert(length(), std::move(item)); };
     inline void push_back(const_reference item) { append(item); };
+    inline void push_back(value_type&& item) { append(std::move(item)); };
     /**
      * @brief Appends given rca to the end of buffer
      * @param rca The rca to be appended.
@@ -864,6 +892,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline void append(const ReferenceCountedArray& rca, size_t n = npos) {
       insert(length(), rca, n);
     }
+    inline void append(ReferenceCountedArray&& rca, size_t n = npos) {
+      insert(length(), std::move(rca), n);
+    }
 
     /**
      * @brief Inserts a ReferenceCountedArray object into our buffer
@@ -872,8 +903,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param n The length to insert.
      * @post The buffer contains n items from rca inserted at index pos.
      */
-    void insert(size_t pos, const ReferenceCountedArray& rca,
-        size_t n = npos) {
+    void insert(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
       if (n == 0) return;
       if (pos != 0)
         validateIndex(pos - 1);
@@ -893,6 +923,36 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       std::memmove(static_cast<void*>(Buf() + pos + slen),
           static_cast<void*>(Buf() + pos), length() - pos);
       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+      addLength(slen);
+    }
+
+    /**
+     * @brief Inserts a ReferenceCountedArray object into our buffer
+     * @param pos The index to insert at.
+     * @param rca The rca to insert.
+     * @param n The length to insert.
+     * @post The buffer contains n items from rca inserted at index pos.
+     */
+    void insert(size_t pos, ReferenceCountedArray&& rca, size_t n = npos) {
+      if (n == 0) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      size_t slen = rca.length();
+
+      /* New rca is longer than ours, and inserting at 0, just move theirs */
+      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
+        *this = std::move(rca);
+        return;
+      }
+
+      if (n == npos || n > slen)
+        n = slen;
+      slen -= slen - n;
+      AboutToModify(length() + slen);
+      std::memmove(static_cast<void*>(Buf() + pos + slen),
+          static_cast<void*>(Buf() + pos), length() - pos);
+      std::move(rca.begin(), rca.begin() + slen, Buf() + pos);
       addLength(slen);
     }
 
@@ -917,6 +977,26 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
 
     /**
+     * @brief Insert an item at the given index.
+     * @param pos The index to insert at.
+     * @param item The item to be inserted.
+     * @post A buffer is allocated.
+     * @post If the old buffer was too small, it is enlarged.
+     * @post The item is inserted at the given index.
+     */
+    void insert(size_t pos, value_type&& item)
+    {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      AboutToModify(length() + 1);
+      std::memmove(static_cast<void*>(Buf() + pos + 1),
+          static_cast<void*>(Buf() + pos), length() - pos);
+      *(Buf(pos)) = std::move(item);
+      addLength(1);
+    }
+
+    /**
      * @brief Replace the given index with the given item.
      * @param pos The index to replace.
      * @param item The item to replace with.
@@ -929,6 +1009,21 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       getOwnCopy();
       *(Buf(pos)) = item;
+    }
+
+    /**
+     * @brief Replace the given index with the given item.
+     * @param pos The index to replace.
+     * @param item The item to replace with.
+     * @post The given index has been replaced.
+     * @post COW is done if needed.
+     */
+    void replace(size_t pos, value_type&& item) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      getOwnCopy();
+      *(Buf(pos)) = std::move(item);
     }
 
     /**
@@ -963,6 +1058,41 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         getOwnCopy();
       }
       std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+      setLength(newlen);
+    }
+
+    /**
+     * @brief Replaces n elements in our buffer at index pos with the given ReferenceCountedArray object
+     * @param pos The index to replace at.
+     * @param rca The ReferenceCountedArray object to replace with.
+     * @param n The number of characters to use for the replace.
+     */
+    void replace(size_t pos, ReferenceCountedArray&& rca, size_t n = npos) {
+      if (n == 0) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      size_t slen = rca.length();
+
+      /* Replace rca is longer than ours, and inserting at 0, just move theirs */
+      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
+        *this = std::move(rca);
+        return;
+      }
+
+      if (n == npos || n > slen)
+        n = slen;
+      slen -= slen - n;
+
+      size_t newlen = pos + slen;
+
+      if (newlen >= length()) {
+        AboutToModify(newlen);
+      } else {
+        newlen = length();
+        getOwnCopy();
+      }
+      std::move(rca.begin(), rca.begin() + slen, Buf() + pos);
       setLength(newlen);
     }
 

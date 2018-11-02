@@ -56,14 +56,9 @@ class Stream {
         Stream() : str(), pos(0), loading(0) {};
         Stream(const Stream& stream) :
           str(stream.str), pos(stream.pos), loading(0) {};
-        Stream(Stream&& stream) :
-          str(std::move(stream.str)), pos(std::move(stream.pos)),
-          loading(std::move(stream.loading)) {
-          stream.str = String();
-          stream.pos = 0;
-          stream.loading = 0;
-        }
+        Stream(Stream&& stream) noexcept = default;
         Stream(const String& string) : str(string), pos(0), loading(0) {};
+        Stream(String&& string) : str(std::move(string)), pos(0), loading(0) {};
         Stream(const int newSize) : str(), pos(0), loading(0) {
           if (newSize > 0) Reserve(newSize);
         }
@@ -81,6 +76,8 @@ class Stream {
           swap(*this, stream);
           return *this;
         }
+
+        Stream& operator=(Stream&& stream) noexcept = default;
 
         void Reserve(const size_t) const;
 
@@ -111,6 +108,16 @@ class Stream {
         virtual void puts (const String& string) {
           str.replace(tell(), string);
           pos += string.length();
+        }
+
+        /**
+         * @brief Insert a string into the stream.
+         * @note The stream pointer is advanced as well
+         */
+        virtual void puts (String&& string) {
+          auto length = string.length();
+          str.replace(tell(), std::move(string));
+          pos += length;
         }
 
         /**
@@ -183,10 +190,16 @@ class Stream {
         }
 
         friend Stream& operator<<(Stream&, const String&);
+        friend Stream& operator<<(Stream&, String&&);
 };
 
 inline Stream& operator<<(Stream& stream, const String& string) {
   stream.puts(string);
+  return stream;
+}
+
+inline Stream& operator<<(Stream& stream, String&& string) {
+  stream.puts(std::move(string));
   return stream;
 }
 
