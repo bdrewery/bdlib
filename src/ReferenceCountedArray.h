@@ -769,12 +769,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         Cref() = delete;
         Cref(const Cref& cref) = default;
         Cref(Cref&& cref) = default;
-        inline Cref& operator=(const Cref& cref) {
-          (*this) = value_type(cref);
+        inline Cref& operator=(const Cref& cref) && {
+          rca->write(k, value_type(cref));
           return (*this);
         }
-        inline Cref& operator=(Cref&& cref) noexcept {
-          (*this) = value_type(std::move(cref));
+        inline Cref& operator=(Cref&& cref) && noexcept {
+          rca->write(k, value_type(std::move(cref)));
           return (*this);
         }
 
@@ -788,11 +788,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         /**
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
          */
-        inline Cref& operator=(const_reference c) {
+        inline Cref& operator=(const_reference c) && {
           rca->write(k, c);
           return (*this);
         };
-        inline Cref& operator=(value_type&& c) {
+        inline Cref& operator=(value_type&& c) && {
           rca->write(k, std::move(c));
           return (*this);
         };
