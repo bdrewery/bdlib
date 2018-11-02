@@ -341,6 +341,11 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
+    inline Array& operator+=(Array&& array) & {
+      append(std::move(array));
+      return *this;
+    }
+
     inline Array& operator+=(const int n) & {
       if (!this->length())
         return *this;

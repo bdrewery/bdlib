@@ -375,6 +375,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           append(string);
           return *this;
         }
+        inline String& operator+=(String&& string) & {
+          append(std::move(string));
+          return *this;
+        }
 
         inline String& operator+=(const size_t n) & {
           if (!length())
