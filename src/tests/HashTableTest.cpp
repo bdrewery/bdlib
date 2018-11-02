@@ -134,6 +134,30 @@ void HashTableTest :: insertTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)6, sa->size());
 }
 
+void HashTableTest :: operatorTest (void)
+{
+
+  (*sa)["one"] = "One";
+  (*sa)["two"] = "Two";
+  (*sa)["three"] = "Three";
+  (*sa)["four"] = "Four";
+  (*sa)["five"] = "Five";
+  (*sa)["six"] = "Six";
+
+  auto foo(std::move(*sa));
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)0, sa->size());
+
+  HashTable<String, String> foo2;
+  foo2 = std::move(foo);
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo2.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)0, foo.size());
+
+  auto foo3 = foo2;
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo3.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo2.size());
+}
+
 void HashTableTest :: containsTest (void)
 {
   a->insert(1, "Blah");

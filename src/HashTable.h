@@ -61,9 +61,7 @@ class HashTable {
     explicit HashTable(size_t capacity_in) : map(capacity_in) {};
     HashTable(const HashTable<Key, Value>& table) : map(table.map) {}
     HashTable(HashTable<Key, Value>&& table) noexcept :
-      map(std::move(table.map)) {
-        table.map.clear();
-    }
+      map(std::move(table.map)) {}
     HashTable(std::initializer_list<value_type> list) : map(list) {}
 
     ~HashTable() {}
@@ -91,9 +89,16 @@ class HashTable {
       swap(a.map, b.map);
     }
 
-    HashTable& operator=(HashTable<Key, Value> table) {
-      swap(*this, table);
-      return *this; 
+    HashTable& operator=(const HashTable<Key, Value>& table) {
+      if (&table != this)
+        map = table.map;
+      return *this;
+    }
+
+    HashTable& operator=(HashTable<Key, Value>&& table) noexcept {
+      if (&table != this)
+        map = std::move(table.map);
+      return *this;
     }
 
     /**
