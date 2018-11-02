@@ -328,7 +328,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * \sa append(const char)
      */
-    inline Array& operator+=(const_reference item) {
+    inline Array& operator+=(const_reference item) & {
       this->append(item);
       return *this;
     }
@@ -336,12 +336,12 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * \sa append(const Array&)
      */
-    inline Array& operator+=(const Array& array) {
+    inline Array& operator+=(const Array& array) & {
       this->append(array);
       return *this;
     }
 
-    inline Array& operator+=(const int n) {
+    inline Array& operator+=(const int n) & {
       if (!this->length())
         return *this;
       if (int(this->length()) - n < 0) {
@@ -354,7 +354,7 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
-    inline Array& operator-=(const int n) {
+    inline Array& operator-=(const int n) & {
       if (!this->length())
         return *this;
       if (int(this->length()) - n < 0) {

@@ -352,11 +352,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 #endif
         /* Operators */
 
-        String& operator+=(const char);
-        String& operator+=(const char*);
-        String& operator+=(const String&);
-        String& operator+=(const size_t);
-        String& operator-=(const size_t);
+        String& operator+=(const char) &;
+        String& operator+=(const char*) &;
+        String& operator+=(const String&) &;
+        String& operator+=(const size_t) &;
+        String& operator-=(const size_t) &;
 
         const String& operator++();
         const String operator++(int);
@@ -440,7 +440,7 @@ inline const String String::operator--(int) {
 /**
  * \sa append(const char)
  */
-inline String& String::operator+=(const char ch) {
+inline String& String::operator+=(const char ch) & {
   append(ch);
   return *this;
 }
@@ -448,7 +448,7 @@ inline String& String::operator+=(const char ch) {
 /**
  * \sa append(const char*)
  */
-inline String& String::operator+=(const char* string) {
+inline String& String::operator+=(const char* string) & {
   append(string);
   return *this;
 }
@@ -456,12 +456,12 @@ inline String& String::operator+=(const char* string) {
 /**
  * \sa append(const String&)
  */
-inline String& String::operator+=(const String& string) {
+inline String& String::operator+=(const String& string) & {
   append(string);
   return *this;
 }
 
-inline String& String::operator+=(const size_t n) {
+inline String& String::operator+=(const size_t n) & {
   if (!length())
     return *this;
   if (n > length()) {
@@ -474,7 +474,7 @@ inline String& String::operator+=(const size_t n) {
   return *this;
 }
 
-inline String& String::operator-=(const size_t n) {
+inline String& String::operator-=(const size_t n) & {
   if (!length())
     return *this;
   if (n > length()) {
