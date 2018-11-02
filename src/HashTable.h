@@ -125,6 +125,18 @@ class HashTable {
       return true;
     }
 
+    inline bool insert(Key&& key, const Value& value) {
+      if (contains(key)) return false;
+      map[std::move(key)] = value;
+      return true;
+    }
+
+    inline bool insert(const Key& key, Value&& value) {
+      if (contains(key)) return false;
+      map[key] = std::move(value);
+      return true;
+    }
+
     inline bool insert(Key&& key, Value&& value) {
       if (contains(key)) return false;
       map[std::move(key)] = std::move(value);
