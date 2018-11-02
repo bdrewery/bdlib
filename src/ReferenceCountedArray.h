@@ -145,7 +145,7 @@ class Slice {
 
   public:
     Slice() = delete;
-    Slice(T* _rca, int _start, int _len) :
+    Slice(T* _rca, ssize_t _start, ssize_t _len) :
       rca(_rca), start(_start), len(_len) {};
     Slice(const Slice& slice) = default;
     Slice(Slice&& slice) noexcept = default;
