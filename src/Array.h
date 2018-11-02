@@ -256,7 +256,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa ReferenceCountedArray::slice()
      */
-    inline Array subarray(int start, int len = -1) const {
+    inline Array subarray(ssize_t start, ssize_t len = -1) const {
       Array newArray(*this);
       newArray.slice(start, len);
       return newArray;
@@ -265,7 +265,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa subarray
      */
-    inline Array operator()(int start, int len = -1) const {
+    inline Array operator()(ssize_t start, ssize_t len = -1) const {
       return subarray(start, len);
     }
 
@@ -275,7 +275,7 @@ class Array : public ReferenceCountedArray<T> {
      * @param start Starting position
      * @param len How many items to use
      */
-    inline Slice<Array> operator()(int start, int len = -1) {
+    inline Slice<Array> operator()(ssize_t start, ssize_t len = -1) {
       return Slice<Array>(this, start, len);
     }
 

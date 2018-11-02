@@ -140,8 +140,8 @@ template <class T>
 class Slice {
   private:
     T* rca;
-    int start;
-    int len;
+    ssize_t start;
+    ssize_t len;
 
     Slice() = delete;
 
@@ -845,7 +845,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param len The length of the subarray to return
      * The returned slice is a reference to the original array until modified.
      */
-    void slice(int start, int len = -1) {
+    void slice(ssize_t start, ssize_t len = -1) {
       if (len == -1) len = int(length()) - start;
       // Start is after the end, set us to an empty array
       if (start >= static_cast<signed>(length())) {
