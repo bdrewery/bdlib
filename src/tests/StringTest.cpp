@@ -1252,6 +1252,12 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("TEST is just a TEST", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *b);
 
+  *a = "this is just a TEST";
+  *b = *a;
+  (*a)(0, 4) = (*b)(1, 4) = (*a)(15, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST is just a TEST", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("tTESTis just a TEST", *b);
+
   /* this is more of a compile check */
   const String constString("THIS CANNOT BE MODIFIED");
   *a = constString(0, 4);

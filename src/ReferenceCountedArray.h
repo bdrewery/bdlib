@@ -170,16 +170,13 @@ class Slice {
     /**
      * @brief Assign a Slice to a Slice
      */
-    inline Slice& operator=(const Slice& slice) {
-      (*this) = T(slice);
+    inline Slice& operator=(const Slice& slice) && {
+      rca->replace(start, T(slice), len);
       return (*this);
     }
 
-    /**
-     * @brief Assign a Slice to a Slice
-     */
-    inline Slice& operator=(Slice&& slice) noexcept {
-      (*this) = T(std::move(slice));
+    inline Slice& operator=(Slice&& slice) && noexcept {
+      rca->replace(start, T(std::move(slice)), len);
       return (*this);
     }
 
@@ -187,7 +184,7 @@ class Slice {
      * @brief Assign to a Slice
      * @todo This needs to account for negative start/len
      */
-    inline Slice& operator=(const T& array) {
+    inline Slice& operator=(const T& array) && {
       rca->replace(start, array, len);
       return (*this);
     }
@@ -196,7 +193,7 @@ class Slice {
      * @brief Assign to a Slice
      * @todo This needs to account for negative start/len
      */
-    inline Slice& operator=(T&& array) {
+    inline Slice& operator=(T&& array) && {
       rca->replace(start, std::move(array), len);
       return (*this);
     }
