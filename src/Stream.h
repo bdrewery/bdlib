@@ -115,9 +115,9 @@ class Stream {
          * @note The stream pointer is advanced as well
          */
         virtual void puts (String&& string) {
-          auto length = string.length();
+          auto len = string.length();
           str.replace(tell(), std::move(string));
-          pos += length;
+          pos += len;
         }
 
         /**
