@@ -390,12 +390,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0),
       sublen(0), my_hash(0) {
     }
-    ReferenceCountedArray(const ReferenceCountedArray& rca) :
+    ReferenceCountedArray(const ReferenceCountedArray& rca) noexcept :
       ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref),
       offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) {
       incRef();
     }
-    ReferenceCountedArray(ReferenceCountedArray&& rca) :
+    ReferenceCountedArray(ReferenceCountedArray&& rca) noexcept :
       ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)),
       Ref(std::move(rca.Ref)), offset(std::move(rca.offset)),
       sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
@@ -489,7 +489,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Moves the given ReferenceCountedArray to this
      * @param rca The ReferenceCountedArray object to take ownership of.
      */
-    ReferenceCountedArray& operator=(ReferenceCountedArray&& rca) {
+    ReferenceCountedArray& operator=(ReferenceCountedArray&& rca) noexcept {
       if (&rca == this)
         return *this;
       CheckDeallocRef();

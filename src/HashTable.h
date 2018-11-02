@@ -60,8 +60,9 @@ class HashTable {
     HashTable() : map(default_list_size) {} ;
     explicit HashTable(size_t capacity_in) : map(capacity_in) {};
     HashTable(const HashTable<Key, Value>& table) : map(table.map) {}
-    HashTable(HashTable<Key, Value>&& table) : map(std::move(table.map)) {
-      table.map.clear();
+    HashTable(HashTable<Key, Value>&& table) noexcept :
+      map(std::move(table.map)) {
+        table.map.clear();
     }
     HashTable(std::initializer_list<value_type> list) : map(list) {}
 

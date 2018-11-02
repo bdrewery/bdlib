@@ -59,9 +59,9 @@ class Array : public ReferenceCountedArray<T> {
 
     /* Constructors */
     Array() : ReferenceCountedArray<value_type>() {};
-    Array(const Array<value_type>& array) :
+    Array(const Array<value_type>& array) noexcept :
       ReferenceCountedArray<value_type>(array) {};
-    Array(Array<value_type>&& array) :
+    Array(Array<value_type>&& array) noexcept :
       ReferenceCountedArray<value_type>(std::move(array)) {};
 
     /**
@@ -119,7 +119,7 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
-    Array& operator=(Array<value_type>&& array) {
+    Array& operator=(Array<value_type>&& array) noexcept {
       ReferenceCountedArray<value_type>::operator=(std::move(array));
       return *this;
     }

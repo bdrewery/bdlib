@@ -83,9 +83,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /* Constructors */
         String(const Allocator& allocator = Allocator()) :
           ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
-	String(const String& string) :
+	String(const String& string) noexcept :
           ReferenceCountedArray<String_Array_Type, Allocator>(string) {};
-	String(String&& string) :
+	String(String&& string) noexcept :
           ReferenceCountedArray<String_Array_Type, Allocator>(std::move(string)) {};
 	/**
 	 * @brief Create a String from a given cstring.
@@ -154,7 +154,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
               string);
           return *this;
         }
-        String& operator=(String&& string) {
+        String& operator=(String&& string) noexcept {
           ReferenceCountedArray<String_Array_Type, Allocator>::operator=(
               std::move(string));
           return *this;
