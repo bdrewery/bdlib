@@ -800,7 +800,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
           return (*this);
         }
 
-        public:
         /**
          * @sa ReferenceCountedArray::operator[]
          */
