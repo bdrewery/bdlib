@@ -490,9 +490,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Moves the given ReferenceCountedArray to this
      * @param rca The ReferenceCountedArray object to take ownership of.
-     * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
     ReferenceCountedArray& operator=(ReferenceCountedArray&& rca) {
+      if (&rca == this)
+        return *this;
       CheckDeallocRef();
       alloc = std::move(rca.alloc);
       offset = std::move(rca.offset);

@@ -910,6 +910,14 @@ void StringTest :: copyTest(void)
   b->replace(0, (*a)(5));
   CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  *a = "test 1234";
+  *a = *a;
+  CPPUNIT_ASSERT_STRING_EQUAL("test 1234", *a);
+
+  *a = "test 1234";
+  *a = std::move(*a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test 1234", *a);
 }
 
 void StringTest :: printfTest(void)
