@@ -154,8 +154,8 @@ class Slice {
     /**
      * @brief return a new (const) slice
      */
-    inline operator std::remove_const_t<T>() const {
-      std::remove_const_t<T> newArray(rca);
+    inline operator typename std::remove_const<T>::type() const {
+      typename std::remove_const<T>::type newArray(rca);
       newArray.slice(start, len);
       return newArray;
     };
