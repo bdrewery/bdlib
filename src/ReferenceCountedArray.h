@@ -139,13 +139,13 @@ template <class T>
  */
 class Slice {
   private:
-    T* rca;
+    T& rca;
     ssize_t start;
     ssize_t len;
 
   public:
     Slice() = delete;
-    Slice(T* _rca, ssize_t _start, ssize_t _len) :
+    Slice(T& _rca, ssize_t _start, ssize_t _len) :
       rca(_rca), start(_start), len(_len) {};
     Slice(const Slice& slice) = default;
     Slice(Slice&& slice) noexcept = default;
@@ -154,7 +154,7 @@ class Slice {
      * @brief return a new (const) slice
      */
     inline operator T() const {
-      T newArray(*rca);
+      T newArray(rca);
       newArray.slice(start, len);
       return newArray;
     };
@@ -163,12 +163,12 @@ class Slice {
      * @brief Assign a Slice to a Slice
      */
     inline Slice& operator=(const Slice& slice) && {
-      rca->replace(start, T(slice), len);
+      rca.replace(start, T(slice), len);
       return (*this);
     }
 
     inline Slice& operator=(Slice&& slice) && noexcept {
-      rca->replace(start, T(std::move(slice)), len);
+      rca.replace(start, T(std::move(slice)), len);
       return (*this);
     }
 
@@ -177,7 +177,7 @@ class Slice {
      * @todo This needs to account for negative start/len
      */
     inline Slice& operator=(const T& array) && {
-      rca->replace(start, array, len);
+      rca.replace(start, array, len);
       return (*this);
     }
 
@@ -186,7 +186,7 @@ class Slice {
      * @todo This needs to account for negative start/len
      */
     inline Slice& operator=(T&& array) && {
-      rca->replace(start, std::move(array), len);
+      rca.replace(start, std::move(array), len);
       return (*this);
     }
 };
@@ -749,24 +749,24 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     class Cref {
       private:
         friend class ReferenceCountedArray;
-        ReferenceCountedArray* rca;
+        ReferenceCountedArray& rca;
         size_t k;
 
         /**
          * @brief Used by Cref operator[]
          */
-        Cref(ReferenceCountedArray* _rca, size_t pos) : rca(_rca), k(pos) {};
+        Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
 
       public:
         Cref() = delete;
         Cref(const Cref& cref) = default;
         Cref(Cref&& cref) = default;
         inline Cref& operator=(const Cref& cref) && {
-          rca->write(k, value_type(cref));
+          rca.write(k, value_type(cref));
           return (*this);
         }
         inline Cref& operator=(Cref&& cref) && noexcept {
-          rca->write(k, value_type(std::move(cref)));
+          rca.write(k, value_type(std::move(cref)));
           return (*this);
         }
 
@@ -774,18 +774,18 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @sa ReferenceCountedArray::operator[]
          */
         inline operator value_type() const noexcept __attribute__((pure)) {
-          return rca->read(k);
+          return rca.read(k);
         }
 
         /**
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
          */
         inline Cref& operator=(const_reference c) && {
-          rca->write(k, c);
+          rca.write(k, c);
           return (*this);
         };
         inline Cref& operator=(value_type&& c) && {
-          rca->write(k, std::move(c));
+          rca.write(k, std::move(c));
           return (*this);
         };
     };
@@ -794,7 +794,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns 'Cref' class for safe (cow) writing.
      * @sa Cref
      */
-    inline Cref operator[](size_t pos) { return Cref(this, pos); };
+    inline Cref operator[](size_t pos) { return Cref(*this, pos); };
 
     /**
      * @brief Returns the character at the given index.

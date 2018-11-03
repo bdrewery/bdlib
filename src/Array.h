@@ -268,7 +268,7 @@ class Array : public ReferenceCountedArray<T> {
      * @param len How many items to use
      */
     inline Slice<Array> operator()(ssize_t start, ssize_t len = -1) {
-      return Slice<Array>(this, start, len);
+      return Slice<Array>(*this, start, len);
     }
 
 #ifdef CPPUNIT_VERSION

@@ -289,7 +289,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param len How many items to use
          */
         inline Slice<String> operator()(ssize_t start, ssize_t len = -1) {
-          return Slice<String>(this, start, len);
+          return Slice<String>(*this, start, len);
         }
 
         /**
