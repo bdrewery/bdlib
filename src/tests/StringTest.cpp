@@ -1318,6 +1318,10 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(3), constSlice.rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
 
+  /* Rvalues should be treated as a String */
+  CPPUNIT_ASSERT_STRING_EQUAL("ThIS", (*a)(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("h", (*a)(1, 1));
+
   *a = "tESt TEST2 test3 TEST4";
   *b = a->substring(0, 4);
   *e = b->substring(1, 2);
