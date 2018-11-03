@@ -721,7 +721,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Write an item to the given index
      */
-    inline void write(size_t pos, value_type item) {
+    inline void write(size_t pos, const_reference item) {
+      getOwnCopy();
+      *(Buf(pos)) = item;
+    };
+    inline void write(size_t pos, value_type&& item) {
       getOwnCopy();
       *(Buf(pos)) = std::move(item);
     };
