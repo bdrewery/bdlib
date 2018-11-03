@@ -159,14 +159,6 @@ class Slice {
       return newArray;
     };
 
-    friend void swap(Slice& a, Slice& b) {
-      using std::swap;
-
-      swap(a.rca, b.rca);
-      swap(a.start, b.start);
-      swap(a.len, b.len);
-    }
-
     /**
      * @brief Assign a Slice to a Slice
      */
