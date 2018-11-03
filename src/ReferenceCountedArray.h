@@ -167,10 +167,7 @@ class Slice {
       return (*this);
     }
 
-    inline Slice& operator=(Slice&& slice) && noexcept {
-      rca.replace(start, T(std::move(slice)), len);
-      return (*this);
-    }
+    inline Slice& operator=(Slice&& slice) && noexcept = default;
 
     /**
      * @brief Assign to a Slice
@@ -765,10 +762,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
           rca.write(k, value_type(cref));
           return (*this);
         }
-        inline Cref& operator=(Cref&& cref) && noexcept {
-          rca.write(k, value_type(std::move(cref)));
-          return (*this);
-        }
+        inline Cref& operator=(Cref&& cref) && noexcept = default;
 
         /**
          * @sa ReferenceCountedArray::operator[]
