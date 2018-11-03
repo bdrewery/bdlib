@@ -714,7 +714,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @sa at()
      * Unlike at() this is unchecked.
      */
-    inline value_type read(size_t pos) const noexcept __attribute__((pure)) {
+    inline const value_type read(size_t pos) const noexcept __attribute__((pure)) {
       return *(constBuf(pos));
     };
 
@@ -730,7 +730,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Safe element access operator
      * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
      */
-    inline value_type operator[](size_t pos) const noexcept
+    inline const value_type operator[](size_t pos) const noexcept
       __attribute__((pure)) {
       return read(pos);
     };
@@ -768,7 +768,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         /**
          * @sa ReferenceCountedArray::operator[]
          */
-        inline operator value_type() const noexcept __attribute__((pure)) {
+        inline operator const value_type() const noexcept __attribute__((pure)) {
+          return rca.read(k);
+        }
+
+        inline operator value_type() noexcept __attribute__((pure)) {
           return rca.read(k);
         }
 
