@@ -1198,6 +1198,8 @@ void StringTest :: substringTest(void)
 
   *a = "This is a test";
   substring = (*a)(-4,4);
+  CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(14), a->length());
   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
 
   substring2 = substring;
@@ -1207,6 +1209,8 @@ void StringTest :: substringTest(void)
 
   (*a) = "this is just a TEST";
   substring = (*a)(0,4);
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(19), a->length());
 
   for (size_t i = 0; i < (*a).length(); ++i)
     (*a)[i] = toupper((*a)[i]);
@@ -1481,6 +1485,8 @@ void StringTest :: substringOutOfRangeInsertTest(void)
   /* Repeat the test with insert() rather than resize() */
   *a = "one two three";
   *b = (*a)(4, 3);
+  CPPUNIT_ASSERT_STRING_EQUAL("one two three", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
   (*a)[5] = 't';
   CPPUNIT_ASSERT_STRING_EQUAL("one tto three", *a);
   CPPUNIT_ASSERT_EQUAL(size_t(13), a->size());
