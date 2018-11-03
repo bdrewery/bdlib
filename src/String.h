@@ -269,7 +269,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa ReferenceCountedArray::slice()
          */
-        String substring(ssize_t start, ssize_t len = -1) const {
+        inline String substring(ssize_t start, ssize_t len = -1) const {
           String newString(*this);
           newString.slice(start, len);
           return newString;
