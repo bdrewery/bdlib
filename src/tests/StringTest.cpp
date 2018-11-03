@@ -37,6 +37,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <type_traits>
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
@@ -1262,14 +1263,60 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("TEST is just a TEST", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("tTESTis just a TEST", *b);
 
-  /* this is more of a compile check */
   const String constString("THIS CANNOT BE MODIFIED");
   *a = constString(0, 4);
 
+  static_assert(
+      !std::is_assignable<decltype(constString(0, 4)), decltype("blah")>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constString(0, 4)), decltype(*a)>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constString(0, 4)), decltype(std::move(*a))>::value,
+      "const slice should not be assignable");
+  const String constSlice = constString(0, 4);
+  static_assert(
+      !std::is_assignable<decltype(constSlice), decltype("blah")>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constSlice), decltype(*a)>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constSlice), decltype(std::move(*a))>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(std::move(constSlice)), decltype("blah")>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(std::move(constSlice)), decltype(*a)>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(std::move(constSlice)), decltype(std::move(*a))>::value,
+      "const slice should not be assignable");
+  String slice = constString(0, 4);
+#if 0
+  /* this is more of a compile check */
   constString(0, 4) = "blah"; //Returns a new string
+#endif
 
   CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, slice);
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, constSlice);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), constString.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), slice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), constSlice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), a->rcount());
+
+  (*a)(1, 1) = "h";
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
+  CPPUNIT_ASSERT_STRING_EQUAL(constSlice, slice);
+  CPPUNIT_ASSERT_STRING_EQUAL("ThIS", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), constString.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), slice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), constSlice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
 
   *a = "tESt TEST2 test3 TEST4";
   *b = a->substring(0, 4);

@@ -248,18 +248,11 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa ReferenceCountedArray::slice()
      */
-    inline Array subarray(ssize_t start, ssize_t len = -1) const {
+    inline Array subarray(ssize_t start, ssize_t len = -1) const & {
       Array newArray(*this);
       newArray.slice(start, len);
       return newArray;
     };
-
-    /**
-     * @sa subarray
-     */
-    inline Array operator()(ssize_t start, ssize_t len = -1) const {
-      return subarray(start, len);
-    }
 
     /**
      * @brief Returns a 'Slice' class for safe (cow) writing into the array
@@ -269,6 +262,10 @@ class Array : public ReferenceCountedArray<T> {
      */
     inline Slice<Array> operator()(ssize_t start, ssize_t len = -1) {
       return Slice<Array>(*this, start, len);
+    }
+    inline const Slice<const Array> operator()(ssize_t start,
+        ssize_t len = -1) const {
+      return Slice<const Array>(*this, start, len);
     }
 
 #ifdef CPPUNIT_VERSION

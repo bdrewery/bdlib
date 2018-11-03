@@ -269,18 +269,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa ReferenceCountedArray::slice()
          */
-        inline String substring(ssize_t start, ssize_t len = -1) const {
+        inline String substring(ssize_t start, ssize_t len = -1) const & {
           String newString(*this);
           newString.slice(start, len);
           return newString;
         };
-
-        /**
-         * @sa substring
-         */
-        inline String operator()(ssize_t start, ssize_t len = -1) const {
-          return substring(start, len);
-        }
 
         /**
          * @brief Returns a 'Slice' class for safe (cow) writing into the array
@@ -290,6 +283,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline Slice<String> operator()(ssize_t start, ssize_t len = -1) {
           return Slice<String>(*this, start, len);
+        }
+        inline const Slice<const String> operator()(ssize_t start, ssize_t len = -1) const {
+          return Slice<const String>(*this, start, len);
         }
 
         /**

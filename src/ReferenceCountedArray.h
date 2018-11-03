@@ -37,6 +37,7 @@
 #include <cstdint>
 #include <sys/types.h>
 #include <cstring>
+#include <type_traits>
 
 BDLIB_NS_BEGIN
 template <class T, class Allocator = std::allocator<T> >
@@ -153,8 +154,8 @@ class Slice {
     /**
      * @brief return a new (const) slice
      */
-    inline operator T() const {
-      T newArray(rca);
+    inline operator std::remove_const_t<T>() const {
+      std::remove_const_t<T> newArray(rca);
       newArray.slice(start, len);
       return newArray;
     };
