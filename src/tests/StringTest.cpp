@@ -1197,6 +1197,29 @@ void StringTest :: substringTest(void)
   substring = a->substring(0, 30);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
 
+  String slice1 = (*a)(0);
+  CPPUNIT_ASSERT_EQUAL(a->length(), slice1.length());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", static_cast<String>(slice1));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1(0));
+
+  substring = (*a)(0);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring(0));
+
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", substring(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
+  ++substring;
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", substring);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a));
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", substring(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("cdefgh", substring(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
+
   *a = "This is a test";
   substring = (*a)(-4,4);
   CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
@@ -1321,6 +1344,7 @@ void StringTest :: substringTest(void)
   /* Rvalues should be treated as a String */
   CPPUNIT_ASSERT_STRING_EQUAL("ThIS", (*a)(0));
   CPPUNIT_ASSERT_STRING_EQUAL("h", (*a)(1, 1));
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, static_cast<String>((*a)(0)).c_str());
 
   *a = "tESt TEST2 test3 TEST4";
   *b = a->substring(0, 4);
