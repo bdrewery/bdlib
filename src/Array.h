@@ -95,8 +95,6 @@ class Array : public ReferenceCountedArray<T> {
     Array(const size_type newSize, const value_type value) :
       ReferenceCountedArray<value_type>(newSize, value) {};
 
-    ~Array() {};
-
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list

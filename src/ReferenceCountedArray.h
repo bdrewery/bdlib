@@ -388,7 +388,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         throw std::out_of_range("ReferenceCountedArray::validateIndex");
     };
 
-  public:
+    /**
+     * @brief Array Destructor
+     * @post If the Array's Reference is not shared, it is free'd.
+     * @post If the Array's Reference IS shared, it is decremented and detached.
+     */
+    ~ReferenceCountedArray() { CheckDeallocRef(); };
+
     ReferenceCountedArray(const Allocator& allocator = Allocator()) noexcept :
       ReferenceCountedArrayBase(), alloc(allocator) {
     }
@@ -445,13 +451,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
 
     /**
-     * @brief Array Destructor
-     * @post If the Array's Reference is not shared, it is free'd.
-     * @post If the Array's Reference IS shared, it is decremented and detached.
-     */
-    ~ReferenceCountedArray() { CheckDeallocRef(); };
-
-    /**
      * @brief Swap this with another
      */
     friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) {
@@ -505,6 +504,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       return *this;
     }
+  public:
 
     /**
      * @brief How many references does this object have?
