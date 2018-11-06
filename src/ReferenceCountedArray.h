@@ -147,7 +147,7 @@ class Slice {
 
   public:
     Slice() = delete;
-    Slice(T& _rca, ssize_t _start, ssize_t _len) :
+    Slice(T& _rca, ssize_t _start, ssize_t _len) noexcept :
       rca(_rca), start(_start), len(_len) {};
     Slice(const Slice& slice) noexcept = default;
     Slice(Slice&& slice) noexcept = default;
@@ -762,7 +762,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         /**
          * @brief Used by Cref operator[]
          */
-        Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), start(pos) {};
+        Cref(ReferenceCountedArray& _rca, size_t pos) noexcept : rca(_rca), start(pos) {};
 
       public:
         Cref() = delete;
