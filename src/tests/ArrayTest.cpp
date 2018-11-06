@@ -271,51 +271,260 @@ void ArrayTest :: findTest(void)
 
 void ArrayTest :: indexTest(void)
 {
+  str_c = new Array<String>(20);
+
   str_a->push("Test1");
   str_a->push("Test2");
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_a)[1]);
 
   (*str_b) = (*str_a);
+  (*str_c) = (*str_a);
 
+  size_t ref_a, ref_b, ref_c, ref_str_b_1, ref_str_a_1, ref_str_a, ref_str_b, ref_str_c;
+
+  ref_str_a = str_a->rcount();
+  ref_str_b = str_b->rcount();
+  ref_str_c = str_c->rcount();
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, ref_str_b);
+
+  CPPUNIT_ASSERT_EQUAL(str_a->rptr(), str_b->rptr());
+  CPPUNIT_ASSERT_EQUAL(str_a->rptr(), str_c->rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_a)[1].rptr(), (*str_b)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
   String a("Test5");
   String b(a);
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), b.rptr());
   (*str_a)[1] = a;
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), b.rptr());
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(b.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT(a.rptr() != str_b[1].rptr());
+  CPPUNIT_ASSERT(a.rptr() != str_c[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(str_b->rptr(), str_c->rptr());
+  ref_str_a = 1;
+  --ref_str_b;
+  ref_str_c = ref_str_b;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  ref_a = a.rcount();
+  ref_str_a_1 = ref_a;
+  ref_b = b.rcount();
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(ref_a, ref_b);
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_a)[1]);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
   CPPUNIT_ASSERT_STRING_EQUAL(a, b);
-  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast<String>((*str_a)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, (*str_a)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL("Test5", static_cast<String>((*str_a)[1]).c_str());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL("Test5", (*str_a)[1].get().c_str());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
 
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
-  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_b)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  ref_str_b_1 = (*str_b)[1].rcount();
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].get().rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  /* Test non-const reference  */
+  {
+    size_t ref_tmp = 0, ref_tmp_str_b_1;
+    ref_tmp_str_b_1 = ref_str_b_1;
+    String d((*str_b)[1]);
+    ++ref_tmp_str_b_1;
+    ref_tmp = ref_tmp_str_b_1;
+    CPPUNIT_ASSERT_STRING_EQUAL("Test2", d);
+    CPPUNIT_ASSERT_EQUAL((*str_b).rptr(), (*str_c).rptr());
+    CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+    CPPUNIT_ASSERT_EQUAL(d.rptr(), (*str_c)[1].rptr());
+    /* 2 because str_b==str_c ref still so item[1] is the same ref */
+    CPPUNIT_ASSERT_EQUAL(size_t(2), ref_tmp_str_b_1);
+    CPPUNIT_ASSERT_EQUAL(ref_tmp_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+    CPPUNIT_ASSERT_EQUAL(size_t(2), ref_tmp);
+    CPPUNIT_ASSERT_EQUAL(ref_tmp, ref_tmp_str_b_1);
+    CPPUNIT_ASSERT_EQUAL(ref_tmp, d.rcount());
+    CPPUNIT_ASSERT_EQUAL(ref_tmp+1, static_cast<String>((*str_b)[1]).rcount());
+  }
   const String c((*str_b)[1]);
-  CPPUNIT_ASSERT_EQUAL(size_t(2), c.rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), static_cast<String>((*str_b)[1]).rcount());
-  (*str_b)[1].get() = a;
-  CPPUNIT_ASSERT_EQUAL(size_t(4), a.rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(1), c.rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(5), static_cast<String>((*str_a)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(4), a.rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(5), static_cast<String>((*str_b)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(4), a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", c);
+  CPPUNIT_ASSERT_EQUAL((*str_b).rptr(), (*str_c).rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(c.rptr(), (*str_c)[1].rptr());
+  ++ref_str_b_1;
+  ref_c = ref_str_b_1;
+  /* 2 because str_b==str_c ref still so item[1] is the same ref */
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_c);
+  CPPUNIT_ASSERT_EQUAL(ref_c, ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_c, c.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_c+1, static_cast<String>((*str_b)[1]).rcount());
+  (*str_b)[1] = a;
+  /* str_b should split from str_c after being modified. */
+  CPPUNIT_ASSERT((*str_b).rptr() != (*str_c).rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), a.rptr());
+  CPPUNIT_ASSERT_EQUAL(c.rptr(), (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", c);
+  /* ref_c is not modified since str_b split off; it was a ref to str_c so it has no impact on item-level refs. */
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_c);
+  CPPUNIT_ASSERT_EQUAL(ref_c, c.rcount());
+  ++ref_a;
+  ++ref_b;
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(ref_a, ref_b);
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_b)[1].rptr());
+  CPPUNIT_ASSERT(a.rptr() != (*str_c)[1].rptr());
+  ref_str_b = 1;
+  --ref_str_c;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_c, str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_c);
+  CPPUNIT_ASSERT((*str_b)[1] != (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", c);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", (*str_b)[1]);
+  ref_str_b_1 = ref_c; /*not sure yet and sup with the later one?*/
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", (*str_b)[1]);
+  ++ref_str_a_1;
+  ref_str_b_1 = ref_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_a, ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_b)[1]);
-  CPPUNIT_ASSERT_EQUAL(size_t(4), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_b)[1].get().c_str());
-  CPPUNIT_ASSERT_EQUAL(size_t(4), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL(a, b);
-  CPPUNIT_ASSERT_EQUAL(size_t(4), a.rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(5), static_cast<String>((*str_a)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(5), static_cast<String>((*str_b)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL(size_t(4), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+
+  /* Check .get()= modifies the String not the Array */
+  (*str_c) = (*str_b);
+  ++ref_str_b;
+  ref_str_c = ref_str_b;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_c, str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL((*str_b).rptr(), (*str_c).rptr());
+
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), a.rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), b.rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+
+  String e("StringE");
+  size_t ref_e = 1;
+  (*str_b)[1] = e;
+  /* ref_a unmodified since str_c holds the ref now */
+  /* ref_str_a_1 unmodified since str_c holds the ref now */
+  ++ref_e;
+  ref_str_b_1 = ref_e;
+  ref_str_b = 1;
+  --ref_str_c;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_c, str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_c);
+  CPPUNIT_ASSERT((*str_b).rptr() != (*str_c).rptr());
+
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_e);
+  CPPUNIT_ASSERT_EQUAL(ref_e, e.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1, (*str_b)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(e.rptr(), (*str_b)[1].rptr());
+  CPPUNIT_ASSERT((*str_b)[1].rptr() != a.rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), e.rptr());
+  CPPUNIT_ASSERT((*str_b)[1].rptr() != (*str_a)[1].rptr());
+  CPPUNIT_ASSERT((*str_b)[1].rptr() != (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_a)[1].rptr(), (*str_c)[1].rptr());
+
 }
 
 void ArrayTest :: subArrayTest (void)

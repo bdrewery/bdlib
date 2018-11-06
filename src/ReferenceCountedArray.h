@@ -519,6 +519,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief How many references does this object have?
      */
     inline size_t rcount() const noexcept { return Ref ? Ref->refs.load() : 0; };
+#ifdef CPPUNIT_VERSION
+    inline intptr_t rptr() const noexcept __attribute__((pure)) { return (intptr_t)Ref; }
+#endif
+
     /**
      * @return True if this object is shared; false if not.
      */
@@ -798,6 +802,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
           rca.write(start, std::move(c));
           return (*this);
         };
+
+#ifdef CPPUNIT_VERSION
+        inline size_t rcount() const noexcept { return rca.read(start).rcount(); }
+        inline intptr_t rptr() const noexcept __attribute__((pure)) { return rca.read(start).rptr(); }
+#endif
     };
 
     /**
