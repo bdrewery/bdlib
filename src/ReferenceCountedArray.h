@@ -719,6 +719,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @sa at()
      * Unlike at() this is unchecked.
      */
+    inline reference read(size_t pos) noexcept __attribute__((pure)) {
+      return *(Buf(pos));
+    };
     inline const_reference read(size_t pos) const noexcept __attribute__((pure)) {
       return *(constBuf(pos));
     };
@@ -778,6 +781,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @sa ReferenceCountedArray::operator[]
          */
         inline operator const_reference() const noexcept __attribute__((pure)) {
+          return rca.read(start);
+        }
+
+        inline reference get(void) {
+          return rca.read(start);
+        }
+
+        inline const_reference get(void) const noexcept __attribute__((pure)) {
           return rca.read(start);
         }
 

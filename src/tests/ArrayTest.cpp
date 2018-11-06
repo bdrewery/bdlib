@@ -284,6 +284,12 @@ void ArrayTest :: indexTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
+
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", static_cast<String>((*str_b)[1]).c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1].get().c_str());
+  (*str_b)[1].get() = "Test3";
+  CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_b)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_b)[1].get().c_str());
 }
 
 void ArrayTest :: subArrayTest (void)
