@@ -278,18 +278,44 @@ void ArrayTest :: indexTest(void)
 
   (*str_b) = (*str_a);
 
-  (*str_a)[1] = "Test3";
+  String a("Test5");
+  String b(a);
+  (*str_a)[1] = a;
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
-  CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_a)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_a)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL(a, b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", static_cast<String>((*str_a)[1]).c_str());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", (*str_a)[1].get().c_str());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_a)[1]).rcount());
 
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
-
-  CPPUNIT_ASSERT_STRING_EQUAL("Test2", static_cast<String>((*str_b)[1]).c_str());
-  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1].get().c_str());
-  (*str_b)[1].get() = "Test3";
-  CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_b)[1]);
-  CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_b)[1].get().c_str());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a.rcount());
+  const String c((*str_b)[1]);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), c.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), static_cast<String>((*str_b)[1]).rcount());
+  (*str_b)[1].get() = a;
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), c.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_b)[1]);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_b)[1].get().c_str());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL(a, b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a.rcount());
 }
 
 void ArrayTest :: subArrayTest (void)
