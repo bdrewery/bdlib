@@ -757,19 +757,19 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       private:
         friend class ReferenceCountedArray;
         ReferenceCountedArray& rca;
-        size_t k;
+        size_t start;
 
         /**
          * @brief Used by Cref operator[]
          */
-        Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
+        Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), start(pos) {};
 
       public:
         Cref() = delete;
         Cref(const Cref& cref) noexcept = default;
         Cref(Cref&& cref) noexcept = default;
         inline Cref& operator=(const Cref& cref) && {
-          rca.write(k, value_type(cref));
+          rca.write(start, value_type(cref));
           return (*this);
         }
         inline Cref& operator=(Cref&& cref) && noexcept = default;
@@ -778,18 +778,18 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @sa ReferenceCountedArray::operator[]
          */
         inline operator value_type() const noexcept __attribute__((pure)) {
-          return rca.read(k);
+          return rca.read(start);
         }
 
         /**
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
          */
         inline Cref& operator=(const_reference c) && {
-          rca.write(k, c);
+          rca.write(start, c);
           return (*this);
         };
         inline Cref& operator=(value_type&& c) && {
-          rca.write(k, std::move(c));
+          rca.write(start, std::move(c));
           return (*this);
         };
     };
