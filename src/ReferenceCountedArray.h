@@ -739,15 +739,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     };
 
     /**
-     * @brief Safe element access operator
-     * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
-     */
-    inline const_reference operator[](size_t pos) const noexcept
-      __attribute__((pure)) {
-      return read(pos);
-    };
-
-    /**
      * @class Cref
      * @brief Safe element reading and writing.
      * This class should be optimized away and fully inlined such that:
@@ -803,6 +794,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
           rca.write(start, std::move(c));
           return (*this);
         };
+    };
+
+    /**
+     * @brief Safe element access operator
+     * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
+     */
+    inline const_reference operator[](size_t pos) const noexcept
+      __attribute__((pure)) {
+      return read(pos);
     };
 
     /**
