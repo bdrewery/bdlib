@@ -777,7 +777,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         /**
          * @sa ReferenceCountedArray::operator[]
          */
-        inline operator value_type() const noexcept __attribute__((pure)) {
+        inline operator const_reference() const noexcept __attribute__((pure)) {
           return rca.read(start);
         }
 
