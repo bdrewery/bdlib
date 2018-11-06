@@ -1197,13 +1197,13 @@ void StringTest :: substringTest(void)
   substring = a->substring(0, 30);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
 
-  String slice1 = (*a)(0);
-  CPPUNIT_ASSERT_EQUAL(a->length(), slice1.length());
+  auto slice1 = (*a)(0);
+  CPPUNIT_ASSERT_EQUAL(a->length(), slice1.get().length());
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", static_cast<String>(slice1));
-  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.get().c_str());
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
-  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.get()(0));
 
   substring = (*a)(0);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
@@ -1219,6 +1219,20 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
   CPPUNIT_ASSERT_STRING_EQUAL("cdefgh", substring(1));
   CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
+
+  /* This cannot compile since substring.get() is const */
+  //(*a)(1).get().replace(0, "blah");
+  static_assert(
+      is_const<decltype((*a)(1).get())>::value,
+      "slice.get() can only return const item");
+  static_assert(
+      is_same<decltype((*a)(1).get()), const String>::value,
+      "slice.get() should return a const String");
+  /* But this is fine since it copies into a new string: */
+  String foo{(*a)(1).get()};
+  foo.replace(0, "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("blahfgh", foo);
 
   *a = "This is a test";
   substring = (*a)(-4,4);
@@ -1344,7 +1358,7 @@ void StringTest :: substringTest(void)
   /* Rvalues should be treated as a String */
   CPPUNIT_ASSERT_STRING_EQUAL("ThIS", (*a)(0));
   CPPUNIT_ASSERT_STRING_EQUAL("h", (*a)(1, 1));
-  CPPUNIT_ASSERT_STRING_EQUAL(*a, static_cast<String>((*a)(0)).c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, (*a)(0).get().c_str());
 
   *a = "tESt TEST2 test3 TEST4";
   *b = a->substring(0, 4);
