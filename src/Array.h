@@ -108,7 +108,7 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
-    Array& operator=(const Array<value_type>& array) = default;
+    Array& operator=(const Array<value_type>& array)  noexcept = default;
     Array& operator=(Array<value_type>&& array) noexcept = default;
 
     /**
@@ -202,7 +202,7 @@ class Array : public ReferenceCountedArray<T> {
       return str;
     }
 
-    inline bool equals(const Array& array) const __attribute__((pure)) {
+    inline bool equals(const Array& array) const noexcept __attribute__((pure)) {
       return equals(array, array.length());
     }
     /**
@@ -211,7 +211,7 @@ class Array : public ReferenceCountedArray<T> {
      * @param n The number of items to equals.
      * @return True if the number of elements are the same, and they all are equal.
      */
-    bool equals(const Array& array, size_t n) const __attribute__((pure))
+    bool equals(const Array& array, size_t n) const noexcept __attribute__((pure))
     {
       size_t my_len = this->length();
       bool same_length = (my_len == array.length());
@@ -234,11 +234,11 @@ class Array : public ReferenceCountedArray<T> {
     }
 
     inline friend bool operator==(const Array& lhs, const Array& rhs)
-      __attribute__((pure)) {
+      noexcept __attribute__((pure)) {
       return lhs.size() == rhs.size() && lhs.equals(rhs);
     }
     inline friend bool operator!=(const Array& lhs, const Array& rhs)
-      __attribute__((pure)) {
+      noexcept __attribute__((pure)) {
         return !(lhs == rhs);
     }
 
@@ -246,7 +246,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @sa ReferenceCountedArray::slice()
      */
-    inline Array subarray(ssize_t start, ssize_t len = -1) const & {
+    inline Array subarray(ssize_t start, ssize_t len = -1) const & noexcept {
       Array newArray(*this);
       newArray.slice(start, len);
       return newArray;
@@ -258,11 +258,11 @@ class Array : public ReferenceCountedArray<T> {
      * @param start Starting position
      * @param len How many items to use
      */
-    inline Slice<Array> operator()(ssize_t start, ssize_t len = -1) {
+    inline Slice<Array> operator()(ssize_t start, ssize_t len = -1) noexcept {
       return Slice<Array>(*this, start, len);
     }
     inline const Slice<const Array> operator()(ssize_t start,
-        ssize_t len = -1) const {
+        ssize_t len = -1) const noexcept {
       return Slice<const Array>(*this, start, len);
     }
 
@@ -290,7 +290,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Prefix increment
      */
-    inline const Array& operator++() {
+    inline const Array& operator++() noexcept {
       return (*this) += 1;
     }
 
@@ -307,7 +307,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Prefix decrement
      */
-    inline const Array& operator--() {
+    inline const Array& operator--() noexcept {
       return (*this) -= 1;
     }
 

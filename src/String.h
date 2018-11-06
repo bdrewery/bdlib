@@ -64,7 +64,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         static unsigned char cleanse_ctr;
 
         /* Cleanse our buffer using OPENSSL_cleanse() */
-        void cleanse() {
+        void cleanse() noexcept {
           const size_t len = capacity();
           char* ptr = const_cast<char*>(real_begin()); //real_begin() will ignore offset.
 
@@ -144,7 +144,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           }
         }
 
-        String& operator=(const String& string) = default;
+        String& operator=(const String& string) noexcept = default;
         String& operator=(String&& string) noexcept = default;
 
         /**
@@ -152,7 +152,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param str The substring to look for
          * @return The position of the string if found, or String::npos if not found
          **/
-        size_t find(const String& str) const __attribute__((pure));
+        size_t find(const String& str) const noexcept __attribute__((pure));
         using ReferenceCountedArray<String_Array_Type, Allocator>::find;
 
         /**
@@ -163,7 +163,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @sa find
          */
         size_t rfind(const String& str, const size_t lpos = 0) const
-          __attribute__((pure));
+          noexcept __attribute__((pure));
         using ReferenceCountedArray<String_Array_Type, Allocator>::rfind;
 
         /**
@@ -190,7 +190,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post There is a '\\0' at the end of the buffer.
 	 * @post The actual String size is unchanged.
 	 */
-        const char* c_str() const {
+        const char* c_str() const noexcept {
           AboutToModify(length() + 1);
           *(Buf(length())) = '\0';
           return data();
@@ -211,12 +211,12 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param dst The destination cstring ptr;
          * @param n The number of characters to copy out
          */
-        size_t copy(char* dst, size_t n = npos) const;
+        size_t copy(char* dst, size_t n = npos) const noexcept;
 
         /**
          * @sa c_str()
          */
-        inline const char* operator*() const { return c_str(); };
+        inline const char* operator*() const noexcept { return c_str(); };
 
         /**
          * @sa c_str()
@@ -238,7 +238,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @brief Trim off \\n,\\r,\\r\\n from end
          * @return The string, to allow for chaining
          */
-        String& chomp();
+        String& chomp() noexcept;
 
         /**
          * @brief Trim off \\n,\\r,\\r\n from end
@@ -250,7 +250,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @brief Trim off whitespace
          * @return The string, to allow for chaining
          */
-        String& trim();
+        String& trim() noexcept;
 
         /**
          * @brief Trim off whitespace
@@ -269,7 +269,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa ReferenceCountedArray::slice()
          */
-        inline String substring(ssize_t start, ssize_t len = -1) const & {
+        inline String substring(ssize_t start, ssize_t len = -1) const & noexcept {
           String newString(*this);
           newString.slice(start, len);
           return newString;
@@ -281,10 +281,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param start Starting position
          * @param len How many items to use
          */
-        inline Slice<String> operator()(ssize_t start, ssize_t len = -1) {
+        inline Slice<String> operator()(ssize_t start, ssize_t len = -1) noexcept {
           return Slice<String>(*this, start, len);
         }
-        inline const Slice<const String> operator()(ssize_t start, ssize_t len = -1) const {
+        inline const Slice<const String> operator()(ssize_t start, ssize_t len = -1) const noexcept {
           return Slice<const String>(*this, start, len);
         }
 
@@ -295,7 +295,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
          */
         int compare(const String& str, size_t n = npos) const
-          __attribute__((pure));
+          noexcept __attribute__((pure));
 
         Array<String> split(const String&, size_t limit = npos) const;
 
@@ -403,7 +403,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @brief Prefix increment
          */
-        inline const String& operator++() {
+        inline const String& operator++() noexcept {
           return (*this) += size_t(1);
         }
 
@@ -419,7 +419,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @brief Prefix decrement
          */
-        inline const String& operator--() {
+        inline const String& operator--() noexcept {
           return (*this) -= 1;
         }
 
@@ -435,12 +435,12 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         //using ReferenceCountedArray<String_Array_Type, Allocator>::operator=;
 
         friend String operator+(String, const String&);
-        friend bool operator==(const String&, const String&);
-        friend bool operator!=(const String&, const String&);
-        friend bool operator<(const String&, const String&);
-        friend bool operator<=(const String&, const String&);
-        friend bool operator>(const String&, const String&);
-        friend bool operator>=(const String&, const String&);
+        friend bool operator==(const String&, const String&) noexcept;
+        friend bool operator!=(const String&, const String&) noexcept;
+        friend bool operator<(const String&, const String&) noexcept;
+        friend bool operator<=(const String&, const String&) noexcept;
+        friend bool operator>(const String&, const String&) noexcept;
+        friend bool operator>=(const String&, const String&) noexcept;
 
         friend std::ostream& operator<<(std::ostream&, const String&);
         friend std::ostream& operator<<(std::ostream&, String&&);
@@ -470,33 +470,33 @@ inline String operator+(String string1, const String& string2) {
 
 // comparison operators:
 inline bool __attribute__((pure))
-operator==(const String& lhs, const String& rhs) {
+operator==(const String& lhs, const String& rhs) noexcept {
   return (lhs.length() == rhs.length() &&
       lhs.compare(rhs) == 0);
 }
 
 inline bool __attribute__((pure))
-operator!=(const String& lhs, const String& rhs) {
+operator!=(const String& lhs, const String& rhs) noexcept {
   return ! (lhs == rhs);
 }
 
 inline bool __attribute__((pure))
-operator<(const String& lhs, const String& rhs) {
+operator<(const String& lhs, const String& rhs) noexcept {
   return (lhs.compare(rhs) < 0);
 }
 
 inline bool __attribute__((pure))
-operator<=(const String& lhs, const String& rhs) {
+operator<=(const String& lhs, const String& rhs) noexcept {
   return ! (rhs < lhs);
 }
 
 inline bool __attribute__((pure))
-operator>(const String& lhs, const String& rhs) {
+operator>(const String& lhs, const String& rhs) noexcept {
   return (rhs < lhs);
 }
 
 inline bool __attribute__((pure))
-operator>=(const String& lhs, const String& rhs) {
+operator>=(const String& lhs, const String& rhs) noexcept {
   return ! (lhs < rhs);
 }
 

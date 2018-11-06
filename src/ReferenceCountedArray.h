@@ -119,7 +119,7 @@ class ArrayRef {
     /**
      * @brief Is this ReferenceCountedArray shared?
      */
-    inline bool isShared() const __attribute__((pure)) {
+    inline bool isShared() const noexcept __attribute__((pure)) {
       return refs > 1;
     }
   private:
@@ -149,19 +149,19 @@ class Slice {
     Slice() = delete;
     Slice(T& _rca, ssize_t _start, ssize_t _len) :
       rca(_rca), start(_start), len(_len) {};
-    Slice(const Slice& slice) = default;
+    Slice(const Slice& slice) noexcept = default;
     Slice(Slice&& slice) noexcept = default;
 
     /**
      * @brief return a new (const) slice
      */
-    inline operator T_noconst() const {
+    inline operator T_noconst() const noexcept {
       T_noconst newArray(rca);
       newArray.slice(start, len);
       return newArray;
     };
 
-    inline const T_noconst get(void) const {
+    inline const T_noconst get(void) const noexcept {
       return static_cast<T_noconst>(*this);
     };
 
@@ -229,7 +229,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used)
      * @note This does not free the old reference, as it is still in use
      */
-    void doDetach() const {
+    void doDetach() const noexcept {
       decRef();
       Ref = nullptr;
       sublen = 0;
@@ -239,46 +239,46 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Increment our reference counter.
      */
-    inline int incRef() const { return Ref ? ++Ref->refs : 0; };
+    inline int incRef() const noexcept { return Ref ? ++Ref->refs : 0; };
 
     /**
      * @brief Decrement our reference counter.
      */
-    inline int decRef() const { return Ref ? --Ref->refs : 0; };
+    inline int decRef() const noexcept { return Ref ? --Ref->refs : 0; };
 
   protected:
     /**
      * @brief Set the lengths to the specified length
      * @param newLen the new length to set to
      */
-    inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
+    inline void setLength(size_t newLen) const noexcept { sublen = newLen; my_hash = 0; };
 
     /**
      * @sa setLength()
      */
-    inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
+    inline void addLength(size_t diff) const noexcept { sublen += diff; my_hash = 0; };
 
     /**
      * @sa setLength()
      */
-    inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
+    inline void subLength(size_t diff) const noexcept { sublen -= diff; my_hash = 0; };
 
     /**
      * @brief Mutable Ref->buf+offset reference for use internally
      */
-    //pointer mdata() const { return Buf() + offset; };
+    //pointer mdata() const noexcept { return Buf() + offset; };
 
     /**
      * @brief Mutable Ref->buf reference for use internally
      */
-    inline pointer Buf(size_t pos = 0) const __attribute__((pure)) {
+    inline pointer Buf(size_t pos = 0) const noexcept __attribute__((pure)) {
       return Ref ? &Ref->buf[offset + pos] : nullptr;
     }
 
     /**
      * @brief Ref->buf reference for use internally
      */
-    inline const_pointer constBuf(size_t pos = 0) const __attribute__((pure)) {
+    inline const_pointer constBuf(size_t pos = 0) const noexcept __attribute__((pure)) {
       return Buf(pos);
     }
   private:
@@ -292,7 +292,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
      */
-    inline const_pointer real_begin() const __attribute__((pure)) {
+    inline const_pointer real_begin() const noexcept __attribute__((pure)) {
       return Ref ? Ref->buf : nullptr;
     }
 
@@ -316,7 +316,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is called when the old buffer is no longer needed.
      * ie, operator=() was called.
      */
-    void Detach() {
+    void Detach() noexcept {
       if (isShared()) {
         doDetach();
       } else {
@@ -333,7 +333,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is only called in ~Array() and operator=(Array&).
      * It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it.
      */
-    inline void CheckDeallocRef() {
+    inline void CheckDeallocRef() noexcept {
       if (Ref && decRef() < 1) {
         delete Ref;
         Ref = nullptr;
@@ -458,7 +458,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Swap this with another
      */
-    friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) {
+    friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) noexcept {
       using std::swap;
 
       swap(a.alloc, b.alloc);
@@ -477,7 +477,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @return The new rca object.
      * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
-    ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
+    ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) noexcept {
       rca.incRef();
       alloc = rca.alloc;
       offset = rca.offset;
@@ -514,11 +514,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief How many references does this object have?
      */
-    inline size_t rcount() const { return Ref ? Ref->refs.load() : 0; };
+    inline size_t rcount() const noexcept { return Ref ? Ref->refs.load() : 0; };
     /**
      * @return True if this object is shared; false if not.
      */
-    inline bool isShared() const __attribute__((pure)) {
+    inline bool isShared() const noexcept __attribute__((pure)) {
       return Ref && Ref->isShared();
     }
 
@@ -539,13 +539,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Clear contents of ReferenceCountedArray and set length to 0
      */
-    inline void clear() { Detach(); };
+    inline void clear() noexcept { Detach(); };
 
     /**
      * @brief Returns capacity of the ReferenceCountedArray object.
      * @return Capacity of the ReferenceCountedArray object.
      */
-    inline size_t capacity() const __attribute__((pure)) {
+    inline size_t capacity() const noexcept __attribute__((pure)) {
       return Ref ? Ref->size : 0;
     }
 
@@ -570,13 +570,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns length of the ReferenceCountedArray.
      * @return Length of the ReferenceCountedArray.
      */
-    inline size_t length() const __attribute__((pure)) {
+    inline size_t length() const noexcept __attribute__((pure)) {
       return sublen;
     }
     /**
      * @sa length()
      */
-    inline size_t size() const __attribute__((pure)) {
+    inline size_t size() const noexcept __attribute__((pure)) {
       return length();
     }
 
@@ -584,7 +584,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Check whether the ReferenceCountedArray is 'empty'
      * @return True if empty, false if non-empty
      */
-    inline bool isEmpty() const __attribute__((pure)) {
+    inline bool isEmpty() const noexcept __attribute__((pure)) {
       return length() == 0;
     }
     /**
@@ -592,10 +592,10 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is for: if (!string)
      * Having if(string) conflicts with another operator
      */
-    inline bool operator!() const __attribute__((pure)) {
+    inline bool operator!() const noexcept __attribute__((pure)) {
       return isEmpty();
     }
-    inline explicit operator bool() const __attribute__((pure)) {
+    inline explicit operator bool() const noexcept __attribute__((pure)) {
       return !isEmpty();
     }
 
@@ -603,7 +603,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Data accessor
      * @return Pointer to array of characters (not necesarily null-terminated).
      */
-    inline const_pointer data() const __attribute__((pure)) {
+    inline const_pointer data() const noexcept __attribute__((pure)) {
       return constBuf();
     }
     /**
@@ -618,13 +618,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator begin() { return iterator(mdata()); };
 
-    inline const_iterator cbegin() const __attribute__((pure)) {
+    inline const_iterator cbegin() const noexcept __attribute__((pure)) {
       return const_iterator(this->data());
     };
     /**
      * @brief Returns a read-only iterator into the Array
      */
-    inline const_iterator begin() const __attribute__((pure)) {
+    inline const_iterator begin() const noexcept __attribute__((pure)) {
       return this->cbegin();
     }
 
@@ -634,13 +634,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator end() { return iterator(begin()) + length(); };
 
-    inline const_iterator cend() const __attribute__((pure)) {
+    inline const_iterator cend() const noexcept __attribute__((pure)) {
       return const_iterator(this->cbegin()) + this->length();
     };
     /**
      * @brief Returns a read-only iterator at the end of the Array
      */
-    inline const_iterator end() const __attribute__((pure)) {
+    inline const_iterator end() const noexcept __attribute__((pure)) {
       return this->cend();
     }
 
@@ -650,13 +650,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline reverse_iterator rbegin() { return reverse_iterator(this->end()); };
 
-    inline const_reverse_iterator crbegin() const {
+    inline const_reverse_iterator crbegin() const noexcept {
       return const_reverse_iterator(this->cend());
     };
     /**
      * @brief Returns a read-only reverse iterator at the end of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rbegin() const __attribute__((pure)) {
+    inline const_reverse_iterator rbegin() const noexcept __attribute__((pure)) {
       return this->crbegin();
     }
 
@@ -666,13 +666,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline reverse_iterator rend() { return reverse_iterator(this->begin()); };
 
-    inline const_reverse_iterator crend() const __attribute__((pure)) {
+    inline const_reverse_iterator crend() const noexcept __attribute__((pure)) {
       return const_reverse_iterator(this->cbegin());
     };
     /**
      * @brief Returns a read-only reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rend() const __attribute__((pure)) {
+    inline const_reverse_iterator rend() const noexcept __attribute__((pure)) {
       return this->crend();
     }
 
@@ -680,7 +680,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Return a hash of every element in the array. Cache result as well.
      * @note DJB's hash function
      */
-    size_t hash() const {
+    size_t hash() const noexcept {
       if (my_hash != 0) return my_hash;
       std::hash<value_type> hasher;
       size_t _hash = 5381;
@@ -695,7 +695,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Find an item in the array
      * @return The position of the item if found, or npos if not found
      **/
-    size_t find(const_reference item) const __attribute__((pure)) {
+    size_t find(const_reference item) const noexcept __attribute__((pure)) {
       for (size_t i = 0; i < length(); ++i)
         if (*(constBuf(i)) == item)
           return i;
@@ -706,7 +706,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Find an item in the array, starting from the end
      * @return The position of the item if found, or npos if not found
      **/
-    size_t rfind(const_reference item) const __attribute__((pure)) {
+    size_t rfind(const_reference item) const noexcept __attribute__((pure)) {
       for (size_t i = length() - 1; i + 1 > 0; --i)
         if (*(constBuf(i)) == item)
           return i;
@@ -766,8 +766,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       public:
         Cref() = delete;
-        Cref(const Cref& cref) = default;
-        Cref(Cref&& cref) = default;
+        Cref(const Cref& cref) noexcept = default;
+        Cref(Cref&& cref) noexcept = default;
         inline Cref& operator=(const Cref& cref) && {
           rca.write(k, value_type(cref));
           return (*this);
@@ -798,7 +798,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns 'Cref' class for safe (cow) writing.
      * @sa Cref
      */
-    inline Cref operator[](size_t pos) { return Cref(*this, pos); };
+    inline Cref operator[](size_t pos) noexcept { return Cref(*this, pos); };
 
     /**
      * @brief Returns the character at the given index.
@@ -818,7 +818,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param len The length of the subarray to return
      * The returned slice is a reference to the original array until modified.
      */
-    void slice(ssize_t start, ssize_t len = -1) {
+    void slice(ssize_t start, ssize_t len = -1) noexcept {
       if (len == -1) len = int(length()) - start;
       // Start is after the end, set us to an empty array
       if (start >= static_cast<signed>(length())) {

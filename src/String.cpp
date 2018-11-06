@@ -40,7 +40,7 @@ BDLIB_NS_BEGIN
 unsigned char String::cleanse_ctr = 0;
 
 /* Accessors */
-int String::compare(const String& str, size_t n) const
+int String::compare(const String& str, size_t n) const noexcept
 {
   if (n == 0)
     return 0;
@@ -60,7 +60,7 @@ int String::compare(const String& str, size_t n) const
 }
 
 /* Setters */
-size_t String::copy(char *dst, size_t n) const
+size_t String::copy(char *dst, size_t n) const noexcept
 {
   const auto slen = std::min(n, length());
 
@@ -210,13 +210,13 @@ String String::printf(const char* format, ...) {
   return String(va_out, len);
 }
 
-String& String::chomp() {
+String& String::chomp() noexcept {
   if (length() && (*this)[length() - 1] == '\n') --(*this);
   if (length() && (*this)[length() - 1] == '\r') --(*this);
   return *this;
 }
 
-String& String::trim() {
+String& String::trim() noexcept {
   // ltrim
   while (length() && isspace((*this)[0])) { ++offset; subLength(1); }
   // rtrim
@@ -224,7 +224,7 @@ String& String::trim() {
   return *this;
 }
 
-size_t String::find(const String& str) const {
+size_t String::find(const String& str) const noexcept {
   if (str.length() == 0)
     return 0;
 #ifdef HAVE_MEMMEM
@@ -259,7 +259,7 @@ size_t String::rifind(const String& str, const size_t lpos) const {
   return this_upper.rfind(str_upper);
 }
 
-size_t String::rfind(const String& str, const size_t lpos) const {
+size_t String::rfind(const String& str, const size_t lpos) const noexcept {
   if (str.length() == 0)
     return length() - 1;
   if (length() >= str.length()) {
