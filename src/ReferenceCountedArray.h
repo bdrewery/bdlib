@@ -413,9 +413,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       Ref(rca.Ref), offset(rca.offset),
       sublen(rca.sublen), my_hash(rca.my_hash) {
       rca.Ref = nullptr;
+#ifdef CPPUNIT_VERSION
       rca.offset = 0;
       rca.sublen = 0;
       rca.my_hash = 0;
+#endif
     }
 
     /**
@@ -502,9 +504,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       my_hash = rca.my_hash;
       Ref = rca.Ref;
 
+#ifdef CPPUNIT_VERSION
       rca.offset = 0;
       rca.sublen = 0;
       rca.my_hash = 0;
+#endif
       rca.Ref = nullptr;
 
       return *this;
