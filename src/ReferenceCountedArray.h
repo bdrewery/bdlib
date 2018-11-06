@@ -83,7 +83,8 @@ class ArrayRef {
 
         if (newbuf != buf) {
           // Initialize new memory
-          std::uninitialized_fill(newbuf, newbuf + newSize, T());
+          if (std::is_class<T>::value)
+            std::uninitialized_fill(newbuf, newbuf + newSize, T());
           if (buf) {
             /* Copy old buffer into new - only copy the subarray */
             std::copy(buf + offset, buf + offset + sublen, newbuf);
@@ -110,8 +111,10 @@ class ArrayRef {
      * @todo Implement mempool here.
      */
     inline void FreeBuf(iterator p) const {
-      for (iterator i = p; i != p + size; ++i) {
-        alloc.destroy(i);
+      if (std::is_class<T>::value) {
+        for (iterator i = p; i != p + size; ++i) {
+          alloc.destroy(i);
+        }
       }
       alloc.deallocate(p, size);
     }
