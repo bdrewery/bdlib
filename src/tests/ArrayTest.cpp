@@ -372,6 +372,7 @@ void ArrayTest :: indexTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b_1);
   CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].get().rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b).at(1).rcount());
   CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
   CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
