@@ -808,7 +808,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @sa operator[]()
      * @todo Perhaps this should throw an exception if out of range?
      */
-    inline value_type at(size_t pos) const {
+    inline const_reference at(size_t pos) const {
       validateIndex(pos);
       return (*this)[pos];
     };
