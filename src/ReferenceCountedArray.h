@@ -398,7 +398,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post If the Array's Reference is not shared, it is free'd.
      * @post If the Array's Reference IS shared, it is decremented and detached.
      */
-    ~ReferenceCountedArray() { CheckDeallocRef(); };
+    virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
 
     ReferenceCountedArray(const Allocator& allocator = Allocator()) noexcept :
       ReferenceCountedArrayBase(), alloc(allocator) {
@@ -532,7 +532,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param scaling_factor How much to multiple the size by to help avoid later resizing
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    void Reserve(const size_t newSize,
+    virtual void Reserve(const size_t newSize,
         double scaling_factor = 1) const {
       if (!Ref) {
         Ref = new ArrayRef<value_type, Allocator>(alloc);

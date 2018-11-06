@@ -59,23 +59,22 @@ void StreamTest :: tearDown (void)
 void StreamTest :: reserveTest (void)
 {
   a->Reserve(2000);
-  CPPUNIT_ASSERT((a->capacity() % 2048) == 0);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2048), a->capacity());
 
   b->Reserve(10);
-  CPPUNIT_ASSERT(b->capacity() >= 1024);
-  CPPUNIT_ASSERT(h->capacity() >= 1024);
-  CPPUNIT_ASSERT((b->capacity() % 1024) == 0);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(1024), b->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(1024), h->capacity());
 
   char buf[2050];
   memset(buf, 'c', sizeof(buf) - 1);
   buf[sizeof(buf) - 1] = 0;
   g->puts(buf);
 
-  CPPUNIT_ASSERT((g->capacity() >= 2048));
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2048), g->capacity());
 
   /* Reference counted */
   b->puts(buf);
-  CPPUNIT_ASSERT((b->capacity() >= 2048));
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2048), b->capacity());
 }
 
 void StreamTest :: tellTest (void)

@@ -102,17 +102,17 @@ void StringTest :: clearTest (void)
 
 void StringTest :: capacityTest (void)
 {
-  CPPUNIT_ASSERT(b->capacity() >= 4);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(4), b->capacity());
   CPPUNIT_ASSERT_EQUAL(b->capacity(), c->capacity());
   CPPUNIT_ASSERT(d->capacity() >= strlen(cstring));
   CPPUNIT_ASSERT_EQUAL(d->capacity(), e->capacity());
-  CPPUNIT_ASSERT(f->capacity() >= 11);
-  CPPUNIT_ASSERT(g->capacity() >= 1);
-  CPPUNIT_ASSERT(h->capacity() >= 35);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(11), f->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(1), g->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(35), h->capacity());
 
   *a = String();
   // This is just a crash test
-  CPPUNIT_ASSERT(ssize_t(a->capacity()) >= 0);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(0), a->capacity());
 }
 
 void StringTest :: compareTest (void)
@@ -233,6 +233,14 @@ void StringTest :: setTest (void)
 
 void StringTest :: c_strTest(void)
 {
+  CPPUNIT_ASSERT_EQUAL(size_t(4), (*b).length());
+  CPPUNIT_ASSERT_EQUAL(size_t(5), (*b).capacity());
+  CPPUNIT_ASSERT_EQUAL((int)'b', (int)(*b)[0]);
+  CPPUNIT_ASSERT_EQUAL((int)'l', (int)(*b)[1]);
+  CPPUNIT_ASSERT_EQUAL((int)'a', (int)(*b)[2]);
+  CPPUNIT_ASSERT_EQUAL((int)'h', (int)(*b)[3]);
+  CPPUNIT_ASSERT_EQUAL((int)'\0', (int)(*b)[4]);
+
   const char *b_test = b->c_str();
   const char *c_test = c->c_str();
   const char *d_test = d->c_str();
@@ -249,6 +257,7 @@ void StringTest :: c_strTest(void)
   *a = (*f)(2, 5);
   const char *x = a->dup();
   CPPUNIT_ASSERT_STRING_EQUAL("STING", *a);
+  CPPUNIT_ASSERT_EQUAL('\0', x[5]);
   CPPUNIT_ASSERT_STRING_EQUAL("STING", x);
   delete[] x;
 
@@ -1496,20 +1505,20 @@ void StringTest :: substringTest(void)
 
 
   String big("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaa");
-  CPPUNIT_ASSERT_EQUAL(size_t(130), big.capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(130), big.capacity());
   CPPUNIT_ASSERT_EQUAL(size_t(130), big.length());
 
   String sub = big(120, 10);
   // Detach so 'sub' is no longer shared
   big += "blah";
-  CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(130), sub.capacity());
   CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
 
   // This will throw an error in valgrind in String::Reserve due to offsetting problems if not correct
   CPPUNIT_ASSERT_EQUAL(0, strcmp(sub.c_str(), "aaaaaaaaaa"));
-  CPPUNIT_ASSERT(sub.capacity() >= 11);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(11), sub.capacity());
   // This is an optimization check, it should be reusing the original buffer which was 130 big
-  CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(130), sub.capacity());
 
   CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
   CPPUNIT_ASSERT_STRING_EQUAL("aaaaaaaaaa", sub);
