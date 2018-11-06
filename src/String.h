@@ -31,6 +31,7 @@
 #include "bdlib.h"
 #include "ReferenceCountedArray.h"
 
+#include <assert.h>
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
