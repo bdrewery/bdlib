@@ -329,6 +329,15 @@ void StringTest :: indexTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("tHHT sTTa test", *b);
+
+  const String constString("THIS CANNOT BE MODIFIED");
+  char ch = 'a';
+  static_assert(
+      !std::is_assignable<decltype(constString[0]), decltype(ch)>::value,
+      "const cref should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constString[0]), decltype(std::move(ch))>::value,
+      "const cref should not be assignable");
 }
 
 void StringTest :: iteratorTest(void)
