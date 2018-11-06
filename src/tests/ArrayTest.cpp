@@ -31,6 +31,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <type_traits>
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (ArrayTest);
@@ -363,8 +364,13 @@ void ArrayTest :: indexTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
   CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
   CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount(), (*str_b)[1].get().rcount());
+  /* For some reason casting (which uses get()) causes a temporary ref  */
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, static_cast<const String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, static_cast<String>((*str_b)[1]).rcount());
   ref_str_b_1 = (*str_b)[1].rcount();
   CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].get().rcount());
   CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
   CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
@@ -492,7 +498,15 @@ void ArrayTest :: indexTest(void)
 
   String e("StringE");
   size_t ref_e = 1;
-  (*str_b)[1] = e;
+  static_assert(
+      !std::is_assignable<decltype((*str_b)[1].get()),
+      decltype(e)>::value,
+      "Array.Cref.get() should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype((*str_b)[1].get()),
+      const String>::value,
+      "Array.Cref.get() should not be assignable");
+  (*str_b)[1].mget() = e;
   /* ref_a unmodified since str_c holds the ref now */
   /* ref_str_a_1 unmodified since str_c holds the ref now */
   ++ref_e;

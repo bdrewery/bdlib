@@ -783,13 +783,20 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * @sa ReferenceCountedArray::operator[]
          */
         inline operator const_reference() const noexcept __attribute__((pure)) {
+          return get();
+        }
+
+        /*
+         * @brief Returns the element but does a COW since it may be written to.
+         */
+        inline reference mget(void) {
+          rca.getOwnCopy();
           return rca.read(start);
         }
 
-        inline reference get(void) {
-          return rca.read(start);
-        }
-
+        /*
+         * @brief Returns the element without a COW.
+         */
         inline const_reference get(void) const noexcept __attribute__((pure)) {
           return rca.read(start);
         }
@@ -808,7 +815,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
 #ifdef CPPUNIT_VERSION
         inline size_t rcount() const noexcept { return rca.read(start).rcount(); }
-        inline intptr_t rptr() const noexcept __attribute__((pure)) { return rca.read(start).rptr(); }
+        inline intptr_t rptr() const noexcept __attribute__((pure)) { return get().rptr(); }
 #endif
     };
 
