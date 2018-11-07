@@ -464,7 +464,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         friend std::ostream& operator>>(std::ostream&, const String&);
 
 #ifdef CPPUNIT_VERSION
-        static void checkStringEqual(const String expected, const String actual, CPPUNIT_NS::SourceLine sourceLine) {
+        static void checkStringEqual(const String& expected, const String& actual, CPPUNIT_NS::SourceLine sourceLine) {
           if (expected == actual) return;
           ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
         }
