@@ -254,6 +254,13 @@ void StringTest :: c_strTest(void)
   CPPUNIT_ASSERT(strcmp(f_test, d_test) < 0);
 
   *f = "TESTING 1 2 3 4";
+  std::string sstring(*f);
+  CPPUNIT_ASSERT_EQUAL(std::string("TESTING 1 2 3 4"), std::string(*f));
+  (*f)[2] = 's';
+  sstring[1] = 'a';
+  CPPUNIT_ASSERT_STRING_EQUAL("TEsTING 1 2 3 4", *f);
+  CPPUNIT_ASSERT_EQUAL(std::string("TaSTING 1 2 3 4"), sstring);
+  (*f)[2] = 'S';
   *a = (*f)(2, 5);
   const char *x = a->dup();
   CPPUNIT_ASSERT_STRING_EQUAL("STING", *a);

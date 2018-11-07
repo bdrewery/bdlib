@@ -89,6 +89,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
 	String(const String& string) noexcept = default;
 	String(String&& string) noexcept = default;
+        explicit String(const std::string& str) : String(str.data(), str.length()) {};
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
@@ -224,6 +225,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           std::copy(cbegin(), cend(), ret);
           ret[length()] = '\0';
           return ret;
+        }
+
+        explicit operator std::string() const {
+          return std::string(data(), length());
         }
 
         /**
@@ -554,7 +559,7 @@ struct assertion_traits<BDLIB_NS::String>
 
     static std::string toString(const BDLIB_NS::String& x)
     {
-      std::string ret(x.data(), x.length());
+      std::string ret(x);
       return ret;
     }
 };
