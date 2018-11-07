@@ -38,13 +38,16 @@
 #include <functional>
 #include <cstring>
 
-
 #ifdef CPPUNIT_VERSION
+#include <string>
 #include <cppunit/SourceLine.h>
 #include <cppunit/TestAssert.h>
-#define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual) BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
+#define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual, ...) \
+  CPPUNIT_ASSERT_EQUAL(\
+      static_cast<const BDLIB_NS::String>(expected), \
+      static_cast<const BDLIB_NS::String>(actual), \
+      ##__VA_ARGS__);
 #endif /* CPPUNIT_VERSION */
-
 
 BDLIB_NS_BEGIN
 template <class T>
@@ -462,14 +465,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         friend std::ostream& operator<<(std::ostream&, const String&);
         friend std::ostream& operator<<(std::ostream&, String&&);
         friend std::ostream& operator>>(std::ostream&, const String&);
-
-#ifdef CPPUNIT_VERSION
-        static void checkStringEqual(const String& expected, const String& actual, CPPUNIT_NS::SourceLine sourceLine) {
-          if (expected == actual) return;
-          ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
-        }
-#endif /* CPPUNIT_VERSION */
-
 };
 
 /**
@@ -536,6 +531,36 @@ std::istream& operator>>(std::istream&, String&);
 std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END
+
+#ifdef CPPUNIT_VERSION
+CPPUNIT_NS_BEGIN
+template <>
+struct assertion_traits<BDLIB_NS::String>
+{
+    static bool equal(const BDLIB_NS::String& x, const BDLIB_NS::String& y)
+    {
+        return x == y;
+    }
+
+    static bool less(const BDLIB_NS::String& x, const BDLIB_NS::String& y)
+    {
+        return x < y;
+    }
+
+    static bool lessEqual(const BDLIB_NS::String& x, const BDLIB_NS::String& y)
+    {
+        return x <= y;
+    }
+
+    static std::string toString(const BDLIB_NS::String& x)
+    {
+      std::string ret(x.data(), x.length());
+      return ret;
+    }
+};
+CPPUNIT_NS_END
+#endif
+
 
 namespace std {
   template<>
