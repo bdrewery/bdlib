@@ -364,8 +364,15 @@ void ArrayTest :: indexTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
   CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
   CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].get().rcount());
   CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount(), (*str_b)[1].get().rcount());
   /* For some reason casting (which uses get()) causes a temporary ref  */
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<const String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), String((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, String((*str_b)[1]).rcount());
   CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, static_cast<const String>((*str_b)[1]).rcount());
   CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, static_cast<String>((*str_b)[1]).rcount());
   ref_str_b_1 = (*str_b)[1].rcount();
