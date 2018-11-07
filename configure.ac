@@ -95,7 +95,7 @@ AC_SUBST(DEBUG_CXXFLAGS)
 
 AC_ARG_WITH([cppunit], AS_HELP_STRING([--with-cppunit], [Build with the cppunit support]))
 if test "x$with_cppunit" = "xyes"; then
-  PKG_CHECK_MODULES([CPPUNIT], [cppunit])
+  PKG_CHECK_MODULES([CPPUNIT], [cppunit >= 1.14.0])
 fi
 
 AC_HEADER_STDC
