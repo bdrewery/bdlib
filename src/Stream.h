@@ -48,7 +48,7 @@ BDLIB_NS_BEGIN
 
 class Stream {
   protected:
-        String str;
+        String str{};
         size_t pos = 0;
         bool loading = false;
 
