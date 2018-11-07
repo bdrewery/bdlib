@@ -93,7 +93,10 @@ AC_SUBST(AM_CXXFLAGS)
 AC_SUBST(CPPUNIT_CXXFLAGS)
 AC_SUBST(DEBUG_CXXFLAGS)
 
-AM_PATH_CPPUNIT(1.9.10)
+AC_ARG_WITH([cppunit], AS_HELP_STRING([--with-cppunit], [Build with the cppunit support]))
+if test "x$with_cppunit" = "xyes"; then
+  PKG_CHECK_MODULES([CPPUNIT], [cppunit])
+fi
 
 AC_HEADER_STDC
 
