@@ -372,9 +372,13 @@ void ArrayTest :: indexTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<const String>((*str_b)[1]).rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_b)[1]).rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(2), String((*str_b)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, String((*str_b)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, static_cast<const String>((*str_b)[1]).rcount());
-  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount()+1, static_cast<String>((*str_b)[1]).rcount());
+  {
+    /* Clang and GCC differ in the expected rcount if .rcount() is called in the assertion. */
+    const size_t rcount = (*str_b)[1].rcount();
+    CPPUNIT_ASSERT_EQUAL(rcount+1, String((*str_b)[1]).rcount());
+    CPPUNIT_ASSERT_EQUAL(rcount+1, static_cast<const String>((*str_b)[1]).rcount());
+    CPPUNIT_ASSERT_EQUAL(rcount+1, static_cast<String>((*str_b)[1]).rcount());
+  }
   ref_str_b_1 = (*str_b)[1].rcount();
   CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b_1);
   CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
