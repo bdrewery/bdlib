@@ -371,7 +371,7 @@ BDLIB_NS_END
 namespace std {
   template<typename T>
   struct hash<BDLIB_NS::Array<T>> {
-    inline size_t operator()(const BDLIB_NS::Array<T>& val) const {
+    inline size_t operator()(const BDLIB_NS::Array<T>& val) const noexcept {
       return val.hash();
     }
   };

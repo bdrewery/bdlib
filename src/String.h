@@ -541,7 +541,7 @@ namespace std {
   template<>
   struct hash<BDLIB_NS::String>
     {
-          inline size_t operator()(const BDLIB_NS::String& val) const {
+          inline size_t operator()(const BDLIB_NS::String& val) const noexcept {
             return val.hash();
           }
     };
