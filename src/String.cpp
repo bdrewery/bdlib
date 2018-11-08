@@ -39,23 +39,40 @@ BDLIB_NS_BEGIN
 unsigned char String::cleanse_ctr = 0;
 
 /* Accessors */
+int String::compare(const String& str) const noexcept
+{
+  const auto mylen = length();
+  const auto slen = str.length();
+  /* Same string? */
+  if (cbegin() == str.cbegin() && mylen == slen)
+    return 0;
+
+  const auto len = std::min(mylen, slen);
+  const auto diff = std::memcmp(cbegin(), str.cbegin(), len);
+  if (diff)
+    return diff;
+  else
+    return mylen - slen;
+}
+
 int String::compare(const String& str, size_t n) const noexcept
 {
   if (n == 0)
     return 0;
+  const auto mylen = length();
   /* Same string? */
-  if (cbegin() == str.cbegin() && length() == str.length())
+  if (cbegin() == str.cbegin() && mylen == str.length())
     return 0;
 
   const auto slen = n ? std::min(str.length(), n) : str.length();
-  const auto len = std::min(length(), slen);
+  const auto len = std::min(mylen, slen);
   const auto diff = std::memcmp(cbegin(), str.cbegin(), len);
   if (diff)
     return diff;
   else if (n)
-    return std::min(length(), n) - slen;
+    return std::min(mylen, n) - slen;
   else
-    return length() - slen;
+    return mylen - slen;
 }
 
 /* Setters */

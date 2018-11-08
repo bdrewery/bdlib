@@ -121,10 +121,14 @@ void StringTest :: compareTest (void)
   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
   CPPUNIT_ASSERT_LESS(0, (*f).compare(cstring));
-  CPPUNIT_ASSERT((*d).compare(*f) > 0);
+  CPPUNIT_ASSERT_GREATER(0, (*d).compare(*f));
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare(*c));
   CPPUNIT_ASSERT(String("abc") < String("def"));
   CPPUNIT_ASSERT(String("abc") < String("abcdef"));
+  *a = "fool";
+  *b = *a;
+  CPPUNIT_ASSERT_GREATER(0, (*a).compare((*b)(0, 3)));
+  CPPUNIT_ASSERT_EQUAL(0, (*a).compare((*b)(0, 3), 3));
 }
 
 void StringTest :: refTest (void)

@@ -320,7 +320,15 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param n The number of characters to compare.
          * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
          */
-        int compare(const String& str, size_t n = npos) const
+        int compare(const String& str, size_t n) const
+          noexcept __attribute__((pure));
+
+        /**
+         * @brief Compare our String object with another String object
+         * @param str The String object to compare to.
+         * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
+         */
+        int compare(const String& str) const
           noexcept __attribute__((pure));
 
         inline int compare(const char* rhs, size_t n = npos) const
