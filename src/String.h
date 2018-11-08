@@ -429,7 +429,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @brief Prefix increment
          */
-        inline const String& operator++() noexcept {
+        inline const String& operator++() & noexcept {
           return (*this) += size_t(1);
         }
 
@@ -445,7 +445,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @brief Prefix decrement
          */
-        inline const String& operator--() noexcept {
+        inline const String& operator--() & noexcept {
           return (*this) -= 1;
         }
 

@@ -309,7 +309,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Prefix increment
      */
-    inline const Array& operator++() noexcept {
+    inline const Array& operator++() & noexcept {
       return (*this) += 1;
     }
 
@@ -331,7 +331,7 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Prefix decrement
      */
-    inline const Array& operator--() noexcept {
+    inline const Array& operator--() & noexcept {
       return (*this) -= 1;
     }
 
