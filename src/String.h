@@ -525,7 +525,8 @@ inline std::ostream& operator<<(std::ostream& os, const String& string) {
 }
 
 inline std::ostream& operator<<(std::ostream& os, String&& string) {
-  for (const char* c = string.begin(); c != string.end(); ++c)
+  assert(!string.isShared());
+  for (const char* c = string.cbegin(); c != string.cend(); ++c)
     os << std::move(*c);
   return os;
 }

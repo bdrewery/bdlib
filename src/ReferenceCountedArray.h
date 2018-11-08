@@ -922,7 +922,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       AboutToModify(length() + slen);
       std::memmove(static_cast<void*>(Buf() + pos + slen),
           static_cast<void*>(Buf() + pos), length() - pos);
-      std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       addLength(slen);
     }
 
@@ -952,7 +952,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       AboutToModify(length() + slen);
       std::memmove(static_cast<void*>(Buf() + pos + slen),
           static_cast<void*>(Buf() + pos), length() - pos);
-      std::move(rca.begin(), rca.begin() + slen, Buf() + pos);
+      std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       addLength(slen);
     }
 
@@ -1057,7 +1057,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         newlen = length();
         getOwnCopy();
       }
-      std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
+      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       setLength(newlen);
     }
 
@@ -1092,7 +1092,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         newlen = length();
         getOwnCopy();
       }
-      std::move(rca.begin(), rca.begin() + slen, Buf() + pos);
+      std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       setLength(newlen);
     }
 
