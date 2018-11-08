@@ -106,13 +106,10 @@ void String::replace(size_t pos, const char *string, size_t n)
 
   const auto slen = (n == npos) ? std::strlen(string) : n;
   auto newlen = pos + slen;
-  
-  if (newlen >= length()) {
-    AboutToModify(newlen);
-  } else {
+
+  if (newlen < length())
     newlen = length();
-    getOwnCopy();
-  }
+  AboutToModify(newlen);
   std::copy(string, string + slen, Buf() + pos);
   setLength(newlen);
 }

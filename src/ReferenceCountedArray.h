@@ -1049,14 +1049,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
 
-      size_t newlen = pos + slen;
+      auto newlen = pos + slen;
 
-      if (newlen >= length()) {
-        AboutToModify(newlen);
-      } else {
+      if (newlen < length())
         newlen = length();
-        getOwnCopy();
-      }
+      AboutToModify(newlen);
       std::copy(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       setLength(newlen);
     }
@@ -1084,14 +1081,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
 
-      size_t newlen = pos + slen;
+      auto newlen = pos + slen;
 
-      if (newlen >= length()) {
-        AboutToModify(newlen);
-      } else {
+      if (newlen < length())
         newlen = length();
-        getOwnCopy();
-      }
+      AboutToModify(newlen);
       std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       setLength(newlen);
     }

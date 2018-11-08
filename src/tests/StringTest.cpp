@@ -467,6 +467,7 @@ void StringTest :: insertTest(void)
 void StringTest :: replaceTest(void)
 {
   CPPUNIT_ASSERT_NO_THROW(a->replace(0, "bla"));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a->length());
   *a = "";
   CPPUNIT_ASSERT_THROW(a->replace(1, "bla"), std::out_of_range);
   CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
@@ -474,6 +475,7 @@ void StringTest :: replaceTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("bxah", *b);
   b->replace(0, "ququ");
   CPPUNIT_ASSERT_STRING_EQUAL("ququ", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
   CPPUNIT_ASSERT_STRING_EQUAL("x", *g);
   CPPUNIT_ASSERT_EQUAL(size_t(1), g->size());
