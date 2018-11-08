@@ -172,8 +172,7 @@ std::istream& getline(std::istream& is, String& string) {
 Array<String> String::split(const String& delim, size_t limit) const {
   if (!length()) return Array<String>();
   if (limit == 1) {
-    String list[] = {*this};
-    return Array<String>(list, 1);
+    return Array<String>({*this});
   }
 
   const String space(' ');
