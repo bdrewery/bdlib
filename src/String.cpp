@@ -303,7 +303,7 @@ String String::sub(const String& search, const String& replacement, int limit) c
   return newStr;
 }
 
-String String::subst(HashTable<String, String> hashes) const {
+String String::subst(const HashTable<String, String>& hashes) const {
   String newStr(*this);
   for (const auto& kv : hashes) {
     newStr = newStr.sub(kv.first, kv.second);

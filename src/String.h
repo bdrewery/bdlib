@@ -373,7 +373,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param hashes The mapping to use
          * @return A new String is returned
          */
-        String subst(HashTable<String, String> hashes) const;
+        String subst(const HashTable<String, String>& hashes) const;
 
         /**
          * @brief Return a new formatted string
