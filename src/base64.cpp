@@ -26,6 +26,7 @@
  */
 
 #include <cstdlib>
+#include <cstring>
 #include "base64.h"
 #include "String.h"
 
