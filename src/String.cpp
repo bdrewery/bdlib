@@ -192,7 +192,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
 
     if ((pos = str.find(delim)) == npos)
       pos = str.length();
-    array << str(0, pos);
+    array << std::move(str(0, pos));
     str += pos + delim.length();
   }
 
@@ -200,7 +200,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
   if (limit != npos) {
     // Trim out left whitespace
     if (delim == space) while (str.length() && str[0] == ' ') ++str;
-    array << str;
+    array << std::move(str);
   }
 
   return array;
