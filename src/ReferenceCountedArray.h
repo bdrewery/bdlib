@@ -945,7 +945,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       slen -= slen - n;
       AboutToModify(length() + slen);
       /* Shift right */
-      std::move_backward(Buf(pos), Buf(length()), Buf(length() - pos + slen));
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() - pos + slen));
       std::copy(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
       addLength(slen);
     }
@@ -975,7 +975,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       slen -= slen - n;
       AboutToModify(length() + slen);
       /* Shift right */
-      std::move(Buf(pos), Buf(length()), Buf(pos + slen));
+      std::move(constBuf(pos), constBuf(length()), Buf(pos + slen));
       std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       addLength(slen);
     }
@@ -995,7 +995,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       AboutToModify(length() + 1);
       /* Shift right */
-      std::move(Buf(pos), Buf(length()), Buf(pos + 1));
+      std::move(constBuf(pos), constBuf(length()), Buf(pos + 1));
       *(Buf(pos)) = item;
       addLength(1);
     }
@@ -1015,7 +1015,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       AboutToModify(length() + 1);
       /* Shift right */
-      std::move(Buf(pos), Buf(length()), Buf(pos + 1));
+      std::move(constBuf(pos), constBuf(length()), Buf(pos + 1));
       *(Buf(pos)) = std::move(item);
       addLength(1);
     }
