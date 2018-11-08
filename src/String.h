@@ -436,7 +436,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @brief Postfix increment
          */
-        inline const String operator++(int) {
+        inline const String operator++(int) & {
           String tmp(*this);
           ++(*this);
           return tmp;
@@ -452,7 +452,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @brief Postfix decrement
          */
-        inline const String operator--(int) {
+        inline const String operator--(int) & {
           String tmp(*this);
           --(*this);
           return tmp;
