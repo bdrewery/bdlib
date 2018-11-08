@@ -144,7 +144,7 @@ class Array : public ReferenceCountedArray<T> {
      * @brief Shift the array left, removing the first element.
      * @return The first element.
      */
-    inline value_type shift() {
+    inline value_type shift() & {
       if (this->isEmpty()) return value_type();
 
       value_type temp(std::move(*(this->Buf(0))));
@@ -153,16 +153,33 @@ class Array : public ReferenceCountedArray<T> {
       return temp;
     }
 
+    inline value_type shift() && {
+      if (this->isEmpty()) return std::move(value_type());
+
+      value_type temp(std::move(*(this->Buf(0))));
+      ++(this->offset);
+      this->subLength(1);
+      return std::move(temp);
+    }
+
     /**
      * @brief Pop a value off the end of the array
      * @return The last element.
      */
-    inline value_type pop() {
+    inline value_type pop() & {
       if (this->isEmpty()) return value_type();
 
       value_type temp(std::move(*(this->Buf(this->length() - 1))));
       this->subLength(1);
       return temp;
+    }
+
+    inline value_type pop() && {
+      if (this->isEmpty()) return std::move(value_type());
+
+      value_type temp(std::move(*(this->Buf(this->length() - 1))));
+      this->subLength(1);
+      return std::move(temp);
     }
 
     /**

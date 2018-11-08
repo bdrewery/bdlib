@@ -139,6 +139,12 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("1", hm);
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
 
+  hm = Array<String>{"Test0", "Test1"}.pop();
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", hm);
+
+  hm = Array<String>{"Test0", "Test1"}.shift();
+  CPPUNIT_ASSERT_STRING_EQUAL("Test0", hm);
+
   (*str_a) = Array<String>();
   (*str_a) << "Test";
   (*str_a) << "1 2 3";
