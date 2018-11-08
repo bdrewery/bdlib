@@ -481,6 +481,9 @@ void StringTest :: insertTest(void)
   b->insert(3, "TEST", 0);
   CPPUNIT_ASSERT_STRING_EQUAL("blBLAHah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
+  *a = "0123456789";
+  a->insert(3, "TEST", 1);
+  CPPUNIT_ASSERT_STRING_EQUAL("012T3456789", *a);
   b->insert(3, "TEST", 1);
   CPPUNIT_ASSERT_STRING_EQUAL("blBTLAHah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);

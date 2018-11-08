@@ -104,7 +104,7 @@ void String::insert(size_t pos, const char *string, size_t n)
 
   AboutToModify(length() + slen);
   /* Shift right */
-  std::move(constBuf(pos), constBuf(length()), Buf(pos + slen));
+  std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
   std::copy(string, string + slen, Buf(pos));
   addLength(slen);
 }
