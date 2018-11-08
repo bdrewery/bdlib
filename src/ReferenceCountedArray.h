@@ -72,7 +72,7 @@ class ArrayRef {
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
      */
-    void Reserve(size_t newSize, double scaling_factor, size_t& offset,
+    void reserve(size_t newSize, double scaling_factor, size_t& offset,
         size_t sublen) const
     {
       /* Don't new if we already have enough room! */
@@ -361,7 +361,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       const size_t oldLength = length();
 
       doDetach(); //Detach from the shared reference
-      Reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
+      reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
       std::copy(oldBuf, oldBuf + oldLength, Buf());
       setLength(oldLength);
     }
@@ -382,7 +382,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       if (isShared())
         COW(n); // Clears the offset
       else {
-        Reserve(n, _rca_cow_scaling_factor);
+        reserve(n, _rca_cow_scaling_factor);
         /* Shift the offset away */
       }
     }
@@ -425,7 +425,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
     /**
      * @brief Create an empty container with at least the specified bytes in size.
-     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
+     * @param newSize reserve at least this many bytes for this ReferenceCountedArray.
      * @post This ReferenceCountedArray's memory will also never be shrunk.
      * @post A buffer has been created.
      *
@@ -436,12 +436,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         const Allocator& allocator = Allocator()) :
       ReferenceCountedArray(allocator) {
       if (newSize) {
-        Reserve(newSize);
+        reserve(newSize);
       }
     }
     /**
      * @brief Create a container filled with n copies of the given value.
-     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
+     * @param newSize reserve at least this many bytes for this ReferenceCountedArray.
      * @param value The value to populate the array with
      * @post This ReferenceCountedArray's memory will also never be shrunk.
      * @post A buffer has been created.
@@ -527,17 +527,17 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
 
     /**
-     * @sa ArrayRef::Reserve()
+     * @sa ArrayRef::reserve()
      * @param newSize A size that we need to Allocate the buffer to.
      * @param scaling_factor How much to multiple the size by to help avoid later resizing
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize,
+    virtual void reserve(const size_t newSize,
         double scaling_factor = 1) const {
       if (!Ref) {
         Ref = new ArrayRef<value_type, Allocator>(alloc);
       }
-      Ref->Reserve(newSize, scaling_factor, offset, sublen);
+      Ref->reserve(newSize, scaling_factor, offset, sublen);
     }
 
     /**

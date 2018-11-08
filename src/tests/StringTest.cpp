@@ -272,7 +272,7 @@ void StringTest :: c_strTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("TEST", String("TEST").c_str());
 
   *c = "something";
-  c->Reserve(16);
+  c->reserve(16);
   *a = (*c)(0, c->length()-1);
   *a += size_t(3);
   *b = *a;
@@ -848,7 +848,7 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("tblah", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
 
-  a->Reserve(30); // Avoid COW during these offset tests
+  a->reserve(30); // Avoid COW during these offset tests
   *b = "blah";
   *a = "longtest";
   *a -= 3;
@@ -1115,7 +1115,7 @@ void StringTest :: base64Test(void)
   CPPUNIT_ASSERT_EQUAL(strlen(twentynine), tmp.length());
 
   tmp = "";
-  tmp.Reserve(255);
+  tmp.reserve(255);
   for (unsigned char C = 0; C < 255; C++)
     tmp.append(C);
   String save = String(tmp);
@@ -1553,7 +1553,7 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_GREATEREQUAL(size_t(130), sub.capacity());
   CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
 
-  // This will throw an error in valgrind in String::Reserve due to offsetting problems if not correct
+  // This will throw an error in valgrind in String::reserve due to offsetting problems if not correct
   CPPUNIT_ASSERT_EQUAL(0, strcmp(sub.c_str(), "aaaaaaaaaa"));
   CPPUNIT_ASSERT_GREATEREQUAL(size_t(11), sub.capacity());
   // This is an optimization check, it should be reusing the original buffer which was 130 big

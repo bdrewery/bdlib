@@ -124,10 +124,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           append(ch);
         }
 
-        void Reserve(const size_t newSize,
+        void reserve(const size_t newSize,
             double scaling_factor = 1) const override {
           const size_t realSize = newSize > 0 ? newSize + 1 : newSize;
-          ReferenceCountedArray::Reserve(realSize, scaling_factor);
+          ReferenceCountedArray::reserve(realSize, scaling_factor);
           if (constBuf() != nullptr) {
             *Buf(capacity() - offset - 1) = '\0';
           }
@@ -135,7 +135,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
 	/**
 	 * @brief Create an empty String container with at least the specified bytes in size.
-	 * @param newSize Reserve at least this many bytes for this String.
+	 * @param newSize reserve at least this many bytes for this String.
 	 * @post This string's memory will also never be shrunk.
 	 * @post A buffer has been created.
 	 * 

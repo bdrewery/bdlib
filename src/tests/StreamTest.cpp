@@ -58,10 +58,10 @@ void StreamTest :: tearDown (void)
 
 void StreamTest :: reserveTest (void)
 {
-  a->Reserve(2000);
+  a->reserve(2000);
   CPPUNIT_ASSERT_GREATEREQUAL(size_t(2048), a->capacity());
 
-  b->Reserve(10);
+  b->reserve(10);
   CPPUNIT_ASSERT_GREATEREQUAL(size_t(1024), b->capacity());
   CPPUNIT_ASSERT_GREATEREQUAL(size_t(1024), h->capacity());
 

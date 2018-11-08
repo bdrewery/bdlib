@@ -57,7 +57,7 @@ class Stream {
         Stream(const Stream& stream) noexcept = default;
         Stream(Stream&& stream) noexcept = default;
         Stream(const int newSize) {
-          if (newSize > 0) Reserve(newSize);
+          if (newSize > 0) reserve(newSize);
         }
         virtual ~Stream() {};
 
@@ -79,7 +79,7 @@ class Stream {
 
         Stream& operator=(Stream&& stream) & noexcept = default;
 
-        void Reserve(const size_t) const;
+        void reserve(const size_t) const;
 
         /**
          * @brief Returns the position of the Stream.

@@ -40,10 +40,10 @@
 
 BDLIB_NS_BEGIN
 
-void Stream::Reserve(const size_t newSize) const {
+void Stream::reserve(const size_t newSize) const {
   if (newSize < capacity())
     return;
-  str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
+  str.reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
 }
 
 int Stream::seek(int offset, int whence) {
@@ -113,7 +113,7 @@ int Stream::loadFile(const int fd)
   if (size < 0) {
     return 1;
   }
-  Reserve(size);
+  reserve(size);
   void* map = mmap(0, size, PROT_READ, MAP_PRIVATE, fd, 0);
   if (map == MAP_FAILED) {
     return 1;
@@ -138,7 +138,7 @@ int Stream::loadFile(const int fd)
   fseek(f, 0, SEEK_END);
   size_t size = ftell(f);
   fseek(f, 0, SEEK_SET);
-  Reserve(size);
+  reserve(size);
 
   size_t len = 0;
   char buf[STREAM_BLOCKSIZE + 1];

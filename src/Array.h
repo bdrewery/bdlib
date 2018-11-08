@@ -79,14 +79,14 @@ class Array : public ReferenceCountedArray<T> {
      * @test Array test("Some array");
      */
     Array(const_pointer carray, size_t len) : Array() {
-      this->Reserve(len);
+      this->reserve(len);
       for (size_t i = 0; i < len; ++i)
         push(carray[i]);
     };
 
     /**
      * @brief Create an empty Array container with at least the specified elements in size.
-     * @param newSize Reserve at least this many buckets for this Array.
+     * @param newSize reserve at least this many buckets for this Array.
      * @post This array's memory will also never be shrunk.
      * @post A buffer has been created.
      */
@@ -101,7 +101,7 @@ class Array : public ReferenceCountedArray<T> {
      */
     Array& operator=(std::initializer_list<value_type> list) {
       this->clear();
-      this->Reserve(list.size());
+      this->reserve(list.size());
       for (auto& item : list) {
         push(item);
       }
