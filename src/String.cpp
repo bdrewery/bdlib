@@ -177,29 +177,29 @@ Array<String> String::split(const String& delim, size_t limit) const {
 
   const String space(' ');
   Array<String> array;
-  // Use a temporary - is a fast reference and never modified, so no COW ever used.
-  String str(*this);
+  auto it = cbegin();
 
   while (array.size() < limit - 1) {
     size_type pos;
 
     // Trim out left whitespace
-    if (delim == space) while (str.length() && str[0] == ' ') ++str;
+    if (delim == space) while (it < cend() && *it == ' ') ++it;
 
     // All done when there's nothing left
-    if (!str) break;
+    if (it >= cend()) break;
 
-    if ((pos = str.find(delim)) == npos)
-      pos = str.length();
-    array << std::move(str(0, pos));
-    str += pos + delim.length();
+    if ((pos = _find(delim, it - cbegin())) == npos)
+      pos = cend() - it;
+    array << (*this)(it - cbegin(), pos);
+    it += pos + delim.length();
+    assert(it - delim.length() <= cend());
   }
 
   // Add on extra
   if (limit != npos) {
     // Trim out left whitespace
-    if (delim == space) while (str.length() && str[0] == ' ') ++str;
-    array << std::move(str);
+    if (delim == space) while (it < cend() && *it == ' ') ++it;
+    array << (*this)(it - cbegin());
   }
 
   return array;
