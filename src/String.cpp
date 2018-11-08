@@ -137,7 +137,7 @@ std::istream& operator>>(std::istream& is, String& string) {
 
 std::istream& getline(std::istream& is, String& string) {
  
-  char ch;
+  char ch = 0;
   string = "";     // empty string, will build one char at-a-time
  
   while (is.get(ch) && ch != '\n')

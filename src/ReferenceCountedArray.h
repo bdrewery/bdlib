@@ -198,8 +198,15 @@ class Slice {
 };
 
 class ReferenceCountedArrayBase {
+  protected:
+    ReferenceCountedArrayBase() = default;
   public:
     static const size_t npos = static_cast<size_t>(-1);
+    virtual ~ReferenceCountedArrayBase() {};
+    ReferenceCountedArrayBase(const ReferenceCountedArrayBase&) = delete;
+    ReferenceCountedArrayBase(ReferenceCountedArrayBase&&) = delete;
+    ReferenceCountedArrayBase& operator=(const ReferenceCountedArrayBase&) = delete;
+    ReferenceCountedArrayBase& operator=(ReferenceCountedArrayBase&&) = delete;
 };
 
 
