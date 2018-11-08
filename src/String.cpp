@@ -229,7 +229,7 @@ size_t String::find(const String& str) const noexcept {
 
   if (p == NULL)
     return npos;
-  return static_cast<const char*>(p) - data();
+  return static_cast<const char*>(p) - constBuf();
 #else
   if (length() >= str.length()) {
     const auto last_pos = length() - str.length();

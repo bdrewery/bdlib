@@ -229,7 +229,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         }
 
         explicit operator std::string() const {
-          return std::string(data(), length());
+          return std::string(constBuf(), length());
         }
 
         /**
