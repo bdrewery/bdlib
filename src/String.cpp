@@ -29,7 +29,6 @@
 #include "Array.h"
 #include "HashTable.h"
 #include <cstdarg>
-#include <cstring>
 #include <cstdio>
 #include "base64.h"
 //#include <memory>
@@ -87,8 +86,9 @@ void String::insert(size_t pos, const char *string, size_t n)
   const auto slen = (n == npos) ? std::strlen(string) : n;
 
   AboutToModify(length() + slen);
-  std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
-  std::copy(string, string + slen, Buf() + pos);
+  /* Shift right */
+  std::move(Buf(pos), Buf(length()), Buf(pos + slen));
+  std::copy(string, string + slen, Buf(pos));
   addLength(slen);
 }
 

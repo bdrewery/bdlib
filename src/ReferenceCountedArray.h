@@ -36,7 +36,6 @@
 #include <stdexcept>
 #include <cstdint>
 #include <sys/types.h>
-#include <cstring>
 #include <type_traits>
 
 BDLIB_NS_BEGIN
@@ -98,7 +97,7 @@ class ArrayRef {
         // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
         // Shift everything to the beginning and reset the offset
         /* Only copy the subarray */
-        std::memmove(buf, buf + offset, sublen);
+        std::move(buf + offset, buf + offset + sublen, buf);
         offset = 0;
       }
     }
@@ -930,8 +929,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
-      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
+      /* Shift right */
+      std::move_backward(Buf(pos), Buf(length()), Buf(length() - pos + slen));
+      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
       addLength(slen);
     }
 
@@ -959,7 +959,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
+      /* Shift right */
+      std::move(Buf(pos), Buf(length()), Buf(pos + slen));
       std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       addLength(slen);
     }
@@ -978,7 +979,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         validateIndex(pos - 1);
 
       AboutToModify(length() + 1);
-      std::memmove(Buf() + pos + 1, Buf() + pos, length() - pos);
+      /* Shift right */
+      std::move(Buf(pos), Buf(length()), Buf(pos + 1));
       *(Buf(pos)) = item;
       addLength(1);
     }
@@ -997,7 +999,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         validateIndex(pos - 1);
 
       AboutToModify(length() + 1);
-      std::memmove(Buf() + pos + 1, Buf() + pos, length() - pos);
+      /* Shift right */
+      std::move(Buf(pos), Buf(length()), Buf(pos + 1));
       *(Buf(pos)) = std::move(item);
       addLength(1);
     }

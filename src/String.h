@@ -36,7 +36,6 @@
 #include <sys/types.h>
 #include <algorithm> // min() / max()
 #include <functional>
-#include <cstring>
 
 #ifdef CPPUNIT_VERSION
 #include <string>
