@@ -544,7 +544,8 @@ operator!=(const String& lhs, const char* rhs) noexcept {
 
 inline bool __attribute__((pure))
 operator<(const String& lhs, const String& rhs) noexcept {
-  return (lhs.compare(rhs) < 0);
+  return (lhs.length() < rhs.length() ||
+      lhs.compare(rhs) < 0);
 }
 
 inline bool __attribute__((pure))
