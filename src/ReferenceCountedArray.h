@@ -690,7 +690,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       size_t _hash = 5381;
 
       for(size_t i = 0; i < length(); ++i)
-        _hash = ((_hash << 5) + _hash) + hasher(data()[i]);
+        _hash = ((_hash << 5) + _hash) + hasher(*constBuf(i));
       return (my_hash = (_hash & 0x7FFFFFFF));
     }
 
