@@ -450,14 +450,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     ReferenceCountedArray(const size_t newSize, const value_type value,
         const Allocator& allocator = Allocator()) :
       ReferenceCountedArray(allocator) {
-      if (newSize) {
-        Reserve(newSize);
-
-        for (size_t i = 0; i < newSize; ++i) {
-          *(Buf(i)) = value;
-        }
-        setLength(newSize);
-      }
+        resize(newSize, value);
     }
 
     /**
@@ -565,7 +558,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param len The length to resize to.
      * @param value The optional parameter to fill the space with if the array is expanded
      */
-    void resize(size_t len, value_type value = value_type()) {
+    void resize(size_t len, const value_type value = value_type()) {
       if (len < this->length()) {
         this->subLength(this->length() - len);
       } else {
