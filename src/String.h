@@ -323,6 +323,11 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         int compare(const String& str, size_t n = npos) const
           noexcept __attribute__((pure));
 
+        inline int compare(const char* rhs, size_t n = npos) const
+          noexcept __attribute__((pure)) {
+          return strncmp(c_str(), rhs, n);
+        }
+
         Array<String> split(const String&, size_t limit = npos) const;
 
         /* Setters */
@@ -462,11 +467,17 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         friend String operator+(String, const String&);
         friend bool operator==(const String&, const String&) noexcept;
+        friend bool operator==(const String&, const char*) noexcept;
         friend bool operator!=(const String&, const String&) noexcept;
+        friend bool operator!=(const String&, const char*) noexcept;
         friend bool operator<(const String&, const String&) noexcept;
+        friend bool operator<(const String&, const char*) noexcept;
         friend bool operator<=(const String&, const String&) noexcept;
+        friend bool operator<=(const String&, const char *) noexcept;
         friend bool operator>(const String&, const String&) noexcept;
+        friend bool operator>(const String&, const char*) noexcept;
         friend bool operator>=(const String&, const String&) noexcept;
+        friend bool operator>=(const String&, const char*) noexcept;
 
         friend std::ostream& operator<<(std::ostream&, const String&);
         friend std::ostream& operator<<(std::ostream&, String&&);
@@ -492,9 +503,18 @@ operator==(const String& lhs, const String& rhs) noexcept {
   return (lhs.length() == rhs.length() &&
       lhs.compare(rhs) == 0);
 }
+inline bool __attribute__((pure))
+operator==(const String& lhs, const char* rhs) noexcept {
+  return lhs.compare(rhs) == 0;
+}
 
 inline bool __attribute__((pure))
 operator!=(const String& lhs, const String& rhs) noexcept {
+  return ! (lhs == rhs);
+}
+
+inline bool __attribute__((pure))
+operator!=(const String& lhs, const char* rhs) noexcept {
   return ! (lhs == rhs);
 }
 
@@ -504,7 +524,17 @@ operator<(const String& lhs, const String& rhs) noexcept {
 }
 
 inline bool __attribute__((pure))
+operator<(const String& lhs, const char* rhs) noexcept {
+  return (lhs.compare(rhs) < 0);
+}
+
+inline bool __attribute__((pure))
 operator<=(const String& lhs, const String& rhs) noexcept {
+  return ! (rhs < lhs);
+}
+
+inline bool __attribute__((pure))
+operator<=(const String& lhs, const char * rhs) noexcept {
   return ! (rhs < lhs);
 }
 
@@ -514,7 +544,17 @@ operator>(const String& lhs, const String& rhs) noexcept {
 }
 
 inline bool __attribute__((pure))
+operator>(const String& lhs, const char* rhs) noexcept {
+  return (lhs.compare(rhs) > 0);
+}
+
+inline bool __attribute__((pure))
 operator>=(const String& lhs, const String& rhs) noexcept {
+  return ! (lhs < rhs);
+}
+
+inline bool __attribute__((pure))
+operator>=(const String& lhs, const char* rhs) noexcept {
   return ! (lhs < rhs);
 }
 
