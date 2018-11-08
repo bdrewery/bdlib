@@ -98,8 +98,7 @@ class ArrayRef {
         // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
         // Shift everything to the beginning and reset the offset
         /* Only copy the subarray */
-        std::memmove(static_cast<void*>(buf), static_cast<void*>(buf + offset),
-            sublen);
+        std::memmove(buf, buf + offset, sublen);
         offset = 0;
       }
     }
@@ -931,8 +930,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      std::memmove(static_cast<void*>(Buf() + pos + slen),
-          static_cast<void*>(Buf() + pos), length() - pos);
+      std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
       std::copy(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       addLength(slen);
     }
@@ -961,8 +959,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      std::memmove(static_cast<void*>(Buf() + pos + slen),
-          static_cast<void*>(Buf() + pos), length() - pos);
+      std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
       std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       addLength(slen);
     }
@@ -981,8 +978,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         validateIndex(pos - 1);
 
       AboutToModify(length() + 1);
-      std::memmove(static_cast<void*>(Buf() + pos + 1),
-          static_cast<void*>(Buf() + pos), length() - pos);
+      std::memmove(Buf() + pos + 1, Buf() + pos, length() - pos);
       *(Buf(pos)) = item;
       addLength(1);
     }
@@ -1001,8 +997,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         validateIndex(pos - 1);
 
       AboutToModify(length() + 1);
-      std::memmove(static_cast<void*>(Buf() + pos + 1),
-          static_cast<void*>(Buf() + pos), length() - pos);
+      std::memmove(Buf() + pos + 1, Buf() + pos, length() - pos);
       *(Buf(pos)) = std::move(item);
       addLength(1);
     }

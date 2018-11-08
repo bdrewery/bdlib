@@ -122,7 +122,7 @@ int Stream::loadFile(const int fd)
 
   puts(String(static_cast<const char*>(map), size));
 
-  munmap(static_cast<void*>(map), size);
+  munmap(map, size);
 #else
   int my_fd = dup(fd);
   if (my_fd == -1) {
