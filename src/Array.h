@@ -269,6 +269,7 @@ class Array : public ReferenceCountedArray<T> {
       return newArray;
     };
 
+    inline const Array operator()(ssize_t start, ssize_t len = -1) const noexcept { return subarray(start, len); };
     /**
      * @brief Returns a 'Slice' class for safe (cow) writing into the array
      * @sa Slice
@@ -277,10 +278,6 @@ class Array : public ReferenceCountedArray<T> {
      */
     inline Slice<Array> operator()(ssize_t start, ssize_t len = -1) noexcept {
       return Slice<Array>(*this, start, len);
-    }
-    inline const Slice<const Array> operator()(ssize_t start,
-        ssize_t len = -1) const noexcept {
-      return Slice<const Array>(*this, start, len);
     }
 
 #ifdef CPPUNIT_VERSION

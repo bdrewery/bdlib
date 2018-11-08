@@ -317,6 +317,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           return newString;
         };
 
+        inline const String operator()(ssize_t start, ssize_t len = -1) const noexcept { return substring(start, len); };
         /**
          * @brief Returns a 'Slice' class for safe (cow) writing into the array
          * @sa Slice
@@ -325,9 +326,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline Slice<String> operator()(ssize_t start, ssize_t len = -1) noexcept {
           return Slice<String>(*this, start, len);
-        }
-        inline const Slice<const String> operator()(ssize_t start, ssize_t len = -1) const noexcept {
-          return Slice<const String>(*this, start, len);
         }
 
         /**

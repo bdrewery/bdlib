@@ -1273,6 +1273,11 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.get().c_str());
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
+  const String s1((*a)(0));
+  const String s2((*a)(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", s1.c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", s2.c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a));
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.get()(0));
 
   substring = (*a)(0);

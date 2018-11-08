@@ -145,7 +145,6 @@ class Slice {
     T& rca;
     ssize_t start;
     ssize_t len;
-    typedef typename std::remove_const<T>::type T_noconst;
 
   public:
     Slice() = delete;
@@ -157,14 +156,14 @@ class Slice {
     /**
      * @brief return a new (const) slice
      */
-    inline operator T_noconst() const noexcept {
-      T_noconst newArray(rca);
+    inline operator T() const noexcept {
+      T newArray(rca);
       newArray.slice(start, len);
       return newArray;
     };
 
-    inline const T_noconst get(void) const noexcept {
-      return static_cast<T_noconst>(*this);
+    inline const T get(void) const noexcept {
+      return *this;
     };
 
     /**
