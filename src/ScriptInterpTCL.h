@@ -434,7 +434,7 @@ inline Tcl_Obj* c_to_tcl_cast<const double&>::from(const double& value,
 inline Tcl_Obj* c_to_tcl_cast<const String&>::from(const String& value,
     Tcl_Interp* interp) {
   return (value.length() < INT_MAX) ? Tcl_NewStringObj(
-      value.data(), value.length()) : nullptr;
+      value.cbegin(), value.length()) : nullptr;
 }
 
 inline Tcl_Obj* c_to_tcl_cast<const char *>::from(const char* value,

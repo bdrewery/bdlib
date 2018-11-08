@@ -215,7 +215,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
             *(Buf(length())) = '\0';
           } else
             assert(*constBuf(length()) == '\0');
-          return data();
+          return cbegin();
         }
 
         /**

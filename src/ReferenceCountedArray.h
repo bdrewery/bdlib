@@ -615,16 +615,19 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Give an OutputIterator for STL usage
      * @post The Array is detached.
      */
-    inline pointer mdata() const { AboutToModify(length()); return Buf(); }
+    inline pointer mdata() const { getOwnCopy(); return Buf(); }
 
     /**
      * @brief Returns a read/write iterator into the Array.
      * @post The Array is detached
      */
-    inline iterator begin() { return iterator(mdata()); };
+    inline iterator begin() {
+      getOwnCopy();
+      return iterator(Buf());
+    }
 
     inline const_iterator cbegin() const noexcept __attribute__((pure)) {
-      return const_iterator(data());
+      return const_iterator(constBuf());
     };
     /**
      * @brief Returns a read-only iterator into the Array

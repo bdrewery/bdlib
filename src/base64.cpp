@@ -101,7 +101,7 @@ void b64enc_buf(const unsigned char *data, size_t *len, char *dest, const char* 
 
 String base64Encode(const String& string, const char* charset) {
   size_t len = string.length();
-  char *p = b64enc(reinterpret_cast<const unsigned char*>(string.data()), &len, charset);
+  char *p = b64enc(reinterpret_cast<const unsigned char*>(string.cbegin()), &len, charset);
   BDLIB_NS::String encoded(p, len);
   free(p);
   return encoded;
@@ -165,7 +165,7 @@ char *b64dec(const unsigned char *data, size_t *len, const char* charset)
 
 String base64Decode(const String& string, const char* charset) {
   size_t len = string.length();
-  char *p = b64dec(reinterpret_cast<const unsigned char*>(string.data()), &len, charset);
+  char *p = b64dec(reinterpret_cast<const unsigned char*>(string.cbegin()), &len, charset);
   BDLIB_NS::String decoded(p, len);
   free(p);
   return decoded;

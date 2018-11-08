@@ -213,11 +213,11 @@ class Array : public ReferenceCountedArray<T> {
      */
     bool equals(const Array& array, size_t n) const noexcept __attribute__((pure))
     {
-      size_t my_len = this->length();
-      bool same_length = (my_len == array.length());
+      const size_t my_len = this->length();
+      const bool same_length = (my_len == array.length());
 
       /* Same array? */
-      if (this->data() == array.data() && same_length)
+      if (this->constBuf() == array.constBuf() && same_length)
         return true;
 
       if (!same_length)

@@ -176,7 +176,7 @@ int Stream::writeFile(const int fd) const
 
   if (map == MAP_FAILED) return 1;
 
-  std::memcpy(map, str.data(), length());
+  std::memcpy(map, str.cbegin(), length());
 
   if (munmap(map, length()) == -1) return 1;
 #else
@@ -190,7 +190,7 @@ int Stream::writeFile(const int fd) const
     return 1;
   }
 
-  if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
+  if ((fwrite(str.cbegin(), 1, length(), f) != length()) || (fflush(f))) {
     fclose(f);
     return 1;
   }
