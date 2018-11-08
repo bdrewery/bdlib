@@ -267,9 +267,11 @@ class Array : public ReferenceCountedArray<T> {
     }
 
 #ifdef CPPUNIT_VERSION
-    void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+    void CPPUNIT_checkArrayEqual(const Array& actual,
+        CPPUNIT_NS::SourceLine sourceLine) const {
       if ((*this) == actual) return;
-      ::CPPUNIT_NS::Asserter::failNotEqual(this->join("|").c_str(), actual.join("|").c_str(), sourceLine);
+      ::CPPUNIT_NS::Asserter::failNotEqual(this->join("|").c_str(),
+          actual.join("|").c_str(), sourceLine);
     }
 #endif /* CPPUNIT_VERSION */
 
