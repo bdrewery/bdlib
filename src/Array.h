@@ -203,7 +203,7 @@ class Array : public ReferenceCountedArray<T> {
       if (quoted)
 	str_size += this->length() * 2;
       for (i = 0; i < this->length(); ++i)
-	str_size += this->Buf(i)->length();
+	str_size += this->constBuf(i)->length();
 
       String str(str_size);
 
@@ -211,9 +211,9 @@ class Array : public ReferenceCountedArray<T> {
         if (i)
           str += delim;
         if (quoted) {
-          str += '"' + *(this->Buf(i)) + '"';
+          str += '"' + *(this->constBuf(i)) + '"';
         } else {
-          str += *(this->Buf(i));
+          str += *(this->constBuf(i));
         }
       }
       return str;
