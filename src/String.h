@@ -32,6 +32,7 @@
 #include "ReferenceCountedArray.h"
 
 #include <cassert>
+#include <cstring>
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
