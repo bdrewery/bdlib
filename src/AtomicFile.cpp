@@ -56,8 +56,9 @@ bool AtomicFile::open(const String& fname, mode_t mode) {
       static_cast<String>(_fname(slash_pos)).c_str());
 
   /* XXX: Move nul-writing to String per C++11 */
-  _tmpname.resize(_tmpname.length() + 1);
-  _fd = mkstemp(_tmpname.begin());
+  _tmpname.reserve(_tmpname.length() + 1);
+  _tmpname[_tmpname.length()] = '\0';
+  _fd = mkstemp(_tmpname.mdata());
 
   return is_open();
 }
