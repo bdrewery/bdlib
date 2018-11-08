@@ -31,6 +31,7 @@
 #include "bdlib.h"
 #include <algorithm>
 #include <atomic>
+#include <cassert>
 #include <iterator>
 #include <memory>
 #include <stdexcept>
