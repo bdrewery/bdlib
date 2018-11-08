@@ -316,11 +316,16 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Postfix increment
      */
-    inline const Array operator++(int) {
+    inline const Array operator++(int) & {
       Array tmp((*this)(0, 1));
       ++(this->offset);
       this->subLength(1);
       return tmp;
+    }
+
+    inline Array operator++(int) && {
+      Array tmp{std::move(shift())};
+      return std::move(tmp);
     }
 
     /**
@@ -333,10 +338,15 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Postfix decrement
      */
-    inline const Array operator--(int) {
+    inline const Array operator--(int) & {
       Array tmp((*this)(this->length() - 1, 1));
       this->subLength(1);
       return tmp;
+    }
+
+    inline Array operator--(int) && {
+      Array tmp{std::move(pop())};
+      return std::move(tmp);
     }
 
     /**

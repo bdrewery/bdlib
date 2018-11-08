@@ -699,6 +699,14 @@ void ArrayTest :: operatorsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->size());
   CPPUNIT_ASSERT_STRING_EQUAL("3", str_b->join(' '));
   CPPUNIT_ASSERT_STRING_EQUAL("4", str_c->join(' '));
+
+  (*str_b) = Array<String>{"Test0", "Test1"}++;
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_b->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test0", str_b->join(' '));
+
+  (*str_b) = Array<String>{"Test0", "Test1"}--;
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_b->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_b->join(' '));
 }
 
 void ArrayTest :: initializerTest(void) {
