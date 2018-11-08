@@ -320,7 +320,7 @@ String String::subst(HashTable<String, String> hashes) const {
  */
 String newsplit(String& str, char delim)
 {
-  if (!str.length()) return "";
+  if (!str.length()) return String();
   auto pos = str.find(delim);
   if (pos == String::npos)
     pos = str.length();
