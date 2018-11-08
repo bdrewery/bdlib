@@ -484,6 +484,16 @@ void StringTest :: insertTest(void)
   *a = "0123456789";
   a->insert(3, "TEST", 1);
   CPPUNIT_ASSERT_STRING_EQUAL("012T3456789", *a);
+  *a = "0123456789";
+  a->insert(3, String("T"), 1);
+  CPPUNIT_ASSERT_STRING_EQUAL("012T3456789", *a);
+  *a = "0123456789";
+  a->insert(3, String("Testinglong"));
+  CPPUNIT_ASSERT_STRING_EQUAL("012Testinglong3456789", *a);
+  String x("Testinglong");
+  *a = "0123456789";
+  a->insert(3, x);
+  CPPUNIT_ASSERT_STRING_EQUAL("012Testinglong3456789", *a);
   b->insert(3, "TEST", 1);
   CPPUNIT_ASSERT_STRING_EQUAL("blBTLAHah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);

@@ -945,7 +945,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       slen -= slen - n;
       AboutToModify(length() + slen);
       /* Shift right */
-      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() - pos + slen));
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
       std::copy(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
       addLength(slen);
     }
