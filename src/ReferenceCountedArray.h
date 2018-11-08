@@ -360,8 +360,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       const_pointer oldBuf = constBuf();
       const size_t oldLength = length();
 
+      assert(isShared());
       doDetach(); //Detach from the shared reference
-      reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
+      reserve(n, _rca_cow_scaling_factor); //Will set capacity()/size
       std::copy(oldBuf, oldBuf + oldLength, Buf());
       setLength(oldLength);
     }
