@@ -559,13 +559,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param value The optional parameter to fill the space with if the array is expanded
      */
     void resize(size_t len, const value_type value = value_type()) {
-      if (len < this->length()) {
-        this->subLength(this->length() - len);
+      if (len < length()) {
+        subLength(length() - len);
       } else {
-        this->AboutToModify(len);
-        for (size_t i = 0; i < (len - this->length()); ++i)
-          *(Buf(this->length() + i)) = value;
-        this->addLength(len - this->length());
+        AboutToModify(len);
+        for (size_t i = 0; i < (len - length()); ++i)
+          *(Buf(length() + i)) = value;
+        addLength(len - length());
       }
     }
 
@@ -623,13 +623,13 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline iterator begin() { return iterator(mdata()); };
 
     inline const_iterator cbegin() const noexcept __attribute__((pure)) {
-      return const_iterator(this->data());
+      return const_iterator(data());
     };
     /**
      * @brief Returns a read-only iterator into the Array
      */
     inline const_iterator begin() const noexcept __attribute__((pure)) {
-      return this->cbegin();
+      return cbegin();
     }
 
     /**
@@ -639,45 +639,45 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline iterator end() { return iterator(begin()) + length(); };
 
     inline const_iterator cend() const noexcept __attribute__((pure)) {
-      return const_iterator(this->cbegin()) + this->length();
+      return const_iterator(cbegin()) + length();
     };
     /**
      * @brief Returns a read-only iterator at the end of the Array
      */
     inline const_iterator end() const noexcept __attribute__((pure)) {
-      return this->cend();
+      return cend();
     }
 
     /**
      * @brief Returns a read/write reverse iterator at the end of the Array. Iteration is done in reverse order.
      * @post The Array is detached
      */
-    inline reverse_iterator rbegin() { return reverse_iterator(this->end()); };
+    inline reverse_iterator rbegin() { return reverse_iterator(end()); };
 
     inline const_reverse_iterator crbegin() const noexcept {
-      return const_reverse_iterator(this->cend());
+      return const_reverse_iterator(cend());
     };
     /**
      * @brief Returns a read-only reverse iterator at the end of the Array. Iteration is done in reverse order.
      */
     inline const_reverse_iterator rbegin() const noexcept __attribute__((pure)) {
-      return this->crbegin();
+      return crbegin();
     }
 
     /**
      * @brief Returns a read/write reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      * @post The Array is detached
      */
-    inline reverse_iterator rend() { return reverse_iterator(this->begin()); };
+    inline reverse_iterator rend() { return reverse_iterator(begin()); };
 
     inline const_reverse_iterator crend() const noexcept __attribute__((pure)) {
-      return const_reverse_iterator(this->cbegin());
+      return const_reverse_iterator(cbegin());
     };
     /**
      * @brief Returns a read-only reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      */
     inline const_reverse_iterator rend() const noexcept __attribute__((pure)) {
-      return this->crend();
+      return crend();
     }
 
    /**
@@ -689,8 +689,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       std::hash<value_type> hasher;
       size_t _hash = 5381;
 
-      for(size_t i = 0; i < this->length(); ++i)
-        _hash = ((_hash << 5) + _hash) + hasher(this->data()[i]);
+      for(size_t i = 0; i < length(); ++i)
+        _hash = ((_hash << 5) + _hash) + hasher(data()[i]);
       return (my_hash = (_hash & 0x7FFFFFFF));
     }
 
