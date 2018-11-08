@@ -704,16 +704,31 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       return (my_hash = (_hash & 0x7FFFFFFF));
     }
 
-
+  private:
+    size_t _find(const_reference item, size_t pos) const noexcept __attribute__((pure)) {
+      for (size_t i = pos; i < length(); ++i)
+        if (*(constBuf(i)) == item)
+          return i;
+      return npos;
+    }
+  public:
     /**
      * @brief Find an item in the array
      * @return The position of the item if found, or npos if not found
      **/
     size_t find(const_reference item) const noexcept __attribute__((pure)) {
-      for (size_t i = 0; i < length(); ++i)
-        if (*(constBuf(i)) == item)
-          return i;
-      return npos;
+      return _find(item, 0);
+    }
+
+    /**
+     * @brief Find an item in the array
+     * @param pos Where to start the search
+     * @return The position of the item if found, or npos if not found
+     **/
+    size_t find(const_reference item, size_t pos) const __attribute__((pure)) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+      return _find(item, pos);
     }
 
     /**

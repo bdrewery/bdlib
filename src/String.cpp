@@ -238,22 +238,23 @@ String& String::trim() noexcept {
   return *this;
 }
 
-size_t String::find(const String& str) const noexcept {
+size_t String::_find(const String& str, size_t pos) const noexcept {
   if (str.length() == 0)
     return 0;
+  const auto mylen = length() - pos;
 #ifdef HAVE_MEMMEM
-  const void *p = ::memmem(cbegin(), length(), str.cbegin(), str.length());
+  const void *p = ::memmem(constBuf(pos), mylen, str.cbegin(), str.length());
 
   if (p == NULL)
     return npos;
-  return static_cast<const char*>(p) - constBuf();
+  return static_cast<const char*>(p) - constBuf(pos);
 #else
-  if (length() >= str.length()) {
-    const auto last_pos = length() - str.length();
-    for (auto pos = 0; pos <= last_pos; ++pos)
-      if (str[0] == (*this)[pos] && !std::memcmp(cbegin() + pos, str.cbegin(),
-            std::min(str.length(), length() - pos)))
-        return pos;
+  if (mylen >= str.length()) {
+    const auto last_pos = mylen - str.length();
+    for (auto i = pos; i <= last_pos; ++i)
+      if (str[0] == (*this)[i] && !std::memcmp(cbegin() + i, str.cbegin(),
+            std::min(str.length(), mylen - i)))
+        return i;
   }
   return npos;
 #endif

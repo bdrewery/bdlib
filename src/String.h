@@ -161,12 +161,28 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         String& operator=(const String& string) noexcept = default;
         String& operator=(String&& string) noexcept = default;
 
+  private:
+        size_t _find(const String& str, size_t pos) const noexcept __attribute__((pure));
+  public:
         /**
          * @brief Find a string in the string
          * @param str The substring to look for
          * @return The position of the string if found, or String::npos if not found
          **/
-        size_t find(const String& str) const noexcept __attribute__((pure));
+        size_t find(const String& str) const noexcept __attribute__((pure)) {
+          return _find(str, 0);
+        }
+        /**
+         * @brief Find a string in the string
+         * @param str The substring to look for
+     * @param pos Where to start the search
+         * @return The position of the string if found, or String::npos if not found
+         **/
+        size_t find(const String& str, size_t pos) const __attribute__((pure)) {
+          if (pos != 0)
+            validateIndex(pos - 1);
+          return _find(str, pos);
+        }
         using ReferenceCountedArray<String_Array_Type, Allocator>::find;
 
         /**

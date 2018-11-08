@@ -697,6 +697,15 @@ void StringTest :: findTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t)3, b->find("h"));
   CPPUNIT_ASSERT_EQUAL(String::npos, b->find("blahf"));
 
+  CPPUNIT_ASSERT_EQUAL(String::npos, b->find("blah", 1));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("blah", 0));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->find("lah", 0));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("lah", 1));
+  CPPUNIT_ASSERT_EQUAL((size_t)2, b->find("ah", 0));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->find("ah", 1));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("ah", 2));
+
+
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("z"));
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("notfound"));
 }
