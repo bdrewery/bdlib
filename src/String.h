@@ -128,8 +128,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
             double scaling_factor = 1) const override {
           const size_t realSize = newSize > 0 ? newSize + 1 : newSize;
           ReferenceCountedArray::Reserve(realSize, scaling_factor);
-          if (constBuf() != nullptr)
-            *Buf(capacity() - 1) = '\0';
+          if (constBuf() != nullptr) {
+            *Buf(capacity() - offset - 1) = '\0';
+          }
         }
 
 	/**

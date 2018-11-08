@@ -258,18 +258,48 @@ void StringTest :: c_strTest(void)
   CPPUNIT_ASSERT_EQUAL(std::string("TESTING 1 2 3 4"), std::string(*f));
   (*f)[2] = 's';
   sstring[1] = 'a';
-  CPPUNIT_ASSERT_STRING_EQUAL("TEsTING 1 2 3 4", *f);
+  CPPUNIT_ASSERT_STRING_EQUAL("TEsTING 1 2 3 4", f->c_str());
   CPPUNIT_ASSERT_EQUAL(std::string("TaSTING 1 2 3 4"), sstring);
   (*f)[2] = 'S';
   *a = (*f)(2, 5);
   const char *x = a->dup();
-  CPPUNIT_ASSERT_STRING_EQUAL("STING", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("STING", a->c_str());
   CPPUNIT_ASSERT_EQUAL('\0', x[5]);
   CPPUNIT_ASSERT_STRING_EQUAL("STING", x);
   delete[] x;
 
   /* rvalue c_str() */
   CPPUNIT_ASSERT_STRING_EQUAL("TEST", String("TEST").c_str());
+
+  *c = "something";
+  c->Reserve(16);
+  *a = (*c)(0, c->length()-1);
+  *a += size_t(3);
+  *b = *a;
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", b->c_str());
+  *b = (*a)(0, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethi", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  *b += size_t(1);
+  *b += "foo";
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("thifoo", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  *b = *c;
+  *b += size_t(1);
+  *b += "foo";
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("omethingfoo", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  *b = *c;
+  *b -= size_t(2);
+  *b += size_t(2);
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("methi", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
 }
 
 void StringTest :: hasIndexTest(void)
