@@ -464,8 +464,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Create an array from an initializer list
      * @param list An initializer_list
      */
-    ReferenceCountedArray(std::initializer_list<value_type> list) : ReferenceCountedArray() {
-      *this = list;
+    ReferenceCountedArray(std::initializer_list<value_type> list) : ReferenceCountedArray(list.size()) {
+      std::copy(list.begin(), list.end(), Buf());
+      sublen = list.size();
     }
 
     /**
@@ -534,10 +535,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     ReferenceCountedArray& operator=(std::initializer_list<value_type> list) {
       clear();
       reserve(list.size());
-      auto it = Buf();
-      for (auto& item : list) {
-        *it++ = item;
-      }
+      std::copy(list.begin(), list.end(), Buf());
       setLength(list.size());
       return *this;
     }
