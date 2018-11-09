@@ -64,7 +64,7 @@ class Stream {
         Stream(const String& string) noexcept : str(string) {};
         Stream(String&& string) noexcept : str(std::move(string)) {};
 
-        friend void swap(Stream& a, Stream& b) {
+        friend void swap(Stream& a, Stream& b) noexcept {
           using std::swap;
 
           swap(a.str, b.str);

@@ -79,7 +79,8 @@ class HashTable {
       map.clear();
     }
 
-    friend void swap(HashTable<Key, Value>& a, HashTable<Key, Value>& b) {
+    friend void swap(HashTable<Key, Value>& a,
+        HashTable<Key, Value>& b) noexcept {
       using std::swap;
 
       swap(a.map, b.map);
