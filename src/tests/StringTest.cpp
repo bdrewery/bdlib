@@ -240,7 +240,7 @@ void StringTest :: setTest (void)
 void StringTest :: c_strTest(void)
 {
   CPPUNIT_ASSERT_EQUAL(size_t(4), (*b).length());
-  CPPUNIT_ASSERT_EQUAL(size_t(5), (*b).capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(5), (*b).capacity());
   CPPUNIT_ASSERT_EQUAL((int)'b', (int)(*b)[0]);
   CPPUNIT_ASSERT_EQUAL((int)'l', (int)(*b)[1]);
   CPPUNIT_ASSERT_EQUAL((int)'a', (int)(*b)[2]);

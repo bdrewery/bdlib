@@ -470,6 +470,19 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
 
     /**
+     * @brief Create a Array from a given carray.
+     * @param carray The null-terminated array to create the object from.
+     * @param len How big is the carray?
+     * @post A ArrayBuf has been initialized.
+     * @post The buffer has been filled with the array.
+     * @test Array test("Some array");
+     */
+    ReferenceCountedArray(const_pointer carray, size_t len) : ReferenceCountedArray(len) {
+      std::copy(carray, carray + len, this->Buf());
+      sublen = len;
+    };
+
+    /**
      * @brief Swap this with another
      */
     friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) noexcept {

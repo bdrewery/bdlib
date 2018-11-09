@@ -92,6 +92,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         explicit String(const std::string& str) : String(str.data(), str.length()) {};
         String(std::initializer_list<value_type> list) :
           ReferenceCountedArray<String_Array_Type, Allocator>(list) {};
+
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
@@ -99,7 +100,14 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @test String test("Some string");
  	*/
 	String(const char* cstring, const Allocator& allocator = Allocator()) : String(allocator) {
-          append(cstring);
+          if (cstring == nullptr || *cstring == '\0')
+            return;
+          while (*cstring != '\0') {
+            ReferenceCountedArray::reserve(sublen + 1, 4);
+            *(Buf(sublen++)) = *cstring++;
+          }
+          ReferenceCountedArray::reserve(sublen + 1);
+          *(Buf(sublen)) = '\0';
         }
 
 	/**
@@ -110,10 +118,12 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the string (up to len characters).
 	 * @test String test("Some string");
          */
-        String(const char* cstring, size_t slen,
-            const Allocator& allocator = Allocator()) : String(allocator) {
-          append(cstring, slen);
-        }
+        String(const char* cstring, size_t slen) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(slen+1) {
+          std::copy(cstring, cstring + slen, Buf());
+          *(Buf(slen)) = '\0';
+          sublen = slen;
+        };
 
 	/**
 	 * @brief Create a String from a given character.
@@ -123,7 +133,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @test String test('a');
 	 */
         String(const char ch, const Allocator& allocator = Allocator()) : String(allocator) {
-          append(ch);
+          ReferenceCountedArray::reserve(length() + 2);
+          *(Buf(sublen++)) = ch;
+          *(Buf(sublen)) = '\0';
         }
 
         void reserve(const size_t newSize,

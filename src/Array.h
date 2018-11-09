@@ -72,9 +72,23 @@ class Array : public ReferenceCountedArray<T> {
      * @post The buffer has been filled with the array.
      * @test Array test("Some array");
      */
-    Array(const_pointer carray, size_t len) : Array(len) {
-      std::copy(carray, carray + len, this->Buf());
-      this->setLength(len);
+    Array(const_pointer carray, size_t len) :
+      ReferenceCountedArray<T>(carray, len) {};
+
+    /**
+     * @brief Create a Array from a given carray.
+     * @param carray The null-terminated array to create the object from.
+     * @post A ArrayBuf has been initialized.
+     * @post The buffer has been filled with the array.
+     * @test Array test("Some array");
+     */
+    Array(const_pointer carray) : Array() {
+      if (carray == nullptr || *carray == '\0')
+        return;
+      while (*carray != '\0') {
+        reserve(ReferenceCountedArray<T>::sublen + 1, 4);
+        *(Buf(ReferenceCountedArray<T>::sublen++)) = *carray++;
+      }
     };
 
     /**

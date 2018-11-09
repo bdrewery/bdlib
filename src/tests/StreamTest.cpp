@@ -114,7 +114,7 @@ void StreamTest :: putsTest (void)
   a->puts("look");
   CPPUNIT_ASSERT(*a == "This is a look of my buffer\nThis is line 2, isn't it amazing?\n");
   CPPUNIT_ASSERT_EQUAL((size_t) 62, a->length());
-  CPPUNIT_ASSERT_EQUAL(b->capacity(), a->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(a->capacity(), b->capacity());
   CPPUNIT_ASSERT_EQUAL(b->length(), a->length());
 
   a->clear();
@@ -129,7 +129,7 @@ void StreamTest :: putsTest (void)
   *a << "look";
   CPPUNIT_ASSERT(*a == "This is a look of my buffer\nThis is line 2, isn't it amazing?\n");
   CPPUNIT_ASSERT_EQUAL((size_t) 62, a->length());
-  CPPUNIT_ASSERT_EQUAL(b->capacity(), a->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(a->capacity(), b->capacity());
   CPPUNIT_ASSERT_EQUAL(b->length(), a->length());
 }
 
