@@ -72,8 +72,7 @@ class Array : public ReferenceCountedArray<T> {
      * @post The buffer has been filled with the array.
      * @test Array test("Some array");
      */
-    Array(const_pointer carray, size_t len) : Array() {
-      this->reserve(len);
+    Array(const_pointer carray, size_t len) : Array(len) {
       std::copy(carray, carray + len, this->Buf());
       this->setLength(len);
     };
