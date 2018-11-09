@@ -80,7 +80,7 @@ size_t String::copy(char *dst, size_t n) const noexcept
 {
   const auto slen = std::min(n, length());
 
-  std::copy(cbegin(), cend(), dst);
+  std::copy(cbegin(), cbegin()+slen, dst);
 
   return slen;
 }

@@ -1033,6 +1033,21 @@ void StringTest :: copyTest(void)
   CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
 
+  /* Above test is probably bogus */
+  memset(buf, '\0', sizeof(buf));
+  *a = "Testing 12345";
+  auto len = (*a).copy(buf, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testing 12345", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test", buf);
+  CPPUNIT_ASSERT_EQUAL(len, strlen(buf));
+
+  memset(buf, '\0', sizeof(buf));
+  *a = "Testing 12345";
+  len = (*a).copy(buf, 1000);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testing 12345", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testing 12345", buf);
+  CPPUNIT_ASSERT_EQUAL(strlen(buf), len);
+
   *a = "test 1234";
   *a = *a;
   CPPUNIT_ASSERT_STRING_EQUAL("test 1234", *a);
