@@ -88,7 +88,7 @@ class ArrayRef {
             std::uninitialized_fill(newbuf, newbuf + newSize, T());
           if (buf) {
             /* Copy old buffer into new - only copy the subarray */
-            std::copy(buf + offset, buf + offset + sublen, newbuf);
+            std::move(buf + offset, buf + offset + sublen, newbuf);
             FreeBuf(buf);
           }
           buf = newbuf;
