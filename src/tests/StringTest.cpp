@@ -976,6 +976,15 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t)0, strlen(a->c_str()));
 }
 
+void StringTest :: initializerTest(void) {
+  // Test initializer constructor
+  String blah{'b', 'l', 'a', 'h'};
+  CPPUNIT_ASSERT_EQUAL(size_t(4), blah.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), blah.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", blah);
+}
+
+
 void StringTest :: operatorStarTest(void)
 {
   *a = "Test! ";

@@ -90,6 +90,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	String(const String& string) noexcept = default;
 	String(String&& string) noexcept = default;
         explicit String(const std::string& str) : String(str.data(), str.length()) {};
+        String(std::initializer_list<value_type> list) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(list) {};
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.

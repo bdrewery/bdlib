@@ -61,14 +61,8 @@ class Array : public ReferenceCountedArray<T> {
     Array() noexcept = default;
     Array(const Array<value_type>& array) noexcept = default;
     Array(Array<value_type>&& array) noexcept = default;
-
-    /**
-     * @brief Create an array from an initializer list
-     * @param list An initializer_list
-     */
-    Array(std::initializer_list<value_type> list) : Array() {
-      *this = list;
-    }
+    Array(std::initializer_list<value_type> list) :
+      ReferenceCountedArray<T>(list) {};
 
     /**
      * @brief Create a Array from a given carray.
@@ -94,19 +88,6 @@ class Array : public ReferenceCountedArray<T> {
       ReferenceCountedArray<value_type>(newSize) {};
     Array(const size_type newSize, const value_type value) :
       ReferenceCountedArray<value_type>(newSize, value) {};
-
-    /**
-     * @brief Create an array from an initializer list
-     * @param list An initializer_list
-     */
-    Array& operator=(std::initializer_list<value_type> list) {
-      this->clear();
-      this->reserve(list.size());
-      for (auto& item : list) {
-        push(item);
-      }
-      return *this;
-    }
 
     Array& operator=(const Array<value_type>& array)  noexcept = default;
     Array& operator=(Array<value_type>&& array) noexcept = default;

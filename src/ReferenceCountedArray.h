@@ -38,6 +38,7 @@
 #include <cstdint>
 #include <sys/types.h>
 #include <type_traits>
+#include <utility>
 
 BDLIB_NS_BEGIN
 template <class T, class Allocator = std::allocator<T> >
@@ -460,6 +461,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
 
     /**
+     * @brief Create an array from an initializer list
+     * @param list An initializer_list
+     */
+    ReferenceCountedArray(std::initializer_list<value_type> list) : ReferenceCountedArray() {
+      *this = list;
+    }
+
+    /**
      * @brief Swap this with another
      */
     friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) noexcept {
@@ -515,7 +524,23 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       return *this;
     }
+
   public:
+
+    /**
+     * @brief Create an array from an initializer list
+     * @param list An initializer_list
+     */
+    ReferenceCountedArray& operator=(std::initializer_list<value_type> list) {
+      clear();
+      reserve(list.size());
+      auto it = Buf();
+      for (auto& item : list) {
+        *it++ = item;
+      }
+      setLength(list.size());
+      return *this;
+    }
 
     /**
      * @brief How many references does this object have?
