@@ -74,8 +74,8 @@ class Array : public ReferenceCountedArray<T> {
      */
     Array(const_pointer carray, size_t len) : Array() {
       this->reserve(len);
-      for (size_t i = 0; i < len; ++i)
-        push(carray[i]);
+      std::copy(carray, carray + len, this->Buf());
+      this->setLength(len);
     };
 
     /**

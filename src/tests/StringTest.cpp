@@ -220,8 +220,10 @@ void StringTest :: setTest (void)
   *a = "blah";
   CPPUNIT_ASSERT_STRING_EQUAL ("blah", *a);
   CPPUNIT_ASSERT_EQUAL(*a, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL(cstring, *d);
   *h = cstring;
-  CPPUNIT_ASSERT_EQUAL(*d, *h);
+  CPPUNIT_ASSERT_STRING_EQUAL(cstring, *h);
+  CPPUNIT_ASSERT_STRING_EQUAL(*d, *h);
   *a = "  ";
   CPPUNIT_ASSERT_STRING_EQUAL("  ", *a);
   *b = ' ';
@@ -695,6 +697,8 @@ void StringTest :: trimTest(void)
 void StringTest :: findTest(void)
 {
   *a = "This is some long string";
+  CPPUNIT_ASSERT_EQUAL((size_t)24, a->length());
+  CPPUNIT_ASSERT_EQUAL(char('T'), (char)(*a)[0]);
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->find('T'));
   CPPUNIT_ASSERT_EQUAL((size_t)1, a->find('h'));
   CPPUNIT_ASSERT_EQUAL((size_t)2, a->find('i'));

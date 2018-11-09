@@ -592,9 +592,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         subLength(length() - len);
       } else {
         AboutToModify(len);
-        for (size_t i = 0; i < (len - length()); ++i)
-          *(Buf(length() + i)) = value;
-        addLength(len - length());
+        std::fill(Buf(length()), Buf(len), value);
+        setLength(len);
       }
     }
 
@@ -728,9 +727,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
   private:
     size_t _find(const_reference item, size_t pos) const noexcept __attribute__((pure)) {
-      for (size_t i = pos; i < length(); ++i)
-        if (*(constBuf(i)) == item)
-          return i;
+      const auto it = std::find(constBuf(pos), constBuf(length()), item);
+      if (it != constBuf(length()))
+        return it - constBuf(pos);
       return npos;
     }
   public:
