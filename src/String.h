@@ -497,8 +497,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           return tmp;
         }
 
-        //using ReferenceCountedArray<String_Array_Type, Allocator>::operator=;
-
         friend String operator+(String, const String&);
         friend bool operator==(const String&, const String&) noexcept;
         friend bool operator==(const String&, const char*) noexcept;
