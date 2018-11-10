@@ -170,8 +170,23 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           }
         }
 
+        using ReferenceCountedArray<String_Array_Type, Allocator>::operator=;
         String& operator=(const String& string) noexcept = default;
         String& operator=(String&& string) noexcept = default;
+
+        String& operator=(const char* str) {
+          (*this) = String(str, strlen(str));
+          return *this;
+        }
+
+        String& operator=(std::string str) {
+          clear();
+          ReferenceCountedArray::reserve(str.length()+1);
+          sublen = str.length();
+          ::memcpy(Buf(), str.data(), sublen+1);
+          assert(*Buf(sublen) == '\0');
+          return *this;
+        }
 
   private:
         size_t _find(const String& str, size_t pos) const noexcept __attribute__((pure));

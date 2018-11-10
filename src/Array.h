@@ -104,6 +104,7 @@ class Array : public ReferenceCountedArray<T> {
 
     Array& operator=(const Array<value_type>& array)  noexcept = default;
     Array& operator=(Array<value_type>&& array) noexcept = default;
+    using ReferenceCountedArray<T>::operator=;
 
     /**
      * @brief Add an item to the end of the array

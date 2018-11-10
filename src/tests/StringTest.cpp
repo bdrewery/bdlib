@@ -238,6 +238,18 @@ void StringTest :: setTest (void)
   *b = *b;
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
+
+  String foo{"test"s};
+  CPPUNIT_ASSERT_STRING_EQUAL("test", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo.length());
+
+  foo = {"blah"s};
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo.length());
+
+  foo = {"test\0h"s};
+  CPPUNIT_ASSERT_STRING_EQUAL(String("test\0h", 6), foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(6), foo.length());
 }
 
 void StringTest :: c_strTest(void)
@@ -995,10 +1007,10 @@ void StringTest :: initializerTest(void) {
   CPPUNIT_ASSERT_EQUAL(size_t(1), blah1.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL("blah", blah1);
 
-  blah1 = {"foobar"};
-  CPPUNIT_ASSERT_EQUAL(size_t(6), blah1.length());
+  blah1 = {'f', 'o', 'o', 'b', 'a', '\0', 'r'};
+  CPPUNIT_ASSERT_EQUAL(size_t(7), blah1.length());
   CPPUNIT_ASSERT_EQUAL(size_t(1), blah1.rcount());
-  CPPUNIT_ASSERT_STRING_EQUAL("foobar", blah1);
+  CPPUNIT_ASSERT_STRING_EQUAL(String("fooba\0r", 7), blah1);
 }
 
 
