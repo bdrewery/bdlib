@@ -598,9 +598,22 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Resize the array to the given length.
      * @param len The length to resize to.
-     * @param value The optional parameter to fill the space with if the array is expanded
      */
-    void resize(size_t len, const value_type value = value_type()) {
+    void resize(size_t len) {
+      if (len < length()) {
+        setLength(len);
+      } else {
+        AboutToModify(len);
+        sublen = len;
+      }
+    }
+
+    /**
+     * @brief Resize the array to the given length.
+     * @param len The length to resize to.
+     * @param value The parameter to fill the space with if the array is expanded
+     */
+    void resize(size_t len, const value_type value) {
       if (len < length()) {
         setLength(len);
       } else {
