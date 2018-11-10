@@ -120,7 +120,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         String(const char* cstring, size_t slen) :
           ReferenceCountedArray<String_Array_Type, Allocator>(slen+1) {
-          std::copy(cstring, cstring + slen, Buf());
+          ::memcpy(Buf(), cstring, slen);
           *(Buf(slen)) = '\0';
           sublen = slen;
         };
@@ -253,7 +253,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline char* dup() const {
           char *ret = new char[length() + 1];
-          std::copy(cbegin(), cend(), ret);
+          ::memcpy(ret, cbegin(), length());
           ret[length()] = '\0';
           return ret;
         }

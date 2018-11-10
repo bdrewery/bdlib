@@ -80,7 +80,7 @@ size_t String::copy(char *dst, size_t n) const noexcept
 {
   const auto slen = std::min(n, length());
 
-  std::copy(cbegin(), cbegin()+slen, dst);
+  ::memcpy(dst, cbegin(), slen);
 
   return slen;
 }
@@ -105,8 +105,8 @@ void String::insert(size_t pos, const char *string, size_t n)
   AboutToModify(length() + slen);
   /* Shift right */
   std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
-  std::copy(string, string + slen, Buf(pos));
   sublen += slen;
+  ::memcpy(Buf(pos), string, slen);
 }
 
 /**
@@ -127,8 +127,8 @@ void String::replace(size_t pos, const char *string, size_t n)
   if (newlen < length())
     newlen = length();
   AboutToModify(newlen);
-  std::copy(string, string + slen, Buf() + pos);
   sublen = newlen;
+  ::memcpy(Buf(pos), string, slen);
 }
 
 std::istream& operator>>(std::istream& is, String& string) {
