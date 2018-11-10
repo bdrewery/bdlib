@@ -77,9 +77,9 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
         void initializerTest(void);
         void iteratorTest(void);
     private:
-        Array<String> *str_a, *str_b, *str_c;
-        Array<char> *char_a, *char_b;
-        Array<int> *int_a, *int_b, *int_c;
+        Array<String> *str_a = nullptr, *str_b = nullptr, *str_c = nullptr;
+        Array<char> *char_a = nullptr, *char_b = nullptr;
+        Array<int> *int_a = nullptr, *int_b = nullptr, *int_c = nullptr, *int_d = nullptr;
 };
 #endif
 

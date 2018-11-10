@@ -132,7 +132,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void hashTest(void);
         void substTest(void);
     private:
-        String *a, *b, *c, *d, *e, *f, *g, *h;
+        String *a = nullptr, *b = nullptr, *c = nullptr, *d = nullptr, *e = nullptr, *f = nullptr, *g = nullptr, *h = nullptr;
 	char cstring[50];
 };
 #endif

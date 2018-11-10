@@ -51,7 +51,7 @@ void ArrayTest :: tearDown (void)
     // finally delete objects
     delete str_a; delete str_b; delete str_c;
     delete char_a; delete char_b;
-    delete int_a; delete int_b; delete int_c;
+    delete int_a; delete int_b; delete int_c; delete int_d;
 }
 
 void ArrayTest :: sizeTest (void)
@@ -163,7 +163,7 @@ void ArrayTest :: arrayConsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_c->size());
 
   int carray[] = {1, 2, 0};
-  Array<int>* int_d = new Array<int>(carray, sizeof(carray) / sizeof(carray[0]));
+  int_d = new Array<int>(carray, sizeof(carray) / sizeof(carray[0]));
   CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->size());
   CPPUNIT_ASSERT_EQUAL(0, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_d->size());
@@ -171,7 +171,6 @@ void ArrayTest :: arrayConsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_d->size());
   CPPUNIT_ASSERT_EQUAL(1, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_d->size());
-  delete int_d;
 }
 
 void ArrayTest :: clearTest (void)

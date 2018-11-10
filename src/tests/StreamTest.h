@@ -64,7 +64,7 @@ class StreamTest : public CPPUNIT_NS :: TestFixture
         void writeFileFDTest(void);
         void writeFileTest(void);
     private:
-        Stream *a, *b, *c, *d, *e, *F, *g, *h;
+        Stream *a = nullptr, *b = nullptr, *c = nullptr, *d = nullptr, *e = nullptr, *F = nullptr, *g = nullptr, *h = nullptr;
 	char cstring[50];
 };
 #endif
