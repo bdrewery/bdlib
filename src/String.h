@@ -102,12 +102,10 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	String(const char* cstring, const Allocator& allocator = Allocator()) : String(allocator) {
           if (cstring == nullptr || *cstring == '\0')
             return;
-          while (*cstring != '\0') {
-            ReferenceCountedArray::reserve(sublen + 1, 4);
-            *(Buf(sublen++)) = *cstring++;
-          }
-          ReferenceCountedArray::reserve(sublen + 1);
-          *(Buf(sublen)) = '\0';
+          sublen = strlen(cstring);
+          ReferenceCountedArray::reserve(sublen+1);
+          ::memcpy(Buf(), cstring, sublen+1);
+          assert(*Buf(sublen) == '\0');
         }
 
 	/**
