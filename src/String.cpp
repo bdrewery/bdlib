@@ -175,6 +175,9 @@ Array<String> String::split(const String& delim, size_t limit) const {
     return Array<String>({*this});
   }
 
+#ifndef NDEBUG
+  auto ref = rcount();
+#endif
   const String space(' ');
   Array<String> array;
   auto it = cbegin();
@@ -191,6 +194,7 @@ Array<String> String::split(const String& delim, size_t limit) const {
     if ((pos = _find(delim, it - cbegin())) == npos)
       pos = cend() - it;
     array << (*this)(it - cbegin(), pos);
+    assert(++ref);
     it += pos + delim.length();
     assert(it - delim.length() <= cend());
   }
@@ -200,7 +204,13 @@ Array<String> String::split(const String& delim, size_t limit) const {
     // Trim out left whitespace
     if (delim == space) while (it < cend() && *it == ' ') ++it;
     array << (*this)(it - cbegin());
+    assert(++ref);
   }
+  /*
+   * Our String should not be modified.
+   * We should only be returning reference slices.
+   */
+  assert(ref == rcount());
 
   return array;
 }
