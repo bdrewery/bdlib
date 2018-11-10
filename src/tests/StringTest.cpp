@@ -989,6 +989,16 @@ void StringTest :: initializerTest(void) {
   CPPUNIT_ASSERT_EQUAL(size_t(4), blah.length());
   CPPUNIT_ASSERT_EQUAL(size_t(1), blah.rcount());
   CPPUNIT_ASSERT_STRING_EQUAL("blah", blah);
+
+  String blah1{"blah"};
+  CPPUNIT_ASSERT_EQUAL(size_t(4), blah1.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), blah1.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", blah1);
+
+  blah1 = {"foobar"};
+  CPPUNIT_ASSERT_EQUAL(size_t(6), blah1.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), blah1.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("foobar", blah1);
 }
 
 
