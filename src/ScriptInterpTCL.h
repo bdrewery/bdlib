@@ -263,7 +263,7 @@ class ScriptInterpTCL : public ScriptInterp {
 
           memmove(data->ptr, tcl_to_c_cast<T>::from(obj, nullptr),
               data->size);
-          if (std::is_same<T, char*>::value ||
+          if __CPP17_IFCONSTEXPR (std::is_same<T, char*>::value ||
               std::is_same<T, const char*>::value)
             static_cast<T>(data->ptr)[data->size - 1] = '\0';
           if (link_var_hook != std::end(link_var_hooks))

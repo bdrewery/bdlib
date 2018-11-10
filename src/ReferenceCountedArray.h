@@ -84,7 +84,7 @@ class ArrayRef {
 
         if (newbuf != buf) {
           // Initialize new memory
-          if (std::is_class<T>::value)
+          if __CPP17_IFCONSTEXPR (std::is_class<T>::value)
             std::uninitialized_fill(newbuf, newbuf + newSize, T());
           if (buf) {
             /* Copy old buffer into new - only copy the subarray */
@@ -111,7 +111,7 @@ class ArrayRef {
      * @todo Implement mempool here.
      */
     inline void FreeBuf(iterator p) const {
-      if (std::is_class<T>::value) {
+      if __CPP17_IFCONSTEXPR (std::is_class<T>::value) {
         for (iterator i = p; i != p + size; ++i) {
           alloc.destroy(i);
         }
@@ -622,7 +622,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
          * Use constructing for objects but allow memset
          * for simple types via std::fill.
          */
-        if (std::is_class<T>::value)
+        if __CPP17_IFCONSTEXPR (std::is_class<T>::value)
           std::uninitialized_fill(Buf(length()), Buf(len), value);
         else
           std::fill(Buf(length()), Buf(len), value);
