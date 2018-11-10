@@ -88,6 +88,8 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
   if [[ "${ax_cv_prog_cc_Og}" = "no" ]]; then
     DEBUG_CXXFLAGS="${DEBUG_CXXFLAGS} -O0"
   fi
+else
+  AM_CXXFLAGS="$AM_CXXFLAGS -DNDEBUG"
 fi
 AC_SUBST(AM_CXXFLAGS)
 AC_SUBST(CPPUNIT_CXXFLAGS)
