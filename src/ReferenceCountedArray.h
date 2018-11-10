@@ -605,7 +605,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         setLength(len);
       } else {
         AboutToModify(len);
-        std::fill(Buf(length()), Buf(len), value);
+        std::uninitialized_fill(Buf(length()), Buf(len), value);
         sublen = len;
       }
     }
