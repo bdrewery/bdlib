@@ -197,48 +197,60 @@ void ArrayTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_b->size());
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_b->rcount());
 
+  int_d = new Array<int>();
+  *int_d = *int_a;
   *int_c = *int_a;
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_b->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_d->rcount());
 
   int_b->push(99);
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(2), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(11), int_b->size());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(2), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->rcount());
 
   for (int i = 9; i >= 0; --i)
     CPPUNIT_ASSERT_EQUAL(i, int_a->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(11), int_b->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->rcount());
 
   CPPUNIT_ASSERT_EQUAL(99, int_b->pop());
   for (int i = 9; i > 0; --i)
     CPPUNIT_ASSERT_EQUAL(i, int_b->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(1), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->rcount());
 
   *int_b = *int_c;
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_b->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_d->rcount());
 }
 
 void ArrayTest :: joinTest(void)

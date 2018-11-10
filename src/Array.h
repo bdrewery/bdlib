@@ -140,20 +140,19 @@ class Array : public ReferenceCountedArray<T> {
      */
     inline value_type shift() & {
       if (this->isEmpty()) return value_type();
+      pointer item{this->Buf(0)};
 
-      value_type temp(std::move(*(this->Buf(0))));
+      value_type temp(this->isShared() ? *item : std::move(*item));
       ++(this->offset);
       --(this->sublen);
-      return temp;
+      this->my_hash = 0;
+      return std::move(temp);
     }
 
     inline value_type shift() && noexcept {
+      assert(!this->isShared());
       if (this->isEmpty()) return std::move(value_type());
-
-      value_type temp(std::move(*(this->Buf(0))));
-      ++(this->offset);
-      --(this->sublen);
-      return std::move(temp);
+      return std::move(*(this->Buf(0)));
     }
 
     /**
@@ -162,18 +161,18 @@ class Array : public ReferenceCountedArray<T> {
      */
     inline value_type pop() & {
       if (this->isEmpty()) return value_type();
+      pointer item{this->Buf(this->length() -1)};
 
-      value_type temp(std::move(*(this->Buf(this->length() - 1))));
+      value_type temp(this->isShared() ? *item : std::move(*item));
       --(this->sublen);
-      return temp;
+      this->my_hash = 0;
+      return std::move(temp);
     }
 
     inline value_type pop() && noexcept {
+      assert(!this->isShared());
       if (this->isEmpty()) return std::move(value_type());
-
-      value_type temp(std::move(*(this->Buf(this->length() - 1))));
-      --(this->sublen);
-      return std::move(temp);
+      return std::move(*(this->Buf(this->length() - 1)));
     }
 
     /**

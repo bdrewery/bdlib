@@ -362,15 +362,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * If needed, performs a deep copy into a new buffer (COW).
      * Also take a hint size n of the new ReferenceCountedArray's size as to avoid needless copying/allocing.
      */
-    void COW(size_t n) const {
+    inline void COW(size_t n) const {
       const_pointer oldBuf = constBuf();
       const size_t oldLength = length();
 
       assert(isShared());
       doDetach(); //Detach from the shared reference
       reserve(n, _rca_cow_scaling_factor); //Will set capacity()/size
-      std::copy(oldBuf, oldBuf + oldLength, Buf());
-      sublen = oldLength;
+      sublen = std::min(oldLength, n);
+      std::copy(oldBuf, oldBuf + sublen, Buf());
     }
 
   protected:

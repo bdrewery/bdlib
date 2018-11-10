@@ -97,6 +97,9 @@ void StringTest :: clearTest (void)
   CPPUNIT_ASSERT_EQUAL(true, b->isEmpty());
 
   CPPUNIT_ASSERT_EQUAL((size_t) 4, a->length());
+  a->clear();
+  CPPUNIT_ASSERT_EQUAL((size_t) 0, a->length());
+  CPPUNIT_ASSERT_EQUAL(true, a->isEmpty());
 }
 
 
@@ -1662,6 +1665,27 @@ void StringTest :: substringOutOfRangeResizeTest(void)
   CPPUNIT_ASSERT_NO_THROW(b->at(2));
   CPPUNIT_ASSERT_THROW(b->at(3), std::out_of_range);
   CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+  /* Force next resize to COW with a smaller value */
+  *c = *a;
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2), a->rcount());
+  a->resize(4);
+  CPPUNIT_ASSERT_STRING_EQUAL("one ", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), b->size());
+  CPPUNIT_ASSERT_NO_THROW(a->at(3));
+  CPPUNIT_ASSERT_THROW(a->at(5), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(a->at(4), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(b->at(0));
+  CPPUNIT_ASSERT_NO_THROW(b->at(1));
+  CPPUNIT_ASSERT_NO_THROW(b->at(2));
+  CPPUNIT_ASSERT_THROW(b->at(3), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+  CPPUNIT_ASSERT_STRING_EQUAL("one t", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(5), c->size());
+  CPPUNIT_ASSERT_NO_THROW(c->at(4));
+  CPPUNIT_ASSERT_THROW(c->at(5), std::out_of_range);
+
 }
 
 void StringTest :: substringOutOfRangeResizeSubTest(void)
