@@ -106,7 +106,7 @@ void String::insert(size_t pos, const char *string, size_t n)
   /* Shift right */
   std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
   std::copy(string, string + slen, Buf(pos));
-  addLength(slen);
+  sublen += slen;
 }
 
 /**
@@ -128,7 +128,7 @@ void String::replace(size_t pos, const char *string, size_t n)
     newlen = length();
   AboutToModify(newlen);
   std::copy(string, string + slen, Buf() + pos);
-  setLength(newlen);
+  sublen = newlen;
 }
 
 std::istream& operator>>(std::istream& is, String& string) {

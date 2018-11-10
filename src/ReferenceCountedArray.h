@@ -329,7 +329,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       if (isShared()) {
         doDetach();
       } else {
-        setLength(0);
+        sublen = 0;
         offset = 0;
         my_hash = 0;
       }
@@ -370,7 +370,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       doDetach(); //Detach from the shared reference
       reserve(n, _rca_cow_scaling_factor); //Will set capacity()/size
       std::copy(oldBuf, oldBuf + oldLength, Buf());
-      setLength(oldLength);
+      sublen = oldLength;
     }
 
   protected:
@@ -549,7 +549,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       clear();
       reserve(list.size());
       std::copy(list.begin(), list.end(), Buf());
-      setLength(list.size());
+      sublen = list.size();
       return *this;
     }
 
@@ -602,11 +602,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     void resize(size_t len, const value_type value = value_type()) {
       if (len < length()) {
-        subLength(length() - len);
+        setLength(len);
       } else {
         AboutToModify(len);
         std::fill(Buf(length()), Buf(len), value);
-        setLength(len);
+        sublen = len;
       }
     }
 
@@ -982,7 +982,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       /* Shift right */
       std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
       std::copy(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
-      addLength(slen);
+      sublen += slen;
     }
 
     /**
@@ -1012,7 +1012,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       /* Shift right */
       std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
       std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
-      addLength(slen);
+      sublen += slen;
     }
 
     /**
@@ -1032,7 +1032,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       /* Shift right */
       std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + 1));
       *(Buf(pos)) = item;
-      addLength(1);
+      ++sublen;
     }
 
     /**
@@ -1052,7 +1052,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       /* Shift right */
       std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + 1));
       *(Buf(pos)) = std::move(item);
-      addLength(1);
+      ++sublen;
     }
 
     /**
@@ -1114,7 +1114,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         newlen = length();
       AboutToModify(newlen);
       std::copy(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
-      setLength(newlen);
+      sublen = newlen;
     }
 
     /**
@@ -1146,7 +1146,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         newlen = length();
       AboutToModify(newlen);
       std::move(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
-      setLength(newlen);
+      sublen = newlen;
     }
 
 };

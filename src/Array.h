@@ -111,13 +111,13 @@ class Array : public ReferenceCountedArray<T> {
     inline void push(const_reference item) {
       this->AboutToModify(this->length() + 1);
       *(this->Buf(this->length())) = item;
-      this->addLength(1);
+      ++this->sublen;
     }
 
     inline void push(value_type&& item) {
       this->AboutToModify(this->length() + 1);
       *(this->Buf(this->length())) = std::move(item);
-      this->addLength(1);
+      ++this->sublen;
     }
 
     /**
@@ -143,7 +143,7 @@ class Array : public ReferenceCountedArray<T> {
 
       value_type temp(std::move(*(this->Buf(0))));
       ++(this->offset);
-      this->subLength(1);
+      --(this->sublen);
       return temp;
     }
 
@@ -152,7 +152,7 @@ class Array : public ReferenceCountedArray<T> {
 
       value_type temp(std::move(*(this->Buf(0))));
       ++(this->offset);
-      this->subLength(1);
+      --(this->sublen);
       return std::move(temp);
     }
 
@@ -164,7 +164,7 @@ class Array : public ReferenceCountedArray<T> {
       if (this->isEmpty()) return value_type();
 
       value_type temp(std::move(*(this->Buf(this->length() - 1))));
-      this->subLength(1);
+      --(this->sublen);
       return temp;
     }
 
@@ -172,7 +172,7 @@ class Array : public ReferenceCountedArray<T> {
       if (this->isEmpty()) return std::move(value_type());
 
       value_type temp(std::move(*(this->Buf(this->length() - 1))));
-      this->subLength(1);
+      --(this->sublen);
       return std::move(temp);
     }
 
