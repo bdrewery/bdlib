@@ -50,6 +50,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (findTest);
     CPPUNIT_TEST (subArrayTest);
     CPPUNIT_TEST (hashTest);
+    CPPUNIT_TEST (resizeTest);
     CPPUNIT_TEST (operatorsTest);
     CPPUNIT_TEST (initializerTest);
     CPPUNIT_TEST (iteratorTest);
@@ -73,6 +74,7 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
         void findTest(void);
         void subArrayTest(void);
         void hashTest(void);
+        void resizeTest(void);
         void operatorsTest(void);
         void initializerTest(void);
         void iteratorTest(void);

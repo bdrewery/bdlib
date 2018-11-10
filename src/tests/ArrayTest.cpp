@@ -613,6 +613,15 @@ void ArrayTest :: subArrayTest (void)
   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_b), expectedResults);
 }
 
+void ArrayTest :: resizeTest(void)
+{
+  String foo{"foo"};
+  str_a->clear();
+  str_a->resize(5, foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(5), (*str_a).length());
+  CPPUNIT_ASSERT_STRING_EQUAL(foo, (*str_a)[0]);
+  CPPUNIT_ASSERT_EQUAL(size_t(6), foo.rcount());
+}
 
 void ArrayTest :: hashTest(void)
 {
