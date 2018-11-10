@@ -605,7 +605,14 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         setLength(len);
       } else {
         AboutToModify(len);
-        std::uninitialized_fill(Buf(length()), Buf(len), value);
+        /*
+         * Use constructing for objects but allow memset
+         * for simple types via std::fill.
+         */
+        if (std::is_class<T>::value)
+          std::uninitialized_fill(Buf(length()), Buf(len), value);
+        else
+          std::fill(Buf(length()), Buf(len), value);
         sublen = len;
       }
     }
