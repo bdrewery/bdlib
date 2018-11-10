@@ -147,7 +147,7 @@ class Array : public ReferenceCountedArray<T> {
       return temp;
     }
 
-    inline value_type shift() && {
+    inline value_type shift() && noexcept {
       if (this->isEmpty()) return std::move(value_type());
 
       value_type temp(std::move(*(this->Buf(0))));
@@ -168,7 +168,7 @@ class Array : public ReferenceCountedArray<T> {
       return temp;
     }
 
-    inline value_type pop() && {
+    inline value_type pop() && noexcept {
       if (this->isEmpty()) return std::move(value_type());
 
       value_type temp(std::move(*(this->Buf(this->length() - 1))));
