@@ -85,10 +85,23 @@ class ArrayRef {
         if (newbuf != buf) {
           // Initialize new memory
           if __CPP17_IFCONSTEXPR (std::is_class<T>::value)
-            std::uninitialized_fill(newbuf, newbuf + newSize, T());
+            std::uninitialized_fill(newbuf + sublen, newbuf + newSize, T());
           if (buf) {
             /* Copy old buffer into new - only copy the subarray */
-            std::move(buf + offset, buf + offset + sublen, newbuf);
+            if __CPP17_IFCONSTEXPR (std::is_class<T>::value) {
+#if __cplusplus >= 201703L
+              std::uninitialized_move_n(
+                  buf + offset,
+                  sublen,
+                  newbuf);
+#else
+              std::uninitialized_copy_n(
+                  std::make_move_iterator(buf + offset),
+                  sublen,
+                  newbuf);
+#endif
+            } else
+              std::move(buf + offset, buf + offset + sublen, newbuf);
             FreeBuf(buf);
           }
           buf = newbuf;
