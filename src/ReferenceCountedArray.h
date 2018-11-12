@@ -246,6 +246,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     typedef std::reverse_iterator<iterator>           reverse_iterator;
 
   private:
+    template <typename InputIt>
+    using is_input_iterator = std::is_convertible<
+      typename std::iterator_traits<InputIt>::iterator_category,
+      std::input_iterator_tag>;
+
     /**
      * @brief Detach from the shared reference.
      * This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used)
@@ -553,6 +558,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
 
   public:
+    template <class InputIt>
+    ReferenceCountedArray(InputIt first,
+      typename std::enable_if<
+        is_input_iterator<InputIt>::value,
+        InputIt
+        >::type last) :
+      ReferenceCountedArray(std::distance(first, last)) {
+      insert(cbegin(), first, last);
+    }
 
     /**
      * @brief Create an array from an initializer list
@@ -972,6 +986,8 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline void append(const_reference item) { insert(length(), item); };
     inline void append(value_type&& item) { insert(length(), std::move(item)); };
+    inline void push_front(const_reference item) { insert(size_t(0), item); };
+    inline void push_front(value_type&& item) { insert(size_t(0), std::move(item)); };
     inline void push_back(const_reference item) { append(item); };
     inline void push_back(value_type&& item) { append(std::move(item)); };
     /**
@@ -986,6 +1002,31 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     }
     inline void append(ReferenceCountedArray&& rca, size_t n = npos) {
       insert(length(), std::move(rca), n);
+    }
+
+    iterator insert(const_iterator pos, const_reference item) {
+      const auto index = pos - cbegin();
+      insert(index, item);
+      return std::next(begin(), index);
+    }
+
+    iterator insert(const_iterator pos, value_type&& item) {
+      const auto index = pos - cbegin();
+      insert(index, std::move(item));
+      return std::next(begin(), index);
+    }
+
+    template <class InputIt>
+    typename std::enable_if<
+      is_input_iterator<InputIt>::value,
+      typename ReferenceCountedArray<T>::iterator>::type
+    insert(const_iterator pos, InputIt first, InputIt last) {
+      auto index = pos - cbegin();
+      const auto rindex = index;
+      AboutToModify(length() + std::distance(first, last));
+      while (first != last)
+        insert(std::next(begin(), index++), *first++);
+      return std::next(begin(), rindex);
     }
 
     /**

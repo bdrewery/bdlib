@@ -769,6 +769,128 @@ void ArrayTest :: iteratorTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("4", *it);
   ++it;
   CPPUNIT_ASSERT_EQUAL(true, it == str_a->end());
+
+  str_c = new Array<String>;
+  *str_c = *str_b = *str_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_c->rcount());
+  std::copy(str_a->cbegin(), str_a->cend(),
+      std::back_inserter((*str_c)));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(false, str_c->isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  *str_c = *str_b = *str_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_c->rcount());
+  std::copy(str_a->cbegin(), str_a->cend(),
+      std::inserter((*str_c), std::next((*str_c).begin(), 1)));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(false, str_c->isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  *str_c = *str_a;
+  (*str_a).clear();
+  str_a->push("A");
+  str_a->push("B");
+  str_a->push("C");
+  str_a->push("D");
+  *str_b = *str_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  std::copy(str_a->cbegin(), str_a->cend(),
+      std::front_inserter((*str_c)));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(false, str_c->isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("D", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("A", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  Array<String> str_d(str_c->cbegin(), str_c->cend());
+  CPPUNIT_ASSERT_ARRAY_EQUAL((*str_c), str_d);
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("D", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("A", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  std::vector<String> v_a;
+  v_a.push_back("A");
+  v_a.push_back("B");
+  v_a.push_back("C");
+  v_a.push_back("D");
+  Array<String> str_e(
+      std::make_move_iterator(v_a.begin()),
+      std::make_move_iterator(v_a.end()));
+  CPPUNIT_ASSERT_STRING_EQUAL("A", str_e[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", str_e[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", str_e[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("D", str_e[3]);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_e.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[0].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[1].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[2].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[3].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), v_a.size());
+
+  (*str_a).clear();
+  str_a->push("A");
+  str_a->push("B");
+  str_a->push("C");
+  str_a->push("D");
+  Array<String> str_f(
+      std::make_move_iterator(str_a->begin()),
+      std::make_move_iterator(str_a->end()));
+  CPPUNIT_ASSERT_STRING_EQUAL("A", str_f[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", str_f[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", str_f[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("D", str_f[3]);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_f.length());
+  CPPUNIT_ASSERT_EQUAL(true, (*str_a)[0].get().isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[0].get().rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[0].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[1].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[2].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[3].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_a->size());
+  (*str_a)[0] = "what";
+  CPPUNIT_ASSERT_STRING_EQUAL("A", str_f[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("what", (*str_a)[0]);
 }
 
 /* vim: set sts=2 sw=2 ts=8 et: */

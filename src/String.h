@@ -89,7 +89,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
 	String(const String& string) noexcept = default;
 	String(String&& string) noexcept = default;
-        explicit String(const std::string& str) : String(str.data(), str.length()) {};
+        String(const std::string& str) : String(str.data(), str.length()) {};
         String(std::initializer_list<value_type> list) :
           ReferenceCountedArray<String_Array_Type, Allocator>(list) {};
 
@@ -162,6 +162,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
             const Allocator& allocator = Allocator()) :
           ReferenceCountedArray<String_Array_Type, Allocator>(newSize, value,
               allocator) {};
+
+        using ReferenceCountedArray<String_Array_Type, Allocator>::ReferenceCountedArray;
 
         ~String() {
           /* If deallocating the last reference, cleanse the string buffer with OPENSSL_cleanse() */
@@ -271,7 +273,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
           return ret;
         }
 
-        explicit operator std::string() const {
+        operator std::string() const {
           return std::string(constBuf(), length());
         }
 

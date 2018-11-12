@@ -63,6 +63,7 @@ class Array : public ReferenceCountedArray<T> {
     Array(Array<value_type>&& array) noexcept = default;
     Array(std::initializer_list<value_type> list) :
       ReferenceCountedArray<T>(list) {};
+    using ReferenceCountedArray<T>::ReferenceCountedArray;
 
     /**
      * @brief Create a Array from a given carray.

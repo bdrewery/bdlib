@@ -338,7 +338,7 @@ void StringTest :: hasIndexTest(void)
   CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
   CPPUNIT_ASSERT_EQUAL(size_t(0), a->length());
 
-  CPPUNIT_ASSERT_NO_THROW(a->insert(0, 'c'));
+  CPPUNIT_ASSERT_NO_THROW(a->insert(size_t(0), 'c'));
   a->resize(0);
   CPPUNIT_ASSERT_THROW(a->insert(1, 'c'), std::out_of_range);
   a->resize(0);
@@ -422,6 +422,90 @@ void StringTest :: iteratorTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("this is just a tesT", (*a));  
   CPPUNIT_ASSERT_STRING_EQUAL("tthis is just a tes", (*b));
+
+  std::string sfoo = "a long std::string is here";
+  String foo1, foo2;
+  std::string sfoo1, sfoo2;
+
+  CPPUNIT_ASSERT_STRING_EQUAL("a long std::string is here", sfoo);
+  *a = "Test original string here which should not be modified";
+  *b = *a;
+  sfoo1 = sfoo2  = *a;
+  foo1 = foo2  = *a;
+
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::back_inserter(sfoo1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modifieda long std::string is here", sfoo1);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", foo1);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo1.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo2.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), (*b).rcount());
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::back_inserter(foo1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modifieda long std::string is here", foo1);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), foo1.rcount());
+  CPPUNIT_ASSERT((*a).rptr() != foo1.rptr());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), foo2.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), (*b).rcount());
+
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::inserter(sfoo2, std::next(sfoo2.begin(), 4)));
+  CPPUNIT_ASSERT_STRING_EQUAL("Testa long std::string is here original string here which should not be modified", sfoo2);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", foo2);
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::inserter(foo2, std::next(foo2.begin(), 4)));
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testa long std::string is here original string here which should not be modified", foo2);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), foo1.rcount());
+  CPPUNIT_ASSERT((*a).rptr() != foo1.rptr());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), foo2.rcount());
+  CPPUNIT_ASSERT((*a).rptr() != foo2.rptr());
+  CPPUNIT_ASSERT(foo1.rptr() != foo2.rptr());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), (*b).rcount());
+
+  CPPUNIT_ASSERT_STRING_EQUAL("a long std::string is here", sfoo);
+
+  *a = *b = foo1 = sfoo1 = "test 123";
+  foo2 = sfoo2 = "blah";
+  auto sit = sfoo1.insert(std::next(sfoo1.begin(), 1),
+      std::next(sfoo2.cbegin(), 1),
+      sfoo2.cend());
+  CPPUNIT_ASSERT_STRING_EQUAL("tlahest 123", sfoo1);
+  CPPUNIT_ASSERT_EQUAL(std::next(sfoo1.cbegin(), 1) - sfoo1.cbegin(), sit - sfoo1.cbegin());
+  CPPUNIT_ASSERT(std::next(sfoo1.cbegin(), 1) == sit);
+  auto it = foo1.insert(std::next(foo1.begin(), 1),
+      std::next(foo2.cbegin(), 1),
+      foo2.cend());
+  CPPUNIT_ASSERT_STRING_EQUAL("test 123", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test 123", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", foo2);
+  CPPUNIT_ASSERT_STRING_EQUAL("tlahest 123", foo1);
+  CPPUNIT_ASSERT_EQUAL(std::next(foo1.cbegin(), 1) - foo1.cbegin(), it - foo1.cbegin());
+  CPPUNIT_ASSERT(std::next(foo1.cbegin(), 1) == it);
+
+  *b = *a = "test 123";
+  String nfoo(a->cbegin(), a->cend());
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, nfoo);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), nfoo.rcount());
+
+  *a = "begin";
+  *b = " end";
+  a->insert(a->cend(), b->cbegin(), b->cend());
+  CPPUNIT_ASSERT_STRING_EQUAL("begin end", (*a));
+  CPPUNIT_ASSERT_STRING_EQUAL(" end", (*b));
+
+  *a = "foo 123";
+  String movefoo(
+      std::make_move_iterator(a->begin()),
+      std::make_move_iterator(a->end()));
+  CPPUNIT_ASSERT_STRING_EQUAL("foo 123", movefoo);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), movefoo.rcount());
 }
 
 void StringTest :: stl_iteratorTest(void)
@@ -488,7 +572,7 @@ void StringTest :: insertTest(void)
 {
   CPPUNIT_ASSERT_THROW(a->insert(1, 'a'), std::out_of_range);
   CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
-  a->insert(0, 'b');
+  a->insert(size_t(0), 'b');
   CPPUNIT_ASSERT_NO_THROW(a->at(0));
   CPPUNIT_ASSERT_STRING_EQUAL("b", *a);
   CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
