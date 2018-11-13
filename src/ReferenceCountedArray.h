@@ -432,7 +432,9 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       ReferenceCountedArrayBase(), alloc(allocator) {
     }
     ReferenceCountedArray(const ReferenceCountedArray& rca) noexcept :
-      ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref),
+      ReferenceCountedArrayBase(),
+      alloc(std::allocator_traits<Allocator>::select_on_container_copy_construction(rca.alloc)),
+      Ref(rca.Ref),
       offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) {
       incRef();
     }
