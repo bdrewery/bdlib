@@ -84,31 +84,16 @@ class Array : public ReferenceCountedArray<T> {
     using ReferenceCountedArray<T>::operator=;
 
     /**
-     * @brief Add an item to the end of the array
-     */
-    inline void push(const_reference item) {
-      this->AboutToModify(this->length() + 1);
-      *(this->Buf(this->length())) = item;
-      ++this->sublen;
-    }
-
-    inline void push(value_type&& item) {
-      this->AboutToModify(this->length() + 1);
-      *(this->Buf(this->length())) = std::move(item);
-      ++this->sublen;
-    }
-
-    /**
-     * @sa push
+     * @sa ReferenceCountedArray::push_back()
      */
     inline friend Array<value_type>& operator<<(Array<value_type>& array,
         const_reference item) {
-      array.push(item);
+      array.push_back(item);
       return array;
     }
     inline friend Array<value_type>& operator<<(Array<value_type>& array,
         value_type&& item) {
-      array.push(std::move(item));
+      array.push_back(std::move(item));
       return array;
     }
 

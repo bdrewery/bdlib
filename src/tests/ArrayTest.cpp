@@ -67,7 +67,7 @@ void ArrayTest :: sizeTest (void)
 
 void ArrayTest :: push_popTest (void)
 {
-  str_a->push(String("Test1"));
+  str_a->push_back(String("Test1"));
   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a->size());
   (*str_a) << String("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
@@ -90,15 +90,15 @@ void ArrayTest :: push_popTest (void)
   String a = "Testa";
   String b = "Testb";
   String c = b;
-  str_a->push(a);
+  str_a->push_back(a);
 
-  str_a->push(a);
+  str_a->push_back(a);
   str_a->pop();
 
-  str_a->push(b);
-  str_a->push(a);
-  str_a->push(b);
-  str_a->push(b);
+  str_a->push_back(b);
+  str_a->push_back(a);
+  str_a->push_back(b);
+  str_a->push_back(b);
   CPPUNIT_ASSERT_EQUAL(size_t(5), str_a->size());
 
   String res = str_a->pop();
@@ -176,7 +176,7 @@ void ArrayTest :: arrayConsTest(void)
 void ArrayTest :: clearTest (void)
 {
   for (int i = 0; i < 10; ++i)
-    int_a->push(i);
+    int_a->push_back(i);
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
   int_a->clear();
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
@@ -188,7 +188,7 @@ void ArrayTest :: clearTest (void)
 void ArrayTest :: refTest (void)
 {
   for (int i = 0; i < 10; ++i)
-    int_a->push(i);
+    int_a->push_back(i);
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_a->rcount());
   *int_b = *int_a;
@@ -209,7 +209,7 @@ void ArrayTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
   CPPUNIT_ASSERT_EQUAL(size_t(4), int_d->rcount());
 
-  int_b->push(99);
+  int_b->push_back(99);
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
   CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(11), int_b->size());
@@ -255,9 +255,9 @@ void ArrayTest :: refTest (void)
 
 void ArrayTest :: joinTest(void)
 {
-  str_a->push("Test1");
-  str_a->push("Test2");
-  str_a->push("Test3");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
+  str_a->push_back("Test3");
   CPPUNIT_ASSERT_STRING_EQUAL("Test1 Test2 Test3", str_a->join(' '));
   CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->size());
   CPPUNIT_ASSERT_STRING_EQUAL("Test3", str_a->pop());
@@ -268,20 +268,20 @@ void ArrayTest :: joinTest(void)
 
 void ArrayTest :: compareTest(void)
 {
-  str_a->push("Test1");
-  str_a->push("Test2");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
 
-  str_b->push("Test1");
+  str_b->push_back("Test1");
   CPPUNIT_ASSERT_EQUAL(false, (*str_a) == (*str_b));
-  str_b->push("Test2");
+  str_b->push_back("Test2");
 
   CPPUNIT_ASSERT_EQUAL(true, (*str_a) == (*str_b));
 }
 
 void ArrayTest :: findTest(void)
 {
-  str_a->push("Test1");
-  str_a->push("Test2");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(-1), str_a->find("Test3"));
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->find("Test1"));
   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a->find("Test2"));
@@ -291,8 +291,8 @@ void ArrayTest :: indexTest(void)
 {
   str_c = new Array<String>(20);
 
-  str_a->push("Test1");
-  str_a->push("Test2");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_a)[1]);
 
@@ -573,14 +573,14 @@ void ArrayTest :: indexTest(void)
 
 void ArrayTest :: subArrayTest (void)
 {
-  str_a->push("Test0");
-  str_a->push("Test1");
-  str_a->push("Test2");
-  str_a->push("Test3");
-  str_a->push("Test4");
-  str_a->push("Test5");
-  str_a->push("Test6");
-  str_a->push("Test7");
+  str_a->push_back("Test0");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
+  str_a->push_back("Test3");
+  str_a->push_back("Test4");
+  str_a->push_back("Test5");
+  str_a->push_back("Test6");
+  str_a->push_back("Test7");
 
   str_c = new Array<String>();
   (*str_c) = (*str_a);
@@ -598,10 +598,10 @@ void ArrayTest :: subArrayTest (void)
 
   // In place test
   Array<String> inplaceTest;
-  inplaceTest.push("TEST0");
-  inplaceTest.push("TEST1");
-  inplaceTest.push("TEST2");
-  inplaceTest.push("TEST3");
+  inplaceTest.push_back("TEST0");
+  inplaceTest.push_back("TEST1");
+  inplaceTest.push_back("TEST2");
+  inplaceTest.push_back("TEST3");
   (*str_b) = (*str_a);
   (*str_b)(0, 2) = inplaceTest;
 
@@ -627,10 +627,10 @@ void ArrayTest :: hashTest(void)
 {
   str_c = new Array<String>();
 
-  (*str_a).push("test");
-  (*str_a).push("test2");
-  (*str_b).push("test");
-  (*str_b).push("test2");
+  (*str_a).push_back("test");
+  (*str_a).push_back("test2");
+  (*str_b).push_back("test");
+  (*str_b).push_back("test2");
   (*str_c) = (*str_b);
   CPPUNIT_ASSERT_EQUAL(str_a->hash(), str_b->hash());
   CPPUNIT_ASSERT_EQUAL(str_a->hash(), str_c->hash());
@@ -638,9 +638,9 @@ void ArrayTest :: hashTest(void)
 
   str_a->clear();
   str_b->clear();
-  (*str_a).push("test");
-  (*str_a).push("test1");
-  (*str_b).push("test");
+  (*str_a).push_back("test");
+  (*str_a).push_back("test1");
+  (*str_b).push_back("test");
   (*str_c) = (*str_b);
   CPPUNIT_ASSERT(str_a->hash() != str_b->hash());
   CPPUNIT_ASSERT(str_a->hash() != str_c->hash());
@@ -678,10 +678,10 @@ void ArrayTest :: hashTest(void)
 
 void ArrayTest :: operatorsTest(void)
 {
-  str_a->push("1");
-  str_a->push("2");
-  str_b->push("3");
-  str_b->push("4");
+  str_a->push_back("1");
+  str_a->push_back("2");
+  str_b->push_back("3");
+  str_b->push_back("4");
 
   str_c = new Array<String>();
   (*str_c) = (*str_a) + (*str_b);
@@ -750,10 +750,10 @@ void ArrayTest :: initializerTest(void) {
 
 void ArrayTest :: iteratorTest(void)
 {
-  str_a->push("1");
-  str_a->push("2");
-  str_a->push("3");
-  str_a->push("4");
+  str_a->push_back("1");
+  str_a->push_back("2");
+  str_a->push_back("3");
+  str_a->push_back("4");
 
   auto it = str_a->begin();
   CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
@@ -813,10 +813,10 @@ void ArrayTest :: iteratorTest(void)
 
   *str_c = *str_a;
   (*str_a).clear();
-  str_a->push("A");
-  str_a->push("B");
-  str_a->push("C");
-  str_a->push("D");
+  str_a->push_back("A");
+  str_a->push_back("B");
+  str_a->push_back("C");
+  str_a->push_back("D");
   *str_b = *str_a;
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
@@ -869,10 +869,10 @@ void ArrayTest :: iteratorTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(4), v_a.size());
 
   (*str_a).clear();
-  str_a->push("A");
-  str_a->push("B");
-  str_a->push("C");
-  str_a->push("D");
+  str_a->push_back("A");
+  str_a->push_back("B");
+  str_a->push_back("C");
+  str_a->push_back("D");
   Array<String> str_f(
       std::make_move_iterator(str_a->begin()),
       std::make_move_iterator(str_a->end()));
