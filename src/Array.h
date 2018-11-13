@@ -83,6 +83,9 @@ class Array : public ReferenceCountedArray<T> {
     Array& operator=(Array<value_type>&& array) noexcept = default;
     using ReferenceCountedArray<T>::operator=;
 
+    inline void push_front(const_reference item) { this->insert(size_t(0), item); };
+    inline void push_front(value_type&& item) { this->insert(size_t(0), std::move(item)); };
+
     /**
      * @sa ReferenceCountedArray::push_back()
      */
