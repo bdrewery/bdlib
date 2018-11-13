@@ -105,7 +105,7 @@ class Array : public ReferenceCountedArray<T> {
      * @return The first element.
      */
     inline value_type shift() & {
-      if (this->isEmpty()) return value_type();
+      assert(!this->isEmpty());
       pointer item{this->Buf(0)};
 
       value_type temp(this->isShared() ? *item : std::move(*item));
@@ -116,8 +116,8 @@ class Array : public ReferenceCountedArray<T> {
     }
 
     inline value_type shift() && noexcept {
+      assert(!this->isEmpty());
       assert(!this->isShared());
-      if (this->isEmpty()) return std::move(value_type());
       return std::move(*(this->Buf(0)));
     }
 
@@ -126,15 +126,15 @@ class Array : public ReferenceCountedArray<T> {
      * @return The last element.
      */
     inline value_type pop() & {
-      if (this->isEmpty()) return value_type();
+      assert(!this->isEmpty());
       value_type temp(this->isShared() ? this->back() : std::move(this->back()));
       this->pop_back();
       return std::move(temp);
     }
 
     inline value_type pop() && noexcept {
+      assert(!this->isEmpty());
       assert(!this->isShared());
-      if (this->isEmpty()) return std::move(value_type());
       return std::move(this->back());
     }
 
