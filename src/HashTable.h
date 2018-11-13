@@ -30,7 +30,6 @@
 #include <unordered_map>
 #include <vector>
 #include "bdlib.h"
-#include "Array.h"
 BDLIB_NS_BEGIN
 
 
@@ -45,96 +44,115 @@ BDLIB_NS_BEGIN
 template <class Key, class Value>
 class HashTable {
   private:
+    typedef typename std::unordered_map<Key, Value> map_type;
+  public:
+    typedef typename map_type::value_type		value_type;
+    typedef typename map_type::iterator			iterator;
+    typedef typename map_type::const_iterator		const_iterator;
+  private:
     static const size_t default_list_size = 100;
-    typedef typename std::unordered_map<Key, Value>::value_type iterator_type;
     typedef void (*hash_table_block)(const Key, Value, void *param);
 
-    std::unordered_map<Key, Value> map;
+    map_type map{default_list_size};
 
   public:
-    HashTable() : map(default_list_size) {} ;
+    HashTable() = default;
     explicit HashTable(size_t capacity_in) : map(capacity_in) {};
-    HashTable(const HashTable<Key, Value>& table) : map(table.map) {}
-    HashTable(HashTable<Key, Value>&& table) : map(std::move(table.map)) {
-      table.map.clear();
+    HashTable(const HashTable<Key, Value>& table) = default;
+    HashTable(HashTable<Key, Value>&& table) noexcept = default;
+    HashTable(std::initializer_list<value_type> list) : map(list) {}
+
+    inline iterator begin() { return map.begin(); };
+    inline const_iterator cbegin() const { return map.cbegin(); };
+    inline const_iterator begin() const { return this->cbegin(); };
+    inline iterator end() { return map.end(); };
+    inline const_iterator cend() const { return map.cend(); };
+    inline const_iterator end() const { return this->cend(); };
+    inline iterator find(const Key& key) {
+      return map.find(key);
     }
-    HashTable(std::initializer_list<iterator_type> list) : map(list) {}
+    inline const_iterator find(const Key& key) const {
+      return map.find(key);
+    }
 
-    virtual ~HashTable() {}
-
-    void clear() {
+    inline void clear() {
       map.clear();
     }
 
-    /**
-     * @brief A ruby style block which will yield to the passed callback for each Key/Value pair.
-     * @param block The block to execute for each element
-     * @param param An optional parameter to pass to the block.
-     * @return How many iterations were called
-     */
-    int each(hash_table_block block, void* param = nullptr) {
-      int n = 0;
-      if (!size()) return n;
-
-      // Make a list of KeyValues to yield from.
-      // Don't yield in this loop as the block may actually modify (this), thus making this iterator stale
-      std::vector<iterator_type> items;
-      for (const auto& item : map) {
-        items.push_back(item);
-      }
-
-      // Now yield on our temporary, so (this) isn't a factor.
-      for (const auto& item : items) {
-        ++n;
-        block(item.first, item.second, param);
-      }
-      return n;
-    }
-
-    friend void swap(HashTable<Key, Value>& a, HashTable<Key, Value>& b) {
+    friend void swap(HashTable<Key, Value>& a,
+        HashTable<Key, Value>& b) noexcept {
       using std::swap;
 
       swap(a.map, b.map);
     }
 
-    HashTable& operator=(HashTable<Key, Value> table) {
-      swap(*this, table);
-      return *this; 
+    HashTable& operator=(const HashTable<Key, Value>& table) & {
+      if (&table != this)
+        map = table.map;
+      return *this;
     }
+
+    HashTable& operator=(HashTable<Key, Value>&& table) & noexcept = default;
 
     /**
      * @brief Create an array from an initializer list
      * @param list An initializer_list
      */
-    HashTable& operator=(std::initializer_list<iterator_type> list) {
-      for (iterator_type item : list) {
+    HashTable& operator=(std::initializer_list<value_type> list) & {
+      for (const auto& item : list) {
         (*this)[item.key()] = item.value();
       }
       return *this;
     }
 
-    inline size_t size() const { return map.size(); };
-    inline size_t capacity() const { return map.max_size(); };
-    inline bool isEmpty() const { return map.empty(); };
-    inline explicit operator bool() const { return !isEmpty(); };
+    inline size_t size() const noexcept __attribute__((pure)) {
+      return map.size();
+    }
+    inline size_t capacity() const noexcept __attribute__((pure)) {
+      return map.max_size();
+    }
+    inline bool isEmpty() const noexcept __attribute__((pure)) {
+      return map.empty();
+    }
+    inline explicit operator bool() const noexcept __attribute__((pure)) {
+      return !isEmpty();
+    }
 
-    bool insert(const Key& key, const Value& value) {
+    inline bool insert(const Key& key, const Value& value) {
+      if (contains(key)) return false;
+      map[key] = value;
+      return true;
+    }
+
+    inline bool insert(Key&& key, const Value& value) {
+      if (contains(key)) return false;
+      map[std::move(key)] = value;
+      return true;
+    }
+
+    inline bool insert(const Key& key, Value&& value) {
       if (contains(key)) return false;
       map[key] = std::move(value);
       return true;
     }
 
-    inline bool contains(const Key& key) const {
+    inline bool insert(Key&& key, Value&& value) {
+      if (contains(key)) return false;
+      map[std::move(key)] = std::move(value);
+      return true;
+    }
+
+    inline bool contains(const Key& key) const noexcept __attribute__((pure)) {
       if (isEmpty()) return false;
       return map.find(key) != std::end(map);
     };
 
-    bool remove(const Key& key) {
+    inline bool remove(const Key& key) {
       if (isEmpty()) return false;
       return map.erase(key) > 0 ? true : false;
     };
 
-    inline Value getValue(const Key& key) const {
+    inline Value getValue(const Key& key) const noexcept __attribute__((pure)) {
       auto result = map.find(key);
       if (result == std::end(map))
         return Value();
@@ -145,40 +163,21 @@ class HashTable {
       * @brief Associate array type accessor (rvalue)
       * @param key The key to search for
       */
-    inline const Value operator[](const Key& key) const { return getValue(key); }
-
-    /**
-     * @brief Return an array of all the keys
-     */
-    Array<Key> keys() const {
-      Array<Key> tmp(size());
-
-      for (const auto& item : map) {
-        tmp << item.first;
-      }
-      return tmp;
+    inline const Value operator[](const Key& key) const noexcept __attribute__((pure)) {
+      return getValue(key);
     }
 
-    /**
-     * @brief Return an array of all the values
-     */
-    Array<Value> values() const {
-      Array<Value> tmp(size());
-
-      for (const auto& item : map) {
-        tmp << item.second;
-      }
-      return tmp;
-    }
-    
     /**
       * @brief Associate array type accessor (lvalue)
       * @param key The key to search for
       * @sa find_or_insert_key 
       * If the key is not in the table, it is inserted, and the value set to the rvalue given.
       */
-    inline Value& operator[](const Key& key) {
+    Value& operator[](const Key& key) {
       return map[key];
+    }
+    Value& operator[](Key&& key) {
+      return map[std::move(key)];
     }
 };
 

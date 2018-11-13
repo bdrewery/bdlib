@@ -40,10 +40,10 @@
 
 BDLIB_NS_BEGIN
 
-void Stream::Reserve(const size_t newSize) const {
+void Stream::reserve(const size_t newSize) const {
   if (newSize < capacity())
     return;
-  str.Reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
+  str.reserve(STREAM_BLOCKSIZE * ((newSize + STREAM_BLOCKSIZE -1) / STREAM_BLOCKSIZE));
 }
 
 int Stream::seek(int offset, int whence) {
@@ -113,7 +113,7 @@ int Stream::loadFile(const int fd)
   if (size < 0) {
     return 1;
   }
-  Reserve(size);
+  reserve(size);
   void* map = mmap(0, size, PROT_READ, MAP_PRIVATE, fd, 0);
   if (map == MAP_FAILED) {
     return 1;
@@ -122,7 +122,7 @@ int Stream::loadFile(const int fd)
 
   puts(String(static_cast<const char*>(map), size));
 
-  munmap(static_cast<void*>(map), size);
+  munmap(map, size);
 #else
   int my_fd = dup(fd);
   if (my_fd == -1) {
@@ -138,7 +138,7 @@ int Stream::loadFile(const int fd)
   fseek(f, 0, SEEK_END);
   size_t size = ftell(f);
   fseek(f, 0, SEEK_SET);
-  Reserve(size);
+  reserve(size);
 
   size_t len = 0;
   char buf[STREAM_BLOCKSIZE + 1];
@@ -176,7 +176,7 @@ int Stream::writeFile(const int fd) const
 
   if (map == MAP_FAILED) return 1;
 
-  std::memcpy(map, str.data(), length());
+  std::memcpy(map, str.cbegin(), length());
 
   if (munmap(map, length()) == -1) return 1;
 #else
@@ -190,7 +190,7 @@ int Stream::writeFile(const int fd) const
     return 1;
   }
 
-  if ((fwrite(str.data(), 1, length(), f) != length()) || (fflush(f))) {
+  if ((fwrite(str.cbegin(), 1, length(), f) != length()) || (fflush(f))) {
     fclose(f);
     return 1;
   }

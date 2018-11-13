@@ -1,6 +1,6 @@
 noinst_LIBRARIES=	libbdlib.a
 AM_CPPFLAGS=		@TCL_INCLUDE_SPEC@
-AM_CXXFLAGS=		-Wall @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@
+AM_CXXFLAGS=		-Wall -Wno-narrowing @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@
 libbdlib_a_SOURCES= \
 			src/Cstrings.cpp \
 			src/base64.cpp \
@@ -50,3 +50,5 @@ test: check
 #	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 #	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 #check: all-am check-am
+
+DISTCLEANFILES= $(top_builddir)/build/config.h

@@ -53,7 +53,7 @@ class AtomicFileTest : public CPPUNIT_NS :: TestFixture
         void deleteTest(void);
 
     private:
-        String *source;
+        String *source = nullptr;
 };
 #endif
 /* vim: set sts=2 sw=2 ts=8 et: */

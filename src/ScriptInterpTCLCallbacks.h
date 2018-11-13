@@ -9,9 +9,12 @@
 template <typename ReturnType, typename... Params>
 struct ScriptCallbackDispatchTCL {
   typedef ReturnType (*function_t)(Params...);
-  static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&&... args) {
+  static inline void dispatch(Tcl_Interp* interp, function_t callback,
+      Params&&... args) {
     const ReturnType result(std::move(callback(std::forward<Params>(args)...)));
-    Tcl_SetObjResult(interp, std::move(c_to_tcl_cast<const ReturnType&>::from(std::move(result), interp)));
+    Tcl_SetObjResult(interp,
+        std::move(c_to_tcl_cast<const ReturnType&>::from(std::move(result),
+            interp)));
   }
 };
 
@@ -19,7 +22,8 @@ struct ScriptCallbackDispatchTCL {
 template <typename... Params>
 struct ScriptCallbackDispatchTCL<void, Params...> {
   typedef void (*function_t)(Params...);
-  static inline void dispatch(Tcl_Interp* interp, function_t callback, Params&&... args) {
+  static inline void dispatch(Tcl_Interp* interp, function_t callback,
+      Params&&... args) {
     callback(std::forward<Params>(args)...);
   }
 };
@@ -32,14 +36,19 @@ class ScriptCommandHandlerTCL : public ScriptCommandHandlerTCLBase {
     function_t _callback;
 
     template<std::size_t... Indices>
-    inline void real_call(__attribute__((__unused__)) size_t argc, void* const argv[], __attribute__((__unused__)) ScriptInterp* si, void *proxy_data, indices<Indices...>) {
-      Tcl_Obj* CONST *objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
-      Tcl_Interp* interp = static_cast<Tcl_Interp*>(proxy_data);
-      // Doing argc check to pass default params in if not enough were passed to the handler
-      ScriptCallbackDispatchTCL<ReturnType, Params...>::dispatch(interp, _callback,
+    inline void real_call(__attribute__((__unused__)) size_t argc,
+        void* const argv[], __attribute__((__unused__)) ScriptInterp* si,
+        void *proxy_data, indices<Indices...>) {
+      auto objv = reinterpret_cast<Tcl_Obj* CONST *>(argv);
+      auto interp = static_cast<Tcl_Interp*>(proxy_data);
+      // Doing argc check to pass default params in if not enough were passed
+      // to the handler.
+      ScriptCallbackDispatchTCL<ReturnType, Params...>::dispatch(interp,
+          _callback,
           (
            ((argc - 1) >= Indices + 1) ?
-           (std::move(tcl_to_c_cast<Params>::from(std::move(objv[Indices + 1]), si))) :
+           (std::move(tcl_to_c_cast<Params>::from(std::move(objv[Indices + 1]),
+                                                  si))) :
            (std::move(Params()))
           )...
       );

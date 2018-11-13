@@ -5,40 +5,41 @@ compiler:
 
 before_install:
   - if [ "$CXX" = "g++" ]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
-  - sudo apt-get update
-  - sudo apt-get install tcl tcl-dev
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install libcppunit-dev libcppunit-1.12-1; fi
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install python-yaml python-pip; fi
+  - sudo apt-get -y update
+  - sudo apt-get -y install tcl tcl-dev
+  - if [ "$CXX" = "g++" ]; then echo sudo apt-get -y install libcppunit-dev libcppunit-1.13-0; fi
+  - if [ "$CXX" = "g++" ]; then sudo apt-get -y install python-yaml python-pip; fi
   - if [ "$CXX" = "g++" ]; then sudo pip install cpp-coveralls; fi
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install gcc-4.8 g++-4.8; fi
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - if [ "$CXX" = "clang++" ]; then sudo apt-get install clang-3.4; fi
-  - if [ "$CXX" = "clang++" ]; then svn co --quiet http://llvm.org/svn/llvm-project/libcxxabi/trunk libcxxabi; fi
-  - if [ "$CXX" = "clang++" ]; then svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk libcxx; fi
-  - if [ "$CXX" = "clang++" ]; then (cd libcxx/lib && env CXX="clang++ -I ../../libcxxabi/include" sh buildit); fi
+  - if [ "$CXX" = "g++" ]; then sudo apt-get -y install gcc-6 g++-6; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
+  - if [ "$CXX" = "clang++" ]; then sudo apt-get -y install clang-3.6; fi
+  - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxxabi/trunk@r249649 libcxxabi; fi
+  - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxx/trunk@r249595 libcxx; fi
+  - if [ "$CXX" = "clang++" ]; then (cd libcxx/lib && env CXX="clang++-3.6 -I ../../libcxxabi/include" sh buildit); fi
   - if [ "$CXX" = "clang++" ]; then sudo cp libcxx/lib/libc++.so.1.0 /usr/lib/; fi
   - if [ "$CXX" = "clang++" ]; then sudo mkdir /usr/include/c++/v1; fi
   - if [ "$CXX" = "clang++" ]; then sudo cp -r libcxx/include/* /usr/include/c++/v1/; fi
   - if [ "$CXX" = "clang++" ]; then sudo ln -sf libc++.so.1.0 /usr/lib/libc++.so; fi
   - if [ "$CXX" = "clang++" ]; then sudo ln -sf libc++.so.1.0 /usr/lib/libc++.so.1; fi
-  - if [ "$CXX" = "clang++" ]; then (cd libcxxabi/lib && env CXX="clang++ -I ../../libcxx/include" sh buildit); fi
+  - if [ "$CXX" = "clang++" ]; then (cd libcxxabi/lib && env CXX="clang++-3.6 -I ../../libcxx/include" sh buildit); fi
   - if [ "$CXX" = "clang++" ]; then sudo cp libcxxabi/lib/libc++abi.so.1.0 /usr/lib/; fi
   - if [ "$CXX" = "clang++" ]; then sudo ln -sf libc++abi.so.1.0 /usr/lib/libc++abi.so; fi
   - if [ "$CXX" = "clang++" ]; then sudo ln -sf libc++abi.so.1.0 /usr/lib/libc++abi.so.1; fi
-  - if [ "$CXX" = "clang++" ]; then export CXXFLAGS="-stdlib=libc++" LDFLAGS="-lc++abi"; fi
-  - if [ "$CXX" = "clang++" ]; then (wget http://dev-www.libreoffice.org/src/cppunit-1.13.2.tar.gz && tar -zxvf cppunit-1.13.2.tar.gz && cd cppunit-1.13.2 && ./configure --prefix=/usr --disable-doc --disable-doxygen --disable-html-docs && make -j2 && sudo make install); fi
+  - if [ "$CXX" = "clang++" ]; then export CXXFLAGS="-stdlib=libc++" CPPUNIT_CFLAGS="-stdlib=libc++" LDFLAGS="-stdlib=libc++ -lc++abi"; fi
+  - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.6" CC="clang-3.6"; fi
+  - (wget http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz && tar -zxvf cppunit-1.14.0.tar.gz && cd cppunit-1.14.0 && ./configure --prefix=/usr --disable-doc --disable-doxygen --disable-html-docs && make -j2 V=1 && sudo make install)
   - export CPPFLAGS="-D_FORTIFY_SOURCE=2"
 
 # Skip install
 install: true
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then ./configure --enable-debug; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then ./configure --enable-debug --with-cppunit; fi
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 V=1; fi
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check V=1; fi
 
 after_success:
-  - if [ "$CXX" = "g++-4.8" ]; then coveralls --gcov gcov-4.8 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
+  - if [ "$CXX" = "g++-6" ]; then coveralls --gcov gcov-6 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
 
 # Coverity configuration
 env:
@@ -57,3 +58,7 @@ addons:
     build_command_prepend: "cov-configure --comptype g++ --compiler ${CXX}; ./configure --enable-debug"
     build_command: "make -j2"
     branch_pattern: coverity_scan
+
+# State we need old build infrastructure for now
+sudo: required
+dist: trusty

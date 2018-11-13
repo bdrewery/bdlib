@@ -65,6 +65,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (concatTest);
     CPPUNIT_TEST (incDecTest);
     CPPUNIT_TEST (incDecEqualTest);
+    CPPUNIT_TEST (initializerTest);
     CPPUNIT_TEST (operatorStarTest);
     CPPUNIT_TEST (resizeTest);
     CPPUNIT_TEST (copyTest);
@@ -116,6 +117,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void concatTest(void);
         void incDecTest(void);
         void incDecEqualTest(void);
+        void initializerTest(void);
         void operatorStarTest(void);
         void copyTest(void);
         void printfTest(void);
@@ -130,7 +132,7 @@ class StringTest : public CPPUNIT_NS :: TestFixture
         void hashTest(void);
         void substTest(void);
     private:
-        String *a, *b, *c, *d, *e, *f, *g, *h;
+        String *a = nullptr, *b = nullptr, *c = nullptr, *d = nullptr, *e = nullptr, *f = nullptr, *g = nullptr, *h = nullptr;
 	char cstring[50];
 };
 #endif

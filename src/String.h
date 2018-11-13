@@ -31,19 +31,23 @@
 #include "bdlib.h"
 #include "ReferenceCountedArray.h"
 
+#include <cassert>
+#include <cstring>
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm> // min() / max()
 #include <functional>
-#include <cstring>
-
 
 #ifdef CPPUNIT_VERSION
+#include <string>
 #include <cppunit/SourceLine.h>
 #include <cppunit/TestAssert.h>
-#define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual) BDLIB_NS::String::checkStringEqual(expected, actual, CPPUNIT_SOURCELINE())
+#define CPPUNIT_ASSERT_STRING_EQUAL(expected, actual, ...) \
+  CPPUNIT_ASSERT_EQUAL(\
+      static_cast<const BDLIB_NS::String>(expected), \
+      static_cast<const BDLIB_NS::String>(actual), \
+      ##__VA_ARGS__);
 #endif /* CPPUNIT_VERSION */
-
 
 BDLIB_NS_BEGIN
 template <class T>
@@ -64,7 +68,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         static unsigned char cleanse_ctr;
 
         /* Cleanse our buffer using OPENSSL_cleanse() */
-        void cleanse() {
+        void cleanse() noexcept {
           const size_t len = capacity();
           char* ptr = const_cast<char*>(real_begin()); //real_begin() will ignore offset.
 
@@ -81,16 +85,26 @@ class String : public ReferenceCountedArray<String_Array_Type> {
   public:
 
         /* Constructors */
-        String(const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
-	String(const String& string) : ReferenceCountedArray<String_Array_Type, Allocator>(string) {};
-	String(String&& string) : ReferenceCountedArray<String_Array_Type, Allocator>(std::move(string)) {};
+        String(const Allocator& allocator = Allocator()) noexcept :
+          ReferenceCountedArray<String_Array_Type, Allocator>(allocator) {};
+	String(const String& string) noexcept = default;
+	String(String&& string) noexcept = default;
+        String(const std::string& str) : String(str.data(), str.length()) {};
+
 	/**
 	 * @brief Create a String from a given cstring.
 	 * @param cstring The null-terminated character array to create the object from.
 	 * @post The buffer has been filled with the string.
 	 * @test String test("Some string");
  	*/
-	String(const char* cstring, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { if (cstring) append(cstring); };
+	String(const char* cstring, const Allocator& allocator = Allocator()) : String(allocator) {
+          if (cstring == nullptr || *cstring == '\0')
+            return;
+          sublen = strlen(cstring);
+          ReferenceCountedArray::reserve(sublen+1);
+          ::memcpy(Buf(), cstring, sublen+1);
+          assert(*Buf(sublen) == '\0');
+        }
 
 	/**
 	 * @brief Create a String from a given cstring with the given strlen.
@@ -100,7 +114,12 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the string (up to len characters).
 	 * @test String test("Some string");
          */
-        String(const char* cstring, size_t slen, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { append(cstring, slen); };
+        String(const char* cstring, size_t slen) :
+          ReferenceCountedArray<String_Array_Type, Allocator>(slen+1) {
+          ::memcpy(Buf(), cstring, slen);
+          *(Buf(slen)) = '\0';
+          sublen = slen;
+        };
 
 	/**
 	 * @brief Create a String from a given character.
@@ -109,43 +128,70 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post The buffer has been filled with the caracter.
 	 * @test String test('a');
 	 */
-        String(const char ch, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(allocator) { append(ch); };
+        String(const char ch, const Allocator& allocator = Allocator()) : String(allocator) {
+          ReferenceCountedArray::reserve(length() + 2);
+          *(Buf(sublen++)) = ch;
+          *(Buf(sublen)) = '\0';
+        }
 
-	/**
-	 * @brief Create an empty String container with at least the specified bytes in size.
-	 * @param newSize Reserve at least this many bytes for this String.
-	 * @post This string's memory will also never be shrunk.
-	 * @post A buffer has been created.
-	 * 
-	 * The idea behind this is that if a specific size was asked for, the buffer is like
-	 * a char buf[N];
-         */
-        explicit String(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(newSize, allocator) {};
-        String(const size_t newSize, const char value, const Allocator& allocator = Allocator()) : ReferenceCountedArray<String_Array_Type, Allocator>(newSize, value, allocator) {};
+        void reserve(const size_t newSize,
+            double scaling_factor = 1) const override {
+          const size_t realSize = newSize > 0 ? newSize + 1 : newSize;
+          ReferenceCountedArray::reserve(realSize, scaling_factor);
+          if (constBuf() != nullptr) {
+            *Buf(capacity() - offset - 1) = '\0';
+          }
+        }
 
+        using ReferenceCountedArray<String_Array_Type, Allocator>::ReferenceCountedArray;
 
-        virtual ~String() {
+        ~String() {
           /* If deallocating the last reference, cleanse the string buffer with OPENSSL_cleanse() */
           if (rcount() == 1) {
             cleanse();
           }
         }
 
-        String& operator=(const String& string) {
-          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(string);
-          return *this;
-        }
-        String& operator=(String&& string) {
-          ReferenceCountedArray<String_Array_Type, Allocator>::operator=(std::move(string));
+        using ReferenceCountedArray<String_Array_Type, Allocator>::operator=;
+        String& operator=(const String& string) noexcept = default;
+        String& operator=(String&& string) noexcept = default;
+
+        String& operator=(const char* str) {
+          (*this) = String(str, strlen(str));
           return *this;
         }
 
+        String& operator=(std::string str) {
+          clear();
+          ReferenceCountedArray::reserve(str.length()+1);
+          sublen = str.length();
+          ::memcpy(Buf(), str.data(), sublen+1);
+          assert(*Buf(sublen) == '\0');
+          return *this;
+        }
+
+  private:
+        size_t _find(const String& str, size_t pos) const noexcept __attribute__((pure));
+  public:
         /**
          * @brief Find a string in the string
          * @param str The substring to look for
          * @return The position of the string if found, or String::npos if not found
          **/
-        size_t find(const String& str) const;
+        size_t find(const String& str) const noexcept __attribute__((pure)) {
+          return _find(str, 0);
+        }
+        /**
+         * @brief Find a string in the string
+         * @param str The substring to look for
+     * @param pos Where to start the search
+         * @return The position of the string if found, or String::npos if not found
+         **/
+        size_t find(const String& str, size_t pos) const __attribute__((pure)) {
+          if (pos != 0)
+            validateIndex(pos - 1);
+          return _find(str, pos);
+        }
         using ReferenceCountedArray<String_Array_Type, Allocator>::find;
 
         /**
@@ -155,7 +201,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @return The position of the string if found, or String::npos if not found
          * @sa find
          */
-        size_t rfind(const String& str, const size_t lpos = 0) const;
+        size_t rfind(const String& str, const size_t lpos = 0) const
+          noexcept __attribute__((pure));
         using ReferenceCountedArray<String_Array_Type, Allocator>::rfind;
 
         /**
@@ -165,14 +212,15 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @return The position of the string if found, or String::npos if not found
          * @sa ifind
          */
-        size_t rifind(const String& str, const size_t lpos = 0) const;
+        size_t rifind(const String& str, const size_t lpos = 0) const
+          __attribute__((pure));
 
         /**
          * @brief Find a string in the string, ignoring case
          * @param str The substring to look for
          * @return The position of the string if found, or String::npos if not found
          **/
-        size_t ifind(const String& str) const;
+        size_t ifind(const String& str) const __attribute__((pure));
 
 	/**
 	 * @brief Cstring accessor
@@ -181,10 +229,18 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	 * @post There is a '\\0' at the end of the buffer.
 	 * @post The actual String size is unchanged.
 	 */
-        const char* c_str() const {
-          AboutToModify(length() + 1);
-          *(Buf(length())) = '\0';
-          return data();
+        const char* c_str() const noexcept {
+          if (length() == 0)
+            return "";
+          assert(constBuf() != nullptr);
+          assert(length() > 0);
+          if (*constBuf(length()) != '\0') {
+            assert(sublen > 0);
+            AboutToModify(length() + 1);
+            *(Buf(length())) = '\0';
+          } else
+            assert(*constBuf(length()) == '\0');
+          return cbegin();
         }
 
         /**
@@ -192,23 +248,26 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          */
         inline char* dup() const {
           char *ret = new char[length() + 1];
-          std::copy(cbegin(), cend(), ret);
+          ::memcpy(ret, cbegin(), length());
           ret[length()] = '\0';
           return ret;
+        }
+
+        operator std::string() const {
+          return std::string(constBuf(), length());
         }
 
         /**
          * @brief Copy the contents of the string to the given cstring ptr.
          * @param dst The destination cstring ptr;
          * @param n The number of characters to copy out
-         * @param start The starting position
          */
-        size_t copy(char* dst, size_t n = npos, size_t start = 0) const;
+        size_t copy(char* dst, size_t n = npos) const noexcept;
 
         /**
          * @sa c_str()
          */
-        inline const char* operator*() const { return c_str(); };
+        inline const char* operator*() const noexcept { return c_str(); };
 
         /**
          * @sa c_str()
@@ -230,7 +289,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @brief Trim off \\n,\\r,\\r\\n from end
          * @return The string, to allow for chaining
          */
-        String& chomp();
+        String& chomp() noexcept;
 
         /**
          * @brief Trim off \\n,\\r,\\r\n from end
@@ -242,7 +301,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @brief Trim off whitespace
          * @return The string, to allow for chaining
          */
-        String& trim();
+        String& trim() noexcept;
 
         /**
          * @brief Trim off whitespace
@@ -253,39 +312,52 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         /**
          * @sa at
          */
-        inline char charAt(size_t pos) const { return at(pos); };
+        inline char charAt(size_t pos) const {
+          return at(pos);
+        }
 
         // Substrings
         /**
          * @sa ReferenceCountedArray::slice()
          */
-        String substring(int start, int len = -1) const {
+        inline String substring(ssize_t start, ssize_t len = -1) const & noexcept {
           String newString(*this);
           newString.slice(start, len);
           return newString;
         };
 
-        /**
-         * @sa substring
-         */
-        inline String operator()(int start, int len = -1) const { return substring(start, len); };
-
+        inline const String operator()(ssize_t start, ssize_t len = -1) const noexcept { return substring(start, len); };
         /**
          * @brief Returns a 'Slice' class for safe (cow) writing into the array
          * @sa Slice
          * @param start Starting position
          * @param len How many items to use
          */
-        inline Slice<String> operator()(int start, int len = -1) { return Slice<String>(*this, start, len); };
+        inline Slice<String> operator()(ssize_t start, ssize_t len = -1) noexcept {
+          return Slice<String>(*this, start, len);
+        }
 
         /**
          * @brief Compare our String object with another String object, but only n characters
          * @param str The String object to compare to.
          * @param n The number of characters to compare.
-         * @param start The index to start looking from
          * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
          */
-        int compare(const String& str, size_t n = 0, size_t start = 0) const;
+        int compare(const String& str, size_t n) const
+          noexcept __attribute__((pure));
+
+        /**
+         * @brief Compare our String object with another String object
+         * @param str The String object to compare to.
+         * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
+         */
+        int compare(const String& str) const
+          noexcept __attribute__((pure));
+
+        inline int compare(const char* rhs, size_t n = npos) const
+          noexcept __attribute__((pure)) {
+          return strncmp(c_str(), rhs, n);
+        }
 
         Array<String> split(const String&, size_t limit = npos) const;
 
@@ -297,7 +369,9 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @post The buffer is allocated.
          * This is the same as inserting the string at the end of the buffer.
          */
-        inline void append(const char* string, size_t n = npos) { insert(length(), string, n); };
+        inline void append(const char* string, size_t n = npos) {
+          insert(length(), string, n);
+        }
 
         using ReferenceCountedArray<String_Array_Type, Allocator>::append;
 
@@ -314,14 +388,15 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @param limit An optional limit to how many replacements to do
          * @return A new String is returned
          */
-        String sub(const String& search, const String& replacement, int limit = -1) const;
+        String sub(const String& search, const String& replacement,
+            int limit = -1) const;
 
         /**
          * @brief Return a new string with the values mapped from the given hash list
          * @param hashes The mapping to use
          * @return A new String is returned
          */
-        String subst(HashTable<String, String> hashes) const;
+        String subst(const HashTable<String, String>& hashes) const;
 
         /**
          * @brief Return a new formatted string
@@ -335,38 +410,108 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 #endif
         /* Operators */
 
-        String& operator+=(const char);
-        String& operator+=(const char*);
-        String& operator+=(const String&);
-        String& operator+=(const size_t);
-        String& operator-=(const size_t);
+        /**
+         * \sa append(const char)
+         */
+        inline String& operator+=(const char ch) & {
+          append(ch);
+          return *this;
+        }
 
-        const String& operator++();
-        const String operator++(int);
-        const String& operator--();
-        const String operator--(int);
+        /**
+         * \sa append(const char*)
+         */
+        inline String& operator+=(const char* string) & {
+          append(string);
+          return *this;
+        }
 
+        /**
+         * \sa append(const String&)
+         */
+        inline String& operator+=(const String& string) & {
+          append(string);
+          return *this;
+        }
+        inline String& operator+=(String&& string) & {
+          append(std::move(string));
+          return *this;
+        }
 
-        //using ReferenceCountedArray<String_Array_Type, Allocator>::operator=;
+        inline String& operator+=(const size_t n) & {
+          if (!length())
+            return *this;
+          if (n > length()) {
+            offset = length();
+            setLength(0);
+          } else {
+            offset += n;
+            subLength(n);
+          }
+          return *this;
+        }
+
+        inline String& operator-=(const size_t n) & {
+          if (!length())
+            return *this;
+          if (n > length()) {
+            offset = length();
+            setLength(0);
+          } else
+            subLength(n);
+          return *this;
+        }
+
+        /**
+         * @brief Prefix increment
+         */
+        inline const String& operator++() & noexcept {
+          return (*this) += size_t(1);
+        }
+
+        /**
+         * @brief Postfix increment
+         */
+        inline const String operator++(int) & {
+          String tmp(*this);
+          ++(*this);
+          return tmp;
+        }
+
+        /**
+         * @brief Prefix decrement
+         */
+        inline const String& operator--() & noexcept {
+          pop_back();
+          return *this;
+        }
+
+        /**
+         * @brief Postfix decrement
+         */
+        inline const String operator--(int) & {
+          String tmp(*this);
+          --(*this);
+          return tmp;
+        }
 
         friend String operator+(String, const String&);
-        friend bool operator==(const String&, const String&);
-        friend bool operator!=(const String&, const String&);
-        friend bool operator<(const String&, const String&);
-        friend bool operator<=(const String&, const String&);
-        friend bool operator>(const String&, const String&);
-        friend bool operator>=(const String&, const String&);
+        friend bool operator==(const String&, const String&) noexcept;
+        friend bool operator==(const String&, const char*) noexcept;
+        friend bool operator!=(const String&, const String&) noexcept;
+        friend bool operator!=(const String&, const char*) noexcept;
+        friend bool operator<(const String&, const String&) noexcept;
+        friend bool operator<(const String&, const char*) noexcept;
+        friend bool operator<=(const String&, const String&) noexcept;
+        friend bool operator<=(const String&, const char *) noexcept;
+        friend bool operator>(const String&, const String&) noexcept;
+        friend bool operator>(const String&, const char*) noexcept;
+        friend bool operator>=(const String&, const String&) noexcept;
+        friend bool operator>=(const String&, const char*) noexcept;
 
         friend std::ostream& operator<<(std::ostream&, const String&);
+        friend std::ostream& operator<<(std::ostream&, String&&);
         friend std::ostream& operator>>(std::ostream&, const String&);
-
-#ifdef CPPUNIT_VERSION
-        static void checkStringEqual(String expected, String actual, CPPUNIT_NS::SourceLine sourceLine) {
-          if (expected == actual) return;
-          ::CPPUNIT_NS::Asserter::failNotEqual(expected.c_str(), actual.c_str(), sourceLine);
-        }
-#endif /* CPPUNIT_VERSION */
-
 };
 
 /**
@@ -382,124 +527,79 @@ inline String operator+(String string1, const String& string2) {
   return string1;
 }
 
-/**
- * @brief Prefix increment
- */
-inline const String& String::operator++() {
-  return (*this) += size_t(1);
-}
-
-/**
- * @brief Postfix increment
- */
-inline const String String::operator++(int) {
-  String tmp(*this);
-  ++(*this);
-  return tmp;
-}
-
-/**
- * @brief Prefix decrement
- */
-inline const String& String::operator--() {
-  return (*this) -= 1;
-}
-
-/**
- * @brief Postfix decrement
- */
-inline const String String::operator--(int) {
-  String tmp(*this);
-  --(*this);
-  return tmp;
-}
-
-// Setters
-
-/* Operators */
-
-
-/**
- * \sa append(const char)
- */
-inline String& String::operator+=(const char ch) {
-  append(ch);
-  return *this;
-}
-
-/**
- * \sa append(const char*)
- */
-inline String& String::operator+=(const char* string) {
-  append(string);
-  return *this;
-}
-
-/**
- * \sa append(const String&)
- */
-inline String& String::operator+=(const String& string) {
-  append(string);
-  return *this;
-}
-
-inline String& String::operator+=(const size_t n) {
-  if (!length())
-    return *this;
-  if (n > length()) {
-    offset = length();
-    setLength(0);
-  } else {
-    offset += n;
-    subLength(n);
-  }
-  return *this;
-}
-
-inline String& String::operator-=(const size_t n) {
-  if (!length())
-    return *this;
-  if (n > length()) {
-    offset = length();
-    setLength(0);
-  } else
-    subLength(n);
-  return *this;
-}
-
-
-
 // comparison operators:
-inline bool operator==(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator==(const String& lhs, const String& rhs) noexcept {
   return (lhs.length() == rhs.length() &&
       lhs.compare(rhs) == 0);
 }
+inline bool __attribute__((pure))
+operator==(const String& lhs, const char* rhs) noexcept {
+  return lhs.compare(rhs) == 0;
+}
 
-inline bool operator!=(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator!=(const String& lhs, const String& rhs) noexcept {
   return ! (lhs == rhs);
 }
 
-inline bool operator<(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator!=(const String& lhs, const char* rhs) noexcept {
+  return ! (lhs == rhs);
+}
+
+inline bool __attribute__((pure))
+operator<(const String& lhs, const String& rhs) noexcept {
   return (lhs.compare(rhs) < 0);
 }
 
-inline bool operator<=(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator<(const String& lhs, const char* rhs) noexcept {
+  return (lhs.compare(rhs) < 0);
+}
+
+inline bool __attribute__((pure))
+operator<=(const String& lhs, const String& rhs) noexcept {
   return ! (rhs < lhs);
 }
 
-inline bool operator>(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator<=(const String& lhs, const char * rhs) noexcept {
+  return ! (rhs < lhs);
+}
+
+inline bool __attribute__((pure))
+operator>(const String& lhs, const String& rhs) noexcept {
   return (rhs < lhs);
 }
 
-inline bool operator>=(const String& lhs, const String& rhs) {
+inline bool __attribute__((pure))
+operator>(const String& lhs, const char* rhs) noexcept {
+  return (lhs.compare(rhs) > 0);
+}
+
+inline bool __attribute__((pure))
+operator>=(const String& lhs, const String& rhs) noexcept {
+  return ! (lhs < rhs);
+}
+
+inline bool __attribute__((pure))
+operator>=(const String& lhs, const char* rhs) noexcept {
   return ! (lhs < rhs);
 }
 
 inline std::ostream& operator<<(std::ostream& os, const String& string) {
-  for (const char* c = string.begin(); c != string.end(); ++c)
+  for (const char* c = string.cbegin(); c != string.cend(); ++c)
     os << *c;
   return os;
   //return os << string.c_str();
+}
+
+inline std::ostream& operator<<(std::ostream& os, String&& string) {
+  assert(!string.isShared());
+  for (const char* c = string.cbegin(); c != string.cend(); ++c)
+    os << std::move(*c);
+  return os;
 }
 
 String newsplit(String& str, char delim = ' ');
@@ -509,11 +609,41 @@ std::istream& getline(std::istream&, String&);
 
 BDLIB_NS_END
 
+#ifdef CPPUNIT_VERSION
+CPPUNIT_NS_BEGIN
+template <>
+struct assertion_traits<BDLIB_NS::String>
+{
+    static bool equal(const BDLIB_NS::String& x, const BDLIB_NS::String& y)
+    {
+        return x == y;
+    }
+
+    static bool less(const BDLIB_NS::String& x, const BDLIB_NS::String& y)
+    {
+        return x < y;
+    }
+
+    static bool lessEqual(const BDLIB_NS::String& x, const BDLIB_NS::String& y)
+    {
+        return x <= y;
+    }
+
+    static std::string toString(const BDLIB_NS::String& x)
+    {
+      std::string ret(x);
+      return ret;
+    }
+};
+CPPUNIT_NS_END
+#endif
+
+
 namespace std {
   template<>
   struct hash<BDLIB_NS::String>
     {
-          inline size_t operator()(const BDLIB_NS::String& val) const {
+          inline size_t operator()(const BDLIB_NS::String& val) const noexcept {
             return val.hash();
           }
     };

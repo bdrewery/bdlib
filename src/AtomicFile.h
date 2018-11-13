@@ -40,17 +40,14 @@ class AtomicFile {
   private:
     String _fname;
     String _tmpname;
-    int _fd;
-    mode_t _mode;
+    int _fd = -1;
+    mode_t _mode = -1;
   public:
-    AtomicFile() : _fname(), _tmpname(), _fd(-1), _mode(-1) {};
-    AtomicFile(AtomicFile& f) : _fname(f._fname), _tmpname(), _fd(f._fd),
-                                _mode(f._mode) {};
     /**
      * @brief Calling the destructor will abort the file if it has not already been written.
      * @sa abort
      */
-    virtual ~AtomicFile() {
+    ~AtomicFile() {
       if (is_open()) {
         abort();
       }
@@ -69,7 +66,7 @@ class AtomicFile {
     /**
      * @brief Check if a file was successfully opened.
      */
-    inline bool is_open() const {
+    inline bool is_open() const __attribute__((pure)) {
       return _fd != -1;
     }
 
@@ -77,7 +74,7 @@ class AtomicFile {
      * @brief Return an fd for the open file.
      * @return Returns -1 if not open.
      */
-    inline int fd() {
+    inline int fd() __attribute__((pure)) {
       return (is_open() ? _fd : -1);
     }
 

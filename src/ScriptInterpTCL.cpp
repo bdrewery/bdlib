@@ -10,8 +10,8 @@
 
 BDLIB_NS_BEGIN
 
-std::unordered_map<String, ScriptInterp::ScriptCmdPtr> ScriptInterpTCL::CmdHandlerData;
-std::unordered_map<String, ScriptInterp::link_var_hook> ScriptInterpTCL::link_var_hooks;
+std::unordered_map<String, ScriptInterp::ScriptCmdPtr>ScriptInterpTCL::CmdHandlerData;
+std::unordered_map<String, ScriptInterp::link_var_hook_t> ScriptInterpTCL::link_var_hooks;
 
 int ScriptInterpTCL::init() {
   // create interp
@@ -20,7 +20,8 @@ int ScriptInterpTCL::init() {
 
   if (Tcl_Init(interp) != TCL_OK) {
     Tcl_Obj* result = Tcl_GetObjResult(interp);
-    fprintf(stderr, "Tcl_Init error: %s\n", tcl_to_c_cast<const char*>::from(result, this));
+    fprintf(stderr, "Tcl_Init error: %s\n",
+        tcl_to_c_cast<const char*>::from(result, this));
     return 1;
   }
   return 0;
@@ -38,14 +39,16 @@ int ScriptInterpTCL::destroy() {
 }
 
 inline String ScriptInterpTCL::eval(const String& script) {
-  if (Tcl_EvalEx(interp, script.c_str(), script.length(), TCL_EVAL_GLOBAL) == TCL_OK) {
+  if (Tcl_EvalEx(interp, script.c_str(), script.length(),
+        TCL_EVAL_GLOBAL) == TCL_OK) {
     Tcl_Obj* value = Tcl_GetObjResult(interp);
     return tcl_to_c_cast<String>::from(value, this);
   }
   return eval("set errorInfo");
 }
 
-ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName, String& resultStr) {
+ScriptInterp::LoadError ScriptInterpTCL::loadScript(const String& fileName,
+    String& resultStr) {
   if (fileName.rfind(".tcl", fileName.length() - 4) == String::npos)
     return SCRIPT_LOAD_WRONG_INTERP;
   if (Tcl_EvalFile(interp, *fileName) != TCL_OK) {
@@ -65,30 +68,35 @@ int ScriptInterpTCL::ScriptCmdTCL::_createCommand_callback(
   String cmdName(tcl_to_c_cast<String>::from(objv[0], nullptr));
   ScriptCmdPtr ccd = CmdHandlerData[cmdName];
 
-  if ((size_t(objc) - 1) < ccd->callbackParamMin || size_t(objc) - 1 > ccd->callbackParamMax) {
-    String errorResult(String::printf("Wrong # args. Expected %zu, got %d.", ccd->callbackParamMin, objc - 1));
+  if ((size_t(objc) - 1) < ccd->callbackParamMin ||
+      size_t(objc) - 1 > ccd->callbackParamMax) {
+    String errorResult(String::printf("Wrong # args. Expected %zu, got %d.",
+          ccd->callbackParamMin, objc - 1));
     if (ccd->usage)
-      errorResult += String::printf(" Should be \"%s %s\"", cmdName.c_str(), ccd->usage);
+      errorResult += String::printf(" Should be \"%s %s\"", cmdName.c_str(),
+          ccd->usage);
     Tcl_SetObjResult(interp,
         c_to_tcl_cast<const String&>::from(errorResult, interp));
     return TCL_ERROR;
   }
 
   try {
-    ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv), ccd->si, interp);
+    ccd->callback_proxy->call(objc, reinterpret_cast<void* CONST*>(objv),
+        ccd->si, interp);
   } catch (BDLIB_NS::String& e) {
     Tcl_SetObjResult(interp,
         c_to_tcl_cast<const String&>::from(e, interp));
     return TCL_ERROR;
   } catch (...) {
-    Tcl_SetObjResult(interp, c_to_tcl_cast<const char*>::from("Unhandled exception.", interp));
+    Tcl_SetObjResult(interp,
+        c_to_tcl_cast<const char*>::from("Unhandled exception.", interp));
     return TCL_ERROR;
   }
   return TCL_OK;
 }
 
 void ScriptInterpTCL::setupTraces(const String& varName, ClientData var,
-    Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook hook_func) {
+    Tcl_VarTraceProc* get, Tcl_VarTraceProc* set, link_var_hook_t hook_func) {
   Tcl_SetVar(interp, *varName, "", TCL_GLOBAL_ONLY);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_READS | TCL_GLOBAL_ONLY, get, var);
   Tcl_TraceVar(interp, *varName, TCL_TRACE_WRITES | TCL_GLOBAL_ONLY, set, var);
@@ -96,15 +104,17 @@ void ScriptInterpTCL::setupTraces(const String& varName, ClientData var,
     link_var_hooks[varName] = hook_func;
 }
 
-const char* ScriptInterpTCL::TraceSetRO(ClientData clientData,
-    Tcl_Interp *interp, char *name1, char *name2, int flags) {
+const char* ScriptInterpTCL::TraceSetRO(const ClientData clientData,
+    const Tcl_Interp *interp, const char *name1, const char *name2,
+    int flags) {
   return "variable is read-only";
 }
 
 const char* ScriptInterpTCL::TraceGet(Tcl_Obj* value, Tcl_Interp *interp,
     char *name1, char *name2, int flags) {
   if (value) {
-    Tcl_SetVar2(interp,name1,name2, tcl_to_c_cast<const char*>::from(value, nullptr), flags);
+    Tcl_SetVar2(interp,name1,name2,
+        tcl_to_c_cast<const char*>::from(value, nullptr), flags);
     Tcl_DecrRefCount(value);
   }
   return nullptr;
@@ -118,7 +128,8 @@ Tcl_Obj* ScriptInterpTCL::TraceSet(Tcl_Interp *interp, char *name1,
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<const Array<String>&>::from(const Array<String>& array, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const Array<String>&>::from(const Array<String>& array,
+    Tcl_Interp* interp) {
   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
 
   for (const auto& element : array) {
@@ -129,7 +140,8 @@ Tcl_Obj* c_to_tcl_cast<const Array<String>&>::from(const Array<String>& array, T
   return value;
 }
 
-Tcl_Obj* c_to_tcl_cast<const Array<Array<String>>&>::from(const Array<Array<String>>& array, Tcl_Interp* interp) {
+Tcl_Obj* c_to_tcl_cast<const Array<Array<String>>&>::from(
+    const Array<Array<String>>& array, Tcl_Interp* interp) {
   Tcl_Obj* value = Tcl_NewListObj(array.length(), NULL);
 
   for (const auto& element : array) {
@@ -168,7 +180,7 @@ const char* tcl_to_c_cast<const char*>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 int8_t tcl_to_c_cast<int8_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     if ((v < INT8_MIN || v > INT8_MAX)) {
       //return "OverflowError";
@@ -182,7 +194,7 @@ int8_t tcl_to_c_cast<int8_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 uint8_t tcl_to_c_cast<uint8_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     if ((v < 0 || v > UINT8_MAX)) {
       //return "OverflowError";
@@ -196,7 +208,7 @@ uint8_t tcl_to_c_cast<uint8_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 int16_t tcl_to_c_cast<int16_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     if ((v < INT16_MIN || v > INT16_MAX)) {
       //return "OverflowError";
@@ -210,7 +222,7 @@ int16_t tcl_to_c_cast<int16_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 uint16_t tcl_to_c_cast<uint16_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     if ((v < 0 || v > UINT16_MAX)) {
       //return "OverflowError";
@@ -224,7 +236,7 @@ uint16_t tcl_to_c_cast<uint16_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 int32_t tcl_to_c_cast<int32_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     if ((v < INT32_MIN || v > INT32_MAX)) {
       //return "OverflowError";
@@ -238,7 +250,7 @@ int32_t tcl_to_c_cast<int32_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 uint32_t tcl_to_c_cast<uint32_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     if ((v < 0 || v > UINT32_MAX)) {
       //return "OverflowError";
@@ -252,7 +264,7 @@ uint32_t tcl_to_c_cast<uint32_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 int64_t tcl_to_c_cast<int64_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) != TCL_OK) {
     return 0;
     //return "Type Error";
@@ -261,7 +273,7 @@ int64_t tcl_to_c_cast<int64_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 uint64_t tcl_to_c_cast<uint64_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  long v;
+  long v = 0;
   if (Tcl_GetLongFromObj(0, obj, &v) == TCL_OK) {
     return 0;
     //return "Type Error";
@@ -270,7 +282,7 @@ uint64_t tcl_to_c_cast<uint64_t>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 double tcl_to_c_cast<double>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  double v;
+  double v = 0;
   if (Tcl_GetDoubleFromObj(0, obj, &v) != TCL_OK) {
     return 0;
     //return "Type Error";
@@ -279,7 +291,7 @@ double tcl_to_c_cast<double>::from(Tcl_Obj* obj, ScriptInterp* si) {
 }
 
 bool tcl_to_c_cast<bool>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  int v;
+  int v = 0;
   if (Tcl_GetBooleanFromObj(0, obj, &v) != TCL_OK) {
     return false;
     //return "Type Error";
@@ -301,33 +313,37 @@ ScriptCallbackerPtr tcl_to_c_cast<ScriptCallbackerPtr>::from(
   return std::make_shared<ScriptCallbackerTCL>(si, std::move(cmd));
 }
 
-Array<String> tcl_to_c_cast<Array<String>>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  int objc, i;
+Array<String> tcl_to_c_cast<Array<String>>::from(Tcl_Obj* obj,
+    ScriptInterp* si) {
+  int objc;
   Tcl_Obj** objv;
 
   // FIXME: Exception
-  if (Tcl_ListObjGetElements((reinterpret_cast<ScriptInterpTCL*>(si))->interp, obj, &objc, &objv) != TCL_OK)
+  if (Tcl_ListObjGetElements((reinterpret_cast<ScriptInterpTCL*>(si))->interp,
+        obj, &objc, &objv) != TCL_OK)
     return Array<String>();
 
   Array<String> ret(objc);
 
-  for (i = 0; i < objc; ++i)
+  for (int i = 0; i < objc; ++i)
     ret << tcl_to_c_cast<String>::from(objv[i], si);
 
   return ret;
 }
 
-Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj, ScriptInterp* si) {
-  int objc, i;
+Array<Array<String>> tcl_to_c_cast<Array<Array<String>>>::from(Tcl_Obj* obj,
+    ScriptInterp* si) {
+  int objc;
   Tcl_Obj** objv;
 
   // FIXME: Exception
-  if (Tcl_ListObjGetElements((reinterpret_cast<ScriptInterpTCL*>(si))->interp, obj, &objc, &objv) != TCL_OK)
+  if (Tcl_ListObjGetElements((reinterpret_cast<ScriptInterpTCL*>(si))->interp,
+        obj, &objc, &objv) != TCL_OK)
     return Array<Array<String>>();
 
   Array<Array<String>> ret(objc);
 
-  for (i = 0; i < objc; ++i)
+  for (int i = 0; i < objc; ++i)
     ret << tcl_to_c_cast<Array<String>>::from(objv[i], si);
 
   return ret;

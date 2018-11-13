@@ -48,23 +48,23 @@ BDLIB_NS_BEGIN
 
 class Stream {
   protected:
-        String str;
-        unsigned int pos;
-        bool loading;
+        String str{};
+        size_t pos = 0;
+        bool loading = false;
 
   public:
-        Stream() : str(), pos(0), loading(0) {};
-        Stream(const Stream& stream) : str(stream.str), pos(stream.pos), loading(0) {};
-        Stream(Stream&& stream) : str(std::move(stream.str)), pos(std::move(stream.pos)), loading(std::move(stream.loading)) {
-          stream.str = String();
-          stream.pos = 0;
-          stream.loading = 0;
+        Stream() noexcept = default;
+        Stream(const Stream& stream) noexcept = default;
+        Stream(Stream&& stream) noexcept = default;
+        Stream(const int newSize) {
+          if (newSize > 0) reserve(newSize);
         }
-        Stream(const String& string) : str(string), pos(0), loading(0) {};
-        Stream(const int newSize) : str(), pos(0), loading(0) { if (newSize > 0) Reserve(newSize); };
         virtual ~Stream() {};
 
-        friend void swap(Stream& a, Stream& b) {
+        Stream(const String& string) noexcept : str(string) {};
+        Stream(String&& string) noexcept : str(std::move(string)) {};
+
+        friend void swap(Stream& a, Stream& b) noexcept {
           using std::swap;
 
           swap(a.str, b.str);
@@ -72,18 +72,22 @@ class Stream {
           swap(a.loading, b.loading);
         }
 
-        Stream& operator=(Stream stream) {
+        Stream& operator=(Stream stream) & {
           swap(*this, stream);
           return *this;
         }
 
-        void Reserve(const size_t) const;
+        Stream& operator=(Stream&& stream) & noexcept = default;
+
+        void reserve(const size_t) const;
 
         /**
          * @brief Returns the position of the Stream.
          * @return Position of the Stream.
         */
-        size_t tell() const { return pos; };
+        size_t tell() const __attribute__((pure)) {
+          return pos;
+        }
 
         /**
          * @brief Truncates the stream at the current position.
@@ -107,12 +111,24 @@ class Stream {
         }
 
         /**
+         * @brief Insert a string into the stream.
+         * @note The stream pointer is advanced as well
+         */
+        virtual void puts (String&& string) {
+          auto len = string.length();
+          str.replace(tell(), std::move(string));
+          pos += len;
+        }
+
+        /**
          * @brief Reads 1 line from the stream
          * @note The stream pointer is advanced as well
          * @param maxSize Optional param which specifies max data to pull
          * @sa read
          */
-        virtual String getline (size_t maxSize = 99999999) { return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n'); }
+        virtual String getline (size_t maxSize = 99999999) {
+          return read(maxSize == 99999999 ? (length() - pos) : maxSize, '\n');
+        }
 
         /**
          * @brief Reads specified number of bytes from the stream
@@ -157,18 +173,35 @@ class Stream {
          * @param fname Filename to write to
          * @param mode Optional param to specify mode for new file
          */
-        virtual int writeFile(const String& fname, mode_t mode = (S_IRUSR|S_IWUSR)) const;
+        virtual int writeFile(const String& fname,
+            mode_t mode = (S_IRUSR|S_IWUSR)) const;
 
-
-        inline operator String() const { return str; };
-        inline size_t length() const { return str.length(); };
-        inline size_t capacity() const { return str.capacity(); };
-        inline bool operator!() const { return str.isEmpty(); };
+        inline operator String() const __attribute__((pure)) {
+          return str;
+        }
+        inline size_t length() const __attribute__((pure)) {
+          return str.length();
+        }
+        inline size_t capacity() const __attribute__((pure)) {
+          return str.capacity();
+        }
+        inline bool operator!() const __attribute__((pure)) {
+          return str.isEmpty();
+        }
 
         friend Stream& operator<<(Stream&, const String&);
+        friend Stream& operator<<(Stream&, String&&);
 };
 
-inline Stream& operator<<(Stream& stream, const String& string) { stream.puts(string); return stream; }
+inline Stream& operator<<(Stream& stream, const String& string) {
+  stream.puts(string);
+  return stream;
+}
+
+inline Stream& operator<<(Stream& stream, String&& string) {
+  stream.puts(std::move(string));
+  return stream;
+}
 
 BDLIB_NS_END
 #endif /* _BD_STREAM_H */

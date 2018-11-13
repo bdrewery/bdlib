@@ -31,12 +31,14 @@
 #include "bdlib.h"
 #include <algorithm>
 #include <atomic>
+#include <cassert>
 #include <iterator>
 #include <memory>
 #include <stdexcept>
 #include <cstdint>
 #include <sys/types.h>
-#include <cstring>
+#include <type_traits>
+#include <utility>
 
 BDLIB_NS_BEGIN
 template <class T, class Allocator = std::allocator<T> >
@@ -56,11 +58,10 @@ class ArrayRef {
     };
     mutable std::atomic<int> refs; //References
 
-    ArrayRef(const Allocator& allocator = Allocator()) : alloc(allocator), size(0), buf(nullptr), refs(1) {};
+    ArrayRef(const Allocator& allocator = Allocator()) :
+      alloc(allocator), size(0), buf(nullptr), refs(1) {};
     ~ArrayRef() {
-      if (buf) {
-        FreeBuf(buf);
-      }
+      FreeBuf(buf);
     };
     /**
      * @brief Ensure that the buffer capacity() is >= newSize; else grow/copy into larger buffer.
@@ -72,7 +73,8 @@ class ArrayRef {
      * @post The buffer is at least nsize bytes long.
      * @post If the buffer had to grow, the old data was deep copied into the new buffer and the old deleted.
      */
-    void Reserve(size_t newSize, double scaling_factor, size_t& offset, size_t sublen) const
+    void reserve(size_t newSize, double scaling_factor, size_t& offset,
+        size_t sublen) const
     {
       /* Don't new if we already have enough room! */
       if (size < newSize) {
@@ -82,10 +84,24 @@ class ArrayRef {
 
         if (newbuf != buf) {
           // Initialize new memory
-          std::uninitialized_fill(newbuf, newbuf + newSize, T());
+          if __CPP17_IFCONSTEXPR (std::is_class<T>::value)
+            std::uninitialized_fill(newbuf + sublen, newbuf + newSize, T());
           if (buf) {
             /* Copy old buffer into new - only copy the subarray */
-            std::copy(buf + offset, buf + offset + sublen, newbuf);
+            if __CPP17_IFCONSTEXPR (std::is_class<T>::value) {
+#if __cplusplus >= 201703L
+              std::uninitialized_move_n(
+                  buf + offset,
+                  sublen,
+                  newbuf);
+#else
+              std::uninitialized_copy_n(
+                  std::make_move_iterator(buf + offset),
+                  sublen,
+                  newbuf);
+#endif
+            } else
+              std::move(buf + offset, buf + offset + sublen, newbuf);
             FreeBuf(buf);
           }
           buf = newbuf;
@@ -96,7 +112,7 @@ class ArrayRef {
         // There's enough room in the current buffer, but we're offsetted/shifted to a point where there's no room left
         // Shift everything to the beginning and reset the offset
         /* Only copy the subarray */
-        std::memmove(static_cast<void*>(buf), static_cast<void*>(buf + offset), sublen);
+        std::move(buf + offset, buf + offset + sublen, buf);
         offset = 0;
       }
     }
@@ -108,8 +124,10 @@ class ArrayRef {
      * @todo Implement mempool here.
      */
     inline void FreeBuf(iterator p) const {
-      for (iterator i = p; i != p + size; ++i) {
-        alloc.destroy(i);
+      if __CPP17_IFCONSTEXPR (std::is_class<T>::value) {
+        for (iterator i = p; i != p + size; ++i) {
+          alloc.destroy(i);
+        }
       }
       alloc.deallocate(p, size);
     }
@@ -117,7 +135,9 @@ class ArrayRef {
     /**
      * @brief Is this ReferenceCountedArray shared?
      */
-    inline bool isShared() const { return refs > 1; };
+    inline bool isShared() const noexcept __attribute__((pure)) {
+      return refs > 1;
+    }
   private:
     // No copying allowed
     ArrayRef(const ArrayRef&) = delete;
@@ -137,38 +157,45 @@ template <class T>
 class Slice {
   private:
     T& rca;
-    int start;
-    int len;
-
-    Slice() = delete;
+    ssize_t start;
+    ssize_t len;
 
   public:
-    Slice(T& _rca, int _start, int _len) : rca(_rca), start(_start), len(_len) {};
-    Slice(const Slice& slice) : rca(slice.rca), start(slice.start), len(slice.len) {};
+    Slice() = delete;
+    Slice(T& _rca, ssize_t _start, ssize_t _len) noexcept :
+      rca(_rca), start(_start), len(_len) {};
+    Slice(const Slice& slice) noexcept = default;
+    Slice(Slice&& slice) noexcept = default;
 
     /**
      * @brief return a new (const) slice
      */
-    inline operator T() const {
+    inline operator T() const noexcept {
       T newArray(rca);
       newArray.slice(start, len);
       return newArray;
     };
 
-    friend void swap(Slice& a, Slice& b) {
-      using std::swap;
-
-      swap(a.alloc, b.alloc);
-      swap(a.rca, b.rca);
-      swap(a.start, b.start);
-      swap(a.len, b.len);
-    }
+    inline const T get(void) const noexcept {
+      return *this;
+    };
 
     /**
      * @brief Assign a Slice to a Slice
      */
-    inline Slice& operator=(const Slice& slice) {
-      (*this) = T(slice);
+    inline Slice& operator=(const Slice& slice) && {
+      rca.replace(start, T(slice), len);
+      return (*this);
+    }
+
+    inline Slice& operator=(Slice&& slice) && noexcept = default;
+
+    /**
+     * @brief Assign to a Slice
+     * @todo This needs to account for negative start/len
+     */
+    inline Slice& operator=(const T& array) && {
+      rca.replace(start, array, len);
       return (*this);
     }
 
@@ -176,20 +203,26 @@ class Slice {
      * @brief Assign to a Slice
      * @todo This needs to account for negative start/len
      */
-    inline Slice& operator=(const T& array) {
-      rca.replace(start, array, len);
+    inline Slice& operator=(T&& array) && {
+      rca.replace(start, std::move(array), len);
       return (*this);
     }
 };
 
 class ReferenceCountedArrayBase {
+  protected:
+    ReferenceCountedArrayBase() = default;
   public:
     static const size_t npos = static_cast<size_t>(-1);
     virtual ~ReferenceCountedArrayBase() {};
+    ReferenceCountedArrayBase(const ReferenceCountedArrayBase&) = delete;
+    ReferenceCountedArrayBase(ReferenceCountedArrayBase&&) = delete;
+    ReferenceCountedArrayBase& operator=(const ReferenceCountedArrayBase&) = delete;
+    ReferenceCountedArrayBase& operator=(ReferenceCountedArrayBase&&) = delete;
 };
 
 
-static const double _rca_cow_scaling_factor = 1.5;
+static constexpr double _rca_cow_scaling_factor = 1.5;
 
 template <class T, class Allocator = std::allocator<T> >
 /**
@@ -213,12 +246,17 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     typedef std::reverse_iterator<iterator>           reverse_iterator;
 
   private:
+    template <typename InputIt>
+    using is_input_iterator = std::is_convertible<
+      typename std::iterator_traits<InputIt>::iterator_category,
+      std::input_iterator_tag>;
+
     /**
      * @brief Detach from the shared reference.
      * This is only called when losing the old buffer or when modifying the buffer (and copy-on-write is used)
      * @note This does not free the old reference, as it is still in use
      */
-    void doDetach() const {
+    void doDetach() const noexcept {
       decRef();
       Ref = nullptr;
       sublen = 0;
@@ -228,70 +266,76 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Increment our reference counter.
      */
-    inline int incRef() const { return Ref ? ++Ref->refs : 0; };
+    inline int incRef() const noexcept { return Ref ? ++Ref->refs : 0; };
 
     /**
      * @brief Decrement our reference counter.
      */
-    inline int decRef() const { return Ref ? --Ref->refs : 0; };
+    inline int decRef() const noexcept { return Ref ? --Ref->refs : 0; };
 
   protected:
     /**
      * @brief Set the lengths to the specified length
      * @param newLen the new length to set to
      */
-    inline void setLength(size_t newLen) const { sublen = newLen; my_hash = 0; };
+    inline void setLength(size_t newLen) const noexcept { sublen = newLen; my_hash = 0; };
 
     /**
      * @sa setLength()
      */
-    inline void addLength(size_t diff) const { sublen += diff; my_hash = 0; };
+    inline void addLength(size_t diff) const noexcept { sublen += diff; my_hash = 0; };
 
     /**
      * @sa setLength()
      */
-    inline void subLength(size_t diff) const { sublen -= diff; my_hash = 0; };
+    inline void subLength(size_t diff) const noexcept { sublen -= diff; my_hash = 0; };
 
     /**
      * @brief Mutable Ref->buf+offset reference for use internally
      */
-    //pointer mdata() const { return Buf() + offset; };
+    //pointer mdata() const noexcept { return Buf() + offset; };
 
     /**
      * @brief Mutable Ref->buf reference for use internally
      */
-    inline pointer Buf(size_t pos = 0) const { return Ref ? &Ref->buf[offset + pos] : nullptr; };
+    inline pointer Buf(size_t pos = 0) const noexcept __attribute__((pure)) {
+      return Ref ? &Ref->buf[offset + pos] : nullptr;
+    }
 
     /**
      * @brief Ref->buf reference for use internally
      */
-    inline const_pointer constBuf(size_t pos = 0) const { return Buf(pos); };
+    inline const_pointer constBuf(size_t pos = 0) const noexcept __attribute__((pure)) {
+      return Buf(pos);
+    }
   private:
     Allocator alloc;
     /**
      * @brief The array reference for reference counting
      * This is mutable so that Ref->refs can be modified, which really is mutable
      */
-    mutable ArrayRef<value_type, Allocator> *Ref;
+    mutable ArrayRef<value_type, Allocator> *Ref = nullptr;
   protected:
     /**
      * Return the real buffer's start point, without accounting for offset. This is used for cleaning the buffer when needed.
      */
-    inline const_pointer real_begin() const { return Ref ? Ref->buf : nullptr; };
+    inline const_pointer real_begin() const noexcept __attribute__((pure)) {
+      return Ref ? Ref->buf : nullptr;
+    }
 
     /**
      * This is for subarrays: so we know where the subarray starts.
      */
-    mutable size_t offset;
+    mutable size_t offset = 0;
     /**
      * This is for subarrays: so we know where the subarray ends.
      */
-    mutable size_t sublen;
+    mutable size_t sublen = 0;
 
     /**
      * Cache of current hash() result. 0 if stale
      */
-    mutable size_t my_hash;
+    mutable size_t my_hash = 0;
 
   private:
     /**
@@ -299,11 +343,11 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is called when the old buffer is no longer needed.
      * ie, operator=() was called.
      */
-    void Detach() {
+    void Detach() noexcept {
       if (isShared()) {
         doDetach();
       } else {
-        setLength(0);
+        sublen = 0;
         offset = 0;
         my_hash = 0;
       }
@@ -316,7 +360,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is only called in ~Array() and operator=(Array&).
      * It checks whether of not this Array was the last reference to the buffer, and if it was, it removes it.
      */
-    inline void CheckDeallocRef() {
+    inline void CheckDeallocRef() noexcept {
       if (Ref && decRef() < 1) {
         delete Ref;
         Ref = nullptr;
@@ -336,14 +380,15 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * If needed, performs a deep copy into a new buffer (COW).
      * Also take a hint size n of the new ReferenceCountedArray's size as to avoid needless copying/allocing.
      */
-    void COW(size_t n) const {
+    inline void COW(size_t n) const {
       const_pointer oldBuf = constBuf();
       const size_t oldLength = length();
 
+      assert(isShared());
       doDetach(); //Detach from the shared reference
-      Reserve(std::max(oldLength, n), _rca_cow_scaling_factor); //Will set capacity()/size
-      std::copy(oldBuf, oldBuf + oldLength, Buf());
-      setLength(oldLength);
+      reserve(n, _rca_cow_scaling_factor); //Will set capacity()/size
+      sublen = std::min(oldLength, n);
+      std::copy(oldBuf, oldBuf + sublen, Buf());
     }
 
   protected:
@@ -362,7 +407,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       if (isShared())
         COW(n); // Clears the offset
       else {
-        Reserve(n, _rca_cow_scaling_factor);
+        reserve(n, _rca_cow_scaling_factor);
         /* Shift the offset away */
       }
     }
@@ -376,51 +421,6 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         throw std::out_of_range("ReferenceCountedArray::validateIndex");
     };
 
-  public:
-    ReferenceCountedArray(const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-    };
-    ReferenceCountedArray(const ReferenceCountedArray& rca) : ReferenceCountedArrayBase(), alloc(rca.alloc), Ref(rca.Ref), offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) { incRef(); };
-    ReferenceCountedArray(ReferenceCountedArray&& rca) : ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)), Ref(std::move(rca.Ref)), offset(std::move(rca.offset)), sublen(std::move(rca.sublen)), my_hash(std::move(rca.my_hash)) {
-      rca.alloc = Allocator();
-      rca.Ref = nullptr;
-      rca.offset = 0;
-      rca.sublen = 0;
-      rca.my_hash = 0;
-    };
-
-    /**
-     * @brief Create an empty container with at least the specified bytes in size.
-     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
-     * @post This ReferenceCountedArray's memory will also never be shrunk.
-     * @post A buffer has been created.
-     *
-     * The idea behind this is that if a specific size was asked for, the buffer is like
-     * a char buf[N];
-     */
-    explicit ReferenceCountedArray(const size_t newSize, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-      if (newSize) {
-        Reserve(newSize);
-      }
-    };
-    /**
-     * @brief Create a container filled with n copies of the given value.
-     * @param newSize Reserve at least this many bytes for this ReferenceCountedArray.
-     * @param value The value to populate the array with
-     * @post This ReferenceCountedArray's memory will also never be shrunk.
-     * @post A buffer has been created.
-     *
-     */
-    ReferenceCountedArray(const size_t newSize, const value_type value, const Allocator& allocator = Allocator()) : ReferenceCountedArrayBase(), alloc(allocator), Ref(nullptr), offset(0), sublen(0), my_hash(0) {
-      if (newSize) {
-        Reserve(newSize);
-
-        for (size_t i = 0; i < newSize; ++i) {
-          *(Buf(i)) = value;
-        }
-        this->setLength(newSize);
-      }
-    }
-
     /**
      * @brief Array Destructor
      * @post If the Array's Reference is not shared, it is free'd.
@@ -428,10 +428,84 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     virtual ~ReferenceCountedArray() { CheckDeallocRef(); };
 
+    ReferenceCountedArray(const Allocator& allocator = Allocator()) noexcept :
+      ReferenceCountedArrayBase(), alloc(allocator) {
+    }
+    ReferenceCountedArray(const ReferenceCountedArray& rca) noexcept :
+      ReferenceCountedArrayBase(),
+      alloc(std::allocator_traits<Allocator>::select_on_container_copy_construction(rca.alloc)),
+      Ref(rca.Ref),
+      offset(rca.offset), sublen(rca.sublen), my_hash(rca.my_hash) {
+      incRef();
+    }
+    ReferenceCountedArray(ReferenceCountedArray&& rca) noexcept :
+      ReferenceCountedArrayBase(), alloc(std::move(rca.alloc)),
+      Ref(rca.Ref), offset(rca.offset),
+      sublen(rca.sublen), my_hash(rca.my_hash) {
+      rca.Ref = nullptr;
+#ifdef CPPUNIT_VERSION
+      rca.offset = 0;
+      rca.sublen = 0;
+      rca.my_hash = 0;
+#endif
+    }
+  public:
+    /**
+     * @brief Create an empty container with at least the specified bytes in size.
+     * @param newSize reserve at least this many bytes for this ReferenceCountedArray.
+     * @post This ReferenceCountedArray's memory will also never be shrunk.
+     * @post A buffer has been created.
+     *
+     * The idea behind this is that if a specific size was asked for, the buffer is like
+     * a char buf[N];
+     */
+    explicit ReferenceCountedArray(const size_t newSize,
+        const Allocator& allocator = Allocator()) :
+      ReferenceCountedArray(allocator) {
+      if (newSize) {
+        reserve(newSize);
+      }
+    }
+    /**
+     * @brief Create a container filled with n copies of the given value.
+     * @param newSize reserve at least this many bytes for this ReferenceCountedArray.
+     * @param value The value to populate the array with
+     * @post This ReferenceCountedArray's memory will also never be shrunk.
+     * @post A buffer has been created.
+     *
+     */
+    ReferenceCountedArray(const size_t newSize, const value_type value,
+        const Allocator& allocator = Allocator()) :
+      ReferenceCountedArray(allocator) {
+        resize(newSize, value);
+    }
+
+    /**
+     * @brief Create an array from an initializer list
+     * @param list An initializer_list
+     */
+    ReferenceCountedArray(std::initializer_list<value_type> list) : ReferenceCountedArray(list.size()) {
+      std::copy(list.begin(), list.end(), Buf());
+      sublen = list.size();
+    }
+
+    /**
+     * @brief Create a Array from a given carray.
+     * @param carray The null-terminated array to create the object from.
+     * @param len How big is the carray?
+     * @post A ArrayBuf has been initialized.
+     * @post The buffer has been filled with the array.
+     * @test Array test("Some array");
+     */
+    ReferenceCountedArray(const_pointer carray, size_t len) : ReferenceCountedArray(len) {
+      std::copy(carray, carray + len, this->Buf());
+      sublen = len;
+    };
+  protected:
     /**
      * @brief Swap this with another
      */
-    friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) {
+    friend void swap(ReferenceCountedArray& a, ReferenceCountedArray& b) noexcept {
       using std::swap;
 
       swap(a.alloc, b.alloc);
@@ -450,7 +524,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @return The new rca object.
      * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
-    ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) {
+    ReferenceCountedArray& operator=(const ReferenceCountedArray& rca) noexcept {
       rca.incRef();
       alloc = rca.alloc;
       offset = rca.offset;
@@ -464,85 +538,124 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     /**
      * @brief Moves the given ReferenceCountedArray to this
      * @param rca The ReferenceCountedArray object to take ownership of.
-     * This handles self-assignment just fine, checking for it explicitly would be ineffecient for most cases.
      */
-    ReferenceCountedArray& operator=(ReferenceCountedArray&& rca) {
+    ReferenceCountedArray& operator=(ReferenceCountedArray&& rca) noexcept {
+      if (&rca == this)
+        return *this;
       CheckDeallocRef();
       alloc = std::move(rca.alloc);
-      offset = std::move(rca.offset);
-      sublen = std::move(rca.sublen);
-      my_hash = std::move(rca.my_hash);
-      Ref = std::move(rca.Ref);
+      offset = rca.offset;
+      sublen = rca.sublen;
+      my_hash = rca.my_hash;
+      Ref = rca.Ref;
 
-      rca.alloc = Allocator();
+#ifdef CPPUNIT_VERSION
       rca.offset = 0;
       rca.sublen = 0;
       rca.my_hash = 0;
+#endif
       rca.Ref = nullptr;
 
       return *this;
     }
 
+  public:
+    template <class InputIt>
+    ReferenceCountedArray(InputIt first,
+      typename std::enable_if<
+        is_input_iterator<InputIt>::value,
+        InputIt
+        >::type last) :
+      ReferenceCountedArray(std::distance(first, last)) {
+      insert(cbegin(), first, last);
+    }
+
     /**
-     * @brief Sets our buffer to the given item.
-     * @param item The item to set our buffer to.
-     * @post The old buffer (if we had one) is free'd.
-     * @post A sufficiently sized new buffer is made with the item within.
-     * @return The new array object.
+     * @brief Create an array from an initializer list
+     * @param list An initializer_list
      */
-    ReferenceCountedArray& operator=(const_reference item) {
-      Detach();
-      append(item);
+    ReferenceCountedArray& operator=(std::initializer_list<value_type> list) {
+      clear();
+      reserve(list.size());
+      std::copy(list.begin(), list.end(), Buf());
+      sublen = list.size();
       return *this;
     }
 
     /**
      * @brief How many references does this object have?
      */
-    inline size_t rcount() const { return Ref ? Ref->refs.load() : 0; };
+    inline size_t rcount() const noexcept { return Ref ? Ref->refs.load() : 0; };
+#ifdef CPPUNIT_VERSION
+    inline intptr_t rptr() const noexcept __attribute__((pure)) { return (intptr_t)Ref; }
+#endif
+
     /**
      * @return True if this object is shared; false if not.
      */
-    inline bool isShared() const { return Ref && Ref->isShared(); };
-
+    inline bool isShared() const noexcept __attribute__((pure)) {
+      return Ref && Ref->isShared();
+    }
 
     /**
-     * @sa ArrayRef::Reserve()
+     * @sa ArrayRef::reserve()
      * @param newSize A size that we need to Allocate the buffer to.
      * @param scaling_factor How much to multiple the size by to help avoid later resizing
      * @post The ReferenceCountedArray will also never shrink after this.
      */
-    virtual void Reserve(const size_t newSize, double scaling_factor = 1) const {
+    virtual void reserve(const size_t newSize,
+        double scaling_factor = 1) const {
       if (!Ref) {
         Ref = new ArrayRef<value_type, Allocator>(alloc);
       }
-      Ref->Reserve(newSize, scaling_factor, offset, sublen);
+      Ref->reserve(newSize, scaling_factor, offset, sublen);
     }
 
     /**
      * @brief Clear contents of ReferenceCountedArray and set length to 0
      */
-    virtual inline void clear() { Detach(); };
+    inline void clear() noexcept { Detach(); };
 
     /**
      * @brief Returns capacity of the ReferenceCountedArray object.
      * @return Capacity of the ReferenceCountedArray object.
      */
-    inline size_t capacity() const { return Ref ? Ref->size : 0; };
+    inline size_t capacity() const noexcept __attribute__((pure)) {
+      return Ref ? Ref->size : 0;
+    }
 
     /**
      * @brief Resize the array to the given length.
      * @param len The length to resize to.
-     * @param value The optional parameter to fill the space with if the array is expanded
      */
-    void resize(size_t len, value_type value = value_type()) {
-      if (len < this->length()) {
-        this->subLength(this->length() - len);
+    void resize(size_t len) {
+      if (len < length()) {
+        setLength(len);
       } else {
-        this->AboutToModify(len);
-        for (size_t i = 0; i < (len - this->length()); ++i)
-          *(Buf(this->length() + i)) = value;
-        this->addLength(len - this->length());
+        AboutToModify(len);
+        sublen = len;
+      }
+    }
+
+    /**
+     * @brief Resize the array to the given length.
+     * @param len The length to resize to.
+     * @param value The parameter to fill the space with if the array is expanded
+     */
+    void resize(size_t len, const value_type value) {
+      if (len < length()) {
+        setLength(len);
+      } else {
+        AboutToModify(len);
+        /*
+         * Use constructing for objects but allow memset
+         * for simple types via std::fill.
+         */
+        if __CPP17_IFCONSTEXPR (std::is_class<T>::value)
+          std::uninitialized_fill(Buf(length()), Buf(len), value);
+        else
+          std::fill(Buf(length()), Buf(len), value);
+        sublen = len;
       }
     }
 
@@ -551,49 +664,66 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @brief Returns length of the ReferenceCountedArray.
      * @return Length of the ReferenceCountedArray.
      */
-    inline size_t length() const { return sublen; };
+    inline size_t length() const noexcept __attribute__((pure)) {
+      return sublen;
+    }
     /**
      * @sa length()
      */
-    inline size_t size() const { return length(); };
+    inline size_t size() const noexcept __attribute__((pure)) {
+      return length();
+    }
 
     /**
      * @brief Check whether the ReferenceCountedArray is 'empty'
      * @return True if empty, false if non-empty
      */
-    inline bool isEmpty() const { return length() == 0; };
+    inline bool isEmpty() const noexcept __attribute__((pure)) {
+      return length() == 0;
+    }
     /**
      * @sa isEmpty()
      * This is for: if (!string)
      * Having if(string) conflicts with another operator
      */
-    inline bool operator!() const { return isEmpty(); };
-    inline explicit operator bool() const { return !isEmpty(); }
+    inline bool operator!() const noexcept __attribute__((pure)) {
+      return isEmpty();
+    }
+    inline explicit operator bool() const noexcept __attribute__((pure)) {
+      return !isEmpty();
+    }
 
     /**
      * @brief Data accessor
      * @return Pointer to array of characters (not necesarily null-terminated).
      */
-    inline const_pointer data() const { return constBuf(); }
+    inline const_pointer data() const noexcept __attribute__((pure)) {
+      return constBuf();
+    }
     /**
      * @brief Give an OutputIterator for STL usage
      * @post The Array is detached.
      */
-    inline pointer mdata() const { AboutToModify(length()); return Buf(); }
+    inline pointer mdata() const { getOwnCopy(); return Buf(); }
 
     /**
      * @brief Returns a read/write iterator into the Array.
      * @post The Array is detached
      */
-    inline iterator begin() { return iterator(mdata()); };
+    inline iterator begin() {
+      getOwnCopy();
+      return iterator(Buf());
+    }
 
-    inline const_iterator cbegin() const {
-      return const_iterator(this->data());
+    inline const_iterator cbegin() const noexcept __attribute__((pure)) {
+      return const_iterator(constBuf());
     };
     /**
      * @brief Returns a read-only iterator into the Array
      */
-    inline const_iterator begin() const { return this->cbegin(); };
+    inline const_iterator begin() const noexcept __attribute__((pure)) {
+      return cbegin();
+    }
 
     /**
      * @brief Returns a read/write iterator at the end the Array
@@ -601,76 +731,96 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      */
     inline iterator end() { return iterator(begin()) + length(); };
 
-    inline const_iterator cend() const {
-      return const_iterator(this->cbegin()) + this->length();
+    inline const_iterator cend() const noexcept __attribute__((pure)) {
+      return const_iterator(cbegin()) + length();
     };
     /**
      * @brief Returns a read-only iterator at the end of the Array
      */
-    inline const_iterator end() const { return this->cend(); };
+    inline const_iterator end() const noexcept __attribute__((pure)) {
+      return cend();
+    }
 
     /**
      * @brief Returns a read/write reverse iterator at the end of the Array. Iteration is done in reverse order.
      * @post The Array is detached
      */
-    inline reverse_iterator rbegin() { return reverse_iterator(this->end()); };
+    inline reverse_iterator rbegin() { return reverse_iterator(end()); };
 
-    inline const_reverse_iterator crbegin() const {
-      return const_reverse_iterator(this->cend());
+    inline const_reverse_iterator crbegin() const noexcept {
+      return const_reverse_iterator(cend());
     };
     /**
      * @brief Returns a read-only reverse iterator at the end of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rbegin() const { return this->crbegin(); };
+    inline const_reverse_iterator rbegin() const noexcept __attribute__((pure)) {
+      return crbegin();
+    }
 
     /**
      * @brief Returns a read/write reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      * @post The Array is detached
      */
-    inline reverse_iterator rend() { return reverse_iterator(this->begin()); };
+    inline reverse_iterator rend() { return reverse_iterator(begin()); };
 
-    inline const_reverse_iterator crend() const {
-      return const_reverse_iterator(this->cbegin());
+    inline const_reverse_iterator crend() const noexcept __attribute__((pure)) {
+      return const_reverse_iterator(cbegin());
     };
     /**
      * @brief Returns a read-only reverse iterator at the beginning of the Array. Iteration is done in reverse order.
      */
-    inline const_reverse_iterator rend() const { return this->crend(); };
-
+    inline const_reverse_iterator rend() const noexcept __attribute__((pure)) {
+      return crend();
+    }
 
    /**
      * @brief Return a hash of every element in the array. Cache result as well.
      * @note DJB's hash function
      */
-    virtual size_t hash() const {
+    size_t hash() const noexcept {
       if (my_hash != 0) return my_hash;
       std::hash<value_type> hasher;
       size_t _hash = 5381;
 
-      for(size_t i = 0; i < this->length(); ++i)
-        _hash = ((_hash << 5) + _hash) + hasher(this->data()[i]);
+      for(size_t i = 0; i < length(); ++i)
+        _hash = ((_hash << 5) + _hash) + hasher(*constBuf(i));
       return (my_hash = (_hash & 0x7FFFFFFF));
     }
 
-
+  private:
+    size_t _find(const_reference item, size_t pos) const noexcept __attribute__((pure)) {
+      const auto it = std::find(constBuf(pos), constBuf(length()), item);
+      if (it != constBuf(length()))
+        return it - constBuf(pos);
+      return npos;
+    }
+  public:
     /**
      * @brief Find an item in the array
      * @return The position of the item if found, or npos if not found
      **/
-    size_t find(const_reference item) const {
-      for (size_t i = 0; i < length(); ++i)
-        if (*(Buf(i)) == item)
-          return i;
-      return npos;
+    size_t find(const_reference item) const noexcept __attribute__((pure)) {
+      return _find(item, 0);
+    }
+
+    /**
+     * @brief Find an item in the array
+     * @param pos Where to start the search
+     * @return The position of the item if found, or npos if not found
+     **/
+    size_t find(const_reference item, size_t pos) const __attribute__((pure)) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+      return _find(item, pos);
     }
 
     /**
      * @brief Find an item in the array, starting from the end
      * @return The position of the item if found, or npos if not found
      **/
-    size_t rfind(const_reference item) const {
+    size_t rfind(const_reference item) const noexcept __attribute__((pure)) {
       for (size_t i = length() - 1; i + 1 > 0; --i)
-        if (*(Buf(i)) == item)
+        if (*(constBuf(i)) == item)
           return i;
       return npos;
     }
@@ -681,24 +831,23 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @sa at()
      * Unlike at() this is unchecked.
      */
-    inline value_type read(size_t pos) const noexcept {
+    inline reference read(size_t pos) noexcept __attribute__((pure)) {
+      return *(Buf(pos));
+    };
+    inline const_reference read(size_t pos) const noexcept __attribute__((pure)) {
       return *(constBuf(pos));
     };
 
     /**
      * @brief Write an item to the given index
      */
-    inline void write(size_t pos, value_type item) {
+    inline void write(size_t pos, const_reference item) {
       getOwnCopy();
       *(Buf(pos)) = item;
     };
-
-    /**
-     * @brief Safe element access operator
-     * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
-     */
-    inline value_type operator[](size_t pos) const noexcept {
-      return read(pos);
+    inline void write(size_t pos, value_type&& item) {
+      getOwnCopy();
+      *(Buf(pos)) = std::move(item);
     };
 
     /**
@@ -714,41 +863,77 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       private:
         friend class ReferenceCountedArray;
         ReferenceCountedArray& rca;
-        size_t k;
+        size_t start;
 
         /**
          * @brief Used by Cref operator[]
          */
-        Cref(ReferenceCountedArray& _rca, size_t pos) : rca(_rca), k(pos) {};
-        Cref() = delete;
+        Cref(ReferenceCountedArray& _rca, size_t pos) noexcept : rca(_rca), start(pos) {};
 
       public:
-        Cref(const Cref& cref) : rca(cref.rca), k(cref.k) {};
-        inline Cref& operator=(const Cref& cref) {
-          (*this) = value_type(cref);
+        Cref() = delete;
+        Cref(const Cref& cref) noexcept = default;
+        Cref(Cref&& cref) noexcept = default;
+        inline Cref& operator=(const Cref& cref) && {
+          rca.write(start, value_type(cref));
           return (*this);
         }
+        inline Cref& operator=(Cref&& cref) && noexcept = default;
 
-        public:
         /**
          * @sa ReferenceCountedArray::operator[]
          */
-        inline operator value_type() const noexcept { return rca.read(k); };
+        inline operator const_reference() const noexcept __attribute__((pure)) {
+          return get();
+        }
+
+        /*
+         * @brief Returns the element but does a COW since it may be written to.
+         */
+        inline reference mget(void) {
+          rca.getOwnCopy();
+          return rca.read(start);
+        }
+
+        /*
+         * @brief Returns the element without a COW.
+         */
+        inline const_reference get(void) const noexcept __attribute__((pure)) {
+          return rca.read(start);
+        }
 
         /**
          * Stroustrup shows using this as void with no return value, but that breaks chaining a[n] = b[n] = 'b';
          */
-        inline Cref& operator=(value_type c) {
-          rca.write(k, c);
+        inline Cref& operator=(const_reference c) && {
+          rca.write(start, c);
           return (*this);
         };
+        inline Cref& operator=(value_type&& c) && {
+          rca.write(start, std::move(c));
+          return (*this);
+        };
+
+#ifdef CPPUNIT_VERSION
+        inline size_t rcount() const noexcept { return rca.read(start).rcount(); }
+        inline intptr_t rptr() const noexcept __attribute__((pure)) { return get().rptr(); }
+#endif
+    };
+
+    /**
+     * @brief Safe element access operator
+     * @todo This is only called on a (const) ReferenceCountedArray, but should for a ReferenceCountedArray as well.
+     */
+    inline const_reference operator[](size_t pos) const noexcept
+      __attribute__((pure)) {
+      return read(pos);
     };
 
     /**
      * @brief Returns 'Cref' class for safe (cow) writing.
      * @sa Cref
      */
-    inline Cref operator[](size_t pos) { return Cref(*this, pos); };
+    inline Cref operator[](size_t pos) noexcept { return Cref(*this, pos); };
 
     /**
      * @brief Returns the character at the given index.
@@ -758,7 +943,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @sa operator[]()
      * @todo Perhaps this should throw an exception if out of range?
      */
-    inline value_type at(size_t pos) const {
+    inline const_reference at(size_t pos) const {
       validateIndex(pos);
       return (*this)[pos];
     };
@@ -768,7 +953,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param len The length of the subarray to return
      * The returned slice is a reference to the original array until modified.
      */
-    void slice(int start, int len = -1) {
+    void slice(ssize_t start, ssize_t len = -1) noexcept {
       if (len == -1) len = int(length()) - start;
       // Start is after the end, set us to an empty array
       if (start >= static_cast<signed>(length())) {
@@ -802,6 +987,31 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * This is the same as inserting the item at the end of the buffer.
      */
     inline void append(const_reference item) { insert(length(), item); };
+    inline void append(value_type&& item) { insert(length(), std::move(item)); };
+    inline void push_back(const_reference item) { append(item); };
+    inline void push_back(value_type&& item) { append(std::move(item)); };
+
+    inline reference front() noexcept __attribute__((pure)) {
+      return *Buf(0);
+    }
+
+    inline const_reference front() const noexcept __attribute__((pure)) {
+      return *constBuf(0);
+    }
+
+    inline reference back() noexcept __attribute__((pure)) {
+      return *Buf(length() - 1);
+    }
+
+    inline const_reference back() const noexcept __attribute__((pure)) {
+      return *constBuf(length() - 1);
+    }
+
+    inline void pop_back() noexcept {
+      assert(!isEmpty());
+      subLength(1);
+    }
+
     /**
      * @brief Appends given rca to the end of buffer
      * @param rca The rca to be appended.
@@ -809,8 +1019,37 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @post The buffer is allocated.
      * This is the same as inserting the rca at the end of the buffer.
      */
-    inline void append(const ReferenceCountedArray& rca, size_t n = npos) { insert(length(), rca, n); };
+    inline void append(const ReferenceCountedArray& rca, size_t n = npos) {
+      insert(length(), rca, n);
+    }
+    inline void append(ReferenceCountedArray&& rca, size_t n = npos) {
+      insert(length(), std::move(rca), n);
+    }
 
+    iterator insert(const_iterator pos, const_reference item) {
+      const auto index = pos - cbegin();
+      insert(index, item);
+      return std::next(begin(), index);
+    }
+
+    iterator insert(const_iterator pos, value_type&& item) {
+      const auto index = pos - cbegin();
+      insert(index, std::move(item));
+      return std::next(begin(), index);
+    }
+
+    template <class InputIt>
+    typename std::enable_if<
+      is_input_iterator<InputIt>::value,
+      typename ReferenceCountedArray<T>::iterator>::type
+    insert(const_iterator pos, InputIt first, InputIt last) {
+      auto index = pos - cbegin();
+      const auto rindex = index;
+      AboutToModify(length() + std::distance(first, last));
+      while (first != last)
+        insert(std::next(begin(), index++), *first++);
+      return std::next(begin(), rindex);
+    }
 
     /**
      * @brief Inserts a ReferenceCountedArray object into our buffer
@@ -819,7 +1058,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param n The length to insert.
      * @post The buffer contains n items from rca inserted at index pos.
      */
-    void insert(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
+    void insert(size_t pos, const ReferenceCountedArray& rca, size_t n) {
       if (n == 0) return;
       if (pos != 0)
         validateIndex(pos - 1);
@@ -827,19 +1066,101 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       size_t slen = rca.length();
 
       /* New rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
-      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
+      if (pos == 0 && slen > length() && n == slen) {
         *this = rca;
         return;
       }
 
-      if (n == npos || n > slen)
+      if (n > slen)
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
-      std::memmove(static_cast<void*>(Buf() + pos + slen), static_cast<void*>(Buf() + pos), length() - pos);
-      std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
-      addLength(slen);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
+      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
+      sublen += slen;
     }
+
+    /**
+     * @brief Inserts a ReferenceCountedArray object into our buffer
+     * @param pos The index to insert at.
+     * @param rca The rca to insert.
+     * @post The buffer contains all items from rca inserted at index pos.
+     */
+    void insert(size_t pos, const ReferenceCountedArray& rca) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      const auto slen = rca.length();
+
+      /* New rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
+      if (pos == 0 && slen > length()) {
+        *this = rca;
+        return;
+      }
+
+      AboutToModify(length() + slen);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
+      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
+      sublen += slen;
+    }
+
+    /**
+     * @brief Inserts a ReferenceCountedArray object into our buffer
+     * @param pos The index to insert at.
+     * @param rca The rca to insert.
+     * @param n The length to insert.
+     * @post The buffer contains n items from rca inserted at index pos.
+     */
+    void insert(size_t pos, ReferenceCountedArray&& rca, size_t n) {
+      if (n == 0) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      size_t slen = rca.length();
+
+      /* New rca is longer than ours, and inserting at 0, just move theirs */
+      if (pos == 0 && slen > length() && n == slen) {
+        *this = std::move(rca);
+        return;
+      }
+
+      if (n > slen)
+        n = slen;
+      slen -= slen - n;
+      AboutToModify(length() + slen);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
+      std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
+      sublen += slen;
+    }
+
+    /**
+     * @brief Inserts a ReferenceCountedArray object into our buffer
+     * @param pos The index to insert at.
+     * @param rca The rca to insert.
+     * @post The buffer contains all items from rca inserted at index pos.
+     */
+    void insert(size_t pos, ReferenceCountedArray&& rca) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      const auto slen = rca.length();
+
+      /* New rca is longer than ours, and inserting at 0, just move theirs */
+      if (pos == 0 && slen > length()) {
+        *this = std::move(rca);
+        return;
+      }
+
+      AboutToModify(length() + slen);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
+      std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
+      sublen += slen;
+    }
+
 
     /**
      * @brief Insert an item at the given index.
@@ -855,9 +1176,30 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         validateIndex(pos - 1);
 
       AboutToModify(length() + 1);
-      std::memmove(static_cast<void*>(Buf() + pos + 1), static_cast<void*>(Buf() + pos), length() - pos);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + 1));
       *(Buf(pos)) = item;
-      addLength(1);
+      ++sublen;
+    }
+
+    /**
+     * @brief Insert an item at the given index.
+     * @param pos The index to insert at.
+     * @param item The item to be inserted.
+     * @post A buffer is allocated.
+     * @post If the old buffer was too small, it is enlarged.
+     * @post The item is inserted at the given index.
+     */
+    void insert(size_t pos, value_type&& item)
+    {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      AboutToModify(length() + 1);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + 1));
+      *(Buf(pos)) = std::move(item);
+      ++sublen;
     }
 
     /**
@@ -873,6 +1215,21 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
 
       getOwnCopy();
       *(Buf(pos)) = item;
+    }
+
+    /**
+     * @brief Replace the given index with the given item.
+     * @param pos The index to replace.
+     * @param item The item to replace with.
+     * @post The given index has been replaced.
+     * @post COW is done if needed.
+     */
+    void replace(size_t pos, value_type&& item) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      getOwnCopy();
+      *(Buf(pos)) = std::move(item);
     }
 
     /**
@@ -898,16 +1255,45 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
         n = slen;
       slen -= slen - n;
 
-      size_t newlen = pos + slen;
+      auto newlen = pos + slen;
 
-      if (newlen >= length()) {
-        AboutToModify(newlen);
-      } else {
+      if (newlen < length())
         newlen = length();
-        getOwnCopy();
+      AboutToModify(newlen);
+      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
+      sublen = newlen;
+    }
+
+    /**
+     * @brief Replaces n elements in our buffer at index pos with the given ReferenceCountedArray object
+     * @param pos The index to replace at.
+     * @param rca The ReferenceCountedArray object to replace with.
+     * @param n The number of characters to use for the replace.
+     */
+    void replace(size_t pos, ReferenceCountedArray&& rca, size_t n = npos) {
+      if (n == 0) return;
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      size_t slen = rca.length();
+
+      /* Replace rca is longer than ours, and inserting at 0, just move theirs */
+      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
+        *this = std::move(rca);
+        return;
       }
-      std::copy(rca.begin(), rca.begin() + slen, Buf() + pos);
-      setLength(newlen);
+
+      if (n == npos || n > slen)
+        n = slen;
+      slen -= slen - n;
+
+      auto newlen = pos + slen;
+
+      if (newlen < length())
+        newlen = length();
+      AboutToModify(newlen);
+      std::move(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
+      sublen = newlen;
     }
 
 };

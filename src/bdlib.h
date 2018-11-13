@@ -32,6 +32,12 @@
 #include <config.h>
 #endif
 
+#if __cplusplus >= 201703L
+#define __CPP17_IFCONSTEXPR constexpr
+#else
+#define __CPP17_IFCONSTEXPR
+#endif
+
 #define BDLIB_NS bd
 #define BDLIB_NS_BEGIN namespace BDLIB_NS {
 #define BDLIB_NS_END }

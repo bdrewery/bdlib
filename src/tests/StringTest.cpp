@@ -37,6 +37,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <type_traits>
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (StringTest);
@@ -96,36 +97,41 @@ void StringTest :: clearTest (void)
   CPPUNIT_ASSERT_EQUAL(true, b->isEmpty());
 
   CPPUNIT_ASSERT_EQUAL((size_t) 4, a->length());
+  a->clear();
+  CPPUNIT_ASSERT_EQUAL((size_t) 0, a->length());
+  CPPUNIT_ASSERT_EQUAL(true, a->isEmpty());
 }
 
 
 void StringTest :: capacityTest (void)
 {
-  CPPUNIT_ASSERT(b->capacity() >= 4);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(4), b->capacity());
   CPPUNIT_ASSERT_EQUAL(b->capacity(), c->capacity());
   CPPUNIT_ASSERT(d->capacity() >= strlen(cstring));
   CPPUNIT_ASSERT_EQUAL(d->capacity(), e->capacity());
-  CPPUNIT_ASSERT(f->capacity() >= 11);
-  CPPUNIT_ASSERT(g->capacity() >= 1);
-  CPPUNIT_ASSERT(h->capacity() >= 35);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(11), f->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(1), g->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(35), h->capacity());
 
   *a = String();
   // This is just a crash test
-  CPPUNIT_ASSERT(ssize_t(a->capacity()) >= 0);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(0), a->capacity());
 }
 
 void StringTest :: compareTest (void)
 {
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blah"));
-  CPPUNIT_ASSERT_NO_THROW((*b).compare("blah", 4, 3));
-  CPPUNIT_ASSERT_THROW((*b).compare("blah", 4, 4), std::out_of_range);
   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
-  CPPUNIT_ASSERT((*f).compare(cstring) < 0);
-  CPPUNIT_ASSERT((*d).compare(*f) > 0);
+  CPPUNIT_ASSERT_LESS(0, (*f).compare(cstring));
+  CPPUNIT_ASSERT_GREATER(0, (*d).compare(*f));
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare(*c));
   CPPUNIT_ASSERT(String("abc") < String("def"));
   CPPUNIT_ASSERT(String("abc") < String("abcdef"));
+  *a = "fool";
+  *b = *a;
+  CPPUNIT_ASSERT_GREATER(0, (*a).compare((*b)(0, 3)));
+  CPPUNIT_ASSERT_EQUAL(0, (*a).compare((*b)(0, 3), 3));
 }
 
 void StringTest :: refTest (void)
@@ -140,6 +146,28 @@ void StringTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(3), b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(3), c->rcount());
 
+  *c = "test";
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), c->rcount());
+
+  /* Check for dangling references */
+  c->clear();
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  *b = *c;
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), c->rcount());
+
+  *b = *a;
+  CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
+  *b = 'c';
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), b->rcount());
+
+  *b = *a;
   *c = "test";
   CPPUNIT_ASSERT_EQUAL(size_t(2), a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(2), b->rcount());
@@ -195,8 +223,10 @@ void StringTest :: setTest (void)
   *a = "blah";
   CPPUNIT_ASSERT_STRING_EQUAL ("blah", *a);
   CPPUNIT_ASSERT_EQUAL(*a, *b);
+  CPPUNIT_ASSERT_STRING_EQUAL(cstring, *d);
   *h = cstring;
-  CPPUNIT_ASSERT_EQUAL(*d, *h);
+  CPPUNIT_ASSERT_STRING_EQUAL(cstring, *h);
+  CPPUNIT_ASSERT_STRING_EQUAL(*d, *h);
   *a = "  ";
   CPPUNIT_ASSERT_STRING_EQUAL("  ", *a);
   *b = ' ';
@@ -208,10 +238,30 @@ void StringTest :: setTest (void)
   *b = *b;
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
+
+  String foo = "test"s;
+  CPPUNIT_ASSERT_STRING_EQUAL("test", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo.length());
+
+  foo = "blah"s;
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo.length());
+
+  foo = "test\0h"s;
+  CPPUNIT_ASSERT_STRING_EQUAL(String("test\0h", 6), foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(6), foo.length());
 }
 
 void StringTest :: c_strTest(void)
 {
+  CPPUNIT_ASSERT_EQUAL(size_t(4), (*b).length());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(5), (*b).capacity());
+  CPPUNIT_ASSERT_EQUAL((int)'b', (int)(*b)[0]);
+  CPPUNIT_ASSERT_EQUAL((int)'l', (int)(*b)[1]);
+  CPPUNIT_ASSERT_EQUAL((int)'a', (int)(*b)[2]);
+  CPPUNIT_ASSERT_EQUAL((int)'h', (int)(*b)[3]);
+  CPPUNIT_ASSERT_EQUAL((int)'\0', (int)(*b)[4]);
+
   const char *b_test = b->c_str();
   const char *c_test = c->c_str();
   const char *d_test = d->c_str();
@@ -225,11 +275,52 @@ void StringTest :: c_strTest(void)
   CPPUNIT_ASSERT(strcmp(f_test, d_test) < 0);
 
   *f = "TESTING 1 2 3 4";
+  std::string sstring(*f);
+  CPPUNIT_ASSERT_EQUAL(std::string("TESTING 1 2 3 4"), std::string(*f));
+  (*f)[2] = 's';
+  sstring[1] = 'a';
+  CPPUNIT_ASSERT_STRING_EQUAL("TEsTING 1 2 3 4", f->c_str());
+  CPPUNIT_ASSERT_EQUAL(std::string("TaSTING 1 2 3 4"), sstring);
+  (*f)[2] = 'S';
   *a = (*f)(2, 5);
   const char *x = a->dup();
-  CPPUNIT_ASSERT_STRING_EQUAL("STING", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("STING", a->c_str());
+  CPPUNIT_ASSERT_EQUAL('\0', x[5]);
   CPPUNIT_ASSERT_STRING_EQUAL("STING", x);
   delete[] x;
+
+  /* rvalue c_str() */
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST", String("TEST").c_str());
+
+  *c = "something";
+  c->reserve(16);
+  *a = (*c)(0, c->length()-1);
+  *a += size_t(3);
+  *b = *a;
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", b->c_str());
+  *b = (*a)(0, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethi", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  *b += size_t(1);
+  *b += "foo";
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("thifoo", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  *b = *c;
+  *b += size_t(1);
+  *b += "foo";
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("omethingfoo", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
+  *b = *c;
+  *b -= size_t(2);
+  *b += size_t(2);
+  CPPUNIT_ASSERT_STRING_EQUAL("something", c->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("methi", b->c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("ethin", a->c_str());
 }
 
 void StringTest :: hasIndexTest(void)
@@ -247,7 +338,7 @@ void StringTest :: hasIndexTest(void)
   CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
   CPPUNIT_ASSERT_EQUAL(size_t(0), a->length());
 
-  CPPUNIT_ASSERT_NO_THROW(a->insert(0, 'c'));
+  CPPUNIT_ASSERT_NO_THROW(a->insert(size_t(0), 'c'));
   a->resize(0);
   CPPUNIT_ASSERT_THROW(a->insert(1, 'c'), std::out_of_range);
   a->resize(0);
@@ -264,8 +355,8 @@ void StringTest :: hasIndexTest(void)
   CPPUNIT_ASSERT_NO_THROW((*a)[1] = 'c');
   CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
   CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
-  CPPUNIT_ASSERT_NO_THROW((const char)(*a)[0]);
-  CPPUNIT_ASSERT_NO_THROW((const char)(*a)[1]);
+  CPPUNIT_ASSERT_NO_THROW((char)(*a)[0]);
+  CPPUNIT_ASSERT_NO_THROW((char)(*a)[1]);
 }
 
 void StringTest :: charAtTest(void)
@@ -305,6 +396,15 @@ void StringTest :: indexTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("tHHT sTTa test", *b);
+
+  const String constString("THIS CANNOT BE MODIFIED");
+  char ch = 'a';
+  static_assert(
+      !std::is_assignable<decltype(constString[0]), decltype(ch)>::value,
+      "const cref should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constString[0]), decltype(std::move(ch))>::value,
+      "const cref should not be assignable");
 }
 
 void StringTest :: iteratorTest(void)
@@ -322,6 +422,90 @@ void StringTest :: iteratorTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("this is just a tesT", (*a));  
   CPPUNIT_ASSERT_STRING_EQUAL("tthis is just a tes", (*b));
+
+  std::string sfoo = "a long std::string is here";
+  String foo1, foo2;
+  std::string sfoo1, sfoo2;
+
+  CPPUNIT_ASSERT_STRING_EQUAL("a long std::string is here", sfoo);
+  *a = "Test original string here which should not be modified";
+  *b = *a;
+  sfoo1 = sfoo2  = *a;
+  foo1 = foo2  = *a;
+
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::back_inserter(sfoo1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modifieda long std::string is here", sfoo1);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", foo1);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo1.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), foo2.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), (*b).rcount());
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::back_inserter(foo1));
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modifieda long std::string is here", foo1);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), foo1.rcount());
+  CPPUNIT_ASSERT((*a).rptr() != foo1.rptr());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), foo2.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), (*b).rcount());
+
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::inserter(sfoo2, std::next(sfoo2.begin(), 4)));
+  CPPUNIT_ASSERT_STRING_EQUAL("Testa long std::string is here original string here which should not be modified", sfoo2);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", foo2);
+  std::copy(sfoo.cbegin(), sfoo.cend(),
+      std::inserter(foo2, std::next(foo2.begin(), 4)));
+  CPPUNIT_ASSERT_STRING_EQUAL("Test original string here which should not be modified", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testa long std::string is here original string here which should not be modified", foo2);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), foo1.rcount());
+  CPPUNIT_ASSERT((*a).rptr() != foo1.rptr());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), foo2.rcount());
+  CPPUNIT_ASSERT((*a).rptr() != foo2.rptr());
+  CPPUNIT_ASSERT(foo1.rptr() != foo2.rptr());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), (*b).rcount());
+
+  CPPUNIT_ASSERT_STRING_EQUAL("a long std::string is here", sfoo);
+
+  *a = *b = foo1 = sfoo1 = "test 123";
+  foo2 = sfoo2 = "blah";
+  auto sit = sfoo1.insert(std::next(sfoo1.begin(), 1),
+      std::next(sfoo2.cbegin(), 1),
+      sfoo2.cend());
+  CPPUNIT_ASSERT_STRING_EQUAL("tlahest 123", sfoo1);
+  CPPUNIT_ASSERT_EQUAL(std::next(sfoo1.cbegin(), 1) - sfoo1.cbegin(), sit - sfoo1.cbegin());
+  CPPUNIT_ASSERT(std::next(sfoo1.cbegin(), 1) == sit);
+  auto it = foo1.insert(std::next(foo1.begin(), 1),
+      std::next(foo2.cbegin(), 1),
+      foo2.cend());
+  CPPUNIT_ASSERT_STRING_EQUAL("test 123", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test 123", *b);
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", foo2);
+  CPPUNIT_ASSERT_STRING_EQUAL("tlahest 123", foo1);
+  CPPUNIT_ASSERT_EQUAL(std::next(foo1.cbegin(), 1) - foo1.cbegin(), it - foo1.cbegin());
+  CPPUNIT_ASSERT(std::next(foo1.cbegin(), 1) == it);
+
+  *b = *a = "test 123";
+  String nfoo(a->cbegin(), a->cend());
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, nfoo);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), (*a).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), nfoo.rcount());
+
+  *a = "begin";
+  *b = " end";
+  a->insert(a->cend(), b->cbegin(), b->cend());
+  CPPUNIT_ASSERT_STRING_EQUAL("begin end", (*a));
+  CPPUNIT_ASSERT_STRING_EQUAL(" end", (*b));
+
+  *a = "foo 123";
+  String movefoo(
+      std::make_move_iterator(a->begin()),
+      std::make_move_iterator(a->end()));
+  CPPUNIT_ASSERT_STRING_EQUAL("foo 123", movefoo);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), movefoo.rcount());
 }
 
 void StringTest :: stl_iteratorTest(void)
@@ -388,7 +572,7 @@ void StringTest :: insertTest(void)
 {
   CPPUNIT_ASSERT_THROW(a->insert(1, 'a'), std::out_of_range);
   CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
-  a->insert(0, 'b');
+  a->insert(size_t(0), 'b');
   CPPUNIT_ASSERT_NO_THROW(a->at(0));
   CPPUNIT_ASSERT_STRING_EQUAL("b", *a);
   CPPUNIT_ASSERT_THROW(a->at(1), std::out_of_range);
@@ -398,6 +582,19 @@ void StringTest :: insertTest(void)
   b->insert(3, "TEST", 0);
   CPPUNIT_ASSERT_STRING_EQUAL("blBLAHah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
+  *a = "0123456789";
+  a->insert(3, "TEST", 1);
+  CPPUNIT_ASSERT_STRING_EQUAL("012T3456789", *a);
+  *a = "0123456789";
+  a->insert(3, String("T"), 1);
+  CPPUNIT_ASSERT_STRING_EQUAL("012T3456789", *a);
+  *a = "0123456789";
+  a->insert(3, String("Testinglong"));
+  CPPUNIT_ASSERT_STRING_EQUAL("012Testinglong3456789", *a);
+  String x("Testinglong");
+  *a = "0123456789";
+  a->insert(3, x);
+  CPPUNIT_ASSERT_STRING_EQUAL("012Testinglong3456789", *a);
   b->insert(3, "TEST", 1);
   CPPUNIT_ASSERT_STRING_EQUAL("blBTLAHah", *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
@@ -418,6 +615,7 @@ void StringTest :: insertTest(void)
 void StringTest :: replaceTest(void)
 {
   CPPUNIT_ASSERT_NO_THROW(a->replace(0, "bla"));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), a->length());
   *a = "";
   CPPUNIT_ASSERT_THROW(a->replace(1, "bla"), std::out_of_range);
   CPPUNIT_ASSERT_THROW(a->at(0), std::out_of_range);
@@ -425,6 +623,7 @@ void StringTest :: replaceTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("bxah", *b);
   b->replace(0, "ququ");
   CPPUNIT_ASSERT_STRING_EQUAL("ququ", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *c);
   CPPUNIT_ASSERT_STRING_EQUAL("x", *g);
   CPPUNIT_ASSERT_EQUAL(size_t(1), g->size());
@@ -597,6 +796,8 @@ void StringTest :: trimTest(void)
 void StringTest :: findTest(void)
 {
   *a = "This is some long string";
+  CPPUNIT_ASSERT_EQUAL((size_t)24, a->length());
+  CPPUNIT_ASSERT_EQUAL(char('T'), (char)(*a)[0]);
   CPPUNIT_ASSERT_EQUAL((size_t)0, a->find('T'));
   CPPUNIT_ASSERT_EQUAL((size_t)1, a->find('h'));
   CPPUNIT_ASSERT_EQUAL((size_t)2, a->find('i'));
@@ -604,6 +805,22 @@ void StringTest :: findTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t)13, a->find('l'));
   CPPUNIT_ASSERT_EQUAL((size_t)13, a->find("long"));
   CPPUNIT_ASSERT_EQUAL((size_t)18, a->find("string"));
+
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find(""));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("blah"));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->find("lah"));
+  CPPUNIT_ASSERT_EQUAL((size_t)2, b->find("ah"));
+  CPPUNIT_ASSERT_EQUAL((size_t)3, b->find("h"));
+  CPPUNIT_ASSERT_EQUAL(String::npos, b->find("blahf"));
+
+  CPPUNIT_ASSERT_EQUAL(String::npos, b->find("blah", 1));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("blah", 0));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->find("lah", 0));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("lah", 1));
+  CPPUNIT_ASSERT_EQUAL((size_t)2, b->find("ah", 0));
+  CPPUNIT_ASSERT_EQUAL((size_t)1, b->find("ah", 1));
+  CPPUNIT_ASSERT_EQUAL((size_t)0, b->find("ah", 2));
+
 
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("z"));
   CPPUNIT_ASSERT_EQUAL(String::npos, a->find("notfound"));
@@ -626,6 +843,7 @@ void StringTest :: rfindTest(void)
 {
 
   *a = "Filename.tcl";
+  CPPUNIT_ASSERT_EQUAL((size_t)a->length() - 1, a->rfind(""));
   CPPUNIT_ASSERT_EQUAL((size_t)7, a->rfind('e'));//Tests ReferenceCountedArray<char>::rfind
   CPPUNIT_ASSERT_EQUAL((size_t)7, a->rfind("e"));//Tests String::rfind(String)
   CPPUNIT_ASSERT_EQUAL((size_t)8, a->rfind('.'));
@@ -759,7 +977,7 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("tblah", *a);
   CPPUNIT_ASSERT_EQUAL((size_t) 5, a->length());
 
-  a->Reserve(30); // Avoid COW during these offset tests
+  a->reserve(30); // Avoid COW during these offset tests
   *b = "blah";
   *a = "longtest";
   *a -= 3;
@@ -861,6 +1079,25 @@ void StringTest :: incDecEqualTest(void)
   CPPUNIT_ASSERT_EQUAL((size_t)0, strlen(a->c_str()));
 }
 
+void StringTest :: initializerTest(void) {
+  // Test initializer constructor
+  String blah{'b', 'l', 'a', 'h'};
+  CPPUNIT_ASSERT_EQUAL(size_t(4), blah.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), blah.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", blah);
+
+  String blah1{"blah"};
+  CPPUNIT_ASSERT_EQUAL(size_t(4), blah1.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), blah1.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("blah", blah1);
+
+  blah1 = {'f', 'o', 'o', 'b', 'a', '\0', 'r'};
+  CPPUNIT_ASSERT_EQUAL(size_t(7), blah1.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), blah1.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL(String("fooba\0r", 7), blah1);
+}
+
+
 void StringTest :: operatorStarTest(void)
 {
   *a = "Test! ";
@@ -896,28 +1133,37 @@ void StringTest :: copyTest(void)
   CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
 
-  /* Test bad start copy */
-  memset(buf, 'X', sizeof(buf));
-  *a = "test 12345";
-  *b = String(buf, sizeof(buf));
-  CPPUNIT_ASSERT_THROW(a->copy(buf, sizeof(buf), 10), std::out_of_range);
-  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
-
-  /* Test bad start copy */
-  memset(buf, 'X', sizeof(buf));
-  a->clear();
-  *b = String(buf, sizeof(buf));
-  CPPUNIT_ASSERT_NO_THROW(a->copy(buf, sizeof(buf), 0));
-  CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
-
   /* Test limited copy */
   memset(buf, 'X', sizeof(buf));
   *a = "test 12345";
   *b = String(buf, sizeof(buf));
-  a->copy(buf, sizeof(buf), 5);
+  a->substring(5).copy(buf, sizeof(buf));
   b->replace(0, (*a)(5));
   CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
+
+  /* Above test is probably bogus */
+  memset(buf, '\0', sizeof(buf));
+  *a = "Testing 12345";
+  auto len = (*a).copy(buf, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testing 12345", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test", buf);
+  CPPUNIT_ASSERT_EQUAL(len, strlen(buf));
+
+  memset(buf, '\0', sizeof(buf));
+  *a = "Testing 12345";
+  len = (*a).copy(buf, 1000);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testing 12345", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("Testing 12345", buf);
+  CPPUNIT_ASSERT_EQUAL(strlen(buf), len);
+
+  *a = "test 1234";
+  *a = *a;
+  CPPUNIT_ASSERT_STRING_EQUAL("test 1234", *a);
+
+  *a = "test 1234";
+  *a = std::move(*a);
+  CPPUNIT_ASSERT_STRING_EQUAL("test 1234", *a);
 }
 
 void StringTest :: printfTest(void)
@@ -1032,7 +1278,7 @@ void StringTest :: base64Test(void)
   CPPUNIT_ASSERT_EQUAL(strlen(twentynine), tmp.length());
 
   tmp = "";
-  tmp.Reserve(255);
+  tmp.reserve(255);
   for (unsigned char C = 0; C < 255; C++)
     tmp.append(C);
   String save = String(tmp);
@@ -1171,8 +1417,52 @@ void StringTest :: substringTest(void)
   substring = a->substring(0, 30);
   CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
 
+  auto slice1 = (*a)(0);
+  CPPUNIT_ASSERT_EQUAL(a->length(), slice1.get().length());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", static_cast<String>(slice1));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.get().c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
+  const String s1((*a)(0));
+  const String s2((*a)(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", s1.c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", s2.c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", slice1.get()(0));
+
+  substring = (*a)(0);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", substring(0));
+
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", substring(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
+  ++substring;
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", substring);
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a));
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", substring(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a)(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("cdefgh", substring(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
+
+  /* This cannot compile since substring.get() is const */
+  //(*a)(1).get().replace(0, "blah");
+  static_assert(
+      is_const<decltype((*a)(1).get())>::value,
+      "slice.get() can only return const item");
+  static_assert(
+      is_same<decltype((*a)(1).get()), const String>::value,
+      "slice.get() should return a const String");
+  /* But this is fine since it copies into a new string: */
+  String foo{(*a)(1).get()};
+  foo.replace(0, "blah");
+  CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
+  CPPUNIT_ASSERT_STRING_EQUAL("blahfgh", foo);
+
   *a = "This is a test";
   substring = (*a)(-4,4);
+  CPPUNIT_ASSERT_STRING_EQUAL("This is a test", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(14), a->length());
   CPPUNIT_ASSERT_STRING_EQUAL("test", substring);
 
   substring2 = substring;
@@ -1182,6 +1472,8 @@ void StringTest :: substringTest(void)
 
   (*a) = "this is just a TEST";
   substring = (*a)(0,4);
+  CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(19), a->length());
 
   for (size_t i = 0; i < (*a).length(); ++i)
     (*a)[i] = toupper((*a)[i]);
@@ -1227,14 +1519,71 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("TEST is just a TEST", *a);
   CPPUNIT_ASSERT_STRING_EQUAL("this is just a TEST", *b);
 
-  /* this is more of a compile check */
+  *a = "this is just a TEST";
+  *b = *a;
+  (*a)(0, 4) = (*b)(1, 4) = (*a)(15, 4);
+  CPPUNIT_ASSERT_STRING_EQUAL("TEST is just a TEST", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("tTESTis just a TEST", *b);
+
   const String constString("THIS CANNOT BE MODIFIED");
   *a = constString(0, 4);
 
+  static_assert(
+      !std::is_assignable<decltype(constString(0, 4)), decltype("blah")>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constString(0, 4)), decltype(*a)>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constString(0, 4)), decltype(std::move(*a))>::value,
+      "const slice should not be assignable");
+  const String constSlice = constString(0, 4);
+  static_assert(
+      !std::is_assignable<decltype(constSlice), decltype("blah")>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constSlice), decltype(*a)>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(constSlice), decltype(std::move(*a))>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(std::move(constSlice)), decltype("blah")>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(std::move(constSlice)), decltype(*a)>::value,
+      "const slice should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype(std::move(constSlice)), decltype(std::move(*a))>::value,
+      "const slice should not be assignable");
+  String slice = constString(0, 4);
+#if 0
+  /* this is more of a compile check */
   constString(0, 4) = "blah"; //Returns a new string
+#endif
 
   CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, slice);
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, constSlice);
   CPPUNIT_ASSERT_STRING_EQUAL("THIS", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), constString.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), slice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), constSlice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), a->rcount());
+
+  (*a)(1, 1) = "h";
+  CPPUNIT_ASSERT_STRING_EQUAL("THIS CANNOT BE MODIFIED", constString);
+  CPPUNIT_ASSERT_STRING_EQUAL(constSlice, slice);
+  CPPUNIT_ASSERT_STRING_EQUAL("ThIS", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), constString.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), slice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), constSlice.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), a->rcount());
+
+  /* Rvalues should be treated as a String */
+  CPPUNIT_ASSERT_STRING_EQUAL("ThIS", (*a)(0));
+  CPPUNIT_ASSERT_STRING_EQUAL("h", (*a)(1, 1));
+  CPPUNIT_ASSERT_STRING_EQUAL(*a, (*a)(0).get().c_str());
 
   *a = "tESt TEST2 test3 TEST4";
   *b = a->substring(0, 4);
@@ -1363,20 +1712,20 @@ void StringTest :: substringTest(void)
 
 
   String big("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaa");
-  CPPUNIT_ASSERT_EQUAL(size_t(130), big.capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(130), big.capacity());
   CPPUNIT_ASSERT_EQUAL(size_t(130), big.length());
 
   String sub = big(120, 10);
   // Detach so 'sub' is no longer shared
   big += "blah";
-  CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(130), sub.capacity());
   CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
 
-  // This will throw an error in valgrind in String::Reserve due to offsetting problems if not correct
+  // This will throw an error in valgrind in String::reserve due to offsetting problems if not correct
   CPPUNIT_ASSERT_EQUAL(0, strcmp(sub.c_str(), "aaaaaaaaaa"));
-  CPPUNIT_ASSERT(sub.capacity() >= 11);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(11), sub.capacity());
   // This is an optimization check, it should be reusing the original buffer which was 130 big
-  CPPUNIT_ASSERT_EQUAL(size_t(130), sub.capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(130), sub.capacity());
 
   CPPUNIT_ASSERT_EQUAL(size_t(10), sub.length());
   CPPUNIT_ASSERT_STRING_EQUAL("aaaaaaaaaa", sub);
@@ -1422,6 +1771,27 @@ void StringTest :: substringOutOfRangeResizeTest(void)
   CPPUNIT_ASSERT_NO_THROW(b->at(2));
   CPPUNIT_ASSERT_THROW(b->at(3), std::out_of_range);
   CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+  /* Force next resize to COW with a smaller value */
+  *c = *a;
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2), a->rcount());
+  a->resize(4);
+  CPPUNIT_ASSERT_STRING_EQUAL("one ", *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), a->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), b->size());
+  CPPUNIT_ASSERT_NO_THROW(a->at(3));
+  CPPUNIT_ASSERT_THROW(a->at(5), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(a->at(4), std::out_of_range);
+  CPPUNIT_ASSERT_NO_THROW(b->at(0));
+  CPPUNIT_ASSERT_NO_THROW(b->at(1));
+  CPPUNIT_ASSERT_NO_THROW(b->at(2));
+  CPPUNIT_ASSERT_THROW(b->at(3), std::out_of_range);
+  CPPUNIT_ASSERT_THROW(b->at(4), std::out_of_range);
+  CPPUNIT_ASSERT_STRING_EQUAL("one t", *c);
+  CPPUNIT_ASSERT_EQUAL(size_t(5), c->size());
+  CPPUNIT_ASSERT_NO_THROW(c->at(4));
+  CPPUNIT_ASSERT_THROW(c->at(5), std::out_of_range);
+
 }
 
 void StringTest :: substringOutOfRangeResizeSubTest(void)
@@ -1450,6 +1820,8 @@ void StringTest :: substringOutOfRangeInsertTest(void)
   /* Repeat the test with insert() rather than resize() */
   *a = "one two three";
   *b = (*a)(4, 3);
+  CPPUNIT_ASSERT_STRING_EQUAL("one two three", *a);
+  CPPUNIT_ASSERT_STRING_EQUAL("two", *b);
   (*a)[5] = 't';
   CPPUNIT_ASSERT_STRING_EQUAL("one tto three", *a);
   CPPUNIT_ASSERT_EQUAL(size_t(13), a->size());
@@ -1611,7 +1983,13 @@ void StringTest :: resizeTest(void)
   *a = (*b)(4, 5);
   CPPUNIT_ASSERT_STRING_EQUAL("01234", *a);
   a->resize(10);
-  CPPUNIT_ASSERT_STRING_EQUAL(BDLIB_NS::String("01234\0\0\0\0\0", 10), *a);
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_ASSERTION_FAIL(CPPUNIT_ASSERT_EQUAL(BDLIB_NS::String("01234\0\0\0\0\0", 10), *a));
+  a->resize(5, '\0');
+  CPPUNIT_ASSERT_EQUAL(size_t(5), a->length());
+  a->resize(10, '\0');
+  CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
+  CPPUNIT_ASSERT_EQUAL(BDLIB_NS::String("01234\0\0\0\0\0", 10), *a);
   CPPUNIT_ASSERT_STRING_EQUAL("test012345", *b);
   CPPUNIT_ASSERT_EQUAL(size_t(10), a->length());
   CPPUNIT_ASSERT_EQUAL(size_t(10), b->length());

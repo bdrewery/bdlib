@@ -50,8 +50,10 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (findTest);
     CPPUNIT_TEST (subArrayTest);
     CPPUNIT_TEST (hashTest);
+    CPPUNIT_TEST (resizeTest);
     CPPUNIT_TEST (operatorsTest);
     CPPUNIT_TEST (initializerTest);
+    CPPUNIT_TEST (iteratorTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -72,12 +74,14 @@ class ArrayTest : public CPPUNIT_NS :: TestFixture
         void findTest(void);
         void subArrayTest(void);
         void hashTest(void);
+        void resizeTest(void);
         void operatorsTest(void);
         void initializerTest(void);
+        void iteratorTest(void);
     private:
-        Array<String> *str_a, *str_b, *str_c;
-        Array<char> *char_a, *char_b;
-        Array<int> *int_a, *int_b, *int_c;
+        Array<String> *str_a = nullptr, *str_b = nullptr, *str_c = nullptr;
+        Array<char> *char_a = nullptr, *char_b = nullptr;
+        Array<int> *int_a = nullptr, *int_b = nullptr, *int_c = nullptr, *int_d = nullptr;
 };
 #endif
 

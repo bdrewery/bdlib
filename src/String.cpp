@@ -29,7 +29,6 @@
 #include "Array.h"
 #include "HashTable.h"
 #include <cstdarg>
-#include <cstring>
 #include <cstdio>
 #include "base64.h"
 //#include <memory>
@@ -40,34 +39,48 @@ BDLIB_NS_BEGIN
 unsigned char String::cleanse_ctr = 0;
 
 /* Accessors */
-int String::compare(const String& str, size_t n, size_t start) const
+int String::compare(const String& str) const noexcept
 {
+  const auto mylen = length();
+  const auto slen = str.length();
   /* Same string? */
-  if (cbegin() == str.cbegin() && length() == str.length())
+  if (cbegin() == str.cbegin() && mylen == slen)
     return 0;
-  if (start != 0)
-    validateIndex(start);
 
-  const size_t slen = n ? std::min(str.length(), n) : str.length();
-  const size_t len = std::min(length() - start, slen);
-  const int diff = std::memcmp(begin() + start, str.begin(), len);
+  const auto len = std::min(mylen, slen);
+  const auto diff = std::memcmp(cbegin(), str.cbegin(), len);
+  if (diff)
+    return diff;
+  else
+    return mylen - slen;
+}
+
+int String::compare(const String& str, size_t n) const noexcept
+{
+  if (n == 0)
+    return 0;
+  const auto mylen = length();
+  /* Same string? */
+  if (cbegin() == str.cbegin() && mylen == str.length())
+    return 0;
+
+  const auto slen = n ? std::min(str.length(), n) : str.length();
+  const auto len = std::min(mylen, slen);
+  const auto diff = std::memcmp(cbegin(), str.cbegin(), len);
   if (diff)
     return diff;
   else if (n)
-    return std::min(length() - start, n) - slen;
+    return std::min(mylen, n) - slen;
   else
-    return (length() - start) - slen;
+    return mylen - slen;
 }
 
 /* Setters */
-size_t String::copy(char *dst, size_t n, size_t start) const
+size_t String::copy(char *dst, size_t n) const noexcept
 {
-  if (start != 0)
-    validateIndex(start);
+  const auto slen = std::min(n, length());
 
-  size_t slen = std::min(n, length() - start);
-
-  std::copy(cbegin() + start, cend(), dst);
+  ::memcpy(dst, cbegin(), slen);
 
   return slen;
 }
@@ -87,12 +100,13 @@ void String::insert(size_t pos, const char *string, size_t n)
   if (pos != 0)
     validateIndex(pos - 1);
   
-  size_t slen = (n == npos) ? std::strlen(string) : n;
+  const auto slen = (n == npos) ? std::strlen(string) : n;
 
   AboutToModify(length() + slen);
-  std::memmove(Buf() + pos + slen, Buf() + pos, length() - pos);
-  std::copy(string, string + slen, Buf() + pos);
-  addLength(slen);
+  /* Shift right */
+  std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
+  sublen += slen;
+  ::memcpy(Buf(pos), string, slen);
 }
 
 /**
@@ -107,17 +121,14 @@ void String::replace(size_t pos, const char *string, size_t n)
   if (pos != 0)
     validateIndex(pos - 1);
 
-  size_t slen = (n == npos) ? std::strlen(string) : n;
-  size_t newlen = pos + slen;
-  
-  if (newlen >= length()) {
-    AboutToModify(newlen);
-  } else {
+  const auto slen = (n == npos) ? std::strlen(string) : n;
+  auto newlen = pos + slen;
+
+  if (newlen < length())
     newlen = length();
-    getOwnCopy();
-  }
-  std::copy(string, string + slen, Buf() + pos);
-  setLength(newlen);
+  AboutToModify(newlen);
+  sublen = newlen;
+  ::memcpy(Buf(pos), string, slen);
 }
 
 std::istream& operator>>(std::istream& is, String& string) {
@@ -143,7 +154,7 @@ std::istream& operator>>(std::istream& is, String& string) {
 
 std::istream& getline(std::istream& is, String& string) {
  
-  char ch;
+  char ch = 0;
   string = "";     // empty string, will build one char at-a-time
  
   while (is.get(ch) && ch != '\n')
@@ -161,43 +172,52 @@ std::istream& getline(std::istream& is, String& string) {
 Array<String> String::split(const String& delim, size_t limit) const {
   if (!length()) return Array<String>();
   if (limit == 1) {
-    String list[] = {*this};
-    return Array<String>(list, 1);
+    return Array<String>({*this});
   }
 
+#ifndef NDEBUG
+  auto ref = rcount();
+#endif
   const String space(' ');
   Array<String> array;
-  // Use a temporary - is a fast reference and never modified, so no COW ever used.
-  String str(*this);
+  auto it = cbegin();
 
   while (array.size() < limit - 1) {
-    size_t pos;
+    size_type pos;
 
     // Trim out left whitespace
-    if (delim == space) while (str.length() && str[0] == ' ') ++str;
+    if (delim == space) while (it < cend() && *it == ' ') ++it;
 
     // All done when there's nothing left
-    if (!str) break;
+    if (it >= cend()) break;
 
-    if ((pos = str.find(delim)) == npos)
-      pos = str.length();
-    array << str(0, pos);
-    str += pos + delim.length();
+    if ((pos = _find(delim, it - cbegin())) == npos)
+      pos = cend() - it;
+    array << (*this)(it - cbegin(), pos);
+    assert(++ref);
+    it += pos + delim.length();
+    assert(it - delim.length() <= cend());
   }
 
   // Add on extra
   if (limit != npos) {
     // Trim out left whitespace
-    if (delim == space) while (str.length() && str[0] == ' ') ++str;
-    array << str;
+    if (delim == space) while (it < cend() && *it == ' ') ++it;
+    array << (*this)(it - cbegin());
+    assert(++ref);
   }
+  /*
+   * Our String should not be modified.
+   * We should only be returning reference slices.
+   */
+  assert(ref == rcount());
 
   return array;
 }
 
 String String::operator*(int times) const {
   String newString((this->length() * times));
-  for (int i = 0; i < times; ++i)
+  for (auto i = 0; i < times; ++i)
     newString += *this;
   return newString;
 }
@@ -207,19 +227,19 @@ String String::printf(const char* format, ...) {
   va_list va;
 
   va_start(va, format);
-  size_t len = vsnprintf(va_out, sizeof(va_out), format, va);
+  const auto len = vsnprintf(va_out, sizeof(va_out), format, va);
   va_end(va);
 
   return String(va_out, len);
 }
 
-String& String::chomp() {
+String& String::chomp() noexcept {
   if (length() && (*this)[length() - 1] == '\n') --(*this);
   if (length() && (*this)[length() - 1] == '\r') --(*this);
   return *this;
 }
 
-String& String::trim() {
+String& String::trim() noexcept {
   // ltrim
   while (length() && isspace((*this)[0])) { ++offset; subLength(1); }
   // rtrim
@@ -227,35 +247,50 @@ String& String::trim() {
   return *this;
 }
 
-size_t String::find(const String& str) const {
-  if (length() >= str.length()) {
-    const size_t last_pos = length() - str.length();
-    for (size_t pos = 0; pos <= last_pos; ++pos)
-      if (str[0] == (*this)[pos] && !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
-        return pos;
+size_t String::_find(const String& str, size_t pos) const noexcept {
+  if (str.length() == 0)
+    return 0;
+  const auto mylen = length() - pos;
+#ifdef HAVE_MEMMEM
+  const void *p = ::memmem(constBuf(pos), mylen, str.cbegin(), str.length());
+
+  if (p == NULL)
+    return npos;
+  return static_cast<const char*>(p) - constBuf(pos);
+#else
+  if (mylen >= str.length()) {
+    const auto last_pos = mylen - str.length();
+    for (auto i = pos; i <= last_pos; ++i)
+      if (str[0] == (*this)[i] && !std::memcmp(cbegin() + i, str.cbegin(),
+            std::min(str.length(), mylen - i)))
+        return i;
   }
   return npos;
+#endif
 }
 
 size_t String::ifind(const String& str) const {
-  String str_upper(str), this_upper(*this);
-  std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-  std::transform(this->begin(), this->end(), this_upper.begin(), ::toupper);
+  String str_upper(str.length()), this_upper(length());
+  std::transform(str.cbegin(), str.cend(), std::back_inserter(str_upper), ::toupper);
+  std::transform(this->cbegin(), this->cend(), std::back_inserter(this_upper), ::toupper);
   return this_upper.find(str_upper);
 }
 
 size_t String::rifind(const String& str, const size_t lpos) const {
-  String str_upper(str), this_upper(*this);
-  std::transform(str.begin(), str.end(), str_upper.begin(), ::toupper);
-  std::transform(this->begin(), this->end(), this_upper.begin(), ::toupper);
+  String str_upper(str.length()), this_upper(length());
+  std::transform(str.cbegin(), str.cend(), std::back_inserter(str_upper), ::toupper);
+  std::transform(this->cbegin(), this->cend(), std::back_inserter(this_upper), ::toupper);
   return this_upper.rfind(str_upper);
 }
 
-size_t String::rfind(const String& str, const size_t lpos) const {
+size_t String::rfind(const String& str, const size_t lpos) const noexcept {
+  if (str.length() == 0)
+    return length() - 1;
   if (length() >= str.length()) {
-    const size_t last_pos = length() - str.length();
-    for (size_t pos = last_pos; pos + 1 > lpos; --pos)
-      if (str[0] == (*this)[pos] && !std::memcmp(begin() + pos, str.begin(), std::min(str.length(), length() - pos)))
+    const auto last_pos = length() - str.length();
+    for (auto pos = last_pos; pos + 1 > lpos; --pos)
+      if (str[0] == (*this)[pos] && !std::memcmp(cbegin() + pos, str.cbegin(),
+            std::min(str.length(), length() - pos)))
         return pos;
   }
   return npos;
@@ -263,8 +298,8 @@ size_t String::rfind(const String& str, const size_t lpos) const {
 
 String String::sub(const String& search, const String& replacement, int limit) const {
   String newStr(length()), search_str(*this);
-  size_t pos = 0;
-  int cnt = 0;
+  size_type pos = 0;
+  auto cnt = 0;
   // Search in our const string so that stuff like \->\\ doesnt become \\\, \\\\ etc.
   while ((pos = search_str.find(search)) != npos) {
     newStr += search_str(0, pos);
@@ -278,14 +313,10 @@ String String::sub(const String& search, const String& replacement, int limit) c
   return newStr;
 }
 
-String String::subst(HashTable<String, String> hashes) const {
+String String::subst(const HashTable<String, String>& hashes) const {
   String newStr(*this);
-  Array<String> keys(hashes.keys());
-  Array<String> values(hashes.values());
-  for (size_t i = 0; i < keys.length(); ++i) {
-    const String key(keys[i]), value(values[i]);
-    //::printf("%s -> %s\n", key.c_str(), value.c_str());
-    newStr = newStr.sub(key, value);
+  for (const auto& kv : hashes) {
+    newStr = newStr.sub(kv.first, kv.second);
   }
   return newStr;
 }
@@ -299,8 +330,8 @@ String String::subst(HashTable<String, String> hashes) const {
  */
 String newsplit(String& str, char delim)
 {
-  if (!str.length()) return "";
-  size_t pos = str.find(delim);
+  if (!str.length()) return String();
+  auto pos = str.find(delim);
   if (pos == String::npos)
     pos = str.length();
 
@@ -308,7 +339,7 @@ String newsplit(String& str, char delim)
 
   /* Trim out runs of whitespaces */
   if (delim == ' ') {
-    while ((str.begin() + pos + 1) < str.end() && str[pos + 1] == ' ')
+    while ((str.cbegin() + pos + 1) < str.cend() && str[pos + 1] == ' ')
       ++pos;
   }
 

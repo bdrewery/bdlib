@@ -31,6 +31,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <type_traits>
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (ArrayTest);
@@ -50,7 +51,7 @@ void ArrayTest :: tearDown (void)
     // finally delete objects
     delete str_a; delete str_b; delete str_c;
     delete char_a; delete char_b;
-    delete int_a; delete int_b; delete int_c;
+    delete int_a; delete int_b; delete int_c; delete int_d;
 }
 
 void ArrayTest :: sizeTest (void)
@@ -66,7 +67,7 @@ void ArrayTest :: sizeTest (void)
 
 void ArrayTest :: push_popTest (void)
 {
-  str_a->push(String("Test1"));
+  str_a->push_back(String("Test1"));
   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a->size());
   (*str_a) << String("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
@@ -76,18 +77,28 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
   CPPUNIT_ASSERT(str_a->capacity() >= 2);
 
+  String foo("Test2");
+  (*str_a) << foo;
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
+  (*str_a) << std::move(foo);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", str_a->pop());
+  CPPUNIT_ASSERT_STRING_EQUAL("", foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
+
   String a = "Testa";
   String b = "Testb";
   String c = b;
-  str_a->push(a);
+  str_a->push_back(a);
 
-  str_a->push(a);
+  str_a->push_back(a);
   str_a->pop();
 
-  str_a->push(b);
-  str_a->push(a);
-  str_a->push(b);
-  str_a->push(b);
+  str_a->push_back(b);
+  str_a->push_back(a);
+  str_a->push_back(b);
+  str_a->push_back(b);
   CPPUNIT_ASSERT_EQUAL(size_t(5), str_a->size());
 
   String res = str_a->pop();
@@ -109,7 +120,7 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL(a, str_a->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->size());
 
-  CPPUNIT_ASSERT_STRING_EQUAL(String(), str_a->pop());
+  //CPPUNIT_ASSERT_STRING_EQUAL(String(), str_a->pop());
 
   (*str_a) << "1";
   (*str_a) << "2";
@@ -127,6 +138,12 @@ void ArrayTest :: push_popTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL("2 3", str_a->join(' '));
   CPPUNIT_ASSERT_STRING_EQUAL("1", hm);
   CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->size());
+
+  hm = Array<String>{"Test0", "Test1"}.pop();
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", hm);
+
+  hm = Array<String>{"Test0", "Test1"}.shift();
+  CPPUNIT_ASSERT_STRING_EQUAL("Test0", hm);
 
   (*str_a) = Array<String>();
   (*str_a) << "Test";
@@ -146,7 +163,7 @@ void ArrayTest :: arrayConsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_c->size());
 
   int carray[] = {1, 2, 0};
-  Array<int>* int_d = new Array<int>(carray, sizeof(carray) / sizeof(carray[0]));
+  int_d = new Array<int>(carray, sizeof(carray) / sizeof(carray[0]));
   CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->size());
   CPPUNIT_ASSERT_EQUAL(0, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_d->size());
@@ -154,13 +171,12 @@ void ArrayTest :: arrayConsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_d->size());
   CPPUNIT_ASSERT_EQUAL(1, int_d->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_d->size());
-  delete int_d;
 }
 
 void ArrayTest :: clearTest (void)
 {
   for (int i = 0; i < 10; ++i)
-    int_a->push(i);
+    int_a->push_back(i);
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
   int_a->clear();
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
@@ -172,7 +188,7 @@ void ArrayTest :: clearTest (void)
 void ArrayTest :: refTest (void)
 {
   for (int i = 0; i < 10; ++i)
-    int_a->push(i);
+    int_a->push_back(i);
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_a->rcount());
   *int_b = *int_a;
@@ -181,55 +197,67 @@ void ArrayTest :: refTest (void)
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_b->size());
   CPPUNIT_ASSERT_EQUAL(size_t(2), int_b->rcount());
 
+  int_d = new Array<int>();
+  *int_d = *int_a;
   *int_c = *int_a;
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_b->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_d->rcount());
 
-  int_b->push(99);
+  int_b->push_back(99);
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_a->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(2), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(11), int_b->size());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-  CPPUNIT_ASSERT_EQUAL(size_t(2), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->rcount());
 
   for (int i = 9; i >= 0; --i)
     CPPUNIT_ASSERT_EQUAL(i, int_a->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(11), int_b->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->rcount());
 
   CPPUNIT_ASSERT_EQUAL(99, int_b->pop());
   for (int i = 9; i > 0; --i)
     CPPUNIT_ASSERT_EQUAL(i, int_b->pop());
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(1), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), int_d->rcount());
 
   *int_b = *int_c;
   CPPUNIT_ASSERT_EQUAL(size_t(0), int_a->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(3), int_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_a->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_b->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_b->rcount());
   CPPUNIT_ASSERT_EQUAL(size_t(10), int_c->size());
-//  CPPUNIT_ASSERT_EQUAL(size_t(2), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(10), int_d->size());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), int_d->rcount());
 }
 
 void ArrayTest :: joinTest(void)
 {
-  str_a->push("Test1");
-  str_a->push("Test2");
-  str_a->push("Test3");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
+  str_a->push_back("Test3");
   CPPUNIT_ASSERT_STRING_EQUAL("Test1 Test2 Test3", str_a->join(' '));
   CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->size());
   CPPUNIT_ASSERT_STRING_EQUAL("Test3", str_a->pop());
@@ -240,20 +268,20 @@ void ArrayTest :: joinTest(void)
 
 void ArrayTest :: compareTest(void)
 {
-  str_a->push("Test1");
-  str_a->push("Test2");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
 
-  str_b->push("Test1");
+  str_b->push_back("Test1");
   CPPUNIT_ASSERT_EQUAL(false, (*str_a) == (*str_b));
-  str_b->push("Test2");
+  str_b->push_back("Test2");
 
   CPPUNIT_ASSERT_EQUAL(true, (*str_a) == (*str_b));
 }
 
 void ArrayTest :: findTest(void)
 {
-  str_a->push("Test1");
-  str_a->push("Test2");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
   CPPUNIT_ASSERT_EQUAL(size_t(-1), str_a->find("Test3"));
   CPPUNIT_ASSERT_EQUAL(size_t(0), str_a->find("Test1"));
   CPPUNIT_ASSERT_EQUAL(size_t(1), str_a->find("Test2"));
@@ -261,31 +289,298 @@ void ArrayTest :: findTest(void)
 
 void ArrayTest :: indexTest(void)
 {
-  str_a->push("Test1");
-  str_a->push("Test2");
+  str_c = new Array<String>(20);
+
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_a)[1]);
 
   (*str_b) = (*str_a);
+  (*str_c) = (*str_a);
 
-  (*str_a)[1] = "Test3";
+  size_t ref_a, ref_b, ref_c, ref_str_b_1, ref_str_a_1, ref_str_a, ref_str_b, ref_str_c;
+
+  ref_str_a = str_a->rcount();
+  ref_str_b = str_b->rcount();
+  ref_str_c = str_c->rcount();
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, ref_str_b);
+
+  CPPUNIT_ASSERT_EQUAL(str_a->rptr(), str_b->rptr());
+  CPPUNIT_ASSERT_EQUAL(str_a->rptr(), str_c->rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_a)[1].rptr(), (*str_b)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+  String a("Test5");
+  String b(a);
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), b.rptr());
+  (*str_a)[1] = a;
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), b.rptr());
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(b.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT(a.rptr() != str_b[1].rptr());
+  CPPUNIT_ASSERT(a.rptr() != str_c[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(str_b->rptr(), str_c->rptr());
+  ref_str_a = 1;
+  --ref_str_b;
+  ref_str_c = ref_str_b;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  ref_a = a.rcount();
+  ref_str_a_1 = ref_a;
+  ref_b = b.rcount();
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(3), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(ref_a, ref_b);
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_a)[0]);
-  CPPUNIT_ASSERT_STRING_EQUAL("Test3", (*str_a)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_a)[1]);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_STRING_EQUAL(a, b);
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, (*str_a)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", static_cast<String>((*str_a)[1]).c_str());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", (*str_a)[1].get().c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", static_cast<const Array<String>>((*str_a))[1].c_str());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
 
   CPPUNIT_ASSERT_STRING_EQUAL("Test1", (*str_b)[0]);
   CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].get().rcount());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rcount(), (*str_b)[1].get().rcount());
+  /* For some reason casting (which uses get()) causes a temporary ref  */
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<const String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), String((*str_b)[1]).rcount());
+  {
+    /* Clang and GCC differ in the expected rcount if .rcount() is called in the assertion. */
+    const size_t rcount = (*str_b)[1].rcount();
+    CPPUNIT_ASSERT_EQUAL(rcount+1, String((*str_b)[1]).rcount());
+    CPPUNIT_ASSERT_EQUAL(rcount+1, static_cast<const String>((*str_b)[1]).rcount());
+    CPPUNIT_ASSERT_EQUAL(rcount+1, static_cast<String>((*str_b)[1]).rcount());
+  }
+  ref_str_b_1 = (*str_b)[1].rcount();
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b)[1].get().rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), (*str_b).at(1).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, ref_str_c);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  /* Test non-const reference  */
+  {
+    size_t ref_tmp = 0, ref_tmp_str_b_1;
+    ref_tmp_str_b_1 = ref_str_b_1;
+    String d((*str_b)[1]);
+    ++ref_tmp_str_b_1;
+    ref_tmp = ref_tmp_str_b_1;
+    CPPUNIT_ASSERT_STRING_EQUAL("Test2", d);
+    CPPUNIT_ASSERT_EQUAL((*str_b).rptr(), (*str_c).rptr());
+    CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+    CPPUNIT_ASSERT_EQUAL(d.rptr(), (*str_c)[1].rptr());
+    /* 2 because str_b==str_c ref still so item[1] is the same ref */
+    CPPUNIT_ASSERT_EQUAL(size_t(2), ref_tmp_str_b_1);
+    CPPUNIT_ASSERT_EQUAL(ref_tmp_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+    CPPUNIT_ASSERT_EQUAL(size_t(2), ref_tmp);
+    CPPUNIT_ASSERT_EQUAL(ref_tmp, ref_tmp_str_b_1);
+    CPPUNIT_ASSERT_EQUAL(ref_tmp, d.rcount());
+    CPPUNIT_ASSERT_EQUAL(ref_tmp+1, static_cast<String>((*str_b)[1]).rcount());
+  }
+  const String c((*str_b)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_b)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", c);
+  CPPUNIT_ASSERT_EQUAL((*str_b).rptr(), (*str_c).rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(c.rptr(), (*str_c)[1].rptr());
+  ++ref_str_b_1;
+  ref_c = ref_str_b_1;
+  /* 2 because str_b==str_c ref still so item[1] is the same ref */
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_c);
+  CPPUNIT_ASSERT_EQUAL(ref_c, ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_c, c.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_c+1, static_cast<String>((*str_b)[1]).rcount());
+  (*str_b)[1] = a;
+  /* str_b should split from str_c after being modified. */
+  CPPUNIT_ASSERT((*str_b).rptr() != (*str_c).rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), a.rptr());
+  CPPUNIT_ASSERT_EQUAL(c.rptr(), (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", c);
+  /* ref_c is not modified since str_b split off; it was a ref to str_c so it has no impact on item-level refs. */
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_c);
+  CPPUNIT_ASSERT_EQUAL(ref_c, c.rcount());
+  ++ref_a;
+  ++ref_b;
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(ref_a, ref_b);
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL(a.rptr(), (*str_b)[1].rptr());
+  CPPUNIT_ASSERT(a.rptr() != (*str_c)[1].rptr());
+  ref_str_b = 1;
+  --ref_str_c;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_c, str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_c);
+  CPPUNIT_ASSERT((*str_b)[1] != (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", c);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test2", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", (*str_b)[1]);
+  ref_str_b_1 = ref_c; /*not sure yet and sup with the later one?*/
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test5", (*str_b)[1]);
+  ++ref_str_a_1;
+  ref_str_b_1 = ref_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_a, ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_b)[1]);
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL(a, (*str_b)[1].get().c_str());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_STRING_EQUAL(a, b);
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+
+  /* Check .get()= modifies the String not the Array */
+  (*str_c) = (*str_b);
+  ++ref_str_b;
+  ref_str_c = ref_str_b;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_c, str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_c);
+  CPPUNIT_ASSERT_EQUAL((*str_b).rptr(), (*str_c).rptr());
+
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), a.rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), b.rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_a)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), (*str_c)[1].rptr());
+
+  String e("StringE");
+  size_t ref_e = 1;
+  static_assert(
+      !std::is_assignable<decltype((*str_b)[1].get()),
+      decltype(e)>::value,
+      "Array.Cref.get() should not be assignable");
+  static_assert(
+      !std::is_assignable<decltype((*str_b)[1].get()),
+      const String>::value,
+      "Array.Cref.get() should not be assignable");
+  (*str_b)[1].mget() = e;
+  /* ref_a unmodified since str_c holds the ref now */
+  /* ref_str_a_1 unmodified since str_c holds the ref now */
+  ++ref_e;
+  ref_str_b_1 = ref_e;
+  ref_str_b = 1;
+  --ref_str_c;
+  CPPUNIT_ASSERT_EQUAL(ref_str_a, str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b, str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_c, str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(1), ref_str_c);
+  CPPUNIT_ASSERT((*str_b).rptr() != (*str_c).rptr());
+
+  CPPUNIT_ASSERT_EQUAL(ref_a, a.rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_b, b.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_a);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_b);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), ref_str_a_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_a_1+1, static_cast<String>((*str_a)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_e);
+  CPPUNIT_ASSERT_EQUAL(ref_e, e.rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), ref_str_b_1);
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1+1, static_cast<String>((*str_b)[1]).rcount());
+  CPPUNIT_ASSERT_EQUAL(ref_str_b_1, (*str_b)[1].rcount());
+  CPPUNIT_ASSERT_EQUAL(e.rptr(), (*str_b)[1].rptr());
+  CPPUNIT_ASSERT((*str_b)[1].rptr() != a.rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_b)[1].rptr(), e.rptr());
+  CPPUNIT_ASSERT((*str_b)[1].rptr() != (*str_a)[1].rptr());
+  CPPUNIT_ASSERT((*str_b)[1].rptr() != (*str_c)[1].rptr());
+  CPPUNIT_ASSERT_EQUAL((*str_a)[1].rptr(), (*str_c)[1].rptr());
+
 }
 
 void ArrayTest :: subArrayTest (void)
 {
-  str_a->push("Test0");
-  str_a->push("Test1");
-  str_a->push("Test2");
-  str_a->push("Test3");
-  str_a->push("Test4");
-  str_a->push("Test5");
-  str_a->push("Test6");
-  str_a->push("Test7");
+  str_a->push_back("Test0");
+  str_a->push_back("Test1");
+  str_a->push_back("Test2");
+  str_a->push_back("Test3");
+  str_a->push_back("Test4");
+  str_a->push_back("Test5");
+  str_a->push_back("Test6");
+  str_a->push_back("Test7");
 
   str_c = new Array<String>();
   (*str_c) = (*str_a);
@@ -303,10 +598,10 @@ void ArrayTest :: subArrayTest (void)
 
   // In place test
   Array<String> inplaceTest;
-  inplaceTest.push("TEST0");
-  inplaceTest.push("TEST1");
-  inplaceTest.push("TEST2");
-  inplaceTest.push("TEST3");
+  inplaceTest.push_back("TEST0");
+  inplaceTest.push_back("TEST1");
+  inplaceTest.push_back("TEST2");
+  inplaceTest.push_back("TEST3");
   (*str_b) = (*str_a);
   (*str_b)(0, 2) = inplaceTest;
 
@@ -318,15 +613,24 @@ void ArrayTest :: subArrayTest (void)
   CPPUNIT_ASSERT_ARRAY_EQUAL((*str_b), expectedResults);
 }
 
+void ArrayTest :: resizeTest(void)
+{
+  String foo{"foo"};
+  str_a->clear();
+  str_a->resize(5, foo);
+  CPPUNIT_ASSERT_EQUAL(size_t(5), (*str_a).length());
+  CPPUNIT_ASSERT_STRING_EQUAL(foo, (*str_a)[0]);
+  CPPUNIT_ASSERT_EQUAL(size_t(6), foo.rcount());
+}
 
 void ArrayTest :: hashTest(void)
 {
   str_c = new Array<String>();
 
-  (*str_a).push("test");
-  (*str_a).push("test2");
-  (*str_b).push("test");
-  (*str_b).push("test2");
+  (*str_a).push_back("test");
+  (*str_a).push_back("test2");
+  (*str_b).push_back("test");
+  (*str_b).push_back("test2");
   (*str_c) = (*str_b);
   CPPUNIT_ASSERT_EQUAL(str_a->hash(), str_b->hash());
   CPPUNIT_ASSERT_EQUAL(str_a->hash(), str_c->hash());
@@ -334,9 +638,9 @@ void ArrayTest :: hashTest(void)
 
   str_a->clear();
   str_b->clear();
-  (*str_a).push("test");
-  (*str_a).push("test1");
-  (*str_b).push("test");
+  (*str_a).push_back("test");
+  (*str_a).push_back("test1");
+  (*str_b).push_back("test");
   (*str_c) = (*str_b);
   CPPUNIT_ASSERT(str_a->hash() != str_b->hash());
   CPPUNIT_ASSERT(str_a->hash() != str_c->hash());
@@ -374,10 +678,10 @@ void ArrayTest :: hashTest(void)
 
 void ArrayTest :: operatorsTest(void)
 {
-  str_a->push("1");
-  str_a->push("2");
-  str_b->push("3");
-  str_b->push("4");
+  str_a->push_back("1");
+  str_a->push_back("2");
+  str_b->push_back("3");
+  str_b->push_back("4");
 
   str_c = new Array<String>();
   (*str_c) = (*str_a) + (*str_b);
@@ -416,6 +720,14 @@ void ArrayTest :: operatorsTest(void)
   CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->size());
   CPPUNIT_ASSERT_STRING_EQUAL("3", str_b->join(' '));
   CPPUNIT_ASSERT_STRING_EQUAL("4", str_c->join(' '));
+
+  (*str_b) = Array<String>{"Test0", "Test1"}++;
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_b->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test0", str_b->join(' '));
+
+  (*str_b) = Array<String>{"Test0", "Test1"}--;
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_b->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("Test1", str_b->join(' '));
 }
 
 void ArrayTest :: initializerTest(void) {
@@ -435,4 +747,150 @@ void ArrayTest :: initializerTest(void) {
   CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_a)[2]);
   CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_a)[3]);
 }
+
+void ArrayTest :: iteratorTest(void)
+{
+  str_a->push_back("1");
+  str_a->push_back("2");
+  str_a->push_back("3");
+  str_a->push_back("4");
+
+  auto it = str_a->begin();
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("2", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("3", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(false, it == str_a->end());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", *it);
+  ++it;
+  CPPUNIT_ASSERT_EQUAL(true, it == str_a->end());
+
+  str_c = new Array<String>;
+  *str_c = *str_b = *str_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_c->rcount());
+  std::copy(str_a->cbegin(), str_a->cend(),
+      std::back_inserter((*str_c)));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(false, str_c->isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  *str_c = *str_b = *str_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(3), str_c->rcount());
+  std::copy(str_a->cbegin(), str_a->cend(),
+      std::inserter((*str_c), std::next((*str_c).begin(), 1)));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(false, str_c->isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  *str_c = *str_a;
+  (*str_a).clear();
+  str_a->push_back("A");
+  str_a->push_back("B");
+  str_a->push_back("C");
+  str_a->push_back("D");
+  *str_b = *str_a;
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  std::copy(str_a->cbegin(), str_a->cend(),
+      std::front_inserter((*str_c)));
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_a->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(2), str_b->rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), str_c->rcount());
+  CPPUNIT_ASSERT_EQUAL(false, str_c->isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("D", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("A", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  Array<String> str_d(str_c->cbegin(), str_c->cend());
+  CPPUNIT_ASSERT_ARRAY_EQUAL((*str_c), str_d);
+  CPPUNIT_ASSERT_EQUAL(size_t(8), str_c->length());
+  CPPUNIT_ASSERT_STRING_EQUAL("D", (*str_c)[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", (*str_c)[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", (*str_c)[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("A", (*str_c)[3]);
+  CPPUNIT_ASSERT_STRING_EQUAL("1", (*str_c)[4]);
+  CPPUNIT_ASSERT_STRING_EQUAL("2", (*str_c)[5]);
+  CPPUNIT_ASSERT_STRING_EQUAL("3", (*str_c)[6]);
+  CPPUNIT_ASSERT_STRING_EQUAL("4", (*str_c)[7]);
+
+  std::vector<String> v_a;
+  v_a.push_back("A");
+  v_a.push_back("B");
+  v_a.push_back("C");
+  v_a.push_back("D");
+  Array<String> str_e(
+      std::make_move_iterator(v_a.begin()),
+      std::make_move_iterator(v_a.end()));
+  CPPUNIT_ASSERT_STRING_EQUAL("A", str_e[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", str_e[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", str_e[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("D", str_e[3]);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_e.length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[0].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[1].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[2].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), v_a[3].length());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), v_a.size());
+
+  (*str_a).clear();
+  str_a->push_back("A");
+  str_a->push_back("B");
+  str_a->push_back("C");
+  str_a->push_back("D");
+  Array<String> str_f(
+      std::make_move_iterator(str_a->begin()),
+      std::make_move_iterator(str_a->end()));
+  CPPUNIT_ASSERT_STRING_EQUAL("A", str_f[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("B", str_f[1]);
+  CPPUNIT_ASSERT_STRING_EQUAL("C", str_f[2]);
+  CPPUNIT_ASSERT_STRING_EQUAL("D", str_f[3]);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_f.length());
+  CPPUNIT_ASSERT_EQUAL(true, (*str_a)[0].get().isEmpty());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[0].get().rcount());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[0].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[1].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[2].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(0), (*str_a)[3].get().length());
+  CPPUNIT_ASSERT_EQUAL(size_t(4), str_a->size());
+  (*str_a)[0] = "what";
+  CPPUNIT_ASSERT_STRING_EQUAL("A", str_f[0]);
+  CPPUNIT_ASSERT_STRING_EQUAL("what", (*str_a)[0]);
+}
+
 /* vim: set sts=2 sw=2 ts=8 et: */

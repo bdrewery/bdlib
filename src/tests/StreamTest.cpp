@@ -58,24 +58,23 @@ void StreamTest :: tearDown (void)
 
 void StreamTest :: reserveTest (void)
 {
-  a->Reserve(2000);
-  CPPUNIT_ASSERT((a->capacity() % 2048) == 0);
+  a->reserve(2000);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2048), a->capacity());
 
-  b->Reserve(10);
-  CPPUNIT_ASSERT(b->capacity() >= 1024);
-  CPPUNIT_ASSERT(h->capacity() >= 1024);
-  CPPUNIT_ASSERT((b->capacity() % 1024) == 0);
+  b->reserve(10);
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(1024), b->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(1024), h->capacity());
 
   char buf[2050];
   memset(buf, 'c', sizeof(buf) - 1);
   buf[sizeof(buf) - 1] = 0;
   g->puts(buf);
 
-  CPPUNIT_ASSERT((g->capacity() >= 2048));
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2048), g->capacity());
 
   /* Reference counted */
   b->puts(buf);
-  CPPUNIT_ASSERT((b->capacity() >= 2048));
+  CPPUNIT_ASSERT_GREATEREQUAL(size_t(2048), b->capacity());
 }
 
 void StreamTest :: tellTest (void)
@@ -115,7 +114,7 @@ void StreamTest :: putsTest (void)
   a->puts("look");
   CPPUNIT_ASSERT(*a == "This is a look of my buffer\nThis is line 2, isn't it amazing?\n");
   CPPUNIT_ASSERT_EQUAL((size_t) 62, a->length());
-  CPPUNIT_ASSERT_EQUAL(b->capacity(), a->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(a->capacity(), b->capacity());
   CPPUNIT_ASSERT_EQUAL(b->length(), a->length());
 
   a->clear();
@@ -130,7 +129,7 @@ void StreamTest :: putsTest (void)
   *a << "look";
   CPPUNIT_ASSERT(*a == "This is a look of my buffer\nThis is line 2, isn't it amazing?\n");
   CPPUNIT_ASSERT_EQUAL((size_t) 62, a->length());
-  CPPUNIT_ASSERT_EQUAL(b->capacity(), a->capacity());
+  CPPUNIT_ASSERT_GREATEREQUAL(a->capacity(), b->capacity());
   CPPUNIT_ASSERT_EQUAL(b->length(), a->length());
 }
 

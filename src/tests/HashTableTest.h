@@ -46,7 +46,8 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
     CPPUNIT_TEST (removeTest);
 //    CPPUNIT_TEST (iterateTest);
     CPPUNIT_TEST (initializerTest);
-    CPPUNIT_TEST (eachTest);
+    CPPUNIT_TEST (operatorTest);
+    CPPUNIT_TEST (iteratorTest);
     CPPUNIT_TEST_SUITE_END ();
 
     public:
@@ -62,10 +63,11 @@ class HashTableTest : public CPPUNIT_NS :: TestFixture
         void removeTest(void);
 //        void iterateTest(void);
         void initializerTest(void);
-        void eachTest(void);
+        void operatorTest(void);
+        void iteratorTest(void);
     private:
-        HashTable<int, String> *a, *b;
-        HashTable<String, String> *sa, *sb;
+        HashTable<int, String> *a = nullptr, *b = nullptr;
+        HashTable<String, String> *sa = nullptr, *sb = nullptr;
 };
 #endif /* !_HASHTABLETEST_H */
 /* vim: set sts=2 sw=2 ts=8 et: */

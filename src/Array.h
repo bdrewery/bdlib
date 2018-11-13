@@ -58,80 +58,45 @@ class Array : public ReferenceCountedArray<T> {
     typedef const value_type&  const_reference;
 
     /* Constructors */
-    Array() : ReferenceCountedArray<value_type>() {};
-    Array(const Array<value_type>& array) : ReferenceCountedArray<value_type>(array) {};
-    Array(Array<value_type>&& array) : ReferenceCountedArray<value_type>(std::move(array)) {};
-
-    /**
-     * @brief Create an array from an initializer list
-     * @param list An initializer_list
-     */
-    Array(std::initializer_list<value_type> list) : ReferenceCountedArray<value_type>() {
-      *this = list;
-    }
+    Array() noexcept = default;
+    Array(const Array<value_type>& array) noexcept = default;
+    Array(Array<value_type>&& array) noexcept = default;
+    using ReferenceCountedArray<T>::ReferenceCountedArray;
 
     /**
      * @brief Create a Array from a given carray.
      * @param carray The null-terminated array to create the object from.
-     * @param len How big is the carray?
      * @post A ArrayBuf has been initialized.
      * @post The buffer has been filled with the array.
      * @test Array test("Some array");
      */
-    Array(const_pointer carray, size_t len) : ReferenceCountedArray<value_type>() {
-      this->Reserve(len);
-      for (size_t i = 0; i < len; ++i)
-        push(carray[i]);
+    Array(const_pointer carray) : Array() {
+      if (carray == nullptr || *carray == '\0')
+        return;
+      while (*carray != '\0') {
+        reserve(ReferenceCountedArray<T>::sublen + 1, 4);
+        *(Buf(ReferenceCountedArray<T>::sublen++)) = *carray++;
+      }
     };
 
-    /**
-     * @brief Create an empty Array container with at least the specified elements in size.
-     * @param newSize Reserve at least this many buckets for this Array.
-     * @post This array's memory will also never be shrunk.
-     * @post A buffer has been created.
-     */
-    explicit Array(const size_type newSize) : ReferenceCountedArray<value_type>(newSize) {};
-    Array(const size_type newSize, const value_type value) : ReferenceCountedArray<value_type>(newSize, value) {};
+    Array& operator=(const Array<value_type>& array)  noexcept = default;
+    Array& operator=(Array<value_type>&& array) noexcept = default;
+    using ReferenceCountedArray<T>::operator=;
 
-    virtual ~Array() {};
+    inline void push_front(const_reference item) { this->insert(size_t(0), item); };
+    inline void push_front(value_type&& item) { this->insert(size_t(0), std::move(item)); };
 
     /**
-     * @brief Create an array from an initializer list
-     * @param list An initializer_list
+     * @sa ReferenceCountedArray::push_back()
      */
-    Array& operator=(std::initializer_list<value_type> list) {
-      this->clear();
-      this->Reserve(list.size());
-      for (value_type item : list) {
-        push(std::move(item));
-      }
-      return *this;
+    inline friend Array<value_type>& operator<<(Array<value_type>& array,
+        const_reference item) {
+      array.push_back(item);
+      return array;
     }
-
-    Array& operator=(const Array<value_type>& array) {
-      ReferenceCountedArray<value_type>::operator=(array);
-      return *this;
-    }
-
-    Array& operator=(Array<value_type>&& array) {
-      ReferenceCountedArray<value_type>::operator=(std::move(array));
-      return *this;
-    }
-
-    /**
-     * @brief Add an item to the end of the array
-     */
-    inline void push(const value_type item) {
-      this->AboutToModify(this->length() + 1);
-      *(this->Buf(this->length())) = item;
-      this->addLength(1);
-    }
-
-    /**
-     * @sa push
-     */
-    inline friend Array<value_type>& operator<<(Array<value_type>& array, const_reference item) {
-      array.push(item);
+    inline friend Array<value_type>& operator<<(Array<value_type>& array,
+        value_type&& item) {
+      array.push_back(std::move(item));
       return array;
     }
 
@@ -139,32 +104,46 @@ class Array : public ReferenceCountedArray<T> {
      * @brief Shift the array left, removing the first element.
      * @return The first element.
      */
-    inline value_type shift() {
-      if (this->isEmpty()) return value_type();
+    inline value_type shift() & {
+      assert(!this->isEmpty());
+      pointer item{this->Buf(0)};
 
-      value_type temp(*(this->Buf(0)));
+      value_type temp(this->isShared() ? *item : std::move(*item));
       ++(this->offset);
-      this->subLength(1);
-      return temp;
+      --(this->sublen);
+      this->my_hash = 0;
+      return std::move(temp);
+    }
+
+    inline value_type shift() && noexcept {
+      assert(!this->isEmpty());
+      assert(!this->isShared());
+      return std::move(*(this->Buf(0)));
     }
 
     /**
      * @brief Pop a value off the end of the array
      * @return The last element.
      */
-    inline value_type pop() {
-      if (this->isEmpty()) return value_type();
+    inline value_type pop() & {
+      assert(!this->isEmpty());
+      value_type temp(this->isShared() ? this->back() : std::move(this->back()));
+      this->pop_back();
+      return std::move(temp);
+    }
 
-      value_type temp(*(this->Buf(this->length() - 1)));
-      this->subLength(1);
-      return temp;
+    inline value_type pop() && noexcept {
+      assert(!this->isEmpty());
+      assert(!this->isShared());
+      return std::move(this->back());
     }
 
     /**
-     * @sa pop
+     * @sa pop()
      */
-    inline friend Array<value_type>& operator>>(Array<value_type>& array, reference item) {
-      item = array.pop();
+    inline friend Array<value_type>& operator>>(Array<value_type>& array,
+        reference item) {
+      item = std::move(array.pop());
       return array;
     }
 
@@ -180,7 +159,7 @@ class Array : public ReferenceCountedArray<T> {
       if (quoted)
 	str_size += this->length() * 2;
       for (i = 0; i < this->length(); ++i)
-	str_size += this->Buf(i)->length();
+	str_size += this->constBuf(i)->length();
 
       String str(str_size);
 
@@ -188,28 +167,30 @@ class Array : public ReferenceCountedArray<T> {
         if (i)
           str += delim;
         if (quoted) {
-          str += '"' + *(this->Buf(i)) + '"';
+          str += '"' + *(this->constBuf(i)) + '"';
         } else {
-          str += *(this->Buf(i));
+          str += *(this->constBuf(i));
         }
       }
       return str;
     }
 
-    inline bool equals(const Array& array) const { return equals(array, array.length()); };
+    inline bool equals(const Array& array) const noexcept __attribute__((pure)) {
+      return equals(array, array.length());
+    }
     /**
      * @brief Compare our Array object with another Array object, but only n elements
      * @param array The Array object to equals to.
      * @param n The number of items to equals.
      * @return True if the number of elements are the same, and they all are equal.
      */
-    bool equals(const Array& array, size_t n) const
+    bool equals(const Array& array, size_t n) const noexcept __attribute__((pure))
     {
-      size_t my_len = this->length();
-      bool same_length = (my_len == array.length());
+      const size_t my_len = this->length();
+      const bool same_length = (my_len == array.length());
 
       /* Same array? */
-      if (this->data() == array.data() && same_length)
+      if (this->constBuf() == array.constBuf() && same_length)
         return true;
 
       if (!same_length)
@@ -225,38 +206,42 @@ class Array : public ReferenceCountedArray<T> {
       return true;
     }
 
-    inline friend bool operator==(const Array& lhs, const Array& rhs) {
+    inline friend bool operator==(const Array& lhs, const Array& rhs)
+      noexcept __attribute__((pure)) {
       return lhs.size() == rhs.size() && lhs.equals(rhs);
-    };
-    inline friend bool operator!=(const Array& lhs, const Array& rhs) { return !(lhs == rhs); };
+    }
+    inline friend bool operator!=(const Array& lhs, const Array& rhs)
+      noexcept __attribute__((pure)) {
+        return !(lhs == rhs);
+    }
 
     // Subarrays
     /**
      * @sa ReferenceCountedArray::slice()
      */
-    inline Array subarray(int start, int len = -1) const {
+    inline Array subarray(ssize_t start, ssize_t len = -1) const & noexcept {
       Array newArray(*this);
       newArray.slice(start, len);
       return newArray;
     };
 
-    /**
-     * @sa subarray
-     */
-    inline Array operator()(int start, int len = -1) const { return subarray(start, len); };
-
+    inline const Array operator()(ssize_t start, ssize_t len = -1) const noexcept { return subarray(start, len); };
     /**
      * @brief Returns a 'Slice' class for safe (cow) writing into the array
      * @sa Slice
      * @param start Starting position
      * @param len How many items to use
      */
-    inline Slice<Array> operator()(int start, int len = -1) { return Slice<Array>(*this, start, len); };
+    inline Slice<Array> operator()(ssize_t start, ssize_t len = -1) noexcept {
+      return Slice<Array>(*this, start, len);
+    }
 
 #ifdef CPPUNIT_VERSION
-    void CPPUNIT_checkArrayEqual(Array actual, CPPUNIT_NS::SourceLine sourceLine) {
+    void CPPUNIT_checkArrayEqual(const Array& actual,
+        CPPUNIT_NS::SourceLine sourceLine) const {
       if ((*this) == actual) return;
-      ::CPPUNIT_NS::Asserter::failNotEqual(this->join("|").c_str(), actual.join("|").c_str(), sourceLine);
+      ::CPPUNIT_NS::Asserter::failNotEqual(this->join("|").c_str(),
+          actual.join("|").c_str(), sourceLine);
     }
 #endif /* CPPUNIT_VERSION */
 
@@ -277,40 +262,51 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * @brief Prefix increment
      */
-    inline const Array& operator++() {
+    inline const Array& operator++() & noexcept {
       return (*this) += 1;
     }
 
     /**
      * @brief Postfix increment
      */
-    inline const Array operator++(int) {
+    inline const Array operator++(int) & {
       Array tmp((*this)(0, 1));
       ++(this->offset);
       this->subLength(1);
       return tmp;
     }
 
+    inline Array operator++(int) && {
+      Array tmp{std::move(shift())};
+      return std::move(tmp);
+    }
+
     /**
      * @brief Prefix decrement
      */
-    inline const Array& operator--() {
-      return (*this) -= 1;
+    inline const Array& operator--() & noexcept {
+      this->pop_back();
+      return *this;
     }
 
     /**
      * @brief Postfix decrement
      */
-    inline const Array operator--(int) {
+    inline const Array operator--(int) & {
       Array tmp((*this)(this->length() - 1, 1));
       this->subLength(1);
       return tmp;
     }
 
+    inline Array operator--(int) && {
+      Array tmp{std::move(pop())};
+      return std::move(tmp);
+    }
+
     /**
      * \sa append(const char)
      */
-    inline Array& operator+=(const_reference item) {
+    inline Array& operator+=(const_reference item) & {
       this->append(item);
       return *this;
     }
@@ -318,12 +314,17 @@ class Array : public ReferenceCountedArray<T> {
     /**
      * \sa append(const Array&)
      */
-    inline Array& operator+=(const Array& array) {
+    inline Array& operator+=(const Array& array) & {
       this->append(array);
       return *this;
     }
 
-    inline Array& operator+=(const int n) {
+    inline Array& operator+=(Array&& array) & {
+      append(std::move(array));
+      return *this;
+    }
+
+    inline Array& operator+=(const int n) & {
       if (!this->length())
         return *this;
       if (int(this->length()) - n < 0) {
@@ -336,7 +337,7 @@ class Array : public ReferenceCountedArray<T> {
       return *this;
     }
 
-    inline Array& operator-=(const int n) {
+    inline Array& operator-=(const int n) & {
       if (!this->length())
         return *this;
       if (int(this->length()) - n < 0) {
@@ -353,7 +354,7 @@ BDLIB_NS_END
 namespace std {
   template<typename T>
   struct hash<BDLIB_NS::Array<T>> {
-    inline size_t operator()(const BDLIB_NS::Array<T>& val) const {
+    inline size_t operator()(const BDLIB_NS::Array<T>& val) const noexcept {
       return val.hash();
     }
   };

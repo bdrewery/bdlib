@@ -31,11 +31,7 @@
 BDLIB_NS_BEGIN
 
 class Script {
-  protected:
-
   public:
-        Script() {};
-        Script(const Script& script) {};
         virtual ~Script() {};
 };
 

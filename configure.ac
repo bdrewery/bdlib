@@ -52,10 +52,10 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
   : ${CXXFLAGS:=-g}
 fi
 AC_LANG([C++])
-AC_PROG_CXX([clang++ g++49 g++-4.9 g++48 g++-4.8 g++47 g++-4.7 g++46 g++-4.6 g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC])
+AC_PROG_CXX([clang++ g++ c++ CC])
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
 AC_REQUIRE_CPP
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+AX_CXX_COMPILE_STDCXX_14([noext], [mandatory])
 
 # Check for compiler features
 EGG_CHECK_CCPIPE
@@ -72,23 +72,33 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
     -Wshadow -fno-inline \
     -g \
   "
-#  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
+  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
 #  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-coverage], [coverage])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Winvalid-pch], [invalidpch])
+  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wnoexcept], [wnoexcept])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wdocumentation], [wdocumentation])
   if [[ "${ax_cv_prog_cc_wdocumentation}" = "yes" ]]; then
     CPPUNIT_CXXFLAGS="${CPPUNIT_CXXFLAGS} -Wno-documentation"
+  fi
+  CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wsuggest-attribute=pure -Wsuggest-attribute=const], [wsuggestattribute])
+  if [[ "${ax_cv_prog_cc_wsuggestattribute}" = "yes" ]]; then
+    CPPUNIT_CXXFLAGS="${CPPUNIT_CXXFLAGS} -Wno-suggest-attribute=pure -Wno-suggest-attribute=const"
   fi
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Og], [Og])
   if [[ "${ax_cv_prog_cc_Og}" = "no" ]]; then
     DEBUG_CXXFLAGS="${DEBUG_CXXFLAGS} -O0"
   fi
+else
+  AM_CXXFLAGS="$AM_CXXFLAGS -DNDEBUG"
 fi
 AC_SUBST(AM_CXXFLAGS)
 AC_SUBST(CPPUNIT_CXXFLAGS)
 AC_SUBST(DEBUG_CXXFLAGS)
 
-AM_PATH_CPPUNIT(1.9.10)
+AC_ARG_WITH([cppunit], AS_HELP_STRING([--with-cppunit], [Build with the cppunit support]))
+if test "x$with_cppunit" = "xyes"; then
+  PKG_CHECK_MODULES([CPPUNIT], [cppunit >= 1.14.0])
+fi
 
 AC_HEADER_STDC
 
@@ -103,7 +113,6 @@ AC_PROG_SED
 AC_PROG_YACC
 AC_PROG_RANLIB
 AC_CHECK_PROG(BASENAME, basename, basename)
-AC_CHECK_PROG(VALGRIND, valgrind, [valgrind --tool=memcheck --leak-check=yes --db-attach=no --show-reachable=yes --leak-resolution=high --track-fds=yes --track-origins=yes --undef-value-errors=yes -q])
 AC_CHECK_PROG(STRIP, strip, strip, touch)
 AC_CHECK_PROG(DIFF, gdiff, gdiff, diff)
 AC_CHECK_PROG(UNAME, uname, uname)
@@ -127,7 +136,7 @@ AC_C_CHAR_UNSIGNED
 
 AC_FUNC_MMAP
 
-AC_CHECK_FUNCS([select])
+AC_CHECK_FUNCS([memmem select])
 
 #checkpoint
 AC_CACHE_SAVE

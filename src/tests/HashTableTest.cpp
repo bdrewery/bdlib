@@ -96,8 +96,29 @@ void HashTableTest :: insertTest (void)
   CPPUNIT_ASSERT_EQUAL((size_t)2, sa->size());
   sa->insert("8", "Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)3, sa->size());
-  sa->insert("4", "Blah");
+
+  String four("4");
+  sa->insert(four, "Blah");
   CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("4", four);
+  sa->remove(four);
+  CPPUNIT_ASSERT_EQUAL((size_t)3, sa->size());
+  String Blah("Blah");
+
+  sa->insert(std::move(four), std::move(Blah));
+  CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("", Blah);
+  CPPUNIT_ASSERT_STRING_EQUAL("", four);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (*sa)["4"]);
+
+  sa->remove("4");
+  four = "4";
+  Blah = "Blah";
+  (*sa)[std::move(four)] = std::move(Blah);
+  CPPUNIT_ASSERT_EQUAL((size_t)4, sa->size());
+  CPPUNIT_ASSERT_STRING_EQUAL("", Blah);
+  CPPUNIT_ASSERT_STRING_EQUAL("", four);
+  CPPUNIT_ASSERT_STRING_EQUAL("Blah", (*sa)["4"]);
 
   sb->insert("27", "Test");
   CPPUNIT_ASSERT_EQUAL((size_t)1, sb->size());
@@ -111,6 +132,30 @@ void HashTableTest :: insertTest (void)
 
   (*sa)["7"] = "seven";
   CPPUNIT_ASSERT_EQUAL((size_t)6, sa->size());
+}
+
+void HashTableTest :: operatorTest (void)
+{
+
+  (*sa)["one"] = "One";
+  (*sa)["two"] = "Two";
+  (*sa)["three"] = "Three";
+  (*sa)["four"] = "Four";
+  (*sa)["five"] = "Five";
+  (*sa)["six"] = "Six";
+
+  auto foo(std::move(*sa));
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)0, sa->size());
+
+  HashTable<String, String> foo2;
+  foo2 = std::move(foo);
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo2.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)0, foo.size());
+
+  auto foo3 = foo2;
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo3.size());
+  CPPUNIT_ASSERT_EQUAL((size_t)6, foo2.size());
 }
 
 void HashTableTest :: containsTest (void)
@@ -177,22 +222,6 @@ void HashTableTest :: containsTest (void)
   (*sa)["42"] = "42";
   CPPUNIT_ASSERT_EQUAL((size_t)5, sa->size());
   CPPUNIT_ASSERT_EQUAL(true, sa->contains("42"));
-
-
-  //Test .keys and .values
-  Array<String> keys = sa->keys();
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("1") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("2") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("8") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("4") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), keys.find("42") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(size_t(5), keys.size());
-
-  Array<String> values = sa->values();
-  CPPUNIT_ASSERT_EQUAL(bool(1), values.find("Blah") != size_t(-1));
-  CPPUNIT_ASSERT_EQUAL(bool(1), values.find("42") != size_t(-1));
-  CPPUNIT_ASSERT_STRING_EQUAL("42 Blah Blah Blah Blah", values.join(' '));
-  CPPUNIT_ASSERT_EQUAL(size_t(5), values.size());
 }
 
 void HashTableTest :: clearTest (void)
@@ -364,21 +393,57 @@ void HashTableTest :: initializerTest(void) {
   CPPUNIT_ASSERT_EQUAL(2, static_cast<int>(my_hash["Two"]));
 }
 
-void HashTableTest :: eachTest(void) {
-  int x = 5;
-  int n;
+void HashTableTest :: iteratorTest (void)
+{
+  a->insert(1, "Blah");
+  a->insert(2, "Blah2");
+  a->insert(8, "Blah8");
+  a->insert(4, "Blah4");
 
-  a->insert(1, "one");
-  a->insert(2, "two");
-  n = a->each([](int key, String value, void* param) {
-    int _x = *(int*)param;
-    if (key == 1)
-      CPPUNIT_ASSERT_STRING_EQUAL("one", value);
-    else if (key == 2)
-      CPPUNIT_ASSERT_STRING_EQUAL("two", value);
-    CPPUNIT_ASSERT_EQUAL(5, _x);
-  }, &x);
+  int i = 0;
+  for (auto& kv : (*a)) {
+    switch (kv.first) {
+      case 1:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah", kv.second);
+        break;
+      case 2:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah2", kv.second);
+        break;
+      case 8:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah8", kv.second);
+        break;
+      case 4:
+        CPPUNIT_ASSERT_STRING_EQUAL("Blah4", kv.second);
+        break;
+    }
+    /* Mutate the key for the next test */
+    ++kv.second;
+    CPPUNIT_ASSERT(i < 4);
+    ++i;
+  }
+  CPPUNIT_ASSERT_EQUAL(4, i);
 
-  CPPUNIT_ASSERT_EQUAL(2, n);
+  /* Check that the key was mutated in the first pass. */
+  i = 0;
+  for (const auto& kv : (*a)) {
+    switch (kv.first) {
+      case 1:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah", kv.second);
+        break;
+      case 2:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah2", kv.second);
+        break;
+      case 8:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah8", kv.second);
+        break;
+      case 4:
+        CPPUNIT_ASSERT_STRING_EQUAL("lah4", kv.second);
+        break;
+    }
+    CPPUNIT_ASSERT(i < 4);
+    ++i;
+  }
+  CPPUNIT_ASSERT_EQUAL(4, i);
 }
+
 /* vim: set sts=2 sw=2 ts=8 et: */
