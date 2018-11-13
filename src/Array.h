@@ -127,18 +127,15 @@ class Array : public ReferenceCountedArray<T> {
      */
     inline value_type pop() & {
       if (this->isEmpty()) return value_type();
-      pointer item{this->Buf(this->length() -1)};
-
-      value_type temp(this->isShared() ? *item : std::move(*item));
-      --(this->sublen);
-      this->my_hash = 0;
+      value_type temp(this->isShared() ? this->back() : std::move(this->back()));
+      this->pop_back();
       return std::move(temp);
     }
 
     inline value_type pop() && noexcept {
       assert(!this->isShared());
       if (this->isEmpty()) return std::move(value_type());
-      return std::move(*(this->Buf(this->length() - 1)));
+      return std::move(this->back());
     }
 
     /**

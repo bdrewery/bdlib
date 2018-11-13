@@ -989,6 +989,22 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline void push_back(const_reference item) { append(item); };
     inline void push_back(value_type&& item) { append(std::move(item)); };
 
+    inline reference front() noexcept __attribute__((pure)) {
+      return *Buf(0);
+    }
+
+    inline const_reference front() const noexcept __attribute__((pure)) {
+      return *constBuf(0);
+    }
+
+    inline reference back() noexcept __attribute__((pure)) {
+      return *Buf(length() - 1);
+    }
+
+    inline const_reference back() const noexcept __attribute__((pure)) {
+      return *constBuf(length() - 1);
+    }
+
     inline void pop_back() noexcept {
       assert(!isEmpty());
       subLength(1);
