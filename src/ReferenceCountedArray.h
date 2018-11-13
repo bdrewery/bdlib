@@ -1036,7 +1036,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param n The length to insert.
      * @post The buffer contains n items from rca inserted at index pos.
      */
-    void insert(size_t pos, const ReferenceCountedArray& rca, size_t n = npos) {
+    void insert(size_t pos, const ReferenceCountedArray& rca, size_t n) {
       if (n == 0) return;
       if (pos != 0)
         validateIndex(pos - 1);
@@ -1044,14 +1044,39 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       size_t slen = rca.length();
 
       /* New rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
-      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
+      if (pos == 0 && slen > length() && n == slen) {
         *this = rca;
         return;
       }
 
-      if (n == npos || n > slen)
+      if (n > slen)
         n = slen;
       slen -= slen - n;
+      AboutToModify(length() + slen);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
+      std::copy(rca.cbegin(), rca.cbegin() + slen, Buf(pos));
+      sublen += slen;
+    }
+
+    /**
+     * @brief Inserts a ReferenceCountedArray object into our buffer
+     * @param pos The index to insert at.
+     * @param rca The rca to insert.
+     * @post The buffer contains all items from rca inserted at index pos.
+     */
+    void insert(size_t pos, const ReferenceCountedArray& rca) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      const auto slen = rca.length();
+
+      /* New rca is longer than ours, and inserting at 0, just replace ours with a reference of theirs */
+      if (pos == 0 && slen > length()) {
+        *this = rca;
+        return;
+      }
+
       AboutToModify(length() + slen);
       /* Shift right */
       std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
@@ -1066,7 +1091,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
      * @param n The length to insert.
      * @post The buffer contains n items from rca inserted at index pos.
      */
-    void insert(size_t pos, ReferenceCountedArray&& rca, size_t n = npos) {
+    void insert(size_t pos, ReferenceCountedArray&& rca, size_t n) {
       if (n == 0) return;
       if (pos != 0)
         validateIndex(pos - 1);
@@ -1074,12 +1099,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       size_t slen = rca.length();
 
       /* New rca is longer than ours, and inserting at 0, just move theirs */
-      if (pos == 0 && slen > length() && (n == npos || n == slen)) {
+      if (pos == 0 && slen > length() && n == slen) {
         *this = std::move(rca);
         return;
       }
 
-      if (n == npos || n > slen)
+      if (n > slen)
         n = slen;
       slen -= slen - n;
       AboutToModify(length() + slen);
@@ -1088,6 +1113,32 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
       sublen += slen;
     }
+
+    /**
+     * @brief Inserts a ReferenceCountedArray object into our buffer
+     * @param pos The index to insert at.
+     * @param rca The rca to insert.
+     * @post The buffer contains all items from rca inserted at index pos.
+     */
+    void insert(size_t pos, ReferenceCountedArray&& rca) {
+      if (pos != 0)
+        validateIndex(pos - 1);
+
+      const auto slen = rca.length();
+
+      /* New rca is longer than ours, and inserting at 0, just move theirs */
+      if (pos == 0 && slen > length()) {
+        *this = std::move(rca);
+        return;
+      }
+
+      AboutToModify(length() + slen);
+      /* Shift right */
+      std::move_backward(constBuf(pos), constBuf(length()), Buf(length() + slen));
+      std::move(rca.cbegin(), rca.cbegin() + slen, Buf() + pos);
+      sublen += slen;
+    }
+
 
     /**
      * @brief Insert an item at the given index.
