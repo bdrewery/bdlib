@@ -222,7 +222,7 @@ class ReferenceCountedArrayBase {
 };
 
 
-static const double _rca_cow_scaling_factor = 1.5;
+static constexpr double _rca_cow_scaling_factor = 1.5;
 
 template <class T, class Allocator = std::allocator<T> >
 /**
