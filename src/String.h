@@ -482,7 +482,8 @@ class String : public ReferenceCountedArray<String_Array_Type> {
          * @brief Prefix decrement
          */
         inline const String& operator--() & noexcept {
-          return (*this) -= 1;
+          pop_back();
+          return *this;
         }
 
         /**

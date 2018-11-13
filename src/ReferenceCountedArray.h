@@ -990,6 +990,12 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
     inline void push_front(value_type&& item) { insert(size_t(0), std::move(item)); };
     inline void push_back(const_reference item) { append(item); };
     inline void push_back(value_type&& item) { append(std::move(item)); };
+
+    inline void pop_back() noexcept {
+      assert(!isEmpty());
+      subLength(1);
+    }
+
     /**
      * @brief Appends given rca to the end of buffer
      * @param rca The rca to be appended.

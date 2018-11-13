@@ -139,7 +139,7 @@ class Array : public ReferenceCountedArray<T> {
     }
 
     /**
-     * @sa pop
+     * @sa pop()
      */
     inline friend Array<value_type>& operator>>(Array<value_type>& array,
         reference item) {
@@ -285,7 +285,8 @@ class Array : public ReferenceCountedArray<T> {
      * @brief Prefix decrement
      */
     inline const Array& operator--() & noexcept {
-      return (*this) -= 1;
+      this->pop_back();
+      return *this;
     }
 
     /**
