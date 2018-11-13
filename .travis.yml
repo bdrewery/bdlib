@@ -40,7 +40,7 @@ script:
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check V=1; fi
 
 after_success:
-  - if [ "$CXX" = "g++-6" ]; then coveralls --gcov gcov-6 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ] && [ "$CXX" = "g++-6" ]; then coveralls --gcov gcov-6 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
 
 # Coverity configuration
 env:
