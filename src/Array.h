@@ -61,20 +61,7 @@ class Array : public ReferenceCountedArray<T> {
     Array() noexcept = default;
     Array(const Array<value_type>& array) noexcept = default;
     Array(Array<value_type>&& array) noexcept = default;
-    Array(std::initializer_list<value_type> list) :
-      ReferenceCountedArray<T>(list) {};
     using ReferenceCountedArray<T>::ReferenceCountedArray;
-
-    /**
-     * @brief Create a Array from a given carray.
-     * @param carray The null-terminated array to create the object from.
-     * @param len How big is the carray?
-     * @post A ArrayBuf has been initialized.
-     * @post The buffer has been filled with the array.
-     * @test Array test("Some array");
-     */
-    Array(const_pointer carray, size_t len) :
-      ReferenceCountedArray<T>(carray, len) {};
 
     /**
      * @brief Create a Array from a given carray.
@@ -91,17 +78,6 @@ class Array : public ReferenceCountedArray<T> {
         *(Buf(ReferenceCountedArray<T>::sublen++)) = *carray++;
       }
     };
-
-    /**
-     * @brief Create an empty Array container with at least the specified elements in size.
-     * @param newSize reserve at least this many buckets for this Array.
-     * @post This array's memory will also never be shrunk.
-     * @post A buffer has been created.
-     */
-    explicit Array(const size_type newSize) :
-      ReferenceCountedArray<value_type>(newSize) {};
-    Array(const size_type newSize, const value_type value) :
-      ReferenceCountedArray<value_type>(newSize, value) {};
 
     Array& operator=(const Array<value_type>& array)  noexcept = default;
     Array& operator=(Array<value_type>&& array) noexcept = default;

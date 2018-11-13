@@ -447,7 +447,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       rca.my_hash = 0;
 #endif
     }
-
+  public:
     /**
      * @brief Create an empty container with at least the specified bytes in size.
      * @param newSize reserve at least this many bytes for this ReferenceCountedArray.
@@ -499,7 +499,7 @@ class ReferenceCountedArray : public ReferenceCountedArrayBase {
       std::copy(carray, carray + len, this->Buf());
       sublen = len;
     };
-
+  protected:
     /**
      * @brief Swap this with another
      */

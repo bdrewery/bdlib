@@ -90,8 +90,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 	String(const String& string) noexcept = default;
 	String(String&& string) noexcept = default;
         String(const std::string& str) : String(str.data(), str.length()) {};
-        String(std::initializer_list<value_type> list) :
-          ReferenceCountedArray<String_Array_Type, Allocator>(list) {};
 
 	/**
 	 * @brief Create a String from a given cstring.
@@ -144,24 +142,6 @@ class String : public ReferenceCountedArray<String_Array_Type> {
             *Buf(capacity() - offset - 1) = '\0';
           }
         }
-
-	/**
-	 * @brief Create an empty String container with at least the specified bytes in size.
-	 * @param newSize reserve at least this many bytes for this String.
-	 * @post This string's memory will also never be shrunk.
-	 * @post A buffer has been created.
-	 * 
-	 * The idea behind this is that if a specific size was asked for, the buffer is like
-	 * a char buf[N];
-         */
-        explicit String(const size_t newSize,
-            const Allocator& allocator = Allocator()) :
-          ReferenceCountedArray<String_Array_Type, Allocator>(newSize,
-              allocator) {};
-        String(const size_t newSize, const char value,
-            const Allocator& allocator = Allocator()) :
-          ReferenceCountedArray<String_Array_Type, Allocator>(newSize, value,
-              allocator) {};
 
         using ReferenceCountedArray<String_Array_Type, Allocator>::ReferenceCountedArray;
 
