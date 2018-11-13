@@ -239,15 +239,15 @@ void StringTest :: setTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
 
-  String foo{"test"s};
+  String foo = "test"s;
   CPPUNIT_ASSERT_STRING_EQUAL("test", foo);
   CPPUNIT_ASSERT_EQUAL(size_t(4), foo.length());
 
-  foo = {"blah"s};
+  foo = "blah"s;
   CPPUNIT_ASSERT_STRING_EQUAL("blah", foo);
   CPPUNIT_ASSERT_EQUAL(size_t(4), foo.length());
 
-  foo = {"test\0h"s};
+  foo = "test\0h"s;
   CPPUNIT_ASSERT_STRING_EQUAL(String("test\0h", 6), foo);
   CPPUNIT_ASSERT_EQUAL(size_t(6), foo.length());
 }
