@@ -239,6 +239,7 @@ void StringTest :: setTest (void)
   CPPUNIT_ASSERT_STRING_EQUAL(*c, *b);
   CPPUNIT_ASSERT_STRING_EQUAL("blah", *b);
 
+#ifdef HAVE_CXX14
   String foo = "test"s;
   CPPUNIT_ASSERT_STRING_EQUAL("test", foo);
   CPPUNIT_ASSERT_EQUAL(size_t(4), foo.length());
@@ -250,6 +251,7 @@ void StringTest :: setTest (void)
   foo = "test\0h"s;
   CPPUNIT_ASSERT_STRING_EQUAL(String("test\0h", 6), foo);
   CPPUNIT_ASSERT_EQUAL(size_t(6), foo.length());
+#endif
 }
 
 void StringTest :: c_strTest(void)
@@ -470,6 +472,7 @@ void StringTest :: iteratorTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("a long std::string is here", sfoo);
 
+#ifdef HAVE_CXX14
   *a = *b = foo1 = sfoo1 = "test 123";
   foo2 = sfoo2 = "blah";
   auto sit = sfoo1.insert(std::next(sfoo1.begin(), 1),
@@ -487,6 +490,7 @@ void StringTest :: iteratorTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("tlahest 123", foo1);
   CPPUNIT_ASSERT_EQUAL(std::next(foo1.cbegin(), 1) - foo1.cbegin(), it - foo1.cbegin());
   CPPUNIT_ASSERT(std::next(foo1.cbegin(), 1) == it);
+#endif
 
   *b = *a = "test 123";
   String nfoo(a->cbegin(), a->cend());
@@ -1138,7 +1142,11 @@ void StringTest :: copyTest(void)
   *a = "test 12345";
   *b = String(buf, sizeof(buf));
   a->substring(5).copy(buf, sizeof(buf));
+#ifdef HAVE_CXX14
   b->replace(0, (*a)(5));
+#else
+  b->replace(0, static_cast<String>((*a)(5)));
+#endif
   CPPUNIT_ASSERT_EQUAL(sizeof(buf), b->length());
   CPPUNIT_ASSERT_STRING_EQUAL(String(buf, sizeof(buf)), *b);
 

@@ -1468,6 +1468,7 @@ AC_SUBST([am__untar])
 
 m4_include([build/autotools/m4/acinclude.m4])
 m4_include([build/autotools/m4/ax_cxx_compile_stdcxx.m4])
+m4_include([build/autotools/m4/ax_cxx_compile_stdcxx_11.m4])
 m4_include([build/autotools/m4/ax_cxx_compile_stdcxx_14.m4])
 m4_include([build/autotools/m4/egg_acinclude.m4])
 m4_include([build/autotools/m4/libtcl.m4])

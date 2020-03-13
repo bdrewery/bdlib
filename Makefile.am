@@ -1,6 +1,7 @@
 noinst_LIBRARIES=	libbdlib.a
 AM_CPPFLAGS=		@TCL_INCLUDE_SPEC@
-AM_CXXFLAGS=		-Wall -Wno-narrowing @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@
+AM_CXXFLAGS=		-Wall -Wno-narrowing @AM_CXXFLAGS@ @DEBUG_CXXFLAGS@ \
+			-include src/stdio-gets-hack.h
 libbdlib_a_SOURCES= \
 			src/Cstrings.cpp \
 			src/base64.cpp \

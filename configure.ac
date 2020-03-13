@@ -55,7 +55,8 @@ AC_LANG([C++])
 AC_PROG_CXX([clang++ g++ c++ CC])
 dnl AC_PROG_CC([gcc34 gcc-3.4 gcc33 gcc3 gcc-3.3 gcc cc c1])
 AC_REQUIRE_CPP
-AX_CXX_COMPILE_STDCXX_14([noext], [mandatory])
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+AX_CXX_COMPILE_STDCXX_14([noext], [optional])
 
 # Check for compiler features
 EGG_CHECK_CCPIPE
