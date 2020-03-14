@@ -10,6 +10,7 @@ before_install:
   - sudo apt-get -y install tcl tcl-dev
   - if [ "$CXX" = "g++" ]; then sudo apt-get -y install python-yaml python-pip; fi
   - if [ "$CXX" = "g++" ]; then sudo pip install cpp-coveralls; fi
+  - if [ "$CXX" = "g++" ]; then sudo rm -rf /usr/include/c++; fi
   - if [ "$CXX" = "g++" ]; then sudo apt-get -y install gcc-6 g++-6 libstdc++-6-dev; fi
   - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6; fi
   - if [ "$CXX" = "g++" ]; then sudo update-alternatives --config gcc; fi
