@@ -32,6 +32,7 @@ before_install:
   - (wget http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz && tar -zxvf cppunit-1.14.0.tar.gz && cd cppunit-1.14.0 && ./configure --prefix=/usr --disable-doc --disable-doxygen --disable-html-docs && make -j2 V=1 && sudo make install)
   - export CPPFLAGS="-D_FORTIFY_SOURCE=2"
   - $CXX --version
+  - $CXX -print-search-dirs
 
 # Skip install
 install: true
