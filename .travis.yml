@@ -12,7 +12,8 @@ before_install:
   - if [ "$CXX" = "g++" ]; then sudo apt-get -y install python-yaml python-pip; fi
   - if [ "$CXX" = "g++" ]; then sudo pip install cpp-coveralls; fi
   - if [ "$CXX" = "g++" ]; then sudo apt-get -y install gcc-6 g++-6; fi
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --config gcc; fi
   - if [ "$CXX" = "clang++" ]; then sudo apt-get -y install clang-3.6; fi
   - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxxabi/trunk@r249649 libcxxabi; fi
   - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxx/trunk@r249595 libcxx; fi
@@ -30,6 +31,7 @@ before_install:
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.6" CC="clang-3.6"; fi
   - (wget http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz && tar -zxvf cppunit-1.14.0.tar.gz && cd cppunit-1.14.0 && ./configure --prefix=/usr --disable-doc --disable-doxygen --disable-html-docs && make -j2 V=1 && sudo make install)
   - export CPPFLAGS="-D_FORTIFY_SOURCE=2"
+  - $CXX --version
 
 # Skip install
 install: true
@@ -40,7 +42,7 @@ script:
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check V=1; fi
 
 after_success:
-  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ] && [ "$CXX" = "g++-6" ]; then coveralls --gcov gcov-6 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ] && [ "$CXX" = "g++" ]; then coveralls --gcov gcov-6 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
 
 # Coverity configuration
 env:
@@ -56,7 +58,7 @@ addons:
       name: "bdrewery/bdlib"
       description: "Build submitted via Travis CI"
     notification_email: bryan-coverity@shatow.net
-    build_command_prepend: "cov-configure --comptype g++ --compiler g++-6 --template; ./configure --enable-debug"
+    build_command_prepend: "cov-configure --comptype g++ --compiler g++ --template; ./configure --enable-debug"
     build_command: "make -j2 V=1"
     branch_pattern: coverity_scan
 
