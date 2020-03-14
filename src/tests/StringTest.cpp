@@ -472,7 +472,7 @@ void StringTest :: iteratorTest(void)
 
   CPPUNIT_ASSERT_STRING_EQUAL("a long std::string is here", sfoo);
 
-#ifdef HAVE_CXX14
+#if __cplusplus >= 201103L
   *a = *b = foo1 = sfoo1 = "test 123";
   foo2 = sfoo2 = "blah";
   auto sit = sfoo1.insert(std::next(sfoo1.begin(), 1),

@@ -8,12 +8,12 @@ before_install:
   - if [ "$CXX" = "g++" ]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
   - sudo apt-get -y update
   - sudo apt-get -y install tcl tcl-dev
-  - if [ "$CXX" = "g++" ]; then echo sudo apt-get -y install libcppunit-dev libcppunit-1.13-0; fi
   - if [ "$CXX" = "g++" ]; then sudo apt-get -y install python-yaml python-pip; fi
   - if [ "$CXX" = "g++" ]; then sudo pip install cpp-coveralls; fi
-  - if [ "$CXX" = "g++" ]; then sudo apt-get -y install gcc-6 g++-6; fi
+  - if [ "$CXX" = "g++" ]; then sudo apt-get -y install gcc-6 g++-6 libstdc++-6-dev; fi
   - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6; fi
   - if [ "$CXX" = "g++" ]; then sudo update-alternatives --config gcc; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
   - if [ "$CXX" = "clang++" ]; then sudo apt-get -y install clang-3.6; fi
   - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxxabi/trunk@r249649 libcxxabi; fi
   - if [ "$CXX" = "clang++" ]; then svn co --quiet --trust-server-cert --non-interactive https://llvm.org/svn/llvm-project/libcxx/trunk@r249595 libcxx; fi
@@ -42,7 +42,7 @@ script:
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check V=1; fi
 
 after_success:
-  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ] && [ "$CXX" = "g++" ]; then coveralls --gcov gcov-6 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ] && [ "$CXX" = "g++-6" ]; then coveralls --gcov gcov-6 -r . -b . -e misc -e src/tests -e src/misc -e src/indices.h -e src/config.h -e src/config-sanity.h -e src/bits.h -e src/bdlib.h -t ${COVERALLS_REPO_TOKEN}; fi
 
 # Coverity configuration
 env:
