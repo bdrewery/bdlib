@@ -70,7 +70,7 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
     -W -Wno-unused-parameter -Wdisabled-optimization \
     -Wmissing-format-attribute -fstrict-aliasing \
     -Weffc++ -Woverloaded-virtual -fno-omit-frame-pointer \
-    -Wshadow -fno-inline \
+    -fno-inline \
     -g \
   "
   CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
