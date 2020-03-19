@@ -122,7 +122,7 @@ class ScriptCallbackerTCL : public ScriptCallbacker {
     ScriptCallbackerTCL(const ScriptCallbackerTCL&) = delete;
     ScriptCallbackerTCL& operator=(const ScriptCallbackerTCL&) = delete;
   public:
-    ScriptCallbackerTCL(ScriptInterp* _si, const String& _cmd) :
+    ScriptCallbackerTCL(ScriptInterp* _si, const String& _cmd) noexcept :
       ScriptCallbacker(_si, _cmd) {};
     virtual ~ScriptCallbackerTCL() {};
     inline virtual String call(const Array<String>& params = Array<String>()) {
@@ -154,7 +154,7 @@ class ScriptInterpTCL : public ScriptInterp {
           ScriptCmdTCL(ScriptInterpTCL* _si, const String &_cmdName,
               std::unique_ptr<ScriptCommandHandlerBase> _callback_proxy,
               const char* _usage, size_t _callbackParamMin,
-              size_t _callbackParamMax) :
+              size_t _callbackParamMax) noexcept :
               ScriptCmd(_si, std::move(_cmdName), std::move(_callback_proxy),
                   _usage, _callbackParamMin, _callbackParamMax) {};
           virtual ~ScriptCmdTCL() {
