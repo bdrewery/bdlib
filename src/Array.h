@@ -112,7 +112,7 @@ class Array : public ReferenceCountedArray<T> {
       ++(this->offset);
       --(this->sublen);
       this->my_hash = 0;
-      return std::move(temp);
+      return temp;
     }
 
     inline value_type shift() && noexcept {
@@ -129,7 +129,7 @@ class Array : public ReferenceCountedArray<T> {
       assert(!this->isEmpty());
       value_type temp(this->isShared() ? this->back() : std::move(this->back()));
       this->pop_back();
-      return std::move(temp);
+      return temp;
     }
 
     inline value_type pop() && noexcept {
@@ -278,7 +278,7 @@ class Array : public ReferenceCountedArray<T> {
 
     inline Array operator++(int) && {
       Array tmp{std::move(shift())};
-      return std::move(tmp);
+      return tmp;
     }
 
     /**
@@ -300,7 +300,7 @@ class Array : public ReferenceCountedArray<T> {
 
     inline Array operator--(int) && {
       Array tmp{std::move(pop())};
-      return std::move(tmp);
+      return tmp;
     }
 
     /**
