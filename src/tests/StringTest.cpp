@@ -1453,6 +1453,14 @@ void StringTest :: substringTest(void)
   CPPUNIT_ASSERT_STRING_EQUAL("cdefgh", substring(1));
   CPPUNIT_ASSERT_STRING_EQUAL("bcdefgh", (*a)(1));
 
+  auto slice2 = (*a)(0, 3);
+  CPPUNIT_ASSERT_STRING_EQUAL("abc", slice2);
+  CPPUNIT_ASSERT_EQUAL(true, slice2 == "abc");
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), static_cast<bd::String>(slice2).length());
+  CPPUNIT_ASSERT_STRING_EQUAL("abc", static_cast<bd::String>(slice2).c_str());
+  CPPUNIT_ASSERT_STRING_EQUAL("abcdefgh", (*a));
+
   /* This cannot compile since substring.get() is const */
   //(*a)(1).get().replace(0, "blah");
   static_assert(

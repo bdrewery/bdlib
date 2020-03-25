@@ -356,7 +356,7 @@ class String : public ReferenceCountedArray<String_Array_Type> {
 
         inline int compare(const char* rhs, size_t n = npos) const
           noexcept __attribute__((pure)) {
-          return strncmp(c_str(), rhs, n);
+          return compare(String(rhs), n);
         }
 
         Array<String> split(const String&, size_t limit = npos) const;

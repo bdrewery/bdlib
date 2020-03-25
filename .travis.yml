@@ -35,7 +35,7 @@ before_install:
 install: true
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then ./configure --enable-debug --with-cppunit; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then ./configure --with-cppunit; fi
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 V=1; fi
   - if [ "${COVERITY_SCAN_BRANCH}" != "1" ]; then make -j2 check V=1; fi
 
