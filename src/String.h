@@ -354,10 +354,22 @@ class String : public ReferenceCountedArray<String_Array_Type> {
         int compare(const String& str) const
           noexcept __attribute__((pure));
 
-        inline int compare(const char* rhs, size_t n = npos) const
-          noexcept __attribute__((pure)) {
-          return compare(String(rhs), n);
-        }
+         /**
+         * @brief Compare our String object with a cstring object, but only n characters
+         * @param str The cstring to compare to.
+         * @param n The number of characters to compare.
+         * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
+         */
+        int compare(const char* str, size_t n) const
+          noexcept __attribute__((pure));
+
+        /**
+         * @brief Compare our String object with a cstring
+         * @param str The cstring to compare to.
+         * @return an integer less than, equal to, or greater than zero if our buffer is found, respectively, to be less than, to match, or be greater than str.
+         */
+        int compare(const char* str) const
+          noexcept __attribute__((pure));
 
         Array<String> split(const String&, size_t limit = npos) const;
 

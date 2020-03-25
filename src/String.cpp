@@ -75,6 +75,26 @@ int String::compare(const String& str, size_t n) const noexcept
     return mylen - slen;
 }
 
+int String::compare(const char* str) const noexcept
+{
+  for (size_t pos = 0; pos < length(); ++pos) {
+    if (*constBuf(pos) != *str++)
+      return *(unsigned char*)(constBuf(pos)) - *(unsigned char*)(str - 1);
+  }
+  return (unsigned char)'\0' - *(unsigned char*)str;
+}
+
+int String::compare(const char* str, size_t n) const noexcept
+{
+  if (n == 0)
+    return 0;
+  for (size_t pos = 0; pos < length(); ++pos) {
+    if (*constBuf(pos) != *str++ || --n == 0)
+      return *(unsigned char*)(constBuf(pos)) - *(unsigned char*)(str - 1);
+  }
+  return (unsigned char)'\0' - *(unsigned char*)str;
+}
+
 /* Setters */
 size_t String::copy(char *dst, size_t n) const noexcept
 {

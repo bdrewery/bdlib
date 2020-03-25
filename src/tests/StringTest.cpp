@@ -121,6 +121,24 @@ void StringTest :: capacityTest (void)
 void StringTest :: compareTest (void)
 {
   CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blah"));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("", 0));
+  CPPUNIT_ASSERT_EQUAL(0, strncmp("blah", "", 0));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("Q", 0));
+  CPPUNIT_ASSERT_EQUAL(0, strncmp("blah", "Q", 0));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("b", 1));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("bQ", 1));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("bl", 2));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blQ", 2));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("bla", 3));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blaQ", 3));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blah", 4));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blahQ", 4));
+  CPPUNIT_ASSERT_GREATER(0, strncmp("blah", "bla", 4));
+  CPPUNIT_ASSERT_GREATER(0, (*b).compare("bla", 4));
+  CPPUNIT_ASSERT_LESS(0, strncmp("blah", "blahQ", 5));
+  CPPUNIT_ASSERT_LESS(0, (*b).compare("blahQ", 5));
+  CPPUNIT_ASSERT_EQUAL(0, strncmp("blah", "blahQ", 4));
+  CPPUNIT_ASSERT_EQUAL(0, (*b).compare("blahQ", 4));
   CPPUNIT_ASSERT_EQUAL(0, (*d).compare(cstring));
   CPPUNIT_ASSERT_EQUAL(0, (*f).compare(cstring, 11));
   CPPUNIT_ASSERT_LESS(0, (*f).compare(cstring));
