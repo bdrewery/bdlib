@@ -4196,6 +4196,8 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
 
 
+
+
     if test x$ac_success = xno; then
                 for alternative in ${ax_cxx_compile_alternatives}; do
       for switch in -std=c++${alternative} +std=c++${alternative} "-h std=c++${alternative}"; do
@@ -4219,7 +4221,11 @@ else $as_nop
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201103L
+// MSVC always sets __cplusplus to 199711L in older versions; newer versions
+// only set it correctly if /Zc:__cplusplus is specified as well as a
+// /std:c++NN switch:
+// https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+#elif __cplusplus < 201103L && !defined _MSC_VER
 
 #error "This is not a C++11 compiler"
 
@@ -4244,11 +4250,13 @@ namespace cxx11
 
     struct Base
     {
+      virtual ~Base() {}
       virtual void f() {}
     };
 
     struct Derived : public Base
     {
+      virtual ~Derived() override {}
       virtual void f() override {}
     };
 
@@ -4556,6 +4564,8 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
 
 
+
+
     if test x$ac_success = xno; then
                 for alternative in ${ax_cxx_compile_alternatives}; do
       for switch in -std=c++${alternative} +std=c++${alternative} "-h std=c++${alternative}"; do
@@ -4579,7 +4589,11 @@ else $as_nop
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201103L
+// MSVC always sets __cplusplus to 199711L in older versions; newer versions
+// only set it correctly if /Zc:__cplusplus is specified as well as a
+// /std:c++NN switch:
+// https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+#elif __cplusplus < 201103L && !defined _MSC_VER
 
 #error "This is not a C++11 compiler"
 
@@ -4604,11 +4618,13 @@ namespace cxx11
 
     struct Base
     {
+      virtual ~Base() {}
       virtual void f() {}
     };
 
     struct Derived : public Base
     {
+      virtual ~Derived() override {}
       virtual void f() override {}
     };
 
@@ -4864,7 +4880,7 @@ namespace cxx11
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201402L
+#elif __cplusplus < 201402L && !defined _MSC_VER
 
 #error "This is not a C++14 compiler"
 
