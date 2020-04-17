@@ -146,8 +146,6 @@ SCRIPT_TCL
 
 AC_CACHE_SAVE
 
-#FIND_WRAPS
-
 AH_BOTTOM([#include "config-sanity.h"])
 
 AC_CONFIG_FILES([
