@@ -2567,5 +2567,4 @@ AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
 m4_include([build/autotools/m4/acinclude.m4])
-m4_include([build/autotools/m4/egg_acinclude.m4])
 m4_include([build/autotools/m4/libtcl.m4])

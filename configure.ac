@@ -59,7 +59,6 @@ AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AX_CXX_COMPILE_STDCXX_14([noext], [optional])
 
 # Check for compiler features
-EGG_CHECK_CCPIPE
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fcolor-diagnostics], [colordiagnostics])
 #CXX_FLAG_CHECK([AM_CXXFLAGS], [-Qunused-arguments], [unusedarguments])
 CXX_FLAG_CHECK([AM_CXXFLAGS], [-fstack-protector-all], [stackprotector])
