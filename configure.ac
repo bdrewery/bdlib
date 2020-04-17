@@ -103,9 +103,6 @@ fi
 
 AC_HEADER_STDC
 
-#checkpoint
-AC_CACHE_SAVE 
-
 # Checks for programs
 AC_PROG_MAKE_SET
 AC_PROG_AWK
@@ -120,9 +117,6 @@ AC_CHECK_PROG(UNAME, uname, uname)
 AC_CHECK_PROG(CCACHE, ccache, ccache)
 AC_CHECK_PROG(DISTCC, distcc, distcc)
 EGG_PROG_HEAD_1
-
-#checkpoint
-AC_CACHE_SAVE 
 
 # Checks for header files
 AC_CHECK_HEADERS([stdarg.h fcntl.h netinet/in.h sys/socket.h])
@@ -139,12 +133,7 @@ AC_FUNC_MMAP
 
 AC_CHECK_FUNCS([memmem select])
 
-#checkpoint
-AC_CACHE_SAVE
-
 SCRIPT_TCL
-
-AC_CACHE_SAVE
 
 AH_BOTTOM([#include "config-sanity.h"])
 
