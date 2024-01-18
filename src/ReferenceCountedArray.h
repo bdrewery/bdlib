@@ -80,7 +80,7 @@ class ArrayRef {
       if (size < newSize) {
         newSize = std::max(size_t(size * scaling_factor), newSize);
 
-        iterator newbuf = alloc.allocate(newSize, buf);
+        iterator newbuf = std::allocator_traits<Allocator>::allocate(alloc, newSize, buf);
 
         if (newbuf != buf) {
           // Initialize new memory
@@ -126,10 +126,10 @@ class ArrayRef {
     inline void FreeBuf(iterator p) const {
       if __CPP17_IFCONSTEXPR (std::is_class<T>::value) {
         for (iterator i = p; i != p + size; ++i) {
-          alloc.destroy(i);
+          std::allocator_traits<Allocator>::destroy(alloc, i);
         }
       }
-      alloc.deallocate(p, size);
+      std::allocator_traits<Allocator>::deallocate(alloc, p, size);
     }
 
     /**
