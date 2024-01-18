@@ -2,8 +2,8 @@ dnl Process this file with autoconf to produce a configure script.
 dnl
 dnl
 
-AC_PREREQ(2.59)
-AC_INIT([bdlib], [1.0.0], [bryan@shatow.net], [bdlib])
+AC_PREREQ([2.71])
+AC_INIT([bdlib],[1.0.0],[bryan@shatow.net],[bdlib])
 AC_CONFIG_SRCDIR(src/bdlib.h)
 AM_SILENT_RULES([yes])
 AC_CONFIG_MACRO_DIR([build/autotools/m4])
@@ -100,7 +100,15 @@ if test "x$with_cppunit" = "xyes"; then
   PKG_CHECK_MODULES([CPPUNIT], [cppunit >= 1.14.0])
 fi
 
-AC_HEADER_STDC
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 
 # Checks for programs
 AC_PROG_MAKE_SET
