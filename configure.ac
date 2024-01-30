@@ -72,7 +72,7 @@ if [[ "${USE_DEBUG}" = "yes" ]]; then
     -fno-inline \
     -g \
   "
-  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
+#  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-fsanitize=address], [fsanitize_address])
 #  CXX_FLAG_CHECK_LINK([DEBUG_CXXFLAGS], [-coverage], [coverage])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Winvalid-pch], [invalidpch])
   CXX_FLAG_CHECK([DEBUG_CXXFLAGS], [-Wnoexcept], [wnoexcept])
