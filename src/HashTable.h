@@ -56,10 +56,19 @@ class HashTable {
     map_type map{default_list_size};
 
   public:
+#if GCC_VERSION < 6 /* Pointless duplication because of idealism */
+    HashTable() : map(default_list_size) {} ;
+#else
     HashTable() = default;
+#endif
     explicit HashTable(size_t capacity_in) : map(capacity_in) {};
     HashTable(const HashTable<Key, Value>& table) = default;
+#if GCC_VERSION < 6 /* Pointless duplication because of idealism */
+    HashTable(HashTable<Key, Value>&& table) noexcept :
+     map(std::move(table.map)) {}
+#else
     HashTable(HashTable<Key, Value>&& table) noexcept = default;
+#endif
     HashTable(std::initializer_list<value_type> list) : map(list) {}
 
     inline iterator begin() { return map.begin(); };
@@ -92,7 +101,15 @@ class HashTable {
       return *this;
     }
 
+#if GCC_VERSION < 6 /* Pointless duplication because of idealism */
+    HashTable& operator=(HashTable<Key, Value>&& table) noexcept {
+      if (&table != this)
+        map = std::move(table.map);
+      return *this;
+    }
+#else
     HashTable& operator=(HashTable<Key, Value>&& table) & noexcept = default;
+#endif
 
     /**
      * @brief Create an array from an initializer list
