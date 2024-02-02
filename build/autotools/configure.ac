@@ -60,7 +60,6 @@ AC_PROG_GREP
 AC_PROG_SED
 AC_PROG_YACC
 AC_CHECK_PROG(BASENAME, basename, basename)
-AC_CHECK_PROG(VALGRIND, valgrind, [valgrind --tool=memcheck --leak-check=yes --db-attach=no --show-reachable=yes --leak-resolution=high --track-fds=yes --track-origins=yes --undef-value-errors=yes -q])
 AC_CHECK_PROG(STRIP, strip, strip, touch)
 AC_CHECK_PROG(DIFF, gdiff, gdiff, diff)
 AC_CHECK_PROG(UNAME, uname, uname)
